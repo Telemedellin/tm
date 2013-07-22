@@ -1,0 +1,41 @@
+<?php
+/**
+ * FileDoc: 
+ * View Partial for YiiFeedWidget.
+ * This extension depends on both idna convert and Simple Pie php libraries
+ *  
+ * PHP version 5.3
+ * 
+ * @category Extensions
+ * @package  YiiFeedWidget
+ * @author   Richard Walker <richie@mediasuite.co.nz>
+ * @license  BSD License http://www.opensource.org/licenses/bsd-license.php
+ * @link     http://mediasuite.co.nz
+ * @see      simplepie.org
+ * @see      http://www.phpclasses.org/browse/file/5845.html
+ * 
+ */?>
+
+<?php foreach ($items as $item):
+
+	$img =  stristr ( $item->get_content() , "<img"); 
+    $second = strpos($img, ">");
+    $img = substr($img, 0, $second);  
+    $src = substr($img, strpos($img, "src=") + 5 ) ;                
+    $params = preg_split('[\"|\']', $src, 2);                  
+    if($params[0] == "" || $params[0] == "/" || $params[0] == " "){
+      $src = "/images/default.jpg";
+    }
+    else{
+      $src = $params[0];
+    }
+?>
+<div class="yii-feed-widget-item noticia">
+	<img src="<?php echo $src ?>" width="25" height="25" alt="<?php echo $item->get_title(); ?>" />
+    <h3><a href="<?php echo $item->get_permalink(); ?>">
+            <?php echo $item->get_title(); ?></a>
+    </h3>
+    <div class="meta"><time><?php echo $item->get_date('j F, g:i'); ?>20 Nov, 10:00</time> - <span>Valle del Aburrá</span></div>
+    <p><?php print_r($item) ?></p>
+</div>
+<?php endforeach; ?>

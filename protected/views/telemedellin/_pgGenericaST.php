@@ -1,0 +1,1 @@
+<p><?php echo $contenido['contenido']->texto ?></p>
