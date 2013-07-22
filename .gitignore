@@ -2,6 +2,7 @@
 *.bak
 *.swp
 *~.nib
+*.spc
 
 #############
 ## Windows detritus
