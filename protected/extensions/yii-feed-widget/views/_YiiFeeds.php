@@ -14,7 +14,8 @@
  * @see      simplepie.org
  * @see      http://www.phpclasses.org/browse/file/5845.html
  * 
- */?>
+ */
+?>
 
 <?php foreach ($items as $item):
 
@@ -35,7 +36,6 @@
     <h3><a href="<?php echo $item->get_permalink(); ?>">
             <?php echo $item->get_title(); ?></a>
     </h3>
-    <div class="meta"><time><?php echo $item->get_date('j F, g:i'); ?>20 Nov, 10:00</time> - <span>Valle del Aburrá</span></div>
-    <p><?php print_r($item) ?></p>
+    <div class="meta"><time><?php echo $item->get_date('j F, g:i'); ?></time> - <span><?php echo $item->get_category()->get_term(); ?></span></div>
 </div>
 <?php endforeach; ?>

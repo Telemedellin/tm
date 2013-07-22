@@ -75,6 +75,7 @@ class YiiFeedWidgetController extends CExtController
     public function actionGetFeed($url, $limit) 
     {
         
+
         $feed = new SimplePie();
 
         // Set which feed to process.
@@ -95,7 +96,9 @@ class YiiFeedWidgetController extends CExtController
         // text/html and the UTF-8 character set (since we didn't change it).
         $feed->handle_content_type();
 
-        $items = $feed->get_items(0, $limit);
+        $items = $feed->get_items(0, (int) $limit );
+        /*foreach($items as $item)
+            echo $item->get_title() . '<br />';*/
         $this->renderPartial('ext.yii-feed-widget.views._YiiFeeds', array('items' => $items));
         
     }
