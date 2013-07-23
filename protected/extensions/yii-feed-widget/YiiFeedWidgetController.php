@@ -97,8 +97,7 @@ class YiiFeedWidgetController extends CExtController
         $feed->handle_content_type();
 
         $items = $feed->get_items(0, (int) $limit );
-        /*foreach($items as $item)
-            echo $item->get_title() . '<br />';*/
+
         $this->renderPartial('ext.yii-feed-widget.views._YiiFeeds', array('items' => $items));
         
     }

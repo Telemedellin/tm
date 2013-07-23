@@ -57,10 +57,10 @@ return array(
 			),
 		),
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
+			'connectionString' => 'mysql:host=noticias.telemedellin.tv;dbname=telemede_telemedellin',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'telemede_telemed',
+			'password' => ';0?LegNmMi)O',
 			'charset' => 'utf8',
 		),
 		/*'db'=>array(

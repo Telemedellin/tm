@@ -23,4 +23,5 @@ cs()->registerCss('background', 'body{background-image: url("' . bu() . $microsi
 	</div>
 	<?php endif;?>
 	<?php echo $contenido; ?>
+	<?php echo $this->renderPartial('_redes'); ?>
 </div>
