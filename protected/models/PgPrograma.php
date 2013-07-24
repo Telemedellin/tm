@@ -10,7 +10,7 @@
  * @property string $logo
  * @property string $horario
  * @property string $resena
- * @property string $promo
+ * @property string $esta_semana
  * @property integer $estado
  *
  * The followings are the available model relations:
@@ -44,14 +44,14 @@ class PgPrograma extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('pagina_id, titulo, logo, horario, resena, promo, estado', 'required'),
+			array('pagina_id, titulo, logo, horario, resena, esta_semana, estado', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
 			array('pagina_id', 'length', 'max'=>10),
 			array('titulo, horario', 'length', 'max'=>100),
-			array('logo, promo', 'length', 'max'=>255),
+			array('logo', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, pagina_id, titulo, logo, horario, resena, promo, estado', 'safe', 'on'=>'search'),
+			array('id, pagina_id, titulo, logo, horario, resena, esta_semana, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -79,7 +79,7 @@ class PgPrograma extends CActiveRecord
 			'logo' => 'Logo',
 			'horario' => 'Horario',
 			'resena' => 'Resena',
-			'promo' => 'Promo',
+			'esta_semana' => 'Esta semana',
 			'estado' => 'Estado',
 		);
 	}
@@ -101,7 +101,7 @@ class PgPrograma extends CActiveRecord
 		$criteria->compare('logo',$this->logo,true);
 		$criteria->compare('horario',$this->horario,true);
 		$criteria->compare('resena',$this->resena,true);
-		$criteria->compare('promo',$this->promo,true);
+		$criteria->compare('esta_semana',$this->esta_semana,true);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(

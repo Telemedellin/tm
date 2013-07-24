@@ -102,12 +102,36 @@ class Programacion extends CActiveRecord
 
 	public function getDay( $timestamp )
 	{
-		if( !$timestamp ) $timestamp = time();
+		if( !$timestamp ) $timestamp = mktime(0, 0, 0, date('m'), date('d'), date('Y'));;
 
 		$c = new CDbCriteria;
 		$c->addCondition('hora_inicio > ' . $timestamp);
 		$c->addCondition(' hora_inicio < ' . ($timestamp + 86400));
 		
 		return $this->with('micrositio')->findAll( $c );
+	}
+
+	public function getCurrent()
+	{
+		$c = new CDbCriteria;
+		$c->addCondition('hora_inicio < ' . time() );
+		$c->addCondition(' hora_fin > ' . time() );
+		$c->order = 'hora_inicio ASC';
+		$c->select = '*';
+		$c->join = ' JOIN micrositio ON micrositio.id = t.micrositio_id';
+		$c->join .= ' JOIN seccion ON seccion.id = micrositio.seccion_id';
+
+		return $this->find( $c );
+	}
+
+	public function getNext( $currentEndTime = 0 )
+	{
+		if( !$currentEndTime ) $currentEndTime = time();
+
+		$c = new CDbCriteria;
+		$c->addCondition('hora_inicio > ' . $currentEndTime );
+		$c->order = 'hora_inicio ASC';
+
+		return $this->with('micrositio')->find( $c );
 	}
 }

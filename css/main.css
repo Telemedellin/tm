@@ -4,7 +4,7 @@ html
 }
 body
 {
-	background: url('/telemedellin/images/backgrounds/telemedellin_gente.jpg') no-repeat #000 center center;
+	background: url('/tm/images/backgrounds/telemedellin_gente.jpg') no-repeat #000 center center;
 	background-size: cover; 
 	background-attachment: fixed;
 	color: #DDD;
@@ -74,7 +74,7 @@ nav ul
 #bar
 {
 	color: #FFF;
-	height: 95%;
+	height: 98%;
 	left: 0;
 	min-height: 560px;
 	min-width: 160px;
@@ -92,7 +92,7 @@ nav ul
 			box-sizing: border-box;
 	font-size: 10px;
 	line-height: 1.2;
-	padding: 0 8px;
+	padding: 0 8px 0 0;
 	position: absolute;
 	width: 100%;
 }
@@ -104,6 +104,11 @@ nav ul
 {
 	display: block;
 	margin-bottom: 14px;
+}
+#bar footer .redes, 
+#bar footer .vcard
+{
+	margin-left: 8px;
 }
 #bar footer .tel
 {
@@ -120,13 +125,17 @@ nav ul
 	padding: 15px 0;
 	text-align: center;
 }
+#bar h1 img
+{
+	max-width: 63%;
+}
 #bar nav li
 {
 	
 }
 #bar nav li a
 {
-	border-bottom: thin solid #FFF;
+	border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 	color: #FFF;
 	display: block;
 	font-size: 11px;
@@ -158,11 +167,17 @@ nav ul
 }
 #bar .escribenos
 {
-	background: rgb(131, 200, 32);
+	background: rgba(137, 222, 21, 0.6);
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	   -moz-border-radius-topleft: 10px;
+	   -moz-border-radius-topright: 10px;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
 	display: block;
 	font-size: 11px;
 	font-weight: bold;
-	padding: 4px;
+	padding: 4px 4px 15px;
 	text-align: center;
 	text-transform: uppercase;
 }
@@ -203,7 +218,7 @@ nav ul
 }
 #bar #buscador input
 {
-	background: transparent;
+	background: rgba(255, 255, 255, 0.06);
 	border: thin solid #FFF;
 	-webkit-border-radius: 10px;
 	-webkit-border-top-right-radius: 0;
@@ -223,12 +238,15 @@ nav ul
 }
 #bar #buscador input.btn
 {
+	background: url('../images/static/lupa.png') no-repeat center rgba(255, 255, 255, 0.06);
+	background-size: 60%;
 	-webkit-border-radius: 10px;
 	-webkit-border-top-left-radius: 0;
 	   -moz-border-radius: 10px;
 	   -moz-border-radius-topleft: 0;
 			border-radius: 10px;
 			border-top-left-radius: 0;
+	text-indent: -9999px;
 	width: 20%;
 }
 #bar #buscador input::-webkit-input-placeholder
@@ -267,6 +285,9 @@ nav ul
 {
 	background: rgba(0, 0, 0, 0.7);
 	bottom: 0;
+	-webkit-border-top-left-radius: 40px;
+	   -moz-border-radius-topleft: 40px;
+			border-top-left-radius: 40px;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
@@ -283,18 +304,21 @@ nav ul
 }
 #newsticker footer
 {
-	float: left;
-	width: 20%;
+	float: right;
+	text-align: left;
+	width: 18%;
 }
 #newsticker h2
 {
-	border-bottom: thin solid #363636;
+	border-bottom: thin solid rgba(255, 255, 255, 0.2);
+	float: left;
 	font-size: 12px;
 	font-weight: bold;
 	line-height: 1.2;
-	margin-left: 10px;
+	margin-left: 20px;
 	padding-bottom: 5px;
 	text-transform: uppercase;
+	width: 80%;
 }
 #newsticker .bx-viewport
 {
@@ -314,7 +338,7 @@ nav ul
 #newsticker .bx-next,
 #newsticker .bx-prev
 {
-	background: url("/telemedellin/images/glyphicons-halflings-white.png") -432px -72px no-repeat;
+	background: url("/tm/images/glyphicons-halflings-white.png") -432px -72px no-repeat;
 	display: inline-block;
 	height: 14px;
 	line-height: 14px;
@@ -439,22 +463,114 @@ nav ul
 	background: rgb(246, 128, 38);
 	font-size: 12px;
 	height: 30px;
-	left: 19%;
+	max-width: 870px;
+	right: 0;
 	position: fixed;
 	top: 0;
-	width: 81%;
+	width: 82%;
 	z-index: 10;
 	-webkit-border-bottom-left-radius: 10px;
 	   -moz-border-radius-bottomleft: 10px;
 			border-bottom-left-radius: 10px;
+	-webkit-border-top-left-radius: 10px;
+	   -moz-border-radius-topleft: 10px;
+			border-top-left-radius: 10px;
 }
 #programacion a
 {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 	color: #FFF;
+	display: inline-block;
+	line-height: 1;
+	float: left;
+	font-size: 10px;
+	height: 30px;
+	padding: 5px 10px;
+	text-transform: uppercase;
 }
+
+#programacion .al-aire,
+#programacion .a-continuacion
+{
+	line-height: 1.2;
+	padding: 3px 10px;
+}
+#programacion .al-aire
+{
+	border-right: 2px groove #FE9930;
+	padding-left: 30px;
+	width: 30%;
+}
+#programacion .a-continuacion
+{
+	width: 26%;
+}
+#programacion .estado,
+#programacion .programa
+{
+	display: block;
+}
+#programacion .programa
+{
+	font-size: 9px;
+	text-transform: none;
+}
+#programacion .programacion
+{
+	background: #f7720d;
+	
+	-webkit-border-bottom-left-radius: 10px;
+	   -moz-border-radius-bottomleft: 10px;
+			border-bottom-left-radius: 10px;
+	-webkit-border-top-left-radius: 10px;
+	   -moz-border-radius-topleft: 10px;
+			border-top-left-radius: 10px;
+	border-right: 2px groove #FE9930;
+	padding: 5px 10px 5px 30px;
+	text-align: center;
+	width: 20%;
+}
+#programacion .senal-en-vivo
+{
+	background: #ffb119;
+	-webkit-border-bottom-left-radius: 10px;
+	   -moz-border-radius-bottomleft: 10px;
+			border-bottom-left-radius: 10px;
+	-webkit-border-top-left-radius: 10px;
+	   -moz-border-radius-topleft: 10px;
+			border-top-left-radius: 10px;
+	float: right;
+	padding: 7px 10px;
+	width: 24%;
+}
+#programacion .senal-en-vivo span
+{
+	font-size: 15px;
+	display: inline-block;
+	float: right;
+}
+
+#programas > div
+{
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+	float: left;
+	height: 100px;
+	margin: 1%;
+	width: 30%;
+}
+
+#programas > div.destacado
+{
+	width: 48%;
+}
+
 #second-nav
 {
-	background: #242626 url('/telemedellin/images/static/overlays/08.png');
+	background: #242626 url('/tm/images/static/overlays/08.png');
 	border: 2px solid #242626;
 	bottom: 0;
 	height: 21px;
@@ -466,6 +582,9 @@ nav ul
 	-webkit-border-top-right-radius: 10px;
 	   -moz-border-radius-topright: 10px;
 			border-top-right-radius: 10px;
+	-webkit-border-top-left-radius: 10px;
+	   -moz-border-radius-topleft: 10px;
+			border-top-left-radius: 10px;
 }
 #second-nav ul
 {
