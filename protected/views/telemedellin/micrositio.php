@@ -1,20 +1,15 @@
 <?php
 $bc = array();
-if($seccion['slug'] != 'telemedellin')
+if($seccion->url->slug != 'telemedellin')
 {
-	$s_url = $seccion['slug'];
-	$bc[ucfirst($seccion['nombre'])] = bu() .'/'. $s_url;
+	$bc[ucfirst($seccion->nombre)] = bu( $seccion->url->slug );
 }
-else
-{
-	$s_url = '';
-}
-	
-($pagina->id != $micrositio['pagina_id']) ? $bc[ucfirst($micrositio['nombre'])] = array( $s_url .'/'.$micrositio['slug']) : $bc[] = ucfirst($micrositio['nombre']);
-($pagina->id != $micrositio['pagina_id']) ? $bc[] = ucfirst($pagina->nombre) : false;
+
+($pagina->id != $micrositio->pagina_id) ? $bc[ucfirst($micrositio->nombre)] = bu( $micrositio->url->slug ) : $bc[] = ucfirst($micrositio->nombre);
+($pagina->id != $micrositio->pagina_id) ? $bc[] = ucfirst($pagina->nombre) : false;
 $this->breadcrumbs = $bc;
 
-cs()->registerCss('background', 'body{background-image: url("' . bu() . $micrositio['background'] . '");}');
+cs()->registerCss('background', 'body{background-image: url("' . bu() . $micrositio->background . '");}');
 ?>
 <div>
 	<?php if(isset($menu) && $menu): ?>

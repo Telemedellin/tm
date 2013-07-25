@@ -16,20 +16,23 @@ class TelemedellinController extends Controller
 	{
 		if( isset($_GET['tm']) )
 		{
-			switch ( count($_GET['tm']) ) {
+			switch ( $_GET['tm']->tipo ) {
 				case 1:
 					$this->cargar_seccion();
 					break;
-				case 2 || 3:
-					if( $_GET['tm']['micrositio']['slug'] == 'novedades' && !isset( $_GET['tm']['pagina'] ) )
+				case 2:
+					if( $_GET['tm']->slug == 'novedades' )
 						$this->cargar_novedades();
-					else if( $_GET['tm']['micrositio']['slug'] == 'programacion' && !isset( $_GET['tm']['pagina'] ) )
+					else if( $_GET['tm']->slug == 'programacion' )
 						$this->cargar_programacion();
 					else
 						$this->cargar_micrositio();
 					break;
 				case 3:
-					echo 'página ' . $_GET['tm']['pagina'];
+					/*if( strpos($_GET['tm']->slug, 'novedades') !== false )
+						$this->cargar_novedades();
+					else*/
+						$this->cargar_micrositio( $_GET['tm']->id );
 					break;
 				default:
 					# code...
@@ -41,31 +44,38 @@ class TelemedellinController extends Controller
 
 	private function cargar_seccion()
 	{
-		$seccion 	= $_GET['tm']['seccion'];
-		$la_seccion = Seccion::model()->findByPk( $seccion['id'], 't.estado <> 0' );
-		if( !$la_seccion ) throw new CHttpException(404, 'Invalid request');
-		$micrositios= Micrositio::model()->findAllByAttributes( array('seccion_id' => $seccion['id']), 't.estado <> 0' );
+		$url_id = $_GET['tm']->id;
+
+		$seccion = Seccion::model()->cargarPorUrl( $url_id );
+		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
+		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
-		$this->render( 'seccion', array('seccion' => $la_seccion, 'micrositios' => $micrositios) );
+		$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 	}
 
-	private function cargar_micrositio()
+	private function cargar_micrositio( $slug_id = 0 )
 	{
-		$seccion  	= $_GET['tm']['seccion'];
-		$micrositio = $_GET['tm']['micrositio'];
+		$url_id = $_GET['tm']->id;
 
-		if( !is_null($micrositio['menu_id']) )
+		if( $slug_id )
 		{
-			$menu = $micrositio['menu_id'];
+			$pagina  = Pagina::model()->cargarPorUrl( $slug_id );
+			$micrositio = Micrositio::model()->cargarMicrositio( $pagina['pagina']->micrositio_id );
+		}
+		else
+		{
+			$micrositio = Micrositio::model()->cargarPorUrl( $url_id );
+			$pagina  = Pagina::model()->cargarPagina( $micrositio->pagina_id );
+		}
+
+		if( !is_null($micrositio->menu_id) )
+		{
+			$menu = $micrositio->menu_id;
 		}
 		else
 		{
 			$menu = false;
 		}
-
-		$pagina_slug  = ( isset($_GET['tm']['pagina']) ) ? $_GET['tm']['pagina'] : 'default';
-
-		$pagina  = Pagina::model()->cargarPagina($micrositio['id'], $pagina_slug);
 
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
@@ -73,7 +83,7 @@ class TelemedellinController extends Controller
 
 		$this->render( 
 			'micrositio', 
-			array(	'seccion' 	=> $seccion, 
+			array(	'seccion' 	=> $micrositio->seccion, 
 					'micrositio'=> $micrositio, 
 					'menu'		=> $menu,
 					'pagina' 	=> $pagina['pagina'], 
@@ -84,11 +94,11 @@ class TelemedellinController extends Controller
 
 	private function cargar_novedades()
 	{
-		$seccion  	= $_GET['tm']['seccion'];
-		$micrositio = $_GET['tm']['micrositio'];
+		$url_id = $_GET['tm']->id;
 
-		$novedades = Pagina::model()->listarPaginas( $micrositio['id'] );
-		//$novedades = Pagina::model()->with('pgArticuloBlogs')->findAllByAttributes( array('micrositio_id' => $micrositio['id']), array('order' => 'creado DESC') );
+		$micrositio = Micrositio::model()->cargarPorUrl( $url_id );
+
+		$novedades = Pagina::model()->listarPaginas( $micrositio->id );
 
 		$pagina = new stdClass();
 		$pagina->id   = NULL;
@@ -97,7 +107,7 @@ class TelemedellinController extends Controller
 
 		$this->render( 
 			'micrositio', 
-			array(	'seccion' 	=> $seccion, 
+			array(	'seccion' 	=> $micrositio->seccion, 
 					'micrositio'=> $micrositio, 
 					'pagina' 	=> $pagina, 
 					'contenido' => $contenido, 
@@ -107,17 +117,13 @@ class TelemedellinController extends Controller
 
 	private function cargar_programacion()
 	{
-		$seccion  	= $_GET['tm']['seccion'];
-		$micrositio = $_GET['tm']['micrositio'];
+		$url_id = $_GET['tm']->id;
 
-		//$programacion = Pagina::model()->listarPaginas( $micrositio['id'] );
+		$micrositio = Micrositio::model()->cargarPorUrl( $url_id );
 
 		$pagina = new stdClass();
 		$pagina->id   = NULL;
 
-		//$contenido = $this->renderPartial('_novedades', array('novedades' => $novedades), true);
-
-		//$this->widget('ext.programacion.ProgramacionWidget');
 		date_default_timezone_set('America/Bogota');
 		setlocale(LC_ALL, 'es-ES');
 		
@@ -149,8 +155,6 @@ class TelemedellinController extends Controller
 		// loop from Monday till Sunday
 		for ($i = 0; $i < 7; $i++, $ts += 86400){
 		    $semana[] = $ts;
-		    //echo $ts . ' ' . $sts . '<br />';
-		    //if($ts === $sts) echo strftime("%A %d", $ts). '<br />';
 		}
 		$p = new Programacion;
 		$programas = $p->getDay( $sts );
@@ -166,7 +170,7 @@ class TelemedellinController extends Controller
 
 		$this->render( 
 			'micrositio', 
-			array(	'seccion' 	=> $seccion, 
+			array(	'seccion' 	=> $micrositio->seccion, 
 					'micrositio'=> $micrositio, 
 					'pagina' 	=> $pagina, 
 					'hoy' 		=> $tts, 

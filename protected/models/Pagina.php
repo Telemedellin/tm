@@ -10,7 +10,7 @@
  * @property string $micrositio_id
  * @property string $tipo_pagina_id
  * @property string $nombre
- * @property string $slug
+ * @property integer $url_id
  * @property string $creado
  * @property string $modificado
  * @property integer $estado
@@ -51,13 +51,13 @@ class Pagina extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('usuario_id, micrositio_id, tipo_pagina_id, nombre, slug, creado, estado', 'required'),
-			array('estado', 'numerical', 'integerOnly'=>true),
-			array('revision_id, usuario_id, micrositio_id, tipo_pagina_id, creado, modificado', 'length', 'max'=>10),
-			array('nombre, slug', 'length', 'max'=>100),
+			array('usuario_id, micrositio_id, tipo_pagina_id, nombre, url_id, creado, estado', 'required'),
+			array('estado, url_id', 'numerical', 'integerOnly'=>true),
+			array('revision_id, usuario_id, url_id, micrositio_id, tipo_pagina_id, creado, modificado', 'length', 'max'=>10),
+			array('nombre', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, revision_id, usuario_id, micrositio_id, tipo_pagina_id, nombre, slug, creado, modificado, estado', 'safe', 'on'=>'search'),
+			array('id, revision_id, usuario_id, micrositio_id, tipo_pagina_id, nombre, url_id, creado, modificado, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,6 +77,7 @@ class Pagina extends CActiveRecord
 			'pgProgramas' => array(self::HAS_ONE, 'PgPrograma', 'pagina_id'),
 			'pgArticuloBlogs' => array(self::HAS_ONE, 'PgArticuloBlog', 'pagina_id'),
 			'pgGenericaSts' => array(self::HAS_ONE, 'PgGenericaSt', 'pagina_id'),
+			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 		);
 	}
 
@@ -92,7 +93,7 @@ class Pagina extends CActiveRecord
 			'micrositio_id' => 'Micrositio',
 			'tipo_pagina_id' => 'Tipo Pagina',
 			'nombre' => 'Nombre',
-			'slug' => 'Slug',
+			'url_id' => 'Slug',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
 			'estado' => 'Estado',
@@ -116,7 +117,7 @@ class Pagina extends CActiveRecord
 		$criteria->compare('micrositio_id',$this->micrositio_id,true);
 		$criteria->compare('tipo_pagina_id',$this->tipo_pagina_id,true);
 		$criteria->compare('nombre',$this->nombre,true);
-		$criteria->compare('slug',$this->slug,true);
+		$criteria->compare('url_id',$this->url_id,true);
 		$criteria->compare('creado',$this->creado,true);
 		$criteria->compare('modificado',$this->modificado,true);
 		$criteria->compare('estado',$this->estado);
@@ -130,8 +131,9 @@ class Pagina extends CActiveRecord
 	{
 		if( !$micrositio_id ) return false;
 		$c 			= new CDbCriteria;
-		$c->select 	= 't.*, tipo_pagina.tabla';
+		$c->select 	= 't.*, tipo_pagina.tabla, url.slug';
 		$c->join 	= 'JOIN tipo_pagina ON tipo_pagina.id = t.tipo_pagina_id';
+		$c->join 	.= ' JOIN url ON url.id = t.url_id';
 		$c->limit 	= $limite;
 		$c->offset 	= $offset;
 		$c->order 	= 't.creado DESC';
@@ -155,24 +157,43 @@ class Pagina extends CActiveRecord
 
 	}
 
-	public function cargarPagina($micrositio_id, $pagina_slug = 'default')
+	public function cargarPagina($pagina_id = 0)
 	{
-		if( !$micrositio_id ) return false;
+		if( !$pagina_id ) return false;
 		$c = new CDbCriteria;
 		$c->select = 't.*, tipo_pagina.tabla';
 		$c->join = 'JOIN tipo_pagina ON tipo_pagina.id = t.tipo_pagina_id';
-		$c->addCondition( 'micrositio_id = "' . $micrositio_id . '"' );
-		if( $pagina_slug != 'default' )
-			$c->addCondition( 'slug = "' . $pagina_slug . '"' );
-		else
-		{
-			$dp = Micrositio::model()->getDefaultPage( $micrositio_id );
-			/*if($dp)*/ $c->addCondition( 't.id = ' . $dp );
-		}
+		$c->addCondition( 't.id = "' . $pagina_id . '"' );
 		$c->addCondition( 't.estado <> 0' );
 		$pagina  = $this->find( $c );
 
 		if( !$pagina ) return false;
+
+		$tabla = $pagina->tipoPagina->tabla;
+		$t = new $tabla();
+		$contenido = $t->findByAttributes( array('pagina_id' => $pagina->id) );
+
+		if( !$contenido ) return false;
+
+		$resultado = array(
+				'pagina' 	=> $pagina,
+				'partial'   => $tabla,
+				'contenido' => $contenido,
+			);
+
+		return $resultado;
+	}
+
+	public function cargarPorUrl($url_id)
+	{
+		if( !$url_id ) return false;
+		
+		$c = new CDbCriteria;
+		//$c->select = 't.*, tipo_pagina.tabla';
+		$c->join = 'JOIN tipo_pagina ON tipo_pagina.id = t.tipo_pagina_id';
+		$c->addCondition( 't.url_id = "' . $url_id . '"' );
+		$c->addCondition( 't.estado <> 0' );
+		$pagina  = $this->with('url')->find( $c );
 
 		$tabla = $pagina->tipoPagina->tabla;
 		$t = new $tabla();

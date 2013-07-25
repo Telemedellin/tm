@@ -1,6 +1,6 @@
 <?php foreach($novedades as $novedad): ?>
 <div class="novedad">
-	<a href="<?php echo bu() . '/novedades/' . $novedad['pagina']->slug ?>">
+	<a href="<?php echo bu( $novedad['pagina']->url->slug ) ?>">
 		<h3><?php echo $novedad['contenido']['titulo'] ?></h3>
 		<p><?php echo date('d M Y', $novedad['pagina']->creado) ?></p>
 		<p><?php echo $novedad['contenido']['entradilla'] ?></p>

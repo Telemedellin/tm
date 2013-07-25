@@ -1,20 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "seccion".
+ * This is the model class for table "url".
  *
- * The followings are the available columns in table 'seccion':
+ * The followings are the available columns in table 'url':
  * @property string $id
- * @property string $nombre
- * @property integer $url_id
+ * @property string $slug
+ * @property integer $tipo
+ * @property string $creado
+ * @property string $modificado
  * @property integer $estado
+ *
+ * The followings are the available model relations:
+ * @property Micrositio[] $micrositios
+ * @property Pagina[] $paginas
+ * @property Seccion[] $seccions
  */
-class Seccion extends CActiveRecord
+class Url extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Seccion the static model class
+	 * @return Url the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -26,7 +33,7 @@ class Seccion extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'seccion';
+		return 'url';
 	}
 
 	/**
@@ -37,12 +44,13 @@ class Seccion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, url_id, estado', 'required'),
-			array('estado', 'numerical, url_id', 'integerOnly'=>true),
-			array('nombre', 'length', 'max'=>45),
+			array('slug, tipo, creado, estado', 'required'),
+			array('tipo, estado', 'numerical', 'integerOnly'=>true),
+			array('slug', 'length', 'max'=>255),
+			array('creado, modificado', 'length', 'max'=>19),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nombre, url_id, estado', 'safe', 'on'=>'search'),
+			array('id, slug, tipo, creado, modificado, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,7 +62,9 @@ class Seccion extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
+			'micrositios' => array(self::HAS_MANY, 'Micrositio', 'url_id'),
+			'paginas' => array(self::HAS_MANY, 'Pagina', 'url_id'),
+			'seccions' => array(self::HAS_MANY, 'Seccion', 'url_id'),
 		);
 	}
 
@@ -65,8 +75,10 @@ class Seccion extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'nombre' => 'Nombre',
-			'url_id' => 'Slug',
+			'slug' => 'Slug',
+			'tipo' => 'Tipo',
+			'creado' => 'Creado',
+			'modificado' => 'Modificado',
 			'estado' => 'Estado',
 		);
 	}
@@ -83,18 +95,14 @@ class Seccion extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('nombre',$this->nombre,true);
-		$criteria->compare('url_id',$this->url_id,true);
+		$criteria->compare('slug',$this->slug,true);
+		$criteria->compare('tipo',$this->tipo);
+		$criteria->compare('creado',$this->creado,true);
+		$criteria->compare('modificado',$this->modificado,true);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-
-	public function cargarPorUrl($url_id)
-	{
-		if( !$url_id ) return false;
-		return $this->with('url')->findByAttributes( array('url_id' => $url_id), 't.estado <> 0' );
 	}
 }

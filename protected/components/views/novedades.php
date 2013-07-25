@@ -24,7 +24,7 @@ cs()->registerScript(
       <div class="container">
         <h3><?php echo $novedad['contenido']['titulo']; ?></h3>
         <p><?php echo $novedad['contenido']['entradilla']; ?></p>
-        <a href="<?php echo bu() . '/novedades/' . $novedad['pagina']->slug ?>" class="ver-mas">Ver más</a>
+        <a href="<?php echo bu($novedad['pagina']->url->slug) ?>" class="ver-mas">Ver más</a>
       </div>
     </li>
     <?php endforeach ?>

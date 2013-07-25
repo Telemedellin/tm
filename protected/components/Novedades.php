@@ -7,7 +7,7 @@ class Novedades extends CWidget
  
     public function getNovedades()
     {
-        $m 		 = Micrositio::model()->findByAttributes( array('slug' => 'novedades') );
+        $m 		 = Micrositio::model()->findByAttributes( array('url_id' => 8) );
         $paginas = Pagina::model()->listarPaginas( $m->id, $this->max );
         return $paginas;
     }

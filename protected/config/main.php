@@ -56,21 +56,21 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		'db'=>array(
+		/*'db'=>array(
 			'connectionString' => 'mysql:host=noticias.telemedellin.tv;dbname=telemede_telemedellin',
 			'emulatePrepare' => true,
 			'username' => 'telemede_telemed',
 			'password' => ';0?LegNmMi)O',
 			'charset' => 'utf8',
 		),
-		/*
+		*/
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
+			'connectionString' => 'mysql:host=localhost;dbname=telemedellin_url',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => '',
 			'charset' => 'utf8',
-		),*/
+		),
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),*/

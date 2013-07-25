@@ -17,7 +17,17 @@ class TmUrlRule extends CBaseUrlRule
 
     public function parseUrl($manager, $request, $pathInfo, $rawPathInfo)
     {
-        if ( preg_match('%^([\w-]+)(/([\w-]+))?(/([\w-]+))?%', $pathInfo, $matches) )
+        
+        if ( preg_match('%^([\w-]+)(/([\w-]+))?(/([\w-]+))?%', $pathInfo) )
+        {
+            $slug = Url::model()->findByAttributes( array('slug' => $pathInfo) );
+            if( !$slug ) return false;
+
+            $_GET['tm'] = $slug;
+            return 'telemedellin/cargar';
+
+        }
+        /*if ( preg_match('%^([\w-]+)(/([\w-]+))?(/([\w-]+))?%', $pathInfo, $matches) )
         {
             $seccion = strtolower($matches[1]); //Asumo inicialmente que es una sección
             $results = $this->buscar_seccion($seccion); //Verifico en la base de datos si la sección existe
@@ -59,6 +69,7 @@ class TmUrlRule extends CBaseUrlRule
 
             return 'telemedellin/cargar';
         }
+        */
         return false;  // this rule does not apply
     }
 
