@@ -11,12 +11,27 @@ $this->breadcrumbs = $bc;
 
 cs()->registerCss('background', 'body{background-image: url("' . bu() . $micrositio->background . '");}');
 ?>
-<div>
-	<?php if(isset($menu) && $menu): ?>
-	<div class="menu_micrositio">
-		<?php $this->widget( 'MenuW', array( 'id' => $menu ) ); ?>
-	</div>
-	<?php endif;?>
+<?php if( isset( $micrositio->red_social ) ):?>
+<div id="redes_micrositio">
+	<p>Visítanos en</p>
+	<ul>
+	<?php foreach( $micrositio->red_social as $red ): ?>
+		<li>
+			<a href="<?php echo $red->tipoRedSocial->url_base . $red->usuario ?>" class="<?php echo $red->tipoRedSocial->nombre ?>">
+				<?php echo $red->tipoRedSocial->nombre ?>
+			</a>
+		<?php $red->nombre . ' ' . $red->usuario; ?>
+		<?php $red->tipoRedSocial->nombre . ' ' . $red->tipoRedSocial->icono . ' ' . $red->tipoRedSocial->url_base ?>
+		</li>
+	<?php endforeach;?>
+	</ul>
+</div>
+<?php endif; ?>
+<?php if(isset($menu) && $menu): ?>
+<div id="menu_micrositio">
+	<?php $this->widget( 'MenuW', array( 'id' => $menu ) ); ?>
+</div>
+<?php endif;?>
+<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?>">
 	<?php echo $contenido; ?>
-	<?php echo $this->renderPartial('_redes'); ?>
 </div>

@@ -29,9 +29,6 @@ class TelemedellinController extends Controller
 						$this->cargar_micrositio();
 					break;
 				case 3:
-					/*if( strpos($_GET['tm']->slug, 'novedades') !== false )
-						$this->cargar_novedades();
-					else*/
 						$this->cargar_micrositio( $_GET['tm']->id );
 					break;
 				default:
@@ -42,10 +39,9 @@ class TelemedellinController extends Controller
 		//print_r($_GET);
 	}
 
-	private function cargar_seccion()
+	public function actionCargarSeccion()
 	{
 		$url_id = $_GET['tm']->id;
-
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
 		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
@@ -53,13 +49,13 @@ class TelemedellinController extends Controller
 		$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 	}
 
-	private function cargar_micrositio( $slug_id = 0 )
+	public function actionCargarMicrositio( )
 	{
 		$url_id = $_GET['tm']->id;
 
-		if( $slug_id )
+		if( isset($_GET['slug_id']) )
 		{
-			$pagina  = Pagina::model()->cargarPorUrl( $slug_id );
+			$pagina  = Pagina::model()->cargarPorUrl( $_GET['slug_id'] );
 			$micrositio = Micrositio::model()->cargarMicrositio( $pagina['pagina']->micrositio_id );
 		}
 		else
@@ -92,7 +88,7 @@ class TelemedellinController extends Controller
 		);
 	}
 
-	private function cargar_novedades()
+	public function actionCargarNovedades()
 	{
 		$url_id = $_GET['tm']->id;
 
@@ -102,6 +98,8 @@ class TelemedellinController extends Controller
 
 		$pagina = new stdClass();
 		$pagina->id   = NULL;
+		$pagina->tipoPagina = new stdClass();
+		$pagina->tipoPagina->tabla = 'novedades';
 
 		$contenido = $this->renderPartial('_novedades', array('novedades' => $novedades), true);
 
@@ -115,7 +113,7 @@ class TelemedellinController extends Controller
 		);
 	}
 
-	private function cargar_programacion()
+	public function actionCargarProgramacion()
 	{
 		$url_id = $_GET['tm']->id;
 
@@ -123,6 +121,8 @@ class TelemedellinController extends Controller
 
 		$pagina = new stdClass();
 		$pagina->id   = NULL;
+		$pagina->tipoPagina = new stdClass();
+		$pagina->tipoPagina->tabla = 'programacion';
 
 		date_default_timezone_set('America/Bogota');
 		setlocale(LC_ALL, 'es-ES');
@@ -177,6 +177,11 @@ class TelemedellinController extends Controller
 					'contenido' => $contenido, 
 				) 
 		);
+	}
+
+	public function actionProgramar()
+	{
+		//Horario::model()->
 	}
 
 	// Uncomment the following methods and override them if needed

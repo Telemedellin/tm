@@ -4,10 +4,12 @@
  * This is the model class for table "menu_item".
  *
  * The followings are the available columns in table 'menu_item':
- * @property string $id
- * @property string $menu_id
- * @property string $tipo_link_id
- * @property string $item_id
+ * @property integer $id
+ * @property integer $menu_id
+ * @property integer $tipo_link_id
+ * @property integer $url_id
+ * @property integer $orden
+ * @property integer $item_id
  * @property integer $hijos
  * @property string $label
  * @property string $url
@@ -45,14 +47,14 @@ class MenuItem extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('menu_id, tipo_link_id, label, url, estado', 'required'),
-			array('hijos, estado', 'numerical', 'integerOnly'=>true),
+			array('menu_id, tipo_link_id, label, estado', 'required'),
+			array('url_id, orden, hijos, estado', 'numerical', 'integerOnly'=>true),
 			array('menu_id, tipo_link_id, item_id', 'length', 'max'=>10),
 			array('label', 'length', 'max'=>100),
 			array('url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, menu_id, tipo_link_id, item_id, hijos, label, url, estado', 'safe', 'on'=>'search'),
+			array('id, menu_id, tipo_link_id, url_id, orden, item_id, hijos, label, url, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,6 +68,7 @@ class MenuItem extends CActiveRecord
 		return array(
 			'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
 			'tipoLink' => array(self::BELONGS_TO, 'TipoLink', 'tipo_link_id'),
+			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 		);
 	}
 
@@ -78,6 +81,8 @@ class MenuItem extends CActiveRecord
 			'id' => 'ID',
 			'menu_id' => 'Menu',
 			'tipo_link_id' => 'Tipo Link',
+			'url_id' => 'URL',
+			'orden' => 'Orden',
 			'item_id' => 'Item',
 			'hijos' => 'Hijos',
 			'label' => 'Label',
@@ -100,6 +105,8 @@ class MenuItem extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('menu_id',$this->menu_id,true);
 		$criteria->compare('tipo_link_id',$this->tipo_link_id,true);
+		$criteria->compare('url_id',$this->url_id,true);
+		$criteria->compare('orden',$this->orden,true);
 		$criteria->compare('item_id',$this->item_id,true);
 		$criteria->compare('hijos',$this->hijos);
 		$criteria->compare('label',$this->label,true);

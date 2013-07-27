@@ -8,6 +8,7 @@
  * @property string $micrositio_id
  * @property string $hora_inicio
  * @property string $hora_fin
+ * @property integer $tipo_emision_id
  * @property integer $estado
  *
  * The followings are the available model relations:
@@ -41,12 +42,12 @@ class Programacion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('micrositio_id, hora_inicio, hora_fin, estado', 'required'),
-			array('estado', 'numerical', 'integerOnly'=>true),
+			array('micrositio_id, hora_inicio, hora_fin, tipo_emision_id, estado', 'required'),
+			array('tipo_emision_id, estado', 'numerical', 'integerOnly'=>true),
 			array('micrositio_id, hora_inicio, hora_fin', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, micrositio_id, hora_inicio, hora_fin, en_vivo, estado', 'safe', 'on'=>'search'),
+			array('id, micrositio_id, hora_inicio, hora_fin, en_vivo, tipo_emision_id, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,6 +60,7 @@ class Programacion extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'micrositio' => array(self::BELONGS_TO, 'Micrositio', 'micrositio_id'),
+			'tipoEmision' => array(self::BELONGS_TO, 'TipoEmision', 'tipo_emision_id'),
 		);
 	}
 

@@ -32,7 +32,6 @@ return array(
 	'controllerMap'=>array(
 	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController'
 	),
-
 	// application components
 	'components'=>array(
 		'user'=>array(

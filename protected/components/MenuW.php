@@ -31,7 +31,7 @@ class MenuW extends CWidget
     		$item_actual = array(
     				'label' => $item->label,
     				'url'	=> $url,
-    				'active' => strpos($ru, $item->url)
+    				'active' => strpos($ru, $url)
     			);
     		if($item->hijos == 1)
     		{
@@ -43,7 +43,7 @@ class MenuW extends CWidget
                     $subitems[] = array(
     						'label' => $hijo->label,
     						'url'	=> $hurl,
-    						'active' => strpos($ru, $item->url)
+    						'active' => strpos($ru, $hurl)
     					);
     			}
     			$item_actual['items'] = $subitems;
@@ -68,7 +68,8 @@ class MenuW extends CWidget
         switch($item->tipo_link_id)
         {
             case 1:
-                $url = ($item->url == '/') ? bu() : bu() . $this->parseUrl( $item->url );
+                $u = Url::model()->findByPk( $item->url_id );
+                $url = bu($u->slug);
                 break;
             case 2:
                 $url = $this->parseExtUrl( $item->url );

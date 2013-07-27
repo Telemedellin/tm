@@ -23,6 +23,7 @@
  * @property Seccion $seccion
  * @property Usuario $usuario
  * @property Pagina[] $paginas
+ * @property Url $url
  */
 class Micrositio extends CActiveRecord
 {
@@ -76,6 +77,7 @@ class Micrositio extends CActiveRecord
 			'seccion' => array(self::BELONGS_TO, 'Seccion', 'seccion_id'),
 			'usuario' => array(self::BELONGS_TO, 'Usuario', 'usuario_id'),
 			'paginas' => array(self::HAS_MANY, 'Pagina', 'micrositio_id'),
+			'red_social' => array(self::HAS_MANY, 'RedSocial', 'micrositio_id'),
 			'programaciones' => array(self::HAS_MANY, 'Programacion', 'micrositio_id'),
 			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 		);
@@ -140,13 +142,13 @@ class Micrositio extends CActiveRecord
 	public function cargarPorUrl($url_id)
 	{
 		if( !$url_id ) return false;
-		return $this->with('url', 'seccion')->findByAttributes( array('url_id' => $url_id), 't.estado <> 0' );
+		return $this->with('url', 'seccion', 'red_social')->findByAttributes( array('url_id' => $url_id), 't.estado <> 0' );
 	}
 
 	public function cargarMicrositio($micrositio_id)
 	{
 		if( !$micrositio_id ) return false;
-		return $this->with('url', 'seccion')->findByPk( $micrositio_id, 't.estado <> 0' );
+		return $this->with('url', 'seccion', 'red_social')->findByPk( $micrositio_id, 't.estado <> 0' );
 	}
 
 	public function getDefaultPage( $micrositio_id )

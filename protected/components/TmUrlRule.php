@@ -18,16 +18,42 @@ class TmUrlRule extends CBaseUrlRule
     public function parseUrl($manager, $request, $pathInfo, $rawPathInfo)
     {
         
+        /*
+        if ( preg_match('%^([\w-]+)(/([\w-]+))?(/([\w-]+))?%', $pathInfo) )
+        {
+            $slug = Url::model()->findByAttributes( array('slug' => $pathInfo) );
+            if( !$slug ) return false;
+            $_GET['tm'] = $slug;
+            return 'telemedellin/cargar';
+        }
+        */
         if ( preg_match('%^([\w-]+)(/([\w-]+))?(/([\w-]+))?%', $pathInfo) )
         {
             $slug = Url::model()->findByAttributes( array('slug' => $pathInfo) );
             if( !$slug ) return false;
 
             $_GET['tm'] = $slug;
-            return 'telemedellin/cargar';
-
+            switch ( $slug->tipo ) {
+                case 1:
+                    return 'telemedellin/cargarSeccion';
+                    break;
+                case 2:
+                    if( $slug->slug == 'novedades' )
+                         return 'telemedellin/cargarNovedades';
+                    else if( $slug->slug == 'programacion' )
+                        return 'telemedellin/cargarProgramacion';
+                    else
+                        return 'telemedellin/cargarMicrositio';
+                    break;
+                case 3:
+                        $_GET['slug_id'] = $slug->id;
+                        return 'telemedellin/cargarMicrositio';
+                    break;
+                default:
+                    return 'telemedellin';
+                    break;
+            }
         }
-
         return false;  // this rule does not apply
     }
 }

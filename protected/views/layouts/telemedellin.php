@@ -91,6 +91,10 @@ $ru = Yii::app()->request->requestUri;
 	    <?php endif; ?>
 		<?php echo $content; ?>
 	</div>
+	<?php 
+	if( count($this->breadcrumbs) )
+		echo $this->renderPartial('_redes'); 
+	?>
 	<div id="second-nav">
 		<?php 
 			$this->widget( 'MenuW', array( 'id' => 4 ) ); // Menú utilitario

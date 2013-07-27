@@ -65,6 +65,7 @@ class Url extends CActiveRecord
 			'micrositios' => array(self::HAS_MANY, 'Micrositio', 'url_id'),
 			'paginas' => array(self::HAS_MANY, 'Pagina', 'url_id'),
 			'seccions' => array(self::HAS_MANY, 'Seccion', 'url_id'),
+			'url' => array(self::HAS_MANY, 'Url', 'url_id'),
 		);
 	}
 

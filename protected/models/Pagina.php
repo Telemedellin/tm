@@ -189,7 +189,6 @@ class Pagina extends CActiveRecord
 		if( !$url_id ) return false;
 		
 		$c = new CDbCriteria;
-		//$c->select = 't.*, tipo_pagina.tabla';
 		$c->join = 'JOIN tipo_pagina ON tipo_pagina.id = t.tipo_pagina_id';
 		$c->addCondition( 't.url_id = "' . $url_id . '"' );
 		$c->addCondition( 't.estado <> 0' );

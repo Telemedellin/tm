@@ -11,10 +11,7 @@ class ProgramacionW extends CWidget
             $n	 = Programacion::model()->getNext( $c->hora_fin );
             return array('actual' => $c, 'siguiente' => $n);
         }
-        else
-        {
-            return array('actual' => 'Ninguno', 'siguiente' => 'Ninguno');
-        }
+        
     }
 
     public function run()
