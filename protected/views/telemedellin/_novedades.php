@@ -1,5 +1,5 @@
 <?php foreach($novedades as $novedad): ?>
-<div class="novedad">
+<div class="novedad<?php if($novedad['pagina']->destacado) echo ' destacado'?>">
 	<a href="<?php echo bu( $novedad['pagina']->url->slug ) ?>">
 		<h3><?php echo $novedad['contenido']['titulo'] ?></h3>
 		<p><?php echo date('d M Y', $novedad['pagina']->creado) ?></p>

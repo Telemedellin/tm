@@ -64,7 +64,7 @@ return array(
 		),
 		*/
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=telemedellin_url',
+			'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => '',

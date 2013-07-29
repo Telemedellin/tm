@@ -14,6 +14,7 @@
  * @property string $creado
  * @property string $modificado
  * @property integer $estado
+ * @property integer $destacado
  *
  * The followings are the available model relations:
  * @property Micrositio[] $micrositios
@@ -51,13 +52,13 @@ class Pagina extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('usuario_id, micrositio_id, tipo_pagina_id, nombre, url_id, creado, estado', 'required'),
-			array('estado, url_id', 'numerical', 'integerOnly'=>true),
+			array('usuario_id, micrositio_id, tipo_pagina_id, nombre, url_id, creado, estado, destacado', 'required'),
+			array('estado, url_id, destacado', 'numerical', 'integerOnly'=>true),
 			array('revision_id, usuario_id, url_id, micrositio_id, tipo_pagina_id, creado, modificado', 'length', 'max'=>10),
 			array('nombre', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, revision_id, usuario_id, micrositio_id, tipo_pagina_id, nombre, url_id, creado, modificado, estado', 'safe', 'on'=>'search'),
+			array('id, revision_id, usuario_id, micrositio_id, tipo_pagina_id, nombre, url_id, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -97,6 +98,7 @@ class Pagina extends CActiveRecord
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
 			'estado' => 'Estado',
+			'destacado' => 'Destacado',
 		);
 	}
 
@@ -121,6 +123,8 @@ class Pagina extends CActiveRecord
 		$criteria->compare('creado',$this->creado,true);
 		$criteria->compare('modificado',$this->modificado,true);
 		$criteria->compare('estado',$this->estado);
+		$criteria->compare('destacado',$this->destacado);
+
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

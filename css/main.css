@@ -455,6 +455,11 @@ nav ul
 	font-size: 10px;
 	line-height: 1.2;
 }
+#micrositio.novedades .novedad
+{
+	float: left;
+	width: 33%;
+}
 #novedades .novedad a.ver-mas
 {
 	color: #FFF;
