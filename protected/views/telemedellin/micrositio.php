@@ -21,8 +21,8 @@ cs()->registerScript( 'scroll',
 	CClientScript::POS_READY
 );
 
-//if( $pagina->tipoPagina->tabla == 'novedades' )
-//{
+if( $pagina->tipoPagina->tabla == 'novedades' )
+{
 	cs()->registerScriptFile( bu('js/jquery.isotope/jquery.isotope.min.js'), CClientScript::POS_END );
 	cs()->registerScript( 'isotope', 
 		'$(".mCSB_container").isotope({
@@ -31,7 +31,7 @@ cs()->registerScript( 'scroll',
 		});',
 		CClientScript::POS_READY
 	);
-//}
+}
 
 
 ?>
