@@ -81,7 +81,7 @@ $ru = Yii::app()->request->requestUri;
 	      <?php 
 	        $this->widget( 'zii.widgets.CBreadcrumbs', 
 	          array(
-	            'homeLink' => CHtml::link( 'Inicio' , CHtml::normalizeUrl(Yii::app()->homeUrl) ),
+	            'homeLink' => CHtml::link( 'Inicio' , CHtml::normalizeUrl(Yii::app()->homeUrl), array('class' => 'home') ),
 	            'separator'=> '',
 	            'links'    => $this->breadcrumbs,
 	            'inactiveLinkTemplate' => '<h1>{label}</h1>',

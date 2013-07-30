@@ -58,6 +58,12 @@ nav ul
 	letter-spacing: .5px;
 	width: auto;
 }
+.breadcrumbs a.home
+{
+	background: rgba(0,0,0,.6) url('../images/static/iconos/tmicons.png') no-repeat 4px 5px;
+	text-indent: 30px;
+	width: 26px;
+}
 .breadcrumbs h1
 {
 	background: rgba(0, 0, 0, .6);
