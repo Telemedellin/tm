@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'pg_articulo_blog':
  * @property string $id
  * @property string $pagina_id
- * @property string $titulo
  * @property string $entradilla
  * @property string $texto
  * @property string $imagen
@@ -44,14 +43,13 @@ class PgArticuloBlog extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('pagina_id, titulo, entradilla, texto, imagen, miniatura, estado', 'required'),
+			array('pagina_id, entradilla, texto, imagen, miniatura, estado', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
 			array('pagina_id', 'length', 'max'=>10),
-			array('titulo', 'length', 'max'=>100),
 			array('entradilla, imagen, miniatura', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, pagina_id, titulo, entradilla, texto, imagen, miniatura, estado', 'safe', 'on'=>'search'),
+			array('id, pagina_id, entradilla, texto, imagen, miniatura, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,7 +73,6 @@ class PgArticuloBlog extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'pagina_id' => 'Pagina',
-			'titulo' => 'Titulo',
 			'entradilla' => 'Entradilla',
 			'texto' => 'Texto',
 			'imagen' => 'Imagen',
@@ -97,7 +94,6 @@ class PgArticuloBlog extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('pagina_id',$this->pagina_id,true);
-		$criteria->compare('titulo',$this->titulo,true);
 		$criteria->compare('entradilla',$this->entradilla,true);
 		$criteria->compare('texto',$this->texto,true);
 		$criteria->compare('imagen',$this->imagen,true);

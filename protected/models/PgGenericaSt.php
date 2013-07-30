@@ -37,12 +37,11 @@ class PgGenericaSt extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('titulo, texto, estado', 'required'),
+			array('texto, estado', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
-			array('titulo', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, titulo, texto, estado', 'safe', 'on'=>'search'),
+			array('id, texto, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,7 +64,6 @@ class PgGenericaSt extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'titulo' => 'Titulo',
 			'texto' => 'Texto',
 			'estado' => 'Estado',
 		);
@@ -83,7 +81,6 @@ class PgGenericaSt extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('titulo',$this->titulo,true);
 		$criteria->compare('texto',$this->texto,true);
 		$criteria->compare('estado',$this->estado);
 

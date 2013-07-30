@@ -10,8 +10,32 @@ if($seccion->url->slug != 'telemedellin')
 $this->breadcrumbs = $bc;
 
 cs()->registerCss('background', 'body{background-image: url("' . bu() . $micrositio->background . '");}');
+
+cs()->registerScriptFile( bu('js/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js'), CClientScript::POS_END );
+cs()->registerScript( 'scroll', 
+	'$("#micrositio").mCustomScrollbar({
+		scrollButtons:{
+			enable:true
+		}
+	});',
+	CClientScript::POS_READY
+);
+
+//if( $pagina->tipoPagina->tabla == 'novedades' )
+//{
+	cs()->registerScriptFile( bu('js/jquery.isotope/jquery.isotope.min.js'), CClientScript::POS_END );
+	cs()->registerScript( 'isotope', 
+		'$(".mCSB_container").isotope({
+		  itemSelector : "div",
+		  //layoutMode : "fitRows"
+		});',
+		CClientScript::POS_READY
+	);
+//}
+
+
 ?>
-<?php if( isset( $micrositio->red_social ) ):?>
+<?php if( isset( $micrositio->red_social ) && count($micrositio->red_social) ):  ?>
 <div id="redes_micrositio">
 	<p>Visítanos en</p>
 	<ul>

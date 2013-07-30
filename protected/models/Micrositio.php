@@ -53,14 +53,14 @@ class Micrositio extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, seccion_id, usuario_id, background, url_id, creado, estado, destacado', 'required'),
+			array('nombre, seccion_id, usuario_id, background, miniatura, url_id, creado, estado, destacado', 'required'),
 			array('estado, url_id, destacado', 'numerical', 'integerOnly'=>true),
 			array('nombre', 'length', 'max'=>45),
 			array('seccion_id, pagina_id, url_id usuario_id, menu_id, creado, modificado', 'length', 'max'=>10),
-			array('background', 'length', 'max'=>255),
+			array('background, miniatura', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nombre, seccion_id, pagina_id, usuario_id, menu_id, background, url_id, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
+			array('id, nombre, seccion_id, pagina_id, usuario_id, menu_id, background, miniatura, url_id, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -96,6 +96,7 @@ class Micrositio extends CActiveRecord
 			'usuario_id' => 'Usuario',
 			'menu_id' => 'Menu',
 			'background' => 'Background',
+			'miniatura' => 'Miniatura',
 			'url_id' => 'Slug',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
@@ -122,6 +123,7 @@ class Micrositio extends CActiveRecord
 		$criteria->compare('usuario_id',$this->usuario_id,true);
 		$criteria->compare('menu_id',$this->menu_id,true);
 		$criteria->compare('background',$this->background,true);
+		$criteria->compare('miniatura',$this->miniatura,true);
 		$criteria->compare('url_id',$this->url_id,true);
 		$criteria->compare('creado',$this->creado,true);
 		$criteria->compare('modificado',$this->modificado,true);
@@ -136,7 +138,7 @@ class Micrositio extends CActiveRecord
 	public function listarPorSeccion( $seccion_id )
 	{
 		if( !$seccion_id ) return false;
-		return $this->findAllByAttributes( array('seccion_id' => $seccion_id), 't.estado <> 0' );
+		return $this->with('pagina')->findAllByAttributes( array('seccion_id' => $seccion_id), 't.estado <> 0' );
 	}
 
 	public function cargarPorUrl($url_id)

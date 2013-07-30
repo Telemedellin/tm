@@ -39,7 +39,7 @@ class TmUrlRule extends CBaseUrlRule
                     break;
                 case 2:
                     if( $slug->slug == 'novedades' )
-                         return 'telemedellin/cargarNovedades';
+                        return 'telemedellin/cargarNovedades';
                     else if( $slug->slug == 'programacion' )
                         return 'telemedellin/cargarProgramacion';
                     else

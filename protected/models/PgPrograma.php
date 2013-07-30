@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'pg_programa':
  * @property string $id
  * @property string $pagina_id
- * @property string $titulo
  * @property string $logo
  * @property string $resena
  * @property string $esta_semana
@@ -43,14 +42,13 @@ class PgPrograma extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('pagina_id, titulo, logo, resena, esta_semana, estado', 'required'),
+			array('pagina_id, logo, resena, esta_semana, estado', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
 			array('pagina_id', 'length', 'max'=>10),
-			array('titulo', 'length', 'max'=>100),
 			array('logo', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, pagina_id, titulo, logo, resena, esta_semana, estado', 'safe', 'on'=>'search'),
+			array('id, pagina_id, logo, resena, esta_semana, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,7 +73,6 @@ class PgPrograma extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'pagina_id' => 'Pagina',
-			'titulo' => 'Titulo',
 			'logo' => 'Logo',
 			'resena' => 'Resena',
 			'esta_semana' => 'Esta semana',
@@ -96,7 +93,6 @@ class PgPrograma extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('pagina_id',$this->pagina_id,true);
-		$criteria->compare('titulo',$this->titulo,true);
 		$criteria->compare('logo',$this->logo,true);
 		$criteria->compare('resena',$this->resena,true);
 		$criteria->compare('esta_semana',$this->esta_semana,true);
