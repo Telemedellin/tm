@@ -48,8 +48,8 @@ $ru = Yii::app()->request->requestUri;
 					</a>
 				</p>
 				<p>
-					<span class="title">Teléfono</span>
 					<span class="tel">
+						<span class="title">Teléfono</span>
 						<span class="value">(57 4) 448 9590</span>
 					</span>
 					<span class="tel">
@@ -57,7 +57,7 @@ $ru = Yii::app()->request->requestUri;
 						<span class="value">(57 4) 437 6930</span>
 					</span>
 				</p>
-				<p>
+				<p class="email">
 					<span class="title">Correo electrónico</span>
 					<span class="email">contacto@telemedellin.tv</span>
 				</p>
@@ -91,6 +91,9 @@ $ru = Yii::app()->request->requestUri;
 	    <?php endif; ?>
 		<?php echo $content; ?>
 	</div>
+	<?php 
+		if( !count($this->breadcrumbs) )
+			$this->widget('NewsTicker'); ?>
 	<?php 
 	if( count($this->breadcrumbs) )
 		echo $this->renderPartial('_redes'); 

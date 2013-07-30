@@ -235,7 +235,6 @@ nav ul
 	left: 0;
 	min-height: 560px;
 	min-width: 160px;
-	/*overflow: auto;*/
 	position: fixed;
 	top: 0;
 	width: 20%;
@@ -262,6 +261,12 @@ nav ul
 	display: block;
 	margin-bottom: 14px;
 }
+#bar footer .extended-address .title
+{
+	background: url('../images/static/iconos/tmicons.png') no-repeat -3px -128px;
+	background-size: 12%;
+	padding-left: 15px;
+}
 #bar footer .redes, 
 #bar footer .vcard
 {
@@ -271,10 +276,22 @@ nav ul
 {
 	display: block;
 }
+#bar footer .tel .title
+{
+	background: url('../images/static/iconos/tmicons.png') no-repeat -2px -159px;
+	background-size: 12%;
+	padding-left: 15px;
+}
 #bar footer .title
 {
 	display: block;
 	text-transform: uppercase;
+}
+#bar footer .email .title
+{
+	background: url('../images/static/iconos/tmicons.png') no-repeat -2px -191px;
+	background-size: 12%;
+	padding-left: 15px;
 }
 #bar h1
 {
@@ -292,6 +309,8 @@ nav ul
 }
 #bar nav li a
 {
+	background: url('../images/static/iconos/tmicons.png') no-repeat 6px 13px;
+	background-size: 12%;
 	border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 	color: #FFF;
 	display: block;
@@ -322,9 +341,21 @@ nav ul
 	background: rgba(0, 0, 0, .8);
 	display: block;
 }
+#bar nav li.programas a
+{
+	background-position: 5px -51px; 
+}
+#bar nav li.especiales a
+{
+	background-position: 5px -51px;
+}
+#bar nav li.documentales a
+{
+	background-position: 5px -81px;
+}
 #bar .escribenos
 {
-	background: rgba(137, 222, 21, 0.6);
+	background: rgba(137, 222, 21, 0.6) url('../images/static/iconos/tmicons.png') no-repeat 22px -379px;
 	-webkit-border-top-left-radius: 10px;
 	-webkit-border-top-right-radius: 10px;
 	   -moz-border-radius-topleft: 10px;
@@ -334,8 +365,8 @@ nav ul
 	display: block;
 	font-size: 11px;
 	font-weight: bold;
-	padding: 4px 4px 15px;
-	text-align: center;
+	padding: 4px 4px 15px 50px;
+	text-align: left;
 	text-transform: uppercase;
 }
 #bar .redes
@@ -350,12 +381,42 @@ nav ul
 }
 #bar .redes li
 {
-	background: #FFF;
 	float: left;
 	margin: 0 1% 0 0;
-	height: 16px;
+	height: 24px;
 	text-indent: -9999px; 
 	width: 15%;
+}
+#bar .redes li a
+{
+	display: block;
+	background: url('../images/static/iconos/tmicons.png') no-repeat 0px -432px;
+	background-size: 85%;
+	height: 24px;
+}
+#bar .redes li.facebook a
+{
+	background-position: 0px -263px;
+}
+#bar .redes li.twitter a
+{
+	background-position: 0px -297px;
+}
+#bar .redes li.flickr a
+{
+	background-position: 0px -362px;
+}
+#bar .redes li.youtube a
+{
+	background-position: 0px -329px;
+}
+#bar .redes li.foursquare a
+{
+	background-position: 0px -395px;
+}
+#bar .redes li.instagram a
+{
+	background-position: 0px -429px;
 }
 #bar .top{
 	-webkit-box-sizing: border-box;
@@ -512,7 +573,7 @@ nav ul
 #newsticker
 {
 	background: rgba(0, 0, 0, 0.7);
-	bottom: 0;
+	bottom: 10px;
 	-webkit-border-top-left-radius: 40px;
 	   -moz-border-radius-topleft: 40px;
 			border-top-left-radius: 40px;
@@ -523,6 +584,7 @@ nav ul
 	height: 115px;
 	padding: 0 10px;
 	position: fixed;
+	right: 10px;
 	width: 80%;
 	z-index: 2;
 }
@@ -885,4 +947,52 @@ nav ul
 #second-nav li a
 {
 	color: #FFF;
+}
+
+@media (min-width: 1200px) {
+	#bar nav li a
+	{
+		background-size: 7%;
+	}
+	#bar footer .extended-address .title
+	{
+		background: url('../images/static/iconos/tmicons.png') no-repeat -3px -128px;
+		background-size: 7%;
+	}
+	#bar footer .tel .title
+	{
+		background-size: 7%;
+	}
+	#bar footer .email .title
+	{
+		background-size: 7%;
+	}
+	#bar .redes li a
+	{
+		background: url('../images/static/iconos/tmicons.png') no-repeat 0px -432px;
+	}
+	#bar .redes li.facebook a
+	{
+		background-position: 0px -432px;
+	}
+	#bar .redes li.twitter a
+	{
+		background-position: 0px -487px;
+	}
+	#bar .redes li.flickr a
+	{
+		background-position: 0px -594px;
+	}
+	#bar .redes li.youtube a
+	{
+		background-position: 0px -540px;
+	}
+	#bar .redes li.foursquare a
+	{
+		background-position: 0px -648px;
+	}
+	#bar .redes li.instagram a
+	{
+		background-position: 0px -702px;
+	}
 }

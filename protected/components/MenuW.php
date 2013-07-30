@@ -31,7 +31,8 @@ class MenuW extends CWidget
     		$item_actual = array(
     				'label' => $item->label,
     				'url'	=> $url,
-    				'active' => strpos($ru, $url)
+                    'itemOptions' => array('class' => $item->clase),
+    				'active'=> strpos($ru, $url)
     			);
     		if($item->hijos == 1)
     		{
@@ -43,6 +44,7 @@ class MenuW extends CWidget
                     $subitems[] = array(
     						'label' => $hijo->label,
     						'url'	=> $hurl,
+                            'itemOptions' => array('class' => $item->clase),
     						'active' => strpos($ru, $hurl)
     					);
     			}

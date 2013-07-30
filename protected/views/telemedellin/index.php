@@ -6,4 +6,3 @@ $this->pageTitle = app()->name;
 $this->pageDesc = 'Telemedellín, aquí te ves';
 ?>
 <?php $this->widget('Novedades'); ?>
-<?php $this->widget('NewsTicker'); ?>

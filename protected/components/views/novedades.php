@@ -20,9 +20,9 @@ cs()->registerScript(
   <ul class="novedades slides-container">
     <?php foreach($this->getNovedades() as $novedad): ?>
     <li class="novedad">
-      <img src="<?php echo bu() . '/' . $novedad['contenido']->imagen; ?>" alt="<?php echo $novedad['contenido']['titulo']; ?>" />
+      <img src="<?php echo bu() . '/' . $novedad['contenido']->imagen; ?>" alt="<?php echo $novedad['pagina']->nombre; ?>" />
       <div class="container">
-        <h3><?php echo $novedad['contenido']['titulo']; ?></h3>
+        <h3><?php echo $novedad['pagina']->nombre; ?></h3>
         <p><?php echo $novedad['contenido']['entradilla']; ?></p>
         <a href="<?php echo bu($novedad['pagina']->url->slug) ?>" class="ver-mas">Ver más</a>
       </div>
