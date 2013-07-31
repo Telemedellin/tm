@@ -44,7 +44,7 @@ nav ul {
 		 -o-transition: all 0.4s linear;
 			transition: all 0.4s linear;*/
 	vertical-align: top;
-	width: 12px;
+	width: 26px;
 }
 .breadcrumbs a:last-child, .breadcrumbs a:hover {
 	letter-spacing: .5px;
@@ -53,7 +53,6 @@ nav ul {
 .breadcrumbs a.home {
 	background: rgba(0,0,0,.6) url('../images/static/iconos/tmicons.png') no-repeat 4px 5px;
 	text-indent: 30px;
-	width: 26px;
 }
 .breadcrumbs h1 {
 	background: rgba(0, 0, 0, .6);
@@ -199,6 +198,7 @@ nav ul {
 	sprites locations are 0 -56px/-20px -56px/-40px -56px/-60px -56px (light) and -80px -56px/-100px -56px/-120px -56px/-140px -56px (dark) 
 	*/
 }
+<<<<<<< HEAD
 .mCSB_scrollTools .mCSB_buttonUp:hover, .mCSB_scrollTools .mCSB_buttonDown:hover, .mCSB_scrollTools .mCSB_buttonLeft:hover, .mCSB_scrollTools .mCSB_buttonRight:hover {
 	opacity: 0.75;
 	filter: "alpha(opacity=75)";
@@ -210,6 +210,73 @@ nav ul {
 	-ms-filter: "alpha(opacity=90)"; /* old ie */
 }
 .vegas-overlay {
+=======
+.mCSB_scrollTools .mCSB_buttonUp:hover,
+.mCSB_scrollTools .mCSB_buttonDown:hover,
+.mCSB_scrollTools .mCSB_buttonLeft:hover,
+.mCSB_scrollTools .mCSB_buttonRight:hover{
+	opacity:0.75;
+	filter:"alpha(opacity=75)"; -ms-filter:"alpha(opacity=75)"; /* old ie */
+}
+.mCSB_scrollTools .mCSB_buttonUp:active,
+.mCSB_scrollTools .mCSB_buttonDown:active,
+.mCSB_scrollTools .mCSB_buttonLeft:active,
+.mCSB_scrollTools .mCSB_buttonRight:active{
+	opacity:0.9;
+	filter:"alpha(opacity=90)"; -ms-filter:"alpha(opacity=90)"; /* old ie */
+}
+.redes
+{
+	margin-bottom: 5px;
+	overflow: hidden;
+}
+.redes ul
+{
+	list-style: none;
+	margin: 0;
+}
+.redes li
+{
+	float: left;
+	margin: 0 1% 0 0;
+	height: 24px;
+	text-indent: -9999px; 
+	width: 15%;
+}
+.redes li a
+{
+	display: block;
+	background: url('../images/static/iconos/tmicons.png') no-repeat 0px -432px;
+	background-size: 85%;
+	height: 24px;
+}
+.redes li.facebook a
+{
+	background-position: 0px -263px;
+}
+.redes li.twitter a
+{
+	background-position: 0px -297px;
+}
+.redes li.flickr a
+{
+	background-position: 0px -362px;
+}
+.redes li.youtube a
+{
+	background-position: 0px -329px;
+}
+.redes li.foursquare a
+{
+	background-position: 0px -395px;
+}
+.redes li.instagram a
+{
+	background-position: 0px -429px;
+}
+.vegas-overlay
+{
+>>>>>>> a6b3bcd
 	z-index: 1;
 }
 #bar {
@@ -287,7 +354,16 @@ nav ul {
 	padding: 10px 0 10px 30px;
 	text-transform: uppercase;
 }
+<<<<<<< HEAD
 #bar nav li:hover {
+=======
+#bar nav li li a 
+{
+	background-size: 10%;
+}
+#bar nav li:hover
+{
+>>>>>>> a6b3bcd
 	background: rgba(0, 0, 0, .8);
 }
 #bar nav li:last-child a {
@@ -329,6 +405,7 @@ nav ul {
 	text-align: left;
 	text-transform: uppercase;
 }
+<<<<<<< HEAD
 #bar .redes {
 	margin-bottom: 5px;
 	overflow: hidden;
@@ -369,6 +446,9 @@ nav ul {
 	background-position: 0px -429px;
 }
 #bar .top {
+=======
+#bar .top{
+>>>>>>> a6b3bcd
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -746,7 +826,41 @@ nav ul {
 	display: inline-block;
 	list-style: none;
 }
+<<<<<<< HEAD
 #seccion {
+=======
+#redes_micrositio li
+{
+	margin-right: 2px;
+	width: 30px;
+}
+#redes_micrositio li a
+{
+	background-size: 80%;
+}
+#redes_micrositio li.twitter a
+{
+	background-position: 0px -395px;
+}
+#redes_micrositio li.facebook a
+{
+	background-position: 0px -352px;
+}
+#redes_micrositio li.youtube a
+{
+	background-position: 0px -442px;
+}
+#redes_micrositio li.flickr a
+{
+	background-position: 0px -485px;
+}
+#redes_micrositio li.instagram a
+{
+	background-position: 0px -531px;
+}
+#seccion
+{
+>>>>>>> a6b3bcd
 	height: 85%;
 	width: 50%;
 	float: right;
@@ -827,6 +941,7 @@ nav ul {
 #second-nav li a {
 	color: #FFF;
 }
+<<<<<<< HEAD
  @media (min-width: 1200px) {
 #bar nav li a {
 	background-size: 7%;
@@ -863,3 +978,53 @@ nav ul {
 	background-position: 0px -702px;
 }
 }
+=======
+
+@media (min-width: 1200px) {
+	#bar nav li a
+	{
+		background-size: 7%;
+	}
+	#bar footer .extended-address .title
+	{
+		background: url('../images/static/iconos/tmicons.png') no-repeat -3px -128px;
+		background-size: 7%;
+	}
+	#bar footer .tel .title
+	{
+		background-size: 7%;
+	}
+	#bar footer .email .title
+	{
+		background-size: 7%;
+	}
+	.redes li a
+	{
+		background: url('../images/static/iconos/tmicons.png') no-repeat 0px -432px;
+	}
+	.redes li.facebook a
+	{
+		background-position: 0px -432px;
+	}
+	.redes li.twitter a
+	{
+		background-position: 0px -487px;
+	}
+	.redes li.flickr a
+	{
+		background-position: 0px -594px;
+	}
+	.redes li.youtube a
+	{
+		background-position: 0px -540px;
+	}
+	.redes li.foursquare a
+	{
+		background-position: 0px -648px;
+	}
+	.redes li.instagram a
+	{
+		background-position: 0px -702px;
+	}
+}
+>>>>>>> a6b3bcd
