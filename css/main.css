@@ -198,7 +198,6 @@ nav ul {
 	sprites locations are 0 -56px/-20px -56px/-40px -56px/-60px -56px (light) and -80px -56px/-100px -56px/-120px -56px/-140px -56px (dark) 
 	*/
 }
-<<<<<<< HEAD
 .mCSB_scrollTools .mCSB_buttonUp:hover, .mCSB_scrollTools .mCSB_buttonDown:hover, .mCSB_scrollTools .mCSB_buttonLeft:hover, .mCSB_scrollTools .mCSB_buttonRight:hover {
 	opacity: 0.75;
 	filter: "alpha(opacity=75)";
@@ -209,8 +208,6 @@ nav ul {
 	filter: "alpha(opacity=90)";
 	-ms-filter: "alpha(opacity=90)"; /* old ie */
 }
-.vegas-overlay {
-=======
 .mCSB_scrollTools .mCSB_buttonUp:hover,
 .mCSB_scrollTools .mCSB_buttonDown:hover,
 .mCSB_scrollTools .mCSB_buttonLeft:hover,
@@ -274,11 +271,7 @@ nav ul {
 {
 	background-position: 0px -429px;
 }
-.vegas-overlay
-{
->>>>>>> a6b3bcd
-	z-index: 1;
-}
+
 #bar {
 	color: #FFF;
 	height: 98%;
@@ -354,16 +347,12 @@ nav ul {
 	padding: 10px 0 10px 30px;
 	text-transform: uppercase;
 }
-<<<<<<< HEAD
-#bar nav li:hover {
-=======
 #bar nav li li a 
 {
 	background-size: 10%;
 }
 #bar nav li:hover
 {
->>>>>>> a6b3bcd
 	background: rgba(0, 0, 0, .8);
 }
 #bar nav li:last-child a {
@@ -405,7 +394,6 @@ nav ul {
 	text-align: left;
 	text-transform: uppercase;
 }
-<<<<<<< HEAD
 #bar .redes {
 	margin-bottom: 5px;
 	overflow: hidden;
@@ -445,10 +433,7 @@ nav ul {
 #bar .redes li.instagram a {
 	background-position: 0px -429px;
 }
-#bar .top {
-=======
 #bar .top{
->>>>>>> a6b3bcd
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -826,9 +811,6 @@ nav ul {
 	display: inline-block;
 	list-style: none;
 }
-<<<<<<< HEAD
-#seccion {
-=======
 #redes_micrositio li
 {
 	margin-right: 2px;
@@ -860,7 +842,6 @@ nav ul {
 }
 #seccion
 {
->>>>>>> a6b3bcd
 	height: 85%;
 	width: 50%;
 	float: right;
@@ -941,90 +922,39 @@ nav ul {
 #second-nav li a {
 	color: #FFF;
 }
-<<<<<<< HEAD
- @media (min-width: 1200px) {
-#bar nav li a {
-	background-size: 7%;
-}
-#bar footer .extended-address .title {
-	background: url('../images/static/iconos/tmicons.png') no-repeat -3px -128px;
-	background-size: 7%;
-}
-#bar footer .tel .title {
-	background-size: 7%;
-}
-#bar footer .email .title {
-	background-size: 7%;
-}
-#bar .redes li a {
-	background: url('../images/static/iconos/tmicons.png') no-repeat 0px -432px;
-}
-#bar .redes li.facebook a {
-	background-position: 0px -432px;
-}
-#bar .redes li.twitter a {
-	background-position: 0px -487px;
-}
-#bar .redes li.flickr a {
-	background-position: 0px -594px;
-}
-#bar .redes li.youtube a {
-	background-position: 0px -540px;
-}
-#bar .redes li.foursquare a {
-	background-position: 0px -648px;
-}
-#bar .redes li.instagram a {
-	background-position: 0px -702px;
-}
-}
-=======
-
 @media (min-width: 1200px) {
-	#bar nav li a
-	{
+	#bar nav li a {
 		background-size: 7%;
 	}
-	#bar footer .extended-address .title
-	{
+	#bar footer .extended-address .title {
 		background: url('../images/static/iconos/tmicons.png') no-repeat -3px -128px;
 		background-size: 7%;
 	}
-	#bar footer .tel .title
-	{
+	#bar footer .tel .title {
 		background-size: 7%;
 	}
-	#bar footer .email .title
-	{
+	#bar footer .email .title {
 		background-size: 7%;
 	}
-	.redes li a
-	{
+	#bar .redes li a {
 		background: url('../images/static/iconos/tmicons.png') no-repeat 0px -432px;
 	}
-	.redes li.facebook a
-	{
+	#bar .redes li.facebook a {
 		background-position: 0px -432px;
 	}
-	.redes li.twitter a
-	{
+	#bar .redes li.twitter a {
 		background-position: 0px -487px;
 	}
-	.redes li.flickr a
-	{
+	#bar .redes li.flickr a {
 		background-position: 0px -594px;
 	}
-	.redes li.youtube a
-	{
+	#bar .redes li.youtube a {
 		background-position: 0px -540px;
 	}
-	.redes li.foursquare a
-	{
+	#bar .redes li.foursquare a {
 		background-position: 0px -648px;
 	}
-	.redes li.instagram a
-	{
+	#bar .redes li.instagram a {
 		background-position: 0px -702px;
 	}
 }
->>>>>>> a6b3bcd
