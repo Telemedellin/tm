@@ -50,7 +50,7 @@ nav ul
 		 -o-transition: all 0.4s linear;
 			transition: all 0.4s linear;*/
 	vertical-align: top;
-	width: 12px;
+	width: 26px;
 }
 .breadcrumbs a:last-child,
 .breadcrumbs a:hover
@@ -62,7 +62,6 @@ nav ul
 {
 	background: rgba(0,0,0,.6) url('../images/static/iconos/tmicons.png') no-repeat 4px 5px;
 	text-indent: 30px;
-	width: 26px;
 }
 .breadcrumbs h1
 {
@@ -229,7 +228,55 @@ nav ul
 	opacity:0.9;
 	filter:"alpha(opacity=90)"; -ms-filter:"alpha(opacity=90)"; /* old ie */
 }
-
+.redes
+{
+	margin-bottom: 5px;
+	overflow: hidden;
+}
+.redes ul
+{
+	list-style: none;
+	margin: 0;
+}
+.redes li
+{
+	float: left;
+	margin: 0 1% 0 0;
+	height: 24px;
+	text-indent: -9999px; 
+	width: 15%;
+}
+.redes li a
+{
+	display: block;
+	background: url('../images/static/iconos/tmicons.png') no-repeat 0px -432px;
+	background-size: 85%;
+	height: 24px;
+}
+.redes li.facebook a
+{
+	background-position: 0px -263px;
+}
+.redes li.twitter a
+{
+	background-position: 0px -297px;
+}
+.redes li.flickr a
+{
+	background-position: 0px -362px;
+}
+.redes li.youtube a
+{
+	background-position: 0px -329px;
+}
+.redes li.foursquare a
+{
+	background-position: 0px -395px;
+}
+.redes li.instagram a
+{
+	background-position: 0px -429px;
+}
 .vegas-overlay
 {
 	z-index: 1;
@@ -325,6 +372,10 @@ nav ul
 	padding: 10px 0 10px 30px;
 	text-transform: uppercase;
 }
+#bar nav li li a 
+{
+	background-size: 10%;
+}
 #bar nav li:hover
 {
 	background: rgba(0, 0, 0, .8);
@@ -374,55 +425,6 @@ nav ul
 	padding: 4px 4px 15px 50px;
 	text-align: left;
 	text-transform: uppercase;
-}
-#bar .redes
-{
-	margin-bottom: 5px;
-	overflow: hidden;
-}
-#bar .redes ul
-{
-	list-style: none;
-	margin: 0;
-}
-#bar .redes li
-{
-	float: left;
-	margin: 0 1% 0 0;
-	height: 24px;
-	text-indent: -9999px; 
-	width: 15%;
-}
-#bar .redes li a
-{
-	display: block;
-	background: url('../images/static/iconos/tmicons.png') no-repeat 0px -432px;
-	background-size: 85%;
-	height: 24px;
-}
-#bar .redes li.facebook a
-{
-	background-position: 0px -263px;
-}
-#bar .redes li.twitter a
-{
-	background-position: 0px -297px;
-}
-#bar .redes li.flickr a
-{
-	background-position: 0px -362px;
-}
-#bar .redes li.youtube a
-{
-	background-position: 0px -329px;
-}
-#bar .redes li.foursquare a
-{
-	background-position: 0px -395px;
-}
-#bar .redes li.instagram a
-{
-	background-position: 0px -429px;
 }
 #bar .top{
 	-webkit-box-sizing: border-box;
@@ -868,6 +870,35 @@ nav ul
 	display: inline-block;
 	list-style: none;
 }
+#redes_micrositio li
+{
+	margin-right: 2px;
+	width: 30px;
+}
+#redes_micrositio li a
+{
+	background-size: 80%;
+}
+#redes_micrositio li.twitter a
+{
+	background-position: 0px -395px;
+}
+#redes_micrositio li.facebook a
+{
+	background-position: 0px -352px;
+}
+#redes_micrositio li.youtube a
+{
+	background-position: 0px -442px;
+}
+#redes_micrositio li.flickr a
+{
+	background-position: 0px -485px;
+}
+#redes_micrositio li.instagram a
+{
+	background-position: 0px -531px;
+}
 #seccion
 {
 	height: 85%;
@@ -973,31 +1004,31 @@ nav ul
 	{
 		background-size: 7%;
 	}
-	#bar .redes li a
+	.redes li a
 	{
 		background: url('../images/static/iconos/tmicons.png') no-repeat 0px -432px;
 	}
-	#bar .redes li.facebook a
+	.redes li.facebook a
 	{
 		background-position: 0px -432px;
 	}
-	#bar .redes li.twitter a
+	.redes li.twitter a
 	{
 		background-position: 0px -487px;
 	}
-	#bar .redes li.flickr a
+	.redes li.flickr a
 	{
 		background-position: 0px -594px;
 	}
-	#bar .redes li.youtube a
+	.redes li.youtube a
 	{
 		background-position: 0px -540px;
 	}
-	#bar .redes li.foursquare a
+	.redes li.foursquare a
 	{
 		background-position: 0px -648px;
 	}
-	#bar .redes li.instagram a
+	.redes li.instagram a
 	{
 		background-position: 0px -702px;
 	}

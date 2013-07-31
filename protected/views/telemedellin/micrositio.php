@@ -2,7 +2,7 @@
 $bc = array();
 if($seccion->url->slug != 'telemedellin')
 {
-	$bc[ucfirst($seccion->nombre)] = bu( $seccion->url->slug );
+	$bc[ucfirst($seccion->nombre)] =  bu( $seccion->url->slug ) ;
 }
 
 ($pagina->id != $micrositio->pagina_id) ? $bc[ucfirst($micrositio->nombre)] = bu( $micrositio->url->slug ) : $bc[] = ucfirst($micrositio->nombre);
@@ -36,12 +36,12 @@ if( $pagina->tipoPagina->tabla == 'novedades' )
 
 ?>
 <?php if( isset( $micrositio->red_social ) && count($micrositio->red_social) ):  ?>
-<div id="redes_micrositio">
+<div id="redes_micrositio" class="redes">
 	<p>Visítanos en</p>
 	<ul>
 	<?php foreach( $micrositio->red_social as $red ): ?>
-		<li>
-			<a href="<?php echo $red->tipoRedSocial->url_base . $red->usuario ?>" class="<?php echo $red->tipoRedSocial->nombre ?>">
+		<li class="<?php echo strtolower($red->tipoRedSocial->nombre) ?>">
+			<a href="<?php echo $red->tipoRedSocial->url_base . $red->usuario ?>">
 				<?php echo $red->tipoRedSocial->nombre ?>
 			</a>
 		<?php $red->nombre . ' ' . $red->usuario; ?>
