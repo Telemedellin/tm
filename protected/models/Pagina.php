@@ -220,6 +220,7 @@ class Pagina extends CActiveRecord
 	        
 	        if($this->isNewRecord)
 	        {
+	        	$this->usuario_id	= 1;
 	        	$this->revision_id 	= NULL;
 	        	$this->creado 		= mktime( date('H'), date('i'), date('s'), date('m'), date('d'), date('Y') );
 	            $this->estado 		= 1;
@@ -227,6 +228,7 @@ class Pagina extends CActiveRecord
 	        else
 	            //Crear la revisión
 	            $this->revision_id 	= NULL;
+	        	$this->usuario_id	= 1;
 	            $this->modificado	= mktime( date('H'), date('i'), date('s'), date('m'), date('d'), date('Y') );
 	        return true;
 	    }

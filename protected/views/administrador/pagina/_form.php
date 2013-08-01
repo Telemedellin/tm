@@ -14,15 +14,9 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'usuario_id'); ?>
-		<?php echo $form->textField($model,'usuario_id',array('size'=>10,'maxlength'=>10, 'value' => 1)); ?>
-		<?php echo $form->error($model,'usuario_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'micrositio_id'); ?>
 		<?php 
-			$micrositios = Micrositio::model()->findAll();
+			/*$micrositios = Micrositio::model()->findAll();
 			$datos = array();
 			foreach($micrositios as $micrositio)
 			{
@@ -31,7 +25,7 @@
 			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 			    'name'=>'micrositio_id',
 			    //'model'=> new Micrositio,
-			    'source'=> CJSON::encode($datos),
+			    'source'=> $datos,
 			    // additional javascript options for the autocomplete plugin
 			    'options'=>array(
 			        'minLength'=>'3',
@@ -39,22 +33,21 @@
 			    'htmlOptions'=>array(
 			        'style'=>'height:20px;',
 			    ),
-			));
+			));*/
 		?>
-		<?php //echo $form->dropDownList($model,'micrositio_id', CHtml::listData(Micrositio::model()->findAll(), 'id', 'nombre') ); ?>
-		<?php //echo $form->textField($model,'micrositio_id',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->dropDownList($model,'micrositio_id', CHtml::listData(Micrositio::model()->findAll(), 'id', 'nombre') ); ?>
 		<?php echo $form->error($model,'micrositio_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'tipo_pagina_id'); ?>
-		<?php echo $form->textField($model,'tipo_pagina_id',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->dropDownList($model,'tipo_pagina_id', CHtml::listData(TipoPagina::model()->findAll(), 'id', 'nombre') ); ?>
 		<?php echo $form->error($model,'tipo_pagina_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'url_id'); ?>
-		<?php echo $form->textField($model,'url_id',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->dropDownList($model,'url_id', CHtml::listData(Url::model()->findAll(), 'id', 'slug') ); ?>
 		<?php echo $form->error($model,'url_id'); ?>
 	</div>
 
@@ -65,31 +58,19 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'creado'); ?>
-		<?php echo $form->textField($model,'creado',array('size'=>19,'maxlength'=>19)); ?>
-		<?php echo $form->error($model,'creado'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'modificado'); ?>
-		<?php echo $form->textField($model,'modificado',array('size'=>19,'maxlength'=>19)); ?>
-		<?php echo $form->error($model,'modificado'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'estado'); ?>
-		<?php echo $form->textField($model,'estado'); ?>
+		<?php echo $form->dropDownList($model,'estado', array('1' => 'Activo', '0' => 'Inactivo' ) ); ?>
 		<?php echo $form->error($model,'estado'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'destacado'); ?>
-		<?php echo $form->textField($model,'destacado'); ?>
+		<?php echo $form->dropDownList($model,'destacado', array('0' => 'No', '1' => 'Si' ) ); ?>
 		<?php echo $form->error($model,'destacado'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

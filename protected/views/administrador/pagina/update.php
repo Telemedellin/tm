@@ -5,17 +5,17 @@
 $this->breadcrumbs=array(
 	'Paginas'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Actualizar',
 );
 
 $this->menu=array(
-	array('label'=>'List Pagina', 'url'=>array('index')),
-	array('label'=>'Create Pagina', 'url'=>array('create')),
-	array('label'=>'View Pagina', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Listar Páginas', 'url'=>array('index')),
+	array('label'=>'Crear Página', 'url'=>array('crear')),
+	array('label'=>'Ver Página', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage Pagina', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Pagina <?php echo $model->id; ?></h1>
+<h1>Actualizar Página <?php echo $model->id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -14,7 +14,7 @@
 <body>
 	<div class="container">
 		<header>
-			<h1>Administrador Telemedellín</h1>
+			<h1><?php echo l( 'Administrador Telemedellín', bu('administrador') ); ?></h1>
 		</header>
 		<nav>
 			<ul>
