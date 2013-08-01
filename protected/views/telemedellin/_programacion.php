@@ -1,7 +1,7 @@
 <div class="menu_micrositio">
 <?php foreach($menu as $item): ?>
 	<a href="<?php echo bu('programacion') . '?dia=' . date('d', $item) . '&mes=' . date('m', $item) . '&anio=' . date('Y', $item) ?>">
-		<?php echo strftime("%A %d", $item); ?>
+		<?php echo substr(strftime("%A", $item), 0, 3) ; ?> <?php echo strftime("%d", $item); ?>
 	</a>
 <?php endforeach; ?>
 </div>
