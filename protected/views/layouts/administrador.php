@@ -13,7 +13,29 @@
 </head>
 <body>
 	<div class="container">
-		<header><h1>Administrador Telemedellín</h1></header>
+		<header>
+			<h1>Administrador Telemedellín</h1>
+		</header>
+		<nav>
+			<ul>
+				<li>
+					<a href="<?php echo bu('administrador/url'); ?>">URLs</a>
+					<ul>
+						<li>
+							<a href="<?php echo bu('administrador/url/crear'); ?>">Crear</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="<?php echo bu('administrador/pagina'); ?>">Páginas</a>
+					<ul>
+						<li>
+							<a href="<?php echo bu('administrador/pagina/crear'); ?>">Crear</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
 		<section>
 			<?php echo $content; ?>
 		</section>

@@ -7,14 +7,31 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create Url', 'url'=>array('create')),
+	array('label'=>'Crear Url', 'url'=>array('crear')),
 	array('label'=>'Manage Url', 'url'=>array('admin')),
 );
 ?>
 
 <h1>Urls</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
+<?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+	'enableSorting' => true,
+	'columns'=>array(
+        'id',
+        'slug',
+        'tipo',
+        array(
+            'name'=>'creado',
+            'value'=>'date("Y-m-d H:i:s", $data->creado)',
+        ),
+        array(
+            'name'=>'modificado',
+            'value'=>'date("Y-m-d H:i:s", $data->modificado)',
+        ),
+        'estado',
+        array(
+            'class'=>'CButtonColumn',
+        ),
+    )
 )); ?>

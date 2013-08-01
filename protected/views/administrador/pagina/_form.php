@@ -3,9 +3,7 @@
 /* @var $model Pagina */
 /* @var $form CActiveForm */
 ?>
-
 <div class="form">
-
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'pagina-form',
 	'enableAjaxValidation'=>false,
@@ -16,20 +14,35 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'revision_id'); ?>
-		<?php echo $form->textField($model,'revision_id',array('size'=>10,'maxlength'=>10)); ?>
-		<?php echo $form->error($model,'revision_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'usuario_id'); ?>
-		<?php echo $form->textField($model,'usuario_id',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->textField($model,'usuario_id',array('size'=>10,'maxlength'=>10, 'value' => 1)); ?>
 		<?php echo $form->error($model,'usuario_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'micrositio_id'); ?>
-		<?php echo $form->textField($model,'micrositio_id',array('size'=>10,'maxlength'=>10)); ?>
+		<?php 
+			$micrositios = Micrositio::model()->findAll();
+			$datos = array();
+			foreach($micrositios as $micrositio)
+			{
+				$datos[$micrositio->id] = $micrositio->nombre;
+			}
+			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+			    'name'=>'micrositio_id',
+			    //'model'=> new Micrositio,
+			    'source'=> CJSON::encode($datos),
+			    // additional javascript options for the autocomplete plugin
+			    'options'=>array(
+			        'minLength'=>'3',
+			    ),
+			    'htmlOptions'=>array(
+			        'style'=>'height:20px;',
+			    ),
+			));
+		?>
+		<?php //echo $form->dropDownList($model,'micrositio_id', CHtml::listData(Micrositio::model()->findAll(), 'id', 'nombre') ); ?>
+		<?php //echo $form->textField($model,'micrositio_id',array('size'=>10,'maxlength'=>10)); ?>
 		<?php echo $form->error($model,'micrositio_id'); ?>
 	</div>
 
@@ -76,7 +89,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -102,8 +102,44 @@ class Url extends CActiveRecord
 		$criteria->compare('modificado',$this->modificado,true);
 		$criteria->compare('estado',$this->estado);
 
+		$sort = new CSort();
+		$sort->attributes = array(
+		    'defaultOrder'=>'t.creado DESC',
+		    'id'=>array(
+		        'asc'=>'t.id',
+		        'desc'=>'t.id desc',
+		    ),
+		    'tipo'=>array(
+		        'asc'=>'t.tipo',
+		        'desc'=>'t.tipo desc',
+		    ),
+		    'estado'=>array(
+		        'asc'=>'t.estado',
+		        'desc'=>'t.estado desc',
+		    ),
+		);
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>$sort
 		));
+	}
+
+	protected function beforeSave()
+	{
+	    if(parent::beforeSave())
+	    {
+	        
+	        if($this->isNewRecord)
+	        {
+	        	$this->creado = mktime( date('H'), date('i'), date('s'), date('m'), date('d'), date('Y') );
+	            $this->estado = 1;
+	        }
+	        else
+	            $this->modificado = mktime( date('H'), date('i'), date('s'), date('m'), date('d'), date('Y') );
+	        return true;
+	    }
+	    else
+	        return false;
 	}
 }
