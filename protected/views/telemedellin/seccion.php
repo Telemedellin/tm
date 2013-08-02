@@ -1,3 +1,5 @@
+
+<div id="contenedorInfo">
 <?php 
 $bc = array();
 $bc[] = ucfirst($seccion->nombre);
@@ -16,10 +18,12 @@ cs()->registerScript( 'scroll',
 
 
 ?>
+<div class="arrow-before"></div>
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
+
 	<div class="listado">
 		<div class="buscadorProgramas">
-		 	<FORM method="GET" action="http://www.google.es/search"> 
+		 	<FORM method="GET"> 
 			    <fieldset>                   
 			        <INPUT TYPE="text" id="s" name="q" value="Buscar programa" /> 
 			    </fieldset> 
@@ -34,5 +38,6 @@ cs()->registerScript( 'scroll',
 	<div class="logos">
 		<img src="http://localhost/tm/images/logos/altavoz.png" />
 	</div>
+</div>
 </div>
 
