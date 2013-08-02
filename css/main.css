@@ -602,8 +602,11 @@ nav ul {
 	width: 100%;
 }
 
-.PgPrograma .mCustomScrollBox, .PgDocumental .mCustomScrollBox, .PgEspecial .mCustomScrollBox {
-background: rgba(0, 0, 0, .6);
+#micrositio .mCustomScrollBox{
+	background: rgba(0, 0, 0, .6);
+}
+#micrositio.programacion .mCustomScrollBox {
+	background: none;
 }
 
 #newsticker {
