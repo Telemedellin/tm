@@ -19,9 +19,9 @@ cs()->registerScript( 'scroll',
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
 	<div class="listado">
 		<div class="buscadorProgramas">
-		 	<FORM method=GET action="http://www.google.es/search"> 
+		 	<FORM method="GET" action="http://www.google.es/search"> 
 			    <fieldset>                   
-			        <INPUT TYPE=text id="s" name="q" value="Buscar programa" /> 
+			        <INPUT TYPE="text" id="s" name="q" value="Buscar programa" /> 
 			    </fieldset> 
 		    </FORM> 
 		</div>

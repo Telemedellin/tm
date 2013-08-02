@@ -150,6 +150,11 @@ nav ul {
 	border-top-right-radius: 10px;
 	width:50%
 }
+.listado .mCustomScrollBox
+{
+	float: none;
+	width: auto;
+}
 
 
 /* default scrollbar colors and backgrounds (default theme) */
@@ -908,39 +913,30 @@ background: rgba(0, 0, 0, .6);
 	height: 85%;
 	width: 100%;
 }
-/*#seccion > div*/
+#seccion .listado
+{
+	float: right;
+	height: 100%;
+	width: 50%;
+}
 #seccion .mCSB_container > div {
-	/* background-color: rgba(0, 0, 0, .5);
-	background-position:  center center;
-	background-repeat:  no-repeat;
-	background-size: cover; 
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-			box-sizing: border-box;*/
 	height: 50px;
 	margin: 1%;
 	overflow: hidden;
 }
-#seccion .mCSB_container > .destacado {
-}
 #seccion .mCSB_container h2 {
 	background: rgba(0, 0, 0, 0.4);
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+		   -moz-border-radius-topleft: 10px;
+		   -moz-border-radius-bottomright: 10px;
+				border-top-left-radius: 10px;
+				border-bottom-right-radius: 10px;
 	font-size: 18px;
 	font-weight: lighter;
 	line-height: 1.5;
 	margin: 0;
 	padding: 5px 10px;
-	-webkit-border-top-left-radius: 10px;
-	-webkit-border-bottom-right-radius: 10px;
-	-moz-border-radius-topleft: 10px;
-	-moz-border-radius-bottomright: 10px;
-	border-top-left-radius: 10px;
-	border-bottom-right-radius: 10px;/* position: absolute;
-	-webkit-transition: all .3s linear;
-	   -moz-transition: all .3s linear;
-		-ms-transition: all .3s linear;
-		 -o-transition: all .3s linear;
-			transition: all .3s linear; */
 }
 #seccion .mCSB_container h2:hover {
 	background: rgba(0, 0, 0, 0.9);
