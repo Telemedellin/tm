@@ -704,8 +704,12 @@ background: rgba(0, 0, 0, .6);
 	width: 33%;
 }
 #novedades .novedad a.ver-mas {
+	background-image:url(../images/static/vermas.png);
 	color: #FFF;
+	display:block;
+	height:24px;
 	float: right;
+	width:75px;
 }
 #novedades .novedad h3 {
 	line-height: 1.2;
@@ -937,9 +941,9 @@ background: rgba(0, 0, 0, .6);
 	width: 50%;
 }
 #seccion .mCSB_container > div {
-	height: 50px;
 	margin: 1%;
 	overflow: hidden;
+	margin-bottom:15px;
 }
 #seccion .mCSB_container h2 {
 	background: rgba(0, 0, 0, 0.4);
