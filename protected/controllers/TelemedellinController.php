@@ -64,6 +64,8 @@ class TelemedellinController extends Controller
 			$pagina  = Pagina::model()->cargarPagina( $micrositio->pagina_id );
 		}
 
+		
+
 		if( !is_null($micrositio->menu_id) )
 		{
 			$menu = $micrositio->menu_id;
@@ -75,7 +77,7 @@ class TelemedellinController extends Controller
 
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
-		$contenido = $this->renderPartial('_'.$pagina['partial'], array('contenido' => $pagina), true);
+		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
 
 		$this->render( 
 			'micrositio', 
