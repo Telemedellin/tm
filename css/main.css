@@ -521,6 +521,7 @@ nav ul {
 	height: 83%;
 	left: 20%;
 	overflow: hidden;
+	padding-top: 10px;
 	position: absolute;
 	top: 30px;
 	width: 80%;
@@ -601,7 +602,7 @@ nav ul {
 	width: 100%;
 }
 
-.PgPrograma .mCustomScrollBox, .documentales .mCustomScrollBox, .especiales .mCustomScrollBox {
+.PgPrograma .mCustomScrollBox, .PgDocumental .mCustomScrollBox, .PgEspecial .mCustomScrollBox {
 background: rgba(0, 0, 0, .6);
 }
 

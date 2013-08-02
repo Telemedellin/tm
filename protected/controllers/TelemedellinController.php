@@ -61,7 +61,10 @@ class TelemedellinController extends Controller
 		else
 		{
 			$micrositio = Micrositio::model()->cargarPorUrl( $url_id );
-			$pagina  = Pagina::model()->cargarPagina( $micrositio->pagina_id );
+			if( $micrositio->pagina_id != NULL )
+				$pagina  = Pagina::model()->cargarPagina( $micrositio->pagina_id );
+			else
+				$pagina  = Pagina::model()->cargarPorMicrositio( $micrositio->id );
 		}
 
 		

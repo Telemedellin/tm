@@ -78,6 +78,7 @@ class Pagina extends CActiveRecord
 			'pgProgramas' => array(self::HAS_ONE, 'PgPrograma', 'pagina_id'),
 			'pgArticuloBlogs' => array(self::HAS_ONE, 'PgArticuloBlog', 'pagina_id'),
 			'pgGenericaSts' => array(self::HAS_ONE, 'PgGenericaSt', 'pagina_id'),
+			'pgDocumentales' => array(self::HAS_ONE, 'PgDocumental', 'pagina_id'),
 			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 		);
 	}
@@ -168,6 +169,33 @@ class Pagina extends CActiveRecord
 		$c->select = 't.*, tipo_pagina.tabla';
 		$c->join = 'JOIN tipo_pagina ON tipo_pagina.id = t.tipo_pagina_id';
 		$c->addCondition( 't.id = "' . $pagina_id . '"' );
+		$c->addCondition( 't.estado <> 0' );
+		$pagina  = $this->find( $c );
+
+		if( !$pagina ) return false;
+
+		$tabla = $pagina->tipoPagina->tabla;
+		$t = new $tabla();
+		$contenido = $t->findByAttributes( array('pagina_id' => $pagina->id) );
+
+		if( !$contenido ) return false;
+
+		$resultado = array(
+				'pagina' 	=> $pagina,
+				'partial'   => $tabla,
+				'contenido' => $contenido,
+			);
+
+		return $resultado;
+	}
+
+	public function cargarPorMicrositio($micrositio_id = 0)
+	{
+		if( !$micrositio_id ) return false;
+		$c = new CDbCriteria;
+		$c->select = 't.*, tipo_pagina.tabla';
+		$c->join = 'JOIN tipo_pagina ON tipo_pagina.id = t.tipo_pagina_id';
+		$c->addCondition( 't.micrositio_id = "' . $micrositio_id . '"' );
 		$c->addCondition( 't.estado <> 0' );
 		$pagina  = $this->find( $c );
 
