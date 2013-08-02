@@ -709,6 +709,7 @@ background: rgba(0, 0, 0, .6);
 	display:block;
 	height:24px;
 	float: right;
+	text-indent: -9999px;
 	width:75px;
 }
 #novedades .novedad h3 {
@@ -748,13 +749,20 @@ background: rgba(0, 0, 0, .6);
 	zoom: 1;
 	margin-left: 80%;
 	overflow: hidden;
-	text-indent: -9999px;
+	text-align: left;
 	-webkit-transition: all 0.4s linear;
 	-moz-transition: all 0.4s linear;
 	-ms-transition: all 0.4s linear;
 	-o-transition: all 0.4s linear;
 	transition: all 0.4s linear;
 }
+#novedades .slides-pagination a img
+{
+	border: thin solid rgba(255, 255, 255, .3);	
+	height: 80%;
+	margin: 2% 5%;
+}
+
 #novedades .slides-pagination a:hover {
 	margin-left: 0;
 }
