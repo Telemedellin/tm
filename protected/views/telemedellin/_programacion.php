@@ -9,9 +9,9 @@
 <?php foreach($programas as $programa): ?>
 <div class="programa">
 	<a href="<?php echo bu( $programa->micrositio->url->slug ); ?>">
-		<p><?php echo date('H:i A', $programa->hora_inicio) ?></p>
-		<p><img src="<?php echo bu() . $programa->micrositio->background ?>" alt="<?php echo $programa->micrositio->nombre ?>" width="200" height="180" /></p>
-		<p><?php echo $programa->micrositio->nombre ?></p>
+		<div class="hora"><?php echo date('H:i A', $programa->hora_inicio) ?></div>
+
+		<div class="tit_programa"><?php echo $programa->micrositio->nombre ?></div>
 	</a>
 </div>
  <?php endforeach ?>

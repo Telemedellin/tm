@@ -137,9 +137,21 @@ nav ul {
 }
 .mCustomScrollBox {
 	-ms-touch-action: none; /*MSPointer events - direct all pointer events to js*/
-	width:50%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 	float:right;
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	border-top-left-radius: 10px;
+	padding:10px;
+	border-top-right-radius: 10px;
+	width:50%
 }
+
+
 /* default scrollbar colors and backgrounds (default theme) */
 .mCustomScrollBox>.mCSB_scrollTools {
 	opacity: 0.75;
@@ -536,23 +548,8 @@ nav ul {
 	text-transform: uppercase;
 }
 
-.menu_micrositio a {
-	color: #FFF;
-	display: block;
-	font-family: 'Century Gothic', sans-serif !important;
-	font-size: 12px;
-	font-weight:lighter;
-	float:left;
-	padding: 10px;
-	text-transform: uppercase;
-	
-}
-
-#menu_micrositio .active a, #menu_micrositio a:hover {
-	background: rgba(0, 0, 0, .7);
-}
-#micrositio {
-	background: rgba(0, 0, 0, .6);
+.programacion .menu_micrositio {
+	background: rgba(0, 0, 0, 0.6);
 	-webkit-border-top-left-radius: 10px;
 	-webkit-border-bottom-right-radius: 10px;
 	-moz-border-radius-topleft: 10px;
@@ -562,20 +559,47 @@ nav ul {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	overflow:hidden;
+	padding: 5px 0 5px 15px;
+	}
+
+.programacion .menu_micrositio a {
+	color: #FFF;
+	display: block;
+	font-family: 'Century Gothic', sans-serif !important;
+	font-size: 14px;
+	float:left;
+	padding: 10px 23px 10px 0;
+	text-transform: uppercase;
+	text-decoration:none;
+	
+}
+
+.programacion .menu_micrositio a:last-child {
+	padding: 10px 0;	
+}
+
+#menu_micrositio .active a, #menu_micrositio a:hover {
+	background: rgba(0, 0, 0, .7);
+}
+#micrositio {
 	height: 88%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 15px;
 }
+
+
 #micrositio.PgGenericaST iframe {
 	height: auto;
 	min-height: 340px;
 	width: 100%;
 }
-#micrositio.PgPrograma {
-	float: right;
-	width: 50%;
+
+.PgPrograma .mCustomScrollBox, .documentales .mCustomScrollBox, .especiales .mCustomScrollBox {
+background: rgba(0, 0, 0, .6);
 }
+
 #newsticker {
 	background: rgba(0, 0, 0, 0.7);
 	bottom: 10px;
@@ -786,6 +810,30 @@ nav ul {
 	font-size: 9px;
 	text-transform: none;
 }
+
+.programa .hora {
+	background: rgba(0, 0, 0, 0.6);
+	float:left;
+	font-size: 9px;
+	text-transform: none;
+	margin:10px 10px 0 0;
+	width:20%;
+	height:30px;
+	
+}
+
+.programa .tit_programa {
+	background: rgba(0, 0, 0, 0.6);
+	float:left;
+	font-size: 9px;
+	margin:10px 0 0 0;
+	text-transform: none;
+	width:78%;
+	height:30px;
+	
+}
+
+
 #programacion .programacion {
 	background: #f7720d;
 	-webkit-border-bottom-left-radius: 10px;
