@@ -53,7 +53,7 @@ class Micrositio extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, seccion_id, usuario_id, background, miniatura, url_id, creado, estado, destacado', 'required'),
+			array('nombre, seccion_id, usuario_id, url_id, creado, estado, destacado', 'required'),
 			array('estado, url_id, destacado', 'numerical', 'integerOnly'=>true),
 			array('nombre', 'length', 'max'=>45),
 			array('seccion_id, pagina_id, url_id usuario_id, menu_id, creado, modificado', 'length', 'max'=>10),
