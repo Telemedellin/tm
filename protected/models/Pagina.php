@@ -52,7 +52,7 @@ class Pagina extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('usuario_id, micrositio_id, tipo_pagina_id, nombre, url_id, creado, estado, destacado', 'required'),
+			array('usuario_id, micrositio_id, tipo_pagina_id, nombre, url_id, estado, destacado', 'required'),
 			array('estado, url_id, destacado', 'numerical', 'integerOnly'=>true),
 			array('revision_id, usuario_id, url_id, micrositio_id, tipo_pagina_id, creado, modificado', 'length', 'max'=>10),
 			array('nombre', 'length', 'max'=>100),

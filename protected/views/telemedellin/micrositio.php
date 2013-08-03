@@ -15,8 +15,9 @@ if( !is_null($micrositio->background) )
 cs()->registerScriptFile( bu('js/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js'), CClientScript::POS_END );
 cs()->registerScript( 'scroll', 
 	'$("#micrositio").mCustomScrollbar({
+		scrollType: "pixels",
 		scrollButtons:{
-			enable:true
+			enable: true
 		}
 	});',
 	CClientScript::POS_READY
