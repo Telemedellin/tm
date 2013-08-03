@@ -1,7 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 =======
 >>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 <div id="contenedorInfo">
@@ -22,10 +25,13 @@ cs()->registerScript( 'scroll',
 );*/
 ?>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <div id="bgProgramas"><img src="http://localhost/tm/images/static/bgProgramas.png" /></div>
 
 =======
+=======
+>>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 <div class="arrow-before"></div>
 >>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
@@ -45,7 +51,10 @@ cs()->registerScript( 'scroll',
 	</div>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 =======
 >>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 </div>
