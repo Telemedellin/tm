@@ -942,6 +942,7 @@ nav ul {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 #bgProgramas img
 {	
@@ -981,6 +982,14 @@ nav ul {
 	/*overflow: hidden; Comento este overflow para que se vean la puntas redondeadas de #seccion*/
 	margin-top:40px;
 	
+=======
+#contenedorInfo {
+	height: 95%;
+	width: 90%;
+	/*overflow: hidden; Comento este overflow para que se vean la puntas redondeadas de #seccion*/
+	margin-top:40px;
+	
+>>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 	}
 .arrow-before {
     width:0px;
@@ -1035,6 +1044,9 @@ nav ul {
 	font-weight: normal;
 	line-height: 30px;
 	padding-left: 20px;
+<<<<<<< HEAD
+>>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
+=======
 >>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 }
 #seccion .mCSB_container > div {

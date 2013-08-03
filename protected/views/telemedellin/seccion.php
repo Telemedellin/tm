@@ -1,6 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 <div id="contenedorInfo">
 >>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 <?php 
@@ -18,9 +21,13 @@ cs()->registerScript( 'scroll',
 	CClientScript::POS_READY
 );*/
 ?>
+<<<<<<< HEAD
 
 <div id="bgProgramas"><img src="http://localhost/tm/images/static/bgProgramas.png" /></div>
 
+=======
+<div class="arrow-before"></div>
+>>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
 	<div class="buscadorProgramas">
 	 	<form method="GET"> 
@@ -37,7 +44,10 @@ cs()->registerScript( 'scroll',
 	<?php endforeach; ?>
 	</div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 </div>
 >>>>>>> be138ff52749e021b8952dcef5f7797084e2c6ad
 </div>
