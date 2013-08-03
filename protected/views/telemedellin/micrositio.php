@@ -9,7 +9,8 @@ if($seccion->url->slug != 'telemedellin')
 ($pagina->id != $micrositio->pagina_id) ? $bc[] = ucfirst($pagina->nombre) : false;
 $this->breadcrumbs = $bc;
 
-cs()->registerCss('background', 'body{background-image: url("' . bu() . $micrositio->background . '");}');
+if( !is_null($micrositio->background) )
+	cs()->registerCss('background', 'body{background-image: url("' . bu() . $micrositio->background . '");}');
 
 cs()->registerScriptFile( bu('js/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js'), CClientScript::POS_END );
 cs()->registerScript( 'scroll', 

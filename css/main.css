@@ -137,7 +137,26 @@ nav ul {
 }
 .mCustomScrollBox {
 	-ms-touch-action: none; /*MSPointer events - direct all pointer events to js*/
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	float:right;
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	border-top-left-radius: 10px;
+	padding:10px;
+	border-top-right-radius: 10px;
+	width:50%
 }
+.listado .mCustomScrollBox
+{
+	float: none;
+	width: auto;
+}
+
+
 /* default scrollbar colors and backgrounds (default theme) */
 .mCustomScrollBox>.mCSB_scrollTools {
 	opacity: 0.75;
@@ -371,7 +390,7 @@ nav ul {
 	display: block;
 }
 #bar nav li.programas a {
-	background-position: 5px -51px;
+	background-position: 5px -21px;
 }
 #bar nav li.especiales a {
 	background-position: 5px -51px;
@@ -502,6 +521,7 @@ nav ul {
 	height: 83%;
 	left: 20%;
 	overflow: hidden;
+	padding-top: 10px;
 	position: absolute;
 	top: 30px;
 	width: 80%;
@@ -529,15 +549,13 @@ nav ul {
 #menu_micrositio a {
 	color: #FFF;
 	display: block;
-	font-size: 18px;
+	font-size: 11px;
 	padding: 10px;
 	text-transform: uppercase;
 }
-#menu_micrositio .active a, #menu_micrositio a:hover {
-	background: rgba(0, 0, 0, .7);
-}
-#micrositio {
-	background: rgba(0, 0, 0, .6);
+
+.programacion .menu_micrositio {
+	background: rgba(0, 0, 0, 0.6);
 	-webkit-border-top-left-radius: 10px;
 	-webkit-border-bottom-right-radius: 10px;
 	-moz-border-radius-topleft: 10px;
@@ -547,20 +565,50 @@ nav ul {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	overflow:hidden;
+	padding: 5px 0 5px 15px;
+	}
+
+.programacion .menu_micrositio a {
+	color: #FFF;
+	display: block;
+	font-family: 'Century Gothic', sans-serif !important;
+	font-size: 14px;
+	float:left;
+	padding: 10px 23px 10px 0;
+	text-transform: uppercase;
+	text-decoration:none;
+	
+}
+
+.programacion .menu_micrositio a:last-child {
+	padding: 10px 0;	
+}
+
+#menu_micrositio .active a, #menu_micrositio a:hover {
+	background: rgba(0, 0, 0, .7);
+}
+#micrositio {
 	height: 88%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 15px;
 }
+
+
 #micrositio.PgGenericaST iframe {
 	height: auto;
 	min-height: 340px;
 	width: 100%;
 }
-#micrositio.PgPrograma {
-	float: right;
-	width: 50%;
+
+#micrositio .mCustomScrollBox{
+	background: rgba(0, 0, 0, .6);
 }
+#micrositio.programacion .mCustomScrollBox {
+	background: none;
+}
+
 #newsticker {
 	background: rgba(0, 0, 0, 0.7);
 	bottom: 10px;
@@ -659,8 +707,13 @@ nav ul {
 	width: 33%;
 }
 #novedades .novedad a.ver-mas {
+	background-image:url(../images/static/vermas.png);
 	color: #FFF;
+	display:block;
+	height:24px;
 	float: right;
+	text-indent: -9999px;
+	width:75px;
 }
 #novedades .novedad h3 {
 	line-height: 1.2;
@@ -699,13 +752,20 @@ nav ul {
 	zoom: 1;
 	margin-left: 80%;
 	overflow: hidden;
-	text-indent: -9999px;
+	text-align: left;
 	-webkit-transition: all 0.4s linear;
 	-moz-transition: all 0.4s linear;
 	-ms-transition: all 0.4s linear;
 	-o-transition: all 0.4s linear;
 	transition: all 0.4s linear;
 }
+#novedades .slides-pagination a img
+{
+	border: thin solid rgba(255, 255, 255, .3);	
+	height: 80%;
+	margin: 2% 5%;
+}
+
 #novedades .slides-pagination a:hover {
 	margin-left: 0;
 }
@@ -771,6 +831,46 @@ nav ul {
 	font-size: 9px;
 	text-transform: none;
 }
+.programa {
+	overflow:hidden;
+}
+
+.programa .hora {
+	background-image:url(../images/static/horario.png);
+	color:#FFF;
+	float:left;
+	font-size: 14px;
+	height:25px;
+	text-transform: none;
+	margin:10px 0px 0 0;
+	width:88px;
+	padding:5px 5px 5px 10px;	
+}
+
+.programa .tit_programa {
+	background: rgba(0, 0, 0, 0.6);
+	border-top-left-radius: 10px;
+		webkit-border-top-left-radius: 10px;
+		-webkit-border-bottom-right-radius: 10px;
+		-moz-border-radius-topleft: 10px;
+		-moz-border-radius-bottomright: 10px;
+		border-top-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+	box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+	color:#FFF;
+	float:left;
+	font-size: 14px;
+	margin:10px 0 0 0;
+	padding:10px;
+	text-transform: none;
+	width:auto;
+	height:35px;
+	
+}
+
+
 #programacion .programacion {
 	background: #f7720d;
 	-webkit-border-bottom-left-radius: 10px;
@@ -840,45 +940,72 @@ nav ul {
 {
 	background-position: 0px -531px;
 }
+
+#contenedorInfo {
+	height: 95%;
+	width: 90%;
+	overflow:hidden;
+	margin-top:40px;
+	
+	}
+	
 #seccion
 {
-	height: 85%;
-	width: 50%;
-	float: right;
+	width: 100%;
+	height: 100%;
+	position:relative;
+	left:20px;
+	
 }
-/*#seccion > div*/
+
+.arrow-before {
+    width:0px;
+    height:0px;
+    border-bottom:20px solid transparent;  /* izquierda flecha */
+    border-top:20px solid transparent; /* derecha flecha */
+    border-right:20px solid rgba(0,0,0,.9); /* base flecha y color*/
+    font-size:0px;
+    line-height:0px;
+    top: 100px;
+    left: 3px;
+    position: absolute;
+}
+
+#seccion {
+    text-align: center;
+    padding:5px;  /* dejamos una separación entre borde y texto */
+    font-family: verdana;
+	background-color:rgba(0, 0, 0, 0.9);
+		border-radius: 10px;
+		-webkit-border-radius: 10px;
+		-moz-border-radiust: 10px;
+}
+
+
+#seccion .listado
+{
+	float: right;
+	height: 100%;
+	width: 50%;
+}
 #seccion .mCSB_container > div {
-	/* background-color: rgba(0, 0, 0, .5);
-	background-position:  center center;
-	background-repeat:  no-repeat;
-	background-size: cover; 
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-			box-sizing: border-box;*/
-	height: 50px;
 	margin: 1%;
 	overflow: hidden;
-}
-#seccion .mCSB_container > .destacado {
+	margin-bottom:15px;
 }
 #seccion .mCSB_container h2 {
 	background: rgba(0, 0, 0, 0.4);
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+		   -moz-border-radius-topleft: 10px;
+		   -moz-border-radius-bottomright: 10px;
+				border-top-left-radius: 10px;
+				border-bottom-right-radius: 10px;
 	font-size: 18px;
 	font-weight: lighter;
 	line-height: 1.5;
 	margin: 0;
 	padding: 5px 10px;
-	-webkit-border-top-left-radius: 10px;
-	-webkit-border-bottom-right-radius: 10px;
-	-moz-border-radius-topleft: 10px;
-	-moz-border-radius-bottomright: 10px;
-	border-top-left-radius: 10px;
-	border-bottom-right-radius: 10px;/* position: absolute;
-	-webkit-transition: all .3s linear;
-	   -moz-transition: all .3s linear;
-		-ms-transition: all .3s linear;
-		 -o-transition: all .3s linear;
-			transition: all .3s linear; */
 }
 #seccion .mCSB_container h2:hover {
 	background: rgba(0, 0, 0, 0.9);
@@ -893,6 +1020,40 @@ nav ul {
 #seccion .mCSB_container a:hover h2 {
 	bottom: 0;
 }
+
+#seccion .logos
+{
+	float:left;
+	width: 50%;	
+}
+
+#seccion .logos img
+{
+	display:block;
+	height:250px;
+	margin:15% auto 0 auto;	
+	width:210px;
+	
+}
+
+#seccion .buscadorProgramas input
+{
+	background: rgba(0, 0, 0, 0.7);
+	border:0;
+	border-top-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+		-webkit-border-top-left-radius: 10px;
+		-webkit-border-bottom-right-radius: 10px;
+		-moz-border-radius-topleft: 10px;
+		-moz-border-radius-bottomright: 10px;
+	color:rgba(255, 255, 255, 0.4);
+	height:40px;
+	text-transform:uppercase;
+	width:97%;
+	
+}
+
+
 #second-nav {
 	background: #242626 url('/tm/images/static/overlays/08.png');
 	border: 2px solid #242626;

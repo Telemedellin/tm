@@ -1,3 +1,5 @@
+
+<div id="contenedorInfo">
 <?php 
 $bc = array();
 $bc[] = ucfirst($seccion->nombre);
@@ -6,7 +8,7 @@ $this->pageTitle = $seccion->nombre;
 
 cs()->registerScriptFile( bu('js/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js'), CClientScript::POS_END );
 cs()->registerScript( 'scroll', 
-	'$("#seccion").mCustomScrollbar({
+	'$(".listado").mCustomScrollbar({
 		scrollButtons:{
 			enable:true
 		}
@@ -16,10 +18,26 @@ cs()->registerScript( 'scroll',
 
 
 ?>
+<div class="arrow-before"></div>
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
-<?php foreach($micrositios as $micrositio):?>
-	<div <?php if($micrositio->destacado) echo 'class="destacado"'?>>
-		<a href="<?php echo bu($micrositio->url->slug); ?>"><h2><?php echo $micrositio->nombre; ?></h2></a>
+
+	<div class="listado">
+		<div class="buscadorProgramas">
+		 	<FORM method="GET"> 
+			    <fieldset>                   
+			        <INPUT TYPE="text" id="s" name="q" value="Buscar programa" /> 
+			    </fieldset> 
+		    </FORM> 
+		</div>
+	<?php foreach($micrositios as $micrositio):?>
+		<div <?php if($micrositio->destacado) echo 'class="destacado"'?>>
+			<a href="<?php echo bu($micrositio->url->slug); ?>"><h2><?php echo $micrositio->nombre; ?></h2></a>
+		</div>
+	<?php endforeach; ?>
 	</div>
-<?php endforeach; ?>
+	<div class="logos">
+		<img src="http://localhost/tm/images/logos/altavoz.png" />
+	</div>
 </div>
+</div>
+
