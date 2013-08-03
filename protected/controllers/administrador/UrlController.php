@@ -32,7 +32,7 @@ class UrlController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('crear','update'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -60,9 +60,9 @@ class UrlController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCrear()
 	{
-		$model=new Url;
+		$model = new Url;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -74,7 +74,7 @@ class UrlController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
-		$this->render('create',array(
+		$this->render('crear',array(
 			'model'=>$model,
 		));
 	}

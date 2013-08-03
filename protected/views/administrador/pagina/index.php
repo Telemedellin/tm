@@ -3,18 +3,40 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Paginas',
+	'Páginas',
 );
 
 $this->menu=array(
-	array('label'=>'Create Pagina', 'url'=>array('create')),
+	array('label'=>'Crear Pagina', 'url'=>array('create')),
 	array('label'=>'Manage Pagina', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Paginas</h1>
+<h1>Páginas</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
+<?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+	'enableSorting' => true,
+	'columns'=>array(
+        'id',
+        //'usuario.nombre',
+        'micrositio.nombre',
+        'tipoPagina.nombre',
+        'url.slug',
+        'nombre',
+        array(
+            'name'=>'creado',
+            'value'=>'date("Y-m-d H:i:s", $data->creado)',
+        ),
+        array(
+            'name'=>'modificado',
+            'value'=>'date("Y-m-d H:i:s", $data->modificado)',
+        ),
+        'estado',
+        'destacado',
+        array(
+            'class'=>'CButtonColumn',
+        ),
+    )
 )); ?>
+
