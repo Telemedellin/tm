@@ -138,8 +138,8 @@ nav ul {
 .mCustomScrollBox {
 	-ms-touch-action: none; /*MSPointer events - direct all pointer events to js*/
 	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 	float:right;
 	-webkit-border-top-left-radius: 10px;
 	-webkit-border-top-right-radius: 10px;
@@ -944,20 +944,10 @@ nav ul {
 #contenedorInfo {
 	height: 95%;
 	width: 90%;
-	overflow:hidden;
+	/*overflow: hidden; Comento este overflow para que se vean la puntas redondeadas de #seccion*/
 	margin-top:40px;
 	
 	}
-	
-#seccion
-{
-	width: 100%;
-	height: 100%;
-	position:relative;
-	left:20px;
-	
-}
-
 .arrow-before {
     width:0px;
     height:0px;
@@ -966,27 +956,51 @@ nav ul {
     border-right:20px solid rgba(0,0,0,.9); /* base flecha y color*/
     font-size:0px;
     line-height:0px;
-    top: 100px;
+    top: 113px;
     left: 3px;
     position: absolute;
 }
 
 #seccion {
-    text-align: center;
-    padding:5px;  /* dejamos una separación entre borde y texto */
-    font-family: verdana;
-	background-color:rgba(0, 0, 0, 0.9);
-		border-radius: 10px;
-		-webkit-border-radius: 10px;
-		-moz-border-radiust: 10px;
+    background-color: rgba(0, 0, 0, 0.9);
+    -webkit-border-radius: 10px;
+	   -moz-border-radius: 10px;
+			border-radius: 10px;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+	font-family: verdana;
+	height: 85%;
+	left:20px;
+	padding: 15px;  /* dejamos una separación entre borde y texto */
+	position: relative;
+	width: 100%;
 }
-
-
 #seccion .listado
 {
-	float: right;
-	height: 100%;
-	width: 50%;
+	-webkit-column-count: 3;
+		   -moz-column-count: 3;
+		   		column-count: 3;
+	-webkit-column-gap : 20px;
+       	   -moz-column-gap: 20px;
+       	   		column-gap: 20px;
+    -webkit-column-rule-color: rgba(255, 255, 255, .5);
+    -webkit-column-rule-style: solid ;
+    -webkit-column-rule-width:  1px;
+	       -moz-column-rule-color:  rgba(255, 255, 255, .5);
+	       -moz-column-rule-style:  solid;
+	       -moz-column-rule-width:  1px;
+	       	   column-rule-color: rgba(255, 255, 255, .5);
+			   column-rule-style: solid ;
+			   column-rule-width:  1px;
+}
+#seccion .listado h2
+{
+	color: #fff;
+	font-size: 15px;
+	font-weight: normal;
+	line-height: 30px;
+	padding-left: 20px;
 }
 #seccion .mCSB_container > div {
 	margin: 1%;
