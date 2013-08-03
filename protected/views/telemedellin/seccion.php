@@ -1,5 +1,4 @@
 
-<div id="contenedorInfo">
 <?php 
 $bc = array();
 $bc[] = ucfirst($seccion->nombre);
@@ -18,7 +17,9 @@ cs()->registerScript( 'scroll',
 
 
 ?>
-<div class="arrow-before"></div>
+
+<div id="bgProgramas"><img src="http://localhost/tm/images/static/bgProgramas.png" /></div>
+
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
 
 	<div class="listado">
@@ -35,9 +36,6 @@ cs()->registerScript( 'scroll',
 		</div>
 	<?php endforeach; ?>
 	</div>
-	<div class="logos">
-		<img src="http://localhost/tm/images/logos/altavoz.png" />
-	</div>
 </div>
-</div>
+
 

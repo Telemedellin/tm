@@ -941,52 +941,38 @@ nav ul {
 	background-position: 0px -531px;
 }
 
-#contenedorInfo {
-	height: 95%;
-	width: 90%;
-	overflow:hidden;
-	margin-top:40px;
 	
-	}
+#bgProgramas img
+{	
+	max-height:100%;
+	max-width:100%;
+	position:absolute;
+	z-index:0;
+}
 	
 #seccion
 {
-	width: 100%;
-	height: 100%;
+	max-width:: 95%;
+	max-width: 85%;
 	position:relative;
 	left:20px;
+	top:10px;
 	
-}
-
-.arrow-before {
-    width:0px;
-    height:0px;
-    border-bottom:20px solid transparent;  /* izquierda flecha */
-    border-top:20px solid transparent; /* derecha flecha */
-    border-right:20px solid rgba(0,0,0,.9); /* base flecha y color*/
-    font-size:0px;
-    line-height:0px;
-    top: 100px;
-    left: 3px;
-    position: absolute;
 }
 
 #seccion {
     text-align: center;
     padding:5px;  /* dejamos una separación entre borde y texto */
-    font-family: verdana;
-	background-color:rgba(0, 0, 0, 0.9);
-		border-radius: 10px;
-		-webkit-border-radius: 10px;
-		-moz-border-radiust: 10px;
+    font-family: verdana;	
 }
+
 
 
 #seccion .listado
 {
 	float: right;
 	height: 100%;
-	width: 50%;
+	width: 95%;
 }
 #seccion .mCSB_container > div {
 	margin: 1%;
@@ -994,13 +980,6 @@ nav ul {
 	margin-bottom:15px;
 }
 #seccion .mCSB_container h2 {
-	background: rgba(0, 0, 0, 0.4);
-	-webkit-border-top-left-radius: 10px;
-	-webkit-border-bottom-right-radius: 10px;
-		   -moz-border-radius-topleft: 10px;
-		   -moz-border-radius-bottomright: 10px;
-				border-top-left-radius: 10px;
-				border-bottom-right-radius: 10px;
 	font-size: 18px;
 	font-weight: lighter;
 	line-height: 1.5;
@@ -1008,7 +987,7 @@ nav ul {
 	padding: 5px 10px;
 }
 #seccion .mCSB_container h2:hover {
-	background: rgba(0, 0, 0, 0.9);
+
 }
 #seccion .mCSB_container a {
 	color: #fff;
@@ -1021,35 +1000,18 @@ nav ul {
 	bottom: 0;
 }
 
-#seccion .logos
-{
-	float:left;
-	width: 50%;	
-}
-
-#seccion .logos img
-{
-	display:block;
-	height:250px;
-	margin:15% auto 0 auto;	
-	width:210px;
-	
-}
 
 #seccion .buscadorProgramas input
 {
 	background: rgba(0, 0, 0, 0.7);
 	border:0;
-	border-top-left-radius: 10px;
-	border-bottom-right-radius: 10px;
-		-webkit-border-top-left-radius: 10px;
-		-webkit-border-bottom-right-radius: 10px;
-		-moz-border-radius-topleft: 10px;
-		-moz-border-radius-bottomright: 10px;
+	border-radius: 10px;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
 	color:rgba(255, 255, 255, 0.4);
-	height:40px;
+	height:30px;
 	text-transform:uppercase;
-	width:97%;
+	width:100%;
 	
 }
 
