@@ -268,7 +268,11 @@ nav ul {
 {
 	background-position: 0px -429px;
 }
-
+.senal-en-vivo iframe
+{
+	min-height: 380px;
+	max-height: 720px;
+}
 #bar {
 	color: #FFF;
 	height: 98%;
@@ -592,6 +596,10 @@ nav ul {
 	float:right;
 	padding:10px;
 	width: 50%;
+}
+#micrositio.senal-en-vivo .mCustomScrollBox
+{
+	width: 100%;
 }
 #micrositio.programacion .mCustomScrollBox {
 	background: none;

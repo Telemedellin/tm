@@ -52,13 +52,13 @@ class Pagina extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('usuario_id, micrositio_id, tipo_pagina_id, nombre, url_id, estado, destacado', 'required'),
+			array('micrositio_id, tipo_pagina_id, nombre, url_id, estado, destacado', 'required'),
 			array('estado, url_id, destacado', 'numerical', 'integerOnly'=>true),
 			array('revision_id, usuario_id, url_id, micrositio_id, tipo_pagina_id, creado, modificado', 'length', 'max'=>10),
-			array('nombre', 'length', 'max'=>100),
+			array('nombre, clase', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, revision_id, usuario_id, micrositio_id, tipo_pagina_id, nombre, url_id, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
+			array('id, revision_id, usuario_id, micrositio_id, tipo_pagina_id, nombre, clase, url_id, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,6 +95,7 @@ class Pagina extends CActiveRecord
 			'micrositio_id' => 'Micrositio',
 			'tipo_pagina_id' => 'Tipo Pagina',
 			'nombre' => 'Nombre',
+			'clase' => 'Clase',
 			'url_id' => 'Slug',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
@@ -120,6 +121,7 @@ class Pagina extends CActiveRecord
 		$criteria->compare('micrositio_id',$this->micrositio_id,true);
 		$criteria->compare('tipo_pagina_id',$this->tipo_pagina_id,true);
 		$criteria->compare('nombre',$this->nombre,true);
+		$criteria->compare('clase',$this->clase,true);
 		$criteria->compare('url_id',$this->url_id,true);
 		$criteria->compare('creado',$this->creado,true);
 		$criteria->compare('modificado',$this->modificado,true);

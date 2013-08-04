@@ -58,6 +58,6 @@ if( $pagina->tipoPagina->tabla == 'novedades' )
 	<?php $this->widget( 'MenuW', array( 'id' => $menu ) ); ?>
 </div>
 <?php endif;?>
-<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?>">
+<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo $pagina->clase ?>">
 	<?php echo $contenido; ?>
 </div>
