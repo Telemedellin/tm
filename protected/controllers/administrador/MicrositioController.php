@@ -1,6 +1,6 @@
 <?php
 
-class UrlController extends Controller
+class MicrositioController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -62,14 +62,14 @@ class UrlController extends Controller
 	 */
 	public function actionCrear()
 	{
-		$model = new Url;
+		$model=new Micrositio;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Url']))
+		if(isset($_POST['Micrositio']))
 		{
-			$model->attributes = $_POST['Url'];
+			$model->attributes=$_POST['Micrositio'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -91,9 +91,9 @@ class UrlController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Url']))
+		if(isset($_POST['Micrositio']))
 		{
-			$model->attributes=$_POST['Url'];
+			$model->attributes=$_POST['Micrositio'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,7 +122,7 @@ class UrlController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Url');
+		$dataProvider=new CActiveDataProvider('Micrositio');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,10 +133,10 @@ class UrlController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Url('search');
+		$model=new Micrositio('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Url']))
-			$model->attributes=$_GET['Url'];
+		if(isset($_GET['Micrositio']))
+			$model->attributes=$_GET['Micrositio'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -147,12 +147,12 @@ class UrlController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Url the loaded model
+	 * @return Micrositio the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Url::model()->findByPk($id);
+		$model=Micrositio::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,11 +160,11 @@ class UrlController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Url $model the model to be validated
+	 * @param Micrositio $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='url-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='micrositio-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
