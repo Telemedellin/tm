@@ -12,6 +12,6 @@
       <span class="programa"><?php if($programas['siguiente']) echo $programas['siguiente']->micrositio->nombre ?></span>
     </a>
     <a class="senal-en-vivo" href="<?php echo bu('senal-en-vivo'); ?>">
-      Disfrutá Telemedellín <span>en vivo</span>
+      <span>Disfrutá Telemedellín</span> <span>en vivo</span>
     </a>
   </div>

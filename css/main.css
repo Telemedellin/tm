@@ -72,7 +72,7 @@ nav ul {
 /*Scroll*/
 .mCSB_container {
 	width: auto;
-	margin-right: 30px;
+	margin-right: 25px;
 	overflow: hidden;
 }
 .mCSB_container.mCS_no_scrollbar {
@@ -82,10 +82,11 @@ nav ul {
 	margin-right: 30px;
 }
 .mCustomScrollBox>.mCSB_scrollTools {
-	width: 16px;
-	height: 100%;
-	top: 0;
+	height: 96%;
+	margin: 2% 1%;
 	right: 0;
+	top: 0;
+	width: 16px;
 }
 .mCSB_scrollTools .mCSB_draggerContainer {
 	position: absolute;
@@ -497,7 +498,10 @@ nav ul {
 	height: 100%;
 }
 #content {
-	height: 83%;
+	-webkit-box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+				box-sizing: border-box;
+	height: 85%;
 	left: 20%;
 	overflow: hidden;
 	padding-top: 10px;
@@ -542,8 +546,8 @@ nav ul {
 	border-top-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+				box-sizing: border-box;
 	overflow:hidden;
 	padding: 5px 0 5px 15px;
 	}
@@ -568,7 +572,10 @@ nav ul {
 	background: rgba(0, 0, 0, .7);
 }
 #micrositio {
-	height: 88%;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+	height: 84%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 15px;
@@ -582,11 +589,11 @@ nav ul {
 	-ms-touch-action: none; /*MSPointer events - direct all pointer events to js*/
 	background: rgba(0, 0, 0, .6);
 	-webkit-border-top-left-radius: 10px;
-	-webkit-border-top-right-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
 		   -moz-border-radius-topleft: 10px;
-		   -moz-border-radius-topright: 10px;
+		   -moz-border-radius-bottomright: 10px;
 				border-top-left-radius: 10px;
-				border-top-right-radius: 10px;
+				border-bottom-right-radius: 10px;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
@@ -803,6 +810,9 @@ nav ul {
 	padding: 5px 10px;
 	text-transform: uppercase;
 }
+#programacion a, #programacion span {
+	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
 #programacion .al-aire, #programacion .a-continuacion {
 	line-height: 1.2;
 	padding: 3px 10px;
@@ -885,11 +895,16 @@ nav ul {
 	-moz-border-radius-topleft: 10px;
 	border-top-left-radius: 10px;
 	float: right;
-	padding: 7px 10px;
+	padding: 5px 10px;
 	width: 24%;
 }
 #programacion .senal-en-vivo span {
 	display: inline-block;
+	float: left;
+	text-align: center;
+	width: 50%;
+}
+#programacion .senal-en-vivo span:last-child {
 	float: right;
 	font-size: 15px;
 	font-weight: bold;
@@ -1106,5 +1121,8 @@ nav ul {
 	}
 	#bar .redes li.instagram a {
 		background-position: 0px -702px;
+	}
+	#micrositio {
+		height: 84%;
 	}
 }
