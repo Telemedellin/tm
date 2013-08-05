@@ -33,7 +33,7 @@ $ru = Yii::app()->request->requestUri;
 				$this->widget( 'MenuW', array( 'id' => 1 ) ); // Menú principal
 		    ?>
 			</nav>
-			<?php $this->widget('Buscador'); ?>
+			<?php $this->widget('ext.tm-buscador.TmBuscador'); ?>
 		</div>
 		<footer>
 			<div class="vcard">
@@ -96,7 +96,7 @@ $ru = Yii::app()->request->requestUri;
 			$this->widget('NewsTicker'); ?>
 	<?php 
 	if( count($this->breadcrumbs) )
-		echo $this->renderPartial('_redes'); 
+		$this->widget('Compartir'); 
 	?>
 	<div id="second-nav">
 		<?php 
