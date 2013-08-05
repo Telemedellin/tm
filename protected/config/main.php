@@ -30,7 +30,8 @@ return array(
 		),
 	),
 	'controllerMap'=>array(
-	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController'
+	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController',
+	    'buscar' => 'ext.tm-buscador.TmBuscadorController'
 	),
 	// application components
 	'components'=>array(
