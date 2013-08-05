@@ -16,15 +16,15 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'slug'); ?>
-		<?php echo $form->textField($model, 'slug', array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'slug'); ?>
-	</div>
-
-	<div class="form-group">
 		<?php echo $form->labelEx($model,'tipo'); ?>
 		<?php echo $form->dropDownList($model,'tipo', array('1' => 'Sección', '2' => 'Micrositio', '3' => 'Página' )); ?>
 		<?php echo $form->error($model,'tipo'); ?>
+	</div>
+
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'slug'); ?>
+		<?php echo $form->textField($model, 'slug', array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->error($model,'slug'); ?>
 	</div>
 
 	<div class="form-group">

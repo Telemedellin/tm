@@ -32,6 +32,14 @@
 						</ul>
 					</li>
 					<li>
+						<a href="<?php echo bu('administrador/micrositio'); ?>">Micrositios</a>
+						<ul class="nav nav-stacked nav-pills">
+							<li>
+								<a href="<?php echo bu('administrador/micrositio/crear'); ?>">Crear</a>
+							</li>
+						</ul>
+					</li>
+					<li>
 						<a href="<?php echo bu('administrador/pagina'); ?>">Páginas</a>
 						<ul class="nav nav-stacked nav-pills">
 							<li>

@@ -38,16 +38,13 @@ nav ul {
 	margin-right: 5px;
 	overflow: hidden;
 	padding: 5px;
-	/*-webkit-transition: all 0.4s linear;
-	   -moz-transition: all 0.4s linear;
-		-ms-transition: all 0.4s linear;
-		 -o-transition: all 0.4s linear;
-			transition: all 0.4s linear;*/
+	text-indent: 5px;
 	vertical-align: top;
 	width: 26px;
 }
 .breadcrumbs a:last-child, .breadcrumbs a:hover {
 	letter-spacing: .5px;
+	text-indent: 0;
 	width: auto;
 }
 .breadcrumbs a.home {

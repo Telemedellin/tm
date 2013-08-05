@@ -26,7 +26,9 @@ $destacados = '';
 		<?php endif; ?>
 	<?php endforeach; ?>
 	</div>
+	<?php if($destacados != ''): ?>
 	<div class="destacados">
 		<?php echo $destacados ?>
 	</div>
+	<?php endif; ?>
 </div>
