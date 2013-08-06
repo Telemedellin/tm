@@ -53,11 +53,10 @@ class Micrositio extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, seccion_id, usuario_id, url_id, creado, estado, destacado', 'required'),
+			array('nombre, seccion_id, url_id, estado, destacado', 'required'),
 			array('estado, url_id, destacado', 'numerical', 'integerOnly'=>true),
-			array('nombre', 'length', 'max'=>45),
 			array('seccion_id, pagina_id, url_id usuario_id, menu_id, creado, modificado', 'length', 'max'=>10),
-			array('background, miniatura', 'length', 'max'=>255),
+			array('nombre, background, miniatura', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, nombre, seccion_id, pagina_id, usuario_id, menu_id, background, miniatura, url_id, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
@@ -160,5 +159,28 @@ class Micrositio extends CActiveRecord
 		$m = $this->findByPk( $micrositio_id );
 
 		return $m->pagina_id;
+	}
+
+	protected function beforeSave()
+	{
+	    if(parent::beforeSave())
+	    {
+	        
+	        if($this->isNewRecord)
+	        {
+	        	$this->usuario_id	= 1;
+	        	$this->pagina_id 	= NULL;
+	        	$this->menu_id 		= NULL;
+	        	$this->creado 		= mktime( date('H'), date('i'), date('s'), date('m'), date('d'), date('Y') );
+	            $this->estado 		= 1;
+	        }
+	        else
+	        {
+	            $this->modificado	= mktime( date('H'), date('i'), date('s'), date('m'), date('d'), date('Y') );
+	        }
+	        return true;
+	    }
+	    else
+	        return false;
 	}
 }

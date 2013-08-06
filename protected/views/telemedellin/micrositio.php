@@ -15,8 +15,9 @@ if( !is_null($micrositio->background) )
 cs()->registerScriptFile( bu('js/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js'), CClientScript::POS_END );
 cs()->registerScript( 'scroll', 
 	'$("#micrositio").mCustomScrollbar({
+		scrollType: "pixels",
 		scrollButtons:{
-			enable:true
+			enable: true
 		}
 	});',
 	CClientScript::POS_READY
@@ -57,6 +58,6 @@ if( $pagina->tipoPagina->tabla == 'novedades' )
 	<?php $this->widget( 'MenuW', array( 'id' => $menu ) ); ?>
 </div>
 <?php endif;?>
-<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?>">
+<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo $pagina->clase ?>">
 	<?php echo $contenido; ?>
 </div>

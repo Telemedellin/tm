@@ -38,16 +38,13 @@ nav ul {
 	margin-right: 5px;
 	overflow: hidden;
 	padding: 5px;
-	/*-webkit-transition: all 0.4s linear;
-	   -moz-transition: all 0.4s linear;
-		-ms-transition: all 0.4s linear;
-		 -o-transition: all 0.4s linear;
-			transition: all 0.4s linear;*/
+	text-indent: 5px;
 	vertical-align: top;
 	width: 26px;
 }
 .breadcrumbs a:last-child, .breadcrumbs a:hover {
 	letter-spacing: .5px;
+	text-indent: 0;
 	width: auto;
 }
 .breadcrumbs a.home {
@@ -75,7 +72,7 @@ nav ul {
 /*Scroll*/
 .mCSB_container {
 	width: auto;
-	margin-right: 30px;
+	margin-right: 25px;
 	overflow: hidden;
 }
 .mCSB_container.mCS_no_scrollbar {
@@ -85,10 +82,11 @@ nav ul {
 	margin-right: 30px;
 }
 .mCustomScrollBox>.mCSB_scrollTools {
-	width: 16px;
-	height: 100%;
-	top: 0;
+	height: 96%;
+	margin: 2% 1%;
 	right: 0;
+	top: 0;
+	width: 16px;
 }
 .mCSB_scrollTools .mCSB_draggerContainer {
 	position: absolute;
@@ -135,28 +133,6 @@ nav ul {
 	top: 100%;
 	margin-top: -40px;
 }
-.mCustomScrollBox {
-	-ms-touch-action: none; /*MSPointer events - direct all pointer events to js*/
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-			box-sizing: border-box;
-	float:right;
-	-webkit-border-top-left-radius: 10px;
-	-webkit-border-top-right-radius: 10px;
-	-moz-border-radius-topleft: 10px;
-	-moz-border-radius-topright: 10px;
-	border-top-left-radius: 10px;
-	padding:10px;
-	border-top-right-radius: 10px;
-	width:50%
-}
-.listado .mCustomScrollBox
-{
-	float: none;
-	width: auto;
-}
-
-
 /* default scrollbar colors and backgrounds (default theme) */
 .mCustomScrollBox>.mCSB_scrollTools {
 	opacity: 0.75;
@@ -290,7 +266,11 @@ nav ul {
 {
 	background-position: 0px -429px;
 }
-
+.senal-en-vivo iframe
+{
+	min-height: 380px;
+	max-height: 720px;
+}
 #bar {
 	color: #FFF;
 	height: 98%;
@@ -518,7 +498,10 @@ nav ul {
 	height: 100%;
 }
 #content {
-	height: 83%;
+	-webkit-box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+				box-sizing: border-box;
+	height: 85%;
 	left: 20%;
 	overflow: hidden;
 	padding-top: 10px;
@@ -563,8 +546,8 @@ nav ul {
 	border-top-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+				box-sizing: border-box;
 	overflow:hidden;
 	padding: 5px 0 5px 15px;
 	}
@@ -589,26 +572,42 @@ nav ul {
 	background: rgba(0, 0, 0, .7);
 }
 #micrositio {
-	height: 88%;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+	height: 84%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 15px;
 }
-
-
 #micrositio.PgGenericaST iframe {
 	height: auto;
 	min-height: 340px;
 	width: 100%;
 }
-
 #micrositio .mCustomScrollBox{
+	-ms-touch-action: none; /*MSPointer events - direct all pointer events to js*/
 	background: rgba(0, 0, 0, .6);
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+		   -moz-border-radius-topleft: 10px;
+		   -moz-border-radius-bottomright: 10px;
+				border-top-left-radius: 10px;
+				border-bottom-right-radius: 10px;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+	float:right;
+	padding:10px;
+	width: 50%;
+}
+#micrositio.senal-en-vivo .mCustomScrollBox
+{
+	width: 100%;
 }
 #micrositio.programacion .mCustomScrollBox {
 	background: none;
 }
-
 #newsticker {
 	background: rgba(0, 0, 0, 0.7);
 	bottom: 10px;
@@ -811,6 +810,9 @@ nav ul {
 	padding: 5px 10px;
 	text-transform: uppercase;
 }
+#programacion a, #programacion span {
+	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
 #programacion .al-aire, #programacion .a-continuacion {
 	line-height: 1.2;
 	padding: 3px 10px;
@@ -893,11 +895,16 @@ nav ul {
 	-moz-border-radius-topleft: 10px;
 	border-top-left-radius: 10px;
 	float: right;
-	padding: 7px 10px;
+	padding: 5px 10px;
 	width: 24%;
 }
 #programacion .senal-en-vivo span {
 	display: inline-block;
+	float: left;
+	text-align: center;
+	width: 50%;
+}
+#programacion .senal-en-vivo span:last-child {
 	float: right;
 	font-size: 15px;
 	font-weight: bold;
@@ -940,17 +947,6 @@ nav ul {
 {
 	background-position: 0px -531px;
 }
-
-	
-#bgProgramas img
-{	
-	max-height:100%;
-	max-width:100%;
-	position:absolute;
-	z-index:0;
-}
-
-
 .arrow-before {
     width:0px;
     height:0px;
@@ -963,20 +959,43 @@ nav ul {
     left: 3px;
     position: absolute;
 }
-
 #seccion {
-    background-color: rgba(0, 0, 0, 0.9);
+	background: url('../images/static/bgSeccion.png') no-repeat;
+	background-size: 100% 100%;
     -webkit-border-radius: 10px;
 	   -moz-border-radius: 10px;
 			border-radius: 10px;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
-	font-family: verdana;
-	height: 85%;
+	height: 90%;
 	left:20px;
-	padding: 15px;  /* dejamos una separación entre borde y texto */
+	padding: 20px 20px 20px 30px;  /* dejamos una separación entre borde y texto */
 	position: relative;
+	width: 98%;
+}
+#seccion .destacados
+{
+	float: left;
+	height: 65%;
+	margin-bottom: 1%;
+	width: 20%;
+}
+#seccion .filtro
+{
+	height: 15%;
+	margin-bottom: 1%;
+	width: 97%;
+}
+#seccion .filtro input
+{
+	background: rgba(255, 255, 255, 0.1);
+	border: thin solid rgba(255, 255, 255, .6);
+	-webkit-border-radius: 10px;
+	   -moz-border-radius: 10px;
+			border-radius: 10px;
+	color: rgba(255, 255, 255, 0.6);
+	height: 25px;
 	width: 100%;
 }
 #seccion .listado
@@ -987,22 +1006,30 @@ nav ul {
 	-webkit-column-gap : 20px;
        	   -moz-column-gap: 20px;
        	   		column-gap: 20px;
-    -webkit-column-rule-color: rgba(255, 255, 255, .5);
+    -webkit-column-rule-color: rgba(255, 255, 255, .2);
     -webkit-column-rule-style: solid ;
     -webkit-column-rule-width:  1px;
-	       -moz-column-rule-color:  rgba(255, 255, 255, .5);
+	       -moz-column-rule-color:  rgba(255, 255, 255, .2);
 	       -moz-column-rule-style:  solid;
 	       -moz-column-rule-width:  1px;
-	       	   column-rule-color: rgba(255, 255, 255, .5);
+	       	   column-rule-color: rgba(255, 255, 255, .2);
 			   column-rule-style: solid ;
 			   column-rule-width:  1px;
+	float: left;
+	height: 65%;
+	margin-bottom: 1%;
+	margin-right: 5%;
+	overflow: hidden;
+	width: 70%;
 }
-#seccion .listado h2
+#seccion .listado a
 {
 	color: #fff;
-	font-size: 15px;
+	font-size: 14px;
 	font-weight: normal;
-	line-height: 30px;
+}
+#seccion .listado p
+{
 	padding-left: 20px;
 }
 #seccion .mCSB_container > div {
@@ -1030,22 +1057,6 @@ nav ul {
 #seccion .mCSB_container a:hover h2 {
 	bottom: 0;
 }
-
-
-#seccion .buscadorProgramas input
-{
-	background: rgba(0, 0, 0, 0.7);
-	border:0;
-	border-radius: 10px;
-		-webkit-border-radius: 10px;
-		-moz-border-radius: 10px;
-	color:rgba(255, 255, 255, 0.4);
-	height:30px;
-	text-transform:uppercase;
-	width:100%;
-	
-}
-
 
 #second-nav {
 	background: #242626 url('/tm/images/static/overlays/08.png');
@@ -1110,5 +1121,8 @@ nav ul {
 	}
 	#bar .redes li.instagram a {
 		background-position: 0px -702px;
+	}
+	#micrositio {
+		height: 84%;
 	}
 }

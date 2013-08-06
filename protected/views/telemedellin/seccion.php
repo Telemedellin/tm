@@ -1,39 +1,57 @@
-
 <?php 
 $bc = array();
 $bc[] = ucfirst($seccion->nombre);
 $this->breadcrumbs = $bc;
 $this->pageTitle = $seccion->nombre;
-/*cs()->registerScriptFile( bu('js/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js'), CClientScript::POS_END );
-cs()->registerScript( 'scroll', 
-	'$(".listado").mCustomScrollbar({
-		scrollButtons:{
-			enable:true
-		}
+$destacados = '';
+cs()->registerScript( 'filtro', 
+	'$("#txtFiltro").keyup(function(){
+		var table = $(".listado");
+		var value = this.value;
+		table.find("p").each(function(index, row) {
+			var allCells = $(row).find("a");
+			if(allCells.length > 0) {
+				var found = false;
+				allCells.each(function(index, a) {
+					var regExp = new RegExp(value, "i");
+					if(regExp.test($(a).text())) {
+						found = true;
+						return false;
+					}
+				});
+				if (found == true) $(row).show();
+				else $(row).hide();
+			}
+		});			
 	});',
 	CClientScript::POS_READY
-);*/
+);
+
 ?>
-
-
-<div id="bgProgramas"><img src="http://localhost/tm/images/static/bgProgramas.png" /></div>
-
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
-	<div class="buscadorProgramas">
-	 	<form method="GET"> 
-		    <fieldset>                   
-		        <input TYPE="text" id="s" name="q" value="Buscar ..." /> 
-		    </fieldset> 
+	<div class="filtro">
+	 	<form method="get"> 
+	        <input type="text" id="txtFiltro" name="txtFiltro" placeholder="Filtrar..." />
 	    </form> 
 	</div>
 	<div class="listado">
 	<?php foreach($micrositios as $micrositio):?>
-		<div <?php if($micrositio->destacado) echo 'class="destacado"'?>>
-			<a href="<?php echo bu($micrositio->url->slug); ?>"><h2><?php echo $micrositio->nombre; ?></h2></a>
-		</div>
+		<?php if($micrositio->destacado): ?>
+			<?php 
+				$destacados .= '<p><a href="' . bu($micrositio->url->slug) . '">';
+				$destacados .= '<img src="' . bu($micrositio->miniatura) . '" alt="' . $micrositio->nombre . '"/>';
+				$destacados .= '</a></p>' . "\n\r";
+			?>
+		<?php else: ?>
+		<p>
+			<a href="<?php echo bu($micrositio->url->slug); ?>"><?php echo $micrositio->nombre; ?></a>
+		</p>
+		<?php endif; ?>
 	<?php endforeach; ?>
 	</div>
-
+	<?php if($destacados != ''): ?>
+	<div class="destacados">
+		<?php echo $destacados ?>
+	</div>
+	<?php endif; ?>
 </div>
-
-
