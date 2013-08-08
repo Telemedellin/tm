@@ -244,27 +244,27 @@ nav ul {
 }
 .redes li.facebook a
 {
-	background-position: 0px -263px;
+	background-position: 0px 61%;
 }
 .redes li.twitter a
 {
-	background-position: 0px -297px;
+	background-position: 0px 69%;
 }
 .redes li.flickr a
 {
-	background-position: 0px -362px;
+	background-position: 0px 85%;
 }
 .redes li.youtube a
 {
-	background-position: 0px -329px;
+	background-position: 0px 77%;
 }
 .redes li.foursquare a
 {
-	background-position: 0px -395px;
+	background-position: 0px 93%;
 }
 .redes li.instagram a
 {
-	background-position: 0px -429px;
+	background-position: 0px 101%;
 }
 .senal-en-vivo iframe
 {
@@ -301,7 +301,7 @@ nav ul {
 	margin-bottom: 14px;
 }
 #bar footer .extended-address .title {
-	background: url('../images/static/iconos/tmicons.png') no-repeat -3px -128px;
+	background: url('../images/static/iconos/tmicons.png') no-repeat -3px 31%;
 	background-size: 12%;
 	padding-left: 15px;
 }
@@ -312,7 +312,7 @@ nav ul {
 	display: block;
 }
 #bar footer .tel .title {
-	background: url('../images/static/iconos/tmicons.png') no-repeat -2px -159px;
+	background: url('../images/static/iconos/tmicons.png') no-repeat -2px 38.5%	;
 	background-size: 12%;
 	padding-left: 15px;
 }
@@ -321,7 +321,7 @@ nav ul {
 	text-transform: uppercase;
 }
 #bar footer .email .title {
-	background: url('../images/static/iconos/tmicons.png') no-repeat -2px -191px;
+	background: url('../images/static/iconos/tmicons.png') no-repeat -2px 46%;
 	background-size: 12%;
 	padding-left: 15px;
 }
@@ -336,12 +336,12 @@ nav ul {
 #bar nav li {
 }
 #bar nav li a {
-	background: url('../images/static/iconos/tmicons.png') no-repeat 6px 13px;
-	background-size: 12%;
+	background: url('../images/static/iconos/tmicons.png') no-repeat 6px -3%;
+	background-size: 9%;
 	border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 	color: #FFF;
 	display: block;
-	font-size: 11px;
+	font-size: 12px;
 	margin: 0 8px;
 	padding: 10px 0 10px 30px;
 	text-transform: uppercase;
@@ -370,13 +370,13 @@ nav ul {
 	display: block;
 }
 #bar nav li.programas a {
-	background-position: 5px -21px;
+	background-position: 5px 5%;
 }
 #bar nav li.especiales a {
-	background-position: 5px -51px;
+	background-position: 5px 13%;
 }
 #bar nav li.documentales a {
-	background-position: 5px -81px;
+	background-position: 5px 21%;
 }
 #bar .escribenos {
 	background: rgba(137, 222, 21, 0.6) url('../images/static/iconos/tmicons.png') no-repeat 22px -379px;
@@ -1087,12 +1087,29 @@ nav ul {
 #second-nav li a {
 	color: #FFF;
 }
+@media (max-width: 767px) {
+	#bar nav li a {
+		background-size: 13%;
+	}
+	#bar .redes li a {
+		background-size: 84%;
+	}
+}
+@media (min-width: 768px) and (max-width: 979px) {
+	#bar nav li a {
+		background-size: 12%;
+	}
+	#bar .redes li a {
+		background-size: 72%;
+	}
+}
 @media (min-width: 1200px) {
 	#bar nav li a {
-		background-size: 7%;
+		background-size: 8%;
+		font-size: 1.1em;
+		padding: 11px 0 11px 30px;
 	}
 	#bar footer .extended-address .title {
-		background: url('../images/static/iconos/tmicons.png') no-repeat -3px -128px;
 		background-size: 7%;
 	}
 	#bar footer .tel .title {
@@ -1102,27 +1119,28 @@ nav ul {
 		background-size: 7%;
 	}
 	#bar .redes li a {
-		background: url('../images/static/iconos/tmicons.png') no-repeat 0px -432px;
-	}
-	#bar .redes li.facebook a {
-		background-position: 0px -432px;
-	}
-	#bar .redes li.twitter a {
-		background-position: 0px -487px;
-	}
-	#bar .redes li.flickr a {
-		background-position: 0px -594px;
-	}
-	#bar .redes li.youtube a {
-		background-position: 0px -540px;
-	}
-	#bar .redes li.foursquare a {
-		background-position: 0px -648px;
-	}
-	#bar .redes li.instagram a {
-		background-position: 0px -702px;
+		background-size: 47%;
 	}
 	#micrositio {
 		height: 84%;
+	}
+}
+@media (min-width: 1437px) {
+	#bar nav li a {
+		background-size: 7%;
+		font-size: 1.1em;
+		padding: 11px 0 11px 30px;
+	}
+	#bar footer .extended-address .title {
+		background-size: 6%;
+	}
+	#bar footer .tel .title {
+		background-size: 6%;
+	}
+	#bar footer .email .title {
+		background-size: 6%;
+	}
+	#bar .redes li a {
+		background-size: 39%;
 	}
 }
