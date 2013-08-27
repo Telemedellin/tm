@@ -98,11 +98,6 @@ $ru = Yii::app()->request->requestUri;
 	if( count($this->breadcrumbs) )
 		$this->widget('Compartir'); 
 	?>
-	<div id="second-nav">
-		<?php 
-			$this->widget( 'MenuW', array( 'id' => 4 ) ); // Menú utilitario
-	      ?>
-	</div>
 </div>
 </body>
 </html>
