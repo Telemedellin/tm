@@ -22,20 +22,6 @@ cs()->registerScript( 'scroll',
 	});',
 	CClientScript::POS_READY
 );
-
-if( $pagina->tipoPagina->tabla == 'novedades' )
-{
-	cs()->registerScriptFile( bu('js/jquery.isotope/jquery.isotope.min.js'), CClientScript::POS_END );
-	cs()->registerScript( 'isotope', 
-		'$(".mCSB_container").isotope({
-		  itemSelector : "div",
-		  //layoutMode : "fitRows"
-		});',
-		CClientScript::POS_READY
-	);
-}
-
-
 ?>
 <?php if( isset( $micrositio->red_social ) && count($micrositio->red_social) ):  ?>
 <div id="redes_micrositio" class="redes">
@@ -58,6 +44,6 @@ if( $pagina->tipoPagina->tabla == 'novedades' )
 	<?php $this->widget( 'MenuW', array( 'id' => $menu ) ); ?>
 </div>
 <?php endif;?>
-<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo $pagina->clase ?>">
+<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo (!is_null($pagina->clase)) ? $pagina->clase : '' ?>">
 	<?php echo $contenido; ?>
 </div>

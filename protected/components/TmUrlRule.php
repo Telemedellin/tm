@@ -26,23 +26,24 @@ class TmUrlRule extends CBaseUrlRule
             $_GET['tm'] = $slug;
             switch ( $slug->tipo ) {
                 case 1:
-                    return 'telemedellin/cargarSeccion';
-                    break;
-                case 2:
-                    if( $slug->slug == 'novedades' )
-                        return 'telemedellin/cargarNovedades';
-                    else if( $slug->slug == 'programacion' )
-                        return 'telemedellin/cargarProgramacion';
+                    if( $slug->slug == 'programas')
+                        return 'telemedellin/cargarProgramas';
                     else
-                        return 'telemedellin/cargarMicrositio';
-                    break;
+                        return 'telemedellin/cargarSeccion';
+                case 2:
+                    switch( $slug->slug ){
+                        case 'novedades':
+                            return 'telemedellin';
+                        case 'programacion':
+                            return 'telemedellin/cargarProgramacion';
+                        default:
+                            return 'telemedellin/cargarMicrositio';
+                    }
                 case 3:
-                        $_GET['slug_id'] = $slug->id;
-                        return 'telemedellin/cargarMicrositio';
-                    break;
+                    $_GET['slug_id'] = $slug->id;
+                    return 'telemedellin/cargarMicrositio';
                 default:
                     return 'telemedellin';
-                    break;
             }
         }
         return false;  // this rule does not apply

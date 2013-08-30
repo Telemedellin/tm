@@ -1,11 +1,11 @@
 <?php
-cs()->registerScriptFile(bu().'/js/jquery.superslides/jquery.superslides.js', CClientScript::POS_END);
+cs()->registerScriptFile(bu().'/js/libs/jquery.superslides.js', CClientScript::POS_END);
 cs()->registerScript(
   'novedades', 
   '$("#novedades").superslides({
     animation: "fade",
     play: 5000,
-    hashchange: true,
+    //hashchange: true,
     pagination: false
   });
   set_current();

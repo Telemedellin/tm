@@ -10,9 +10,8 @@ $ru = Yii::app()->request->requestUri;
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/bootstrap-responsive.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/main.css" />
 	<!--[if LTE IE 8]>
-      <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" />
-      <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/modernizr.custom.95570.js"></script>
-    <![endif]-->
+	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" />
+	<![endif]-->
 	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
 	<?php $this->display_seo(); ?>
 </head>
@@ -99,5 +98,11 @@ $ru = Yii::app()->request->requestUri;
 		$this->widget('Compartir'); 
 	?>
 </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!--<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/bootstrap.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/modernizr.custom.30163.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/mustache/mustache.js"></script>-->
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.min.js"></script>
 </body>
 </html>

@@ -39,6 +39,34 @@ class TelemedellinController extends Controller
 		//print_r($_GET);
 	}
 
+	public function actionCargarProgramas()
+	{
+		$url_id = $_GET['tm']->id;
+		$seccion = Seccion::model()->cargarPorUrl( $url_id );
+		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
+		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
+		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
+
+		if( Yii::app()->request->isAjaxRequest )
+		{
+			header('Content-Type: application/json; charset="UTF-8"');
+			$this->renderPartial( 'json_programas', array('seccion' => $seccion, 'micrositios' => $micrositios) );
+			Yii::app()->end();
+		}
+		elseif ($_GET['tm']->tipo == 4) {
+			$datos = $this->renderPartial( 'json_programas', array('seccion' => $seccion, 'micrositios' => $micrositios), true );
+			cs()->registerScript( 'ajax', 
+				'success_popup(' . $datos . ');',
+				CClientScript::POS_READY
+			);
+			$this->render('index');
+		}
+		else
+		{
+			$this->render( 'programas', array('seccion' => $seccion, 'micrositios' => $micrositios) );
+		}
+	}
+
 	public function actionCargarSeccion()
 	{
 		$url_id = $_GET['tm']->id;
@@ -46,7 +74,25 @@ class TelemedellinController extends Controller
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
 		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
-		$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
+		
+		if( Yii::app()->request->isAjaxRequest )
+		{
+			header('Content-Type: application/json; charset="UTF-8"');
+			$this->renderPartial( 'json_seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
+			Yii::app()->end();
+		}
+		elseif ($_GET['tm']->tipo == 4) {
+			$datos = $this->renderPartial( 'json_seccion', array('seccion' => $seccion, 'micrositios' => $micrositios), true );
+			cs()->registerScript( 'ajax', 
+				'success_popup(' . $datos . ');',
+				CClientScript::POS_READY
+			);
+			$this->render('index');
+		}
+		else
+		{
+			$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
+		}
 	}
 
 	public function actionCargarMicrositio( )
@@ -93,39 +139,14 @@ class TelemedellinController extends Controller
 		);
 	}
 
-	public function actionCargarNovedades()
-	{
-		$url_id = $_GET['tm']->id;
-
-		$micrositio = Micrositio::model()->cargarPorUrl( $url_id );
-
-		$novedades = Pagina::model()->listarPaginas( $micrositio->id );
-
-		$pagina = new stdClass();
-		$pagina->id   = NULL;
-		$pagina->tipoPagina = new stdClass();
-		$pagina->tipoPagina->tabla = 'novedades';
-
-		$contenido = $this->renderPartial('_novedades', array('novedades' => $novedades), true);
-
-		$this->render( 
-			'micrositio', 
-			array(	'seccion' 	=> $micrositio->seccion, 
-					'micrositio'=> $micrositio, 
-					'pagina' 	=> $pagina, 
-					'contenido' => $contenido, 
-				) 
-		);
-	}
-
 	public function actionCargarProgramacion()
 	{
 		$url_id = $_GET['tm']->id;
-
 		$micrositio = Micrositio::model()->cargarPorUrl( $url_id );
 
 		$pagina = new stdClass();
 		$pagina->id   = NULL;
+		$pagina->clase = 'programacion';
 		$pagina->tipoPagina = new stdClass();
 		$pagina->tipoPagina->tabla = 'programacion';
 
