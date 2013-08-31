@@ -131,9 +131,11 @@ class Programacion extends CActiveRecord
 		if( !$currentEndTime ) $currentEndTime = time();
 
 		$c = new CDbCriteria;
+		$c->join = 'JOIN micrositio ON micrositio.id = t.micrositio_id';
+		$c->join .= ' JOIN url ON micrositio.url_id = url.id';
 		$c->addCondition('hora_inicio >= ' . $currentEndTime );
 		$c->order = 'hora_inicio ASC';
 
-		return $this->with('micrositio')->find( $c );
+		return $this->find( $c );
 	}
 }

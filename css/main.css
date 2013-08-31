@@ -336,14 +336,14 @@ nav ul {
 #bar nav li {
 }
 #bar nav li a {
-	background: url('../images/static/iconos/tmicons.png') no-repeat 6px -3%;
+	background: url('../images/static/iconos/tmicons.png') no-repeat 6px -2%;
 	background-size: 9%;
 	border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 	color: #FFF;
 	display: block;
 	font-size: 12px;
 	margin: 0 8px;
-	padding: 10px 0 10px 30px;
+	padding: 7px 0 7px 30px;
 	text-transform: uppercase;
 }
 #bar nav li li a 
@@ -370,13 +370,13 @@ nav ul {
 	display: block;
 }
 #bar nav li.programas a {
-	background-position: 5px 5%;
+	background-position: 5px 6%;
 }
 #bar nav li.especiales a {
-	background-position: 5px 13%;
+	background-position: 5px 14%;
 }
 #bar nav li.documentales a {
-	background-position: 5px 21%;
+	background-position: 5px 22%;
 }
 #bar .escribenos {
 	background: rgba(137, 222, 21, 0.6) url('../images/static/iconos/tmicons.png') no-repeat 22px -379px;
@@ -549,7 +549,6 @@ nav ul {
 		   -moz-box-sizing: border-box;
 				box-sizing: border-box;
 	overflow:hidden;
-	padding: 5px 0 5px 15px;
 	}
 
 .programacion .menu_micrositio a {
@@ -614,7 +613,12 @@ nav ul {
 #micrositio.programacion .menu_micrositio a
 {
 	color: #9f9ea3;
-	padding: 10px 30px 10px 30px;
+	padding: 10px 30px;
+}
+#micrositio.programacion .menu_micrositio a.hoy
+{
+	background: #27262b;
+	border-radius: 10px;
 }
 #micrositio.senal-en-vivo .mCustomScrollBox,
 #micrositio.programacion .mCustomScrollBox
@@ -852,7 +856,7 @@ nav ul {
 	text-transform: none;
 }
 .programa {
-	margin: 5px 0 0 0;
+	margin: 10px 0 0;
 	overflow:hidden;
 }
 .programa.actual
@@ -1177,12 +1181,16 @@ nav ul {
 	#bar .redes li a {
 		background-size: 72%;
 	}
+	#micrositio.programacion .menu_micrositio a
+	{
+		padding: 10px 6px;
+	}
 }
 @media (min-width: 1200px) {
 	#bar nav li a {
 		background-size: 8%;
-		font-size: 1.1em;
-		padding: 11px 0 11px 30px;
+		font-size: .9em;
+		padding: 7px 0 7px 30px;
 	}
 	#bar footer .extended-address .title {
 		background-size: 7%;
