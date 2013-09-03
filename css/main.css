@@ -606,6 +606,10 @@ nav ul {
 	border: 2px solid rgba(255, 255, 255, 0.4);
 	border-radius: 10px;
 }
+#micrositio.programacion .mCustomScrollBox
+{
+	background: none;
+}
 #micrositio.programacion .menu_micrositio
 {
 	background: #0f0e13;
@@ -839,6 +843,7 @@ nav ul {
 	padding: 3px 10px;
 }
 #programacion .al-aire {
+	background: url(../images/static/iconos/envivo_programacion.png) no-repeat left center;
 	border-right: 2px groove #FE9930;
 	font-weight: bold;
 	padding-left: 30px;
@@ -870,12 +875,18 @@ nav ul {
 	padding: 5px 5px 5px 10px;	
 }
 .programa .tit_programa {
+	background: url(../images/static/iconos/flecha_programacion.png) no-repeat left center;
 	box-sizing: border-box;
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
 	float:left;
-	padding: 5px 5px 5px 30px;
+	margin-left: 10px;
+	padding: 5px 35px 5px 20px;
 	width:auto;
+}
+.programa.actual .tit_programa {
+	background: url(../images/static/iconos/flecha_programacion.png) no-repeat left center,
+				url(../images/static/iconos/envivo_programacion.png) no-repeat right center;
 }
 .programa a
 {
@@ -1123,6 +1134,12 @@ nav ul {
 #redes_micrositio li.instagram a
 {
 	background-position: 0px -531px;
+}
+#seccion.concursos
+{
+	float: right;
+	font-size: 1.6em;
+	width: 40%;
 }
 .arrow-before {
     width:0px;

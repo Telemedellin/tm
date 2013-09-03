@@ -7,7 +7,7 @@
       <span class="programa"><?php if($programas['actual']) echo $programas['actual']->micrositio->nombre ?></span>
     </a>
     <!--El hover abre el tooltip, el clic al programa-->
-    <a class="a-continuacion" href="<?php echo bu($programas['siguiente']->micrositio->url->slug)?>">
+    <a class="a-continuacion" href="<?php if($programas['siguiente']) echo bu($programas['siguiente']->micrositio->url->slug)?>">
       <span class="estado">A continuación</span> 
       <span class="programa"><?php if($programas['siguiente']) echo $programas['siguiente']->micrositio->nombre ?></span>
     </a>

@@ -53,17 +53,14 @@ class TelemedellinController extends Controller
 			$this->renderPartial( 'json_programas', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 			Yii::app()->end();
 		}
-		elseif ($_GET['tm']->tipo == 4) {
+		else 
+		{
 			$datos = $this->renderPartial( 'json_programas', array('seccion' => $seccion, 'micrositios' => $micrositios), true );
 			cs()->registerScript( 'ajax', 
 				'success_popup(' . $datos . ');',
 				CClientScript::POS_READY
 			);
 			$this->render('index');
-		}
-		else
-		{
-			$this->render( 'programas', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 		}
 	}
 
@@ -81,17 +78,18 @@ class TelemedellinController extends Controller
 			$this->renderPartial( 'json_seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 			Yii::app()->end();
 		}
-		elseif ($_GET['tm']->tipo == 4) {
+		else if($_GET['tm']->slug == 'concursos')
+		{
+			$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
+		}
+		else 
+		{
 			$datos = $this->renderPartial( 'json_seccion', array('seccion' => $seccion, 'micrositios' => $micrositios), true );
 			cs()->registerScript( 'ajax', 
 				'success_popup(' . $datos . ');',
 				CClientScript::POS_READY
 			);
 			$this->render('index');
-		}
-		else
-		{
-			$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 		}
 	}
 
@@ -112,8 +110,6 @@ class TelemedellinController extends Controller
 			else
 				$pagina  = Pagina::model()->cargarPorMicrositio( $micrositio->id );
 		}
-
-		
 
 		if( !is_null($micrositio->menu_id) )
 		{

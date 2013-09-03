@@ -29,11 +29,6 @@ cs()->registerScript( 'filtro',
 
 ?>
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
-	<div class="filtro">
-	 	<form method="get"> 
-	        <input type="text" id="txtFiltro" name="txtFiltro" placeholder="Filtrar..." />
-	    </form> 
-	</div>
 	<div class="listado">
 	<?php foreach($micrositios as $micrositio):?>
 		<?php if($micrositio->destacado): ?>
@@ -49,9 +44,4 @@ cs()->registerScript( 'filtro',
 		<?php endif; ?>
 	<?php endforeach; ?>
 	</div>
-	<?php if($destacados != ''): ?>
-	<div class="destacados">
-		<?php echo $destacados ?>
-	</div>
-	<?php endif; ?>
 </div>

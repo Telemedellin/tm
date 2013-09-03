@@ -26,7 +26,7 @@ class TmUrlRule extends CBaseUrlRule
             $_GET['tm'] = $slug;
             switch ( $slug->tipo ) {
                 case 1:
-                    if( $slug->slug == 'programas')
+                    if( $slug->slug == 'programas' )
                         return 'telemedellin/cargarProgramas';
                     else
                         return 'telemedellin/cargarSeccion';
