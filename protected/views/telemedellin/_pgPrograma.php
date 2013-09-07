@@ -7,10 +7,3 @@
 <?php endif; ?>
 <h3>Reseña</h3>
 <p><?php echo $contenido['contenido']->resena ?></p>
-
-<?php if( $contenido['contenido']->esta_semana ): ?>
-	<h3>Esta semana</h3>
-<?php 
-	echo $contenido['contenido']->esta_semana;
-?>
-<?php endif; ?>

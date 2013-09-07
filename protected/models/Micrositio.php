@@ -7,23 +7,27 @@
  * @property string $id
  * @property string $nombre
  * @property string $seccion_id
- * @property string $pagina_id
  * @property string $usuario_id
+ * @property string $url_id
+ * @property string $pagina_id
  * @property string $menu_id
  * @property string $background
- * @property integer $url_id
+ * @property string $miniatura
  * @property string $creado
- * @property string $modificado
- * @property integer $estado
+ * @property string $property
+ * @modificado integer $estado
  * @property integer $destacado
  *
  * The followings are the available model relations:
- * @property Menu $menu
- * @property Pagina $pagina
+ * @property AlbumVideo[] $albumVideos
  * @property Seccion $seccion
+ * @property Pagina $pagina
  * @property Usuario $usuario
- * @property Pagina[] $paginas
+ * @property Menu $menu
  * @property Url $url
+ * @property Pagina[] $paginas
+ * @property Programacion[] $programacions
+ * @property RedSocial[] $redSocials
  */
 class Micrositio extends CActiveRecord
 {
@@ -54,12 +58,13 @@ class Micrositio extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nombre, seccion_id, url_id, estado, destacado', 'required'),
-			array('estado, url_id, destacado', 'numerical', 'integerOnly'=>true),
-			array('seccion_id, pagina_id, url_id usuario_id, menu_id, creado, modificado', 'length', 'max'=>10),
+			array('estado, destacado', 'numerical', 'integerOnly'=>true),
 			array('nombre, background, miniatura', 'length', 'max'=>255),
+			array('seccion_id, usuario_id, url_id, pagina_id, menu_id', 'length', 'max'=>10),
+			array('creado, modificado', 'length', 'max'=>19),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nombre, seccion_id, pagina_id, usuario_id, menu_id, background, miniatura, url_id, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
+			array('id, nombre, seccion_id, usuario_id, url_id, pagina_id, menu_id, background, miniatura, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,14 +76,15 @@ class Micrositio extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
-			'pagina' => array(self::BELONGS_TO, 'Pagina', 'pagina_id'),
+			'albumVideos' => array(self::HAS_MANY, 'AlbumVideo', 'micrositio_id'),
 			'seccion' => array(self::BELONGS_TO, 'Seccion', 'seccion_id'),
+			'pagina' => array(self::BELONGS_TO, 'Pagina', 'pagina_id'),
 			'usuario' => array(self::BELONGS_TO, 'Usuario', 'usuario_id'),
-			'paginas' => array(self::HAS_MANY, 'Pagina', 'micrositio_id'),
-			'red_social' => array(self::HAS_MANY, 'RedSocial', 'micrositio_id'),
-			'programaciones' => array(self::HAS_MANY, 'Programacion', 'micrositio_id'),
+			'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
 			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
+			'paginas' => array(self::HAS_MANY, 'Pagina', 'micrositio_id'),
+			'programacions' => array(self::HAS_MANY, 'Programacion', 'micrositio_id'),
+			'redSocials' => array(self::HAS_MANY, 'RedSocial', 'micrositio_id'),
 		);
 	}
 
@@ -91,12 +97,12 @@ class Micrositio extends CActiveRecord
 			'id' => 'ID',
 			'nombre' => 'Nombre',
 			'seccion_id' => 'Seccion',
-			'pagina_id' => 'Pagina',
 			'usuario_id' => 'Usuario',
+			'url_id' => 'Url',
+			'pagina_id' => 'Pagina',
 			'menu_id' => 'Menu',
 			'background' => 'Background',
 			'miniatura' => 'Miniatura',
-			'url_id' => 'Slug',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
 			'estado' => 'Estado',
@@ -118,12 +124,12 @@ class Micrositio extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('seccion_id',$this->seccion_id,true);
-		$criteria->compare('pagina_id',$this->pagina_id,true);
 		$criteria->compare('usuario_id',$this->usuario_id,true);
+		$criteria->compare('url_id',$this->url_id,true);
+		$criteria->compare('pagina_id',$this->pagina_id,true);
 		$criteria->compare('menu_id',$this->menu_id,true);
 		$criteria->compare('background',$this->background,true);
 		$criteria->compare('miniatura',$this->miniatura,true);
-		$criteria->compare('url_id',$this->url_id,true);
 		$criteria->compare('creado',$this->creado,true);
 		$criteria->compare('modificado',$this->modificado,true);
 		$criteria->compare('estado',$this->estado);
@@ -143,13 +149,13 @@ class Micrositio extends CActiveRecord
 	public function cargarPorUrl($url_id)
 	{
 		if( !$url_id ) return false;
-		return $this->with('url', 'seccion', 'red_social')->findByAttributes( array('url_id' => $url_id), 't.estado <> 0' );
+		return $this->with('url', 'seccion', 'redSocials', 'albumVideos')->findByAttributes( array('url_id' => $url_id), 't.estado <> 0' );
 	}
 
 	public function cargarMicrositio($micrositio_id)
 	{
 		if( !$micrositio_id ) return false;
-		return $this->with('url', 'seccion', 'red_social')->findByPk( $micrositio_id, 't.estado <> 0' );
+		return $this->with('url', 'seccion', 'redSocials', 'albumVideos')->findByPk( $micrositio_id, 't.estado <> 0' );
 	}
 
 	public function getDefaultPage( $micrositio_id )
@@ -165,7 +171,6 @@ class Micrositio extends CActiveRecord
 	{
 	    if(parent::beforeSave())
 	    {
-	        
 	        if($this->isNewRecord)
 	        {
 	        	$this->usuario_id	= 1;

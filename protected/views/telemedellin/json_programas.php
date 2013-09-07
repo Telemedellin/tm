@@ -1,4 +1,3 @@
-<?php //header('Content-Type: application/json; charset="UTF-8"'); ?>
 <?php 
 $destacados = '';
 $json = '';
@@ -14,12 +13,11 @@ $json .= '{';
 				$destacados .= '"url":"' . bu($micrositio->url->slug) . '",';
 				$destacados .= '"miniatura":"' . bu($micrositio->miniatura) . '"';
 				$destacados .= '},';
-			else:
+			endif;
 		$json .= '{';
 			$json .= '"nombre":"'.CHtml::encode($micrositio->nombre).'",';
 			$json .= '"url":"'.bu($micrositio->url->slug).'"';
 		$json .= '},';
-			endif;
 		endforeach;
 		$json = substr($json, 0, -1);
 	$json .= '],';
@@ -31,4 +29,3 @@ $json .= '{';
 $json .= '}';
 echo $json;
 ?>
-<?php //Yii::app()->end();?>

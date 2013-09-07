@@ -9,8 +9,9 @@
  * @property string $usuario_id
  * @property string $micrositio_id
  * @property string $tipo_pagina_id
+ * @property string $url_id
  * @property string $nombre
- * @property integer $url_id
+ * @property string $clase
  * @property string $creado
  * @property string $modificado
  * @property integer $estado
@@ -18,10 +19,15 @@
  *
  * The followings are the available model relations:
  * @property Micrositio[] $micrositios
- * @property Revision $revision
- * @property Usuario $usuario
  * @property Micrositio $micrositio
+ * @property Revision $revision
  * @property TipoPagina $tipoPagina
+ * @property Url $url
+ * @property Usuario $usuario
+ * @property PgArticuloBlog[] $pgArticuloBlogs
+ * @property PgDocumental[] $pgDocumentals
+ * @property PgEspecial[] $pgEspecials
+ * @property PgGenericaSt[] $pgGenericaSts
  * @property PgPrograma[] $pgProgramas
  */
 class Pagina extends CActiveRecord
@@ -71,15 +77,16 @@ class Pagina extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'micrositios' => array(self::HAS_MANY, 'Micrositio', 'pagina_id'),
-			'revision' => array(self::BELONGS_TO, 'Revision', 'revision_id'),
-			'usuario' => array(self::BELONGS_TO, 'Usuario', 'usuario_id'),
 			'micrositio' => array(self::BELONGS_TO, 'Micrositio', 'micrositio_id'),
+			'revision' => array(self::BELONGS_TO, 'Revision', 'revision_id'),
 			'tipoPagina' => array(self::BELONGS_TO, 'TipoPagina', 'tipo_pagina_id'),
-			'pgProgramas' => array(self::HAS_ONE, 'PgPrograma', 'pagina_id'),
-			'pgArticuloBlogs' => array(self::HAS_ONE, 'PgArticuloBlog', 'pagina_id'),
-			'pgGenericaSts' => array(self::HAS_ONE, 'PgGenericaSt', 'pagina_id'),
-			'pgDocumentales' => array(self::HAS_ONE, 'PgDocumental', 'pagina_id'),
 			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
+			'usuario' => array(self::BELONGS_TO, 'Usuario', 'usuario_id'),
+			'pgArticuloBlogs' => array(self::HAS_MANY, 'PgArticuloBlog', 'pagina_id'),
+			'pgDocumentals' => array(self::HAS_MANY, 'PgDocumental', 'pagina_id'),
+			'pgEspecials' => array(self::HAS_MANY, 'PgEspecial', 'pagina_id'),
+			'pgGenericaSts' => array(self::HAS_MANY, 'PgGenericaSt', 'pagina_id'),
+			'pgProgramas' => array(self::HAS_MANY, 'PgPrograma', 'pagina_id'),
 		);
 	}
 
@@ -94,9 +101,9 @@ class Pagina extends CActiveRecord
 			'usuario_id' => 'Usuario',
 			'micrositio_id' => 'Micrositio',
 			'tipo_pagina_id' => 'Tipo Pagina',
+			'url_id' => 'Url',
 			'nombre' => 'Nombre',
 			'clase' => 'Clase',
-			'url_id' => 'Slug',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
 			'estado' => 'Estado',
@@ -120,14 +127,13 @@ class Pagina extends CActiveRecord
 		$criteria->compare('usuario_id',$this->usuario_id,true);
 		$criteria->compare('micrositio_id',$this->micrositio_id,true);
 		$criteria->compare('tipo_pagina_id',$this->tipo_pagina_id,true);
+		$criteria->compare('url_id',$this->url_id,true);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('clase',$this->clase,true);
-		$criteria->compare('url_id',$this->url_id,true);
 		$criteria->compare('creado',$this->creado,true);
 		$criteria->compare('modificado',$this->modificado,true);
 		$criteria->compare('estado',$this->estado);
 		$criteria->compare('destacado',$this->destacado);
-
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -266,5 +272,4 @@ class Pagina extends CActiveRecord
 	    else
 	        return false;
 	}
-
 }

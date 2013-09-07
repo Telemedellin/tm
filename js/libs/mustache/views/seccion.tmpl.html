@@ -1,14 +1,17 @@
 <div id="overlay">
 	<div id="seccion" class="{{seccion}}">
+		<h1>{{seccion}}</h1>
 		<div class="filtro">
 		 	<form method="get"> 
 		        <input type="text" id="txtFiltro" name="txtFiltro" placeholder="Filtrar...">
 		    </form> 
 		</div>
 		<div class="listado">
+			<div class="inner">
 			{{#micrositios}}
 				<p><a href="{{url}}">{{nombre}}</a></p>
 			{{/micrositios}}
+			</div>
 		</div>
 		<div class="destacados">
 			{{#destacados}}

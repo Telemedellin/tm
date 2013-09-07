@@ -39,7 +39,80 @@ class TelemedellinController extends Controller
 		//print_r($_GET);
 	}
 
-	public function actionCargarProgramas()
+	public function actionCargarSeccion()
+	{
+		switch($_GET['tm']->slug){
+			case 'telemedellin':
+				$this->cargarTelemedellin();
+				Yii::app()->end();
+				break;
+			case 'documentales':
+				$this->cargarDocumentales();
+				Yii::app()->end();
+				break;
+			case 'programas':
+				$this->cargarProgramas();
+				Yii::app()->end();
+				break;
+			case 'concursos':
+				$this->cargarConcursos();
+				Yii::app()->end();
+				break;
+			case 'especiales':
+				$this->cargarEspeciales();
+				Yii::app()->end();
+				break;
+		}
+
+		$url_id = $_GET['tm']->id;
+		$seccion = Seccion::model()->cargarPorUrl( $url_id );
+		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
+		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
+		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
+		
+		if( Yii::app()->request->isAjaxRequest )
+		{
+			header('Content-Type: application/json; charset="UTF-8"');
+			$this->renderPartial( 'json_seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
+			Yii::app()->end();
+		}
+		else 
+		{
+			$datos = $this->renderPartial( 'json_seccion', array('seccion' => $seccion, 'micrositios' => $micrositios), true );
+			cs()->registerScript( 'ajax', 
+				'success_popup(' . $datos . ');',
+				CClientScript::POS_READY
+			);
+			$this->render('index');
+		}
+	}
+
+	private function cargarTelemedellin()
+	{
+		$url_id = $_GET['tm']->id;
+		$seccion = Seccion::model()->cargarPorUrl( $url_id );
+		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
+		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
+		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
+		
+		if( Yii::app()->request->isAjaxRequest )
+		{
+			header('Content-Type: application/json; charset="UTF-8"');
+			$this->renderPartial( 'json_telemedellin', array('seccion' => $seccion, 'micrositios' => $micrositios) );
+			Yii::app()->end();
+		}
+		else 
+		{
+			$datos = $this->renderPartial( 'json_telemedellin', array('seccion' => $seccion, 'micrositios' => $micrositios), true );
+			cs()->registerScript( 'ajax', 
+				'success_popup(' . $datos . ');',
+				CClientScript::POS_READY
+			);
+			$this->render('index');
+		}
+	}
+
+	private function cargarProgramas()
 	{
 		$url_id = $_GET['tm']->id;
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
@@ -64,33 +137,90 @@ class TelemedellinController extends Controller
 		}
 	}
 
-	public function actionCargarSeccion()
+	private function cargarDocumentales()
 	{
 		$url_id = $_GET['tm']->id;
+
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
+
+		$c = new CDbCriteria;
+		$c->addCondition('seccion_id = ' . $seccion->id);
+		$c->addCondition(' t.estado <> 0');
+		$c->join  = 'JOIN pagina ON pagina.micrositio_id = t.id';
+		$c->join  .= ' JOIN pg_documental ON pg_documental.pagina_id = pagina.id';
+		$c->limit = 7;
+		$c->order = 'pg_documental.anio DESC';
+		$recientes= Micrositio::model()->findAll( $c );
+
+		if( !$recientes ) throw new CHttpException(404, 'Invalid request');
 		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
-		
+
 		if( Yii::app()->request->isAjaxRequest )
 		{
 			header('Content-Type: application/json; charset="UTF-8"');
-			$this->renderPartial( 'json_seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
+			$this->renderPartial( 'json_documentales', array('seccion' => $seccion, 'recientes' => $recientes, 'micrositios' => $micrositios) );
 			Yii::app()->end();
-		}
-		else if($_GET['tm']->slug == 'concursos')
-		{
-			$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 		}
 		else 
 		{
-			$datos = $this->renderPartial( 'json_seccion', array('seccion' => $seccion, 'micrositios' => $micrositios), true );
+			$datos = $this->renderPartial( 'json_documentales', array('seccion' => $seccion, 'recientes' => $recientes, 'micrositios' => $micrositios), true );
 			cs()->registerScript( 'ajax', 
 				'success_popup(' . $datos . ');',
 				CClientScript::POS_READY
 			);
 			$this->render('index');
 		}
+	}
+
+	private function cargarEspeciales()
+	{
+		$url_id = $_GET['tm']->id;
+
+		$seccion = Seccion::model()->cargarPorUrl( $url_id );
+		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
+
+		$c = new CDbCriteria;
+		$c->addCondition('seccion_id = ' . $seccion->id);
+		$c->addCondition(' t.estado <> 0');
+		$c->join  = 'JOIN pagina ON pagina.micrositio_id = t.id';
+		$c->join  .= ' JOIN pg_especial ON pg_especial.pagina_id = pagina.id';
+		$c->limit = 7;
+		//$c->order = 'pg_especial.anio DESC';
+		$recientes = Micrositio::model()->findAll( $c );
+
+		if( !$recientes ) throw new CHttpException(404, 'Invalid request');
+		$micrositios = Micrositio::model()->listarPorSeccion( $seccion->id );
+		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
+
+		if( Yii::app()->request->isAjaxRequest )
+		{
+			header('Content-Type: application/json; charset="UTF-8"');
+			$this->renderPartial( 'json_documentales', 
+				array('seccion' => $seccion, 'recientes' => $recientes, 'micrositios' => $micrositios) );
+			Yii::app()->end();
+		}
+		else 
+		{
+			$datos = $this->renderPartial( 'json_documentales', 
+				array('seccion' => $seccion, 'recientes' => $recientes, 'micrositios' => $micrositios), true );
+			cs()->registerScript( 'ajax', 
+				'success_popup(' . $datos . ');',
+				CClientScript::POS_READY
+			);
+			$this->render('index');
+		}
+	}
+
+	private function cargarConcursos()
+	{
+		$url_id = $_GET['tm']->id;
+		$seccion = Seccion::model()->cargarPorUrl( $url_id );
+		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
+		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
+		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
+		$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 	}
 
 	public function actionCargarMicrositio( )
@@ -120,6 +250,27 @@ class TelemedellinController extends Controller
 			$menu = false;
 		}
 
+		/*if( !is_null($micrositio->formulario_id) )
+		{
+			
+		}
+		else
+			$formulario = false;
+
+		if(!is_null($micrositio->galeria_id) )
+		{
+
+		}
+		else
+			$galeria = false;*/
+
+		if( !is_null($micrositio->albumVideos) )
+		{
+			$videos = true;
+		}
+		else
+			$videos = false;
+
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
 		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
@@ -129,6 +280,9 @@ class TelemedellinController extends Controller
 			array(	'seccion' 	=> $micrositio->seccion, 
 					'micrositio'=> $micrositio, 
 					'menu'		=> $menu,
+					//'formulario'=> $formulario,
+					//'galeria'	=> $galeria,
+					'video'		=> $videos,
 					'pagina' 	=> $pagina['pagina'], 
 					'contenido' => $contenido, 
 				) 

@@ -1,6 +1,6 @@
 <?php
 $bc = array();
-if($seccion->url->slug != 'telemedellin')
+if($seccion->url->slug != 'sin-seccion')
 {
 	$bc[ucfirst($seccion->nombre)] =  bu( $seccion->url->slug ) ;
 }
@@ -12,7 +12,7 @@ $this->breadcrumbs = $bc;
 if( !is_null($micrositio->background) )
 	cs()->registerCss('background', 'body{background-image: url("' . bu() . $micrositio->background . '");}');
 
-cs()->registerScriptFile( bu('js/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js'), CClientScript::POS_END );
+/*cs()->registerScriptFile( bu('js/libs/jquery.mCustomScrollbar.concat.min.js'), CClientScript::POS_END );*/
 cs()->registerScript( 'scroll', 
 	'$("#micrositio").mCustomScrollbar({
 		scrollType: "pixels",
@@ -46,4 +46,18 @@ cs()->registerScript( 'scroll',
 <?php endif;?>
 <div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo (!is_null($pagina->clase)) ? $pagina->clase : '' ?>">
 	<?php echo $contenido; ?>
+	<div id="menu_inferior">
+	<?php if(isset($formulario) && $formulario): ?>
+		<?php echo $formulario ?>
+		<p>Formulario</p>
+	<?php endif;?>
+	<?php if(isset($galeria) && $galeria): ?>
+		<?php echo $galeria ?>
+		<p>Fotos</p>
+	<?php endif;?>
+	<?php if(isset($videos) && $videos): ?>
+		<?php echo $videos ?>
+		<a href="#">Videos</a>
+	<?php endif;?>
+	</div>
 </div>

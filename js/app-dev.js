@@ -14,10 +14,21 @@ function cargar_popup(url)
 
 function success_popup(data)
 {
-	if(data.seccion == 'Programas')
-		var plantilla = 'programas.tmpl.html';
-	else
-		var plantilla = 'seccion.tmpl.html';
+	switch(data.seccion){
+		case 'Telemedellín':
+			var plantilla = 'telemedellin.tmpl.html';
+			break;
+		case 'Programas':
+			var plantilla = 'programas.tmpl.html';
+			break;
+		case 'Documentales':
+		case 'Especiales':
+			var plantilla = 'documentales.tmpl.html';
+			break;
+		default:
+			var plantilla = 'seccion.tmpl.html';
+			break;
+	}
 	$.get('/tm/js/libs/mustache/views/' + plantilla, function(vista){
 		var current_url = window.location.href;
 		if(Modernizr.history){

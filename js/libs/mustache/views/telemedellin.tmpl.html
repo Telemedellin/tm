@@ -1,0 +1,18 @@
+<div id="overlay">
+	<div id="seccion" class="{{seccion}}">
+		<h1>{{seccion}}</h1>
+		<div class="paginas">
+			{{#micrositios}}
+				<div>
+					<h2><a href="{{url}}">{{nombre}}</a></h2>
+					<ul>
+						{{#paginas}}
+						<li><a href="{{url}}">{{nombre}}</a></li>
+						{{/paginas}}
+					</ul>
+				</div>
+			{{/micrositios}}
+		</div>
+		<a href="#" class="close">X</a>
+	</div>
+</div>
