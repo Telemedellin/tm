@@ -14,11 +14,12 @@
  * @property string $background
  * @property string $miniatura
  * @property string $creado
- * @property string $property
- * @modificado integer $estado
+ * @property string $modificado
+ * @property integer $estado
  * @property integer $destacado
  *
  * The followings are the available model relations:
+ * @property AlbumFoto[] $albumFotos
  * @property AlbumVideo[] $albumVideos
  * @property Seccion $seccion
  * @property Pagina $pagina
@@ -61,7 +62,7 @@ class Micrositio extends CActiveRecord
 			array('estado, destacado', 'numerical', 'integerOnly'=>true),
 			array('nombre, background, miniatura', 'length', 'max'=>255),
 			array('seccion_id, usuario_id, url_id, pagina_id, menu_id', 'length', 'max'=>10),
-			array('creado, modificado', 'length', 'max'=>19),
+			array('modificado', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, nombre, seccion_id, usuario_id, url_id, pagina_id, menu_id, background, miniatura, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
@@ -76,6 +77,7 @@ class Micrositio extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'albumFotos' => array(self::HAS_MANY, 'AlbumFoto', 'micrositio_id'),
 			'albumVideos' => array(self::HAS_MANY, 'AlbumVideo', 'micrositio_id'),
 			'seccion' => array(self::BELONGS_TO, 'Seccion', 'seccion_id'),
 			'pagina' => array(self::BELONGS_TO, 'Pagina', 'pagina_id'),

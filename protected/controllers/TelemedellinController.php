@@ -256,13 +256,13 @@ class TelemedellinController extends Controller
 		}
 		else
 			$formulario = false;
-
-		if(!is_null($micrositio->galeria_id) )
+		*/
+		if(!is_null($micrositio->albumFotos) )
 		{
-
+			$galeria = true;
 		}
 		else
-			$galeria = false;*/
+			$galeria = false;
 
 		if( !is_null($micrositio->albumVideos) )
 		{
@@ -281,7 +281,7 @@ class TelemedellinController extends Controller
 					'micrositio'=> $micrositio, 
 					'menu'		=> $menu,
 					//'formulario'=> $formulario,
-					//'galeria'	=> $galeria,
+					'galeria'	=> $galeria,
 					'video'		=> $videos,
 					'pagina' 	=> $pagina['pagina'], 
 					'contenido' => $contenido, 

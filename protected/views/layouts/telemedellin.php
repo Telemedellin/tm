@@ -35,32 +35,6 @@ $ru = Yii::app()->request->requestUri;
 			<?php $this->widget('ext.tm-buscador.TmBuscador'); ?>
 		</div>
 		<footer>
-			<div class="vcard">
-				<p class="adr">
-					<a class="extended-address" href="http://goo.gl/maps/VPIMK">
-						<span class="title">Sede principal</span>
-						<span class="locality">Barrio Caribe</span> <span class="street-address">Cra 64C N 72-58</span>
-					</a>
-					<a class="extended-address" href="http://goo.gl/maps/NH7LN">
-						<span class="title">Sede canal parque</span>
-						<span class="locality">El Poblado</span> <span class="street-address">Cra 43A N 17 sur 30</span>
-					</a>
-				</p>
-				<p>
-					<span class="tel">
-						<span class="title">Teléfono</span>
-						<span class="value">(57 4) 448 9590</span>
-					</span>
-					<span class="tel">
-						<span class="type">Fax</span> 
-						<span class="value">(57 4) 437 6930</span>
-					</span>
-				</p>
-				<p class="email">
-					<span class="title">Correo electrónico</span>
-					<span class="email">contacto@telemedellin.tv</span>
-				</p>
-			</div>
 			<div class="redes">
 				<ul>
 					<li class="facebook"><a href="http://www.facebook.com/telemedellin.tv‎">Facebook</a></li>
