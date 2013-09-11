@@ -21,11 +21,11 @@
  * The followings are the available model relations:
  * @property AlbumFoto[] $albumFotos
  * @property AlbumVideo[] $albumVideos
- * @property Seccion $seccion
- * @property Pagina $pagina
- * @property Usuario $usuario
  * @property Menu $menu
+ * @property Pagina $pagina
+ * @property Seccion $seccion
  * @property Url $url
+ * @property Usuario $usuario
  * @property Pagina[] $paginas
  * @property Programacion[] $programacions
  * @property RedSocial[] $redSocials
@@ -58,7 +58,7 @@ class Micrositio extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, seccion_id, url_id, estado, destacado', 'required'),
+			array('nombre, seccion_id, usuario_id, url_id, creado, estado, destacado', 'required'),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true),
 			array('nombre, background, miniatura', 'length', 'max'=>255),
 			array('seccion_id, usuario_id, url_id, pagina_id, menu_id', 'length', 'max'=>10),
@@ -79,11 +79,11 @@ class Micrositio extends CActiveRecord
 		return array(
 			'albumFotos' => array(self::HAS_MANY, 'AlbumFoto', 'micrositio_id'),
 			'albumVideos' => array(self::HAS_MANY, 'AlbumVideo', 'micrositio_id'),
-			'seccion' => array(self::BELONGS_TO, 'Seccion', 'seccion_id'),
-			'pagina' => array(self::BELONGS_TO, 'Pagina', 'pagina_id'),
-			'usuario' => array(self::BELONGS_TO, 'Usuario', 'usuario_id'),
 			'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
+			'pagina' => array(self::BELONGS_TO, 'Pagina', 'pagina_id'),
+			'seccion' => array(self::BELONGS_TO, 'Seccion', 'seccion_id'),
 			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
+			'usuario' => array(self::BELONGS_TO, 'Usuario', 'usuario_id'),
 			'paginas' => array(self::HAS_MANY, 'Pagina', 'micrositio_id'),
 			'programacions' => array(self::HAS_MANY, 'Programacion', 'micrositio_id'),
 			'redSocials' => array(self::HAS_MANY, 'RedSocial', 'micrositio_id'),
@@ -141,7 +141,6 @@ class Micrositio extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-
 	public function listarPorSeccion( $seccion_id )
 	{
 		if( !$seccion_id ) return false;

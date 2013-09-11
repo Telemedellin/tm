@@ -223,9 +223,9 @@ class TelemedellinController extends Controller
 		$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 	}
 
-	public function actionCargarMicrositio( )
+	public function actionCargarMicrositio( $url_id = 0 )
 	{
-		$url_id = $_GET['tm']->id;
+		if( !$url_id ) $url_id = $_GET['tm']->id;
 
 		if( isset($_GET['slug_id']) )
 		{
@@ -287,6 +287,40 @@ class TelemedellinController extends Controller
 					'contenido' => $contenido, 
 				) 
 		);
+	}
+
+	public function actionCargarImagenes()
+	{
+		if(isset($_GET['ajax'])) 
+		{
+			unset($_GET['ajax']);
+			if( isset($_GET['m']) ){
+				$m_id = $_GET['m'];
+				$albumes = AlbumFoto::model()->findAllByAttributes( array('micrositio_id' => $m_id) );
+				$micrositio = $albumes[0]->micrositio;
+				$this->layout = '//layouts/iframe';
+				$this->render( '_galeria', array('micrositio' => $micrositio, 'albumes' => $albumes ) );
+
+			}
+		}
+		else
+		{
+			cs()->registerScript( 'ajax', 
+				'abrir_multimedia("imagenes");',
+				CClientScript::POS_READY
+			);
+			$m = Micrositio::model()->findByPk( (int) $_GET['m'] );
+			$this->actionCargarMicrositio($m->url->id);
+		}
+		
+	}
+
+	public function actionCargarAlbumImagenes()
+	{
+		$url_id = $_GET['tm']->id;
+		$af = AlbumFoto::model()->findByAttributes( array('url_id' => $url_id) );
+		$micrositio = Micrositio::model()->cargarMicrositio( $af->micrositio_id );
+		$this->renderPartial( '_album', array('micrositio' => $micrositio, 'album' => $af ) );
 	}
 
 	public function actionCargarProgramacion()

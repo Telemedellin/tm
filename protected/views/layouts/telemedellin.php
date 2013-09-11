@@ -8,7 +8,9 @@ $ru = Yii::app()->request->requestUri;
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/bootstrap-responsive.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/jquery.fancybox.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/main.css" />
+	<!--<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/styles.min.css" />-->
 	<!--[if LTE IE 8]>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" />
 	<![endif]-->

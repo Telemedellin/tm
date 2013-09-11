@@ -6,14 +6,18 @@ module.exports = function(grunt) {
     concat: {
       options: {
         //separator: ';',
-        stripBanners: true
+        stripBanners: false
       },
       js: {
         src: ['js/libs/*.js', 'js/libs/jquery.bxslider/*.js', 'js/libs/mustache/*.js'],
         dest: 'js/libs.js',
       },
+      iframe: {
+        src: ['js/libs/bootstrap.min.js'],
+        dest: 'js/iframe.libs.js',
+      },
       css: {
-        src: ['css/libs/*', 'css/ie.css', 'css/main.css'],
+        src: ['css/libs/*.css', 'css/ie.css', 'css/main.css'],
         dest: 'css/styles.css'
       }
     },
@@ -22,9 +26,17 @@ module.exports = function(grunt) {
         src: "js/app-dev.js",
         dest: "js/app.min.js",
       },
+      iframe_app: {
+        src: "js/iframe.app-dev.js",
+        dest: "js/iframe.app.min.js",
+      },
       libs: {
         src: "js/libs.js",
         dest: "js/libs.js",
+      },
+      iframe: {
+        src: "js/iframe.libs.js",
+        dest: "js/iframe.libs.js",
       }
     },
     uglify: {
@@ -32,13 +44,17 @@ module.exports = function(grunt) {
         src: 'js/app.min.js',
         dest: 'js/app.min.js'
       },
+      iframe_app: {
+        src: 'js/iframe.app.min.js',
+        dest: 'js/iframe.app.min.js'
+      },
       libs: {
         src: 'js/libs.js',
         dest: 'js/libs.min.js'
       },
-      css: {
-        src: 'css/styles.css',
-        dest: 'css/styles.min.css'
+      iframe: {
+        src: 'js/iframe.libs.js',
+        dest: 'js/iframe.libs.min.js'
       }
     },
     cssmin: {
@@ -50,7 +66,7 @@ module.exports = function(grunt) {
         ext: '.min.css'
       }
     },
-    clean: ['js/libs.js', 'css/styles.css'],
+    clean: ['js/libs.js', 'css/styles.css', 'js/iframe.libs.js'],
     watch : {
       scripts: {
         files: ['js/app-dev.js'],
@@ -59,8 +75,15 @@ module.exports = function(grunt) {
           spawn: false
         },
       },
+      iframe: {
+        files: ['js/iframe.app-dev.js'],
+        tasks: ['iframe-app'],
+        options: {
+          spawn: false
+        },
+      },
       styles: {
-        files: ['css/*', 'css/libs/*'] ,
+        files: ['css/*.css', 'css/libs/*.css'] ,
         tasks: ['css'],
         options: {
           spawn: false
@@ -78,7 +101,9 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['concat:js', 'removelogging:libs', 'uglify:libs', 'clean']);
+  grunt.registerTask('iframe', ['concat:iframe', 'removelogging:iframe', 'uglify:iframe', 'clean']);
   grunt.registerTask('app', ['removelogging:app', 'uglify:app']); 
-  grunt.registerTask('css', ['concat:css', /*'cssmin', 'clean'*/]);
+  grunt.registerTask('iframe-app', ['removelogging:iframe_app', 'uglify:iframe_app']); 
+  grunt.registerTask('css', ['concat:css', 'cssmin', 'clean']);
 
 };

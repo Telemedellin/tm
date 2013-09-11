@@ -31,10 +31,7 @@ function success_popup(data)
 	}
 	$.get('/tm/js/libs/mustache/views/' + plantilla, function(vista){
 		var current_url = window.location.href;
-		if(Modernizr.history){
-			var stateObj = { pagina: "seccion" };
-			window.history.replaceState( stateObj, data.seccion, data.url );
-		}
+		modificar_url(data.url, data.seccion);
 		var output = Mustache.render(vista, data);
 		$('#loading').remove();
 		$('#container').append(output);
@@ -49,19 +46,77 @@ function cerrar_popup(e)
 		console.log(old_url + ' ' + window.location.href);
 		if(old_url != window.location.href)
 		{
-			var stateObj = { pagina: "old" };
-			window.history.replaceState( stateObj, 'OLD', old_url );
+			modificar_url(old_url);
 		}else
 		{
-			var stateObj = { pagina: "home" };
-			window.history.replaceState( stateObj, 'OLD', '/tm' );
+			modificar_url('/tm', 'Inicio');
 		}
 	}
 	$('#overlay').remove();
 	e.preventDefault();
 }
 
+function abrir_multimedia(tipo){
+	if(tipo != '')
+		$('a.fancybox.'+tipo).trigger('click');
+}
+
+function modificar_url(pagina, nombre){
+	if(!nombre) nombre = null;
+	if(Modernizr.history){
+		var stateObj = { pagina: nombre };
+		window.history.pushState( stateObj, null, pagina );
+	}
+}
+
+function link_fancy(e){
+	console.log('Hola');
+	modificar_url(e.target.href);
+	console.log(e.target.href);
+	e.preventDefault();
+}
+
 jQuery(function($) {
 	$(document).on('click', '.ajax a', click_popup);
 	$(document).on('click', '#overlay a.close', cerrar_popup);
+	$(document).on('click', '.in_fancy', link_fancy);
+
+	$("a.fancybox").each(function() {
+	    var element = this;
+	    var old_url = window.location.href;
+	    var destino = element.href;
+	    $(this).fancybox({
+	    	type: "iframe",
+	    	href: destino + '&ajax=true',
+	    	afterLoad: function(current, previous){
+	    		modificar_url(destino, "Álbumes");
+	    	},
+	    	afterClose: function(){
+	    		modificar_url(old_url, null);
+	    	},
+	    	beforeShow: function(){
+	    		if (this.title) {
+	                this.title += '<br />';
+	            }else{
+	            	this.title = '';
+	            }
+                this.title += '<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-url="' + this.href + '">Tweet</a> ';
+                this.title += '<iframe src="//www.facebook.com/plugins/like.php?href=' + this.href + '&amp;layout=button_count&amp;show_faces=true&amp;width=500&amp;action=like&amp;font&amp;colorscheme=light&amp;height=23" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:110px; height:23px;" allowTransparency="true"></iframe>';
+	    	},
+	    	afterShow: function() {
+	            // Render tweet button
+	            twttr.widgets.load();
+	        },
+	    	helpers : {
+		        overlay : {
+		            css : {
+		                "background" : "rgba(0, 0, 0, .7)"
+		            }
+		        },
+		        title : {
+	                type: 'inside'
+	            }
+		    }
+	    });
+	});
 });

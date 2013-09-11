@@ -15,11 +15,10 @@ if( !is_null($micrositio->background) )
 cs()->registerScript( 'scroll', 
 	'$("#micrositio").mCustomScrollbar({
 		scrollType: "pixels",
-		scrollButtons:{
+		scrollButtons: {
 			enable: true
 		}
 	});
-	$(".fancybox").fancybox();
 	',
 	CClientScript::POS_READY
 );
@@ -54,7 +53,7 @@ cs()->registerScript( 'scroll',
 	<p>Formulario</p>
 <?php endif;?>
 <?php if(isset($galeria) && $galeria): ?>
-	<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox">Imágenes</a>
+	<a href="<?php echo bu($micrositio->url->slug) ?>/imagenes?m=<?php echo $micrositio->id ?>" class="fancybox fancybox.ajax imagenes">Imágenes</a>
 <?php endif;?>
 <?php if(isset($videos) && $videos): ?>
 	<?php echo $videos ?>

@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'album_video':
  * @property string $id
  * @property string $micrositio_id
+ * @property string $url_id
  * @property string $nombre
  * @property string $creado
  * @property string $modificado
@@ -13,6 +14,7 @@
  * @property integer $destacado
  *
  * The followings are the available model relations:
+ * @property Url $url
  * @property Micrositio $micrositio
  * @property Video[] $videos
  */
@@ -44,14 +46,14 @@ class AlbumVideo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('micrositio_id, nombre, creado, estado, destacado', 'required'),
+			array('micrositio_id, url_id, nombre, creado, estado, destacado', 'required'),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true),
-			array('micrositio_id', 'length', 'max'=>10),
+			array('micrositio_id, url_id', 'length', 'max'=>10),
 			array('nombre', 'length', 'max'=>45),
-			array('creado, modificado', 'length', 'max'=>19),
+			array('modificado', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, micrositio_id, nombre, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
+			array('id, micrositio_id, url_id, nombre, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,6 +65,7 @@ class AlbumVideo extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 			'micrositio' => array(self::BELONGS_TO, 'Micrositio', 'micrositio_id'),
 			'videos' => array(self::HAS_MANY, 'Video', 'album_video_id'),
 		);
@@ -76,6 +79,7 @@ class AlbumVideo extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'micrositio_id' => 'Micrositio',
+			'url_id' => 'Url',
 			'nombre' => 'Nombre',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
@@ -97,6 +101,7 @@ class AlbumVideo extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('micrositio_id',$this->micrositio_id,true);
+		$criteria->compare('url_id',$this->url_id,true);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('creado',$this->creado,true);
 		$criteria->compare('modificado',$this->modificado,true);
