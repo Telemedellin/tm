@@ -20,7 +20,8 @@ $ru = Yii::app()->request->requestUri;
 	<?php echo $content; ?>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/iframe.libs.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/underscore-min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/backbone-min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/iframe.app.min.js"></script>
 </body>
 </html>

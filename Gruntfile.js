@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         dest: 'js/libs.js',
       },
       iframe: {
-        src: ['js/libs/bootstrap.min.js'],
+        src: ['js/libs/bootstrap.min.js', 'js/libs/iframe/backbone-min.js'],
         dest: 'js/iframe.libs.js',
       },
       css: {
