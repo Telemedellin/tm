@@ -14,8 +14,8 @@
  * @property integer $destacado
  *
  * The followings are the available model relations:
- * @property Url $url
  * @property Micrositio $micrositio
+ * @property Url $url
  * @property Video[] $videos
  */
 class AlbumVideo extends CActiveRecord
@@ -65,8 +65,8 @@ class AlbumVideo extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 			'micrositio' => array(self::BELONGS_TO, 'Micrositio', 'micrositio_id'),
+			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 			'videos' => array(self::HAS_MANY, 'Video', 'album_video_id'),
 		);
 	}

@@ -299,9 +299,7 @@ class TelemedellinController extends Controller
 				$albumes = AlbumFoto::model()->findAllByAttributes( array('micrositio_id' => $m_id) );
 				$micrositio = $albumes[0]->micrositio;
 				$this->layout = '//layouts/iframe';
-				$this->renderText('<div id="albumes"></div>');
-				//$this->render( '_galeria', array('micrositio' => $micrositio, 'albumes' => $albumes ) );
-
+				$this->renderText('');
 			}
 		}
 		else

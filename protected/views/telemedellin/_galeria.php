@@ -1,4 +1,4 @@
-<h1>Álbumes <?php echo $micrositio->nombre; ?>
+<h1>Álbumes <?php echo $micrositio->nombre; ?></h1>
 <ul>
 <?php foreach ($albumes as $album): ?>
 	<?php if($album->fotos): ?>

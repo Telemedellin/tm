@@ -1,81 +1,119 @@
 "use strict";
-(function($){
-
-	var albumModel = Backbone.Model.extend({
-		defaults: {
-		    nombre : 'Sin título',
-		    url : 'no url'
+jQuery(function($) {
+    //Modelos
+	window.Album = Backbone.Model.extend({
+		urlRoot: '/tm/api/fotoalbum',
+        defaults: {
+		    nombre : '',
+		    url : '',
+            thumb: ''
 		}
 	});
 
-	var albumesCollection = Backbone.Collection.extend({
-	    model : albumModel
+    //Colecciones
+	window.AlbumCollection = Backbone.Collection.extend({
+	    model : Album,
+        url: '/tm/api/fotoalbum'
 	});
 
-	//Llamo el json con los álbumes
+    //Helpers
+    var template = function(id){
+        return _.template( $('#' + id).html() );
+    };
 
-	var albumes  = new albumesCollection([
-		new albumModel({ nombre : 'Prueba 1', url : 'tal.html'}),
-		new albumModel({ nombre : 'Prueba 2', url : 'tal.html'})
-	]);
-
-	var albumesView = Backbone.View.extend({
-		tagName: 'li',
-		initialize: function(){
-            this.listenTo(this.model, 'change', this.render);
+    //Vistas
+    window.AlbumListView = Backbone.View.extend({
+        tagName: 'ul',
+        initialize:function () {
+            this.model.bind("reset", this.render, this);
+            var self = this;
+            this.model.bind("add", function (album) {
+                $(self.el).append(new AlbumListItemView({model:album}).render().el);
+            });
         },
-        render: function(){
-        	this.$el.html('<ul><li><a href="'+this.model.get('url')+'" class="in_fancy"><img src="'+this.model.get('url')+'" width="105" height="77" /><h2>'+this.model.get('nombre')+'</h2></li></ul>');
-            return this;
-        }
-	});
-
-
-	// The main view of the application
-    var App = Backbone.View.extend({
-        // Base the view on an existing element
-        el: $('#container'),
-        initialize: function(){
-            // Cache these selectors
-            //this.total = $('#total span');
-            this.list = $('#albumes');
-
-            // Listen for the change event on the collection.
-            // This is equivalent to listening on every one of the 
-            // service objects in the collection.
-            //this.listenTo(services, 'change', this.render);
-
-            // Create views for every one of the services in the
-            // collection and add them to the page
-
-            albumes.each(function(albumModel){
-
-                var view = new albumesView({ model: albumModel });
-                this.list.append(view.render().el);
-
-            }, this);	// "this" is the context in the callback
-        },
-
-        render: function(){
-
+     
+        render:function (eventName) {
+            _.each(this.model.models, function (album) {
+                $(this.el).append(new AlbumListItemView({model:album}).render().el);
+            }, this);
             return this;
         }
     });
 
-    new App();
+    window.AlbumListItemView = Backbone.View.extend({
+        tagName:"li",
+        template: template('albumListItemViewTemplate'),
+     
+        render:function (eventName) {
+            $(this.el).html(this.template(this.model.toJSON()));
+            return this;
+        },
+        close:function () {
+            $(this.el).unbind();
+            $(this.el).remove();
+        }
+     
+    });
 
-  /*var ListView = Backbone.View.extend({
-    el: $('body'), // attaches `this.el` to an existing element.
-    initialize: function(){
-      _.bindAll(this, 'render'); // fixes loss of context for 'this' within methods
-       this.render(); // not all views are self-rendering. This one is.
-    },
-    render: function(){
-      $(this.el).append("<ul> <li>hello world</li> </ul>");
-    }
-  });
-  var listView = new ListView();*/
-})(jQuery);
+    window.AlbumView = Backbone.View.extend({
+ 
+        template: template('albumViewTemplate'),
+        initialize:function () {
+            this.model.bind("change", this.render, this);
+        },
+        render:function (eventName) {
+            $(this.el).html(this.template(this.model.toJSON()));
+            return this;
+        },
+        events:{
+            "change input":"change",
+            //"click .save":"saveWine",
+            //"click .delete":"deleteWine"
+        },
+        change:function (event) {
+            var target = event.target;
+            alert('changing ' + target.id + ' from: ' + target.defaultValue + ' to: ' + target.value);
+        },
+        close:function () {
+            $(this.el).unbind();
+            $(this.el).empty();
+        }
+     
+    });
+
+    //Rutas
+    var AppRouter = Backbone.Router.extend({
+        routes: {
+            "":                     "listAlbum",
+            "imagenes/:id":     "detailAlbum"
+            //"search/:query":        "search",  // #search/kiwis
+            //"search/:query/p:page": "search"   // #search/kiwis/p7
+        },
+        listAlbum: function() {
+            this.albumList = new AlbumCollection();
+            this.albumListView = new AlbumListView({model:this.albumList});
+            this.albumList.fetch();
+            $('#container').html(this.albumListView.render().el);
+        },
+        detailAlbum:function (id) {
+            if (this.albumList) {
+                this.album = this.albumList.get(id);
+                if (this.albumView) app.albumView.close();
+                this.albumView = new AlbumView({model:this.album});
+                $('#container').html(this.albumView.render().el);
+            } else {
+                this.requestedId = id;
+                this.list();
+            }
+        }
+    });
+
+    var app = new AppRouter();
+    Backbone.history.start();
+
+
+  $(document).on('click', '.in_fancy', link_fancy);
+});
 
 function modificar_url(pagina, nombre){
 	if(!nombre) nombre = null;
@@ -90,7 +128,3 @@ function link_fancy(e){
 	console.log(e.target.href);
 	e.preventDefault();
 }
-
-jQuery(function($) {
-	$(document).on('click', '.in_fancy', link_fancy);
-});

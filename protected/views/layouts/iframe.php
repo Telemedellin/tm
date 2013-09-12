@@ -13,6 +13,15 @@ $ru = Yii::app()->request->requestUri;
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" />
 	<![endif]-->
 	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
+	<script id="albumListItemViewTemplate" type="text/template">
+	<a href="<%= url %>" class="in_fancy">
+		<img src="<%= thumb %>" width="105" height="77" />
+		<h2><%= nombre %></h2>
+	</a>
+	</script>
+	<script id="albumViewTemplate" type="text/template">
+	
+	</script>
 </head>
 
 <body>
@@ -23,5 +32,6 @@ $ru = Yii::app()->request->requestUri;
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/underscore-min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/backbone-min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/iframe.app.min.js"></script>
+
 </body>
 </html>
