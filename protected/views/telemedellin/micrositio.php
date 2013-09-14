@@ -53,10 +53,12 @@ cs()->registerScript( 'scroll',
 	<p>Formulario</p>
 <?php endif;?>
 <?php if(isset($galeria) && $galeria): ?>
-	<a href="<?php echo bu($micrositio->url->slug) ?>/imagenes?m=<?php echo $micrositio->id ?>" class="fancybox fancybox.ajax imagenes">Imágenes</a>
+	<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes">Imágenes</a>
 <?php endif;?>
 <?php if(isset($videos) && $videos): ?>
 	<?php echo $videos ?>
 	<a href="#">Videos</a>
 <?php endif;?>
 </div>
+
+<?php /*?m=<?php echo $micrositio->id*/ ?>

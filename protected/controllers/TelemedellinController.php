@@ -291,6 +291,8 @@ class TelemedellinController extends Controller
 
 	public function actionCargarImagenes()
 	{
+		$url = $_GET['tm'];
+
 		if(isset($_GET['ajax'])) 
 		{
 			unset($_GET['ajax']);
@@ -386,6 +388,12 @@ class TelemedellinController extends Controller
 					'contenido' => $contenido, 
 				) 
 		);
+	}
+
+	public function actionPopup()
+	{
+		$this->layout = '//layouts/iframe';
+		$this->renderText('');
 	}
 
 	public function actionProgramar()

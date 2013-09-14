@@ -50,8 +50,6 @@ return array(
 	            'administrador'=>'administrador/admin',
 	            'administrador/<controller:\w+>'=>'administrador/<controller>',
 	            'administrador/<controller:\w+>/<action:\w+>'=>'administrador/<controller>/<action>',
-	            /*'api/fotoalbum' => 'api/fotoAlbum',
-	            'api/fotoalbum' => 'api/fotoAlbum/listar',*/
 				array(
 				    'class' => 'application.components.TmUrlRule',
 				    'connectionID' => 'db',

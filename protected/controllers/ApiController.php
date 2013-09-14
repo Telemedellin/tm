@@ -13,7 +13,7 @@ class ApiController extends Controller
 				$json .= '"id":"'.CHtml::encode($album->id).'",';
 				$json .= '"micrositio":"'.CHtml::encode($album->micrositio_id).'",';
 				$json .= '"nombre":"'.CHtml::encode($album->nombre).'",';
-				$json .= '"url":"'.bu($album->url->slug).'",';
+				$json .= '"url":"'.$album->url->slug.'",';
 				$json .= '"thumb":"'.bu('images/galeria/' . $album->fotos[0]->thumb).'"';
 			$json .= '},';
 			endforeach;

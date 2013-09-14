@@ -25,15 +25,15 @@ jQuery(function($) {
     window.AlbumListView = Backbone.View.extend({
         tagName: 'ul',
         initialize:function () {
-            this.model.bind("reset", this.render, this);
+            this.collection.bind("reset", this.render, this);
             var self = this;
-            this.model.bind("add", function (album) {
+            this.collection.bind("add", function (album) {
                 $(self.el).append(new AlbumListItemView({model:album}).render().el);
             });
         },
      
         render:function (eventName) {
-            _.each(this.model.models, function (album) {
+            _.each(this.collection.models, function (album) {
                 $(this.el).append(new AlbumListItemView({model:album}).render().el);
             }, this);
             return this;
@@ -72,7 +72,7 @@ jQuery(function($) {
         },
         change:function (event) {
             var target = event.target;
-            alert('changing ' + target.id + ' from: ' + target.defaultValue + ' to: ' + target.value);
+            console.log('changing ' + target.id + ' from: ' + target.defaultValue + ' to: ' + target.value);
         },
         close:function () {
             $(this.el).unbind();
@@ -84,35 +84,42 @@ jQuery(function($) {
     //Rutas
     var AppRouter = Backbone.Router.extend({
         routes: {
-            "":                     "listAlbum",
-            "imagenes/:id":     "detailAlbum"
+            "imagenes":             "listAlbum",
+            "imagenes/:nombre":     "detailAlbum"
             //"search/:query":        "search",  // #search/kiwis
             //"search/:query/p:page": "search"   // #search/kiwis/p7
         },
-        listAlbum: function() {
+        initialize: function(){
             this.albumList = new AlbumCollection();
-            this.albumListView = new AlbumListView({model:this.albumList});
             this.albumList.fetch();
-            $('#container').html(this.albumListView.render().el);
         },
-        detailAlbum:function (id) {
-            if (this.albumList) {
-                this.album = this.albumList.get(id);
-                if (this.albumView) app.albumView.close();
-                this.albumView = new AlbumView({model:this.album});
-                $('#container').html(this.albumView.render().el);
-            } else {
-                this.requestedId = id;
-                this.list();
-            }
+        listAlbum: function() {
+            console.log('listAlbum');
+            this.albumListView = new AlbumListView({collection:this.albumList});
+            $('#icontainer').html(this.albumListView.render().el);
+        },
+        detailAlbum: function (n) {
+            console.log('detail ' + n);
+            var fl = n.charAt(0).toUpperCase();
+            n = fl + n.substring(1);
+            console.log(n);
+            this.album = this.albumList.where({nombre: n});
+            console.dir(this.albumList);
+            console.dir(this.album);
+            this.albumView = new AlbumView({model:this.albumList});
+            //console.log(this.album);
+            //console.log(this.albumList.get(id));
+            /*if (this.albumView) this.albumView.close();
+            this.albumView = new AlbumView({model:this.album});
+            $('#container').html(this.albumView.render().el);*/
         }
     });
-
+    //console.log('iframe location ' + window.location.href);
     var app = new AppRouter();
     Backbone.history.start();
 
 
-  $(document).on('click', '.in_fancy', link_fancy);
+  //$(document).on('click', '.in_fancy', link_fancy);
 });
 
 function modificar_url(pagina, nombre){
@@ -123,8 +130,7 @@ function modificar_url(pagina, nombre){
 	}
 }
 function link_fancy(e){
-	console.log('Hola');
-	modificar_url(e.target.href);
-	console.log(e.target.href);
+	/*modificar_url(e.target.href);
+	console.log(e.target.href);*/
 	e.preventDefault();
 }

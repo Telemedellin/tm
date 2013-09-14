@@ -72,24 +72,45 @@ function modificar_url(pagina, nombre){
 function link_fancy(e){
 	console.log('Hola');
 	modificar_url(e.target.href);
-	console.log(e.target.href);
+	console.log('old_url ' + e.target.href);
 	e.preventDefault();
+}
+
+function verificar_hash(){
+	if(window.location.hash){
+		var hash_value = window.location.hash.replace('#', '');
+		hash_value = $.trim(hash_value);
+		if( hash_value.indexOf('imagenes') >= 0 ){
+			abrir_multimedia('imagenes');
+		}
+		
+	}else{
+		console.log('NO');
+	}
+
 }
 
 jQuery(function($) {
 	$(document).on('click', '.ajax a', click_popup);
 	$(document).on('click', '#overlay a.close', cerrar_popup);
-	$(document).on('click', '.in_fancy', link_fancy);
+	//$(document).on('click', '.in_fancy', link_fancy);
 
 	$("a.fancybox").each(function() {
 	    var element = this;
 	    var old_url = window.location.href;
-	    var destino = element.href;
+	    var url = element.href;
+	    /*console.log('fancybox url ' + url);
+	    var hash_p = url.indexOf('#');
+	    var hash = url.substr(hash_p).substr(1);*/
+	    var hash = window.location.hash.substr(1);
+	    //console.log('fanybox hash ' + hash);
+	    var destino = '/tm/telemedellin/popup#' + hash;
+	    console.log('fanybox destino ' + destino);
 	    $(this).fancybox({
-	    	type: "iframe",
-	    	href: destino + '&ajax=true',
+	    	type: "ajax",
+	    	href: destino,
 	    	afterLoad: function(current, previous){
-	    		modificar_url(destino, "Álbumes");
+	    		modificar_url(old_url, "Álbumes");
 	    	},
 	    	afterClose: function(){
 	    		modificar_url(old_url, null);
@@ -119,4 +140,6 @@ jQuery(function($) {
 		    }
 	    });
 	});
+
+	verificar_hash();
 });
