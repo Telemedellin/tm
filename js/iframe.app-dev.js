@@ -4,17 +4,36 @@ jQuery(function($) {
 	window.Album = Backbone.Model.extend({
 		urlRoot: '/tm/api/fotoalbum',
         defaults: {
-		    nombre : '',
+		    id: '', 
+            nombre : '',
 		    url : '',
             thumb: ''
 		}
 	});
+
+    window.Foto = Backbone.Model.extend({
+       urlRoot: '/tm/api/foto',
+        defaults: {
+            id: '', 
+            nombre : '', 
+            album_foto : '',
+            src : '',
+            thumb: '',
+            ancho: '',
+            alto: ''
+        } 
+    });
 
     //Colecciones
 	window.AlbumCollection = Backbone.Collection.extend({
 	    model : Album,
         url: '/tm/api/fotoalbum'
 	});
+
+    window.FotoCollection = Backbone.Collection.extend({
+        model : Foto,
+        url: '/tm/api/foto'
+    });
 
     //Helpers
     var template = function(id){
@@ -24,6 +43,7 @@ jQuery(function($) {
     //Vistas
     window.AlbumListView = Backbone.View.extend({
         tagName: 'ul',
+        className: 'albumes', 
         initialize:function () {
             this.collection.bind("reset", this.render, this);
             var self = this;
@@ -42,95 +62,118 @@ jQuery(function($) {
 
     window.AlbumListItemView = Backbone.View.extend({
         tagName:"li",
+        className: 'album', 
         template: template('albumListItemViewTemplate'),
-     
         render:function (eventName) {
-            $(this.el).html(this.template(this.model.toJSON()));
+            console.log(this.model);
+            $(this.el).html( this.template( this.model.toJSON() ) );
             return this;
         },
         close:function () {
             $(this.el).unbind();
             $(this.el).remove();
         }
-     
     });
 
-    window.AlbumView = Backbone.View.extend({
- 
-        template: template('albumViewTemplate'),
+    window.FotoListView = Backbone.View.extend({
+        tagName: 'ul',
+        template: template('fotoListViewTemplate'),
         initialize:function () {
-            this.model.bind("change", this.render, this);
+            this.collection.bind("reset", this.render, this);
+            var self = this;
+            this.collection.bind("add", function (foto) {
+                $(self.el).append(new FotoListItemView({model:foto}).render().el);
+            });
         },
+        events:{
+            "click a.back": "back"
+        },
+        render:function (eventName) {
+           _.each(this.collection.models, function (foto) {
+                $(this.el).append(new FotoListItemView({model:foto}).render().el);
+            }, this);
+            return this;
+        },
+        back: function(e){
+            e.preventDefault();
+            window.history.back();
+        }
+    });
+
+    window.FotoListItemView = Backbone.View.extend({
+        tagName:"li",
+        template: template('fotoListItemViewTemplate'),
         render:function (eventName) {
             $(this.el).html(this.template(this.model.toJSON()));
             return this;
         },
         events:{
-            "change input":"change",
-            //"click .save":"saveWine",
-            //"click .delete":"deleteWine"
-        },
-        change:function (event) {
-            var target = event.target;
-            console.log('changing ' + target.id + ' from: ' + target.defaultValue + ' to: ' + target.value);
+            "click a": "ver"
         },
         close:function () {
             $(this.el).unbind();
-            $(this.el).empty();
+            $(this.el).remove();
+        },
+        ver: function (e) {
+            e.preventDefault();
+            console.log('prevented default');
         }
-     
     });
 
     //Rutas
     var AppRouter = Backbone.Router.extend({
         routes: {
-            "imagenes":             "listAlbum",
-            "imagenes/:nombre":     "detailAlbum"
+            "imagenes":                 "listarAlbumes",
+            "imagenes/:album(/:foto)":  "listarFotos",
             //"search/:query":        "search",  // #search/kiwis
             //"search/:query/p:page": "search"   // #search/kiwis/p7
         },
         initialize: function(){
             this.albumList = new AlbumCollection();
-            this.albumList.fetch();
+            this.fotoList = new FotoCollection();
+            this.micrositio_id = $('#micrositio').data('micrositio-id');
+            console.log(this.micrositio_id);
         },
-        listAlbum: function() {
-            console.log('listAlbum');
+        listarAlbumes: function() {
+            console.log('listarAlbumes');
+            this.albumList.fetch({data: {micrositio_id: this.micrositio_id} });
             this.albumListView = new AlbumListView({collection:this.albumList});
             $('#icontainer').html(this.albumListView.render().el);
         },
-        detailAlbum: function (n) {
-            console.log('detail ' + n);
-            var fl = n.charAt(0).toUpperCase();
-            n = fl + n.substring(1);
-            console.log(n);
-            this.album = this.albumList.where({nombre: n});
-            console.dir(this.albumList);
-            console.dir(this.album);
-            this.albumView = new AlbumView({model:this.albumList});
-            //console.log(this.album);
-            //console.log(this.albumList.get(id));
-            /*if (this.albumView) this.albumView.close();
-            this.albumView = new AlbumView({model:this.album});
-            $('#container').html(this.albumView.render().el);*/
+        listarFotos: function (album) {
+            /*
+            *
+            *
+            *
+            *
+            *
+            PENDIENTE: Parsear el parámetro de la foto que es opcional
+            En caso de que esté seleccionada la foto, se pone más grande.
+            *
+            *
+            *
+            *
+            *
+            *
+            */
+            console.log('detail ' + album);
+            this.fotoList.fetch( {data: {nombre: album} } );
+            var fl = album.charAt(0).toUpperCase();
+            album = fl + album.substring(1);
+            console.log(album);
+            this.foto = this.fotoList.where({album_foto: album});
+            console.dir(this.fotoList);
+            this.fotoListView = new FotoListView({collection:this.fotoList});
+            $('#icontainer').html(this.fotoListView.render().el);
         }
     });
-    //console.log('iframe location ' + window.location.href);
     var app = new AppRouter();
     Backbone.history.start();
-
-
-  //$(document).on('click', '.in_fancy', link_fancy);
 });
-
 function modificar_url(pagina, nombre){
 	if(!nombre) nombre = null;
 	if(Modernizr.history){
 		var stateObj = { pagina: nombre };
 		window.history.pushState( stateObj, null, pagina );
 	}
-}
-function link_fancy(e){
-	/*modificar_url(e.target.href);
-	console.log(e.target.href);*/
-	e.preventDefault();
 }

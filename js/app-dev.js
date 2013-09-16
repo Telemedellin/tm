@@ -102,7 +102,14 @@ jQuery(function($) {
 	    /*console.log('fancybox url ' + url);
 	    var hash_p = url.indexOf('#');
 	    var hash = url.substr(hash_p).substr(1);*/
-	    var hash = window.location.hash.substr(1);
+	    var hash = window.location.hash.substr(1),
+	    	n_url= old_url;
+	    if(!hash){
+	    	var hash_p = url.indexOf('#'),
+	    	    hash = url.substr(hash_p).substr(1);
+	    	console.log('Entró');
+	    	n_url = url;
+	    }
 	    //console.log('fanybox hash ' + hash);
 	    var destino = '/tm/telemedellin/popup#' + hash;
 	    console.log('fanybox destino ' + destino);
@@ -110,10 +117,10 @@ jQuery(function($) {
 	    	type: "ajax",
 	    	href: destino,
 	    	afterLoad: function(current, previous){
-	    		modificar_url(old_url, "Álbumes");
+	    		modificar_url(n_url, "Álbumes");
 	    	},
 	    	afterClose: function(){
-	    		modificar_url(old_url, null);
+	    		modificar_url(n_url, null);
 	    	},
 	    	beforeShow: function(){
 	    		if (this.title) {

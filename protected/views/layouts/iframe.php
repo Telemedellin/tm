@@ -4,8 +4,19 @@
 	<h2><%= nombre %></h2>
 </a>
 </script>
-<script id="albumViewTemplate" type="text/template">
-	<p>Tal</p>
+<script id="fotoListViewTemplate" type="text/template">
+	<a href="#" class="back">Volver</a>
+	<h1><%= nombre %></h1>
+</script>
+<script id="fotoListItemViewTemplate" type="text/template">
+<a href="<%= src %>" data-id="<%= id %>">
+	<img src="<%= thumb %>" width="105" height="77" />
+	<h2><%= nombre %></h2>
+</a>
+</script>
+<script id="fotoListViewTemplate" type="text/template">
+	<h1><%= nombre %></h1>
+</script>
 </script>
 <div id="icontainer">
 	<?php echo $content; ?>

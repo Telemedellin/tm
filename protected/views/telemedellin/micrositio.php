@@ -44,7 +44,7 @@ cs()->registerScript( 'scroll',
 	<?php $this->widget( 'MenuW', array( 'id' => $menu ) ); ?>
 </div>
 <?php endif;?>
-<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo (!is_null($pagina->clase)) ? $pagina->clase : '' ?>">
+<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo (!is_null($pagina->clase)) ? $pagina->clase : '' ?>" data-micrositio-id="<?php echo $micrositio->id; ?>">
 	<?php echo $contenido; ?>
 </div>
 <div id="menu_inferior">
