@@ -24,6 +24,14 @@ jQuery(function($) {
         } 
     });
 
+    window.Micrositio = Backbone.Model.extend({
+       urlRoot: '/tm/api/micrositio',
+        defaults: {
+            id: '', 
+            nombre : ''
+        } 
+    });
+
     //Colecciones
 	window.AlbumCollection = Backbone.Collection.extend({
 	    model : Album,
@@ -42,19 +50,21 @@ jQuery(function($) {
 
     //Vistas
     window.AlbumListView = Backbone.View.extend({
-        tagName: 'ul',
-        className: 'albumes', 
+        template: template('albumListViewTemplate'),
         initialize:function () {
             this.collection.bind("reset", this.render, this);
-            var self = this;
+            this.collection.bind("add", this.render, this);
+            /*var self = this;
             this.collection.bind("add", function (album) {
                 $(self.el).append(new AlbumListItemView({model:album}).render().el);
-            });
+            }, this);*/
+            this.render;
         },
-     
         render:function (eventName) {
+            $(this.el).html( this.template( this.model.toJSON() ) );
             _.each(this.collection.models, function (album) {
-                $(this.el).append(new AlbumListItemView({model:album}).render().el);
+                console.log('each ' + album);
+                $('.albumes').append(new AlbumListItemView({model:album}).render().el);
             }, this);
             return this;
         }
@@ -76,11 +86,13 @@ jQuery(function($) {
     });
 
     window.FotoListView = Backbone.View.extend({
-        tagName: 'ul',
+        //tagName: 'ul',
         template: template('fotoListViewTemplate'),
         initialize:function () {
             this.collection.bind("reset", this.render, this);
             var self = this;
+            //Pasarle el modelo para que sepa que album es
+            //$(this.el).html( this.template( this.model.toJSON() ) );
             this.collection.bind("add", function (foto) {
                 $(self.el).append(new FotoListItemView({model:foto}).render().el);
             });
@@ -89,6 +101,7 @@ jQuery(function($) {
             "click a.back": "back"
         },
         render:function (eventName) {
+            //$(this.el).html( this.template( this.model.toJSON() ) );
            _.each(this.collection.models, function (foto) {
                 $(this.el).append(new FotoListItemView({model:foto}).render().el);
             }, this);
@@ -101,7 +114,7 @@ jQuery(function($) {
     });
 
     window.FotoListItemView = Backbone.View.extend({
-        tagName:"li",
+        //tagName:"li",
         template: template('fotoListItemViewTemplate'),
         render:function (eventName) {
             $(this.el).html(this.template(this.model.toJSON()));
@@ -115,8 +128,8 @@ jQuery(function($) {
             $(this.el).remove();
         },
         ver: function (e) {
-            e.preventDefault();
-            console.log('prevented default');
+            //e.preventDefault();
+            console.log('ver ...');
         }
     });
 
@@ -129,35 +142,39 @@ jQuery(function($) {
             //"search/:query/p:page": "search"   // #search/kiwis/p7
         },
         initialize: function(){
-            this.albumList = new AlbumCollection();
-            this.fotoList = new FotoCollection();
+            this.micrositio = new Micrositio();
             this.micrositio_id = $('#micrositio').data('micrositio-id');
-            console.log(this.micrositio_id);
+            this.micrositio.fetch({data: {id: this.micrositio_id} });
         },
         listarAlbumes: function() {
+            this.albumList = new AlbumCollection();
             console.log('listarAlbumes');
             this.albumList.fetch({data: {micrositio_id: this.micrositio_id} });
-            this.albumListView = new AlbumListView({collection:this.albumList});
+            this.albumListView = new AlbumListView({collection:this.albumList, model: this.micrositio});
             $('#icontainer').html(this.albumListView.render().el);
         },
-        listarFotos: function (album) {
+        listarFotos: function (album, foto) {
             /*
             *
             *
             *
             *
             *
-            PENDIENTE: Parsear el parámetro de la foto que es opcional
+            PENDIENTE: 
+            *
+            Comprobar no solo el álbum, sino también el micrositio
+            *
+            Parsear el parámetro de la foto que es opcional
             En caso de que esté seleccionada la foto, se pone más grande.
             *
             *
             *
             *
             *
-            *
             */
-            console.log('detail ' + album);
-            this.fotoList.fetch( {data: {nombre: album} } );
+            this.fotoList = new FotoCollection();
+            console.log('detail ' + album + ' ' + foto);
+            this.fotoList.fetch( {data: {nombre: album, micrositio: this.micrositio_id} } );
             var fl = album.charAt(0).toUpperCase();
             album = fl + album.substring(1);
             console.log(album);

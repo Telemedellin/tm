@@ -28,8 +28,11 @@ class ApiController extends Controller
 	public function actionFoto()
 	{
 		if(!$_GET['nombre']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		if(!$_GET['micrositio']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$nombre = $_GET['nombre'];
-		$af = AlbumFoto::model()->findByAttributes( array('nombre' => $nombre)  );
+		$micrositio = $_GET['micrositio'];
+		$af = AlbumFoto::model()->findByAttributes( array('nombre' => $nombre, 'micrositio_id' => $micrositio)  );
+		if(!$af) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$f = Foto::model()->findAllByAttributes( array('album_foto_id' => $af->id) );
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
@@ -47,6 +50,19 @@ class ApiController extends Controller
 			endforeach;
 			$json = substr($json, 0, -1);
 		$json .= ']';
+		echo $json;
+		Yii::app()->end();
+	}
+
+	public function actionMicrositio(){
+		if(!$_GET['id']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		$micrositio_id = $_GET['id'];
+		$micrositio = Micrositio::model()->findByPk( $micrositio_id );
+		header('Content-Type: application/json; charset="UTF-8"');
+		$json = '{';
+		$json .= '"id":"'.CHtml::encode($micrositio->id).'",';
+		$json .= '"nombre":"'.CHtml::encode($micrositio->nombre).'"';
+		$json .= '}';
 		echo $json;
 		Yii::app()->end();
 	}

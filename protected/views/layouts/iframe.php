@@ -1,3 +1,7 @@
+<script id="albumListViewTemplate" type="text/template">
+	<h1>Álbumes de <%= nombre %></h1>
+	<ul class="albumes"></ul>
+</script>
 <script id="albumListItemViewTemplate" type="text/template">
 <a href="<%= url %>" class="in_fancy" data-id="<%= id %>">
 	<img src="<%= thumb %>" width="105" height="77" />
@@ -9,10 +13,12 @@
 	<h1><%= nombre %></h1>
 </script>
 <script id="fotoListItemViewTemplate" type="text/template">
-<a href="<%= src %>" data-id="<%= id %>">
-	<img src="<%= thumb %>" width="105" height="77" />
-	<h2><%= nombre %></h2>
-</a>
+<li class="foto">
+	<a href="<%= src %>" data-id="<%= id %>">
+		<img src="<%= thumb %>" width="105" height="77" />
+		<h2><%= nombre %></h2>
+	</a>
+</li>
 </script>
 <script id="fotoListViewTemplate" type="text/template">
 	<h1><%= nombre %></h1>
