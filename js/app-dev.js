@@ -93,34 +93,51 @@ function verificar_hash(){
 jQuery(function($) {
 	$(document).on('click', '.ajax a', click_popup);
 	$(document).on('click', '#overlay a.close', cerrar_popup);
-	//$(document).on('click', '.in_fancy', link_fancy);
 
 	$("a.fancybox").each(function() {
-	    var element = this;
-	    var old_url = window.location.href;
-	    var url = element.href;
-	    /*console.log('fancybox url ' + url);
-	    var hash_p = url.indexOf('#');
-	    var hash = url.substr(hash_p).substr(1);*/
-	    var hash = window.location.hash.substr(1),
-	    	n_url= old_url;
-	    if(!hash){
-	    	var hash_p = url.indexOf('#'),
-	    	    hash = url.substr(hash_p).substr(1);
-	    	console.log('Entró');
-	    	n_url = url;
+	    //Capturo el elemento al que se hizo clic
+	    var element = this,
+	    //Capturo la url que está en la barra del navegador
+	    	current_url = window.location.href,
+	    //Capturo el hash de la url actual
+	    	current_hash = window.location.hash.substr(1),
+		//Capturo la url del elemento al que se hizo clic	    	
+	    	el_url = element.href,
+	    //Asigno la url vieja a la nueva
+	    	destino_url = current_url;
+	    console.log('current_url: ' + current_url);
+	    console.log('current_hash: ' + current_hash);
+	    console.log('el_url: ' + el_url);
+	    console.log('destino_url: ' + destino_url);
+	    if(!current_hash){
+	    //Si no existe el hash en la url actual, tomo el hash del enlace
+	    	var hash_p = el_url.indexOf('#'),
+	    	    hash = el_url.substr(hash_p).substr(1);
+	    	console.log('hash_p: ' + hash_p);
+	    	console.log('hash: ' + hash);
+	    //Asigno la url del elemento a la nueva
+	    	destino_url = el_url;
+	    	console.log('destino_url: ' + destino_url);
+	    }else{
+	    	hash = current_hash;
 	    }
-	    //console.log('fanybox hash ' + hash);
 	    var destino = '/tm/telemedellin/popup#' + hash;
 	    console.log('fanybox destino ' + destino);
 	    $(this).fancybox({
 	    	type: "ajax",
 	    	href: destino,
+	    	autoSize: false,
+	    	padding: [9, 20, 9, 20],
 	    	afterLoad: function(current, previous){
-	    		modificar_url(n_url, "Álbumes");
+	    		modificar_url(destino_url, "Álbumes");
 	    	},
 	    	afterClose: function(){
-	    		modificar_url(n_url, null);
+	    		window.location.hash = '';
+	    		//modificar_url(current_url, null);
+	    		//$(document).fullScreen(false);
+	    	},
+	    	beforeLoad: function(){
+	    		this.width  = '80%';
 	    	},
 	    	beforeShow: function(){
 	    		if (this.title) {
@@ -136,12 +153,12 @@ jQuery(function($) {
 	            twttr.widgets.load();
 	        },
 	    	helpers : {
-		        overlay : {
-		            css : {
+		        overlay:{
+		            css:{
 		                "background" : "rgba(0, 0, 0, .7)"
 		            }
 		        },
-		        title : {
+		        title:{
 	                type: 'inside'
 	            }
 		    }
@@ -149,4 +166,7 @@ jQuery(function($) {
 	});
 
 	verificar_hash();
+	$(document).bind("fullscreenerror", function() {
+	    alert("Browser rejected fullscreen change");
+	});
 });

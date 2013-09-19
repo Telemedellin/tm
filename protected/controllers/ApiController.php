@@ -41,6 +41,7 @@ class ApiController extends Controller
 			$json .= '{';
 				$json .= '"id":"'.CHtml::encode($foto->id).'",';
 				$json .= '"album_foto":"'.CHtml::encode($foto->albumFoto->nombre).'",';
+				$json .= '"url":"'.CHtml::encode($foto->url->slug).'",';
 				$json .= '"nombre":"'.CHtml::encode($foto->nombre).'",';
 				$json .= '"src":"'.bu('images/galeria/' . $foto->src).'",';
 				$json .= '"thumb":"'.bu('images/galeria/' . $foto->thumb).'",';

@@ -35,6 +35,7 @@
 		responsive: true,
 		//VA
 		vaMaxWidth: '100%',
+		viewportWidth: '95%',
 
 		// TOUCH
 		touchEnabled: true,
@@ -53,13 +54,13 @@
 		
 		// CONTROLS
 		controls: true,
-		nextText: 'Next',
-		prevText: 'Prev',
+		nextText: 'Siguiente',
+		prevText: 'Anterior',
 		nextSelector: null,
 		prevSelector: null,
 		autoControls: false,
-		startText: 'Start',
-		stopText: 'Stop',
+		startText: 'Iniciar',
+		stopText: 'Parar',
 		autoControlsCombine: false,
 		autoControlsSelector: null,
 		
@@ -204,7 +205,7 @@
 			// make modifications to the viewport (.bx-viewport)
 			slider.viewport.css({
 				//VA
-				width: '95%',
+				width: slider.settings.viewportWidth,
 				overflow: 'hidden',
 				position: 'relative'
 			});

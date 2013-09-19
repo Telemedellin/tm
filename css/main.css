@@ -514,13 +514,13 @@ nav ul {
 #bar #buscador input::-webkit-input-placeholder {
  color: #FFF;
 }
- #bar #buscador input:-moz-placeholder { /* Firefox 18- */
+#bar #buscador input:-moz-placeholder { /* Firefox 18- */
  color: #FFF;
 }
- #bar #buscador input::-moz-placeholder {  /* Firefox 19+ */
+#bar #buscador input::-moz-placeholder {  /* Firefox 19+ */
  color: #FFF;
 }
- #bar #buscador input:-ms-input-placeholder {
+#bar #buscador input:-ms-input-placeholder {
  color: #FFF;
 }
 #compartir {
@@ -547,7 +547,73 @@ nav ul {
 #icontainer
 {
 	min-height: 500px;
-	width: 600px;
+	width: 98%;
+}
+#icontainer h1
+{
+	background: #0f0e13;
+	border-radius: 5px;
+	color: #a3a3a5;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 1;
+	padding: 10px 16px;
+	text-transform: uppercase;
+}
+#icontainer ul
+{
+	margin: 0;
+	list-style: none;
+}
+#icontainer li
+{
+	float: left;
+	margin-right: 12px;
+}
+#icontainer h2
+{
+	background: #0f0e13;
+	border-radius: 5px;
+	color: #a3a3a5;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 1;
+	padding: 8px 10px;
+	text-align: center;
+}
+#icontainer .galeria h1, 
+#icontainer .galeria .back
+{
+	background: #0f0e13;
+	border-radius: 5px;
+	color: #a3a3a5;
+	display: block;
+	float: left;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 1;
+	padding: 10px 16px;
+}
+#icontainer .galeria h1
+{
+	width: 80%;
+}
+#icontainer .galeria .back
+{
+	font-size: 14px;
+	margin: 10px 10px 10px 0;
+}
+#icontainer .galeria .full
+{
+	clear: both;
+	text-align: center;
+	margin-bottom: 10px;
+	min-height: 310px;
+	position: relative;
+}
+#icontainer .galeria .full img
+{
+	max-height: 290px;
 }
 #menu_inferior
 {
@@ -937,6 +1003,45 @@ nav ul {
 .programa a:hover
 {
 	color: #848388;
+}
+.fancybox-overlay .expander {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 16px;
+    height: 16px;
+    padding: 4px;
+    background: white url(https://github.com/openxe/django-ace/diff_blob/1993c731626a44139b97d2d9fca8f4f4023f107a/django_ace/static/django_ace/img/expand.png?raw=true) center center no-repeat;
+    z-index: 99999;   
+    cursor: pointer;
+}
+.fancybox-skin{
+	background: #030207;
+	border: 3px solid rgba(255, 255, 255, .7);
+	border-radius: 6px;
+}
+.fancybox-inner{
+	background: #030207;
+}
+.fancybox-outer.fullscreen{
+	background: #000;
+	left: 0;
+	height: 100%;
+	top: 0;
+	width: 100%;
+}
+.fancybox-outer.fullscreen .fancybox-inner
+{
+	height: auto !important;
+	width: auto !important;
+}
+.fancybox-outer.fullscreen #icontainer .galeria .full
+{
+	min-height: 470px;
+}
+.fancybox-outer.fullscreen #icontainer .galeria .full img
+{
+	max-height: 450px;
 }
 #overlay
 {

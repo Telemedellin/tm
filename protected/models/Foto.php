@@ -48,15 +48,15 @@ class Foto extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('album_foto_id, src, thumb, nombre, ancho, alto, estado, destacado', 'required'),
-			array('estado, destacado', 'numerical', 'integerOnly'=>true),
+			array('album_foto_id, url_id, src, thumb, nombre, ancho, alto, estado, destacado', 'required'),
+			array('album_foto_id, url_id, estado, destacado', 'numerical', 'integerOnly'=>true),
 			array('album_foto_id, ancho, alto', 'length', 'max'=>10),
 			array('src, thumb', 'length', 'max'=>255),
 			array('nombre', 'length', 'max'=>100),
 			array('descripcion, creado, modificado', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, album_foto_id, src, thumb, nombre, descripcion, ancho, alto, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
+			array('id, album_foto_id, url_id, src, thumb, nombre, descripcion, ancho, alto, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +69,7 @@ class Foto extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'albumFoto' => array(self::BELONGS_TO, 'AlbumFoto', 'album_foto_id'),
+			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 		);
 	}
 
@@ -80,6 +81,7 @@ class Foto extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'album_foto_id' => 'Album Foto',
+			'url_id' => 'Url',
 			'src' => 'Src',
 			'thumb' => 'Thumb',
 			'nombre' => 'Nombre',
@@ -106,6 +108,7 @@ class Foto extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('album_foto_id',$this->album_foto_id,true);
+		$criteria->compare('url_id',$this->url_id,true);
 		$criteria->compare('src',$this->src,true);
 		$criteria->compare('thumb',$this->thumb,true);
 		$criteria->compare('nombre',$this->nombre,true);

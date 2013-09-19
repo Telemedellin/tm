@@ -17,6 +17,7 @@ jQuery(function($) {
             id: '', 
             nombre : '', 
             album_foto : '',
+            url:'',
             src : '',
             thumb: '',
             ancho: '',
@@ -87,25 +88,51 @@ jQuery(function($) {
 
     window.FotoListView = Backbone.View.extend({
         //tagName: 'ul',
+        className: 'galeria',
         template: template('fotoListViewTemplate'),
         initialize:function () {
             this.collection.bind("reset", this.render, this);
             var self = this;
-            //Pasarle el modelo para que sepa que album es
-            //$(this.el).html( this.template( this.model.toJSON() ) );
-            this.collection.bind("add", function (foto) {
-                $(self.el).append(new FotoListItemView({model:foto}).render().el);
-            });
+            this.collection.bind("add", this.add, this);
+            this.render();
         },
         events:{
-            "click a.back": "back"
+            "click a.back": "back"//Pilas
         },
         render:function (eventName) {
-            //$(this.el).html( this.template( this.model.toJSON() ) );
-           _.each(this.collection.models, function (foto) {
-                $(this.el).append(new FotoListItemView({model:foto}).render().el);
-            }, this);
+            $(this.el).html( this.template( this.model ) );
+            $('.fotos').bxSlider({
+                pager: false,
+                minSlides: 10,
+                maxSlides: 20,
+                slideWidth: 100,
+                slideMargin: 8,
+                viewportWidth: '100%'
+            });
             return this;
+        },
+        add: function(foto){
+            console.log('add');
+            console.log(foto);
+            var fliv = new FotoListItemView({model:foto});
+            $('.fotos').append(fliv.render().el);
+            if(foto.attributes.url == '#'+Backbone.history.fragment){
+                $('.foto a.' + foto.attributes.id).trigger('click');
+                vacio = false;
+            }
+
+            /*var vacio = true;
+            _.each(this.collection.models, function (foto) {
+                var fliv = new FotoListItemView({model:foto});
+                $('.fotos').append(fliv.render().el);
+                if(foto.attributes.url == '#'+Backbone.history.fragment){
+                    $('.foto a.' + foto.attributes.id).trigger('click');
+                    vacio = false;
+                }
+            }, this);
+            if(vacio){
+                console.log('..........................Vacío........................');
+            }*/
         },
         back: function(e){
             e.preventDefault();
@@ -114,7 +141,8 @@ jQuery(function($) {
     });
 
     window.FotoListItemView = Backbone.View.extend({
-        //tagName:"li",
+        tagName:"li",
+        className:'foto',
         template: template('fotoListItemViewTemplate'),
         render:function (eventName) {
             $(this.el).html(this.template(this.model.toJSON()));
@@ -128,8 +156,16 @@ jQuery(function($) {
             $(this.el).remove();
         },
         ver: function (e) {
-            //e.preventDefault();
-            console.log('ver ...');
+            var src = e.currentTarget.dataset.src;
+            $('.full').html('<img src="' + src + '" /><h2>'+e.currentTarget.dataset.nombre+'</h2>');
+            modificar_url(e.currentTarget.href, e.currentTarget.dataset.nombre);
+            $('<div class="expander"></div>').appendTo('.full').click(function() {
+                if (screenfull.enabled) {
+                    screenfull.toggle( $('.fancybox-outer')[0] );
+                    $('.fancybox-outer').toggleClass('fullscreen');
+                }
+            });
+            e.preventDefault();
         }
     });
 
@@ -148,39 +184,18 @@ jQuery(function($) {
         },
         listarAlbumes: function() {
             this.albumList = new AlbumCollection();
-            console.log('listarAlbumes');
             this.albumList.fetch({data: {micrositio_id: this.micrositio_id} });
             this.albumListView = new AlbumListView({collection:this.albumList, model: this.micrositio});
             $('#icontainer').html(this.albumListView.render().el);
         },
         listarFotos: function (album, foto) {
-            /*
-            *
-            *
-            *
-            *
-            *
-            PENDIENTE: 
-            *
-            Comprobar no solo el álbum, sino también el micrositio
-            *
-            Parsear el parámetro de la foto que es opcional
-            En caso de que esté seleccionada la foto, se pone más grande.
-            *
-            *
-            *
-            *
-            *
-            */
             this.fotoList = new FotoCollection();
-            console.log('detail ' + album + ' ' + foto);
             this.fotoList.fetch( {data: {nombre: album, micrositio: this.micrositio_id} } );
             var fl = album.charAt(0).toUpperCase();
             album = fl + album.substring(1);
             console.log(album);
-            this.foto = this.fotoList.where({album_foto: album});
             console.dir(this.fotoList);
-            this.fotoListView = new FotoListView({collection:this.fotoList});
+            this.fotoListView = new FotoListView({collection:this.fotoList, model: {nombre: album, foto_activa: foto} });
             $('#icontainer').html(this.fotoListView.render().el);
         }
     });
