@@ -66,7 +66,6 @@ jQuery(function($) {
         render:function (eventName) {
             $(this.el).html( this.template( this.model.toJSON() ) );
             _.each(this.collection.models, function (album) {
-                console.log('each ' + album);
                 $('.albumes').append(new AlbumListItemView({model:album}).render().el);
             }, this);
             return this;
@@ -100,19 +99,7 @@ jQuery(function($) {
         },
         render:function (eventName) {
             $(this.el).html( this.template( this.model ) );
-
-            /*var vacio = true;
-            _.each(this.collection.models, function (foto) {
-                var fliv = new FotoListItemView({model:foto});
-                $('.fotos').append(fliv.render().el);
-                if(foto.attributes.url == '#'+Backbone.history.fragment){
-                    $('.foto a.' + foto.attributes.id).trigger('click');
-                    vacio = false;
-                }
-            }, this);
-            if(vacio){
-                console.log('..........................Vacío........................');
-            }*/
+            window.c = 0;
             return this;
         },
         add: function(foto){
@@ -133,8 +120,6 @@ jQuery(function($) {
                     viewportWidth: '100%'
                 });
                 $('.foto a.' + foto.attributes.id).trigger('click');
-            }else{
-                //window.slider.reloadSlider();
             }
             window.c += 1;
         }
