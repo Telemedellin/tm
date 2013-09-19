@@ -1,5 +1,7 @@
 "use strict";
 jQuery(function($) {
+    window.c = 0;
+    window.slider;
     //Modelos
 	window.Album = Backbone.Model.extend({
 		urlRoot: '/tm/api/fotoalbum',
@@ -93,33 +95,11 @@ jQuery(function($) {
         initialize:function () {
             this.collection.bind("reset", this.render, this);
             var self = this;
-            this.collection.bind("add", this.add, this);
             this.render();
-        },
-        events:{
-            "click a.back": "back"//Pilas
+            this.collection.bind("add", this.add, this);
         },
         render:function (eventName) {
             $(this.el).html( this.template( this.model ) );
-            $('.fotos').bxSlider({
-                pager: false,
-                minSlides: 10,
-                maxSlides: 20,
-                slideWidth: 100,
-                slideMargin: 8,
-                viewportWidth: '100%'
-            });
-            return this;
-        },
-        add: function(foto){
-            console.log('add');
-            console.log(foto);
-            var fliv = new FotoListItemView({model:foto});
-            $('.fotos').append(fliv.render().el);
-            if(foto.attributes.url == '#'+Backbone.history.fragment){
-                $('.foto a.' + foto.attributes.id).trigger('click');
-                vacio = false;
-            }
 
             /*var vacio = true;
             _.each(this.collection.models, function (foto) {
@@ -133,10 +113,30 @@ jQuery(function($) {
             if(vacio){
                 console.log('..........................Vacío........................');
             }*/
+            return this;
         },
-        back: function(e){
-            e.preventDefault();
-            window.history.back();
+        add: function(foto){
+            var fliv = new FotoListItemView({model:foto});
+            $('.fotos').append(fliv.render().el);
+            if(foto.attributes.url == '#'+Backbone.history.fragment){
+                $('.foto a.' + foto.attributes.id).trigger('click');
+            }
+            
+            if(window.c <= 0){
+                console.log(window.c);
+                window.slider = $('.fotos').bxSlider({
+                    pager: false,
+                    minSlides: 10,
+                    maxSlides: 20,
+                    slideWidth: 100,
+                    slideMargin: 8,
+                    viewportWidth: '100%'
+                });
+                $('.foto a.' + foto.attributes.id).trigger('click');
+            }else{
+                //window.slider.reloadSlider();
+            }
+            window.c += 1;
         }
     });
 

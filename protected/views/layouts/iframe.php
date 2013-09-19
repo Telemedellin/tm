@@ -9,7 +9,7 @@
 </a>
 </script>
 <script id="fotoListViewTemplate" type="text/template">
-	<a href="#" class="back">Volver</a>
+	<a href="#imagenes" class="back">Volver</a>
 	<h1><%= nombre %></h1>
 	<div class="full"></div>
 	<ul class="fotos"></ul>
