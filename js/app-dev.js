@@ -82,6 +82,8 @@ function verificar_hash(){
 		hash_value = $.trim(hash_value);
 		if( hash_value.indexOf('imagenes') >= 0 ){
 			abrir_multimedia('imagenes');
+		}else if( hash_value.indexOf('videos') >= 0 ){
+			abrir_multimedia('videos');
 		}
 		
 	}else{

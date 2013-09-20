@@ -55,6 +55,29 @@ class ApiController extends Controller
 		Yii::app()->end();
 	}
 
+	public function actionVideoAlbum()
+	{
+		if(!$_GET['micrositio_id']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		$micrositio_id = $_GET['micrositio_id'];
+		$af = AlbumVideo::model()->findAllByAttributes( array('micrositio_id' => $micrositio_id) );
+		header('Content-Type: application/json; charset="UTF-8"');
+		$json = '';
+		$json .= '[';
+			foreach($af as $album):
+			$json .= '{';
+				$json .= '"id":"'.CHtml::encode($album->id).'",';
+				$json .= '"micrositio":"'.CHtml::encode($album->micrositio_id).'",';
+				$json .= '"nombre":"'.CHtml::encode($album->nombre).'",';
+				$json .= '"url":"'.$album->url->slug.'"';
+				//$json .= '"thumb":"'.bu('images/galeria/' . $album->fotos[0]->thumb).'"';
+			$json .= '},';
+			endforeach;
+			$json = substr($json, 0, -1);
+		$json .= ']';
+		echo $json;
+		Yii::app()->end();
+	}
+
 	public function actionMicrositio(){
 		if(!$_GET['id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$micrositio_id = $_GET['id'];
