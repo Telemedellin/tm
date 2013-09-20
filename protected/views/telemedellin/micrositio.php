@@ -1,6 +1,6 @@
 <?php
 $bc = array();
-if($seccion->url->slug != 'telemedellin')
+if($seccion->url->slug != 'sin-seccion')
 {
 	$bc[ucfirst($seccion->nombre)] =  bu( $seccion->url->slug ) ;
 }
@@ -12,36 +12,22 @@ $this->breadcrumbs = $bc;
 if( !is_null($micrositio->background) )
 	cs()->registerCss('background', 'body{background-image: url("' . bu() . $micrositio->background . '");}');
 
-cs()->registerScriptFile( bu('js/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js'), CClientScript::POS_END );
 cs()->registerScript( 'scroll', 
 	'$("#micrositio").mCustomScrollbar({
 		scrollType: "pixels",
-		scrollButtons:{
+		scrollButtons: {
 			enable: true
 		}
-	});',
+	});
+	',
 	CClientScript::POS_READY
 );
-
-if( $pagina->tipoPagina->tabla == 'novedades' )
-{
-	cs()->registerScriptFile( bu('js/jquery.isotope/jquery.isotope.min.js'), CClientScript::POS_END );
-	cs()->registerScript( 'isotope', 
-		'$(".mCSB_container").isotope({
-		  itemSelector : "div",
-		  //layoutMode : "fitRows"
-		});',
-		CClientScript::POS_READY
-	);
-}
-
-
 ?>
-<?php if( isset( $micrositio->red_social ) && count($micrositio->red_social) ):  ?>
+<?php if( isset( $micrositio->redSocials ) && count($micrositio->redSocials) ):  ?>
 <div id="redes_micrositio" class="redes">
 	<p>Visítanos en</p>
 	<ul>
-	<?php foreach( $micrositio->red_social as $red ): ?>
+	<?php foreach( $micrositio->redSocials as $red ): ?>
 		<li class="<?php echo strtolower($red->tipoRedSocial->nombre) ?>">
 			<a href="<?php echo $red->tipoRedSocial->url_base . $red->usuario ?>">
 				<?php echo $red->tipoRedSocial->nombre ?>
@@ -58,6 +44,24 @@ if( $pagina->tipoPagina->tabla == 'novedades' )
 	<?php $this->widget( 'MenuW', array( 'id' => $menu ) ); ?>
 </div>
 <?php endif;?>
-<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo $pagina->clase ?>">
+<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo (!is_null($pagina->clase)) ? $pagina->clase : '' ?>" data-micrositio-id="<?php echo $micrositio->id; ?>">
 	<?php echo $contenido; ?>
 </div>
+<div id="menu_inferior">
+<?php if(isset($formulario) && $formulario): ?>
+	<?php echo $formulario ?>
+	<p>Formulario</p>
+<?php endif;?>
+<?php if(isset($galeria) && $galeria): ?>
+	<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes">
+		<img src="<?php echo bu('images/static/imagenes.jpg') ?>" />
+		<span>Imágenes</span>
+	</a>
+<?php endif;?>
+<?php if(isset($videos) && $videos): ?>
+	<?php echo $videos ?>
+	<a href="#">Videos</a>
+<?php endif;?>
+</div>
+
+<?php /*?m=<?php echo $micrositio->id*/ ?>

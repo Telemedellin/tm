@@ -27,11 +27,12 @@ class MenuW extends CWidget
     	{
     		if($item->item_id != 0) continue;
             $url = $this->getUrl($item);
+            $clase = $item->clase;
             
     		$item_actual = array(
     				'label' => $item->label,
     				'url'	=> $url,
-                    'itemOptions' => array('class' => $item->clase),
+                    'itemOptions' => array('class' => $clase),
     				'active'=> strpos($ru, $url)
     			);
     		if($item->hijos == 1)
@@ -41,10 +42,11 @@ class MenuW extends CWidget
     			foreach($hijos as $hijo)
     			{
     				$hurl = $this->getUrl($hijo);
+                    $hclase = $hijo->clase;
                     $subitems[] = array(
     						'label' => $hijo->label,
     						'url'	=> $hurl,
-                            'itemOptions' => array('class' => $item->clase),
+                            'itemOptions' => array('class' => $hclase),
     						'active' => strpos($ru, $hurl)
     					);
     			}

@@ -1,0 +1,62 @@
+<div id="overlay">
+	<div id="seccion" class="{{seccion}}">
+		<div class="filtro">
+		 	<form method="get"> 
+		        <input type="text" id="txtFiltro" name="txtFiltro" placeholder="Filtrar {{seccion}}...">
+		    </form> 
+		</div>
+		<div class="listado">
+			<div class="inner">
+			{{#micrositios}}
+				<p><a href="{{url}}">{{nombre}}</a></p>
+			{{/micrositios}}
+			</div>
+			<!--<div class="paginacion">
+				<span><a class="siguiente" href="#">Siguiente</a></span>
+			</div>-->
+		</div>
+		<div class="destacados">
+			{{#destacados}}
+			<p><a href="{{url}}"><img src="{{miniatura}}" alt="{{nombre}}" /></a></p>
+			{{/destacados}}
+		</div>
+		<a href="#" class="close">X</a>
+	</div>
+	<script>
+	jQuery(function($) {
+		$("#txtFiltro").keyup(function(){
+			var table = $(".inner");
+			var value = this.value;
+			table.find("p").each(function(index, row) {
+				var allCells = $(row).find("a");
+				if(allCells.length > 0) {
+					var found = false;
+					allCells.each(function(index, a) {
+						var regExp = new RegExp(value, "i");
+						if(regExp.test($(a).text())) {
+							found = true;
+							return false;
+						}
+					});
+					if (found == true) $(row).show();
+					else $(row).hide();
+				}
+			});			
+		});
+		/*$(document).on('click', '.siguiente', scrollh);
+
+		function scrollh(e)
+		{
+			$('.inner').css('left', function(index, value){
+				var nv;
+				console.log($(this).width());
+				if(value == 'auto') nv = 0;
+				else nv = value.slice(0, -2);
+				console.log(nv);
+				return nv - 200;
+			});
+			e.preventDefault();
+		}*/
+	});
+	</script>
+</div>

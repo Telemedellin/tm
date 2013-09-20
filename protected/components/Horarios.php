@@ -49,6 +49,31 @@ class Horarios{
 		return $html;
 	}
 
+	public static function fecha_especial( $fechas )	
+	{
+		$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
+		$datos = array();
+		$html = '';
+		foreach( $fechas as $fecha ):
+			$datos[] = array(
+				'fecha' 		=> $fecha->fecha,
+				'hora_inicio'	=> $fecha->hora_inicio,
+				'hora_fin'		=> $fecha->hora_fin,
+			);
+		endforeach;
+	
+		$te = 0;
+		foreach( $datos as $dato )
+		{
+			$html .= date('l', $dato['fecha']) . ' ' . date('d', $dato['fecha']) . ' de ' . date('F', $dato['fecha']);
+			$html .= ' de ' . Horarios::hora( $dato['hora_inicio'] );
+			$html .= ' a ' . Horarios::hora( $dato['hora_fin'] ) . ', ';
+		}
+		$html = substr($html, 0, -2);
+		
+		return $html;
+	}
+
 	public static function hora( $tiempo )
 	{
 		$hora 	= substr($tiempo, 0, 2);

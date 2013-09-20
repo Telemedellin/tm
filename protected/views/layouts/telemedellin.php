@@ -6,13 +6,14 @@ $ru = Yii::app()->request->requestUri;
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/bootstrap-responsive.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/bootstrap-responsive.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/jquery.fancybox.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/main.css" />
+	<!--<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/styles.min.css" />-->
 	<!--[if LTE IE 8]>
-      <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" />
-      <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/modernizr.custom.95570.js"></script>
-    <![endif]-->
+	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" />
+	<![endif]-->
 	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
 	<?php $this->display_seo(); ?>
 </head>
@@ -33,35 +34,9 @@ $ru = Yii::app()->request->requestUri;
 				$this->widget( 'MenuW', array( 'id' => 1 ) ); // Menú principal
 		    ?>
 			</nav>
-			<?php $this->widget('ext.tm-buscador.TmBuscador'); ?>
+			<?php //$this->widget('ext.tm-buscador.TmBuscador'); ?>
 		</div>
 		<footer>
-			<div class="vcard">
-				<p class="adr">
-					<a class="extended-address" href="http://goo.gl/maps/VPIMK">
-						<span class="title">Sede principal</span>
-						<span class="locality">Barrio Caribe</span> <span class="street-address">Cra 64C N 72-58</span>
-					</a>
-					<a class="extended-address" href="http://goo.gl/maps/NH7LN">
-						<span class="title">Sede canal parque</span>
-						<span class="locality">El Poblado</span> <span class="street-address">Cra 43A N 17 sur 30</span>
-					</a>
-				</p>
-				<p>
-					<span class="tel">
-						<span class="title">Teléfono</span>
-						<span class="value">(57 4) 448 9590</span>
-					</span>
-					<span class="tel">
-						<span class="type">Fax</span> 
-						<span class="value">(57 4) 437 6930</span>
-					</span>
-				</p>
-				<p class="email">
-					<span class="title">Correo electrónico</span>
-					<span class="email">contacto@telemedellin.tv</span>
-				</p>
-			</div>
 			<div class="redes">
 				<ul>
 					<li class="facebook"><a href="http://www.facebook.com/telemedellin.tv‎">Facebook</a></li>
@@ -98,11 +73,12 @@ $ru = Yii::app()->request->requestUri;
 	if( count($this->breadcrumbs) )
 		$this->widget('Compartir'); 
 	?>
-	<div id="second-nav">
-		<?php 
-			$this->widget( 'MenuW', array( 'id' => 4 ) ); // Menú utilitario
-	      ?>
-	</div>
 </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<!--<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/bootstrap.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/modernizr.custom.30163.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/mustache/mustache.js"></script>-->
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app-dev.js"></script>
 </body>
 </html>

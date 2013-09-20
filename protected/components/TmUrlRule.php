@@ -18,40 +18,33 @@ class TmUrlRule extends CBaseUrlRule
     public function parseUrl($manager, $request, $pathInfo, $rawPathInfo)
     {
         
-        /*
-        if ( preg_match('%^([\w-]+)(/([\w-]+))?(/([\w-]+))?%', $pathInfo) )
-        {
-            $slug = Url::model()->findByAttributes( array('slug' => $pathInfo) );
-            if( !$slug ) return false;
-            $_GET['tm'] = $slug;
-            return 'telemedellin/cargar';
-        }
-        */
         if ( preg_match('%^([\w-]+)(/([\w-]+))?(/([\w-]+))?%', $pathInfo) )
         {
             $slug = Url::model()->findByAttributes( array('slug' => $pathInfo) );
             if( !$slug ) return false;
 
             $_GET['tm'] = $slug;
-            switch ( $slug->tipo ) {
+            switch ( $slug->tipo_id ) {
                 case 1:
                     return 'telemedellin/cargarSeccion';
-                    break;
                 case 2:
-                    if( $slug->slug == 'novedades' )
-                        return 'telemedellin/cargarNovedades';
-                    else if( $slug->slug == 'programacion' )
-                        return 'telemedellin/cargarProgramacion';
-                    else
-                        return 'telemedellin/cargarMicrositio';
-                    break;
+                    switch( $slug->slug ){
+                        case 'novedades':
+                            return 'telemedellin';
+                        case 'programacion':
+                            return 'telemedellin/cargarProgramacion';
+                        default:
+                            return 'telemedellin/cargarMicrositio';
+                    }
                 case 3:
-                        $_GET['slug_id'] = $slug->id;
-                        return 'telemedellin/cargarMicrositio';
-                    break;
+                    $_GET['slug_id'] = $slug->id;
+                    return 'telemedellin/cargarMicrositio';
+                case 4:
+                    return 'telemedellin/cargarImagenes';
+                case 5:
+                    return 'telemedellin/cargarAlbumImagenes';
                 default:
                     return 'telemedellin';
-                    break;
             }
         }
         return false;  // this rule does not apply
