@@ -367,6 +367,12 @@ nav ul {
 #bar h1 img {
 	max-width: 63%;
 }
+
+footer img {
+	max-width: 90%;
+}
+
+
 #bar nav li {
 }
 #bar nav li a {
