@@ -27,6 +27,16 @@ jQuery(function($) {
         } 
     });
 
+    window.VideoAlbum = Backbone.Model.extend({
+        urlRoot: '/tm/api/videoalbum',
+        defaults: {
+            id: '', 
+            nombre : '',
+            url : '',
+            //thumb: ''
+        }
+    });
+
     window.Micrositio = Backbone.Model.extend({
        urlRoot: '/tm/api/micrositio',
         defaults: {
@@ -44,6 +54,11 @@ jQuery(function($) {
     window.FotoCollection = Backbone.Collection.extend({
         model : Foto,
         url: '/tm/api/foto'
+    });
+
+    window.VideoAlbumCollection = Backbone.Collection.extend({
+        model : VideoAlbum,
+        url: '/tm/api/videoalbum'
     });
 
     //Helpers
@@ -154,11 +169,42 @@ jQuery(function($) {
         }
     });
 
+    window.VideoAlbumListView = Backbone.View.extend({
+        template: template('videoalbumListViewTemplate'),
+        initialize:function () {
+            this.collection.bind("reset", this.render, this);
+            this.collection.bind("add", this.render, this);
+            this.render;
+        },
+        render:function (eventName) {
+            $(this.el).html( this.template( this.model.toJSON() ) );
+            _.each(this.collection.models, function (album) {
+                $('.videoalbumes').append(new VideoAlbumListItemView({model:album}).render().el).fadeIn('slow');
+            }, this);
+            return this;
+        }
+    });
+
+    window.VideoAlbumListItemView = Backbone.View.extend({
+        tagName:"li",
+        className: 'videoalbum', 
+        template: template('videoalbumListItemViewTemplate'),
+        render:function (eventName) {
+            $(this.el).html( this.template( this.model.toJSON() ) );
+            return this;
+        },
+        close:function () {
+            $(this.el).unbind();
+            $(this.el).remove();
+        }
+    });
+
     //Rutas
     var AppRouter = Backbone.Router.extend({
         routes: {
             "imagenes":                 "listarAlbumes",
             "imagenes/:album(/:foto)":  "listarFotos",
+            "videos":                   "listarVideoAlbumes"
             //"search/:query":        "search",  // #search/kiwis
             //"search/:query/p:page": "search"   // #search/kiwis/p7
         },
@@ -182,6 +228,12 @@ jQuery(function($) {
             console.dir(this.fotoList);
             this.fotoListView = new FotoListView({collection:this.fotoList, model: {nombre: album, foto_activa: foto} });
             $('#icontainer').html(this.fotoListView.render().el);
+        },
+        listarVideoAlbumes: function() {
+            this.videoalbumList = new VideoAlbumCollection();
+            this.videoalbumList.fetch({data: {micrositio_id: this.micrositio_id} });
+            this.videoalbumListView = new VideoAlbumListView({collection:this.videoalbumList, model: this.micrositio});
+            $('#icontainer').html(this.videoalbumListView.render().el);
         }
     });
     var app = new AppRouter();

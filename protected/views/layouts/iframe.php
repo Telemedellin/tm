@@ -19,6 +19,16 @@
 		<img src="<%= thumb %>" width="100" height="60" />
 	</a>
 </script>
+<script id="videoalbumListViewTemplate" type="text/template">
+	<h1>Álbumes de <%= nombre %></h1>
+	<ul class="videoalbumes"></ul>
+</script>
+<script id="videoalbumListItemViewTemplate" type="text/template">
+<a href="<%= url %>" class="in_fancy" data-id="<%= id %>">
+	<img src="" width="105" height="77" />
+	<h2><%= nombre %></h2>
+</a>
+</script>
 <div id="icontainer">
 	<?php echo $content; ?>
 </div>

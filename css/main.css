@@ -524,7 +524,7 @@ nav ul {
  color: #FFF;
 }
 #compartir {
-	bottom: 30px;
+	bottom: 10px;
 	position: absolute;
 	right: 15px;
 }
@@ -535,7 +535,7 @@ nav ul {
 	-webkit-box-sizing: border-box;
 		   -moz-box-sizing: border-box;
 				box-sizing: border-box;
-	height: 85%;
+	height: 88%;
 	left: 20%;
 	overflow: hidden;
 	padding-top: 10px;
@@ -635,20 +635,44 @@ nav ul {
 }
 #menu_inferior a
 {
-	background: rgba(255, 255, 255, .3);
+	background-color: rgba(255, 255, 255, .3);
 	border-radius: 5px;
 	display: block;
 	float: right;
-	margin-right: 6px;
-	padding: 5px;
+	margin-left: 6px;
+	padding: 95px 5px 5px;
 	text-align: center;
 	text-transform: uppercase;
 	/*width: 33%;*/
 	width: 145px;
 }
+#menu_inferior a:hover
+{
+	text-decoration: none;
+}
+#menu_inferior a.imagenes
+{
+	background-image: url(../images/static/imagenes.jpg);
+	background-position:  5px 5px;
+	background-repeat: no-repeat;
+}
+#menu_inferior a.imagenes:hover
+{
+	background-image: url(../images/static/imagenes_hover.jpg);
+}
+#menu_inferior a.videos
+{
+	background-image: url(../images/static/videos.jpg);
+	background-position:  5px 5px;
+	background-repeat: no-repeat;
+}
+#menu_inferior a.videos:hover
+{
+	background-image: url(../images/static/videos_hover.jpg);
+}
 #menu_inferior a:last-child
 {
-	margin-right: 0;
+	margin-left: 0;
 }
 #menu_micrositio {
 	background: rgba(0, 0, 0, .6);
@@ -684,7 +708,7 @@ nav ul {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
-	height: 53%;
+	height: 50%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 15px;
@@ -1424,7 +1448,7 @@ nav ul {
 		background-size: 47%;
 	}
 	#micrositio {
-		height: 60%;
+		height: 50%;
 	}
 }
 @media (min-width: 1437px) {

@@ -47,21 +47,18 @@ cs()->registerScript( 'scroll',
 <div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo (!is_null($pagina->clase)) ? $pagina->clase : '' ?>" data-micrositio-id="<?php echo $micrositio->id; ?>">
 	<?php echo $contenido; ?>
 </div>
+<?php if($formulario || $galeria || $video):?>
 <div id="menu_inferior">
-<?php if(isset($formulario) && $formulario): ?>
-	<?php echo $formulario ?>
-	<p>Formulario</p>
-<?php endif;?>
-<?php if(isset($galeria) && $galeria): ?>
-	<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes">
-		<img src="<?php echo bu('images/static/imagenes.jpg') ?>" />
-		<span>Imágenes</span>
-	</a>
-<?php endif;?>
-<?php if(isset($videos) && $videos): ?>
-	<?php echo $videos ?>
-	<a href="#">Videos</a>
-<?php endif;?>
+	<?php if($formulario): ?>
+		<a href="#"><span>Formulario</span></a>
+	<?php endif;?>
+	<?php if($galeria): ?>
+		<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes">
+			<span>Imágenes</span>
+		</a>
+	<?php endif;?>
+	<?php if($video): ?>
+		<a href="<?php echo bu($micrositio->url->slug) ?>#videos" class="fancybox fancybox.ajax videos"><span>Videos</span></a>
+	<?php endif;?>
 </div>
-
-<?php /*?m=<?php echo $micrositio->id*/ ?>
+<?php endif; ?>
