@@ -750,7 +750,7 @@ nav ul {
 	box-sizing: border-box;
 	color: #FFF;
 	height: 105px;
-	padding: 0 10px;
+	padding: 10px 10px;
 	position: fixed;
 	right: 10px;
 	width: 80%;
@@ -760,7 +760,7 @@ nav ul {
 	color: #FFF;
 }
 #newsticker footer {
-	float: right;
+	float: left;
 	text-align: left;
 	width: 18%;
 }
@@ -779,7 +779,7 @@ nav ul {
 	margin: 0 2%;
 }
 #newsticker .bx-wrapper {
-	float: left;
+	float: right;
 	position: relative;
 }
 #newsticker .bx-controls {
