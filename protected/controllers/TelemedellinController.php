@@ -257,10 +257,8 @@ class TelemedellinController extends Controller
 		else
 			$formulario = false;
 		*/
-		if(!is_null($micrositio->albumFotos) )
-		{
+		if(!empty($micrositio->albumFotos) )
 			$galeria = true;
-		}
 		else
 			$galeria = false;
 

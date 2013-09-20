@@ -23,11 +23,11 @@ cs()->registerScript( 'scroll',
 	CClientScript::POS_READY
 );
 ?>
-<?php if( isset( $micrositio->red_social ) && count($micrositio->red_social) ):  ?>
+<?php if( isset( $micrositio->redSocials ) && count($micrositio->redSocials) ):  ?>
 <div id="redes_micrositio" class="redes">
 	<p>Visítanos en</p>
 	<ul>
-	<?php foreach( $micrositio->red_social as $red ): ?>
+	<?php foreach( $micrositio->redSocials as $red ): ?>
 		<li class="<?php echo strtolower($red->tipoRedSocial->nombre) ?>">
 			<a href="<?php echo $red->tipoRedSocial->url_base . $red->usuario ?>">
 				<?php echo $red->tipoRedSocial->nombre ?>
@@ -53,7 +53,10 @@ cs()->registerScript( 'scroll',
 	<p>Formulario</p>
 <?php endif;?>
 <?php if(isset($galeria) && $galeria): ?>
-	<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes">Imágenes</a>
+	<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes">
+		<img src="<?php echo bu('images/static/imagenes.jpg') ?>" />
+		<span>Imágenes</span>
+	</a>
 <?php endif;?>
 <?php if(isset($videos) && $videos): ?>
 	<?php echo $videos ?>

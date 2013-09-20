@@ -635,12 +635,16 @@ nav ul {
 }
 #menu_inferior a
 {
-	background: rgba(255, 255, 255, .6);
+	background: rgba(255, 255, 255, .3);
+	border-radius: 5px;
 	display: block;
 	float: right;
 	margin-right: 6px;
+	padding: 5px;
 	text-align: center;
-	width: 33%;
+	text-transform: uppercase;
+	/*width: 33%;*/
+	width: 145px;
 }
 #menu_inferior a:last-child
 {
@@ -680,7 +684,7 @@ nav ul {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
-	height: 60%;
+	height: 53%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 15px;

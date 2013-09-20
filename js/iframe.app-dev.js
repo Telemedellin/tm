@@ -66,7 +66,7 @@ jQuery(function($) {
         render:function (eventName) {
             $(this.el).html( this.template( this.model.toJSON() ) );
             _.each(this.collection.models, function (album) {
-                $('.albumes').append(new AlbumListItemView({model:album}).render().el);
+                $('.albumes').append(new AlbumListItemView({model:album}).render().el).fadeIn('slow');
             }, this);
             return this;
         }
@@ -104,7 +104,7 @@ jQuery(function($) {
         },
         add: function(foto){
             var fliv = new FotoListItemView({model:foto});
-            $('.fotos').append(fliv.render().el);
+            $('.fotos').append(fliv.render().el).fadeIn('slow');
             if(foto.attributes.url == '#'+Backbone.history.fragment){
                 $('.foto a.' + foto.attributes.id).trigger('click');
             }
@@ -142,9 +142,9 @@ jQuery(function($) {
         },
         ver: function (e) {
             var src = e.currentTarget.dataset.src;
-            $('.full').html('<img src="' + src + '" /><h2>'+e.currentTarget.dataset.nombre+'</h2>');
+            $('.full').html('<img src="' + src + '" /><h2>'+e.currentTarget.dataset.nombre+'</h2>').fadeIn('slow');
             modificar_url(e.currentTarget.href, e.currentTarget.dataset.nombre);
-            $('<div class="expander"></div>').appendTo('.full').click(function() {
+            $('<div class="expander"></div>').appendTo('.full').fadeIn('slow').click(function() {
                 if (screenfull.enabled) {
                     screenfull.toggle( $('.fancybox-outer')[0] );
                     $('.fancybox-outer').toggleClass('fullscreen');
