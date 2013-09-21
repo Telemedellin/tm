@@ -6,15 +6,13 @@
  * The followings are the available columns in table 'url':
  * @property string $id
  * @property string $slug
- * @property integer $tipo
+ * @property string $tipo_id
  * @property string $creado
  * @property string $modificado
  * @property integer $estado
  *
  * The followings are the available model relations:
- * @property Micrositio[] $micrositios
- * @property Pagina[] $paginas
- * @property Seccion[] $seccions
+ * @property AlbumFoto[] $albumFotos
  */
 class Url extends CActiveRecord
 {
@@ -44,13 +42,14 @@ class Url extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('slug, tipo, estado', 'required'),
-			array('tipo, estado', 'numerical', 'integerOnly'=>true),
+			array('slug, tipo_id, creado, estado', 'required'),
+			array('estado', 'numerical', 'integerOnly'=>true),
 			array('slug', 'length', 'max'=>255),
-			array('creado, modificado', 'length', 'max'=>19),
+			array('tipo_id', 'length', 'max'=>10),
+			array('modificado', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, slug, tipo, creado, modificado, estado', 'safe', 'on'=>'search'),
+			array('id, slug, tipo_id, creado, modificado, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,10 +61,8 @@ class Url extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'micrositios' => array(self::HAS_MANY, 'Micrositio', 'url_id'),
-			'paginas' => array(self::HAS_MANY, 'Pagina', 'url_id'),
-			'seccions' => array(self::HAS_MANY, 'Seccion', 'url_id'),
-			'url' => array(self::HAS_MANY, 'Url', 'url_id'),
+			'albumFotos' => array(self::HAS_MANY, 'AlbumFoto', 'url_id'),
+			'albumVideos' => array(self::HAS_MANY, 'AlbumVideo', 'url_id')
 		);
 	}
 
@@ -77,13 +74,17 @@ class Url extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'slug' => 'Slug',
-			'tipo' => 'Tipo',
+			'tipo_id' => 'Tipo',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
 			'estado' => 'Estado',
 		);
 	}
 
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 */
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

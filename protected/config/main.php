@@ -67,10 +67,10 @@ return array(
 		),
 		*/
 		'db'=>array(
-		'connectionString' => 'mysql:host=concursomedellin2018.com;dbname=med2018_tm',
+		'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
 		'emulatePrepare' => true,
-		'username' => 'med2018_tm',
-		'password' => 'asdf1234*',
+		'username' => 'root',
+		'password' => '',
 		'charset' => 'utf8',
 		),
 			

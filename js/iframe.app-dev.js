@@ -37,6 +37,18 @@ jQuery(function($) {
         }
     });
 
+    window.Video = Backbone.Model.extend({
+       urlRoot: '/tm/api/video',
+        defaults: {
+            id: '', 
+            nombre : '', 
+            album_video : '',
+            proveedor_video : '',
+            url:'',
+            duracion : ''
+        } 
+    });
+
     window.Micrositio = Backbone.Model.extend({
        urlRoot: '/tm/api/micrositio',
         defaults: {
@@ -59,6 +71,11 @@ jQuery(function($) {
     window.VideoAlbumCollection = Backbone.Collection.extend({
         model : VideoAlbum,
         url: '/tm/api/videoalbum'
+    });
+
+    window.VideoCollection = Backbone.Collection.extend({
+        model : Video,
+        url: '/tm/api/video'
     });
 
     //Helpers
@@ -199,12 +216,79 @@ jQuery(function($) {
         }
     });
 
+    window.VideoListView = Backbone.View.extend({
+        //tagName: 'ul',
+        className: 'videogaleria',
+        template: template('videoListViewTemplate'),
+        initialize:function () {
+            this.collection.bind("reset", this.render, this);
+            var self = this;
+            this.render();
+            this.collection.bind("add", this.add, this);
+        },
+        render:function (eventName) {
+            $(this.el).html( this.template( this.model ) );
+            window.c = 0;
+            return this;
+        },
+        add: function(video){
+            var vliv = new VideoListItemView({model:video});
+            $('.videos').append(vliv.render().el).fadeIn('slow');
+            if(video.attributes.url == '#'+Backbone.history.fragment){
+                $('.video a.' + video.attributes.id).trigger('click');
+            }
+            
+            if(window.c <= 0){
+                window.slider = $('.videos').bxSlider({
+                    pager: false,
+                    minSlides: 10,
+                    maxSlides: 20,
+                    slideWidth: 100,
+                    slideMargin: 8,
+                    viewportWidth: '100%'
+                });
+                $('.video a.' + video.attributes.id).trigger('click');
+            }
+            window.c += 1;
+        }
+    });
+
+    window.VideoListItemView = Backbone.View.extend({
+        tagName:"li",
+        className:'video',
+        template: template('videoListItemViewTemplate'),
+        render:function (eventName) {
+            $(this.el).html(this.template(this.model.toJSON()));
+            return this;
+        },
+        events:{
+            "click a": "ver"
+        },
+        close:function () {
+            $(this.el).unbind();
+            $(this.el).remove();
+        },
+        ver: function (e) {
+            var src = e.currentTarget.dataset.src;
+            $('.full').html('<img src="' + src + '" /><h2>'+e.currentTarget.dataset.nombre+'</h2>').fadeIn('slow');
+            modificar_url(e.currentTarget.href, e.currentTarget.dataset.nombre);
+            $('<div class="expander"></div>').appendTo('.full').fadeIn('slow').click(function() {
+                if (screenfull.enabled) {
+                    screenfull.toggle( $('.fancybox-outer')[0] );
+                    $('.fancybox-outer').toggleClass('fullscreen');
+                }
+            });
+            e.preventDefault();
+        }
+    });
+
     //Rutas
     var AppRouter = Backbone.Router.extend({
         routes: {
             "imagenes":                 "listarAlbumes",
             "imagenes/:album(/:foto)":  "listarFotos",
-            "videos":                   "listarVideoAlbumes"
+            "videos":                   "listarVideoAlbumes",
+            "videos/:videoalbum(/:video)":"listarVideos"
             //"search/:query":        "search",  // #search/kiwis
             //"search/:query/p:page": "search"   // #search/kiwis/p7
         },
@@ -234,6 +318,16 @@ jQuery(function($) {
             this.videoalbumList.fetch({data: {micrositio_id: this.micrositio_id} });
             this.videoalbumListView = new VideoAlbumListView({collection:this.videoalbumList, model: this.micrositio});
             $('#icontainer').html(this.videoalbumListView.render().el);
+        },
+        listarVideos: function (videoalbum, video) {
+            this.videolist = new VideoCollection();
+            this.videolist.fetch( {data: {nombre: videoalbum, micrositio: this.micrositio_id} } );
+            var fl = videoalbum.charAt(0).toUpperCase();
+            videoalbum = fl + videoalbum.substring(1);
+            console.log(videoalbum);
+            console.dir(this.videolist);
+            this.videolistView = new VideoListView({collection:this.videolist, model: {nombre: videoalbum, video_activo: video} });
+            $('#icontainer').html(this.videolistView.render().el);
         }
     });
     var app = new AppRouter();
