@@ -11,5 +11,9 @@ $this->widget(
 
 cs()->registerScriptFile(bu().'/js/libs/jquery.bxslider/jquery.bxslider.js', CClientScript::POS_END);
 ?>
+
+<div class="marquesina">
+En #NTMed comenzamos a prepararnos, porque lo que pasa en Medellín se ve primero en @Telemedellin pic.twitter.com/LwSpLD7wv2   
+</div>
   
 </section>

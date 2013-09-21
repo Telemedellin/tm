@@ -327,6 +327,14 @@ nav ul {
 	position: absolute;
 	width: 100%;
 }
+
+.marquesina {
+	border-top:1px solid #333;
+	padding:5px 0 0 0;
+	clear:both;
+	width:95%;
+	}
+
 #bar footer a {
 	color: #FFF;
 }
@@ -714,7 +722,7 @@ footer img {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
-	height: 50%;
+	height: 88%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 15px;
@@ -779,7 +787,7 @@ footer img {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	color: #FFF;
-	height: 105px;
+	height: 125px;
 	padding: 10px 10px;
 	position: fixed;
 	right: 10px;
@@ -827,8 +835,9 @@ footer img {
 	height: 14px;
 	line-height: 14px;
 	text-indent: -9999px;
-	vertical-align: text-top;
+	vertical-align:middle;
 	width: 14px;
+	margin-top:7px;
 }
 #newsticker .bx-next {
 	background-position: -456px -72px;
@@ -857,14 +866,15 @@ footer img {
 #newsticker .noticia img {
 	display: block;
 	float: left;
-	height: 25px;
+	height: 50px;
 	margin-bottom: 5px;
 	margin-right: 8px;
 }
 #newsticker .noticia .meta {
-	clear: both;
+	/* clear: both; */
 	font-size: 10px;
 	line-height: 1.2;
+	padding-top:5px;
 }
 #micrositio.novedades .novedad {
 	float: left;
@@ -1454,7 +1464,7 @@ footer img {
 		background-size: 47%;
 	}
 	#micrositio {
-		height: 50%;
+		height: 80%;
 	}
 }
 @media (min-width: 1437px) {

@@ -32,7 +32,7 @@
     }
 ?>
 <div class="yii-feed-widget-item noticia">
-	<img src="<?php echo $src ?>" width="25" height="25" alt="<?php echo $item->get_title(); ?>" />
+	<img src="<?php echo $src ?>" width="50" height="50" alt="<?php echo $item->get_title(); ?>" />
     <h3><a href="<?php echo $item->get_permalink(); ?>">
             <?php echo $item->get_title(); ?></a>
     </h3>
