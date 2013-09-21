@@ -29,6 +29,17 @@
 	<h2><%= nombre %></h2>
 </a>
 </script>
+<script id="videoListViewTemplate" type="text/template">
+	<a href="#videos" class="back">Volver</a>
+	<h1><%= nombre %></h1>
+	<div class="full"></div>
+	<ul class="videos"></ul>
+</script>
+<script id="videoListItemViewTemplate" type="text/template">
+	<a href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-src="<%= src %>" data-nombre="<%= nombre %>">
+		<%= nombre %>
+	</a>
+</script>
 <div id="icontainer">
 	<?php echo $content; ?>
 </div>

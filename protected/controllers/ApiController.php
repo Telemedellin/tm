@@ -59,17 +59,46 @@ class ApiController extends Controller
 	{
 		if(!$_GET['micrositio_id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$micrositio_id = $_GET['micrositio_id'];
-		$af = AlbumVideo::model()->findAllByAttributes( array('micrositio_id' => $micrositio_id) );
+		$va = AlbumVideo::model()->with('url')->findAllByAttributes( array('micrositio_id' => $micrositio_id) );
+		
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		$json .= '[';
-			foreach($af as $album):
+			foreach($va as $videoalbum):
 			$json .= '{';
-				$json .= '"id":"'.CHtml::encode($album->id).'",';
-				$json .= '"micrositio":"'.CHtml::encode($album->micrositio_id).'",';
-				$json .= '"nombre":"'.CHtml::encode($album->nombre).'",';
-				$json .= '"url":"'.$album->url->slug.'"';
-				//$json .= '"thumb":"'.bu('images/galeria/' . $album->fotos[0]->thumb).'"';
+				$json .= '"id":"'.CHtml::encode($videoalbum->id).'",';
+				$json .= '"micrositio":"'.CHtml::encode($videoalbum->micrositio_id).'",';
+				$json .= '"nombre":"'.CHtml::encode($videoalbum->nombre).'",';
+				$json .= '"url":"'.$videoalbum->url->slug.'"';
+				//$json .= '"thumb":"'.bu('images/galeria/' . $videoalbum->fotos[0]->thumb).'"';
+			$json .= '},';
+			endforeach;
+			$json = substr($json, 0, -1);
+		$json .= ']';
+		echo $json;
+		Yii::app()->end();
+	}
+	
+	public function actionVideo()
+	{
+		if(!$_GET['nombre']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		if(!$_GET['micrositio']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		$nombre = $_GET['nombre'];
+		$micrositio = $_GET['micrositio'];
+		$va = AlbumVideo::model()->with('url')->findByAttributes( array('nombre' => $nombre, 'micrositio_id' => $micrositio)  );
+		if(!$va) throw new CHttpException(404, 'No se encontró la página solicitada');
+		$v = Video::model()->findAllByAttributes( array('album_video_id' => $va->id) );
+		header('Content-Type: application/json; charset="UTF-8"');
+		$json = '';
+		$json .= '[';
+			foreach($v as $video):
+			$json .= '{';
+				$json .= '"id":"'.CHtml::encode($video->id).'",';
+				$json .= '"album_video":"'.CHtml::encode($video->albumVideo->nombre).'",';
+				$json .= '"proveedor_video":"'.CHtml::encode($video->proveedorVideo->nombre).'",';
+				$json .= '"nombre":"'.CHtml::encode($video->nombre).'",';
+				$json .= '"url":"'.$video->url.'",';
+				$json .= '"duracion":"'.$video->duracion.'"';
 			$json .= '},';
 			endforeach;
 			$json = substr($json, 0, -1);
