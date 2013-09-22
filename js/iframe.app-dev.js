@@ -305,9 +305,10 @@ jQuery(function($) {
         },
         listarFotos: function (album, foto) {
             this.fotoList = new FotoCollection();
-            this.fotoList.fetch( {data: {nombre: album, micrositio: this.micrositio_id} } );
+            this.fotoList.fetch( {data: {hash: window.location.hash, micrositio: this.micrositio_id} } );
             var fl = album.charAt(0).toUpperCase();
             album = fl + album.substring(1);
+            album = makeTitle(album);
             console.log(album);
             console.dir(this.fotoList);
             this.fotoListView = new FotoListView({collection:this.fotoList, model: {nombre: album, foto_activa: foto} });
@@ -339,4 +340,14 @@ function modificar_url(pagina, nombre){
 		var stateObj = { pagina: nombre };
 		window.history.pushState( stateObj, null, pagina );
 	}
+}
+function makeTitle(slug) {
+    var words = slug.split('-');
+
+    for(var i = 0; i < words.length; i++) {
+      var word = words[i];
+      words[i] = word.charAt(0).toUpperCase() + word.slice(1);
+    }
+
+    return words.join(' ');
 }

@@ -144,7 +144,7 @@ class Micrositio extends CActiveRecord
 	public function listarPorSeccion( $seccion_id )
 	{
 		if( !$seccion_id ) return false;
-		return $this->with('pagina')->findAllByAttributes( array('seccion_id' => $seccion_id), 't.estado <> 0' );
+		return $this->with('pagina')->findAllByAttributes( array('seccion_id' => $seccion_id), array('condition' => 't.estado <> 0', 'order' => 't.nombre ASC') );
 	}
 
 	public function cargarPorUrl($url_id)

@@ -30,8 +30,7 @@ return array(
 		),
 	),
 	'controllerMap'=>array(
-	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController',
-	    'buscar' => 'ext.tm-buscador.TmBuscadorController'
+	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController'
 	),
 	// application components
 	'components'=>array(
@@ -47,9 +46,9 @@ return array(
 				'gii'=>'gii',
 	            'gii/<controller:\w+>'=>'gii/<controller>',
 	            'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
-	            'administrador'=>'administrador/admin',
+	            /*'administrador'=>'administrador/admin',
 	            'administrador/<controller:\w+>'=>'administrador/<controller>',
-	            'administrador/<controller:\w+>/<action:\w+>'=>'administrador/<controller>/<action>',
+	            'administrador/<controller:\w+>/<action:\w+>'=>'administrador/<controller>/<action>',*/
 				array(
 				    'class' => 'application.components.TmUrlRule',
 				    'connectionID' => 'db',

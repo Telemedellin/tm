@@ -27,11 +27,22 @@ class ApiController extends Controller
 
 	public function actionFoto()
 	{
-		if(!$_GET['nombre']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		if(!$_GET['hash']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		if(!$_GET['micrositio']) throw new CHttpException(404, 'No se encontró la página solicitada');
-		$nombre = $_GET['nombre'];
+		$hash = $_GET['hash'];
 		$micrositio = $_GET['micrositio'];
-		$af = AlbumFoto::model()->findByAttributes( array('nombre' => $nombre, 'micrositio_id' => $micrositio)  );
+		$url = Url::model()->findByAttributes( array('slug' => $hash) );
+		if($url->tipo_id == 5){
+			$url_id = $url->id;
+			$af = AlbumFoto::model()->findByAttributes( array('url_id' => $url_id, 'micrositio_id' => $micrositio)  );
+		}
+		else if($url->tipo_id == 6)
+		{
+			$foto = Foto::model()->findByAttributes( array('url_id' => $url->id) );
+			$af = AlbumFoto::model()->findByPk( $foto->album_foto_id );
+		}
+			
+		
 		if(!$af) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$f = Foto::model()->findAllByAttributes( array('album_foto_id' => $af->id) );
 		header('Content-Type: application/json; charset="UTF-8"');
