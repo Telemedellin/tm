@@ -5,6 +5,7 @@ body {
 	background: url('/tm/images/backgrounds/telemedellin_gente.jpg') no-repeat #000 center center;
 	background-size: cover;
 	background-attachment: fixed;
+	background-position:top;
 	color: #DDD;
 	font-family: 'Century Gothic', sans-serif;
 	height: 100%;
@@ -722,7 +723,7 @@ footer img {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
-	height: 88%;
+	height: 50%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 15px;
@@ -732,6 +733,11 @@ footer img {
 	min-height: 340px;
 	width: 100%;
 }
+
+#micrositio.senal-en-vivo {
+		height: 85%;
+	}
+	
 #micrositio .mCustomScrollBox{
 	-ms-touch-action: none; /*MSPointer events - direct all pointer events to js*/
 	background: rgba(0, 0, 0, .6);
@@ -1179,6 +1185,13 @@ footer img {
 {
 	float: left;
 }
+
+.paginas ul li
+{
+	list-style-type: none;
+}
+
+
 #overlay #seccion .recientes
 {
 	border-right: thin solid rgba(255, 255, 255, .2);
@@ -1464,8 +1477,14 @@ footer img {
 		background-size: 47%;
 	}
 	#micrositio {
-		height: 80%;
+		height: 50%;
 	}
+	
+	#micrositio.senal-en-vivo {
+		height: 85% !important;
+	}
+	
+
 }
 @media (min-width: 1437px) {
 	#bar nav li a {
