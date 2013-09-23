@@ -1497,6 +1497,16 @@ footer img {
 {
 	background-position: 0px -531px;
 }
+
+#redes_micrositio li.myspace a
+{
+	background-position: 0px -665pxpx;
+}
+
+#redes_micrositio li.vimeo a
+{
+	background-position: 0px -718px;
+}
 #seccion.concursos
 {
 	float: right;
