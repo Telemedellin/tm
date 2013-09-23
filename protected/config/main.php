@@ -67,12 +67,13 @@ return array(
 		),
 		*/
 		'db'=>array(
-		'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
+		'connectionString' => 'mysql:host=concursomedellin2018.com;dbname=med2018_tm',
 		'emulatePrepare' => true,
-		'username' => 'root',
-		'password' => '',
+		'username' => 'med2018_tm',
+		'password' => 'asdf1234*',
 		'charset' => 'utf8',
 		),
+		
 			
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
