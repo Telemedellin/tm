@@ -787,6 +787,10 @@ footer img {
 {
 	height: 88%;
 }
+
+#micrositio.PgArticuloBlog {
+	height:85%;
+	}
 #micrositio.PgGenericaST iframe {
 	height: auto;
 	min-height: 340px;
@@ -818,6 +822,7 @@ footer img {
 	background: rgba(0, 0, 0, 0.7);
 	border: 2px solid rgba(255, 255, 255, 0.4);
 	border-radius: 10px;
+	height:85%;
 }
 #micrositio.programacion .mCustomScrollBox
 {
