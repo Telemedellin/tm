@@ -92,11 +92,22 @@ class ApiController extends Controller
 	
 	public function actionVideo()
 	{
-		if(!$_GET['nombre']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		if(!$_GET['hash']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		if(!$_GET['micrositio']) throw new CHttpException(404, 'No se encontró la página solicitada');
-		$nombre = $_GET['nombre'];
+		$hash = $_GET['hash'];
 		$micrositio = $_GET['micrositio'];
-		$va = AlbumVideo::model()->with('url')->findByAttributes( array('nombre' => $nombre, 'micrositio_id' => $micrositio)  );
+
+		$url = Url::model()->findByAttributes( array('slug' => $hash) );
+		if($url->tipo_id == 8){
+			$url_id = $url->id;
+			$va = AlbumVideo::model()->findByAttributes( array('url_id' => $url_id, 'micrositio_id' => $micrositio)  );
+		}
+		else if($url->tipo_id == 9)
+		{
+			$video = Video::model()->findByAttributes( array('url_id' => $url->id) );
+			$va = AlbumVideo::model()->findByPk( $video->album_video_id );
+		}
+
 		if(!$va) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$v = Video::model()->findAllByAttributes( array('album_video_id' => $va->id) );
 		header('Content-Type: application/json; charset="UTF-8"');
@@ -107,8 +118,9 @@ class ApiController extends Controller
 				$json .= '"id":"'.CHtml::encode($video->id).'",';
 				$json .= '"album_video":"'.CHtml::encode($video->albumVideo->nombre).'",';
 				$json .= '"proveedor_video":"'.CHtml::encode($video->proveedorVideo->nombre).'",';
+				$json .= '"url":"'.CHtml::encode($video->url->slug).'",';
 				$json .= '"nombre":"'.CHtml::encode($video->nombre).'",';
-				$json .= '"url":"'.$video->url.'",';
+				$json .= '"url_video":"'.$video->url_video.'",';
 				$json .= '"duracion":"'.$video->duracion.'"';
 			$json .= '},';
 			endforeach;

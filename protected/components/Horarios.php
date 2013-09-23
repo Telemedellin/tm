@@ -203,8 +203,13 @@ class Horarios{
 
 	public static function hora( $tiempo )
 	{
-		$hora 	= substr($tiempo, 0, 2);
-		$minuto = substr($tiempo, 2);
+		if( strlen((string)$tiempo) == 4){
+			$hora 	= substr($tiempo, 0, 2);
+			$minuto = substr($tiempo, 2);
+		}else{
+			$hora 	= substr($tiempo, 0, 1);
+			$minuto = substr($tiempo, 1);
+		}
 		$ampm = 'am';
 		if( $hora > 12)
 		{
@@ -216,6 +221,21 @@ class Horarios{
 		if($minuto != 00) $html .= ':' . $minuto;
 		$html .= ' ' . $ampm;
 		return $html;
+	}
+
+	public static function hora_a_timestamp( $tiempo )
+	{
+		if( strlen((string)$tiempo) == 4){
+			$hora 	= substr($tiempo, 0, 2);
+			$minuto = substr($tiempo, 2);
+		}else{
+			$hora 	= substr($tiempo, 0, 1);
+			$minuto = substr($tiempo, 1);
+		}
+		$timestamp = 0;
+		$timestamp = (($hora * 60) *60);
+		if($minuto != 00) $timestamp =  $timestamp + ($minuto*60);
+		return $timestamp;
 	}
 
 	public static function cmp($a, $b)

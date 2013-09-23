@@ -65,34 +65,13 @@ return array(
 			'password' => 'asdf1234*',
 			'charset' => 'utf8',
 		),
-		/*		
-		'db'=>array(
-<<<<<<< HEAD
-			'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
-			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => 'CNBDGFAA',
-			'charset' => 'utf8',
-=======
-		'connectionString' => 'mysql:host=concursomedellin2018.com;dbname=med2018_tm',
-		'emulatePrepare' => true,
-		'username' => 'med2018_tm',
-		'password' => 'asdf1234*',
-		'charset' => 'utf8',
->>>>>>> 5f56407ebe675b608116dd2b8e0f76e6445dd016
-		),
-
 		'twitter' => array(
             'class' => 'ext.yiitwitteroauth.YiiTwitter',
             'consumer_key' => 'lvX5ZuwYkNNFwaYaLz0Rw',
             'consumer_secret' => 'tkEfo98Xcpg0rYphooAetOSVjBcYEXhM4pKTGh1Bw',
             'callback' => '',
         ),
-
-			
-		/*'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),*/
+		
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'telemedellin/error',

@@ -7,7 +7,8 @@
  * @property string $id
  * @property string $album_video_id
  * @property string $proveedor_video_id
- * @property string $url
+ * @property string $url_id
+ * @property string $url_video
  * @property string $nombre
  * @property string $descripcion
  * @property string $duracion
@@ -17,6 +18,7 @@
  * @property integer $destacado
  *
  * The followings are the available model relations:
+ * @property Url $url
  * @property AlbumVideo $albumVideo
  * @property ProveedorVideo $proveedorVideo
  */
@@ -48,15 +50,15 @@ class Video extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('album_video_id, proveedor_video_id, url, nombre, duracion, creado, estado, destacado', 'required'),
+			array('album_video_id, proveedor_video_id, url_id, url_video, nombre, duracion, creado, estado, destacado', 'required'),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true),
-			array('album_video_id, proveedor_video_id', 'length', 'max'=>10),
-			array('url, nombre', 'length', 'max'=>100),
+			array('album_video_id, proveedor_video_id, url_id', 'length', 'max'=>10),
+			array('url_video, nombre', 'length', 'max'=>100),
 			array('duracion', 'length', 'max'=>19),
 			array('descripcion, modificado', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, album_video_id, proveedor_video_id, url, nombre, descripcion, duracion, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
+			array('id, album_video_id, proveedor_video_id, url_id, url_video, nombre, descripcion, duracion, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,6 +70,7 @@ class Video extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 			'albumVideo' => array(self::BELONGS_TO, 'AlbumVideo', 'album_video_id'),
 			'proveedorVideo' => array(self::BELONGS_TO, 'ProveedorVideo', 'proveedor_video_id'),
 		);
@@ -82,7 +85,8 @@ class Video extends CActiveRecord
 			'id' => 'ID',
 			'album_video_id' => 'Album Video',
 			'proveedor_video_id' => 'Proveedor Video',
-			'url' => 'Url',
+			'url_id' => 'Url',
+			'url_video' => 'Url Video',
 			'nombre' => 'Nombre',
 			'descripcion' => 'Descripcion',
 			'duracion' => 'Duracion',
@@ -107,7 +111,8 @@ class Video extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('album_video_id',$this->album_video_id,true);
 		$criteria->compare('proveedor_video_id',$this->proveedor_video_id,true);
-		$criteria->compare('url',$this->url,true);
+		$criteria->compare('url_id',$this->url_id,true);
+		$criteria->compare('url_video',$this->url_video,true);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('descripcion',$this->descripcion,true);
 		$criteria->compare('duracion',$this->duracion,true);

@@ -44,6 +44,7 @@ jQuery(function($) {
             nombre : '', 
             album_video : '',
             proveedor_video : '',
+            url_video:'',
             url:'',
             duracion : ''
         } 
@@ -269,8 +270,8 @@ jQuery(function($) {
             $(this.el).remove();
         },
         ver: function (e) {
-            var src = e.currentTarget.dataset.src;
-            $('.full').html('<img src="' + src + '" /><h2>'+e.currentTarget.dataset.nombre+'</h2>').fadeIn('slow');
+            var video_url = e.currentTarget.dataset.video_url;
+            $('.full').html('<h2>'+e.currentTarget.dataset.nombre+'</h2>').fadeIn('slow');
             modificar_url(e.currentTarget.href, e.currentTarget.dataset.nombre);
             $('<div class="expander"></div>').appendTo('.full').fadeIn('slow').click(function() {
                 if (screenfull.enabled) {
@@ -322,9 +323,10 @@ jQuery(function($) {
         },
         listarVideos: function (videoalbum, video) {
             this.videolist = new VideoCollection();
-            this.videolist.fetch( {data: {nombre: videoalbum, micrositio: this.micrositio_id} } );
+            this.videolist.fetch( {data: {hash: window.location.hash, micrositio: this.micrositio_id} } );
             var fl = videoalbum.charAt(0).toUpperCase();
             videoalbum = fl + videoalbum.substring(1);
+            videoalbum = makeTitle(videoalbum);
             console.log(videoalbum);
             console.dir(this.videolist);
             this.videolistView = new VideoListView({collection:this.videolist, model: {nombre: videoalbum, video_activo: video} });

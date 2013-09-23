@@ -36,7 +36,7 @@
 	<ul class="videos"></ul>
 </script>
 <script id="videoListItemViewTemplate" type="text/template">
-	<a href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-src="<%= src %>" data-nombre="<%= nombre %>">
+	<a href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-url_video="<%= url_video %>" data-nombre="<%= nombre %>">
 		<%= nombre %>
 	</a>
 </script>

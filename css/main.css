@@ -824,6 +824,24 @@ footer img {
 	border-radius: 10px;
 	height:85%;
 }
+#micrositio.programacion .listado_programas
+{
+	-webkit-column-count: 2;
+	   -moz-column-count: 2;
+		   	column-count: 2;
+	-webkit-column-gap : 20px;
+       -moz-column-gap: 20px;
+        	column-gap: 20px;
+    -webkit-column-rule-color: rgba(255, 255, 255, .2);
+    -webkit-column-rule-style: solid ;
+    -webkit-column-rule-width:  1px;
+       -moz-column-rule-color:  rgba(255, 255, 255, .2);
+       -moz-column-rule-style:  solid;
+       -moz-column-rule-width:  1px;
+       	   column-rule-color: rgba(255, 255, 255, .2);
+		   column-rule-style: solid;
+		   column-rule-width:  1px;
+}
 #micrositio.programacion .mCustomScrollBox
 {
 	background: none;
@@ -840,6 +858,11 @@ footer img {
 #micrositio.programacion .menu_micrositio a.hoy
 {
 	background: #27262b;
+	border-radius: 10px;
+}
+#micrositio.programacion .menu_micrositio a.elegido
+{
+	font-weight: bold;
 	border-radius: 10px;
 }
 #micrositio.senal-en-vivo .mCustomScrollBox,
@@ -1325,12 +1348,12 @@ footer img {
     -webkit-column-rule-color: rgba(255, 255, 255, .2);
     -webkit-column-rule-style: solid ;
     -webkit-column-rule-width:  1px;
-	       -moz-column-rule-color:  rgba(255, 255, 255, .2);
-	       -moz-column-rule-style:  solid;
-	       -moz-column-rule-width:  1px;
-	       	   column-rule-color: rgba(255, 255, 255, .2);
-			   column-rule-style: solid ;
-			   column-rule-width:  1px;
+       -moz-column-rule-color:  rgba(255, 255, 255, .2);
+       -moz-column-rule-style:  solid;
+       -moz-column-rule-width:  1px;
+       	   column-rule-color: rgba(255, 255, 255, .2);
+		   column-rule-style: solid;
+		   column-rule-width:  1px;
 	height: 90%;
 	width: 100%;
 }
