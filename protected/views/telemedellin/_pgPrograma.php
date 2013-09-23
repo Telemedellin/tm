@@ -1,7 +1,7 @@
 <?php if($contenido['contenido']->estado == 2):?>
 <p>
 	<strong>
-		<?php echo Horarios::horario_programa( $contenido['contenido']->horario ); ?>
+		<?php echo Horarios::horario_parser( $contenido['contenido']->horario ); ?>
 	</strong>
 </p>
 <?php endif; ?>
