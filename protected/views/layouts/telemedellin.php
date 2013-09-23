@@ -79,6 +79,6 @@ $ru = Yii::app()->request->requestUri;
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/modernizr.custom.30163.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/mustache/mustache.js"></script>-->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs.min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app-dev.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.min.js"></script>
 </body>
 </html>

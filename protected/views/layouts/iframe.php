@@ -47,4 +47,4 @@
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/backbone-min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/screenfull.js"></script>
 <!--<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/jquery.bxslider.js"></script>-->
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/iframe.app-dev.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/iframe.app.min.js"></script>
