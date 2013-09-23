@@ -34,7 +34,7 @@ $ru = Yii::app()->request->requestUri;
 				$this->widget( 'MenuW', array( 'id' => 1 ) ); // Menú principal
 		    ?>
 			</nav>
-			<?php $this->widget('ext.tm-buscador.TmBuscador'); ?>
+			<?php //$this->widget('ext.tm-buscador.TmBuscador'); ?>
 		</div>
 		<footer>
 			<div class="redes">

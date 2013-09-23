@@ -149,7 +149,7 @@ class Pagina extends CActiveRecord
 		$c->join 	.= ' JOIN url ON url.id = t.url_id';
 		$c->limit 	= $limite;
 		$c->offset 	= $offset;
-		$c->order 	= 't.creado DESC';
+		$c->order 	= 't.nombre DESC';
 		$c->addCondition( 't.micrositio_id = "' . $micrositio_id . '"' );
 		$c->addCondition( 't.estado <> 0' );
 
@@ -161,7 +161,7 @@ class Pagina extends CActiveRecord
 		{
 			$tabla 	= $pagina->tipoPagina->tabla;
 			$t 		= new $tabla();
-			$p 		= $t->findByAttributes( array('pagina_id' => $pagina->id) );
+			$p 		= $t->findByAttributes( array('pagina_id' => $pagina->id), array('condition' => 't.estado <> 0') );
 			$r[] 	= array('pagina' => $pagina, 'contenido' => $p);
 		}
 		if( empty($r) ) return false;
@@ -205,6 +205,7 @@ class Pagina extends CActiveRecord
 		$c->join = 'JOIN tipo_pagina ON tipo_pagina.id = t.tipo_pagina_id';
 		$c->addCondition( 't.micrositio_id = "' . $micrositio_id . '"' );
 		$c->addCondition( 't.estado <> 0' );
+		$c->order 	= 't.nombre DESC';
 		$pagina  = $this->find( $c );
 
 		if( !$pagina ) return false;

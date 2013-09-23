@@ -32,9 +32,14 @@
     }
 ?>
 <div class="yii-feed-widget-item noticia">
-	<img src="<?php echo $src ?>" width="25" height="25" alt="<?php echo $item->get_title(); ?>" />
-    <h3><a href="<?php echo $item->get_permalink(); ?>">
-            <?php echo $item->get_title(); ?></a>
+	<img src="<?php echo $src ?>" width="50" height="50" alt="<?php echo $item->get_title(); ?>" />
+    <h3>
+        <?php 
+            if(strlen($item->get_title()) > 75) $titulo = substr($item->get_title(), 0, 75). ' ...';
+            else $titulo = $item->get_title();?>
+        <a href="<?php echo $item->get_permalink(); ?>">
+            <?php echo $titulo ?>
+        </a>
     </h3>
     <div class="meta"><time><?php echo $item->get_date('j F, g:i'); ?></time> - <span><?php echo $item->get_category()->get_term(); ?></span></div>
 </div>

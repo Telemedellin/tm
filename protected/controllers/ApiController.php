@@ -27,11 +27,22 @@ class ApiController extends Controller
 
 	public function actionFoto()
 	{
-		if(!$_GET['nombre']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		if(!$_GET['hash']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		if(!$_GET['micrositio']) throw new CHttpException(404, 'No se encontró la página solicitada');
-		$nombre = $_GET['nombre'];
+		$hash = $_GET['hash'];
 		$micrositio = $_GET['micrositio'];
-		$af = AlbumFoto::model()->findByAttributes( array('nombre' => $nombre, 'micrositio_id' => $micrositio)  );
+		$url = Url::model()->findByAttributes( array('slug' => $hash) );
+		if($url->tipo_id == 5){
+			$url_id = $url->id;
+			$af = AlbumFoto::model()->findByAttributes( array('url_id' => $url_id, 'micrositio_id' => $micrositio)  );
+		}
+		else if($url->tipo_id == 6)
+		{
+			$foto = Foto::model()->findByAttributes( array('url_id' => $url->id) );
+			$af = AlbumFoto::model()->findByPk( $foto->album_foto_id );
+		}
+			
+		
 		if(!$af) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$f = Foto::model()->findAllByAttributes( array('album_foto_id' => $af->id) );
 		header('Content-Type: application/json; charset="UTF-8"');
@@ -47,6 +58,58 @@ class ApiController extends Controller
 				$json .= '"thumb":"'.bu('images/galeria/' . $foto->thumb).'",';
 				$json .= '"ancho":"'.CHtml::encode($foto->ancho).'",';
 				$json .= '"alto":"'.CHtml::encode($foto->alto).'"';
+			$json .= '},';
+			endforeach;
+			$json = substr($json, 0, -1);
+		$json .= ']';
+		echo $json;
+		Yii::app()->end();
+	}
+
+	public function actionVideoAlbum()
+	{
+		if(!$_GET['micrositio_id']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		$micrositio_id = $_GET['micrositio_id'];
+		$va = AlbumVideo::model()->with('url')->findAllByAttributes( array('micrositio_id' => $micrositio_id) );
+		
+		header('Content-Type: application/json; charset="UTF-8"');
+		$json = '';
+		$json .= '[';
+			foreach($va as $videoalbum):
+			$json .= '{';
+				$json .= '"id":"'.CHtml::encode($videoalbum->id).'",';
+				$json .= '"micrositio":"'.CHtml::encode($videoalbum->micrositio_id).'",';
+				$json .= '"nombre":"'.CHtml::encode($videoalbum->nombre).'",';
+				$json .= '"url":"'.$videoalbum->url->slug.'"';
+				//$json .= '"thumb":"'.bu('images/galeria/' . $videoalbum->fotos[0]->thumb).'"';
+			$json .= '},';
+			endforeach;
+			$json = substr($json, 0, -1);
+		$json .= ']';
+		echo $json;
+		Yii::app()->end();
+	}
+	
+	public function actionVideo()
+	{
+		if(!$_GET['nombre']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		if(!$_GET['micrositio']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		$nombre = $_GET['nombre'];
+		$micrositio = $_GET['micrositio'];
+		$va = AlbumVideo::model()->with('url')->findByAttributes( array('nombre' => $nombre, 'micrositio_id' => $micrositio)  );
+		if(!$va) throw new CHttpException(404, 'No se encontró la página solicitada');
+		$v = Video::model()->findAllByAttributes( array('album_video_id' => $va->id) );
+		header('Content-Type: application/json; charset="UTF-8"');
+		$json = '';
+		$json .= '[';
+			foreach($v as $video):
+			$json .= '{';
+				$json .= '"id":"'.CHtml::encode($video->id).'",';
+				$json .= '"album_video":"'.CHtml::encode($video->albumVideo->nombre).'",';
+				$json .= '"proveedor_video":"'.CHtml::encode($video->proveedorVideo->nombre).'",';
+				$json .= '"nombre":"'.CHtml::encode($video->nombre).'",';
+				$json .= '"url":"'.$video->url.'",';
+				$json .= '"duracion":"'.$video->duracion.'"';
 			$json .= '},';
 			endforeach;
 			$json = substr($json, 0, -1);

@@ -257,19 +257,18 @@ class TelemedellinController extends Controller
 		else
 			$formulario = false;
 		*/
-		if(!is_null($micrositio->albumFotos) )
-		{
+		if(!empty($micrositio->albumFotos) )
 			$galeria = true;
-		}
 		else
 			$galeria = false;
 
-		if( !is_null($micrositio->albumVideos) )
+		if( !empty($micrositio->albumVideos) )
 		{
 			$videos = true;
 		}
 		else
 			$videos = false;
+		$formulario = false;
 
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
@@ -280,7 +279,7 @@ class TelemedellinController extends Controller
 			array(	'seccion' 	=> $micrositio->seccion, 
 					'micrositio'=> $micrositio, 
 					'menu'		=> $menu,
-					//'formulario'=> $formulario,
+					'formulario'=> $formulario,
 					'galeria'	=> $galeria,
 					'video'		=> $videos,
 					'pagina' 	=> $pagina['pagina'], 
@@ -378,13 +377,15 @@ class TelemedellinController extends Controller
 				), 
 				true
 			);
-
 		$this->render( 
 			'micrositio', 
 			array(	'seccion' 	=> $micrositio->seccion, 
 					'micrositio'=> $micrositio, 
 					'pagina' 	=> $pagina, 
-					'hoy' 		=> $tts, 
+					'hoy' 		=> $tts,
+					'formulario'=> false,
+					'galeria'	=> false,
+					'video'		=> false, 
 					'contenido' => $contenido, 
 				) 
 		);

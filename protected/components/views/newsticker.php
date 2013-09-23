@@ -1,7 +1,7 @@
 <section id="newsticker">
-  <h2>Noticias Telemedellín</h2>
+ 
   <footer>
-    <a href="http://noticias.telemedellin.tv/">Ver todas las noticias</a>
+    <a href="http://noticias.telemedellin.tv/"><img src="/tm/images/static/noticiastm.png" alt="Telemedellín" width="83%"></a>
   </footer>
 <?php
 $this->widget(
@@ -10,6 +10,17 @@ $this->widget(
     );
 
 cs()->registerScriptFile(bu().'/js/libs/jquery.bxslider/jquery.bxslider.js', CClientScript::POS_END);
+ 
 ?>
+<div class="marquesina">
+	<div>
+
+
+		<?php foreach($tweets as $tweet): ?>
+			<p><a href="https://twitter.com/search?q=%23NTMed" target="_blank" rel="nofollow"><?php echo $tweet->text ?></a></p>
+		<?php endforeach; ?>
+
+	</div>
+</div>
   
 </section>

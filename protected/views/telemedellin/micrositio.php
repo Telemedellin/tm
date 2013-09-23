@@ -9,8 +9,8 @@ if($seccion->url->slug != 'sin-seccion')
 ($pagina->id != $micrositio->pagina_id) ? $bc[] = ucfirst($pagina->nombre) : false;
 $this->breadcrumbs = $bc;
 
-if( !is_null($micrositio->background) )
-	cs()->registerCss('background', 'body{background-image: url("' . bu() . $micrositio->background . '");}');
+if( !empty($micrositio->background) )
+	cs()->registerCss('background', 'body{background-image: url("' . bu($micrositio->background) . '");}');
 
 cs()->registerScript( 'scroll', 
 	'$("#micrositio").mCustomScrollbar({
@@ -23,11 +23,11 @@ cs()->registerScript( 'scroll',
 	CClientScript::POS_READY
 );
 ?>
-<?php if( isset( $micrositio->red_social ) && count($micrositio->red_social) ):  ?>
+<?php if( isset( $micrositio->redSocials ) && count($micrositio->redSocials) ):  ?>
 <div id="redes_micrositio" class="redes">
 	<p>Visítanos en</p>
 	<ul>
-	<?php foreach( $micrositio->red_social as $red ): ?>
+	<?php foreach( $micrositio->redSocials as $red ): ?>
 		<li class="<?php echo strtolower($red->tipoRedSocial->nombre) ?>">
 			<a href="<?php echo $red->tipoRedSocial->url_base . $red->usuario ?>">
 				<?php echo $red->tipoRedSocial->nombre ?>
@@ -47,18 +47,18 @@ cs()->registerScript( 'scroll',
 <div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo (!is_null($pagina->clase)) ? $pagina->clase : '' ?>" data-micrositio-id="<?php echo $micrositio->id; ?>">
 	<?php echo $contenido; ?>
 </div>
+<?php if($formulario || $galeria || $video):?>
 <div id="menu_inferior">
-<?php if(isset($formulario) && $formulario): ?>
-	<?php echo $formulario ?>
-	<p>Formulario</p>
-<?php endif;?>
-<?php if(isset($galeria) && $galeria): ?>
-	<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes">Imágenes</a>
-<?php endif;?>
-<?php if(isset($videos) && $videos): ?>
-	<?php echo $videos ?>
-	<a href="#">Videos</a>
-<?php endif;?>
+	<?php if($formulario): ?>
+		<a href="#"><span>Formulario</span></a>
+	<?php endif;?>
+	<?php if($galeria): ?>
+		<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes">
+			<span>Imágenes</span>
+		</a>
+	<?php endif;?>
+	<?php if($video): ?>
+		<a href="<?php echo bu($micrositio->url->slug) ?>#videos" class="fancybox fancybox.ajax videos"><span>Videos</span></a>
+	<?php endif;?>
 </div>
-
-<?php /*?m=<?php echo $micrositio->id*/ ?>
+<?php endif; ?>

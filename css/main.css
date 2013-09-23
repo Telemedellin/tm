@@ -5,6 +5,7 @@ body {
 	background: url('/tm/images/backgrounds/telemedellin_gente.jpg') no-repeat #000 center center;
 	background-size: cover;
 	background-attachment: fixed;
+	background-position:top;
 	color: #DDD;
 	font-family: 'Century Gothic', sans-serif;
 	height: 100%;
@@ -76,6 +77,61 @@ nav ul {
 	margin: 0;
 	padding: 5px;
 }
+.fancybox-title > div
+{
+	height: 20px;
+	line-height: 0;
+}
+.fancybox-title > div > div
+{
+	float: left;
+}
+.marquesina {
+    height: 20px;
+    
+    overflow: hidden;
+    position: relative;
+}
+    .marquesina div {
+        display: block;
+        width: 400%;
+        height: 20px;
+        
+        position: absolute;
+        overflow: hidden;
+        
+        -webkit-animation: marquee 60s linear infinite;
+        -moz-animation: marquee 60s linear infinite;
+        -ms-animation: marquee 60s linear infinite;
+        -o-animation: marquee 60s linear infinite;
+        animation: marquee 60s linear infinite;
+    }
+    .marquesina p {
+        float: left;
+        width: 25%;
+    }
+    
+@-webkit-keyframes marquee {
+    0% { left: 100%; }
+    100% { left: -400%; }
+}
+@-moz-keyframes marquee {
+    0% { left: 100%; }
+    100% { left: -400%; }
+}
+@-ms-keyframes marquee {
+    0% { left: 100%; }
+    100% { left: -400%; }
+}
+@-o-keyframes marquee {
+    0% { left: 100%; }
+    100% { left: -400%; }
+}
+@keyframes marquee {
+    0% { left: 100%; }
+    100% { left: -400%; }
+}
+
 /*Scroll*/
 .mCSB_container {
 	width: auto;
@@ -327,6 +383,14 @@ nav ul {
 	position: absolute;
 	width: 100%;
 }
+
+.marquesina {
+	border-top:1px solid #333;
+	padding:5px 0 0 0;
+	clear:both;
+	width:95%;
+	}
+
 #bar footer a {
 	color: #FFF;
 }
@@ -367,6 +431,12 @@ nav ul {
 #bar h1 img {
 	max-width: 63%;
 }
+
+footer img {
+	max-width: 90%;
+}
+
+
 #bar nav li {
 }
 #bar nav li a {
@@ -524,7 +594,7 @@ nav ul {
  color: #FFF;
 }
 #compartir {
-	bottom: 30px;
+	bottom: 10px;
 	position: absolute;
 	right: 15px;
 }
@@ -535,7 +605,7 @@ nav ul {
 	-webkit-box-sizing: border-box;
 		   -moz-box-sizing: border-box;
 				box-sizing: border-box;
-	height: 85%;
+	height: 88%;
 	left: 20%;
 	overflow: hidden;
 	padding-top: 10px;
@@ -635,16 +705,44 @@ nav ul {
 }
 #menu_inferior a
 {
-	background: rgba(255, 255, 255, .6);
+	background-color: rgba(255, 255, 255, .3);
+	border-radius: 5px;
 	display: block;
 	float: right;
-	margin-right: 6px;
+	margin-left: 6px;
+	padding: 95px 5px 5px;
 	text-align: center;
-	width: 33%;
+	text-transform: uppercase;
+	/*width: 33%;*/
+	width: 145px;
+}
+#menu_inferior a:hover
+{
+	text-decoration: none;
+}
+#menu_inferior a.imagenes
+{
+	background-image: url(../images/static/imagenes.jpg);
+	background-position:  5px 5px;
+	background-repeat: no-repeat;
+}
+#menu_inferior a.imagenes:hover
+{
+	background-image: url(../images/static/imagenes_hover.jpg);
+}
+#menu_inferior a.videos
+{
+	background-image: url(../images/static/videos.jpg);
+	background-position:  5px 5px;
+	background-repeat: no-repeat;
+}
+#menu_inferior a.videos:hover
+{
+	background-image: url(../images/static/videos_hover.jpg);
 }
 #menu_inferior a:last-child
 {
-	margin-right: 0;
+	margin-left: 0;
 }
 #menu_micrositio {
 	background: rgba(0, 0, 0, .6);
@@ -680,16 +778,25 @@ nav ul {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
-	height: 60%;
+	height: 50%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 15px;
+}
+#micrositio.senal-en-vivo
+{
+	height: 88%;
 }
 #micrositio.PgGenericaST iframe {
 	height: auto;
 	min-height: 340px;
 	width: 100%;
 }
+
+#micrositio.senal-en-vivo {
+		height: 85%;
+	}
+	
 #micrositio .mCustomScrollBox{
 	-ms-touch-action: none; /*MSPointer events - direct all pointer events to js*/
 	background: rgba(0, 0, 0, .6);
@@ -745,8 +852,8 @@ nav ul {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	color: #FFF;
-	height: 105px;
-	padding: 0 10px;
+	height: 125px;
+	padding: 10px 10px;
 	position: fixed;
 	right: 10px;
 	width: 80%;
@@ -756,7 +863,7 @@ nav ul {
 	color: #FFF;
 }
 #newsticker footer {
-	float: right;
+	float: left;
 	text-align: left;
 	width: 18%;
 }
@@ -775,7 +882,7 @@ nav ul {
 	margin: 0 2%;
 }
 #newsticker .bx-wrapper {
-	float: left;
+	float: right;
 	position: relative;
 }
 #newsticker .bx-controls {
@@ -793,8 +900,9 @@ nav ul {
 	height: 14px;
 	line-height: 14px;
 	text-indent: -9999px;
-	vertical-align: text-top;
+	vertical-align:middle;
 	width: 14px;
+	margin-top:7px;
 }
 #newsticker .bx-next {
 	background-position: -456px -72px;
@@ -815,7 +923,7 @@ nav ul {
 	width: 30%;
 }
 #newsticker .noticia h3 {
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: bold;
 	line-height: 1.2;
 	margin: 0;
@@ -823,14 +931,15 @@ nav ul {
 #newsticker .noticia img {
 	display: block;
 	float: left;
-	height: 25px;
+	height: 50px;
 	margin-bottom: 5px;
 	margin-right: 8px;
 }
 #newsticker .noticia .meta {
-	clear: both;
-	font-size: 10px;
+	/* clear: both; */
+	font-size: 11px;
 	line-height: 1.2;
+	padding-top:5px;
 }
 #micrositio.novedades .novedad {
 	float: left;
@@ -1135,6 +1244,13 @@ nav ul {
 {
 	float: left;
 }
+
+.paginas ul li
+{
+	list-style-image:url(../images/static/iconos/ligenerico.png);
+}
+
+
 #overlay #seccion .recientes
 {
 	border-right: thin solid rgba(255, 255, 255, .2);
@@ -1420,8 +1536,15 @@ nav ul {
 		background-size: 47%;
 	}
 	#micrositio {
-		height: 60%;
+		height: 50%;
 	}
+	
+	#micrositio.senal-en-vivo {
+		height: 62%;
+
+	}
+	
+
 }
 @media (min-width: 1437px) {
 	#bar nav li a {

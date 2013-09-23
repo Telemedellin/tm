@@ -30,7 +30,6 @@ echo CHtml::hiddenField(
 ); 
 ?>
 <!-- Container to hold feed items -->
-
 <div id="yii-feed-container" class="noticias">
     <?php echo CHtml::image($this->getSpinner()); ?>
 </div>
