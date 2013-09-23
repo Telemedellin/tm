@@ -59,19 +59,19 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		/*'db'=>array(
-			'connectionString' => 'mysql:host=noticias.telemedellin.tv;dbname=telemede_telemedellin',
+		'db'=>array(
+			'connectionString' => 'mysql:host=concursomedellin2018.com;dbname=med2018_tm',
 			'emulatePrepare' => true,
-			'username' => 'telemede_telemed',
-			'password' => ';0?LegNmMi)O',
+			'username' => 'med2018_tm',
+			'password' => 'asdf1234*',
 			'charset' => 'utf8',
 		),
-		*/
+		/*		
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '',
+			'password' => 'CNBDGFAA',
 			'charset' => 'utf8',
 		),
 		/*'db'=>array(

@@ -49,6 +49,133 @@ class Horarios{
 		return $html;
 	}
 
+	public static function horario_parser( $horarios )	
+	{
+		$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
+		$datos = array();
+		$html = '';
+		foreach( $horarios as $horario ):
+			$datos[] = array(
+				'dia_semana' 		=> $horario->dia_semana,
+				'tipo_emision_id'	=> $horario->tipoEmision->id,
+				'tipo_emision' 		=> $horario->tipoEmision->nombre,
+				'hora_inicio'		=> $horario->hora_inicio,
+				'hora_fin'			=> $horario->hora_fin,
+			);
+		endforeach;
+	
+		//Agrupo los datos por tipo de emisión y día
+		usort($datos, "Horarios::cmp");
+
+		for($i = 0; $i < count($datos) ; $i++){
+
+			switch ($datos[$i]['tipo_emision_id']) {
+				case 1:
+					$en_vivo[] = $datos[$i];
+					$horario_en_vivo = $datos[$i]['hora_inicio'];
+					break;
+				case 2:
+					$diferido[] = $datos[$i];
+					$horario_en_diferido = $datos[$i]['hora_inicio'];
+					break;
+				case 3:
+					$reemision[] = $datos[$i];
+					$horario_en_reemision = $datos[$i]['hora_inicio'];
+					break;
+			}
+		}
+		if(isset($en_vivo)){
+			$html .= "En vivo ";			
+			foreach ($en_vivo as $ev) {							
+				if ($ev === reset($en_vivo)){
+					$html .= $dias_semana[ $ev['dia_semana'] - 1 ] . ' ';
+				}
+				if(count($en_vivo) > 1){
+					if ($ev === end($en_vivo)){
+						$html .= " a ";
+						$html .= $dias_semana[ $ev['dia_semana'] - 1 ] . ' ';
+					}	
+				}					
+			}
+			$html .= ' a las ' . Horarios::hora( $horario_en_vivo ) . ' ';			
+		}
+
+		if(isset($diferido)){
+			
+			foreach ($diferido as $df) {
+							
+				if ($df === reset($diferido)){
+					$html .= $dias_semana[ $df['dia_semana'] - 1 ] . ' ';
+				}				
+				if(count($diferido) > 1){
+					if ($df === end($diferido)){
+						$html .= " a ";
+						$html .= $dias_semana[ $df['dia_semana'] - 1 ] . ' ';
+					}						
+				}
+			}
+			$html .= ' a las ' . Horarios::hora( $horario_en_diferido ) . ' ';			
+		}	
+
+		if(isset($reemision)){
+			$html .= "Reemisión ";
+			foreach ($reemision as $rem) {
+							
+				if ($rem === reset($reemision)){
+					$html .= $dias_semana[ $rem['dia_semana'] - 1 ] . ' ';
+				}
+				if(count($reemision) > 1){
+					if ($rem === end($reemision)){
+						$html .= " a ";
+						$html .= $dias_semana[ $rem['dia_semana'] - 1 ] . ' ';
+					}						
+				}
+			}
+			$html .= ' a las ' . Horarios::hora( $horario_en_reemision ) . ' ';			
+		}			
+
+		$te = 0;
+		/*
+		foreach( $datos as $dato )
+		{
+			if($c == 7)
+				$c == 1;
+			if($dato['tipo_emision_id'] == 1){
+				if($c == 1)
+					$html .= "En vivo: ";
+				
+				if($dato['dia_semana'] + 1 == $c + 1){
+					if ($dato === reset($datos)){
+						$html .= $dias_semana[ $dato['dia_semana'] - 1 ] . ' ';
+					}					
+				}				
+				else{
+					if ($dato === end($datos)){
+						$html .= $dias_semana[ $dato['dia_semana'] - 1 ] . ' ';
+					}					
+					echo $dato['dia_semana'] + 1;
+					echo " ".$c + 1;
+					$html .= $dias_semana[ $dato['dia_semana'] - 1 ] . ' ';					
+				}
+				$html .= ' a las ' . Horarios::hora( $dato['hora_inicio'] ) . ' ';
+				$c++;
+			}
+			/*
+			if( $dato['tipo_emision_id'] != $te )
+			{
+				if( $dato['tipo_emision_id'] == 3 )
+					$html .= $dato['tipo_emision'] . ' ';
+				$te = $dato['tipo_emision_id'];
+			}
+			if($dias_semana[ $dato['dia_semana'] + 1] == $dato['dia_semana'])
+			$html .= $dias_semana[ $dato['dia_semana'] - 1 ] . ' ';
+			$html .= ' a las ' . Horarios::hora( $dato['hora_inicio'] ) . ' ';
+			*
+		}*/
+		
+		return $html;
+	}
+
 	public static function fecha_especial( $fechas )	
 	{
 		$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
