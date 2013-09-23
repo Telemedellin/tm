@@ -137,11 +137,10 @@ jQuery(function($) {
 	    		else
 	    			modificar_url(el_url, "Álbumes");
 	    		cf += 1;
+
 	    	},
 	    	afterClose: function(){
 	    		window.location.hash = '';
-	    		//modificar_url(current_url, null);
-	    		//$(document).fullScreen(false);
 	    	},
 	    	beforeLoad: function(){
 	    		this.width  = '80%';
@@ -178,6 +177,6 @@ jQuery(function($) {
 
 	verificar_hash();
 	$(document).bind("fullscreenerror", function() {
-	    alert("Browser rejected fullscreen change");
+	    console.log("Browser rejected fullscreen change");
 	});
 });

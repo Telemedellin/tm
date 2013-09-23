@@ -121,6 +121,15 @@ class ApiController extends Controller
 				$json .= '"url":"'.CHtml::encode($video->url->slug).'",';
 				$json .= '"nombre":"'.CHtml::encode($video->nombre).'",';
 				$json .= '"url_video":"'.$video->url_video.'",';
+				if($video->proveedor_video_id == 1){
+					preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $video->url_video, $matches);
+					if(isset($matches[1])){
+						$id_video = $matches[1];
+					}
+				}else{
+					$id_video = 0;
+				}
+				$json .= '"id_video":"'.$id_video.'",';
 				$json .= '"duracion":"'.$video->duracion.'"';
 			$json .= '},';
 			endforeach;

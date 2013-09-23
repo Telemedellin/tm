@@ -33,11 +33,11 @@
 	<a href="#videos" class="back">Volver</a>
 	<h1><%= nombre %></h1>
 	<div class="full"></div>
-	<ul class="videos"></ul>
+	<ul class="ivideos"></ul>
 </script>
 <script id="videoListItemViewTemplate" type="text/template">
-	<a href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-url_video="<%= url_video %>" data-nombre="<%= nombre %>">
-		<%= nombre %>
+	<a href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-url_video="<%= url_video %>" data-id_video="<%= id_video %>" data-nombre="<%= nombre %>">
+		<img src="http://img.youtube.com/vi/<%= id_video %>/2.jpg" width="120" height="90" /><%= nombre %>
 	</a>
 </script>
 <div id="icontainer">
