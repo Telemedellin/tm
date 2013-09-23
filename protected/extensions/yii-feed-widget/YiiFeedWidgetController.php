@@ -57,7 +57,7 @@ class YiiFeedWidgetController extends CExtController
     {
         return array(
             array('allow',
-                'actions' => array('GetFeed'),
+                'actions' => array('getFeed'),
                 'users' => array('*'),
             )
         );

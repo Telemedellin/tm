@@ -35,7 +35,7 @@
 	<img src="<?php echo $src ?>" width="50" height="50" alt="<?php echo $item->get_title(); ?>" />
     <h3>
         <?php 
-            if(strlen($item->get_title()) > 50) $titulo = substr($item->get_title(), 0, 50). ' ...';
+            if(strlen($item->get_title()) > 75) $titulo = substr($item->get_title(), 0, 75). ' ...';
             else $titulo = $item->get_title();?>
         <a href="<?php echo $item->get_permalink(); ?>">
             <?php echo $titulo ?>

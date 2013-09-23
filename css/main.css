@@ -923,7 +923,7 @@ footer img {
 	width: 30%;
 }
 #newsticker .noticia h3 {
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: bold;
 	line-height: 1.2;
 	margin: 0;
@@ -937,7 +937,7 @@ footer img {
 }
 #newsticker .noticia .meta {
 	/* clear: both; */
-	font-size: 10px;
+	font-size: 11px;
 	line-height: 1.2;
 	padding-top:5px;
 }
@@ -1540,7 +1540,8 @@ footer img {
 	}
 	
 	#micrositio.senal-en-vivo {
-		height: 63%;
+		height: 62%;
+
 	}
 	
 
