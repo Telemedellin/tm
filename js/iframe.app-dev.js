@@ -45,6 +45,7 @@ jQuery(function($) {
             album_video : '',
             proveedor_video : '',
             url_video:'',
+            id_video:'',
             url:'',
             duracion : ''
         } 
@@ -234,13 +235,13 @@ jQuery(function($) {
         },
         add: function(video){
             var vliv = new VideoListItemView({model:video});
-            $('.videos').append(vliv.render().el).fadeIn('slow');
+            $('.ivideos').append(vliv.render().el).fadeIn('slow');
             if(video.attributes.url == '#'+Backbone.history.fragment){
                 $('.video a.' + video.attributes.id).trigger('click');
             }
-            
+           
             if(window.c <= 0){
-                window.slider = $('.videos').bxSlider({
+                window.slider = $('.ivideos').bxSlider({
                     pager: false,
                     minSlides: 10,
                     maxSlides: 20,
@@ -270,8 +271,8 @@ jQuery(function($) {
             $(this.el).remove();
         },
         ver: function (e) {
-            var video_url = e.currentTarget.dataset.video_url;
-            $('.full').html('<h2>'+e.currentTarget.dataset.nombre+'</h2>').fadeIn('slow');
+            var url_video = e.currentTarget.dataset.url_video;
+            $('.full').html('<iframe type="text/html" width="387" height="290" src="http://www.youtube.com/embed/'+e.currentTarget.dataset.id_video+'?rel=0" frameborder="0"></iframe><h2>'+e.currentTarget.dataset.nombre+'</h2>').fadeIn('slow');
             modificar_url(e.currentTarget.href, e.currentTarget.dataset.nombre);
             $('<div class="expander"></div>').appendTo('.full').fadeIn('slow').click(function() {
                 if (screenfull.enabled) {
@@ -331,6 +332,7 @@ jQuery(function($) {
             console.dir(this.videolist);
             this.videolistView = new VideoListView({collection:this.videolist, model: {nombre: videoalbum, video_activo: video} });
             $('#icontainer').html(this.videolistView.render().el);
+            
         }
     });
     var app = new AppRouter();
