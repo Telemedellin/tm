@@ -73,6 +73,12 @@ return array(
 		'password' => '',
 		'charset' => 'utf8',
 		),
+		'twitter' => array(
+            'class' => 'ext.yiitwitteroauth.YiiTwitter',
+            'consumer_key' => 'lvX5ZuwYkNNFwaYaLz0Rw',
+            'consumer_secret' => 'tkEfo98Xcpg0rYphooAetOSVjBcYEXhM4pKTGh1Bw',
+            'callback' => '',
+        ),
 			
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
