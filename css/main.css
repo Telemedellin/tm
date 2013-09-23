@@ -64,7 +64,7 @@ nav ul {
 	width: auto;
 }
 .breadcrumbs a.home {
-	background: rgba(0,0,0,.6) url('../images/static/iconos/tmicons.png') no-repeat 4px 5px;
+	background: rgba(0,0,0,.6) url('../images/static/iconos/tmicons.png') no-repeat 4px -754px;
 	text-indent: 30px;
 }
 .breadcrumbs h1 {
@@ -474,13 +474,13 @@ footer img {
 	display: block;
 }
 #bar nav li.programas a {
-	background-position: 5px 6%;
+	background-position: 5px 5.3%;
 }
 #bar nav li.especiales a {
-	background-position: 5px 14%;
+	background-position: 5px 11.3%;
 }
 #bar nav li.documentales a {
-	background-position: 5px 22%;
+	background-position: 5px 17.7%;
 }
 #bar .escribenos {
 	background: rgba(137, 222, 21, 0.6) url('../images/static/iconos/tmicons.png') no-repeat 22px -379px;
@@ -652,7 +652,8 @@ footer img {
 	text-align: center;
 }
 #icontainer .galeria h1, 
-#icontainer .galeria .back
+#icontainer .galeria .back, 
+#icontainer .videogaleria .back
 {
 	background: #0f0e13;
 	border-radius: 5px;
@@ -1167,11 +1168,17 @@ footer img {
 	top: 0;
 	width: 100%;
 }
+
+
+
 .fancybox-outer.fullscreen .fancybox-inner
 {
 	height: auto !important;
 	width: auto !important;
 }
+
+.fancybox-outer.fullscreen #icontainer .videogaleria .full iframe{display:block;margin: 0 auto;}
+
 .fancybox-outer.fullscreen #icontainer .galeria .full
 {
 	min-height: 470px;
