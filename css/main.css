@@ -77,6 +77,61 @@ nav ul {
 	margin: 0;
 	padding: 5px;
 }
+.fancybox-title > div
+{
+	height: 20px;
+	line-height: 0;
+}
+.fancybox-title > div > div
+{
+	float: left;
+}
+.marquesina {
+    height: 20px;
+    
+    overflow: hidden;
+    position: relative;
+}
+    .marquesina div {
+        display: block;
+        width: 400%;
+        height: 20px;
+        
+        position: absolute;
+        overflow: hidden;
+        
+        -webkit-animation: marquee 60s linear infinite;
+        -moz-animation: marquee 60s linear infinite;
+        -ms-animation: marquee 60s linear infinite;
+        -o-animation: marquee 60s linear infinite;
+        animation: marquee 60s linear infinite;
+    }
+    .marquesina p {
+        float: left;
+        width: 25%;
+    }
+    
+@-webkit-keyframes marquee {
+    0% { left: 100%; }
+    100% { left: -400%; }
+}
+@-moz-keyframes marquee {
+    0% { left: 100%; }
+    100% { left: -400%; }
+}
+@-ms-keyframes marquee {
+    0% { left: 100%; }
+    100% { left: -400%; }
+}
+@-o-keyframes marquee {
+    0% { left: 100%; }
+    100% { left: -400%; }
+}
+@keyframes marquee {
+    0% { left: 100%; }
+    100% { left: -400%; }
+}
+
 /*Scroll*/
 .mCSB_container {
 	width: auto;
@@ -728,6 +783,10 @@ footer img {
 	overflow: auto;
 	padding: 15px;
 }
+#micrositio.senal-en-vivo
+{
+	height: 88%;
+}
 #micrositio.PgGenericaST iframe {
 	height: auto;
 	min-height: 340px;
@@ -1188,7 +1247,7 @@ footer img {
 
 .paginas ul li
 {
-	list-style-type: none;
+	list-style-image:url(../images/static/iconos/ligenerico.png);
 }
 
 

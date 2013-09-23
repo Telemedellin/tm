@@ -9,8 +9,8 @@ if($seccion->url->slug != 'sin-seccion')
 ($pagina->id != $micrositio->pagina_id) ? $bc[] = ucfirst($pagina->nombre) : false;
 $this->breadcrumbs = $bc;
 
-if( !is_null($micrositio->background) )
-	cs()->registerCss('background', 'body{background-image: url("' . bu() . $micrositio->background . '");}');
+if( !empty($micrositio->background) )
+	cs()->registerCss('background', 'body{background-image: url("' . bu($micrositio->background) . '");}');
 
 cs()->registerScript( 'scroll', 
 	'$("#micrositio").mCustomScrollbar({

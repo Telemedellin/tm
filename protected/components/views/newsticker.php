@@ -13,7 +13,12 @@ cs()->registerScriptFile(bu().'/js/libs/jquery.bxslider/jquery.bxslider.js', CCl
 ?>
 
 <div class="marquesina">
-En #NTMed comenzamos a prepararnos, porque lo que pasa en Medellín se ve primero en @Telemedellin pic.twitter.com/LwSpLD7wv2   
+	<div>
+		<p>En #NTMed comenzamos a prepararnos, porque lo que pasa en Medellín se ve primero en @Telemedellin pic.twitter.com/LwSpLD7wv2</p>
+		<p>Desde el Estadio Atanasio Girardot tendremos un avance de #NTMed con todos los detalles del concierto de Beyoncé a las 12: 59 p.m.</p>
+		<p>Medellín se prepara para otros megaconciertos, Paul McCartney en la lista. #NTMed http://ow.ly/p67lq </p>
+		<p>Hoy #NTMed tuvo la oportunidad de hablar con John Lee Anderson sobre el trabajo que desearía hacer en Colombia. A las 7:25 p.m @Telemedellin</p>
+	</div>
 </div>
   
 </section>

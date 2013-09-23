@@ -377,13 +377,15 @@ class TelemedellinController extends Controller
 				), 
 				true
 			);
-
 		$this->render( 
 			'micrositio', 
 			array(	'seccion' 	=> $micrositio->seccion, 
 					'micrositio'=> $micrositio, 
 					'pagina' 	=> $pagina, 
-					'hoy' 		=> $tts, 
+					'hoy' 		=> $tts,
+					'formulario'=> false,
+					'galeria'	=> false,
+					'video'		=> false, 
 					'contenido' => $contenido, 
 				) 
 		);
