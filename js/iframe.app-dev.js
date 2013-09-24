@@ -43,12 +43,14 @@ jQuery(function($) {
         defaults: {
             id: '', 
             nombre : '', 
+            descripcion : '',
             album_video : '',
             proveedor_video : '',
             url_video:'',
             id_video:'',
             url:'',
-            duracion : ''
+            duracion : '',
+            thumbnail: ''
         } 
     });
 
@@ -237,7 +239,7 @@ jQuery(function($) {
                 $('.video a.' + video.attributes.id).trigger('click');
             }
            
-            if(window.c <= 0){
+            /*if(window.c <= 0){
                 window.slider = $('.ivideos').bxSlider({
                     pager: false,
                     minSlides: 10,
@@ -247,7 +249,7 @@ jQuery(function($) {
                     viewportWidth: '100%'
                 });
                 $('.video a.' + video.attributes.id).trigger('click');
-            }
+            }*/
             window.c += 1;
         }
     });
@@ -269,14 +271,13 @@ jQuery(function($) {
         },
         ver: function (e) {
             var url_video = e.currentTarget.dataset.url_video;
-            $('.full').html('<iframe type="text/html" width="387" height="290" src="http://www.youtube.com/embed/'+e.currentTarget.dataset.id_video+'?rel=0" frameborder="0"></iframe><h2>'+e.currentTarget.dataset.nombre+'</h2>').fadeIn('slow');
+            if(e.currentTarget.dataset.pv == 'Youtube'){
+                $('.full').html('<iframe type="text/html" width="387" height="290" src="http://www.youtube.com/embed/'+e.currentTarget.dataset.id_video+'?rel=0" frameborder="0"></iframe><h2>'+e.currentTarget.dataset.nombre+'</h2>').fadeIn('slow');
+            }else if(e.currentTarget.dataset.pv == 'Vimeo'){
+                $('.full').html('<iframe src="http://player.vimeo.com/video/'+e.currentTarget.dataset.id_video+'" width="387" height="290" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+e.currentTarget.dataset.nombre+'</h2>').fadeIn('slow');
+            }
+          
             modificar_url(e.currentTarget.href, e.currentTarget.dataset.nombre);
-            $('<div class="expander"></div>').appendTo('.full').fadeIn('slow').click(function() {
-                if (screenfull.enabled) {
-                    screenfull.toggle( $('.fancybox-outer')[0] );
-                    $('.fancybox-outer').toggleClass('fullscreen');
-                }
-            });
             e.preventDefault();
         }
     });
