@@ -335,7 +335,7 @@ class TelemedellinController extends Controller
 		$pagina->tipoPagina->tabla = 'programacion';
 
 		date_default_timezone_set('America/Bogota');
-		setlocale(LC_ALL, 'es-ES');
+		setlocale(LC_ALL, 'es_ES.UTF-8');
 		
 		$sts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 		$tts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
@@ -413,7 +413,7 @@ class TelemedellinController extends Controller
 			$estado = 1;
 
 			date_default_timezone_set('America/Bogota');
-			setlocale(LC_ALL, 'es-ES');
+			setlocale(LC_ALL, 'es_ES.UTF-8');
 
 			$sts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 			$tts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
