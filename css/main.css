@@ -438,17 +438,18 @@ footer img {
 
 
 #bar nav li {
+	line-height:25px;
 }
 #bar nav li a {
 	background: url('../images/static/iconos/tmicons.png') no-repeat 6px -2%;
 	background-size: 9%;
-	border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 	color: #FFF;
 	display: block;
 	font-size: 12px;
 	margin: 0 8px;
 	padding: 7px 0 7px 30px;
 	text-transform: uppercase;
+	text-decoration:none;
 }
 #bar nav li li a 
 {
@@ -691,7 +692,7 @@ footer img {
 
 #menu_inferior
 {
-	background: rgba(0, 0, 0, .6);
+	background: rgba(0, 0, 0, .8);
 	-webkit-border-top-left-radius: 10px;
 	-webkit-border-bottom-right-radius: 10px;
 		   -moz-border-radius-topleft: 10px;
@@ -714,7 +715,7 @@ footer img {
 	display: block;
 	float: right;
 	margin-left: 6px;
-	padding: 95px 5px 5px;
+	padding: 5px 5px 5px;
 	text-align: center;
 	text-transform: uppercase;
 	/*width: 33%;*/
@@ -726,23 +727,23 @@ footer img {
 }
 #menu_inferior a.imagenes
 {
-	background-image: url(../images/static/imagenes.jpg);
+	/* background-image: url(../images/static/imagenes.jpg);
 	background-position:  5px 5px;
-	background-repeat: no-repeat;
+	background-repeat: no-repeat; */
 }
 #menu_inferior a.imagenes:hover
 {
-	background-image: url(../images/static/imagenes_hover.jpg);
+	background-color: rgba(255, 255, 255, .5);
 }
 #menu_inferior a.videos
 {
-	background-image: url(../images/static/videos.jpg);
+	/*background-image: url(../images/static/videos.jpg);
 	background-position:  5px 5px;
-	background-repeat: no-repeat;
+	background-repeat: no-repeat; */
 }
 #menu_inferior a.videos:hover
 {
-	background-image: url(../images/static/videos_hover.jpg);
+	background-color: rgba(255, 255, 255, .5);
 }
 #menu_inferior a:last-child
 {
@@ -807,12 +808,12 @@ footer img {
 	
 #micrositio .mCustomScrollBox{
 	-ms-touch-action: none; /*MSPointer events - direct all pointer events to js*/
-	background: rgba(0, 0, 0, .6);
-	-webkit-border-top-left-radius: 10px;
+	background: rgba(0, 0, 0, .8);
+	-webkit-border-top-bottom-radius: 10px;
 	-webkit-border-bottom-right-radius: 10px;
-		   -moz-border-radius-topleft: 10px;
+		   -moz-border-radius-bottomleft: 10px;
 		   -moz-border-radius-bottomright: 10px;
-				border-top-left-radius: 10px;
+				border-bottom-left-radius: 10px;
 				border-bottom-right-radius: 10px;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
@@ -990,6 +991,15 @@ footer img {
 	line-height: 1.2;
 }
 #novedades .novedad .container {
+	-webkit-border-bottom-left-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+		   -moz-border-radius-bottomleft: 10px;
+		   -moz-border-radius-bottomright: 10px;
+				border-bottom-left-radius: 10px;
+				border-bottom-right-radius: 10px;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 	background: rgba(0, 0, 0, .7);
 	color: #fff;
 	float: left;
