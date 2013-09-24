@@ -80,7 +80,8 @@ class ApiController extends Controller
 				$json .= '"id":"'.CHtml::encode($videoalbum->id).'",';
 				$json .= '"micrositio":"'.CHtml::encode($videoalbum->micrositio_id).'",';
 				$json .= '"nombre":"'.CHtml::encode($videoalbum->nombre).'",';
-				$json .= '"url":"'.$videoalbum->url->slug.'"';
+				$json .= '"url":"'.$videoalbum->url->slug.'",';
+				$json .= '"thumb":"'.$videoalbum->thumb.'"';
 				//$json .= '"thumb":"'.bu('images/galeria/' . $videoalbum->fotos[0]->thumb).'"';
 			$json .= '},';
 			endforeach;

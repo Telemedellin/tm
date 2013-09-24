@@ -54,18 +54,23 @@ nav ul {
 	margin-right: 5px;
 	overflow: hidden;
 	padding: 5px;
-	text-indent: 5px;
+	text-indent: 4px;
 	vertical-align: top;
-	width: 26px;
+	width: 22px;
 }
-.breadcrumbs a:last-child, .breadcrumbs a:hover {
+/*.breadcrumbs a:last-child, */
+.breadcrumbs a:hover {
 	letter-spacing: .5px;
-	text-indent: 0;
+	/*text-indent: 0;*/
 	width: auto;
+	-webkit-animation-play-state: running;
+    -moz-animation-play-state: running;
+    animation-play-state: running;
 }
 .breadcrumbs a.home {
 	background: rgba(0,0,0,.6) url('../images/static/iconos/tmicons.png') no-repeat 4px -754px;
 	text-indent: 30px;
+	width: 26px;
 }
 .breadcrumbs h1 {
 	background: rgba(0, 0, 0, .6);

@@ -33,6 +33,7 @@ jQuery(function($) {
             id: '', 
             nombre : '',
             url : '',
+            thumb: ''
             //thumb: ''
         }
     });
@@ -91,10 +92,6 @@ jQuery(function($) {
         initialize:function () {
             this.collection.bind("reset", this.render, this);
             this.collection.bind("add", this.render, this);
-            /*var self = this;
-            this.collection.bind("add", function (album) {
-                $(self.el).append(new AlbumListItemView({model:album}).render().el);
-            }, this);*/
             this.render;
         },
         render:function (eventName) {

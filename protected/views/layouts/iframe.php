@@ -1,5 +1,5 @@
 <script id="albumListViewTemplate" type="text/template">
-	<h1>Álbumes de <%= nombre %></h1>
+	<h1>Álbumes de fotos <%= nombre %></h1>
 	<ul class="albumes"></ul>
 </script>
 <script id="albumListItemViewTemplate" type="text/template">
@@ -20,12 +20,12 @@
 	</a>
 </script>
 <script id="videoalbumListViewTemplate" type="text/template">
-	<h1>Álbumes de <%= nombre %></h1>
+	<h1>Álbumes de video de <%= nombre %></h1>
 	<ul class="videoalbumes"></ul>
 </script>
 <script id="videoalbumListItemViewTemplate" type="text/template">
 <a href="<%= url %>" class="in_fancy" data-id="<%= id %>">
-	<img src="" width="105" height="77" />
+	<img src="<%= thumb %>" width="120" height="90" />
 	<h2><%= nombre %></h2>
 </a>
 </script>
@@ -37,7 +37,8 @@
 </script>
 <script id="videoListItemViewTemplate" type="text/template">
 	<a href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-url_video="<%= url_video %>" data-id_video="<%= id_video %>" data-nombre="<%= nombre %>">
-		<img src="http://img.youtube.com/vi/<%= id_video %>/2.jpg" width="120" height="90" /><%= nombre %>
+		<img src="http://img.youtube.com/vi/<%= id_video %>/2.jpg" width="120" height="90" />
+		<h2><%= nombre %></h2>
 	</a>
 </script>
 <div id="icontainer">
