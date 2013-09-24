@@ -686,6 +686,9 @@ footer img {
 {
 	max-height: 290px;
 }
+
+#icontainer .videogaleria .full iframe{display:block;margin: 0 auto;}
+
 #menu_inferior
 {
 	background: rgba(0, 0, 0, .6);
@@ -1177,16 +1180,8 @@ footer img {
 	width: auto !important;
 }
 
-.fancybox-outer.fullscreen #icontainer .videogaleria .full iframe{display:block;margin: 0 auto;}
 
-.fancybox-outer.fullscreen #icontainer .galeria .full
-{
-	min-height: 470px;
-}
-.fancybox-outer.fullscreen #icontainer .galeria .full img
-{
-	max-height: 450px;
-}
+
 #overlay
 {
 	background: rgba(0, 0, 0, .8);
@@ -1500,7 +1495,7 @@ footer img {
 
 #redes_micrositio li.myspace a
 {
-	background-position: 0px -665pxpx;
+	background-position: 0px -665px;
 }
 
 #redes_micrositio li.vimeo a
