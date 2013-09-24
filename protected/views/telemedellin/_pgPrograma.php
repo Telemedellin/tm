@@ -5,5 +5,4 @@
 	</strong>
 </p>
 <?php endif; ?>
-<h3>Reseña</h3>
 <p><?php echo $contenido['contenido']->resena ?></p>

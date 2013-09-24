@@ -5,7 +5,7 @@ class NewsTicker extends CWidget
 {
     public function run()
     {
-        $search = "#NTMed";
+        $search = "from%3Atelemedellin%20#NTMed";
 		$notweets = 4;
 		$consumerkey = "lvX5ZuwYkNNFwaYaLz0Rw";
 		$consumersecret = "tkEfo98Xcpg0rYphooAetOSVjBcYEXhM4pKTGh1Bw";
