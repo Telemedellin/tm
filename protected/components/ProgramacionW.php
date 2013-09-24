@@ -6,11 +6,13 @@ class ProgramacionW extends CWidget
     public function getProgramas()
     {
         $c 		 = Programacion::model()->getCurrent();
-        if( $c )
+        /*if( $c )
         {
             $n	 = Programacion::model()->getNext( $c->hora_fin );
             return array('actual' => $c, 'siguiente' => $n);
-        }
+        }*/
+        $n   = Programacion::model()->getNext();
+        return array('actual' => $c, 'siguiente' => $n);
         
     }
 
