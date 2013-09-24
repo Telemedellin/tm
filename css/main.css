@@ -455,9 +455,9 @@ footer img {
 {
 	background-size: 10%;
 }
-#bar nav li:hover
+#bar nav li a:hover
 {
-	background: rgba(0, 0, 0, .8);
+	color: rgba(255, 255, 255, .8);
 }
 #bar nav li:last-child a {
 	border: none;
@@ -705,8 +705,8 @@ footer img {
 	float: right;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
-	padding: 10px;
-	width: 50%;
+	padding: 20px;
+	width: 45%;
 }
 #menu_inferior a
 {
@@ -819,8 +819,8 @@ footer img {
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
 	float:right;
-	padding:10px;
-	width: 50%;
+	padding:20px;
+	width: 45%;
 }
 #micrositio.programacion
 {
@@ -1570,8 +1570,9 @@ footer img {
 @media (min-width: 1200px) {
 	#bar nav li a {
 		background-size: 8%;
-		font-size: .9em;
+		font-size: 1.2em;
 		padding: 7px 0 7px 30px;
+		line-height: 1.8em;
 	}
 	#bar footer .extended-address .title {
 		background-size: 7%;
