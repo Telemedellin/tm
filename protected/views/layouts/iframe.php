@@ -1,5 +1,5 @@
 <script id="albumListViewTemplate" type="text/template">
-	<h1>Álbumes de <%= nombre %></h1>
+	<h1>Álbumes de fotos <%= nombre %></h1>
 	<ul class="albumes"></ul>
 </script>
 <script id="albumListItemViewTemplate" type="text/template">
@@ -20,7 +20,7 @@
 	</a>
 </script>
 <script id="videoalbumListViewTemplate" type="text/template">
-	<h1>Álbumes de <%= nombre %></h1>
+	<h1>Álbumes de video de <%= nombre %></h1>
 	<ul class="videoalbumes"></ul>
 </script>
 <script id="videoalbumListItemViewTemplate" type="text/template">
