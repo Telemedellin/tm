@@ -8,6 +8,7 @@
  * @property string $micrositio_id
  * @property string $url_id
  * @property string $nombre
+ * @property string $thumb
  * @property string $creado
  * @property string $modificado
  * @property integer $estado
@@ -46,14 +47,15 @@ class AlbumVideo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('micrositio_id, url_id, nombre, creado, estado, destacado', 'required'),
+			array('micrositio_id, url_id, nombre, thumb, creado, estado, destacado', 'required'),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true),
 			array('micrositio_id, url_id', 'length', 'max'=>10),
 			array('nombre', 'length', 'max'=>45),
+			array('thumb', 'length', 'max'=>100),
 			array('modificado', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, micrositio_id, url_id, nombre, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
+			array('id, micrositio_id, url_id, nombre, thumb, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,6 +83,7 @@ class AlbumVideo extends CActiveRecord
 			'micrositio_id' => 'Micrositio',
 			'url_id' => 'Url',
 			'nombre' => 'Nombre',
+			'thumb' => 'Miniatura',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
 			'estado' => 'Estado',
@@ -103,6 +106,7 @@ class AlbumVideo extends CActiveRecord
 		$criteria->compare('micrositio_id',$this->micrositio_id,true);
 		$criteria->compare('url_id',$this->url_id,true);
 		$criteria->compare('nombre',$this->nombre,true);
+		$criteria->compare('thumb',$this->thumb,true);
 		$criteria->compare('creado',$this->creado,true);
 		$criteria->compare('modificado',$this->modificado,true);
 		$criteria->compare('estado',$this->estado);
