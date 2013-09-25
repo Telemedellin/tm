@@ -20,6 +20,7 @@ body.home {
 }
 a, a:hover{
 	color: #FFF;
+	text-decoration:none;
 }
 nav ul {
 	list-style: none;
@@ -1102,6 +1103,10 @@ footer img {
 #programacion a, #programacion span {
 	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
+
+#programacion a:hover { 
+	color: rgba(255, 255, 255, 0.8);
+}
 #programacion .al-aire, #programacion .a-continuacion {
 	line-height: 1.2;
 	padding: 3px 10px;
@@ -1486,6 +1491,8 @@ footer img {
 	text-align: center;
 	width: 20%;
 }
+
+
 #programacion .senal-en-vivo {
 	background: #ffb119;
 	-webkit-border-bottom-left-radius: 10px;
