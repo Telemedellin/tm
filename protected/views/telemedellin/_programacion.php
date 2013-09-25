@@ -17,6 +17,6 @@
 		<div class="tit_programa"><?php echo $programa->micrositio->nombre ?></div>
 	</a>
 </div>
- <?php endforeach ?>
+<?php endforeach ?>
 </div>
 

@@ -1,6 +1,7 @@
 "use strict";
 jQuery(function($) {
-    window.c = 0;
+    window.cv = 0;
+    window.cva = 0;
     window.slider;
     //Modelos
 	window.Album = Backbone.Model.extend({
@@ -191,15 +192,19 @@ jQuery(function($) {
         template: template('videoalbumListViewTemplate'),
         initialize:function () {
             this.collection.bind("reset", this.render, this);
-            this.collection.bind("add", this.render, this);
-            this.render;
+            //this.collection.bind("add", this.render, this);
+            this.collection.bind("add", this.add, this);
+            //this.render();
         },
         render:function (eventName) {
             $(this.el).html( this.template( this.model.toJSON() ) );
             _.each(this.collection.models, function (album) {
                 $('.videoalbumes').append(new VideoAlbumListItemView({model:album}).render().el).fadeIn('slow');
-            }, this);
+            }, this);    
             return this;
+        },
+        add: function (videoAlbum){
+            this.render();
         }
     });
 
@@ -239,15 +244,16 @@ jQuery(function($) {
                 $('.video a.' + video.attributes.id).trigger('click');
             }
            
-            if(window.c <= 0){
-                $(".ivideos").mCustomScrollbar({
+            if(window.cv <= 0){
+                /*$(".ivideos").mCustomScrollbar({
                     scrollType: "pixels",
                     scrollButtons: {
                         enable: true
                     }
-                });
+                });*/
+                $('.video a.' + video.attributes.id).trigger('click');
             }
-            window.c += 1;
+            window.cv += 1;
         }
     });
 
@@ -286,8 +292,6 @@ jQuery(function($) {
             "imagenes/:album(/:foto)":  "listarFotos",
             "videos":                   "listarVideoAlbumes",
             "videos/:videoalbum(/:video)":"listarVideos"
-            //"search/:query":        "search",  // #search/kiwis
-            //"search/:query/p:page": "search"   // #search/kiwis/p7
         },
         initialize: function(){
             this.micrositio = new Micrositio();
@@ -327,7 +331,6 @@ jQuery(function($) {
             console.dir(this.videolist);
             this.videolistView = new VideoListView({collection:this.videolist, model: {nombre: videoalbum, video_activo: video} });
             $('#icontainer').html(this.videolistView.render().el);
-            
         }
     });
     var app = new AppRouter();

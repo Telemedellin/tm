@@ -16,17 +16,14 @@ cs()->registerScript(
     $(this).superslides("start");
   });
   $("#novedades").on("started.slides", function(){
-    console.log("started");
     set_current();
   });
   $("#novedades").on("animated.slides", function(){
-    console.log("animated");
     set_current();
   });
   function set_current()
   {
     var current = $("#novedades").superslides("current");
-    console.log("Current " + current);
     $( ".slides-pagination a" ).each(function( index ) {
       $(this).removeClass("current");
     });

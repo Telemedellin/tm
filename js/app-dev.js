@@ -42,7 +42,6 @@ function cerrar_popup(e)
 {
 	if(Modernizr.history){
 		var old_url = $('.close').attr('href');
-		console.log(old_url + ' ' + window.location.href);
 		if(old_url != window.location.href)
 		{
 			modificar_url(old_url);
@@ -76,18 +75,10 @@ function verificar_hash(){
 		}else if( hash_value.indexOf('videos') >= 0 ){
 			abrir_multimedia('videos');
 		}
-		
-	}else{
-		console.log('NO');
 	}
-
 }
 
 jQuery(function($) {
-	$(window).on('popstate', function () {
-        console.log('popstate');
-        console.dir(window.history);
-    });
 	$(document).on('click', '.ajax a', click_popup);
 	$(document).on('click', '#overlay a.close', cerrar_popup);
 	var cf = 0;
@@ -102,31 +93,22 @@ jQuery(function($) {
 	    	el_url = element.href,
 	    	//Asigno la url vieja a la nueva
 	    	destino_url = current_url;
-	    console.log('current_url: ' + current_url);
-	    console.log('current_hash: ' + current_hash);
-	    console.log('el_url: ' + el_url);
-	    console.log('destino_url: ' + destino_url);
 	    if(!current_hash){
 	    //Si no existe el hash en la url actual, tomo el hash del enlace
 	    	var hash_p = el_url.indexOf('#'),
 	    	    hash = el_url.substr(hash_p).substr(1);
-	    	console.log('hash_p: ' + hash_p);
-	    	console.log('hash: ' + hash);
 	    //Asigno la url del elemento a la nueva
 	    	destino_url = el_url;
 	    }else{
 	    	hash = current_hash;
 	    }
-	    console.log('destino_url: ' + destino_url);
 	    var destino = '/tm/telemedellin/popup#' + hash;
-	    console.log('fanybox destino ' + destino);
 	    $(this).fancybox({
 	    	type: "ajax",
 	    	href: destino,
 	    	autoSize: false,
 	    	padding: [9, 20, 9, 20],
 	    	afterLoad: function(current, previous){
-	    		console.log(destino_url);
 	    		if(cf <= 0)
 	    			modificar_url(destino_url, "Álbumes");
 	    		else
@@ -136,6 +118,7 @@ jQuery(function($) {
 	    	},
 	    	afterClose: function(){
 	    		window.location.hash = '';
+	    		modificar_url(window.location.hash, "Álbumes");
 	    	},
 	    	beforeLoad: function(){
 	    		this.width  = '80%';
@@ -171,7 +154,7 @@ jQuery(function($) {
 	});
 
 	verificar_hash();
-	$(document).bind("fullscreenerror", function() {
+	/*$(document).bind("fullscreenerror", function() {
 	    console.log("Browser rejected fullscreen change");
-	});
+	});*/
 });

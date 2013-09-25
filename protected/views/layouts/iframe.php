@@ -4,7 +4,7 @@
 </script>
 <script id="albumListItemViewTemplate" type="text/template">
 <a href="<%= url %>" class="in_fancy" data-id="<%= id %>">
-	<img src="<%= thumb %>" width="105" height="77" />
+	<img src="<%= thumb %>" width="240" height="180" />
 	<h2><%= nombre %></h2>
 </a>
 </script>
@@ -49,4 +49,4 @@
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/backbone-min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/screenfull.js"></script>
 <!--<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/jquery.bxslider.js"></script>-->
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/iframe.app.min.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/iframe.app-dev.js"></script>
