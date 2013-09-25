@@ -1,11 +1,10 @@
 "use strict";
 function click_popup(e)
 {
-	var url   = e.target.href;
+	var url   = e.target.href + '?ajax=true';
 	cargar_popup(url);
 	e.preventDefault();
 }
-
 function cargar_popup(url)
 {
 	$.getJSON(url, success_popup);
@@ -49,7 +48,7 @@ function cerrar_popup(e)
 			modificar_url(old_url);
 		}else
 		{
-			modificar_url('/tm', 'Inicio');
+			modificar_url('/tm');
 		}
 	}
 	$('#overlay').remove();
@@ -65,17 +64,9 @@ function modificar_url(pagina, nombre){
 	if(!nombre) nombre = null;
 	if(Modernizr.history){
 		var stateObj = { pagina: nombre };
-		window.history.pushState( stateObj, null, pagina );
+		window.history.pushState( stateObj, nombre, pagina );
 	}
 }
-
-function link_fancy(e){
-	console.log('Hola');
-	modificar_url(e.target.href);
-	console.log('old_url ' + e.target.href);
-	e.preventDefault();
-}
-
 function verificar_hash(){
 	if(window.location.hash){
 		var hash_value = window.location.hash.replace('#', '');
@@ -93,6 +84,10 @@ function verificar_hash(){
 }
 
 jQuery(function($) {
+	$(window).on('popstate', function () {
+        console.log('popstate');
+        console.dir(window.history);
+    });
 	$(document).on('click', '.ajax a', click_popup);
 	$(document).on('click', '#overlay a.close', cerrar_popup);
 	var cf = 0;

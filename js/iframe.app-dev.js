@@ -239,17 +239,14 @@ jQuery(function($) {
                 $('.video a.' + video.attributes.id).trigger('click');
             }
            
-            /*if(window.c <= 0){
-                window.slider = $('.ivideos').bxSlider({
-                    pager: false,
-                    minSlides: 10,
-                    maxSlides: 20,
-                    slideWidth: 100,
-                    slideMargin: 8,
-                    viewportWidth: '100%'
+            if(window.c <= 0){
+                $(".ivideos").mCustomScrollbar({
+                    scrollType: "pixels",
+                    scrollButtons: {
+                        enable: true
+                    }
                 });
-                $('.video a.' + video.attributes.id).trigger('click');
-            }*/
+            }
             window.c += 1;
         }
     });

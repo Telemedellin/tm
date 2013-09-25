@@ -70,7 +70,7 @@ class TelemedellinController extends Controller
 		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 		
-		if( Yii::app()->request->isAjaxRequest )
+		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'] )
 		{
 			header('Content-Type: application/json; charset="UTF-8"');
 			$this->renderPartial( 'json_seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
@@ -95,7 +95,7 @@ class TelemedellinController extends Controller
 		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 		
-		if( Yii::app()->request->isAjaxRequest )
+		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'] )
 		{
 			header('Content-Type: application/json; charset="UTF-8"');
 			$this->renderPartial( 'json_telemedellin', array('seccion' => $seccion, 'micrositios' => $micrositios) );
@@ -120,7 +120,7 @@ class TelemedellinController extends Controller
 		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 
-		if( Yii::app()->request->isAjaxRequest )
+		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'])
 		{
 			header('Content-Type: application/json; charset="UTF-8"');
 			$this->renderPartial( 'json_programas', array('seccion' => $seccion, 'micrositios' => $micrositios) );
@@ -157,7 +157,7 @@ class TelemedellinController extends Controller
 		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 
-		if( Yii::app()->request->isAjaxRequest )
+		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'] )
 		{
 			header('Content-Type: application/json; charset="UTF-8"');
 			$this->renderPartial( 'json_documentales', array('seccion' => $seccion, 'recientes' => $recientes, 'micrositios' => $micrositios) );
@@ -194,7 +194,7 @@ class TelemedellinController extends Controller
 		$micrositios = Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 
-		if( Yii::app()->request->isAjaxRequest )
+		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'] )
 		{
 			header('Content-Type: application/json; charset="UTF-8"');
 			$this->renderPartial( 'json_documentales', 

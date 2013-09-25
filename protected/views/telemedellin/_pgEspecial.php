@@ -1,4 +1,3 @@
-<h3>Reseña</h3>
 <p><?php echo $contenido['contenido']->resena ?></p>
 <?php if( !is_null($contenido['contenido']->fechaEspecials) ): ?>
 <p>Fecha: <?php echo Horarios::fecha_especial( $contenido['contenido']->fechaEspecials ); ?></p>
