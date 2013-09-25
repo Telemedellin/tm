@@ -25,7 +25,7 @@
 </script>
 <script id="videoalbumListItemViewTemplate" type="text/template">
 <a href="<%= url %>" class="in_fancy" data-id="<%= id %>">
-	<img src="<%= thumb %>" width="120" height="90" />
+	<img src="<%= thumb %>" width="240" height="180" />
 	<h2><%= nombre %></h2>
 </a>
 </script>
@@ -37,7 +37,7 @@
 </script>
 <script id="videoListItemViewTemplate" type="text/template">
 	<a href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-url_video="<%= url_video %>" data-id_video="<%= id_video %>" data-nombre="<%= nombre %>" data-pv="<%= proveedor_video %>">
-		<%= thumbnail %>
+		<img src="<%= thumbnail %>" width="120" height="90" />
 		<h2><%= nombre %></h2>
 		<p><%= descripcion %></p>
 	</a>

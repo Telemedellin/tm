@@ -130,7 +130,7 @@ class ApiController extends Controller
 					}else{
 						$id_video = 0;
 					}
-					$thumbnail = '<img src=\"http://img.youtube.com/vi/'.$id_video.'/2.jpg\" width=\"120\" height=\"90\" />';
+					$thumbnail = 'http://img.youtube.com/vi/'.$id_video.'/0.jpg';
 				}else if($video->proveedor_video_id == 2){
 					$url = 'http://vimeo.com/api/oembed.json?url='.rawurlencode($video->url_video);
 					$curl = curl_init($url);
@@ -142,7 +142,7 @@ class ApiController extends Controller
 				    $return = json_decode($return);
 				    $id_video = $return->video_id;
 
-				    $thumbnail = '<img src=\"'.$return->thumbnail_url.'\" width=\"120\" height=\"90\" />';
+				    $thumbnail = $return->thumbnail_url;
 				}else{
 					$id_video = 0;
 				}
