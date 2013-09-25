@@ -1,3 +1,4 @@
+<?php $this->pageTitle = 'Programación' ?>
 <div class="menu_micrositio">
 <?php $hoy = mktime(0, 0, 0, date('m'), date('d'), date('Y')); ?>
 <?php foreach($menu as $item): ?>

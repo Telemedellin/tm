@@ -8,6 +8,7 @@ if($seccion->url->slug != 'sin-seccion')
 ($pagina->id != $micrositio->pagina_id) ? $bc[ucfirst($micrositio->nombre)] = bu( $micrositio->url->slug ) : $bc[] = ucfirst($micrositio->nombre);
 ($pagina->id != $micrositio->pagina_id) ? $bc[] = ucfirst($pagina->nombre) : false;
 $this->breadcrumbs = $bc;
+$this->pageTitle = $micrositio->nombre;
 
 if( !empty($micrositio->background) )
 	cs()->registerCss('background', 'body{background-image: url("' . bu($micrositio->background) . '");}');
