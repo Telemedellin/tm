@@ -121,16 +121,33 @@ class ApiController extends Controller
 				$json .= '"proveedor_video":"'.CHtml::encode($video->proveedorVideo->nombre).'",';
 				$json .= '"url":"'.CHtml::encode($video->url->slug).'",';
 				$json .= '"nombre":"'.CHtml::encode($video->nombre).'",';
+				$json .= '"descripcion":'.json_encode($video->descripcion).',';
 				$json .= '"url_video":"'.$video->url_video.'",';
 				if($video->proveedor_video_id == 1){
 					preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $video->url_video, $matches);
 					if(isset($matches[1])){
 						$id_video = $matches[1];
+					}else{
+						$id_video = 0;
 					}
+					$thumbnail = '<img src=\"http://img.youtube.com/vi/'.$id_video.'/2.jpg\" width=\"120\" height=\"90\" />';
+				}else if($video->proveedor_video_id == 2){
+					$url = 'http://vimeo.com/api/oembed.json?url='.rawurlencode($video->url_video);
+					$curl = curl_init($url);
+				    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+				    curl_setopt($curl, CURLOPT_TIMEOUT, 30);
+				    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+				    $return = curl_exec($curl);
+				    curl_close($curl);
+				    $return = json_decode($return);
+				    $id_video = $return->video_id;
+
+				    $thumbnail = '<img src=\"'.$return->thumbnail_url.'\" width=\"120\" height=\"90\" />';
 				}else{
 					$id_video = 0;
 				}
 				$json .= '"id_video":"'.$id_video.'",';
+				$json .= '"thumbnail":"'.$thumbnail.'",';
 				$json .= '"duracion":"'.$video->duracion.'"';
 			$json .= '},';
 			endforeach;

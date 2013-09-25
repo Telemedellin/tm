@@ -36,9 +36,10 @@
 	<ul class="ivideos"></ul>
 </script>
 <script id="videoListItemViewTemplate" type="text/template">
-	<a href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-url_video="<%= url_video %>" data-id_video="<%= id_video %>" data-nombre="<%= nombre %>">
-		<img src="http://img.youtube.com/vi/<%= id_video %>/2.jpg" width="120" height="90" />
+	<a href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-url_video="<%= url_video %>" data-id_video="<%= id_video %>" data-nombre="<%= nombre %>" data-pv="<%= proveedor_video %>">
+		<%= thumbnail %>
 		<h2><%= nombre %></h2>
+		<p><%= descripcion %></p>
 	</a>
 </script>
 <div id="icontainer">

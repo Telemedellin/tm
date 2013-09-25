@@ -58,9 +58,10 @@ nav ul {
 	vertical-align: top;
 	width: 26px;
 }
-.breadcrumbs a:last-child, .breadcrumbs a:hover {
+
+.breadcrumbs a:hover {
 	letter-spacing: .5px;
-	text-indent: 0;
+	text-decoration: none;
 	width: auto;
 }
 .breadcrumbs a.home {
@@ -92,25 +93,24 @@ nav ul {
     overflow: hidden;
     position: relative;
 }
-    .marquesina div {
-        display: block;
-        width: 400%;
-        height: 20px;
-        
-        position: absolute;
-        overflow: hidden;
-        
-        -webkit-animation: marquee 60s linear infinite;
-        -moz-animation: marquee 60s linear infinite;
-        -ms-animation: marquee 60s linear infinite;
-        -o-animation: marquee 60s linear infinite;
-        animation: marquee 60s linear infinite;
-    }
-    .marquesina p {
-        float: left;
-        width: 25%;
-    }
+.marquesina div {
+    display: block;
+    width: 400%;
+    height: 20px;
     
+    position: absolute;
+    overflow: hidden;
+    
+    -webkit-animation: marquee 60s linear infinite;
+    -moz-animation: marquee 60s linear infinite;
+    -ms-animation: marquee 60s linear infinite;
+    -o-animation: marquee 60s linear infinite;
+    animation: marquee 60s linear infinite;
+}
+.marquesina p {
+    float: left;
+    width: 25%;
+}
 @-webkit-keyframes marquee {
     0% { left: 100%; }
     100% { left: -400%; }
@@ -137,6 +137,7 @@ nav ul {
 	width: auto;
 	margin-right: 25px;
 	overflow: hidden;
+	padding: 5%;
 }
 .mCSB_container.mCS_no_scrollbar {
 	margin-right: 0;
@@ -365,7 +366,7 @@ nav ul {
 	color: #FFF;
 	height: 100%;
 	left: 0;
-	min-height: 560px;
+	min-height: 455px;
 	min-width: 160px;
 	position: fixed;
 	top: 0;
@@ -441,7 +442,7 @@ footer img {
 	line-height:25px;
 }
 #bar nav li a {
-	background: url('../images/static/iconos/tmicons.png') no-repeat 6px -2%;
+	background: url('../images/static/iconos/tmicons.png') no-repeat 6px -2.7%;
 	background-size: 9%;
 	color: #FFF;
 	display: block;
@@ -475,13 +476,13 @@ footer img {
 	display: block;
 }
 #bar nav li.programas a {
-	background-position: 5px 5.3%;
+	background-position: 5px 4.1%;
 }
 #bar nav li.especiales a {
-	background-position: 5px 11.3%;
+	background-position: 5px 10%;
 }
 #bar nav li.documentales a {
-	background-position: 5px 17.7%;
+	background-position: 5px 16.8%;
 }
 #bar .escribenos {
 	background: rgba(137, 222, 21, 0.6) url('../images/static/iconos/tmicons.png') no-repeat 22px -379px;
@@ -703,23 +704,30 @@ footer img {
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
 	float: right;
-	margin: 5px 10px 5px 0;
+	margin: 5px 25px 5px 0;
 	overflow: auto;
-	padding: 20px;
-	width: 45%;
+	padding: 2%;
+	width: 43%;
 }
 #menu_inferior a
 {
 	background-color: rgba(255, 255, 255, .3);
-	border-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+		   -moz-border-radius-topleft: 5px;
+		   -moz-border-radius-bottomright: 5px;
+				border-top-left-radius: 5px;
+				border-bottom-right-radius: 5px;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 	display: block;
 	float: right;
-	margin-left: 6px;
+	margin-left: 2%;
 	padding: 5px 5px 5px;
 	text-align: center;
 	text-transform: uppercase;
-	/*width: 33%;*/
-	width: 145px;
+	width: 31%;
 }
 #menu_inferior a:hover
 {
@@ -783,7 +791,7 @@ footer img {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
-	height: 50%;
+	height: 70%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 15px;
@@ -819,7 +827,7 @@ footer img {
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
 	float:right;
-	padding:20px;
+	/*padding:20px;*/
 	width: 45%;
 }
 #micrositio.programacion
@@ -1569,6 +1577,27 @@ footer img {
 	#bar .redes li a {
 		background-size: 72%;
 	}
+	#bar .redes li a {
+		background-position: 0px -432px;
+	}
+	#bar .redes li.facebook a {
+		background-position: 0px -244px;
+	}
+	#bar .redes li.twitter a {
+		background-position: 0px -276px;
+	}
+	#bar .redes li.flickr a {
+		background-position: 0px -339px;
+	}
+	#bar .redes li.youtube a {
+		background-position: 0px -308px;
+	}
+	#bar .redes li.foursquare a {
+		background-position: 0px -372px;
+	}
+	#bar .redes li.instagram a {
+		background-position: 0px -403px;
+	}
 	#micrositio.programacion .menu_micrositio a
 	{
 		padding: 10px 6px;
@@ -1594,15 +1623,12 @@ footer img {
 		background-size: 47%;
 	}
 	#micrositio {
-		height: 50%;
+		height: 70%;
 	}
 	
 	#micrositio.senal-en-vivo {
 		height: 62%;
-
 	}
-	
-
 }
 @media (min-width: 1437px) {
 	#bar nav li a {
