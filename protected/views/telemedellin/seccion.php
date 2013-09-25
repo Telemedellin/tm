@@ -33,9 +33,10 @@ cs()->registerScript( 'filtro',
 	<?php foreach($micrositios as $micrositio):?>
 		<?php if($micrositio->destacado): ?>
 			<?php 
-				$destacados .= '<p><a href="' . bu($micrositio->url->slug) . '">';
-				$destacados .= '<img src="' . bu($micrositio->miniatura) . '" alt="' . $micrositio->nombre . '"/>';
-				$destacados .= '</a></p>' . "\n\r";
+			$destacados .= '<p><a href="' . bu($micrositio->url->slug) . '">';
+		$destacados .= '<img src="' . bu($micrositio->miniatura) . '" alt="' . $micrositio->nombre . '"/>';
+		$destacados .= '<div class="nombrePrograma"></div>';
+			$destacados .= '</a></p>' . "\n\r";
 			?>
 		<?php else: ?>
 		<p>

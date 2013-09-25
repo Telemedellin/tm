@@ -426,8 +426,7 @@ nav ul {
 }
 #bar h1 {
 	margin: 0;
-	padding: 15px 0;
-	text-align: center;
+	padding: 15px;
 }
 #bar h1 img {
 	max-width: 63%;
@@ -1341,6 +1340,12 @@ footer img {
 	margin-bottom: 1%;
 	width: 20%;
 }
+
+#overlay #seccion .destacados a {
+	padding-bottom:30px;
+	background-color:#3F0;
+	}
+
 #overlay #seccion .filtro input
 {
 	background: rgba(255, 255, 255, 0.1);
