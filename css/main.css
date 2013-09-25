@@ -142,6 +142,7 @@ nav ul {
 	width: auto;
 	margin-right: 25px;
 	overflow: hidden;
+	padding: 20px;
 }
 .mCSB_container.mCS_no_scrollbar {
 	margin-right: 0;
@@ -788,7 +789,7 @@ footer img {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
-	height: 50%;
+	height: 70%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 15px;
@@ -824,7 +825,7 @@ footer img {
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
 	float:right;
-	padding:20px;
+	/*padding:20px;*/
 	width: 45%;
 }
 #micrositio.programacion
@@ -1592,7 +1593,7 @@ footer img {
 		background-size: 47%;
 	}
 	#micrositio {
-		height: 50%;
+		height: 70%;
 	}
 	
 	#micrositio.senal-en-vivo {
