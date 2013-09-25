@@ -58,14 +58,10 @@ nav ul {
 	vertical-align: top;
 	width: 22px;
 }
-/*.breadcrumbs a:last-child, */
 .breadcrumbs a:hover {
 	letter-spacing: .5px;
-	/*text-indent: 0;*/
+	text-decoration: none;
 	width: auto;
-	-webkit-animation-play-state: running;
-    -moz-animation-play-state: running;
-    animation-play-state: running;
 }
 .breadcrumbs a.home {
 	background: rgba(0,0,0,.6) url('../images/static/iconos/tmicons.png') no-repeat 4px -754px;
@@ -97,25 +93,24 @@ nav ul {
     overflow: hidden;
     position: relative;
 }
-    .marquesina div {
-        display: block;
-        width: 400%;
-        height: 20px;
-        
-        position: absolute;
-        overflow: hidden;
-        
-        -webkit-animation: marquee 60s linear infinite;
-        -moz-animation: marquee 60s linear infinite;
-        -ms-animation: marquee 60s linear infinite;
-        -o-animation: marquee 60s linear infinite;
-        animation: marquee 60s linear infinite;
-    }
-    .marquesina p {
-        float: left;
-        width: 25%;
-    }
+.marquesina div {
+    display: block;
+    width: 400%;
+    height: 20px;
     
+    position: absolute;
+    overflow: hidden;
+    
+    -webkit-animation: marquee 60s linear infinite;
+    -moz-animation: marquee 60s linear infinite;
+    -ms-animation: marquee 60s linear infinite;
+    -o-animation: marquee 60s linear infinite;
+    animation: marquee 60s linear infinite;
+}
+.marquesina p {
+    float: left;
+    width: 25%;
+}
 @-webkit-keyframes marquee {
     0% { left: 100%; }
     100% { left: -400%; }
@@ -371,7 +366,7 @@ nav ul {
 	color: #FFF;
 	height: 100%;
 	left: 0;
-	min-height: 560px;
+	min-height: 455px;
 	min-width: 160px;
 	position: fixed;
 	top: 0;
@@ -447,7 +442,7 @@ footer img {
 	line-height:25px;
 }
 #bar nav li a {
-	background: url('../images/static/iconos/tmicons.png') no-repeat 6px -2%;
+	background: url('../images/static/iconos/tmicons.png') no-repeat 6px -2.7%;
 	background-size: 9%;
 	color: #FFF;
 	display: block;
@@ -481,13 +476,13 @@ footer img {
 	display: block;
 }
 #bar nav li.programas a {
-	background-position: 5px 5.3%;
+	background-position: 5px 4.1%;
 }
 #bar nav li.especiales a {
-	background-position: 5px 11.3%;
+	background-position: 5px 10%;
 }
 #bar nav li.documentales a {
-	background-position: 5px 17.7%;
+	background-position: 5px 16.8%;
 }
 #bar .escribenos {
 	background: rgba(137, 222, 21, 0.6) url('../images/static/iconos/tmicons.png') no-repeat 22px -379px;
@@ -709,23 +704,30 @@ footer img {
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
 	float: right;
-	margin: 5px 10px 5px 0;
+	margin: 5px 25px 5px 0;
 	overflow: auto;
 	padding: 20px;
-	width: 45%;
+	width: 43%;
 }
 #menu_inferior a
 {
 	background-color: rgba(255, 255, 255, .3);
-	border-radius: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+		   -moz-border-radius-topleft: 5px;
+		   -moz-border-radius-bottomright: 5px;
+				border-top-left-radius: 5px;
+				border-bottom-right-radius: 5px;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
 	display: block;
 	float: right;
-	margin-left: 6px;
+	margin-left: 2%;
 	padding: 5px 5px 5px;
 	text-align: center;
 	text-transform: uppercase;
-	/*width: 33%;*/
-	width: 145px;
+	width: 31%;
 }
 #menu_inferior a:hover
 {
