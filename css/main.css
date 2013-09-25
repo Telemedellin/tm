@@ -137,7 +137,7 @@ nav ul {
 	width: auto;
 	margin-right: 25px;
 	overflow: hidden;
-	padding: 20px;
+	padding: 5%;
 }
 .mCSB_container.mCS_no_scrollbar {
 	margin-right: 0;
@@ -706,7 +706,7 @@ footer img {
 	float: right;
 	margin: 5px 25px 5px 0;
 	overflow: auto;
-	padding: 20px;
+	padding: 2%;
 	width: 43%;
 }
 #menu_inferior a
@@ -1570,6 +1570,27 @@ footer img {
 	#bar .redes li a {
 		background-size: 72%;
 	}
+	#bar .redes li a {
+		background-position: 0px -432px;
+	}
+	#bar .redes li.facebook a {
+		background-position: 0px -244px;
+	}
+	#bar .redes li.twitter a {
+		background-position: 0px -276px;
+	}
+	#bar .redes li.flickr a {
+		background-position: 0px -339px;
+	}
+	#bar .redes li.youtube a {
+		background-position: 0px -308px;
+	}
+	#bar .redes li.foursquare a {
+		background-position: 0px -372px;
+	}
+	#bar .redes li.instagram a {
+		background-position: 0px -403px;
+	}
 	#micrositio.programacion .menu_micrositio a
 	{
 		padding: 10px 6px;
@@ -1600,10 +1621,7 @@ footer img {
 	
 	#micrositio.senal-en-vivo {
 		height: 62%;
-
 	}
-	
-
 }
 @media (min-width: 1437px) {
 	#bar nav li a {
