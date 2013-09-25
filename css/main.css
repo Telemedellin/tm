@@ -426,8 +426,7 @@ nav ul {
 }
 #bar h1 {
 	margin: 0;
-	padding: 15px 0;
-	text-align: center;
+	padding: 15px;
 }
 #bar h1 img {
 	max-width: 63%;
@@ -1340,7 +1339,38 @@ footer img {
 	height: 65%;
 	margin-bottom: 1%;
 	width: 20%;
+
 }
+
+
+#overlay #seccion .destacados img:hover
+{
+
+
+}
+
+#overlay #seccion .destacados .nombrePrograma
+{
+	background: rgba(0, 0, 0, 0.6);
+	/* top:-40px;
+	height:20px; */
+	height:40px;
+	margin-top:-40px;
+	text-align:center;
+	z-index:10px;
+	position:relative;
+	
+}
+
+#overlay #seccion .destacados a {
+	padding-bottom:30px;
+	}
+	
+#overlay #seccion .destacados a:hover {
+	  opacity: 0.5;
+  filter:  alpha(opacity=50);
+	}
+
 #overlay #seccion .filtro input
 {
 	background: rgba(255, 255, 255, 0.1);
