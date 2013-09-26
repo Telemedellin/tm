@@ -288,41 +288,6 @@ class TelemedellinController extends Controller
 		);
 	}
 
-	public function actionCargarImagenes()
-	{
-		$url = $_GET['tm'];
-
-		if(isset($_GET['ajax'])) 
-		{
-			unset($_GET['ajax']);
-			if( isset($_GET['m']) ){
-				$m_id = $_GET['m'];
-				$albumes = AlbumFoto::model()->findAllByAttributes( array('micrositio_id' => $m_id) );
-				$micrositio = $albumes[0]->micrositio;
-				$this->layout = '//layouts/iframe';
-				$this->renderText('');
-			}
-		}
-		else
-		{
-			cs()->registerScript( 'ajax', 
-				'abrir_multimedia("imagenes");',
-				CClientScript::POS_READY
-			);
-			$m = Micrositio::model()->findByPk( (int) $_GET['m'] );
-			$this->actionCargarMicrositio($m->url->id);
-		}
-		
-	}
-
-	public function actionCargarAlbumImagenes()
-	{
-		$url_id = $_GET['tm']->id;
-		$af = AlbumFoto::model()->findByAttributes( array('url_id' => $url_id) );
-		$micrositio = Micrositio::model()->cargarMicrositio( $af->micrositio_id );
-		$this->renderPartial( '_album', array('micrositio' => $micrositio, 'album' => $af ) );
-	}
-
 	public function actionCargarProgramacion()
 	{
 		$url_id = $_GET['tm']->id;
