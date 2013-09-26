@@ -133,45 +133,6 @@ class Horarios{
 			}
 			$html .= ' a las ' . Horarios::hora( $horario_en_reemision ) . ' ';			
 		}			
-
-		$te = 0;
-		/*
-		foreach( $datos as $dato )
-		{
-			if($c == 7)
-				$c == 1;
-			if($dato['tipo_emision_id'] == 1){
-				if($c == 1)
-					$html .= "En vivo: ";
-				
-				if($dato['dia_semana'] + 1 == $c + 1){
-					if ($dato === reset($datos)){
-						$html .= $dias_semana[ $dato['dia_semana'] - 1 ] . ' ';
-					}					
-				}				
-				else{
-					if ($dato === end($datos)){
-						$html .= $dias_semana[ $dato['dia_semana'] - 1 ] . ' ';
-					}					
-					echo $dato['dia_semana'] + 1;
-					echo " ".$c + 1;
-					$html .= $dias_semana[ $dato['dia_semana'] - 1 ] . ' ';					
-				}
-				$html .= ' a las ' . Horarios::hora( $dato['hora_inicio'] ) . ' ';
-				$c++;
-			}
-			/*
-			if( $dato['tipo_emision_id'] != $te )
-			{
-				if( $dato['tipo_emision_id'] == 3 )
-					$html .= $dato['tipo_emision'] . ' ';
-				$te = $dato['tipo_emision_id'];
-			}
-			if($dias_semana[ $dato['dia_semana'] + 1] == $dato['dia_semana'])
-			$html .= $dias_semana[ $dato['dia_semana'] - 1 ] . ' ';
-			$html .= ' a las ' . Horarios::hora( $dato['hora_inicio'] ) . ' ';
-			*
-		}*/
 		
 		return $html;
 	}
