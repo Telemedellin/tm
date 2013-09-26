@@ -758,6 +758,31 @@ footer img {
 {
 	background-color: rgba(255, 255, 255, .5);
 }
+
+#menu_inferior .iconoVideo {
+	background-image:url(../images/static/iconos/video.png);
+	display:inline-block;
+	width:15px;
+	height:12px;
+	margin:0 5px 0 0;
+	}
+
+#menu_inferior .iconoImagen {
+	background-image:url(../images/static/iconos/imagen.png);
+	display:inline-block;
+	width:15px;
+	height:12px;
+	margin:0 5px 0 0;
+	}
+	
+#menu_inferior .iconoForm {
+	background-image:url(../images/static/iconos/formulario.png);
+	display:inline-block;
+	width:15px;
+	height:12px;
+	margin:0 5px 0 0;
+	}
+	
 #menu_inferior a:last-child
 {
 	margin-left: 0;
@@ -793,13 +818,25 @@ footer img {
 	background: rgba(0, 0, 0, .7);
 }
 #micrositio {
+	background: rgba(0, 0, 0, .8);
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+	-webkit-border-top-bottom-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+		   -moz-border-radius-bottomleft: 10px;
+		   -moz-border-radius-bottomright: 10px;
+				border-bottom-left-radius: 10px;
+				border-bottom-right-radius: 10px;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
 	height: 70%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
-	padding: 15px;
+	padding: 0px 10px 15px 5px;
+	width: 45%;
+	float: right;
 }
 #micrositio.senal-en-vivo
 {
@@ -821,19 +858,11 @@ footer img {
 	
 #micrositio .mCustomScrollBox{
 	-ms-touch-action: none; /*MSPointer events - direct all pointer events to js*/
-	background: rgba(0, 0, 0, .8);
-	-webkit-border-top-bottom-radius: 10px;
-	-webkit-border-bottom-right-radius: 10px;
-		   -moz-border-radius-bottomleft: 10px;
-		   -moz-border-radius-bottomright: 10px;
-				border-bottom-left-radius: 10px;
-				border-bottom-right-radius: 10px;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
 	float:right;
-	/*padding:20px;*/
-	width: 45%;
+
 }
 #micrositio.programacion
 {
@@ -1317,7 +1346,11 @@ footer img {
 .paginas ul li
 {
 	list-style-image:url(../images/static/iconos/ligenerico.png);
+	padding-bottom:5px;
 }
+
+.contenidoScroll {
+	margin:10px;}
 
 
 #overlay #seccion .recientes
