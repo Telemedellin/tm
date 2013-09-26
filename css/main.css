@@ -58,10 +58,6 @@ nav ul {
 	text-indent: 5px;
 	vertical-align: top;
 	width: 26px;
-	-moz-transition: width 1s linear .2s;
-    -webkit-transition: width 1s linear .2s;
-    -o-transition: width 1s linear .2s;
-    transition: width 1s linear .2s;
 }
 .breadcrumbs a:hover {
 	letter-spacing: .5px;
