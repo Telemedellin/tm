@@ -864,6 +864,11 @@ footer img {
 {
 	background: none;
 }
+#micrositio.programacion .mCSB_container, 
+#micrositio.senal-en-vivo .mCSB_container
+{
+	padding: 1%;
+}
 #micrositio.programacion .menu_micrositio
 {
 	background: #0f0e13;
@@ -1669,7 +1674,7 @@ footer img {
 	}
 	
 	#micrositio.senal-en-vivo {
-		height: 62%;
+		height: 85%;
 	}
 }
 @media (min-width: 1437px) {
