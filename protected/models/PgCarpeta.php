@@ -1,29 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "carpeta".
+ * This is the model class for table "pg_carpeta".
  *
- * The followings are the available columns in table 'carpeta':
+ * The followings are the available columns in table 'pg_carpeta':
  * @property string $id
- * @property string $url_id
- * @property string $micrositio_id
- * @property string $item_id
- * @property string $carpeta
- * @property string $ruta
- * @property integer $hijos
+ * @property string $pagina_id
  * @property integer $estado
- *
- * The followings are the available model relations:
- * @property Archivo[] $archivos
- * @property Pagina $pagina
- * @property Url $url
  */
-class Carpeta extends CActiveRecord
+class PgCarpeta extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Carpeta the static model class
+	 * @return PgCarpeta the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -35,7 +25,7 @@ class Carpeta extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'carpeta';
+		return 'pg_carpeta';
 	}
 
 	/**
@@ -46,14 +36,12 @@ class Carpeta extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('url_id, micrositio_id, carpeta, ruta, estado', 'required'),
-			array('hijos, estado', 'numerical', 'integerOnly'=>true),
-			array('url_id, micrositio_id, item_id', 'length', 'max'=>10),
-			array('carpeta', 'length', 'max'=>100),
-			array('ruta', 'length', 'max'=>255),
+			array('pagina_id, estado', 'required'),
+			array('estado', 'numerical', 'integerOnly'=>true),
+			array('pagina_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, url_id, micrositio_id, item_id, carpeta, ruta, hijos, estado', 'safe', 'on'=>'search'),
+			array('id, pagina_id, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,9 +53,6 @@ class Carpeta extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'archivos' => array(self::HAS_MANY, 'Archivo', 'carpeta_id'),
-			'micrositio' => array(self::BELONGS_TO, 'Micrositio', 'micrositio_id'),
-			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 		);
 	}
 
@@ -78,12 +63,7 @@ class Carpeta extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'url_id' => 'Url',
-			'micrositio_id' => 'Micrositio',
-			'item_id' => 'Item',
-			'carpeta' => 'Carpeta',
-			'ruta' => 'Ruta',
-			'hijos' => 'Hijos',
+			'pagina_id' => 'Pagina',
 			'estado' => 'Estado',
 		);
 	}
@@ -100,12 +80,7 @@ class Carpeta extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('url_id',$this->url_id,true);
-		$criteria->compare('micrositio_id',$this->micrositio_id,true);
-		$criteria->compare('item_id',$this->item_id,true);
-		$criteria->compare('carpeta',$this->carpeta,true);
-		$criteria->compare('ruta',$this->ruta,true);
-		$criteria->compare('hijos',$this->hijos);
+		$criteria->compare('pagina_id',$this->pagina_id,true);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(

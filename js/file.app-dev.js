@@ -25,6 +25,14 @@ jQuery(function($) {
         } 
     });
 
+    window.Micrositio = Backbone.Model.extend({
+       urlRoot: '/tm/api/micrositio',
+        defaults: {
+            id: '', 
+            nombre : ''
+        } 
+    });
+
     //Colecciones
 	window.CarpetaCollection = Backbone.Collection.extend({
 	    model : Carpeta,
@@ -109,21 +117,18 @@ jQuery(function($) {
     //Rutas  /***************************PENDIENTE****************************/
     var AppRouter = Backbone.Router.extend({
         routes: {
-            "imagenes":                 "listarAlbumes",
-            "imagenes/:album(/:foto)":  "listarFotos",
-            "videos":                   "listarVideoAlbumes",
-            "videos/:videoalbum(/:video)":"listarVideos"
+            "archivos(/:a1)(/:a2)(/:a3)(/:a4)(/:a5)": "listar",
         },
         initialize: function(){
             this.micrositio = new Micrositio();
             this.micrositio_id = $('#micrositio').data('micrositio-id');
             this.micrositio.fetch({data: {id: this.micrositio_id} });
         },
-        listarAlbumes: function() {
-            this.albumList = new AlbumCollection();
-            this.albumList.fetch({data: {micrositio_id: this.micrositio_id} });
-            this.albumListView = new AlbumListView({collection:this.albumList, model: this.micrositio});
-            $('#icontainer').html(this.albumListView.render().el);
+        listar: function() {
+            this.carpetaList = new CarpetaCollection();
+            this.carpetaList.fetch({data: {micrositio_id: this.micrositio_id} });
+            this.carpetaListView = new AlbumListView({collection:this.carpetaList, model: this.micrositio});
+            $('#ccontainer').html(this.carpetaListView.render().el);
         },
         listarFotos: function (album, foto) {
             this.fotoList = new FotoCollection();
@@ -135,23 +140,6 @@ jQuery(function($) {
             console.dir(this.fotoList);
             this.fotoListView = new FotoListView({collection:this.fotoList, model: {nombre: album, foto_activa: foto} });
             $('#icontainer').html(this.fotoListView.render().el);
-        },
-        listarVideoAlbumes: function() {
-            this.videoalbumList = new VideoAlbumCollection();
-            this.videoalbumList.fetch({data: {micrositio_id: this.micrositio_id} });
-            this.videoalbumListView = new VideoAlbumListView({collection:this.videoalbumList, model: this.micrositio});
-            $('#icontainer').html(this.videoalbumListView.render().el);
-        },
-        listarVideos: function (videoalbum, video) {
-            this.videolist = new VideoCollection();
-            this.videolist.fetch( {data: {hash: window.location.hash, micrositio: this.micrositio_id} } );
-            var fl = videoalbum.charAt(0).toUpperCase();
-            videoalbum = fl + videoalbum.substring(1);
-            videoalbum = makeTitle(videoalbum);
-            console.log(videoalbum);
-            console.dir(this.videolist);
-            this.videolistView = new VideoListView({collection:this.videolist, model: {nombre: videoalbum, video_activo: video} });
-            $('#icontainer').html(this.videolistView.render().el);
         }
     });
     var app = new AppRouter();

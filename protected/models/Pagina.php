@@ -184,10 +184,9 @@ class Pagina extends CActiveRecord
 
 		$tabla = $pagina->tipoPagina->tabla;
 		$t = new $tabla();
-		$contenido = $t->findByAttributes( array('pagina_id' => $pagina->id) );
-
+		$contenido = $t->findByAttributes( array('pagina_id' => $pagina->id) );	
 		if( !$contenido ) return false;
-
+		
 		$resultado = array(
 				'pagina' 	=> $pagina,
 				'partial'   => $tabla,
