@@ -18,6 +18,45 @@ class NewsTicker extends CWidget
 		$search = str_replace("#", "%23", $search); 
 		$tweets = $connection->get("https://api.twitter.com/1.1/search/tweets.json?q=".$search."&count=".$notweets);
 
-        $this->render('newsticker', array('tweets' => $tweets->statuses));
+		$nuevos_tweets = array();
+
+		foreach ($tweets->statuses as $tweet) {
+	        $texto_original = $tweet->text;
+	        $texto_nuevo = '';
+	        $ultimo_indice = 0;
+	        $entidades = array();
+	        if( count($tweet->entities->hashtags) )
+	        {
+	          foreach ($tweet->entities->hashtags as $hashtag) {
+	            $nh = '<s>#</s><b class="hashtag">' . $hashtag->text . '</b>';
+	            $entidades[] = array('texto' => $nh, 'pi' => $hashtag->indices[0], 'pf' => $hashtag->indices[1]);
+	            //substr($texto_original, $hashtag->indices[0], $hashtag->indices[1]);
+	          }
+	        }
+	        if( count($tweet->entities->user_mentions) )
+	        {
+	          foreach ($tweet->entities->user_mentions as $user_mention) {
+	            $num = '<s>@</s><b class="user_mention">' . $user_mention->screen_name . '</b>';
+	            $entidades[] = array('texto' => $num, 'pi' => $user_mention->indices[0], 'pf' => $user_mention->indices[1]);
+	            //$texto_original = substr_replace($texto_original, $num, $user_mention->indices[0], $user_mention->indices[1]);
+	          }
+	        }
+	        usort($entidades, "NewsTicker::ceo");
+	        for($i=0; $i < count($entidades); $i++){
+	          $pedazo = mb_substr($texto_original, $ultimo_indice, ($entidades[$i]['pi'] - $ultimo_indice), 'UTF-8' );
+	          $texto_nuevo .= $pedazo;
+	          $texto_nuevo .= $entidades[$i]['texto'];
+	          $ultimo_indice = $entidades[$i]['pf'];
+	        }
+	        $texto_nuevo .= mb_substr($texto_original, $ultimo_indice, NULL, 'UTF-8');
+	        $nuevos_tweets[] = $texto_nuevo;
+	    }
+
+        $this->render('newsticker', array('tweets' => $nuevos_tweets));
+    }
+
+    public static function ceo($a, $b)
+    {
+        return ($a['pi'] < $b['pi']) ? -1 : 1;
     }
 }
