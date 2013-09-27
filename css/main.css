@@ -116,6 +116,10 @@ nav ul {
 	color:#ffb119;
 	}
 
+.marquesina s  {
+text-decoration:none;
+}
+
 @-webkit-keyframes marquee {
     0% { left: 100%; }
     100% { left: -400%; }
@@ -641,7 +645,7 @@ footer img {
 	margin: 0;
 	list-style: none;
 }
-#icontainer li
+.fotos li, .albumes li, .videoalbumes li
 {
 	float: left;
 	margin-right: 12px;
@@ -657,6 +661,21 @@ footer img {
 	padding: 8px 10px;
 	text-align: center;
 }
+
+ #icontainer .videoalbum h2
+{
+	background: #0f0e13;
+	border-radius: 5px;
+	color: #a3a3a5;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 1;
+	padding: 8px 10px;
+	text-align: center;
+	top:-25px;
+	position:relative;
+}
+
 #icontainer .galeria h1, 
 #icontainer .galeria .back, 
 #icontainer .videogaleria .back
@@ -694,6 +713,32 @@ footer img {
 }
 
 #icontainer .videogaleria .full iframe{display:block;margin: 0 auto;}
+
+
+
+.ivideos  {
+	clear:both;
+}
+
+.ivideos li  {
+	clear:both;
+}
+
+#icontainer ul li a {
+	display:block;}
+
+.imgVideo {
+	float:left;
+	width:120px;
+	margin:0 10px 0 0;}
+
+.infoVideo {
+	float:left;
+	width:70%;}
+
+.infoVideo p {
+	font-size:12px;
+	line-height:16px;}
 
 #menu_inferior
 {
@@ -1349,7 +1394,12 @@ footer img {
 }
 
 .contenidoScroll {
-	margin:10px;}
+	margin:10px;
+	}
+
+.contenidoScroll strong {
+	font-size:20px;
+	}
 
 
 #overlay #seccion .recientes
@@ -1641,6 +1691,18 @@ footer img {
 #second-nav li a {
 	color: #FFF;
 }
+
+#loading {
+	background-image:url(../images/static/fancybox/fancybox_loading@2x.gif);
+	background-repeat:no-repeat;
+	background-position:center center;
+	background-color: rgba(0, 0, 0, .7);;
+	width:100%;
+	height:100%;
+	z-index:9999;
+	position:absolute;
+	}
+
 @media (max-width: 767px) {
 	#bar nav li a {
 		background-size: 13%;
