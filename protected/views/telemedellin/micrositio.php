@@ -45,21 +45,30 @@ cs()->registerScript( 'scroll',
 	<?php $this->widget( 'MenuW', array( 'id' => $menu ) ); ?>
 </div>
 <?php endif;?>
+
 <div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo (!is_null($pagina->clase)) ? $pagina->clase : '' ?>" data-micrositio-id="<?php echo $micrositio->id; ?>">
+	<div class="contenidoScroll">
 	<?php echo $contenido; ?>
+    </div>
 </div>
+
 <?php if($formulario || $galeria || $video):?>
+
+
+<div style="clear:both;"></div>
+
 <div id="menu_inferior">
 	<?php if($formulario): ?>
-		<a href="#"><span>Formulario</span></a>
+		<a href="#"><span class="iconoForm"></span><span>Formulario</span></a>
 	<?php endif;?>
 	<?php if($galeria): ?>
 		<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes">
-			<span>Imágenes</span>
+			<span class="iconoImagen"></span><span>Imágenes</span>
 		</a>
 	<?php endif;?>
 	<?php if($video): ?>
-		<a href="<?php echo bu($micrositio->url->slug) ?>#videos" class="fancybox fancybox.ajax videos"><span>Videos</span></a>
+		<a href="<?php echo bu($micrositio->url->slug) ?>#videos" class="fancybox fancybox.ajax videos"><span class="iconoVideo"></span><span>Videos</span></a>
 	<?php endif;?>
 </div>
 <?php endif; ?>
+

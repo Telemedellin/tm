@@ -39,10 +39,6 @@ class TmUrlRule extends CBaseUrlRule
                 case 3:
                     $_GET['slug_id'] = $slug->id;
                     return 'telemedellin/cargarMicrositio';
-                case 4:
-                    return 'telemedellin/cargarImagenes';
-                case 5:
-                    return 'telemedellin/cargarAlbumImagenes';
                 default:
                     return 'telemedellin';
             }

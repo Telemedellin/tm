@@ -59,7 +59,6 @@ nav ul {
 	vertical-align: top;
 	width: 26px;
 }
-
 .breadcrumbs a:hover {
 	letter-spacing: .5px;
 	text-decoration: none;
@@ -116,6 +115,10 @@ nav ul {
 .marquesina .hashtag {
 	color:#ffb119;
 	}
+
+.marquesina s  {
+text-decoration:none;
+}
 
 @-webkit-keyframes marquee {
     0% { left: 100%; }
@@ -642,7 +645,7 @@ footer img {
 	margin: 0;
 	list-style: none;
 }
-#icontainer li
+.fotos li, .albumes li, .videoalbumes li
 {
 	float: left;
 	margin-right: 12px;
@@ -658,6 +661,21 @@ footer img {
 	padding: 8px 10px;
 	text-align: center;
 }
+
+ #icontainer .videoalbum h2
+{
+	background: #0f0e13;
+	border-radius: 5px;
+	color: #a3a3a5;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 1;
+	padding: 8px 10px;
+	text-align: center;
+	top:-25px;
+	position:relative;
+}
+
 #icontainer .galeria h1, 
 #icontainer .galeria .back, 
 #icontainer .videogaleria .back
@@ -695,6 +713,32 @@ footer img {
 }
 
 #icontainer .videogaleria .full iframe{display:block;margin: 0 auto;}
+
+
+
+.ivideos  {
+	clear:both;
+}
+
+.ivideos li  {
+	clear:both;
+}
+
+#icontainer ul li a {
+	display:block;}
+
+.imgVideo {
+	float:left;
+	width:120px;
+	margin:0 10px 0 0;}
+
+.infoVideo {
+	float:left;
+	width:70%;}
+
+.infoVideo p {
+	font-size:12px;
+	line-height:16px;}
 
 #menu_inferior
 {
@@ -758,6 +802,31 @@ footer img {
 {
 	background-color: rgba(255, 255, 255, .5);
 }
+
+#menu_inferior .iconoVideo {
+	background-image:url(../images/static/iconos/video.png);
+	display:inline-block;
+	width:15px;
+	height:12px;
+	margin:0 5px 0 0;
+	}
+
+#menu_inferior .iconoImagen {
+	background-image:url(../images/static/iconos/imagen.png);
+	display:inline-block;
+	width:15px;
+	height:12px;
+	margin:0 5px 0 0;
+	}
+	
+#menu_inferior .iconoForm {
+	background-image:url(../images/static/iconos/formulario.png);
+	display:inline-block;
+	width:15px;
+	height:12px;
+	margin:0 5px 0 0;
+	}
+	
 #menu_inferior a:last-child
 {
 	margin-left: 0;
@@ -793,13 +862,25 @@ footer img {
 	background: rgba(0, 0, 0, .7);
 }
 #micrositio {
+	background: rgba(0, 0, 0, .8);
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+	-webkit-border-top-bottom-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+		   -moz-border-radius-bottomleft: 10px;
+		   -moz-border-radius-bottomright: 10px;
+				border-bottom-left-radius: 10px;
+				border-bottom-right-radius: 10px;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
 	height: 70%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
-	padding: 15px;
+	padding: 0px 10px 15px 5px;
+	width: 45%;
+	float: right;
 }
 #micrositio.senal-en-vivo
 {
@@ -821,19 +902,11 @@ footer img {
 	
 #micrositio .mCustomScrollBox{
 	-ms-touch-action: none; /*MSPointer events - direct all pointer events to js*/
-	background: rgba(0, 0, 0, .8);
-	-webkit-border-top-bottom-radius: 10px;
-	-webkit-border-bottom-right-radius: 10px;
-		   -moz-border-radius-bottomleft: 10px;
-		   -moz-border-radius-bottomright: 10px;
-				border-bottom-left-radius: 10px;
-				border-bottom-right-radius: 10px;
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
 	float:right;
-	/*padding:20px;*/
-	width: 45%;
+
 }
 #micrositio.programacion
 {
@@ -1317,7 +1390,16 @@ footer img {
 .paginas ul li
 {
 	list-style-image:url(../images/static/iconos/ligenerico.png);
+	padding-bottom:5px;
 }
+
+.contenidoScroll {
+	margin:10px;
+	}
+
+.contenidoScroll strong {
+	font-size:20px;
+	}
 
 
 #overlay #seccion .recientes
@@ -1609,6 +1691,18 @@ footer img {
 #second-nav li a {
 	color: #FFF;
 }
+
+#loading {
+	background-image:url(../images/static/fancybox/fancybox_loading@2x.gif);
+	background-repeat:no-repeat;
+	background-position:center center;
+	background-color: rgba(0, 0, 0, .7);;
+	width:100%;
+	height:100%;
+	z-index:9999;
+	position:absolute;
+	}
+
 @media (max-width: 767px) {
 	#bar nav li a {
 		background-size: 13%;
