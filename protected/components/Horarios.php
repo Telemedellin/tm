@@ -139,6 +139,8 @@ class Horarios{
 
 	public static function fecha_especial( $fechas )	
 	{
+		date_default_timezone_set('America/Bogota');
+		setlocale(LC_ALL, 'es_ES.UTF-8');
 		$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
 		$datos = array();
 		$html = '';
@@ -150,32 +152,94 @@ class Horarios{
 			);
 		endforeach;
 	
-		$te = 0;
+		$te = 0;		
+		$previous = null;
+		$c = count($datos);
+
 		foreach( $datos as $dato )
-		{
-			$html .= date('l', $dato['fecha']) . ' ' . date('d', $dato['fecha']) . ' de ' . date('F', $dato['fecha']);
-			$html .= ' de ' . Horarios::hora( $dato['hora_inicio'] );
-			$html .= ' a ' . Horarios::hora( $dato['hora_fin'] ) . ', ';
+		{		
+			$dant = $previous;
+			
+			$f = strtotime($dato['fecha']);
+			$da = date('z', $f);
+			
+			$fant = strtotime($dant['fecha']);
+			if(is_null($previous)){
+				$flag = true;
+				$dan = $da - 1;
+			}
+			else{
+				$flag = false;
+				$dan = date('z', $fant);	
+			}
+			$dp = $da-1;
+			if($c == 1){
+				$html .= ucfirst ( strftime('%A', $f) ) .' ' . date('d', $f) . ' de ' . ucfirst ( strftime('%B', $f) );
+				$html .= ' de ' . Horarios::hora( $dato['hora_inicio'] );
+				$html .= ' a ' . Horarios::hora( $dato['hora_fin'] );
+				break;
+			}
+			if($flag){				
+				$html .= ucfirst ( strftime('%A', $f) ) .' ' . date('d', $f) . ' de ' . ucfirst ( strftime('%B', $f) );
+				if($f !== $fant){
+					$html .= ' de ' . Horarios::hora( $dato['hora_inicio'] );
+					$html .= ' a ' . Horarios::hora( $dato['hora_fin'] );					
+				}
+			}
+			if($dp != $dan){
+				if($f !== $fant){
+					$html .= " al ";
+					$html .= ucfirst ( strftime('%A', $fant) ) . ' ' . date('d', $fant) . ' de ' . ucfirst ( strftime('%B', $fant) );
+					$html .= ' de ' . Horarios::hora( $dato['hora_inicio'] );
+					$html .= ' a ' . Horarios::hora( $dato['hora_fin'] );	
+					$html .= "<br/><br/>";
+					$html .= ucfirst ( strftime('%A', $f) ) . ' ' . date('d', $f) . ' de ' . ucfirst ( strftime('%B', $f) );
+				}
+			}	
+			if($dato === end($datos)){
+				if($f !== $fant){
+					$html .= " al ";
+					$html .= ucfirst ( strftime('%A', $f) ) . ' ' . date('d', $f) . ' de ' . ucfirst ( strftime('%B', $f) );
+					$html .= ' de ' . Horarios::hora( $dato['hora_inicio'] );
+					$html .= ' a ' . Horarios::hora( $dato['hora_fin'] );	
+				}
+				else{
+					$html .= " y ";
+					$html .= ' de ' . Horarios::hora( $dato['hora_inicio'] );
+					$html .= ' a ' . Horarios::hora( $dato['hora_fin'] );						
+				}
+			}
+			$previous = $dato;
 		}
-		$html = substr($html, 0, -2);
+		//$html = substr($html, 0, -2);
 		
 		return $html;
 	}
 
 	public static function hora( $tiempo )
-	{
+	{		
 		if( strlen((string)$tiempo) == 4){
 			$hora 	= substr($tiempo, 0, 2);
-			$minuto = substr($tiempo, 2);
-		}else{
+			$minuto = substr($tiempo, 2);			
+		}
+		elseif($tiempo == 0){
+			$hora = 24;
+		}
+		else{
 			$hora 	= substr($tiempo, 0, 1);
 			$minuto = substr($tiempo, 1);
 		}
-		$ampm = 'am';
+		$ampm = 'am';		
 		if( $hora > 12)
 		{
-			$hora -= 12;
-			$ampm = 'pm';
+			if($hora == 24){
+				$hora -= 12;
+				$ampm = 'am';							
+			}
+			else{
+				$hora -= 12;
+				$ampm = 'pm';
+			}
 		}
 		$html = '';
 		$html .= $hora;
