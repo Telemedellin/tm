@@ -886,27 +886,25 @@ footer img {
 {
 	height: 88%;
 }
-
 #micrositio.PgArticuloBlog {
 	height:85%;
-	}
+}
 #micrositio.PgGenericaST iframe {
 	height: auto;
 	min-height: 340px;
 	width: 100%;
 }
-
 #micrositio.senal-en-vivo {
-		height: 85%;
-	}
-	
+	height: 85%;
+	width: 99%;
+}
 #micrositio .mCustomScrollBox{
 	-ms-touch-action: none; /*MSPointer events - direct all pointer events to js*/
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
 	float:right;
-
+	min-width: 100%;
 }
 #micrositio.programacion
 {
@@ -914,6 +912,7 @@ footer img {
 	border: 2px solid rgba(255, 255, 255, 0.4);
 	border-radius: 10px;
 	height:85%;
+	width: 99%;
 }
 #micrositio.programacion .listado_programas
 {

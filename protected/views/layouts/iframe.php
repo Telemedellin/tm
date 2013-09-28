@@ -38,8 +38,10 @@
 <script id="videoListItemViewTemplate" type="text/template">
 	<a style="display:block;" href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-url_video="<%= url_video %>" data-id_video="<%= id_video %>" data-nombre="<%= nombre %>" data-pv="<%= proveedor_video %>">
 		<div class="imgVideo"><img src="<%= thumbnail %>" width="120" height="90" /></div>
-		<div class="infoVideo"><h2><%= nombre %></h2>
-		<p><%= descripcion %></p></div>
+		<div class="infoVideo">
+			<h2><%= nombre %></h2>
+			<p><%= descripcion %></p>
+		</div>
 	</a>
 </script>
 <div id="icontainer">

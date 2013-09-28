@@ -169,4 +169,103 @@ class ApiController extends Controller
 		echo $json;
 		Yii::app()->end();
 	}
+
+	public function actionCarpeta()
+	{
+		if(!$_GET['micrositio_id']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		$micrositio_id = $_GET['micrositio_id'];
+		if( isset($_GET['hash']) )
+		{
+			$hash = $_GET['hash'];
+			$url = Url::model()->findByAttributes( array('slug' => $hash) );
+			if($url->tipo_id == 10){
+				$url_id = $url->id;
+				$c = Carpeta::model()->findByAttributes( array('url_id' => $url_id, 'micrositio_id' => $micrositio_id) );
+				$carpetas = Carpeta::model()->findAllByAttributes( array('item_id' => $c->id) );
+				$archivos = Archivo::model()->findAllByAttributes( array('carpeta_id' => $c->id) );
+			}
+			/*else if($url->tipo_id == 6)
+			{
+				$foto = Foto::model()->findByAttributes( array('url_id' => $url->id) );
+				$af = AlbumFoto::model()->findByPk( $foto->album_foto_id );
+			}*/
+			header('Content-Type: application/json; charset="UTF-8"');
+			$json = '';
+			$json .= '[';
+			if($carpetas){
+				foreach($carpetas as $carpeta):
+				$json .= '{';
+					$json .= '"id":"'.CHtml::encode($carpeta->id).'",';
+					$json .= '"micrositio":"'.CHtml::encode($carpeta->micrositio_id).'",';
+					$json .= '"carpeta":"'.CHtml::encode($carpeta->carpeta).'",';
+					$json .= '"url":"'.$carpeta->url->slug.'",';
+					$json .= '"ruta":"'.$carpeta->ruta.'",';
+					$json .= '"hijos":"'.$carpeta->hijos.'"';
+				$json .= '},';
+				endforeach;
+				$json = substr($json, 0, -1);
+			}
+			if($archivos){
+				foreach($archivos as $archivo):
+				$json .= '{';
+					$json .= '"id":"'.CHtml::encode($archivo->id).'",';
+					$json .= '"carpeta":"'.CHtml::encode($archivo->carpeta_id).'",';
+					$json .= '"nombre":"'.CHtml::encode($archivo->nombre).'",';
+					$json .= '"archivo":"'.CHtml::encode($archivo->archivo).'",';
+					$json .= '"url":"'.$archivo->url->slug.'"';
+				$json .= '},';
+				endforeach;
+				$json = substr($json, 0, -1);
+			}
+			$json .= ']';
+			echo $json;
+			Yii::app()->end();
+
+		}
+		else
+		{
+			$c = Carpeta::model()->findAllByAttributes( array('micrositio_id' => $micrositio_id) );	
+			header('Content-Type: application/json; charset="UTF-8"');
+			$json = '';
+			$json .= '[';
+				foreach($c as $carpeta):
+				$json .= '{';
+					$json .= '"id":"'.CHtml::encode($carpeta->id).'",';
+					$json .= '"micrositio":"'.CHtml::encode($carpeta->micrositio_id).'",';
+					$json .= '"carpeta":"'.CHtml::encode($carpeta->carpeta).'",';
+					$json .= '"url":"'.$carpeta->url->slug.'",';
+					$json .= '"ruta":"'.$carpeta->ruta.'",';
+					$json .= '"hijos":"'.$carpeta->hijos.'"';
+				$json .= '},';
+				endforeach;
+				$json = substr($json, 0, -1);
+			$json .= ']';
+			echo $json;
+			Yii::app()->end();
+		}
+		
+	}
+	public function actionArchivo()
+	{
+		if(!$_GET['carpeta_id']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		$carpeta_id = $_GET['carpeta_id'];
+		$a = Archivo::model()->findAllByAttributes( array('archivo_id' => $archivo_id) );
+		header('Content-Type: application/json; charset="UTF-8"');
+		$json = '';
+		$json .= '[';
+			foreach($a as $archivo):
+			$json .= '{';
+				$json .= '"id":"'.CHtml::encode($arhivo->id).'",';
+				$json .= '"url":"'.CHtml::encode($arhivo->url->slug).'",';
+				$json .= '"tipo_archivo":"'.$arhivo->tipoArchivo.'",';
+				$json .= '"carpeta":"'.CHtml::encode($arhivo->carpeta).'",';
+				$json .= '"nombre":"'.CHtml::encode($arhivo->nombre).'",';
+				$json .= '"archivo":"'.$carpeta->archivo.'"';
+			$json .= '},';
+			endforeach;
+			$json = substr($json, 0, -1);
+		$json .= ']';
+		echo $json;
+		Yii::app()->end();
+	}
 }

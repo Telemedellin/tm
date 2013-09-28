@@ -8,7 +8,7 @@ function click_popup(e)
 function cargar_popup(url)
 {
 	$.getJSON(url, success_popup);
-	$('#container').append('<div id="loading">Cargando...</div>').fadeIn('slow');
+	$('#container').append('<div id="loading"></div>').fadeIn('slow');
 }
 
 function success_popup(data)

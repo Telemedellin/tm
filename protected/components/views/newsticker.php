@@ -14,9 +14,9 @@ cs()->registerScriptFile(bu().'/js/libs/jquery.bxslider/jquery.bxslider.js', CCl
 ?>
 <div class="marquesina">
 	<div>
-		<?php foreach($tweets as $tweet): ?>
-			<p><a href="https://twitter.com/search?q=%23NTMed" target="_blank" rel="nofollow"><?php echo $tweet ?></a></p>
-		<?php endforeach; ?>
+		<?php for($i=0; $i<count($tweets); $i++): ?>
+			<p><a href="https://twitter.com/search?q=%23NTMed" target="_blank" rel="nofollow"><?php echo $tweets[$i] ?></a></p>
+		<?php endfor; ?>
 
 	</div>
 </div>

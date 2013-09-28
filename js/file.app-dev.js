@@ -60,7 +60,7 @@ jQuery(function($) {
         render:function (eventName) {
             $(this.el).html( this.template( this.model.toJSON() ) );
             _.each(this.collection.models, function (album) {
-                $('.carpeta').append(new CarpetaListItemView({model:album}).render().el).fadeIn('slow');
+                $('.carpetas').append(new CarpetaListItemView({model:album}).render().el).fadeIn('slow');
             }, this);
             return this;
         }
@@ -71,7 +71,6 @@ jQuery(function($) {
         className: 'carpeta', 
         template: template('carpetaListItemViewTemplate'),
         render:function (eventName) {
-            console.log(this.model);
             $(this.el).html( this.template( this.model.toJSON() ) );
             return this;
         },
@@ -114,32 +113,32 @@ jQuery(function($) {
         }
     });
 
-    //Rutas  /***************************PENDIENTE****************************/
+    //Rutas
     var AppRouter = Backbone.Router.extend({
         routes: {
-            "archivos(/:a1)(/:a2)(/:a3)(/:a4)(/:a5)": "listar",
+            "archivos": "listar",
+            "archivos/:a1(/:a2)(/:a3)(/:a4)(/:a5)": "listarCarpeta",
         },
         initialize: function(){
             this.micrositio = new Micrositio();
             this.micrositio_id = $('#micrositio').data('micrositio-id');
             this.micrositio.fetch({data: {id: this.micrositio_id} });
+            if(window.location.hash == '') window.location.hash = 'archivos';
         },
         listar: function() {
+            console.log('listar');
             this.carpetaList = new CarpetaCollection();
             this.carpetaList.fetch({data: {micrositio_id: this.micrositio_id} });
-            this.carpetaListView = new AlbumListView({collection:this.carpetaList, model: this.micrositio});
+            this.carpetaListView = new CarpetaListView({collection:this.carpetaList, model: this.micrositio});
             $('#ccontainer').html(this.carpetaListView.render().el);
         },
-        listarFotos: function (album, foto) {
-            this.fotoList = new FotoCollection();
-            this.fotoList.fetch( {data: {hash: window.location.hash, micrositio: this.micrositio_id} } );
-            var fl = album.charAt(0).toUpperCase();
-            album = fl + album.substring(1);
-            album = makeTitle(album);
-            console.log(album);
-            console.dir(this.fotoList);
-            this.fotoListView = new FotoListView({collection:this.fotoList, model: {nombre: album, foto_activa: foto} });
-            $('#icontainer').html(this.fotoListView.render().el);
+        listarCarpeta: function (a1, a2, a3, a4, a5) {
+            console.log('listarCarpeta');
+            this.carpetaList = new CarpetaCollection();
+            this.carpetaList.fetch( {data: {hash: window.location.hash, micrositio_id: this.micrositio_id} } );
+            console.dir(this.carpetaList);
+            this.carpetaListView = new CarpetaListView( {collection:this.carpetaList, model: this.micrositio} );
+            $('#ccontainer').html(this.carpetaListView.render().el);
         }
     });
     var app = new AppRouter();
