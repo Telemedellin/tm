@@ -624,6 +624,26 @@ footer img {
 	width: 80%;
 	z-index: 0;
 }
+#ccontainer .archivos, 
+#ccontainer .carpetas{
+	list-style: none;
+	margin-left: 0; 
+}
+#ccontainer .archivos li, 
+#ccontainer .carpetas li{
+	line-height: 1;
+	padding-left: 30px;
+}
+#ccontainer .archivos li{
+	background: url(../images/static/iconos/archivo.png) no-repeat left center;
+}
+#ccontainer .carpetas li{
+	background: url(../images/static/iconos/carpeta.png) no-repeat left center;
+}
+#ccontainer .back{
+	display: block;
+	margin-bottom: 10px;
+}
 #icontainer
 {
 	min-height: 500px;

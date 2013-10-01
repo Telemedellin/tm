@@ -214,40 +214,6 @@ class ApiController extends Controller
 		Yii::app()->end();
 	}
 
-	/*public function actionCarpeta()
-	{
-		if(!$_GET['hash']) throw new CHttpException(404, 'No se encontró la página solicitada');
-		
-		$hash = $_GET['hash'];
-		$url = Url::model()->findByAttributes( array('slug' => $hash) );
-		if($url->tipo_id == 10){
-			$url_id = $url->id;
-			$carpeta = Carpeta::model()->findByAttributes( array('url_id' => $url_id) );
-			$c = Carpeta::model()->findAllByAttributes( array('item_id' => $carpeta->id) );
-		}
-
-		header('Content-Type: application/json; charset="UTF-8"');
-		$json = '';
-		if($c)
-		{
-			$json .= '[';
-				foreach($c as $carpeta):
-				$json .= '{';
-					$json .= '"id":"'.CHtml::encode($carpeta->id).'",';
-					$json .= '"micrositio":"'.CHtml::encode($carpeta->micrositio_id).'",';
-					$json .= '"carpeta":"'.CHtml::encode($carpeta->carpeta).'",';
-					$json .= '"url":"'.$carpeta->url->slug.'",';
-					$json .= '"ruta":"'.$carpeta->ruta.'",';
-					$json .= '"hijos":"'.$carpeta->hijos.'"';
-				$json .= '},';
-				endforeach;
-				$json = substr($json, 0, -1);
-			$json .= ']';
-		}
-		echo $json;
-		Yii::app()->end();
-	}*/
-
 	public function actionArchivo()
 	{
 		if(!$_GET['hash']) throw new CHttpException(404, 'No se encontró la página solicitada');
@@ -274,7 +240,12 @@ class ApiController extends Controller
 						$json .= '"id":"'.CHtml::encode($archivo->id).'",';
 						$json .= '"url":"'.CHtml::encode($archivo->url->slug).'",';
 						$json .= '"tipo_archivo":"'.$archivo->tipoArchivo->nombre.'",';
-						$json .= '"carpeta":"'.CHtml::encode($archivo->carpeta->ruta).'",';
+						//$json .= '"carpeta":"'.CHtml::encode($archivo->carpeta->ruta).'",';
+						$json .= '"carpeta":';
+							$json .= '{';
+							$json .= '"ruta":"'.CHtml::encode($archivo->carpeta->ruta).'",';
+							$json .= '"url":"'.CHtml::encode($archivo->carpeta->url->slug).'"';
+							$json .= '},';
 						$json .= '"nombre":"'.CHtml::encode($archivo->nombre).'",';
 						$json .= '"archivo":"'.$archivo->archivo.'"';
 					$json .= '},';
@@ -287,4 +258,5 @@ class ApiController extends Controller
 		echo $json;
 		Yii::app()->end();
 	}
+
 }

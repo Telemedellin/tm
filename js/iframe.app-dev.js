@@ -297,6 +297,13 @@ jQuery(function($) {
             this.micrositio = new Micrositio();
             this.micrositio_id = $('#micrositio').data('micrositio-id');
             this.micrositio.fetch({data: {id: this.micrositio_id} });
+            var re = new RegExp("(\/)+$", "g");
+            /*jshint regexp: false*/
+            this.route(/(.*)\/+$/, "trailFix", function (id) {
+                // remove all trailing slashes if more than one
+                id = id.replace(re, '');
+                this.navigate(id, true);
+            });
         },
         listarAlbumes: function() {
             this.albumList = new AlbumCollection();

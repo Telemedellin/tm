@@ -106,12 +106,31 @@ jQuery(function($) {
             $(this.el).html(this.template(this.model.toJSON()));
             return this;
         },
+        events:{
+            "click a": "ver"
+        },
         close:function () {
             $(this.el).unbind();
             $(this.el).remove();
+        },
+        ver: function (e) {
+            var url_archivo = '/tm/archivos/' + e.currentTarget.dataset.carpeta + '/' + e.currentTarget.dataset.archivo;
+            var aiv = new ArchivoItemView( {model: this.model} );
+            $('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
+            $('#ccontainer').append( aiv.render().el );
+            modificar_url(e.currentTarget.href, e.currentTarget.dataset.nombre);
+            window.open(url_archivo);
+            e.preventDefault();
         }
     });
-
+    window.ArchivoItemView = Backbone.View.extend({
+        className: 'detalle_archivo',
+        template: template('archivoItemViewTemplate'),
+        render: function(eventName) {
+            $(this.el).html( this.template(this.model.toJSON()) );
+            return this;
+        }
+    });
     //Rutas
     var AppRouter = Backbone.Router.extend({
         routes: {
@@ -119,6 +138,13 @@ jQuery(function($) {
             "archivos/:a1(/:a2)(/:a3)(/:a4)(/:a5)": "listarCarpeta",
         },
         initialize: function(){
+            var re = new RegExp("(\/)+$", "g");
+            /*jshint regexp: false*/
+            this.route(/(.*)\/+$/, "trailFix", function (id) {
+                // remove all trailing slashes if more than one
+                id = id.replace(re, '');
+                this.navigate(id, true);
+            });
             this.micrositio = new Micrositio();
             this.micrositio_id = $('#micrositio').data('micrositio-id');
             this.micrositio.fetch({data: {id: this.micrositio_id} });
@@ -133,15 +159,20 @@ jQuery(function($) {
         },
         listarCarpeta: function (a1, a2, a3, a4, a5) {
             console.log('listarCarpeta');
+            $('#container').append('<div id="loading"></div>').fadeIn('slow');
             this.carpetaList = new CarpetaCollection();
-            this.carpetaList.fetch( {data: {hash: window.location.hash} } );
+            this.carpetaList.fetch( {data: {hash: window.location.hash} });
             this.archivoList = new ArchivoCollection();
-            this.archivoList.fetch( {data: {hash: window.location.hash} } );
+            this.archivoList.fetch( {data: {hash: window.location.hash}, success: function(){$('#loading').remove()} } );
             console.dir(this.carpetaList);
             console.dir(this.archivoList);
             this.carpetaListView = new CarpetaListView( {collection:this.carpetaList, model: this.micrositio} );
             this.archivoListView = new ArchivoListView( {collection:this.archivoList, model: this.micrositio} );
-            $('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
+            if ($("#archivos").length == 0){
+                $('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
+            }else{
+                console.log('Ya estaba el back');
+            }
             $('#ccontainer').append(this.carpetaListView.render().el);
             $('#ccontainer').append(this.archivoListView.render().el);
         }
@@ -168,6 +199,7 @@ function makeTitle(slug) {
 
     return words.join(' ');
 }
-function back(){
-    //window.history.back();
+function back(e){
+    window.history.back();
+    e.preventDefault();
 }
