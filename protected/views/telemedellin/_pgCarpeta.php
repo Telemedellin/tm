@@ -7,7 +7,6 @@
 </a>
 </script>
 <script id="archivoListViewTemplate" type="text/template">
-	<a href="" class="back">Volver</a>
 	<ul class="archivos"></ul>
 </script>
 <script id="archivoListItemViewTemplate" type="text/template">

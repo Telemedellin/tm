@@ -81,7 +81,6 @@ jQuery(function($) {
     });
 
     window.ArchivoListView = Backbone.View.extend({
-        className: 'archivos',
         template: template('archivoListViewTemplate'),
         initialize:function () {
             this.collection.bind("reset", this.render, this);
@@ -135,14 +134,22 @@ jQuery(function($) {
         listarCarpeta: function (a1, a2, a3, a4, a5) {
             console.log('listarCarpeta');
             this.carpetaList = new CarpetaCollection();
-            this.carpetaList.fetch( {data: {hash: window.location.hash, micrositio_id: this.micrositio_id} } );
+            this.carpetaList.fetch( {data: {hash: window.location.hash} } );
+            this.archivoList = new ArchivoCollection();
+            this.archivoList.fetch( {data: {hash: window.location.hash} } );
             console.dir(this.carpetaList);
+            console.dir(this.archivoList);
             this.carpetaListView = new CarpetaListView( {collection:this.carpetaList, model: this.micrositio} );
-            $('#ccontainer').html(this.carpetaListView.render().el);
+            this.archivoListView = new ArchivoListView( {collection:this.archivoList, model: this.micrositio} );
+            $('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
+            $('#ccontainer').append(this.carpetaListView.render().el);
+            $('#ccontainer').append(this.archivoListView.render().el);
         }
     });
     var app = new AppRouter();
     Backbone.history.start();
+
+    $(document).on('click', '.back', back);
 });
 function modificar_url(pagina, nombre){
 	if(!nombre) nombre = null;
@@ -160,4 +167,7 @@ function makeTitle(slug) {
     }
 
     return words.join(' ');
+}
+function back(){
+    //window.history.back();
 }
