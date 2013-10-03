@@ -71,7 +71,7 @@ return array(
             'consumer_secret' => 'tkEfo98Xcpg0rYphooAetOSVjBcYEXhM4pKTGh1Bw',
             'callback' => '',
         ),
-		
+			
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'telemedellin/error',
@@ -91,6 +91,9 @@ return array(
 				*/
 			),
 		),
+		'cache'=>array(
+            'class'=>'system.caching.CDummyCache',
+        ),
 	),
 	
 	// application-level parameters that can be accessed

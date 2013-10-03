@@ -1,19 +1,6 @@
-/* -----------------------------------------------------------------------
-
-
- Blueprint CSS Framework 1.0.1
- http://blueprintcss.org
-
-   * Copyright (c) 2007-Present. See LICENSE for more info.
-   * See README for instructions on how to use Blueprint.
-   * For credits and origins, see AUTHORS.
-   * This is a compressed file. See the sources in the 'src' directory.
-
------------------------------------------------------------------------ */
-
 /* ie.css */
 body {text-align:center;}
-.container {text-align:left;}
+#container {text-align:left;}
 * html .column, * html .span-1, * html .span-2, * html .span-3, * html .span-4, * html .span-5, * html .span-6, * html .span-7, * html .span-8, * html .span-9, * html .span-10, * html .span-11, * html .span-12, * html .span-13, * html .span-14, * html .span-15, * html .span-16, * html .span-17, * html .span-18, * html .span-19, * html .span-20, * html .span-21, * html .span-22, * html .span-23, * html .span-24 {display:inline;overflow-x:hidden;}
 * html legend {margin:0px -8px 16px 0;padding:0;}
 sup {vertical-align:text-top;}
@@ -34,3 +21,78 @@ input.checkbox, input.radio {position:relative;top:.25em;}
 form.inline div, form.inline p {vertical-align:middle;}
 form.inline input.checkbox, form.inline input.radio, form.inline input.button, form.inline button {margin:0.5em 0;}
 button, input.button {position:relative;top:0.25em;}
+#bar footer
+{
+	margin-bottom: 0;
+}
+#bar nav li a
+{
+	background-position: 5px 7px;
+	font-size: 14px;
+	padding-left: 40px;
+}
+#bar nav li.programas a
+{
+	background-position: 5px -50px;
+}
+#bar nav li.especiales a
+{
+	background-position: 5px -100px;
+}
+#bar nav li.documentales a
+{
+	background-position: 5px -153px;
+}
+
+#bar .redes li a {
+	background-position: 0px -432px;
+}
+#bar .redes li.facebook a, 
+#redes_micrositio li.facebook a {
+	background-position: 0px -433px;
+}
+#bar .redes li.twitter a, 
+#redes_micrositio li.twitter a {
+	background-position: 0px -487px;
+}
+#bar .redes li.flickr a, 
+#redes_micrositio li.flickr a {
+	background-position: 0px -593px;
+}
+#bar .redes li.youtube a, 
+#redes_micrositio li.youtube a {
+	background-position: 0px -540px;
+}
+#bar .redes li.foursquare a {
+	background-position: 0px -651px;
+}
+#bar .redes li.instagram a, 
+#redes_micrositio li.instagram a {
+	background-position: 0px -702px;
+}
+#redes_micrositio li.myspace a{
+	background-position: 0px -755px;
+}
+#redes_micrositio li.vimeo a
+{
+	background-position: 0px -800px;
+}
+#overlay #seccion:after, #overlay #seccion:before {
+	right: 0;
+	border: 0;
+	content: "";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+#overlay #seccion:after {
+	border: 0;
+	top: 0;
+	margin-top: 0;
+}
+#overlay #seccion:before {
+	border: 0;
+	top: 0;
+	margin-top: 0;
+}

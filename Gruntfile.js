@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         dest: 'js/iframe.libs.js',
       },
       css: {
-        src: ['css/libs/*.css', 'css/ie.css', 'css/main.css'],
+        src: ['css/libs/*.css', 'css/main.css'],
         dest: 'css/styles.css'
       }
     },

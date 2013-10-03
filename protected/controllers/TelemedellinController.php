@@ -117,7 +117,8 @@ class TelemedellinController extends Controller
 		$url_id = $_GET['tm']->id;
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
-		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
+		$dependency = new CDbCacheDependency("SELECT MAX(modificado) FROM micrositio");
+		$micrositios= Micrositio::model()->cache(1000, $dependency)->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 
 		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'])

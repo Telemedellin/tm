@@ -8,7 +8,7 @@ function click_popup(e)
 function cargar_popup(url)
 {
 	$.getJSON(url, success_popup);
-	$('#container').append('<div id="loading"></div>').fadeIn('slow');
+	$('#container').append('<div id="loading"><span class="spinner"></span></div>').fadeIn('slow');
 }
 
 function success_popup(data)
@@ -36,6 +36,11 @@ function success_popup(data)
 		$('#container').append(output).fadeIn('slow');
 		$('.close').attr('href', current_url);
 	});
+	if(!Modernizr.csscolumns){
+		/*$('#micrositio.programacion .listado_programas').columnize({ columns: 2 });
+		$('#overlay #seccion .listado .inner p').columnize({ columns: 4 });
+		$('#overlay #seccion .historial .inner').columnize({ columns: 3 });*/
+	}
 }
 
 function cerrar_popup(e)

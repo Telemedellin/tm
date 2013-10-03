@@ -11,7 +11,11 @@ $ru = Yii::app()->request->requestUri;
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/jquery.fancybox.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/main.css" />
 	<!--<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/styles.min.css" />-->
+	<!--[if LTE IE 9]>
+	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie9.css" />
+	<![endif]-->
 	<!--[if LTE IE 8]>
+	  <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" />
 	<![endif]-->
 	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
@@ -80,5 +84,8 @@ $ru = Yii::app()->request->requestUri;
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/mustache/mustache.js"></script>-->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.min.js"></script>
+<!--[if LTE IE 8]>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/css3-multi-column.js"></script>
+<![endif]-->
 </body>
 </html>

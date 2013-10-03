@@ -175,9 +175,16 @@ jQuery(function($) {
             $(this.el).remove();
         },
         ver: function (e) {
-            var src = e.currentTarget.dataset.src;
-            $('.full').html('<img src="' + src + '" /><h2>'+e.currentTarget.dataset.nombre+'</h2>').fadeIn('slow');
-            modificar_url(e.currentTarget.href, e.currentTarget.dataset.nombre);
+            if(e.currentTarget.dataset !== undefined) {
+                var src = e.currentTarget.dataset.src;
+                var nombre = e.currentTarget.dataset.nombre;
+            } else {
+                var src = e.currentTarget.getAttribute('data-src');
+                var nombre = e.currentTarget.getAttribute('data-nombre');
+            }
+            
+            $('.full').html('<img src="' + src + '" /><h2>'+nombre+'</h2>').fadeIn('slow');
+            modificar_url(e.currentTarget.href, nombre);
             $('<div class="expander"></div>').appendTo('.full').fadeIn('slow').click(function() {
                 if (screenfull.enabled) {
                     screenfull.toggle( $('.fancybox-outer')[0] );
@@ -273,14 +280,22 @@ jQuery(function($) {
             $(this.el).remove();
         },
         ver: function (e) {
-            var url_video = e.currentTarget.dataset.url_video;
-            if(e.currentTarget.dataset.pv == 'Youtube'){
-                $('.full').html('<iframe type="text/html" width="387" height="290" src="http://www.youtube.com/embed/'+e.currentTarget.dataset.id_video+'?rel=0" frameborder="0"></iframe><h2>'+e.currentTarget.dataset.nombre+'</h2>').fadeIn('slow');
-            }else if(e.currentTarget.dataset.pv == 'Vimeo'){
-                $('.full').html('<iframe src="http://player.vimeo.com/video/'+e.currentTarget.dataset.id_video+'" width="387" height="290" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+e.currentTarget.dataset.nombre+'</h2>').fadeIn('slow');
+            if(e.currentTarget.dataset !== undefined) {
+                var pv = e.currentTarget.dataset.pv;
+                var id_video = e.currentTarget.dataset.id_video;
+                var nombre = e.currentTarget.dataset.nombre;
+            } else {
+                var pv = e.currentTarget.getAttribute('data-pv');// IE approach
+                var id_video = e.currentTarget.getAttribute('data-id_video');
+                var nombre = e.currentTarget.getAttribute('data-nombre');
+            }
+            if(pv == 'Youtube'){
+                $('.full').html('<iframe type="text/html" width="387" height="290" src="http://www.youtube.com/embed/'+id_video+'?rel=0" frameborder="0"></iframe><h2>'+nombre+'</h2>').fadeIn('slow');
+            }else if(pv == 'Vimeo'){
+                $('.full').html('<iframe src="http://player.vimeo.com/video/'+id_video+'" width="387" height="290" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+nombre+'</h2>').fadeIn('slow');
             }
           
-            modificar_url(e.currentTarget.href, e.currentTarget.dataset.nombre);
+            modificar_url(e.currentTarget.href, nombre);
             e.preventDefault();
         }
     });

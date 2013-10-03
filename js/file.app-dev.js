@@ -114,11 +114,20 @@ jQuery(function($) {
             $(this.el).remove();
         },
         ver: function (e) {
-            var url_archivo = '/tm/archivos/' + e.currentTarget.dataset.carpeta + '/' + e.currentTarget.dataset.archivo;
+            if(e.currentTarget.dataset !== undefined) {
+                var carpeta = e.currentTarget.dataset.carpeta;
+                var archivo = e.currentTarget.dataset.archivo;
+                var nombre = e.currentTarget.dataset.nombre;
+            } else {
+                var carpeta = e.currentTarget.getAttribute('data-carpeta');
+                var archivo = e.currentTarget.getAttribute('data-archivo');
+                var nombre = e.currentTarget.getAttribute('data-nombre');
+            }
+            var url_archivo = '/tm/archivos/' + carpeta + '/' + archivo;
             var aiv = new ArchivoItemView( {model: this.model} );
             $('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
             $('#ccontainer').append( aiv.render().el );
-            modificar_url(e.currentTarget.href, e.currentTarget.dataset.nombre);
+            modificar_url(e.currentTarget.href, nombre);
             window.open(url_archivo);
             e.preventDefault();
         }
