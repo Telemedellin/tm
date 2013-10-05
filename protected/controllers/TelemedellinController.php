@@ -134,6 +134,7 @@ class TelemedellinController extends Controller
 				'success_popup(' . $datos . ');',
 				CClientScript::POS_READY
 			);
+			$this->pageTitle = 'Programas';
 			$this->render('index');
 		}
 	}
@@ -171,6 +172,7 @@ class TelemedellinController extends Controller
 				'success_popup(' . $datos . ');',
 				CClientScript::POS_READY
 			);
+			$this->pageTitle = 'Documentales';
 			$this->render('index');
 		}
 	}
@@ -210,6 +212,7 @@ class TelemedellinController extends Controller
 				'success_popup(' . $datos . ');',
 				CClientScript::POS_READY
 			);
+			$this->pageTitle = 'Especiales';
 			$this->render('index');
 		}
 	}
@@ -221,6 +224,7 @@ class TelemedellinController extends Controller
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
 		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
+		$this->pageTitle = 'Concursos';
 		$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 	}
 

@@ -1,4 +1,21 @@
-"use strict";
+//"use strict";
+function modificar_url(pagina, nombre){
+    if(!nombre) nombre = null;
+    if(Modernizr.history){
+        var stateObj = { pagina: nombre };
+        window.history.pushState( stateObj, null, pagina );
+    }
+}
+function makeTitle(slug) {
+    var words = slug.split('-');
+
+    for(var i = 0; i < words.length; i++) {
+      var word = words[i];
+      words[i] = word.charAt(0).toUpperCase() + word.slice(1);
+    }
+
+    return words.join(' ');
+}
 jQuery(function($) {
     window.cv = 0;
     window.cva = 0;
@@ -35,7 +52,6 @@ jQuery(function($) {
             nombre : '',
             url : '',
             thumb: ''
-            //thumb: ''
         }
     });
 
@@ -122,7 +138,6 @@ jQuery(function($) {
     });
 
     window.FotoListView = Backbone.View.extend({
-        //tagName: 'ul',
         className: 'galeria',
         template: template('fotoListViewTemplate'),
         initialize:function () {
@@ -151,7 +166,7 @@ jQuery(function($) {
                     maxSlides: 20,
                     slideWidth: 100,
                     slideMargin: 8,
-                    viewportWidth: '100%'
+                    viewportWidth: '94%'
                 });
                 $('.foto a.' + foto.attributes.id).trigger('click');
             }
@@ -230,7 +245,6 @@ jQuery(function($) {
     });
 
     window.VideoListView = Backbone.View.extend({
-        //tagName: 'ul',
         className: 'videogaleria',
         template: template('videoListViewTemplate'),
         initialize:function () {
@@ -250,15 +264,15 @@ jQuery(function($) {
             if(video.attributes.url == '#'+Backbone.history.fragment){
                 $('.video a.' + video.attributes.id).trigger('click');
             }
-           
             if(window.cv <= 0){
-                /*$(".ivideos").mCustomScrollbar({
+                $('.video a.' + video.attributes.id).trigger('click');
+                $(".ivideos").wrap('<div id="scroll" />');
+                $("#scroll").mCustomScrollbar({
                     scrollType: "pixels",
                     scrollButtons: {
                         enable: true
                     }
-                });*/
-                $('.video a.' + video.attributes.id).trigger('click');
+                });
             }
             window.cv += 1;
         }
@@ -281,13 +295,13 @@ jQuery(function($) {
         },
         ver: function (e) {
             if(e.currentTarget.dataset !== undefined) {
-                var pv = e.currentTarget.dataset.pv;
-                var id_video = e.currentTarget.dataset.id_video;
-                var nombre = e.currentTarget.dataset.nombre;
+                var pv = e.currentTarget.dataset.pv,
+                    id_video = e.currentTarget.dataset.id_video,
+                    nombre = e.currentTarget.dataset.nombre;
             } else {
-                var pv = e.currentTarget.getAttribute('data-pv');// IE approach
-                var id_video = e.currentTarget.getAttribute('data-id_video');
-                var nombre = e.currentTarget.getAttribute('data-nombre');
+                var pv = e.currentTarget.getAttribute('data-pv'),
+                    id_video = e.currentTarget.getAttribute('data-id_video'),
+                    nombre = e.currentTarget.getAttribute('data-nombre');
             }
             if(pv == 'Youtube'){
                 $('.full').html('<iframe type="text/html" width="387" height="290" src="http://www.youtube.com/embed/'+id_video+'?rel=0" frameborder="0"></iframe><h2>'+nombre+'</h2>').fadeIn('slow');
@@ -358,20 +372,3 @@ jQuery(function($) {
     var app = new AppRouter();
     Backbone.history.start();
 });
-function modificar_url(pagina, nombre){
-	if(!nombre) nombre = null;
-	if(Modernizr.history){
-		var stateObj = { pagina: nombre };
-		window.history.pushState( stateObj, null, pagina );
-	}
-}
-function makeTitle(slug) {
-    var words = slug.split('-');
-
-    for(var i = 0; i < words.length; i++) {
-      var word = words[i];
-      words[i] = word.charAt(0).toUpperCase() + word.slice(1);
-    }
-
-    return words.join(' ');
-}
