@@ -92,38 +92,36 @@ nav ul {
 	float: left;
 }
 .marquesina {
+    border-top: 1px solid #333;
+    clear:both;
     height: 20px;
-    
     overflow: hidden;
+    padding: 5px 0 0;
     position: relative;
+	width: 95%;
 }
 .marquesina div {
     display: block;
-    width: 400%;
     height: 20px;
-    
-    position: absolute;
     overflow: hidden;
-    
+    position: absolute;
     -webkit-animation: marquee 60s linear infinite;
     -moz-animation: marquee 60s linear infinite;
     -ms-animation: marquee 60s linear infinite;
     -o-animation: marquee 60s linear infinite;
     animation: marquee 60s linear infinite;
+    width: 400%;
 }
 .marquesina p {
     float: left;
     margin-right: 50px;
 }
-
 .marquesina .hashtag {
 	color:#ffb119;
-	}
-
-.marquesina s  {
-text-decoration:none;
 }
-
+.marquesina s  {
+	text-decoration:none;
+}
 @-webkit-keyframes marquee {
     0% { left: 100%; }
     100% { left: -400%; }
@@ -144,7 +142,6 @@ text-decoration:none;
     0% { left: 100%; }
     100% { left: -400%; }
 }
-
 /*Scroll*/
 .mCSB_container {
 	width: auto;
@@ -400,13 +397,6 @@ text-decoration:none;
 	position: absolute;
 	width: 100%;
 }
-
-.marquesina {
-	border-top:1px solid #333;
-	padding:5px 0 0 0;
-	clear:both;
-	width:95%;
-	}
 
 #bar footer a {
 	color: #FFF;
@@ -1044,6 +1034,7 @@ footer img {
 }
 #newsticker footer {
 	float: left;
+	max-height: 81px;
 	text-align: left;
 	width: 18%;
 }
@@ -1064,7 +1055,9 @@ footer img {
 }
 #newsticker .bx-wrapper {
 	float: right;
+	height: 81px;
 	padding-bottom: 5px;
+	overflow: hidden;
 	position: relative;
 }
 #newsticker .bx-controls {

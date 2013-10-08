@@ -70,6 +70,9 @@ button, input.button {position:relative;top:0.25em;}
 #redes_micrositio li.instagram a {
 	background-position: 0px -702px;
 }
+#newsticker .noticias {
+	height: 81px;
+}
 #redes_micrositio li.myspace a{
 	background-position: 0px -755px;
 }
