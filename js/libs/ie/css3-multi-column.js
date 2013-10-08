@@ -24,7 +24,7 @@
 function CSS3MultiColumn() {
 	//alert('Development Version');
 	var cssCache = new Object();
-	var splitableTags = new Array('P','DIV', 'SPAN', 'BLOCKQUOTE','ADDRESS','PRE', 'A', 'EM', 'I', 'STRONG', 'B', 'CITE', 'OL', 'UL', 'LI' );
+	var splitableTags = new Array('p','DIV', 'SPAN', 'BLOCKQUOTE','ADDRESS','PRE', 'A', 'EM', 'I', 'STRONG', 'B', 'CITE', 'OL', 'UL', 'LI' );
 	var pseudoCSSRules = new Object();
 	var ut = new CSS3Utility();
 

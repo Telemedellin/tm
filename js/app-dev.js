@@ -83,9 +83,15 @@ function abrir_multimedia(tipo) {
 
 function modificar_url(pagina, nombre) {
   if(!nombre) nombre = null;
-  if(Modernizr.history) {
-    var stateObj = { pagina: nombre };
+  if($('.no-history').length == 0) {
+    var stateObj = { state: nombre };
     window.history.pushState( stateObj, nombre, pagina );
+  }else{
+    var hashito = pagina.indexOf('#');
+    if(hashito > 0){
+      hashito = pagina.substr(hashito).substr(1);
+      window.location.hash = hashito;  
+    }
   }
 }
 function verificar_hash() {
@@ -109,22 +115,23 @@ jQuery(function($) {
     //Capturo el elemento al que se hizo clic
     var element = this,
       //Capturo la url que está en la barra del navegador
-      current_url = window.location.href,
+      //current_url = window.location.href,
       //Capturo el hash de la url actual
-      current_hash = window.location.hash.substr(1),
+      //current_hash = window.location.hash.substr(1),
       //Capturo la url del elemento al que se hizo clic           
       el_url = element.href,
       //Asigno la url vieja a la nueva
-      destino_url = current_url;
-    if(!current_hash) {
+      //destino_url = current_url;
+    //if(!current_hash) {
     //Si no existe el hash en la url actual, tomo el hash del enlace
-      var hash_p = el_url.indexOf('#'),
-          hash = el_url.substr(hash_p).substr(1);
+      hash_p = el_url.indexOf('#'),
+      hash = el_url.substr(hash_p).substr(1);
     //Asigno la url del elemento a la nueva
       destino_url = el_url;
-    }else{
-      hash = current_hash;
-    }
+    //}else{
+      //hash = current_hash;
+    //}
+    //alert(hash);
     var destino = '/tm/telemedellin/popup#' + hash;
     $(this).fancybox({
       type: "ajax",
@@ -132,19 +139,32 @@ jQuery(function($) {
       autoSize: false,
       padding: [9, 20, 9, 20],
       afterLoad: function(current, previous) {
-        if(cf <= 0)
-          modificar_url(destino_url, "Álbumes");
-        else
-          modificar_url(el_url, "Álbumes");
+        //if(cf <= 0)
+          //modificar_url(destino_url, "Álbumes");
+        //else
+          //modificar_url(el_url, "Álbumes");
+          var nombre = "Álbumes";
+          var pagina = el_url;
+          if(!nombre) nombre = null;
+          if($('.no-history').length == 0) {
+            var stateObj = { state: nombre };
+            window.history.pushState( stateObj, nombre, pagina );
+          }else{
+            var hashito = pagina.indexOf('#');
+            hashito = pagina.substr(hashito).substr(1);
+            window.location.hash = hashito;
+          }
         /*if(cf <= 0)
           modificar_url('#'+hash, "Álbumes");
         else
           modificar_url('#'+hash, "Álbumes");*/
-        cf += 1;
+        //cf += 1;
+
       },
       afterClose: function() {
-        window.location.hash = '';
-        modificar_url(window.location.hash, "Álbumes");
+        if($('.no-history').length > 0)
+          window.location.hash = '';
+        modificar_url('#', "Álbumes");
       },
       beforeLoad: function() {
         this.width  = '80%';

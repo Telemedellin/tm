@@ -10,14 +10,14 @@ $ru = Yii::app()->request->requestUri;
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/bootstrap-responsive.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/jquery.fancybox.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/main.css" />
-	<!--<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/styles.min.css" />-->
 	<!--[if LTE IE 9]>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie9.css" />
+	  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/html5shiv.js"></script>
+	  
 	<![endif]-->
 	<!--[if LTE IE 8]>
-	  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/html5shiv.js"></script>
-	  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/history.min.js"></script>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" />
+
 	<![endif]-->
 	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
 	<?php $this->display_seo(); ?>
@@ -84,8 +84,12 @@ $ru = Yii::app()->request->requestUri;
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/mustache/mustache.js"></script>-->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app-dev.js"></script>
-<!--[if LTE IE 8]>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/css3-multi-column.js"></script>
+<!--[if LTE IE 9]>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/native.history.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/css3-multi-column.js"></script>
+<![endif]-->
+<!--[if LT IE 9]>
+
 <![endif]-->
 </body>
 </html>
