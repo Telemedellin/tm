@@ -1,6 +1,8 @@
-html {
-	height: 100%;
+a, a:hover{
+	color: #FFF;
+	text-decoration:none;
 }
+
 body {
 	background: url('/tm/images/backgrounds/telemedellin_gente.jpg') no-repeat #000 center center;
 	background-size: cover;
@@ -18,9 +20,11 @@ body {
 body.home {
 	background: #000;
 }
-a, a:hover{
-	color: #FFF;
-	text-decoration:none;
+footer img {
+	max-width: 90%;
+}
+html {
+	height: 100%;
 }
 nav ul {
 	list-style: none;
@@ -98,7 +102,7 @@ nav ul {
     overflow: hidden;
     padding: 5px 0 0;
     position: relative;
-	width: 95%;
+	width: 98%;
 }
 .marquesina div {
     display: block;
@@ -435,23 +439,17 @@ nav ul {
 	padding: 15px;
 }
 #bar h1 img {
-	max-width: 63%;
+	max-width: 80%;
 }
-
-footer img {
-	max-width: 90%;
-}
-
-
 #bar nav li {
 	line-height:25px;
 }
 #bar nav li a {
-	background: url('../images/static/iconos/tmicons.png') no-repeat 6px -2.7%;
-	background-size: 9%;
+	background: url('../images/static/iconos/tmicons.png') no-repeat 5px -2%;
+	background-size: 20px auto;
 	color: #FFF;
 	display: block;
-	font-size: 12px;
+	font-size: 15px;
 	margin: 0 8px;
 	padding: 7px 0 7px 30px;
 	text-transform: uppercase;
@@ -483,13 +481,13 @@ footer img {
 	display: block;
 }
 #bar nav li.programas a {
-	background-position: 5px 4.1%;
+	background-position: 5px 4.7%;
 }
 #bar nav li.especiales a {
-	background-position: 5px 10%;
+	background-position: 5px 10.8%;
 }
 #bar nav li.documentales a {
-	background-position: 5px 16.8%;
+	background-position: 5px 17.2%;
 }
 #bar .escribenos {
 	background: rgb(137, 222, 21) url('../images/static/iconos/tmicons.png') no-repeat 22px -379px;
@@ -525,26 +523,26 @@ footer img {
 #bar .redes li a {
 	display: block;
 	background: url('../images/static/iconos/tmicons.png') no-repeat 0px -432px;
-	background-size: 85%;
+	background-size: 22px auto;
 	height: 24px;
 }
 #bar .redes li.facebook a {
-	background-position: 0px -263px;
+	background-position: 0px -326px;
 }
 #bar .redes li.twitter a {
-	background-position: 0px -297px;
+	background-position: 0px -367px;
 }
 #bar .redes li.flickr a {
-	background-position: 0px -362px;
+	background-position: 0px -448px;
 }
 #bar .redes li.youtube a {
-	background-position: 0px -329px;
+	background-position: 0px -408px;
 }
 #bar .redes li.foursquare a {
-	background-position: 0px -373px;
+	background-position: 0px -488px;
 }
 #bar .redes li.instagram a {
-	background-position: 0px -405px;
+	background-position: 0px -529px;
 }
 #bar .top{
 	-webkit-box-sizing: border-box;
@@ -609,6 +607,12 @@ footer img {
 	bottom: 10px;
 	position: absolute;
 	right: 15px;
+}
+#compartir div, 
+#compartir iframe, 
+#compartir a
+{
+	display: inline-block;
 }
 #container {
 	height: 100%;
@@ -735,8 +739,11 @@ footer img {
 {
 	max-height: 290px;
 }
-
-#icontainer .videogaleria .full iframe{display:block;margin: 0 auto;}
+#icontainer .videogaleria .full iframe{
+	display:block;
+	height: 290px;
+	margin: 0 auto;
+}
 #icontainer .bx-prev,
 #icontainer .bx-next
 {
@@ -766,7 +773,7 @@ footer img {
 #icontainer .bx-controls {
 	height: 0;
 	position: absolute;
-	top: 38px;
+	top: 20px;
 	width: 100%;
 }
 #icontainer .bx-controls .bx-controls-direction {
@@ -856,9 +863,9 @@ footer img {
 #menu_inferior .iconoForm {
 	background-image:url(../images/static/iconos/video.png);
 	display:inline-block;
-	width:15px;
-	height:12px;
 	margin:0 5px 0 0;
+	height:12px;
+	width:15px;
 }
 
 #menu_inferior .iconoImagen {
@@ -957,7 +964,7 @@ footer img {
 	border: 2px solid rgb(255, 255, 255);
 	border: 2px solid rgba(255, 255, 255, 0.4);
 	border-radius: 10px;
-	height:85%;
+	max-height: 85%;
 	width: 99%;
 }
 #micrositio.programacion .listado_programas
@@ -994,7 +1001,7 @@ footer img {
 #micrositio.programacion .menu_micrositio a
 {
 	color: #9f9ea3;
-	padding: 10px 30px;
+	padding: 10px 27px;
 }
 #micrositio.programacion .menu_micrositio a.hoy
 {
@@ -1034,7 +1041,7 @@ footer img {
 }
 #newsticker footer {
 	float: left;
-	max-height: 81px;
+	max-height: 90px;
 	text-align: left;
 	width: 18%;
 }
@@ -1055,7 +1062,8 @@ footer img {
 }
 #newsticker .bx-wrapper {
 	float: right;
-	height: 81px;
+	height: 90px;
+	margin-bottom: 1px;
 	padding-bottom: 5px;
 	overflow: hidden;
 	position: relative;
@@ -1230,7 +1238,7 @@ footer img {
 	display: inline-block;
 	line-height: 1;
 	float: left;
-	font-size: 10px;
+	font-size: 11px;
 	height: 30px;
 	padding: 5px 10px;
 	text-transform: uppercase;
@@ -1258,7 +1266,7 @@ footer img {
 }
 #programacion .a-continuacion .estado
 {
-	background: url(../images/static/iconos/siguiente_programacion.png) no-repeat center center;
+	background: url(../images/static/iconos/siguiente_programacion.png) no-repeat 100px center;
 }
 #programacion .estado, #programacion .programa {
 	display: block;
@@ -1374,7 +1382,7 @@ footer img {
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
 	float: right;
-	height: 80%;
+	height: 85%;
 	margin-right: 20px;
 	padding: 20px 20px 20px 30px;  /* dejamos una separación entre borde y texto */
 	position: relative;
@@ -1726,6 +1734,7 @@ footer img {
 {
 	float: right;
 	font-size: 1.6em;
+	padding: 25px 20px 0 0;
 	width: 40%;
 }
 #second-nav {
@@ -1776,48 +1785,105 @@ footer img {
 
 @media (max-width: 767px) {
 	#bar nav li a {
-		background-size: 13%;
+		background-size: 19px auto;
+		font-size: 12px;
 	}
 	#bar .redes li a {
-		background-size: 84%;
+		background-size: 16px auto;
+	}
+	#bar .redes li.facebook a
+	{
+		background-position: 0px -230px;
+	}
+	#bar .redes li.twitter a {
+		background-position: 0px -260px;
+	}
+	#bar .redes li.flickr a {
+		background-position: 0px -320px;
+	}
+	#bar .redes li.youtube a {
+		background-position: 0px -289px;
+	}
+	#bar .redes li.foursquare a {
+		background-position: 0px -349px;
+	}
+	#bar .redes li.instagram a {
+		background-position: 0px -379px;
+	}
+	#icontainer .galeria .full img
+	{
+		max-height: 250px;
+	}
+	#icontainer .videogaleria .full iframe{
+		height: 250px;
+		width: 444px;
+	}
+	#programacion .programacion {
+		padding: 5px 5px 5px 15px;
+		width: 18%;
+	}
+	#programacion a
+	{
+		font-size: 10px;
+	}
+	#programacion .senal-en-vivo
+	{
+		padding: 5px;
+	}
+	#programacion .senal-en-vivo span:last-child
+	{
+		font-size: 13px;
 	}
 }
 @media (min-width: 768px) and (max-width: 979px) {
 	#bar nav li a {
-		background-size: 12%;
+		background-size: 20px auto;
+		font-size: 14px;
 	}
 	#bar .redes li a {
-		background-size: 72%;
+		background-size: 16px auto;
 	}
 	#bar .redes li a {
 		background-position: 0px -432px;
 	}
 	#bar .redes li.facebook a {
-		background-position: 0px -244px;
+		background-position: 0px -232px;
 	}
 	#bar .redes li.twitter a {
-		background-position: 0px -276px;
+		background-position: 0px -262px;
 	}
 	#bar .redes li.flickr a {
-		background-position: 0px -339px;
+		background-position: 0px -321px;
 	}
 	#bar .redes li.youtube a {
-		background-position: 0px -308px;
+		background-position: 0px -291px;
 	}
 	#bar .redes li.foursquare a {
-		background-position: 0px -372px;
+		background-position: 0px -351px;
 	}
 	#bar .redes li.instagram a {
-		background-position: 0px -403px;
+		background-position: 0px -380px;
+	}
+	#icontainer .galeria .full img
+	{
+		max-height: 290px;
+	}
+	#icontainer .videogaleria .full iframe{
+		height: 290px;
+		width: 516px;
 	}
 	#micrositio.programacion .menu_micrositio a
 	{
 		padding: 10px 6px;
 	}
+	#programacion a
+	{
+		font-size: 10px;
+	}
 }
 @media (min-width: 1200px) {
 	#bar nav li a {
-		background-size: 8%;
+		background-size: 22px auto;
 		font-size: 1.2em;
 		padding: 7px 0 7px 30px;
 		line-height: 1.8em;
@@ -1832,25 +1898,8 @@ footer img {
 		background-size: 7%;
 	}
 	#bar .redes li a {
-		background-size: 47%;
+		background-size: 24px auto;
 	}
-	#micrositio.senal-en-vivo {
-		height: 90%;
-	}
-	#micrositio.senal-en-vivo iframe
-	{
-		min-height: 480px;
-	}
-	#newsticker {
-		height: 140px;
-	}
-	#newsticker .noticia h3 {
-		font-size: 13px;
-	}
-	#newsticker .noticia .meta {
-		font-size: 12px;
-	}
-	
 	#bar .redes li.facebook a {
 		background-position: 0px 49%;
 	}
@@ -1869,12 +1918,60 @@ footer img {
 	#bar .redes li.instagram a {
 		background-position: 0px 80%;
 	}
+	#icontainer .galeria .full img
+	{
+		max-height: 390px;
+	}
+	#icontainer .videogaleria .full iframe{
+		height: 390px;
+		width: 693px;
+	}
+	#micrositio.senal-en-vivo {
+		height: 90%;
+		max-height: 90%;
+	}
+	#micrositio.senal-en-vivo iframe
+	{
+		min-height: 480px;
+	}
+	#newsticker {
+		height: 140px;
+	}
+	#newsticker .noticia h3 {
+		font-size: 13px;
+	}
+	#newsticker .noticia .meta {
+		font-size: 12px;
+	}
+	#programacion, 
+	#programacion .senal-en-vivo
+	{
+		height: 34px;
+	}
+	#programacion a
+	{
+		font-size: 12px;
+	}
 }
 @media (min-width: 1437px) {
+	.programacion .menu_micrositio a
+	{
+		font-size: 20px;
+	}
 	#bar nav li a {
-		background-size: 7%;
-		font-size: 1.1em;
-		padding: 11px 0 11px 30px;
+		background-position: 5px -2.5%;
+		background-size: 26px auto;
+		font-size: 1.5em;
+		padding: 11px 0 11px 35px;
+	}
+	#bar nav li.programas a {
+		background-position: 5px 4.3%;
+	}
+	#bar nav li.especiales a {
+		background-position: 5px 10.5%;
+	}
+	#bar nav li.documentales a {
+		background-position: 5px 16.9%;
 	}
 	#bar footer .extended-address .title {
 		background-size: 6%;
@@ -1885,20 +1982,33 @@ footer img {
 	#bar footer .email .title {
 		background-size: 6%;
 	}
-	#bar .redes li a {
-		background-size: 39%;
+	#icontainer .galeria .full img
+	{
+		max-height: 560px;
 	}
-	#bar .redes li.foursquare a {
-		background-position: 0px -399px;
+	#icontainer .videogaleria .full iframe{
+		height: 490px;
+		width: 871px;
 	}
-	#bar .redes li.instagram a {
-		background-position: 0px -431px;
+	#micrositio.programacion .menu_micrositio a
+	{
+		padding: 15px 30px;
 	}
 	#micrositio.senal-en-vivo {
-		height: 90%;
+		height: 95%;
+		max-height: 95%;
 	}
 	#micrositio.senal-en-vivo iframe
 	{
-		min-height: 635px;
+		min-height: 610px;
+	}
+	#programacion, 
+	#programacion .senal-en-vivo
+	{
+		height: 34px;
+	}
+	#programacion a
+	{
+		font-size: 12px;
 	}
 }

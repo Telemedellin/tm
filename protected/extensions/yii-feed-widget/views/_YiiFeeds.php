@@ -35,7 +35,7 @@ foreach ($items as $item):
 	<img src="<?php echo $src ?>" width="50" height="50" alt="<?php echo $item->get_title(); ?>" />
     <h3>
         <?php 
-            if(strlen($item->get_title()) > 85) $titulo = substr($item->get_title(), 0, 85). ' ...';
+            if(mb_strlen($item->get_title()) > 80) $titulo = mb_substr($item->get_title(), 0, 80). ' ...';
             else $titulo = $item->get_title();?>
         <a href="<?php echo $item->get_permalink(); ?>">
             <?php echo $titulo ?>

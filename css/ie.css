@@ -70,8 +70,28 @@ button, input.button {position:relative;top:0.25em;}
 #redes_micrositio li.instagram a {
 	background-position: 0px -702px;
 }
+.breadcrumbs a, 
+.breadcrumbs h1, 
+#compartir div, 
+#compartir iframe, 
+#compartir a, 
+#icontainer .bx-prev,
+#icontainer .bx-next, 
+#menu_inferior .iconoVideo, 
+#menu_inferior .iconoImagen, 
+#menu_inferior .iconoForm, 
+#newsticker .bx-next, #newsticker .bx-prev, 
+#programacion a, 
+#programacion .senal-en-vivo span, 
+#redes_micrositio p, 
+#redes_micrositio ul, 
+#redes_micrositio li {
+	display:inline-block;
+	zoom: 1;
+    *display: inline;
+}
 #newsticker .noticias {
-	height: 81px;
+	height: 90px;
 }
 #redes_micrositio li.myspace a{
 	background-position: 0px -755px;

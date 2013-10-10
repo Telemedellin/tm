@@ -168,7 +168,7 @@ jQuery(function($) {
         },
         listarCarpeta: function (a1, a2, a3, a4, a5) {
             console.log('listarCarpeta');
-            $('#container').append('<div id="loading"></div>').fadeIn('slow');
+            $('#container').append('<div id="loading"><span class="spinner"></span></div>').fadeIn('slow');
             this.carpetaList = new CarpetaCollection();
             this.carpetaList.fetch( {data: {hash: window.location.hash} });
             this.archivoList = new ArchivoCollection();

@@ -29,7 +29,7 @@ $ru = Yii::app()->request->requestUri;
 			<header>
 				<h1>
 					<a href="<?php echo bu(); ?>">
-						<img src="<?php echo bu('images/static'); ?>/logo.png" alt="<?php echo app()->name ?>" width="63%" />
+						<img src="<?php echo bu('images/static'); ?>/logo.png" alt="<?php echo app()->name ?>" width="80%" />
 					</a>
 				</h1>
 			</header>
@@ -54,7 +54,7 @@ $ru = Yii::app()->request->requestUri;
 			<?php echo l( 'Contacto' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/utilidades/escribenos'), array('class' => 'escribenos') ); ?>
 		</footer>
 	</div>
-	<?php $this->widget('ProgramacionW'); ?>
+	
 	<div id="content">
 		<?php if( count($this->breadcrumbs) ): ?>
 	      <?php 
@@ -70,6 +70,7 @@ $ru = Yii::app()->request->requestUri;
 	    <?php endif; ?>
 		<?php echo $content; ?>
 	</div>
+	<?php $this->widget('ProgramacionW'); ?>
 	<?php 
 		if( !count($this->breadcrumbs) )
 			$this->widget('NewsTicker'); ?>

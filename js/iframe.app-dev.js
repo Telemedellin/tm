@@ -162,13 +162,15 @@ jQuery(function($) {
                 console.log(window.c);
                 window.slider = $('.fotos').bxSlider({
                     pager: false,
-                    minSlides: 10,
-                    maxSlides: 20,
+                    minSlides: 1,
+                    maxSlides: 15,
                     slideWidth: 100,
                     slideMargin: 8,
                     viewportWidth: '94%'
                 });
                 $('.foto a.' + foto.attributes.id).trigger('click');
+            }else{
+                //window.slider.reloadSlider();
             }
             window.c += 1;
         }
@@ -304,11 +306,11 @@ jQuery(function($) {
                     nombre = e.currentTarget.getAttribute('data-nombre');
             }
             if(pv == 'Youtube'){
-                $('.full').html('<iframe type="text/html" width="387" height="290" src="http://www.youtube.com/embed/'+id_video+'?rel=0" frameborder="0"></iframe><h2>'+nombre+'</h2>').fadeIn('slow');
+                // height="290"
+                $('.full').html('<iframe type="text/html" width="387" src="http://www.youtube.com/embed/'+id_video+'?rel=0" frameborder="0"></iframe><h2>'+nombre+'</h2>').fadeIn('slow');
             }else if(pv == 'Vimeo'){
-                $('.full').html('<iframe src="http://player.vimeo.com/video/'+id_video+'" width="387" height="290" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+nombre+'</h2>').fadeIn('slow');
+                $('.full').html('<iframe src="http://player.vimeo.com/video/'+id_video+'" width="387" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+nombre+'</h2>').fadeIn('slow');
             }
-          
             modificar_url(e.currentTarget.href, nombre);
             e.preventDefault();
         }
@@ -327,8 +329,7 @@ jQuery(function($) {
             this.micrositio_id = $('#micrositio').data('micrositio-id');
             this.micrositio.fetch({data: {id: this.micrositio_id} });
             var re = new RegExp("(\/)+$", "g");
-            /*jshint regexp: false*/
-            this.route(/(.*)\/+$/, "trailFix", function (id) {
+                this.route(/(.*)\/+$/, "trailFix", function (id) {
                 // remove all trailing slashes if more than one
                 id = id.replace(re, '');
                 this.navigate(id, true);

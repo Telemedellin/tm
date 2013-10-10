@@ -1,9 +1,9 @@
 <h3>Sinopsis</h3>
 <p><?php echo $contenido['contenido']->sinopsis ?></p>
 <h3>Ficha Técnica</h3>
-<p>Título: <?php echo $contenido['contenido']->titulo ?></p>
-<p>Año: <?php echo $contenido['contenido']->anio ?></p>
-<p>Duración: <?php echo $contenido['contenido']->duracion ?> minutos</p>
+<p><b>Título:</b> <?php echo $contenido['contenido']->titulo ?></p>
+<p><b>Año:</b> <?php echo $contenido['contenido']->anio ?></p>
+<p><b>Duración:</b> <?php echo $contenido['contenido']->duracion ?> minutos</p>
 <?php foreach( $contenido['contenido']->fichaTecnicas as $item ): ?>
-<p><?php echo $item->campo ?>: <?php echo $item->valor ?></p>
+<p><b><?php echo $item->campo ?>:</b> <?php echo $item->valor ?></p>
 <?php endforeach ?>
