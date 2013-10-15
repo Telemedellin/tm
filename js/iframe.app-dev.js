@@ -116,7 +116,7 @@ jQuery(function($) {
         render:function (eventName) {
             $(this.el).html( this.template( this.model.toJSON() ) );
             _.each(this.collection.models, function (album) {
-                $('.albumes').append(new AlbumListItemView({model:album}).render().el).fadeIn('slow');
+                $('.albumes').append(new AlbumListItemView({model:album}).render().el).fadeIn('fast');
             }, this);
             return this;
         }
@@ -153,24 +153,14 @@ jQuery(function($) {
         },
         add: function(foto){
             var fliv = new FotoListItemView({model:foto});
-            $('.fotos').append(fliv.render().el).fadeIn('slow');
+            $('.fotos').append(fliv.render().el);
             if(foto.attributes.url == '#'+Backbone.history.fragment){
                 $('.foto a.' + foto.attributes.id).trigger('click');
             }
             
             if(window.c <= 0){
                 console.log(window.c);
-                window.slider = $('.fotos').bxSlider({
-                    pager: false,
-                    minSlides: 1,
-                    maxSlides: 15,
-                    slideWidth: 100,
-                    slideMargin: 8,
-                    viewportWidth: '94%'
-                });
                 $('.foto a.' + foto.attributes.id).trigger('click');
-            }else{
-                //window.slider.reloadSlider();
             }
             window.c += 1;
         }
@@ -181,7 +171,7 @@ jQuery(function($) {
         className:'foto',
         template: template('fotoListItemViewTemplate'),
         render:function (eventName) {
-            $(this.el).html(this.template(this.model.toJSON()));
+            $(this.el).html(this.template(this.model.toJSON())).fadeIn('fast');
             return this;
         },
         events:{
@@ -200,7 +190,9 @@ jQuery(function($) {
                 var nombre = e.currentTarget.getAttribute('data-nombre');
             }
             
-            $('.full').html('<img src="' + src + '" /><h2>'+nombre+'</h2>').fadeIn('slow');
+            $('.full').fadeOut('fast', function(){
+                $('.full').html('<img src="' + src + '" /><h2>'+nombre+'</h2>').fadeIn('fast');
+            });
             modificar_url(e.currentTarget.href, nombre);
             $('<div class="expander"></div>').appendTo('.full').fadeIn('slow').click(function() {
                 if (screenfull.enabled) {
@@ -221,9 +213,9 @@ jQuery(function($) {
             //this.render();
         },
         render:function (eventName) {
-            $(this.el).html( this.template( this.model.toJSON() ) );
+            $(this.el).html( this.template( this.model.toJSON() ) ).fadeIn('fast');
             _.each(this.collection.models, function (album) {
-                $('.videoalbumes').append(new VideoAlbumListItemView({model:album}).render().el).fadeIn('slow');
+                $('.videoalbumes').append(new VideoAlbumListItemView({model:album}).render().el);
             }, this);    
             return this;
         },
@@ -237,7 +229,7 @@ jQuery(function($) {
         className: 'videoalbum', 
         template: template('videoalbumListItemViewTemplate'),
         render:function (eventName) {
-            $(this.el).html( this.template( this.model.toJSON() ) );
+            $(this.el).html( this.template( this.model.toJSON() ) ).fadeIn('fast');
             return this;
         },
         close:function () {
@@ -256,7 +248,7 @@ jQuery(function($) {
             this.collection.bind("add", this.add, this);
         },
         render:function (eventName) {
-            $(this.el).html( this.template( this.model ) );
+            $(this.el).html( this.template( this.model ) ).fadeIn('fast');
             window.c = 0;
             return this;
         },
@@ -268,13 +260,7 @@ jQuery(function($) {
             }
             if(window.cv <= 0){
                 $('.video a.' + video.attributes.id).trigger('click');
-                $(".ivideos").wrap('<div id="scroll" />');
-                $("#scroll").mCustomScrollbar({
-                    scrollType: "pixels",
-                    scrollButtons: {
-                        enable: true
-                    }
-                });
+                console.log('disparado el video ' + video.attributes.id);
             }
             window.cv += 1;
         }
@@ -285,7 +271,7 @@ jQuery(function($) {
         className:'video',
         template: template('videoListItemViewTemplate'),
         render:function (eventName) {
-            $(this.el).html(this.template(this.model.toJSON()));
+            $(this.el).html(this.template(this.model.toJSON())).fadeIn('fast');
             return this;
         },
         events:{
@@ -307,9 +293,13 @@ jQuery(function($) {
             }
             if(pv == 'Youtube'){
                 // height="290"
-                $('.full').html('<iframe type="text/html" width="387" src="http://www.youtube.com/embed/'+id_video+'?rel=0" frameborder="0"></iframe><h2>'+nombre+'</h2>').fadeIn('slow');
+                $('.full').fadeOut('fast', function(){
+                    $('.full').html('<iframe type="text/html" width="387" src="http://www.youtube.com/embed/'+id_video+'?rel=0" frameborder="0"></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
+                });
             }else if(pv == 'Vimeo'){
-                $('.full').html('<iframe src="http://player.vimeo.com/video/'+id_video+'" width="387" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+nombre+'</h2>').fadeIn('slow');
+                $('.full').fadeOut('fast', function(){
+                    $('.full').html('<iframe src="http://player.vimeo.com/video/'+id_video+'" width="387" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
+                });
             }
             modificar_url(e.currentTarget.href, nombre);
             e.preventDefault();
@@ -343,7 +333,24 @@ jQuery(function($) {
         },
         listarFotos: function (album, foto) {
             this.fotoList = new FotoCollection();
-            this.fotoList.fetch( {data: {hash: window.location.hash, micrositio: this.micrositio_id} } );
+            this.fotoList.fetch( 
+                {
+                    data: {
+                        hash: window.location.hash, 
+                        micrositio: this.micrositio_id
+                    }, 
+                    success: function(){
+                        window.slider = $('.fotos').bxSlider({
+                            pager: false,
+                            minSlides: 1,
+                            maxSlides: 15,
+                            slideWidth: 100,
+                            slideMargin: 8,
+                            viewportWidth: '94%'
+                        });
+                    }
+                } 
+            );
             var fl = album.charAt(0).toUpperCase();
             album = fl + album.substring(1);
             album = makeTitle(album);
@@ -360,7 +367,24 @@ jQuery(function($) {
         },
         listarVideos: function (videoalbum, video) {
             this.videolist = new VideoCollection();
-            this.videolist.fetch( {data: {hash: window.location.hash, micrositio: this.micrositio_id} } );
+            this.videolist.fetch( 
+                {
+                    data: {
+                        hash: window.location.hash, 
+                        micrositio: this.micrositio_id
+                    },
+                    success: function(){
+                        $(".ivideos").wrap('<div id="scroll" />');
+                        $("#scroll").mCustomScrollbar({
+                            scrollType: "pixels",
+                            scrollButtons: {
+                                enable: true
+                            }
+                        });
+                        console.log('Success');
+                    }
+                }
+            );
             var fl = videoalbum.charAt(0).toUpperCase();
             videoalbum = fl + videoalbum.substring(1);
             videoalbum = makeTitle(videoalbum);

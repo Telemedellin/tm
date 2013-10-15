@@ -95,6 +95,7 @@ class Seccion extends CActiveRecord
 	public function cargarPorUrl($url_id)
 	{
 		if( !$url_id ) return false;
-		return $this->with('url')->findByAttributes( array('url_id' => $url_id), 't.estado <> 0' );
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM seccion WHERE url_id = $url_id AND estado <> 0");
+		return $this->cache(3600, $dependencia)->with('url')->findByAttributes( array('url_id' => $url_id), 't.estado <> 0' );
 	}
 }

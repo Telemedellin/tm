@@ -57,18 +57,25 @@ nav ul {
 	color: #FFF;
 	display: inline-block;
 	height: 24px;
-	letter-spacing: 100px;
+	letter-spacing: 20px;
 	margin-right: 5px;
 	overflow: hidden;
 	padding: 5px;
 	text-indent: 5px;
 	vertical-align: top;
-	width: 26px;
+	min-width: 26px;
+	max-width: 26px;
+	-moz-transition: max-width .5s ease, letter-spacing .2s ease .2s;
+	-webkit-transition: max-width .5s ease, letter-spacing .2s ease .2s;
+	transition: max-width .5s ease, letter-spacing .2s ease .2s;
 }
 .breadcrumbs a:hover {
 	letter-spacing: .5px;
 	text-decoration: none;
-	width: auto;
+	max-width: 225px;
+	/*-moz-transition: letter-spacing .2s ease-out .2s;
+	-webkit-transition: letter-spacing .2s ease-out .2s;
+	transition: letter-spacing .2s ease-out .2s;*/
 }
 .breadcrumbs a.home {
 	background: rgb(0,0,0) url('../images/static/iconos/tmicons.png') no-repeat 4px -754px; 
@@ -109,11 +116,11 @@ nav ul {
     height: 20px;
     overflow: hidden;
     position: absolute;
-    -webkit-animation: marquee 60s linear infinite;
-    -moz-animation: marquee 60s linear infinite;
-    -ms-animation: marquee 60s linear infinite;
-    -o-animation: marquee 60s linear infinite;
-    animation: marquee 60s linear infinite;
+    -webkit-animation: marquee 70s linear infinite;
+    -moz-animation: marquee 70s linear infinite;
+    -ms-animation: marquee 70s linear infinite;
+    -o-animation: marquee 70s linear infinite;
+    animation: marquee 70s linear infinite;
     width: 400%;
 }
 .marquesina p {
@@ -852,8 +859,7 @@ nav ul {
 {
 	text-decoration: none;
 }
-#menu_inferior a.imagenes:hover, 
-#menu_inferior a.videos:hover
+#menu_inferior a:hover
 {
 	background-color: rgb(75, 70, 65);
 	background-color: rgba(255, 255, 255, .5);
@@ -1918,6 +1924,10 @@ nav ul {
 	#bar .redes li.instagram a {
 		background-position: 0px 80%;
 	}
+	#icontainer .galeria .full
+	{
+		min-height: 428px;
+	}
 	#icontainer .galeria .full img
 	{
 		max-height: 390px;
@@ -1951,6 +1961,9 @@ nav ul {
 	#programacion a
 	{
 		font-size: 12px;
+	}
+	#programacion .a-continuacion .estado {
+		background-position: 110px center;
 	}
 }
 @media (min-width: 1437px) {

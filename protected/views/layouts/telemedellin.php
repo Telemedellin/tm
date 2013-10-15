@@ -88,9 +88,10 @@ $ru = Yii::app()->request->requestUri;
 <!--[if LTE IE 9]>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/native.history.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/css3-multi-column.js"></script>
-<![endif]-->
-<!--[if LT IE 9]>
-
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/jquery.marquee.js"></script>
+<script>
+	$('.marquesina').marquee('marquesina');
+</script>
 <![endif]-->
 </body>
 </html>

@@ -67,7 +67,8 @@ class TelemedellinController extends Controller
 		$url_id = $_GET['tm']->id;
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
-		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
+		$micrositios = Micrositio::model()->cache(3600, $dependencia)->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 		
 		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'] )
@@ -92,7 +93,8 @@ class TelemedellinController extends Controller
 		$url_id = $_GET['tm']->id;
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
-		$micrositios = Micrositio::model()->listarPorSeccion( $seccion->id );
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
+		$micrositios = Micrositio::model()->cache(3600, $dependencia)->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 		
 		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'] )
@@ -117,8 +119,8 @@ class TelemedellinController extends Controller
 		$url_id = $_GET['tm']->id;
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
-		$dependency = new CDbCacheDependency("SELECT MAX(modificado) FROM micrositio");
-		$micrositios= Micrositio::model()->cache(1000, $dependency)->listarPorSeccion( $seccion->id );
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
+		$micrositios= Micrositio::model()->cache(3600, $dependencia)->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 
 		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'])
@@ -151,12 +153,13 @@ class TelemedellinController extends Controller
 		$c->addCondition(' t.estado <> 0');
 		$c->join  = 'JOIN pagina ON pagina.micrositio_id = t.id';
 		$c->join  .= ' JOIN pg_documental ON pg_documental.pagina_id = pagina.id';
-		$c->limit = 7;
+		$c->limit = 8;
 		$c->order = 'pg_documental.anio DESC';
 		$recientes= Micrositio::model()->findAll( $c );
 
 		if( !$recientes ) throw new CHttpException(404, 'Invalid request');
-		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
+		$micrositios= Micrositio::model()->cache(3600, $dependencia)->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 
 		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'] )
@@ -189,12 +192,13 @@ class TelemedellinController extends Controller
 		$c->addCondition(' t.estado <> 0');
 		$c->join  = 'JOIN pagina ON pagina.micrositio_id = t.id';
 		$c->join  .= ' JOIN pg_especial ON pg_especial.pagina_id = pagina.id';
-		$c->limit = 7;
-		//$c->order = 'pg_especial.anio DESC';
+		$c->limit = 8;
+		$c->order = 'pg_especial.id DESC';
 		$recientes = Micrositio::model()->findAll( $c );
 
 		if( !$recientes ) throw new CHttpException(404, 'Invalid request');
-		$micrositios = Micrositio::model()->listarPorSeccion( $seccion->id );
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
+		$micrositios = Micrositio::model()->cache(3600, $dependencia)->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 
 		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'] )
@@ -222,7 +226,8 @@ class TelemedellinController extends Controller
 		$url_id = $_GET['tm']->id;
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
-		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
+		$micrositios= Micrositio::model()->cache(3600, $dependencia)->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 		$this->pageTitle = 'Concursos';
 		$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
@@ -255,13 +260,17 @@ class TelemedellinController extends Controller
 			$menu = false;
 		}
 
-		/*if( !is_null($micrositio->formulario_id) )
+		$formulario = false;
+
+		if( !empty($micrositio->paginas) )
 		{
-			
+			foreach($micrositio->paginas as $p)
+				if($p->tipo_pagina_id == 7){
+					$formulario = true;
+					break;
+				}
 		}
-		else
-			$formulario = false;
-		*/
+		
 		if(!empty($micrositio->albumFotos) )
 			$galeria = true;
 		else
@@ -273,7 +282,6 @@ class TelemedellinController extends Controller
 		}
 		else
 			$videos = false;
-		$formulario = false;
 
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
@@ -417,6 +425,19 @@ class TelemedellinController extends Controller
 			$p->estado = $estado;
 			$p->save();
 			if($p) echo 'Guardado ' . $pagina->nombre . '<br />';
+		}
+	}
+
+	public function actionThumbs(){
+		$fotos = Foto::model()->findAll();
+		foreach($fotos as $foto){
+			$thumb = $foto->thumb;
+			$ext = substr($thumb, -4);
+			$nombre = substr($thumb, 0, strlen($thumb)-4 );
+			$nuevo_nombre = $nombre.'_thumb'.$ext;
+
+			$foto->thumb = $nuevo_nombre;
+			$foto->save();
 		}
 	}
 

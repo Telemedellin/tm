@@ -35,6 +35,8 @@ class MenuW extends CWidget
                     'itemOptions' => array('class' => $clase),
     				'active'=> strpos($ru, $url)
     			);
+            if($item->tipo_link_id == 2)
+                $item_actual['linkOptions'] = array('target' => '_blank');
     		if($item->hijos == 1)
     		{
     			$hijos = $this->getSubItems($item->item_id);
@@ -49,6 +51,9 @@ class MenuW extends CWidget
                             'itemOptions' => array('class' => $hclase),
     						'active' => strpos($ru, $hurl)
     					);
+                    if($hijo->tipo_link_id == 2){
+                        $subitems[key(end($a))]['linkOptions'] = array('target' => '_blank');
+                    }
     			}
     			$item_actual['items'] = $subitems;
     		}

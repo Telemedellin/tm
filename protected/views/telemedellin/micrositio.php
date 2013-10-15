@@ -59,7 +59,7 @@ cs()->registerScript( 'scroll',
 
 <div id="menu_inferior">
 	<?php if($formulario): ?>
-		<a href="#"><span class="iconoForm"></span><span>Formulario</span></a>
+		<a href="<?php echo bu($micrositio->url->slug) ?>/escribenos" class="formulario"><span class="iconoForm"></span><span>Escríbenos</span></a>
 	<?php endif;?>
 	<?php if($galeria): ?>
 		<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes">

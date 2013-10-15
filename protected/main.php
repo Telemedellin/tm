@@ -101,6 +101,9 @@ return array(
 				*/
 			),
 		),
+		'cache'=>array(
+            'class'=>'system.caching.CDummyCache',
+        ),
 	),
 	
 	// application-level parameters that can be accessed

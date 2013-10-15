@@ -6,7 +6,8 @@ class ApiController extends Controller
 	{
 		if(!$_GET['micrositio_id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$micrositio_id = $_GET['micrositio_id'];
-		$af = AlbumFoto::model()->findAllByAttributes( array('micrositio_id' => $micrositio_id) );
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM album_foto WHERE micrositio_id = $micrositio_id AND estado <> 0");
+		$af = AlbumFoto::model()->cache(3600, $dependencia)->findAllByAttributes( array('micrositio_id' => $micrositio_id) );
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		$json .= '[';
@@ -16,7 +17,7 @@ class ApiController extends Controller
 				$json .= '"micrositio":"'.CHtml::encode($album->micrositio_id).'",';
 				$json .= '"nombre":"'.CHtml::encode($album->nombre).'",';
 				$json .= '"url":"'.$album->url->slug.'",';
-				$json .= '"thumb":"'.bu('images/galeria/' . $album->fotos[0]->thumb).'"';
+				$json .= '"thumb":"'.bu('images/galeria/' . $album->fotos[0]->src).'"';
 			$json .= '},';
 			endforeach;
 			$json = substr($json, 0, -1);
@@ -44,7 +45,8 @@ class ApiController extends Controller
 			
 		
 		if(!$af) throw new CHttpException(404, 'No se encontró la página solicitada');
-		$f = Foto::model()->findAllByAttributes( array('album_foto_id' => $af->id) );
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM foto WHERE album_foto_id = $album_foto_id AND estado <> 0");
+		$f = Foto::model()->cache(3600, $dependencia)->findAllByAttributes( array('album_foto_id' => $af->id) );
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		$json .= '[';
@@ -70,7 +72,8 @@ class ApiController extends Controller
 	{
 		if(!$_GET['micrositio_id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$micrositio_id = $_GET['micrositio_id'];
-		$va = AlbumVideo::model()->with('url')->findAllByAttributes( array('micrositio_id' => $micrositio_id) );
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM album_video WHERE micrositio_id = $micrositio_id AND estado <> 0");
+		$va = AlbumVideo::model()->cache(3600, $dependencia)->with('url')->findAllByAttributes( array('micrositio_id' => $micrositio_id) );
 		
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
@@ -110,7 +113,8 @@ class ApiController extends Controller
 		}
 
 		if(!$va) throw new CHttpException(404, 'No se encontró la página solicitada');
-		$v = Video::model()->findAllByAttributes( array('album_video_id' => $va->id) );
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM video WHERE album_video_id = $album_video_id AND estado <> 0");
+		$v = Video::model()->cache(3600, $dependencia)->findAllByAttributes( array('album_video_id' => $va->id) );
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		$json .= '[';
@@ -191,7 +195,8 @@ class ApiController extends Controller
 
 		if($params){
 
-			$c = Carpeta::model()->findAllByAttributes( $params );	
+			$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM carpeta WHERE estado <> 0");
+			$c = Carpeta::model()->cache(3600, $dependencia)->findAllByAttributes( $params );	
 			
 			if($c)
 			{
@@ -230,7 +235,8 @@ class ApiController extends Controller
 		$json = '';
 		if($params)
 		{
-			$a = Archivo::model()->findAllByAttributes( $params );
+			$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM archivo WHERE estado <> 0");
+			$a = Archivo::model()->cache(3600, $dependencia)->findAllByAttributes( $params );
 			
 			if($a)
 			{

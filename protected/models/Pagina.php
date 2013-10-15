@@ -86,6 +86,7 @@ class Pagina extends CActiveRecord
 			'pgDocumentals' => array(self::HAS_MANY, 'PgDocumental', 'pagina_id'),
 			'pgEspecials' => array(self::HAS_MANY, 'PgEspecial', 'pagina_id'),
 			'pgGenericaSts' => array(self::HAS_MANY, 'PgGenericaSt', 'pagina_id'),
+			'pgFormularioJfs' => array(self::HAS_MANY, 'pgFormularioJf', 'pagina_id'),
 			'pgProgramas' => array(self::HAS_MANY, 'PgPrograma', 'pagina_id'),
 		);
 	}
@@ -153,7 +154,8 @@ class Pagina extends CActiveRecord
 		$c->addCondition( 't.micrositio_id = "' . $micrositio_id . '"' );
 		$c->addCondition( 't.estado <> 0' );
 
-		$paginas  	= $this->findAll( $c );
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM pagina WHERE micrositio_id = $micrositio_id AND estado <> 0");
+		$paginas  	= $this->cache(3600, $dependencia)->findAll( $c );
 
 		if( !$paginas ) return false;
 		$r = array();

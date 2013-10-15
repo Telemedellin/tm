@@ -109,7 +109,6 @@ class Programacion extends CActiveRecord
 		$c = new CDbCriteria;
 		$c->addCondition('hora_inicio > ' . $timestamp);
 		$c->addCondition(' hora_inicio < ' . ($timestamp + 86400));
-		
 		return $this->with('micrositio')->findAll( $c );
 	}
 

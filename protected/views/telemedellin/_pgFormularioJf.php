@@ -1,0 +1,1 @@
+<iframe id="JotFormIFrame" onload="window.parent.scrollTo(0,0)" allowtransparency="true" src="http://www.jotformpro.com/form/<?php echo $contenido['contenido']->formulario_id ?>" frameborder="0" style="width: 100%; height: 1241px; border: none;" scrolling="no"></iframe>
