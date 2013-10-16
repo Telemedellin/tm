@@ -127,8 +127,10 @@ nav ul {
     float: left;
     margin-right: 50px;
 }
-.marquesina .hashtag {
-	color:#ffb119;
+.marquesina .hashtag,
+.marquesina .user_mention,
+.marquesina .tlink {
+	color: #ffb119;
 }
 .marquesina s  {
 	text-decoration:none;
@@ -623,6 +625,8 @@ nav ul {
 }
 #container {
 	height: 100%;
+	position: relative;
+	z-index: 1;
 }
 #content {
 	-webkit-box-sizing: border-box;
@@ -657,6 +661,18 @@ nav ul {
 #ccontainer .back{
 	display: block;
 	margin-bottom: 10px;
+}
+#dots
+{
+	background: url(../images/static/overlays/02.png);
+	height: auto;
+	left: 0;
+	min-height: 100%;
+	opacity: .3;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 0;
 }
 #icontainer
 {
@@ -1444,7 +1460,7 @@ nav ul {
 #overlay #seccion > div
 {
 	float: left;
-	height: 80%;
+	height: 85%;
 	margin-bottom: 1%;
 	overflow: hidden;
 	position: relative;
@@ -1452,6 +1468,7 @@ nav ul {
 #overlay #seccion .paginas > div
 {
 	float: left;
+	width: 25%;
 }
 
 .paginas ul li
@@ -1537,7 +1554,7 @@ nav ul {
 			border-radius: 10px;
 	color: rgb(255, 255, 255);
 	color: rgba(255, 255, 255, 0.6);
-	font-size: .8em;
+	font-size: .9em;
 	height: 15px;
 	margin: 0;
 	width: 95%;
@@ -1591,7 +1608,7 @@ nav ul {
 }
 #overlay #seccion.Programas .filtro
 {
-	height: 15%;
+	height: 10%;
 	margin-bottom: 1%;
 	width: 97%;
 }
@@ -1890,7 +1907,7 @@ nav ul {
 @media (min-width: 1200px) {
 	#bar nav li a {
 		background-size: 22px auto;
-		font-size: 1.2em;
+		font-size: 1.1em;
 		padding: 7px 0 7px 30px;
 		line-height: 1.8em;
 	}

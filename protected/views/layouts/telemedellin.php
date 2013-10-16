@@ -79,6 +79,7 @@ $ru = Yii::app()->request->requestUri;
 		$this->widget('Compartir'); 
 	?>
 </div>
+<div id="dots"></div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <!--<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/bootstrap.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/modernizr.custom.30163.js"></script>

@@ -43,13 +43,13 @@ class RedSocial extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('micrositio_id, tipo_red_social_id, usuario, nombre, estado', 'required'),
+			array('micrositio_id, tipo_red_social_id, usuario, estado', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
 			array('micrositio_id, tipo_red_social_id', 'length', 'max'=>10),
-			array('usuario, nombre', 'length', 'max'=>100),
+			array('usuario', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, micrositio_id, tipo_red_social_id, usuario, nombre, estado', 'safe', 'on'=>'search'),
+			array('id, micrositio_id, tipo_red_social_id, usuario, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -76,7 +76,6 @@ class RedSocial extends CActiveRecord
 			'micrositio_id' => 'Micrositio',
 			'tipo_red_social_id' => 'Tipo Red Social',
 			'usuario' => 'Usuario',
-			'nombre' => 'Nombre',
 			'estado' => 'Estado',
 		);
 	}
@@ -96,7 +95,6 @@ class RedSocial extends CActiveRecord
 		$criteria->compare('micrositio_id',$this->micrositio_id,true);
 		$criteria->compare('tipo_red_social_id',$this->tipo_red_social_id,true);
 		$criteria->compare('usuario',$this->usuario,true);
-		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(

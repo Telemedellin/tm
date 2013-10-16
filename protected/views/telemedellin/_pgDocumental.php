@@ -1,4 +1,3 @@
-<h3>Sinopsis</h3>
 <p><?php echo $contenido['contenido']->sinopsis ?></p>
 <h3>Ficha Técnica</h3>
 <p><b>Título:</b> <?php echo $contenido['contenido']->titulo ?></p>

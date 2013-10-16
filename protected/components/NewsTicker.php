@@ -58,7 +58,7 @@ class NewsTicker extends CWidget
 		        if( count($tweet->entities->urls) )
 		        {
 		          foreach ($tweet->entities->urls as $url) {
-		            $nu = '<a href="'.$url->expanded_url.'" target="_blank" rel="nofollow">' . $url->url . '</a>';
+		            $nu = '<a href="'.$url->expanded_url.'" target="_blank" rel="nofollow" class="tlink">' . $url->url . '</a>';
 		            $entidades[] = array('texto' => $nu, 'pi' => $url->indices[0], 'pf' => $url->indices[1]);
 		          }
 		        }

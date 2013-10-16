@@ -33,8 +33,6 @@ cs()->registerScript( 'scroll',
 			<a href="<?php echo $red->tipoRedSocial->url_base . $red->usuario ?>">
 				<?php echo $red->tipoRedSocial->nombre ?>
 			</a>
-		<?php $red->nombre . ' ' . $red->usuario; ?>
-		<?php $red->tipoRedSocial->nombre . ' ' . $red->tipoRedSocial->icono . ' ' . $red->tipoRedSocial->url_base ?>
 		</li>
 	<?php endforeach;?>
 	</ul>
@@ -53,10 +51,7 @@ cs()->registerScript( 'scroll',
 </div>
 
 <?php if($formulario || $galeria || $video):?>
-
-
 <div style="clear:both;"></div>
-
 <div id="menu_inferior">
 	<?php if($formulario): ?>
 		<a href="<?php echo bu($micrositio->url->slug) ?>/escribenos" class="formulario"><span class="iconoForm"></span><span>Escríbenos</span></a>
@@ -71,4 +66,3 @@ cs()->registerScript( 'scroll',
 	<?php endif;?>
 </div>
 <?php endif; ?>
-
