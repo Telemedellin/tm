@@ -418,13 +418,20 @@ class TelemedellinController extends Controller
 			$hora_inicio = $semana[$dia_semana - 1] + (Horarios::hora_a_timestamp($hora_inicio));
 			$hora_fin = $semana[$dia_semana - 1] + (Horarios::hora_a_timestamp($hora_fin));
 			$p = new Programacion;
-			$p->micrositio_id = $micrositio_id;
-			$p->hora_inicio = $hora_inicio;
-			$p->hora_fin = $hora_fin;
-			$p->tipo_emision_id = $tipo_emision_id;
-			$p->estado = $estado;
-			$p->save();
-			if($p) echo 'Guardado ' . $pagina->nombre . '<br />';
+			if( !$p->exists(array('condition' => 'hora_inicio='.$hora_inicio.' AND hora_fin='.$hora_fin.' AND estado=1')) )
+			{
+				$p->micrositio_id = $micrositio_id;
+				$p->hora_inicio = $hora_inicio;
+				$p->hora_fin = $hora_fin;
+				$p->tipo_emision_id = $tipo_emision_id;
+				$p->estado = $estado;
+				$p->save();
+				if($p) echo 'Guardado ' . $pagina->nombre . ' ' . $hora_inicio . '<br />';
+			}else
+			{
+				echo 'Existía ' . $pagina->nombre . '<br />';
+			}
+			
 		}
 	}
 

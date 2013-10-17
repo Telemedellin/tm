@@ -109,6 +109,8 @@ class Programacion extends CActiveRecord
 		$c = new CDbCriteria;
 		$c->addCondition('hora_inicio > ' . $timestamp);
 		$c->addCondition(' hora_inicio < ' . ($timestamp + 86400));
+		$c->addCondition(' t.estado <> 0' );
+		$c->order = 'hora_inicio ASC';
 		return $this->with('micrositio')->findAll( $c );
 	}
 
@@ -117,6 +119,7 @@ class Programacion extends CActiveRecord
 		$c = new CDbCriteria;
 		$c->addCondition('hora_inicio < ' . time() );
 		$c->addCondition(' hora_fin > ' . time() );
+		$c->addCondition(' t.estado <> 0' );
 		$c->order = 'hora_inicio ASC';
 		$c->select = '*';
 		$c->join = ' JOIN micrositio ON micrositio.id = t.micrositio_id';
@@ -133,6 +136,7 @@ class Programacion extends CActiveRecord
 		$c->join = 'JOIN micrositio ON micrositio.id = t.micrositio_id';
 		$c->join .= ' JOIN url ON micrositio.url_id = url.id';
 		$c->addCondition('hora_inicio >= ' . $currentEndTime );
+		$c->addCondition(' t.estado <> 0' );
 		$c->order = 'hora_inicio ASC';
 
 		return $this->find( $c );

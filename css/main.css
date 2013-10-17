@@ -129,7 +129,7 @@ nav ul {
 }
 .marquesina .hashtag,
 .marquesina .user_mention,
-.marquesina .tlink {
+#newsticker .marquesina .tlink {
 	color: #ffb119;
 }
 .marquesina s  {
@@ -454,7 +454,7 @@ nav ul {
 	line-height:25px;
 }
 #bar nav li a {
-	background: url('../images/static/iconos/tmicons.png') no-repeat 5px -2%;
+	background: url('../images/static/iconos/tmicons.png') no-repeat 5px -1.8%;
 	background-size: 20px auto;
 	color: #FFF;
 	display: block;
@@ -490,13 +490,13 @@ nav ul {
 	display: block;
 }
 #bar nav li.programas a {
-	background-position: 5px 4.7%;
+	background-position: 5px 5%;
 }
 #bar nav li.especiales a {
-	background-position: 5px 10.8%;
+	background-position: 5px 11%;
 }
 #bar nav li.documentales a {
-	background-position: 5px 17.2%;
+	background-position: 5px 17.4%;
 }
 #bar .escribenos {
 	background: rgb(137, 222, 21) url('../images/static/iconos/tmicons.png') no-repeat 22px -379px;
