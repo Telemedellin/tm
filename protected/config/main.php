@@ -17,6 +17,8 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.vendors.bcrypt.*',
+		'application.vendors.UploadHandler.*'
 	),
 
 	'modules'=>array(

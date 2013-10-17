@@ -986,7 +986,7 @@ nav ul {
 	border: 2px solid rgb(255, 255, 255);
 	border: 2px solid rgba(255, 255, 255, 0.4);
 	border-radius: 10px;
-	max-height: 85%;
+	max-height: 90%;
 	width: 99%;
 }
 #micrositio.programacion .listado_programas
@@ -1006,6 +1006,7 @@ nav ul {
        	   column-rule-color: rgba(255, 255, 255, .2);
 		   column-rule-style: solid;
 		   column-rule-width:  1px;
+	padding-top: 10px;
 }
 #micrositio.programacion .mCustomScrollBox
 {
@@ -1988,20 +1989,23 @@ nav ul {
 	{
 		font-size: 20px;
 	}
+	#bar {
+		width: 15%;
+	}
 	#bar nav li a {
-		background-position: 5px -2.5%;
+		background-position: 5px -2.2%;
 		background-size: 26px auto;
-		font-size: 1.5em;
+		font-size: 1.3em;
 		padding: 11px 0 11px 35px;
 	}
 	#bar nav li.programas a {
-		background-position: 5px 4.3%;
+		background-position: 5px 4.6%;
 	}
 	#bar nav li.especiales a {
-		background-position: 5px 10.5%;
+		background-position: 5px 10.8%;
 	}
 	#bar nav li.documentales a {
-		background-position: 5px 16.9%;
+		background-position: 5px 17.2%;
 	}
 	#bar footer .extended-address .title {
 		background-size: 6%;
@@ -2011,6 +2015,10 @@ nav ul {
 	}
 	#bar footer .email .title {
 		background-size: 6%;
+	}
+	#content {
+		left: 15%;
+		width: 85%;
 	}
 	#icontainer .galeria .full img
 	{
@@ -2031,6 +2039,9 @@ nav ul {
 	#micrositio.senal-en-vivo iframe
 	{
 		min-height: 610px;
+	}
+	#newsticker {
+		width: 85%;
 	}
 	#programacion, 
 	#programacion .senal-en-vivo

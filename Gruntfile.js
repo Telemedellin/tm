@@ -9,12 +9,31 @@ module.exports = function(grunt) {
         stripBanners: false
       },
       js: {
-        src: ['js/libs/*.js', 'js/libs/jquery.bxslider/*.js', 'js/libs/mustache/*.js'],
+        src: [
+          'js/libs/*.js', 
+          'js/libs/jquery.bxslider/*.js', 
+          'js/libs/mustache/*.js'
+        ],
         dest: 'js/libs.js',
       },
       iframe: {
         src: ['js/libs/bootstrap.min.js', 'js/libs/iframe/backbone-min.js', 'js/libs/iframe/underscore-min.js'],
-        dest: 'js/iframe.libs.js',
+        dest: 'js/iframe.libs.js'
+      },
+      admin: {
+        src: [
+          'js/libs/admin/jquery.fileupload/vendor/*.js', 
+          'js/libs/admin/jquery.fileupload/tmpl.min.js',
+          'js/libs/admin/jquery.fileupload/load-image.min.js',
+          'js/libs/admin/jquery.fileupload/canvas-to-blob.min.js',
+          'js/libs/admin/jquery.fileupload/jquery.iframe-transport.js',
+          'js/libs/admin/jquery.fileupload/jquery.fileupload.js',
+          'js/libs/admin/jquery.fileupload/jquery.fileupload-process.js',
+          'js/libs/admin/jquery.fileupload/jquery.fileupload-resize.js',
+          'js/libs/admin/jquery.fileupload/jquery.fileupload-validate.js',
+          'js/libs/admin/jquery.fileupload/jquery.fileupload-ui.js'
+          ],
+        dest: 'js/admin.libs.js'
       },
       css: {
         src: ['css/libs/*.css', 'css/main.css'],
@@ -25,6 +44,10 @@ module.exports = function(grunt) {
       app: {
         src: "js/app-dev.js",
         dest: "js/app.min.js",
+      },
+      admin_app: {
+        src: "js/admin-dev.js",
+        dest: "js/admin.min.js",
       },
       iframe_app: {
         src: "js/iframe.app-dev.js",
@@ -41,12 +64,20 @@ module.exports = function(grunt) {
       iframe: {
         src: "js/iframe.libs.js",
         dest: "js/iframe.libs.js",
+      },
+      admin: {
+        src: "js/admin.libs.js",
+        dest: "js/admin.libs.js",
       }
     },
     uglify: {
       app: {
         src: 'js/app.min.js',
         dest: 'js/app.min.js'
+      },
+      admin_app: {
+        src: 'js/admin.min.js',
+        dest: 'js/admin.min.js'
       },
       iframe_app: {
         src: 'js/iframe.app.min.js',
@@ -63,6 +94,10 @@ module.exports = function(grunt) {
       iframe: {
         src: 'js/iframe.libs.js',
         dest: 'js/iframe.libs.min.js'
+      },
+      admin: {
+        src: 'js/admin.libs.js',
+        dest: 'js/admin.libs.min.js'
       }
     },
     cssmin: {
@@ -74,11 +109,18 @@ module.exports = function(grunt) {
         ext: '.min.css'
       }
     },
-    clean: ['js/libs.js', 'css/styles.css', 'js/iframe.libs.js'],
+    clean: ['js/libs.js', 'css/styles.css', 'js/iframe.libs.js', 'js/admin.libs.js'],
     watch : {
       scripts: {
         files: ['js/app-dev.js'],
         tasks: ['app'],
+        options: {
+          spawn: false
+        },
+      },
+      admin: {
+        files: ['js/admin-dev.js'],
+        tasks: ['admin'],
         options: {
           spawn: false
         },
@@ -117,7 +159,9 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['concat:js', 'removelogging:libs', 'uglify:libs', 'clean']);
   grunt.registerTask('iframe', ['concat:iframe', 'removelogging:iframe', 'uglify:iframe', 'clean']);
+  grunt.registerTask('admin', ['concat:admin', 'removelogging:admin', 'uglify:admin', 'clean']);
   grunt.registerTask('app', ['removelogging:app', 'uglify:app']); 
+  grunt.registerTask('admin-app', ['removelogging:admin_app', 'uglify:admin_app']); 
   grunt.registerTask('iframe-app', ['removelogging:iframe_app', 'uglify:iframe_app']); 
   grunt.registerTask('file-app', ['removelogging:file_app', 'uglify:file_app']); 
   grunt.registerTask('css', ['concat:css', 'cssmin', 'clean']);

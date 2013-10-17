@@ -82,12 +82,12 @@ class Pagina extends CActiveRecord
 			'tipoPagina' => array(self::BELONGS_TO, 'TipoPagina', 'tipo_pagina_id'),
 			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 			'usuario' => array(self::BELONGS_TO, 'Usuario', 'usuario_id'),
-			'pgArticuloBlogs' => array(self::HAS_MANY, 'PgArticuloBlog', 'pagina_id'),
-			'pgDocumentals' => array(self::HAS_MANY, 'PgDocumental', 'pagina_id'),
-			'pgEspecials' => array(self::HAS_MANY, 'PgEspecial', 'pagina_id'),
-			'pgGenericaSts' => array(self::HAS_MANY, 'PgGenericaSt', 'pagina_id'),
-			'pgFormularioJfs' => array(self::HAS_MANY, 'pgFormularioJf', 'pagina_id'),
-			'pgProgramas' => array(self::HAS_MANY, 'PgPrograma', 'pagina_id'),
+			'pgArticuloBlogs' => array(self::HAS_ONE, 'PgArticuloBlog', 'pagina_id'),
+			'pgDocumentals' => array(self::HAS_ONE, 'PgDocumental', 'pagina_id'),
+			'pgEspecials' => array(self::HAS_ONE, 'PgEspecial', 'pagina_id'),
+			'pgGenericaSts' => array(self::HAS_ONE, 'PgGenericaSt', 'pagina_id'),
+			'pgFormularioJfs' => array(self::HAS_ONE, 'pgFormularioJf', 'pagina_id'),
+			'pgProgramas' => array(self::HAS_ONE, 'PgPrograma', 'pagina_id'),
 		);
 	}
 

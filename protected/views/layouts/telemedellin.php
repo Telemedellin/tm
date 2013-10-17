@@ -85,7 +85,7 @@ $ru = Yii::app()->request->requestUri;
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/modernizr.custom.30163.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/mustache/mustache.js"></script>-->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs.min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app-dev.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.min.js"></script>
 <!--[if LTE IE 9]>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/native.history.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/css3-multi-column.js"></script>

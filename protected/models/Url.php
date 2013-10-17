@@ -62,7 +62,15 @@ class Url extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'albumFotos' => array(self::HAS_MANY, 'AlbumFoto', 'url_id'),
-			'albumVideos' => array(self::HAS_MANY, 'AlbumVideo', 'url_id')
+			'albumVideos' => array(self::HAS_MANY, 'AlbumVideo', 'url_id'),
+			'fotos' => array(self::HAS_MANY, 'Foto', 'url_id'),
+			'videos' => array(self::HAS_MANY, 'Video', 'url_id'),
+			'archivos' => array(self::HAS_MANY, 'Archivo', 'url_id'),
+			'carpetas' => array(self::HAS_MANY, 'Carpeta', 'url_id'),
+			'seccions' => array(self::HAS_MANY, 'Seccion', 'url_id'),
+			'micrositios' => array(self::HAS_MANY, 'Micrositio', 'url_id'),
+			'menuItems' => array(self::HAS_MANY, 'MenuItem', 'url_id'),
+			'paginas' => array(self::HAS_MANY, 'Pagina', 'url_id')
 		);
 	}
 

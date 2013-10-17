@@ -435,6 +435,43 @@ class TelemedellinController extends Controller
 		}
 	}
 
+	public function actionUrlsHuerfanas()
+	{
+		$urls = URL::model()->with('albumFotos', 'albumVideos', 'fotos', 'videos', 'archivos', 'carpetas', 'seccions', 'micrositios', 'menuItems', 'paginas')->findAll(array('limit' => 100, 'offset' => 0));
+		$huerfanos = array();
+		$c = 0;
+		echo '<h2>Buscando huerfanos...</h2>';
+		foreach($urls as $u){
+			if( !empty($u->albumFotos) ) $c++;
+			if( !empty($u->albumVideos) ) $c++;
+			if( !empty($u->fotos) ) $c++;
+			if( !empty($u->videos) ) $c++;
+			if( !empty($u->archivos) ) $c++;
+			if( !empty($u->carpetas) ) $c++;
+			if( !empty($u->seccions) ) $c++;
+			if( !empty($u->micrositios) ) $c++;
+			if( !empty($u->menuItems) ) $c++;
+			if( !empty($u->paginas) ) $c++;
+			if($c == 0){
+				$huerfanos[] = $u;
+				echo('Huerfano... ' . $u->slug . '<br />');
+			}else{
+				echo('Bueno...... ' . $u->slug . '<br />');
+			}
+			$c = 0;
+		}
+		echo '<h2>Limpiando huerfanos...</h2>';
+		foreach($huerfanos as $h){
+			$utd = new Url;
+			$slug = $h->slug;
+			if($utd->deleteByPk($h->id))
+				echo 'Limpiado............. ' . $slug . '<br />';
+			else
+				echo 'No se pudo limpiar... ' . $slug . '<br />';
+		}
+		echo '<h2>Fin</h2>';
+	}
+
 	public function actionThumbs(){
 		$fotos = Foto::model()->findAll();
 		foreach($fotos as $foto){
