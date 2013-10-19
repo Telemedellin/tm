@@ -178,12 +178,12 @@ class Micrositio extends CActiveRecord
 	        	$this->usuario_id	= 1;
 	        	$this->pagina_id 	= NULL;
 	        	$this->menu_id 		= NULL;
-	        	$this->creado 		= mktime( date('H'), date('i'), date('s'), date('m'), date('d'), date('Y') );
+	        	$this->creado 		= date('Y-m-d H:i:s');
 	            $this->estado 		= 1;
 	        }
 	        else
 	        {
-	            $this->modificado	= mktime( date('H'), date('i'), date('s'), date('m'), date('d'), date('Y') );
+	            $this->modificado	= date('Y-m-d H:i:s');
 	        }
 	        return true;
 	    }

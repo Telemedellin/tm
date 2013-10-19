@@ -960,7 +960,7 @@ nav ul {
 	height: 88%;
 }
 #micrositio.PgArticuloBlog {
-	height:85%;
+	height:88%;
 }
 #micrositio.PgGenericaST iframe {
 	height: auto;
@@ -1760,6 +1760,9 @@ nav ul {
 	font-size: 1.6em;
 	padding: 25px 20px 0 0;
 	width: 40%;
+}
+#seccion.concursos p{
+	margin: 25px 0;
 }
 #second-nav {
 	background: #242626 url('/tm/images/static/overlays/08.png');

@@ -472,7 +472,7 @@ class TelemedellinController extends Controller
 		echo '<h2>Fin</h2>';
 	}
 
-	public function actionThumbs(){
+	/*public function actionThumbs(){
 		$fotos = Foto::model()->findAll();
 		foreach($fotos as $foto){
 			$thumb = $foto->thumb;
@@ -481,6 +481,19 @@ class TelemedellinController extends Controller
 			$nuevo_nombre = $nombre.'_thumb'.$ext;
 
 			$foto->thumb = $nuevo_nombre;
+			$foto->save();
+		}
+	}*/
+	public function actionRutas(){
+		$fotos = Micrositio::model()->findAll(array('limit' => 100));
+		foreach($fotos as $foto){
+			$background = $foto->background;
+			if(substr($background, 0, 8) == '/images/')
+				$foto->background = substr($background, 8);
+			/*
+			$thumb = $foto->thumb;
+			if(substr($thumb, 0, 16) == '/images/')
+				$foto->thumb = substr($thumb, 16);*/
 			$foto->save();
 		}
 	}

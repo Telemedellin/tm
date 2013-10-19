@@ -50,6 +50,7 @@ return array(
 	            'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
 	            'administrador'=>'administrador/admin',
 	            'administrador/<controller:\w+>'=>'administrador/<controller>',
+	            'administrador/<controller:\w+>/<action:\w+>/<id:\d+>'=>'administrador/<controller>/<action>',
 	            'administrador/<controller:\w+>/<action:\w+>'=>'administrador/<controller>/<action>',
 				array(
 				    'class' => 'application.components.TmUrlRule',

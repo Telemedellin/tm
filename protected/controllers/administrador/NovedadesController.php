@@ -15,7 +15,7 @@ class NovedadesController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -36,8 +36,8 @@ class NovedadesController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('delete'),
+				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -54,8 +54,8 @@ class NovedadesController extends Controller
 		$dataProvider = new CActiveDataProvider('Pagina', array(
 													    'criteria'=>array(
 													        'condition'=>'tipo_pagina_id = 3',
-													        /*'order'=>'create_time DESC',
-													        'with'=>array('author'),*/
+													        'order'=>'creado DESC',
+													        /*'with'=>array('author'),*/
 													    )) );
 		$this->render('index', array(
 			'dataProvider'=>$dataProvider,
@@ -74,24 +74,66 @@ class NovedadesController extends Controller
 	}
 
 	/**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionDelete($id)
+	{
+		//Borrar pgArticuloBlog
+		$pgAB = pgArticuloBlog::model()->findByAttributes(array('pagina_id' => $id));
+		$imagen = $pgAB->imagen;
+		$miniatura = $pgAB->miniatura;
+		$transaccion = $pgAB->dbConnection->beginTransaction();
+		if( $pgAB->delete() )
+		{
+			//Borrar Página
+			$pagina = Pagina::model()->findByPk($id);
+			$url_id = $pagina->url_id;
+			if( $pagina->delete() ){
+				//Borrar Url
+				$url = Url::model()->findByPk($url_id);
+				if($url->delete()){
+					$transaccion->commit();
+					//Borrar Archivos
+					unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
+					unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
+				}else{
+					$transaccion->rollback();
+				}
+			}else{
+				$transaccion->rollback();		
+			}
+			
+		}else
+		{
+			$transaccion->rollback();
+		}
+		echo 'hola';
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+	}
+
+	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionCrear()
 	{
-		if( !isset(Yii::app()->session['dir']) ) Yii::app()->session['dir'] = date('Y') . '/' . date('m') . '/';
+		if( !isset(Yii::app()->session['dir']) ) Yii::app()->session['dir'] = 'novedades/' . date('Y') . '/' . date('m') . '/';
 
 		$novedadesForm = new NovedadesForm;
 
 		if(isset($_POST['NovedadesForm'])){
-			$novedadesForm->attributes = $_POST['RegistroForm'];
+			$novedadesForm->attributes = $_POST['NovedadesForm'];
 			if( isset(Yii::app()->session['dir']) ){
 				$dir = Yii::app()->session['dir'];
 			}
 			if($novedadesForm->validate()){
 				$url = new URL;
 				$transaccion 	= $url->dbConnection->beginTransaction();
-				$url->slug 		= $this->slugger($novedadesForm->nombre);
+				$url->slug 		= 'novedades/' . $this->slugger($novedadesForm->nombre);
 				$url->tipo_id 	= 3; //Página
 				$url->estado  	= 1;
 				if( !$url->save(false) ) $transaccion->rollback();
@@ -111,41 +153,8 @@ class NovedadesController extends Controller
 				$pgAB->pagina_id 	= $pagina_id;
 				$pgAB->entradilla 	= $novedadesForm->entradilla;
 				$pgAB->texto 		= $novedadesForm->texto;
-
-
-				if( is_dir(Yii::getPathOfAlias('webroot').'/images/novedades/' . $dir) ){
-					$directorio = dir( Yii::getPathOfAlias('webroot').'/images/novedades/' . $dir ); 
-					while ( $archivo = $directorio->read() ){
-						if( $archivo !== "." && $archivo !== ".." && $archivo !== "thumbnail" ){					
-							$imagen = 'novedades/' . $dir . $archivo;
-							break;
-						}
-					}								
-					$directorio->close(); 					
-				}//if( is_dir(Yii::getPathOfAlias('webroot').'/images/novedades/' . $dir) )
-				else
-				{
-					//Hacer algo porque la imagen es obligatoria
-					$transaccion->rollback();
-				}
-				if( is_dir(Yii::getPathOfAlias('webroot').'/images/novedades/' . $dir . 'thumbnail/') ){
-					$tdirectorio = dir( Yii::getPathOfAlias('webroot').'/images/novedades/' . $dir . 'thumbnail/' ); 
-					while ( $tarchivo = $tdirectorio->read() ){
-						if( $tarchivo !== "." && $tarchivo !== ".." && $tarchivo !== "thumbnail" ){					
-							$miniatura = 'novedades/' . $dir . 'thumbnail/' . $tarchivo;
-							break;
-						}
-					}								
-					$tdirectorio->close(); 					
-				}//if( is_dir(Yii::getPathOfAlias('webroot').'/images/novedades/' . $dir) )
-				else
-				{
-					//Hacer algo porque la imagen es obligatoria
-					$transaccion->rollback();
-				}
-
-				$pgAB->imagen 		= $imagen;
-				$pgAB->miniatura 	= $miniatura;
+				$pgAB->imagen 		= $dir . $novedadesForm->imagen;
+				$pgAB->miniatura 	= $dir . 'thumbnail/' . $novedadesForm->miniatura;
 				$pgAB->estado 		= 1;
 				
 				if( !$pgAB->save(false) )
@@ -164,13 +173,6 @@ class NovedadesController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		/*
-		if(isset($_POST['NovedadesForm']))
-		{
-			$model->attributes = $_POST['NovedadesForm'];
-			/*if($model->save())
-				$this->redirect(array('view','id'=>$model->id));*/
-		//}
 
 		$this->render('crear',array(
 			'model'=>$novedadesForm,
@@ -186,10 +188,11 @@ class NovedadesController extends Controller
 																	 )
 												),*/
 					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/novedades/imagen',
-					  	'max_number_of_files' => 1,
-						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/novedades/' . $dir,
-	            		'upload_url' => Yii::app()->request->baseUrl.'/images/novedades/' . $dir,	
+					  	'max_number_of_files' => null,
+						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/' . $dir,
+	            		'upload_url' => Yii::app()->request->baseUrl.'/images/' . $dir,	
 	            		'accept_file_types' => '/(\.|\/)(gif|jpe?g|png)$/i',
+	            		'param_name' => 'archivoImagen',
 				);
 		$messages = array(
         			1 => 'El archivo subido excede la directiva upload_max_filesize en php.ini',
@@ -203,7 +206,7 @@ class NovedadesController extends Controller
         			'max_file_size' => 'El archivo es demasiado pesado',
         			'min_file_size' => 'El archivo no tiene el peso suficiente',
         			'accept_file_types' => 'Tipo de archivo no permitido',
-        			'max_number_of_files' => 'Número máximo de archivos se superó. Solo se permite una foto de perfil',
+        			'max_number_of_files' => 'Número máximo de archivos se superó. Solo se permite una imagen',
         			'max_width' => 'La imagen excede el ancho máximo',
         			'min_width' => 'La imagen no tiene el ancho suficiente',
         			'max_height' => 'La imagen excede el alto máximo',
@@ -216,15 +219,16 @@ class NovedadesController extends Controller
 		if(isset(Yii::app()->session['dir'])){
 			$dir = Yii::app()->session['dir'];
 		}
-		$data = array(	/*'image_versions' => array( 'thumbnail' => array(	'max_width' => 50,
-																		'max_height' => 35
-																	 )
-												),*/
+		$data = array(	'image_versions' => array( '' => array(	'max_width' => 50,
+																'max_height' => 35
+															 )
+												),
 					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/novedades/imagen',
-					  	'max_number_of_files' => 1,
-						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/novedades/' . $dir . 'thumbnail/',
-	            		'upload_url' => Yii::app()->request->baseUrl.'/images/novedades/' . $dir . 'thumbnail/',	
+					  	'max_number_of_files' => null,
+						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/' . $dir . 'thumbnail/',
+	            		'upload_url' => Yii::app()->request->baseUrl.'/images/' . $dir . 'thumbnail/',	
 	            		'accept_file_types' => '/(\.|\/)(gif|jpe?g|png)$/i',
+	            		'param_name' => 'archivoMiniatura',
 				);
 		$messages = array(
         			1 => 'El archivo subido excede la directiva upload_max_filesize en php.ini',
@@ -238,7 +242,7 @@ class NovedadesController extends Controller
         			'max_file_size' => 'El archivo es demasiado pesado',
         			'min_file_size' => 'El archivo no tiene el peso suficiente',
         			'accept_file_types' => 'Tipo de archivo no permitido',
-        			'max_number_of_files' => 'Número máximo de archivos se superó. Solo se permite una foto de perfil',
+        			'max_number_of_files' => 'Número máximo de archivos se superó. Solo se permite una miniatura',
         			'max_width' => 'La imagen excede el ancho máximo',
         			'min_width' => 'La imagen no tiene el ancho suficiente',
         			'max_height' => 'La imagen excede el alto máximo',
@@ -249,15 +253,22 @@ class NovedadesController extends Controller
 
 	private function slugger($title)
 	{
-		$slug = preg_replace('@[\s!:;_\?=\\\+\*/%&#]+@', '-', $title);
-        if (true === $this->toLower) {
-            $slug = mb_strtolower($slug, \Yii::app()->charset);
-        }
-        $slug = trim($slug, '-');
-
-        $slug = $this->verificarSlug($slug);
-
-        return $slug;
+		$characters = array(
+			"Á" => "A", "Ç" => "c", "É" => "e", "Í" => "i", "Ñ" => "n", "Ó" => "o", "Ú" => "u", 
+			"á" => "a", "ç" => "c", "é" => "e", "í" => "i", "ñ" => "n", "ó" => "o", "ú" => "u",
+			"à" => "a", "è" => "e", "ì" => "i", "ò" => "o", "ù" => "u"
+		);
+		
+		$string = strtr($title, $characters); 
+		$string = strtolower(trim($string));
+		$string = preg_replace("/[^a-z0-9-]/", "-", $string);
+		$string = preg_replace("/-+/", "-", $string);
+		
+		if(substr($string, strlen($string) - 1, strlen($string)) === "-") {
+			$string = substr($string, 0, strlen($string) - 1);
+		}
+		
+		return $string;
 	}
 	private function verificarSlug($slug)
 	{
@@ -284,53 +295,77 @@ class NovedadesController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+
+		if( !isset(Yii::app()->session['dir']) ) Yii::app()->session['dir'] = 'novedades/' . date('Y') . '/' . date('m') . '/';
+
+		$pagina = Pagina::model()->with('url', 'pgArticuloBlogs')->findByPk($id);
+		$novedadesForm = new NovedadesForm;
+		$novedadesForm->id = $id;
+		$novedadesForm->nombre = $pagina->nombre;
+		$novedadesForm->entradilla = $pagina->pgArticuloBlogs->entradilla;
+		$novedadesForm->texto = $pagina->pgArticuloBlogs->texto;
+		$novedadesForm->imagen = $pagina->pgArticuloBlogs->imagen;
+		$novedadesForm->miniatura = $pagina->pgArticuloBlogs->miniatura;
+		$novedadesForm->estado = $pagina->estado;
+		$novedadesForm->destacado = $pagina->destacado;
+
+		if(isset($_POST['NovedadesForm'])){
+			$novedadesForm->attributes = $_POST['NovedadesForm'];
+			if( isset(Yii::app()->session['dir']) ){
+				$dir = Yii::app()->session['dir'];
+			}
+			if($novedadesForm->validate()){
+				if($novedadesForm->nombre != $pagina->nombre){
+					$url = URL::model()->findByPk($pagina->url_id);
+					$url->slug 		= 'novedades/' . $this->slugger($novedadesForm->nombre);
+					$url->save(false);
+				}
+				
+				$pagina = Pagina::model()->findByPk($id);
+				$transaccion 	= $pagina->dbConnection->beginTransaction();
+
+				$pagina->nombre			= $novedadesForm->nombre;
+				$pagina->destacado		= $novedadesForm->destacado;
+				$pagina->estado			= $novedadesForm->estado;
+				if( !$pagina->save(false) ) $transaccion->rollback();
+				$pagina_id = $pagina->id;
+
+				$pgAB = pgArticuloBlog::model()->findByAttributes(array('pagina_id' => $pagina_id));
+
+				if($dir . $novedadesForm->imagen != $pgAB->imagen)
+				{
+					unlink( Yii::getPathOfAlias('webroot').'/images/' . $pgAB->imagen);
+					$pgAB->imagen 	= $dir . $novedadesForm->imagen;
+				}
+				if($dir . $novedadesForm->miniatura != $pgAB->miniatura)
+				{
+					unlink( Yii::getPathOfAlias('webroot').'/images/' . $pgAB->miniatura);
+					$pgAB->miniatura 	= $dir . $novedadesForm->miniatura;
+				}
+
+				$pgAB->entradilla 	= $novedadesForm->entradilla;
+				$pgAB->texto 		= $novedadesForm->texto;
+				$pgAB->estado 		= $novedadesForm->estado;
+				
+				if( !$pgAB->save(false) )
+					$transaccion->rollback();
+				else
+				{
+					$transaccion->commit();
+					Yii::app()->user->setFlash('mensaje', 'Novedad ' . $novedadesForm->nombre . ' modificada con éxito');
+					$this->redirect(array('view','id' => $novedadesForm->id));
+				}
+				
+
+			}//if($novedadesForm->validate())
+
+		} //if(isset($_POST['NovedadesForm']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Url']))
-		{
-			$model->attributes=$_POST['Url'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
-	public function actionDelete($id)
-	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-	}
-
-	
-
-
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Url('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Url']))
-			$model->attributes=$_GET['Url'];
-
-		$this->render('admin',array(
-			'model'=>$model,
+		$this->render('modificar',array(
+			'model'=>$novedadesForm,
 		));
 	}
 

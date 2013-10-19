@@ -145,9 +145,6 @@ class Pagina extends CActiveRecord
 	{
 		if( !$micrositio_id ) return false;
 		$c 			= new CDbCriteria;
-		$c->select 	= 't.*, tipo_pagina.tabla, url.slug';
-		$c->join 	= 'JOIN tipo_pagina ON tipo_pagina.id = t.tipo_pagina_id';
-		$c->join 	.= ' JOIN url ON url.id = t.url_id';
 		$c->limit 	= $limite;
 		$c->offset 	= $offset;
 		$c->order 	= 't.nombre DESC';
@@ -155,7 +152,7 @@ class Pagina extends CActiveRecord
 		$c->addCondition( 't.estado <> 0' );
 
 		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM pagina WHERE micrositio_id = $micrositio_id AND estado <> 0");
-		$paginas  	= $this->cache(3600, $dependencia)->findAll( $c );
+		$paginas  	= $this->cache(3600, $dependencia)->with('url', 'tipoPagina')->findAll( $c );
 
 		if( !$paginas ) return false;
 		$r = array();
@@ -170,6 +167,23 @@ class Pagina extends CActiveRecord
 
 		return $r;
 
+	}
+
+	public function listarNovedades( $limite = 20, $offset = 0 )
+	{
+		$micrositio_id = 2;
+		$c 			= new CDbCriteria;
+		$c->limit 	= $limite;
+		$c->offset 	= $offset;
+		$c->order 	= 't.creado DESC, t.destacado DESC';
+		$c->addCondition( 't.micrositio_id = "' . $micrositio_id . '"' );
+		$c->addCondition( 't.estado <> 0' );
+
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM pagina WHERE micrositio_id = $micrositio_id AND estado <> 0");
+		$paginas  	= $this->cache(3600, $dependencia)->with('url', 'tipoPagina', 'pgArticuloBlogs')->findAll( $c );
+
+		if( !$paginas ) return false;
+		return $paginas;
 	}
 
 	public function cargarPagina($pagina_id = 0)
@@ -260,14 +274,14 @@ class Pagina extends CActiveRecord
 	        {
 	        	$this->usuario_id	= 1;
 	        	$this->revision_id 	= NULL;
-	        	$this->creado 		= mktime( date('H'), date('i'), date('s'), date('m'), date('d'), date('Y') );
+	        	$this->creado 		= date('Y-m-d H:i:s');
 	            $this->estado 		= 1;
 	        }
 	        else
 	        {
 	            //Crear la revisión
 	            $this->revision_id 	= NULL;
-	            $this->modificado	= mktime( date('H'), date('i'), date('s'), date('m'), date('d'), date('Y') );
+	            $this->modificado	= date('Y-m-d H:i:s');
 	        }
 	        return true;
 	    }

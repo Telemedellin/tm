@@ -13,7 +13,7 @@ cs()->registerScript(
     $(this).superslides("stop");
   });
   $("#novedades").on("mouseleave", function() {
-    $(this).superslides("start");
+    setTimeout(function(){$(this).superslides("start");}, 10000);
   });
   $("#novedades").on("started.slides", function(){
     set_current();
@@ -40,15 +40,15 @@ cs()->registerScript(
     $i         = 0;
     foreach($this->getNovedades() as $novedad): ?>
     <li class="novedad">
-      <img src="<?php echo bu() . '/' . $novedad['contenido']->imagen; ?>" alt="<?php echo $novedad['pagina']->nombre; ?>" />
+      <img src="<?php echo bu() . '/images/' . $novedad->pgArticuloBlogs->imagen; ?>" alt="<?php echo $novedad->nombre; ?>" />
       <div class="container">
-        <h3><?php echo $novedad['pagina']->nombre; ?></h3>
-        <p><?php echo $novedad['contenido']['entradilla']; ?></p>
-        <a href="<?php echo bu($novedad['pagina']->url->slug) ?>" class="ver-mas">Ver más de <?php echo $novedad['pagina']->nombre; ?></a>
+        <h3><?php echo $novedad->nombre; ?></h3>
+        <p><?php echo $novedad->pgArticuloBlogs->entradilla; ?></p>
+        <a href="<?php echo bu($novedad->url->slug) ?>" class="ver-mas">Ver más de <?php echo $novedad->nombre; ?></a>
       </div>
     </li>
     <?php 
-    $paginador .= '<a class="'.$i.'" href="#'.($i+1).'"><img src="'. bu() . '/' . $novedad['contenido']->miniatura .'" /></a>' . "\r\n";
+    $paginador .= '<a class="'.$i.'" href="#'.($i+1).'"><img src="'. bu() . '/images/' . $novedad->pgArticuloBlogs->miniatura .'" /></a>' . "\r\n";
     $i++;
     endforeach;
     ?>

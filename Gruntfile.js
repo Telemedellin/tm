@@ -38,6 +38,10 @@ module.exports = function(grunt) {
       css: {
         src: ['css/libs/*.css', 'css/main.css'],
         dest: 'css/styles.css'
+      },
+      admin_css: {
+        src: ['css/libs/admin/*.css', 'css/main_admin.css'],
+        dest: 'css/styles.admin.css'
       }
     },
     removelogging: {
@@ -107,9 +111,16 @@ module.exports = function(grunt) {
         src: ['styles.css'],
         dest: 'css/',
         ext: '.min.css'
+      },
+      aminify: {
+        expand: true,
+        cwd: 'css/',
+        src: ['styles.admin.css'],
+        dest: 'css/',
+        ext: '.admin.min.css'
       }
     },
-    clean: ['js/libs.js', 'css/styles.css', 'js/iframe.libs.js', 'js/admin.libs.js'],
+    clean: ['js/libs.js', 'css/styles.css', 'css/styles.admin.css', 'js/iframe.libs.js', 'js/admin.libs.js'],
     watch : {
       scripts: {
         files: ['js/app-dev.js'],
@@ -145,6 +156,13 @@ module.exports = function(grunt) {
         options: {
           spawn: false
         },
+      },
+      styles_admin: {
+        files: ['css/main_admin.css', 'css/libs/admin/*.css'] ,
+        tasks: ['css_admin'],
+        options: {
+          spawn: false
+        },
       }
     }
   });
@@ -164,6 +182,6 @@ module.exports = function(grunt) {
   grunt.registerTask('admin-app', ['removelogging:admin_app', 'uglify:admin_app']); 
   grunt.registerTask('iframe-app', ['removelogging:iframe_app', 'uglify:iframe_app']); 
   grunt.registerTask('file-app', ['removelogging:file_app', 'uglify:file_app']); 
-  grunt.registerTask('css', ['concat:css', 'cssmin', 'clean']);
-
+  grunt.registerTask('css', ['concat:css', 'cssmin:minify', 'clean']);
+  grunt.registerTask('css_admin', ['concat:admin_css', 'cssmin:aminify', 'clean']);
 };

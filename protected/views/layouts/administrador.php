@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/admin-main.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/styles.admin.min.css" />
 
 	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
 </head>
@@ -24,6 +24,14 @@
 						<ul class="nav nav-stacked nav-pills">
 							<li>
 								<a href="<?php echo bu('administrador/novedades/crear'); ?>">Crear</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="<?php echo bu('administrador/concursos'); ?>">Concursos</a>
+						<ul class="nav nav-stacked nav-pills">
+							<li>
+								<a href="<?php echo bu('administrador/concursos/crear'); ?>">Crear</a>
 							</li>
 						</ul>
 					</li>

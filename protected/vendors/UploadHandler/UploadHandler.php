@@ -99,14 +99,14 @@ class UploadHandler
                     'max_height' => 600,
                     'jpeg_quality' => 80
                 ),
-                */
+                
                 'thumbnail' => array(
                     // Uncomment the following to force the max
                     // dimensions and e.g. create square thumbnails:
                     'crop' => true,
                     'max_width' => 200,
                     'max_height' => 200
-                )
+                )*/
             )
         );
         if ($options) {
@@ -449,7 +449,7 @@ class UploadHandler
     protected function upcount_name_callback($matches) {
         $index = isset($matches[1]) ? intval($matches[1]) + 1 : 1;
         $ext = isset($matches[2]) ? $matches[2] : '';
-        return ' ('.$index.')'.$ext;
+        return '-'.$index.$ext;
     }
 
     protected function upcount_name($name) {
@@ -462,7 +462,7 @@ class UploadHandler
     }
 
     protected function get_unique_filename($name,
-            $type = null, $index = null, $content_range = null) {
+        $type = null, $index = null, $content_range = null) {
         while(is_dir($this->get_upload_path($name))) {
             $name = $this->upcount_name($name);
         }

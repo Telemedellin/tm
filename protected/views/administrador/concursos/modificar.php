@@ -3,7 +3,7 @@
 /* @var $model Url */
 
 $this->breadcrumbs=array(
-	'Urls'=>array('index'),
+	'Concursoes'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Actualizar',
 );
@@ -16,6 +16,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Actualizar Url <?php echo $model->slug; ?></h1>
+<h1>Modificar Concurso <?php //echo $model->slug; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

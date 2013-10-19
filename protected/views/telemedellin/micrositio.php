@@ -11,7 +11,7 @@ $this->breadcrumbs = $bc;
 $this->pageTitle = $micrositio->nombre;
 
 if( !empty($micrositio->background) )
-	cs()->registerCss('background', 'body{background-image: url("' . bu($micrositio->background) . '");}');
+	cs()->registerCss('background', 'body{background-image: url("' . bu('/images/'.$micrositio->background) . '");}');
 
 cs()->registerScript( 'scroll', 
 	'$("#micrositio").mCustomScrollbar({

@@ -7,6 +7,7 @@
  */
 class NovedadesForm extends CFormModel
 {
+	public $id;
 	public $nombre;
 	public $destacado;
 	public $entradilla;
@@ -22,7 +23,8 @@ class NovedadesForm extends CFormModel
 	{
 		return array(
 			// name, email, subject and body are required
-			array('nombre, entradilla, texto, imagen, miniatura', 'required'),
+			array('nombre, entradilla, texto', 'required'),
+			array('imagen, miniatura', 'length', 'max'=>255),
 		);
 	}
 

@@ -3,6 +3,7 @@
 <?php $form = $this->beginWidget('CActiveForm', array(
 	'id'=>'url-form',
 	'enableAjaxValidation'=>false,
+    'htmlOptions' => array('enctype' => 'multipart/form-data')
 )); ?>
 	<?php echo $form->errorSummary($model); ?>
 	<div class="form-group">
@@ -22,6 +23,7 @@
 	</div>
 	<div class="form-group">
         <?php echo $form->labelEx($model,'imagen'); ?>
+        <?php echo $form->hiddenField($model, 'imagen', array('id' => 'archivoImagenH') ); ?>
         <div class="controls">
             <div id="imagen">
                 <!-- Mensaje cuando el Javascript se encuentra deshabilitado -->
@@ -33,7 +35,8 @@
                         <span class="btn btn-success fileinput-button">
                             <span>Añadir archivo</span>
                             <i class="icon-plus icon-white"></i>
-                            <input id="archivoImagen" type="file" name="files[]" multiple>
+                            <?php //echo $form->fileField($model, 'imagen', array('id' => 'archivoImagen', 'name' => 'archivoImagen[]')); ?>
+                            <input id="archivoImagen" type="file" name="archivoImagen[]">
                         </span>              
                         <span class="fileupload-loading"></span>
                     </div>
@@ -56,6 +59,7 @@
 	</div>
 	<div class="form-group">
         <?php echo $form->labelEx($model,'miniatura'); ?>
+        <?php echo $form->hiddenField($model, 'miniatura', array('id' => 'archivoMiniaturaH') ); ?>
         <div class="controls">
             <div id="miniatura">
                 <!-- Mensaje cuando el Javascript se encuentra deshabilitado -->
@@ -67,7 +71,8 @@
                         <span class="btn btn-success fileinput-button">
                             <span>Añadir archivo</span>
                             <i class="icon-plus icon-white"></i>
-                            <input id="archivoMiniatura" type="file" name="files[]" multiple>
+                            <?php //echo $form->fileField($model, 'imagen', array('id' => 'archivoMiniatura', 'name' => 'archivoMiniatura[]')); ?>
+                            <input id="archivoMiniatura" type="file" name="archivoMiniatura[]" multiple>
                         </span>              
                         <span class="fileupload-loading"></span>
                     </div>

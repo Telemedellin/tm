@@ -27,6 +27,7 @@ $this->menu=array(
 		'pgArticuloBlogs.entradilla',
 		'pgArticuloBlogs.texto:html',
 		'pgArticuloBlogs.imagen',
+		'pgArticuloBlogs.miniatura',
 		'creado',
 		'modificado',
 		'destacado',
