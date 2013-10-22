@@ -6,6 +6,13 @@ $ru = Yii::app()->request->requestUri;
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script>
+	var n = navigator.userAgent.toLowerCase();
+	if( n.search(/android|blackberry|iphone|ipod|iemobile|opera mobile|palmos|webos/) > -1 ){
+		document.location = 'http://m.telemedellin.tv';
+	}
+
+	</script>
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/bootstrap-responsive.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/jquery.fancybox.css" />
@@ -80,9 +87,6 @@ $ru = Yii::app()->request->requestUri;
 </div>
 <div id="dots"></div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<!--<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/bootstrap.min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/modernizr.custom.30163.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/mustache/mustache.js"></script>-->
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.min.js"></script>
 <!--[if LTE IE 9]>

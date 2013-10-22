@@ -109,6 +109,8 @@ class ProgramacionController extends Controller
 	 */
 	public function actionView($id)
 	{
+		date_default_timezone_set('America/Bogota');
+		setlocale(LC_ALL, 'es_ES.UTF-8');
 		$this->render('ver', array(
 			'model' => $this->loadModel($id),
 		));
@@ -137,6 +139,8 @@ class ProgramacionController extends Controller
 	 */
 	public function actionCrear()
 	{
+		date_default_timezone_set('America/Bogota');
+		setlocale(LC_ALL, 'es_ES.UTF-8');
 		$programacion = new Programacion;
 
 		if(isset($_POST['Programacion'])){
@@ -165,7 +169,8 @@ class ProgramacionController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-
+		date_default_timezone_set('America/Bogota');
+		setlocale(LC_ALL, 'es_ES.UTF-8');
 		$programacion = Programacion::model()->with('micrositio')->findByPk($id);
 		
 		if(isset($_POST['Programacion'])){
@@ -173,7 +178,7 @@ class ProgramacionController extends Controller
 			
 			if( $programacion->save() )
 			{
-				Yii::app()->user->setFlash('mensaje', 'Programacion ' . $programacion->nombre . ' modificada con éxito');
+				Yii::app()->user->setFlash('mensaje', 'Programacion ' . $programacion->micrositio->nombre . ' modificada con éxito');
 				$this->redirect(array('view','id' => $programacion->id));
 			}
 			
