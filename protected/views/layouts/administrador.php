@@ -67,7 +67,7 @@
 		</div>
 		<footer>&copy; 2013</footer>
 	</div>
-<?php if( cs()->isScriptFileRegistered( cs()->getCoreScriptUrl() . '/jquery.js', CClientScript::POS_END ) ): ?>
+<?php if( !cs()->isScriptFileRegistered( cs()->getCoreScriptUrl() . '/jquery.js', CClientScript::POS_END ) ): ?>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <?php endif ?>
 <?php cs()->registerScriptFile('http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js', CClientScript::POS_END) ?>

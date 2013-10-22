@@ -7,7 +7,7 @@
  */
 class LoginForm extends CFormModel
 {
-	public $username;
+	public $correo;
 	public $password;
 	public $rememberMe;
 
@@ -22,7 +22,7 @@ class LoginForm extends CFormModel
 	{
 		return array(
 			// username and password are required
-			array('username, password', 'required'),
+			array('correo, password', 'required'),
 			// rememberMe needs to be a boolean
 			array('rememberMe', 'boolean'),
 			// password needs to be authenticated
@@ -36,7 +36,9 @@ class LoginForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'rememberMe'=>'Remember me next time',
+			'correo'	=> 'Correo',
+			'password'	=> 'Contraseña',
+			'rememberMe'=> 'Recordarme',
 		);
 	}
 
@@ -48,9 +50,18 @@ class LoginForm extends CFormModel
 	{
 		if(!$this->hasErrors())
 		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
-			if(!$this->_identity->authenticate())
-				$this->addError('password','Incorrect username or password.');
+			$this->_identity = new UserIdentity($this->correo,$this->password);
+			if(!$this->_identity->authenticate()){
+				if($this->_identity->errorCode===UserIdentity::ERROR_STATUS)
+		        {
+		            $this->addError('correo','La cuenta aún no a sido activada');
+		        }
+		        else
+		        {
+		        	$this->addError('password','El correo o la contraseña no están bien');
+		        }
+			}
+				
 		}
 	}
 
@@ -62,13 +73,14 @@ class LoginForm extends CFormModel
 	{
 		if($this->_identity===null)
 		{
-			$this->_identity=new UserIdentity($this->username,$this->password);
+			$this->_identity = new UserIdentity($this->correo,$this->password);
 			$this->_identity->authenticate();
 		}
-		if($this->_identity->errorCode===UserIdentity::ERROR_NONE)
+		if($this->_identity->errorCode === UserIdentity::ERROR_NONE)
 		{
+			print_r('SI');
 			$duration=$this->rememberMe ? 3600*24*30 : 0; // 30 days
-			Yii::app()->user->login($this->_identity,$duration);
+			Yii::app()->user->login($this->_identity, $duration);
 			return true;
 		}
 		else

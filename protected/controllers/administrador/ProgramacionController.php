@@ -28,16 +28,9 @@ class ProgramacionController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('crear','update'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('delete'),
-				'users'=>array('*'),
+				'actions'=>array('index','view', 'crear','update', 'delete'),
+				'users'=>array('@'),
+				'deniedCallback' => $this->redirect(bu('/administrador/ingresar'))
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),

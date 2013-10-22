@@ -20,7 +20,7 @@ return array(
 		'application.vendors.bcrypt.*',
 		'application.vendors.UploadHandler.*'
 	),
-
+	
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 		'gii'=>array(
@@ -38,7 +38,8 @@ return array(
 	'components'=>array(
 		'user'=>array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+			//'allowAutoLogin'=>true,
+			'loginUrl'=>array('administrador/ingresar'),
 		),
 		// uncomment the following to enable URLs in path-format
 		'urlManager'=>array(
@@ -49,6 +50,10 @@ return array(
 	            'gii/<controller:\w+>'=>'gii/<controller>',
 	            'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
 	            'administrador'=>'administrador/admin',
+	            'administrador/ingresar'=>'administrador/admin/ingresar',
+	            'administrador/registro'=>'administrador/admin/registro',
+	            'administrador/salir'=>'administrador/admin/salir',
+	            'administrador/recuperar-contrasena'=>'administrador/admin/recuperarcontrasena',
 	            'administrador/<controller:\w+>'=>'administrador/<controller>',
 	            'administrador/<controller:\w+>/<action:\w+>/<id:\d+>'=>'administrador/<controller>/<action>',
 	            'administrador/<controller:\w+>/<action:\w+>'=>'administrador/<controller>/<action>',

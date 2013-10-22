@@ -27,25 +27,28 @@ Yii::app()->clientScript->registerScript('datepicker',
         }, 
         $.datepicker.regional[ "es" ]
     );
-    endDateTextBox.datetimepicker({ 
-       dateFormat: "yy-mm-dd",
-       timeFormat: "H:mm:ss",
-        minuteGrid: 10,
-        onClose: function(dateText, inst) {
-            if (startDateTextBox.val() != "") {
-                var testStartDate = startDateTextBox.datetimepicker("getDate");
-                var testEndDate = endDateTextBox.datetimepicker("getDate");
-                if (testStartDate > testEndDate)
-                    startDateTextBox.datetimepicker("setDate", testEndDate);
-            }
-            else {
-                startDateTextBox.val(dateText);
+    endDateTextBox.datetimepicker(
+        { 
+           dateFormat: "yy-mm-dd",
+           timeFormat: "H:mm:ss",
+            minuteGrid: 10,
+            onClose: function(dateText, inst) {
+                if (startDateTextBox.val() != "") {
+                    var testStartDate = startDateTextBox.datetimepicker("getDate");
+                    var testEndDate = endDateTextBox.datetimepicker("getDate");
+                    if (testStartDate > testEndDate)
+                        startDateTextBox.datetimepicker("setDate", testEndDate);
+                }
+                else {
+                    startDateTextBox.val(dateText);
+                }
+            },
+            onSelect: function (selectedDateTime){
+                startDateTextBox.datetimepicker("option", "maxDate", endDateTextBox.datetimepicker("getDate") );
             }
         },
-        onSelect: function (selectedDateTime){
-            startDateTextBox.datetimepicker("option", "maxDate", endDateTextBox.datetimepicker("getDate") );
-        }
-    });', 
+        $.datepicker.regional[ "es" ]
+    );', 
     CClientScript::POS_READY);
 ?>
 <div class="form">
@@ -66,7 +69,7 @@ Yii::app()->clientScript->registerScript('datepicker',
 	</div>
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'hora_fin'); ?>
-		<input name="Programacion[hora_fin]" type="text" value="<?php echo ($model->hora_fin)?date('Y-m-d H:i:s', $model->hora_fin):'' ?>" class="hora_inicio" />
+		<input name="Programacion[hora_fin]" type="text" value="<?php echo ($model->hora_fin)?date('Y-m-d H:i:s', $model->hora_fin):'' ?>" class="hora_fin" />
 		<?php echo $form->error($model,'hora_fin'); ?>
 	</div>
     <div class="form-group">
