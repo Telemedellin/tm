@@ -83,24 +83,32 @@ class ConcursosController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		//Borrar pgArticuloBlog
-		$pgAB = pgArticuloBlog::model()->findByAttributes(array('pagina_id' => $id));
-		$imagen = $pgAB->imagen;
-		$miniatura = $pgAB->miniatura;
-		$transaccion = $pgAB->dbConnection->beginTransaction();
-		if( $pgAB->delete() )
+		$micrositio = Micrositio::model()->findByPk($id);
+		$imagen = $micrositio->background;
+		$miniatura = $micrositio->miniatura;
+		$url_id = $micrositio->url_id;
+		$micrositio->pagina_id = null;
+		$micrositio->save();
+		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' =>$micrositio->id) );
+		$urlp_id = $pagina->url_id;
+		//Borrar PgGenericaSt
+		$pgGst = pgGenericaSt::model()->findByAttributes(array('pagina_id' => $pagina->id));
+		$transaccion = $pgGst->dbConnection->beginTransaction();
+		if( $pgGst->delete() )
 		{
 			//Borrar Página
-			$pagina = Pagina::model()->findByPk($id);
-			$url_id = $pagina->url_id;
 			if( $pagina->delete() ){
-				//Borrar Url
-				$url = Url::model()->findByPk($url_id);
-				if($url->delete()){
-					$transaccion->commit();
-					//Borrar Archivos
+				//Borrar Url de pagina
+				$urlp = Url::model()->findByPk($urlp_id);
+				//Borrar micrositio
+
+				if($micrositio->delete()){
 					unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
 					unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
+					//Borrar url de micrositio
+					$url = Url::model()->findByPk($url_id);
+					$url->delete();
+					$transaccion->commit();
 				}else{
 					$transaccion->rollback();
 				}
@@ -112,7 +120,6 @@ class ConcursosController extends Controller
 		{
 			$transaccion->rollback();
 		}
-		echo 'hola';
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));

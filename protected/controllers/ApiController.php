@@ -113,7 +113,7 @@ class ApiController extends Controller
 		}
 
 		if(!$va) throw new CHttpException(404, 'No se encontró la página solicitada');
-		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM video WHERE album_video_id = $album_video_id AND estado <> 0");
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM video WHERE album_video_id = $va->id AND estado <> 0");
 		$v = Video::model()->cache(3600, $dependencia)->findAllByAttributes( array('album_video_id' => $va->id) );
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';

@@ -3,7 +3,7 @@
 /* @var $model Url */
 
 $this->breadcrumbs=array(
-	'Concursoes'=>array('index'),
+	'Concursos'=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
 	'Actualizar',
 );

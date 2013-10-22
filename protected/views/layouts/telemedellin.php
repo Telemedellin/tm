@@ -13,12 +13,11 @@ $ru = Yii::app()->request->requestUri;
 	<!--[if LTE IE 9]>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie9.css" />
 	  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/html5shiv.js"></script>
-	  
 	<![endif]-->
 	<!--[if LTE IE 8]>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" />
-
 	<![endif]-->
+	<link rel="shortcut icon" href="favicon.ico" />
 	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
 	<?php $this->display_seo(); ?>
 </head>

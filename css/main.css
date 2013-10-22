@@ -4,7 +4,7 @@ a, a:hover{
 }
 
 body {
-	background: url('/tm/images/backgrounds/telemedellin_gente.jpg') no-repeat #000 center center;
+	background: url('/tm/images/backgrounds/generica-interna-1.jpg') no-repeat #000 center center;
 	background-size: cover;
 	background-attachment: fixed;
 	background-position:top;
@@ -762,10 +762,14 @@ nav ul {
 {
 	max-height: 290px;
 }
+#icontainer .mCustomScrollBox>.mCSB_scrollTools
+{
+	margin: 0;
+}
 #icontainer .videogaleria .full iframe{
 	display:block;
-	height: 290px;
 	margin: 0 auto;
+	width: 100%;
 }
 #icontainer .bx-prev,
 #icontainer .bx-next
@@ -1688,6 +1692,7 @@ nav ul {
 	font-weight: bold;
 }
 #redes_micrositio {
+	margin-top: 5px;
 	position: absolute;
 	right: 10px;
 	top: 5px;
@@ -1707,7 +1712,7 @@ nav ul {
 	-moz-border-radius-topleft: 10px;
 	border-top-left-radius: 10px;
 	color: #FFF;
-	padding: 7px;
+	padding: 5px;
 	vertical-align: top;
 }
 #redes_micrositio p
@@ -1842,8 +1847,7 @@ nav ul {
 		max-height: 250px;
 	}
 	#icontainer .videogaleria .full iframe{
-		height: 250px;
-		width: 444px;
+		width: 100%;
 	}
 	#programacion .programacion {
 		padding: 5px 5px 5px 15px;
@@ -1896,8 +1900,7 @@ nav ul {
 		max-height: 290px;
 	}
 	#icontainer .videogaleria .full iframe{
-		height: 290px;
-		width: 516px;
+		width: 100%;
 	}
 	#micrositio.programacion .menu_micrositio a
 	{
@@ -1954,8 +1957,7 @@ nav ul {
 		max-height: 390px;
 	}
 	#icontainer .videogaleria .full iframe{
-		height: 390px;
-		width: 693px;
+		width: 100%;
 	}
 	#micrositio.senal-en-vivo {
 		height: 90%;
@@ -2028,8 +2030,7 @@ nav ul {
 		max-height: 560px;
 	}
 	#icontainer .videogaleria .full iframe{
-		height: 490px;
-		width: 871px;
+		width: 100%;
 	}
 	#micrositio.programacion .menu_micrositio a
 	{

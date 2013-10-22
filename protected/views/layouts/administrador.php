@@ -8,7 +8,7 @@
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/styles.admin.min.css" />
-
+	<link rel="shortcut icon" href="favicon.ico" />
 	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
 </head>
 <body>
@@ -35,15 +35,15 @@
 							</li>
 						</ul>
 					</li>
-					<!--<li>
-						<a href="<?php echo bu('administrador/url'); ?>">URLs</a>
+					<li>
+						<a href="<?php echo bu('administrador/programacion'); ?>">Programación</a>
 						<ul class="nav nav-stacked nav-pills">
 							<li>
-								<a href="<?php echo bu('administrador/url/crear'); ?>">Crear</a>
+								<a href="<?php echo bu('administrador/programacion/crear'); ?>">Crear</a>
 							</li>
 						</ul>
 					</li>
-					<li>
+					<!--<li>
 						<a href="<?php echo bu('administrador/micrositio'); ?>">Micrositios</a>
 						<ul class="nav nav-stacked nav-pills">
 							<li>
@@ -67,9 +67,11 @@
 		</div>
 		<footer>&copy; 2013</footer>
 	</div>
+<?php if( cs()->isScriptFileRegistered( cs()->getCoreScriptUrl() . '/jquery.js', CClientScript::POS_END ) ): ?>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/admin.libs.min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/admin-dev.js"></script>
+<?php endif ?>
+<?php cs()->registerScriptFile('http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js', CClientScript::POS_END) ?>
+<?php cs()->registerScriptFile(bu('/js/admin.libs.min.js'), CClientScript::POS_END); ?>
+<?php cs()->registerScriptFile(bu('/js/admin-dev.js'), CClientScript::POS_END); ?>
 </body>
 </html>

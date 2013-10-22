@@ -44,10 +44,11 @@ class Programacion extends CActiveRecord
 		return array(
 			array('micrositio_id, hora_inicio, hora_fin, tipo_emision_id, estado', 'required'),
 			array('tipo_emision_id, estado', 'numerical', 'integerOnly'=>true),
-			array('micrositio_id, hora_inicio, hora_fin', 'length', 'max'=>10),
+			array('micrositio_id', 'length', 'max'=>10),
+			array('hora_inicio, hora_fin', 'length', 'max'=>19),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, micrositio_id, hora_inicio, hora_fin, en_vivo, tipo_emision_id, estado', 'safe', 'on'=>'search'),
+			array('id, micrositio_id, hora_inicio, hora_fin, tipo_emision_id, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,8 +75,8 @@ class Programacion extends CActiveRecord
 			'micrositio_id' => 'Micrositio',
 			'hora_inicio' => 'Hora Inicio',
 			'hora_fin' => 'Hora Fin',
-			'en_vivo' => 'En vivo',
-			'estado' => 'Estado',
+			'tipo_emision_id' => 'Tipo de emisión',
+			'estado' => 'Publicado',
 		);
 	}
 
@@ -94,7 +95,7 @@ class Programacion extends CActiveRecord
 		$criteria->compare('micrositio_id',$this->micrositio_id,true);
 		$criteria->compare('hora_inicio',$this->hora_inicio,true);
 		$criteria->compare('hora_fin',$this->hora_fin,true);
-		$criteria->compare('en_vivo',$this->en_vivo,true);
+		$criteria->compare('tipo_emision_id',$this->tipo_emision_id,true);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(
@@ -104,7 +105,7 @@ class Programacion extends CActiveRecord
 
 	public function getDay( $timestamp )
 	{
-		if( !$timestamp ) $timestamp = mktime(0, 0, 0, date('m'), date('d'), date('Y'));;
+		if( !$timestamp ) $timestamp = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 
 		$c = new CDbCriteria;
 		$c->addCondition('hora_inicio > ' . $timestamp);
@@ -140,5 +141,35 @@ class Programacion extends CActiveRecord
 		$c->order = 'hora_inicio ASC';
 
 		return $this->find( $c );
+	}
+
+	/*protected function afterFind()
+	{
+	    $this->hora_inicio = date('Y-m-d H:i:s', $this->hora_inicio);
+	    $this->hora_fin = date('Y-m-d H:i:s', $this->hora_fin);
+
+	    return parent::afterFind();
+	}*/
+
+	protected function beforeSave()
+	{
+		date_default_timezone_set('America/Bogota');
+		setlocale(LC_ALL, 'es_ES.UTF-8');
+	    if(parent::beforeSave())
+	    {
+	        if($this->isNewRecord)
+	        {
+	        	$this->hora_inicio  = strtotime($this->hora_inicio);
+	        	$this->hora_fin  = strtotime($this->hora_fin);
+	        }
+	        else
+	        {
+	            if($this->hora_inicio) $this->hora_inicio  = strtotime($this->hora_inicio);
+	        	if($this->hora_fin) $this->hora_fin  = strtotime($this->hora_fin);
+	        }
+	        return true;
+	    }
+	    else
+	        return false;
 	}
 }

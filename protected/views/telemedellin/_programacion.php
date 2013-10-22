@@ -1,12 +1,6 @@
 <?php $this->pageTitle = 'Programación' ?>
 <div class="menu_micrositio">
-<?php $hoy = mktime(0, 0, 0, date('m'), date('d'), date('Y')); ?>
-<?php foreach($menu as $item): ?>
-	<?php $url = bu('programacion') . '?dia=' . date('d', $item) . '&mes=' . date('m', $item) . '&anio=' . date('Y', $item); ?>
-	<a href="<?php echo $url ?>" class="<?php echo ( ($item >= $hoy && $item < ($hoy+86400)) ) ? 'hoy':''?> <?php echo ( $url == Yii::app()->request->requestUri ) ? 'elegido':''?>">
-		<?php echo strftime("%A", $item); ?> <?php echo strftime("%d", $item); ?>
-	</a>
-<?php endforeach; ?>
+<?php echo ProgramacionW::getMenu($menu); ?>
 </div>
 <div class="listado_programas">
 <?php foreach($programas as $programa): ?>

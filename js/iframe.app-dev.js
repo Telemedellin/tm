@@ -293,12 +293,14 @@ jQuery(function($) {
             }
             if(pv == 'Youtube'){
                 // height="290"
-                $('.full').fadeOut('fast', function(){
-                    $('.full').html('<iframe type="text/html" width="387" src="http://www.youtube.com/embed/'+id_video+'?rel=0" frameborder="0"></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
+                var full = $('.full');
+
+                full.fadeOut('fast', function(){
+                    full.html('<iframe type="text/html" height="80%" width="90%" src="http://www.youtube.com/embed/'+id_video+'?rel=0" frameborder="0"></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
                 });
             }else if(pv == 'Vimeo'){
-                $('.full').fadeOut('fast', function(){
-                    $('.full').html('<iframe src="http://player.vimeo.com/video/'+id_video+'" width="387" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
+                full.fadeOut('fast', function(){
+                    full.html('<iframe src="http://player.vimeo.com/video/'+id_video+'" height="80%" width="90%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
                 });
             }
             modificar_url(e.currentTarget.href, nombre);
@@ -374,7 +376,11 @@ jQuery(function($) {
                         micrositio: this.micrositio_id
                     },
                     success: function(){
-                        $(".ivideos").wrap('<div id="scroll" />');
+                        
+                        var full = $('.full'),
+                            alto = $('.fancybox-inner').height();
+                        full.css('height', (alto/1.6) );
+                        $(".ivideos").wrap('<div id="scroll" style="height: '+(alto/4)+'px;"/>');
                         $("#scroll").mCustomScrollbar({
                             scrollType: "pixels",
                             scrollButtons: {
