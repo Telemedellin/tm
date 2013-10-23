@@ -21,6 +21,11 @@
 		<?php echo $form->textArea($model, 'texto'); ?>
 		<?php echo $form->error($model,'texto'); ?>
 	</div>
+    <div class="form-group">
+        <?php echo $form->labelEx($model,'enlace'); ?>
+        <?php echo $form->urlField($model, 'enlace'); ?>
+        <?php echo $form->error($model,'enlace'); ?>
+    </div>
 	<div class="form-group">
         <?php echo $form->labelEx($model,'imagen'); ?>
         <?php echo $form->hiddenField($model, 'imagen', array('id' => 'archivoImagenH') ); ?>

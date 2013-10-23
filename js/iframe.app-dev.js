@@ -342,6 +342,10 @@ jQuery(function($) {
                         micrositio: this.micrositio_id
                     }, 
                     success: function(){
+                        var full = $('.full'),
+                            alto = $('.fancybox-inner').height();
+                        full.css('height', (alto - 180) );
+                        $('#icontainer .galeria .full img').css('max-height', (alto - 228));
                         window.slider = $('.fotos').bxSlider({
                             pager: false,
                             minSlides: 1,

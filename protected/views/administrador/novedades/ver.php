@@ -26,6 +26,7 @@ $this->menu=array(
 		'url.slug',
 		'pgArticuloBlogs.entradilla',
 		'pgArticuloBlogs.texto:html',
+		'pgArticuloBlogs.enlace',
 		'pgArticuloBlogs.imagen',
 		'pgArticuloBlogs.miniatura',
 		'creado',

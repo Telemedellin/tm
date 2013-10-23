@@ -49,7 +49,7 @@ class PgArticuloBlog extends CActiveRecord
 			array('entradilla, imagen, miniatura', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, pagina_id, entradilla, texto, imagen, miniatura, estado', 'safe', 'on'=>'search'),
+			array('id, pagina_id, entradilla, texto, enlace, imagen, miniatura, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,6 +75,7 @@ class PgArticuloBlog extends CActiveRecord
 			'pagina_id' => 'Pagina',
 			'entradilla' => 'Entradilla',
 			'texto' => 'Texto',
+			'enlace' => 'Enlace',
 			'imagen' => 'Imagen',
 			'miniatura' => 'Miniatura',
 			'estado' => 'Estado',
@@ -96,6 +97,7 @@ class PgArticuloBlog extends CActiveRecord
 		$criteria->compare('pagina_id',$this->pagina_id,true);
 		$criteria->compare('entradilla',$this->entradilla,true);
 		$criteria->compare('texto',$this->texto,true);
+		$criteria->compare('enlace',$this->enlace,true);
 		$criteria->compare('imagen',$this->imagen,true);
 		$criteria->compare('miniatura',$this->miniatura,true);
 		$criteria->compare('estado',$this->estado);

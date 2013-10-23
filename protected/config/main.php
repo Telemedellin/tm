@@ -36,6 +36,9 @@ return array(
 	),
 	// application components
 	'components'=>array(
+		'session' => array(
+	        'autoStart'=>true,
+	    ),
 		'user'=>array(
 			// enable cookie-based authentication
 			//'allowAutoLogin'=>true,

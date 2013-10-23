@@ -32,8 +32,6 @@ module.exports = function(grunt) {
           'js/libs/admin/jquery.fileupload/jquery.fileupload-resize.js',
           'js/libs/admin/jquery.fileupload/jquery.fileupload-validate.js',
           'js/libs/admin/jquery.fileupload/jquery.fileupload-ui.js',
-          'js/libs/admin/i18n/jquery.ui.datepicker-es.js',
-          'js/libs/admin/jquery-ui-timepicker-addon.js',
           ],
         dest: 'js/admin.libs.js'
       },

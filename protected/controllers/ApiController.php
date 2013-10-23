@@ -45,7 +45,7 @@ class ApiController extends Controller
 			
 		
 		if(!$af) throw new CHttpException(404, 'No se encontró la página solicitada');
-		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM foto WHERE album_foto_id = $album_foto_id AND estado <> 0");
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM foto WHERE album_foto_id = $af->id AND estado <> 0");
 		$f = Foto::model()->cache(3600, $dependencia)->findAllByAttributes( array('album_foto_id' => $af->id) );
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';

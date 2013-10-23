@@ -48,8 +48,7 @@ class AdminController extends Controller
 			$model->attributes = $_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login()){
-				//$this->redirect(bu('/administrador'));
-				echo 'ya';
+				$this->redirect(bu('/administrador'));
 				//$this->redirect(Yii::app()->user->returnUrl);
 			}
 		}
@@ -64,7 +63,7 @@ class AdminController extends Controller
 		Yii::app()->user->logout();
 		Yii::app()->session->clear();
 		Yii::app()->session->destroy();
-		$this->redirect(Yii::app()->homeUrl);
+		$this->redirect(Yii::app()->homeUrl . '/administrador');
 	}
 
 	public function actionRegistro()
@@ -116,7 +115,6 @@ class AdminController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		print_r(Yii::app()->user);
 		$this->render('index');
 	}
 

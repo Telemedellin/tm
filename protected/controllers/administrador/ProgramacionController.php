@@ -30,7 +30,6 @@ class ProgramacionController extends Controller
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view', 'crear','update', 'delete'),
 				'users'=>array('@'),
-				'deniedCallback' => $this->redirect(bu('/administrador/ingresar'))
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),

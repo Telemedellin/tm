@@ -12,6 +12,7 @@ class NovedadesForm extends CFormModel
 	public $destacado;
 	public $entradilla;
 	public $texto;
+	public $enlace;
 	public $imagen;
 	public $miniatura;
 	public $estado;
@@ -24,6 +25,7 @@ class NovedadesForm extends CFormModel
 		return array(
 			// name, email, subject and body are required
 			array('nombre, entradilla, texto', 'required'),
+			array('enlace', 'url'),
 			array('imagen, miniatura', 'length', 'max'=>255),
 		);
 	}
@@ -38,6 +40,7 @@ class NovedadesForm extends CFormModel
 			'destacado' => 'Destacado',
 			'entradilla' => 'Entradilla',
 			'texto' => 'Texto',
+			'enlace' => 'Enlace externo (Opcional)',
 			'imagen' => 'Imagen',
 			'miniatura' => 'Imagen Miniatura',
 			'estado' => 'Publicado',

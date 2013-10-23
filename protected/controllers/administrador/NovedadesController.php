@@ -29,8 +29,7 @@ class NovedadesController extends Controller
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view', 'imagen', 'miniatura', 'crear','update', 'delete'),
-				'users'=>array('@'),
-				'deniedCallback' => $this->redirect(bu('/administrador/ingresar'))
+				'users'=>array('@')
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -43,7 +42,8 @@ class NovedadesController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->session->destroy();
+		Yii::app()->session->remove('dir');
+		Yii::app()->session->remove('dirc');
 		$dataProvider = new CActiveDataProvider('Pagina', array(
 													    'criteria'=>array(
 													        'condition'=>'tipo_pagina_id = 3',
@@ -145,6 +145,7 @@ class NovedadesController extends Controller
 				$pgAB->pagina_id 	= $pagina_id;
 				$pgAB->entradilla 	= $novedadesForm->entradilla;
 				$pgAB->texto 		= $novedadesForm->texto;
+				$pgAB->enlace 		= $novedadesForm->enlace;
 				$pgAB->imagen 		= $dir . $novedadesForm->imagen;
 				$pgAB->miniatura 	= $dir . 'thumbnail/' . $novedadesForm->miniatura;
 				$pgAB->estado 		= 1;
@@ -337,6 +338,7 @@ class NovedadesController extends Controller
 
 				$pgAB->entradilla 	= $novedadesForm->entradilla;
 				$pgAB->texto 		= $novedadesForm->texto;
+				$pgAB->enlace 		= $novedadesForm->enlace;
 				$pgAB->estado 		= $novedadesForm->estado;
 				
 				if( !$pgAB->save(false) )

@@ -42,7 +42,8 @@ class ConcursosController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->session->destroy();
+		Yii::app()->session->remove('dir');
+		Yii::app()->session->remove('dirc');
 		$dataProvider = new CActiveDataProvider('Micrositio', array(
 													    'criteria'=>array(
 													        'condition'=>'seccion_id = 8',
