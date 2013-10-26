@@ -30,7 +30,7 @@ cs()->registerScript( 'scroll',
 	<ul>
 	<?php foreach( $micrositio->redSocials as $red ): ?>
 		<li class="<?php echo strtolower($red->tipoRedSocial->nombre) ?>">
-			<a href="<?php echo $red->tipoRedSocial->url_base . $red->usuario ?>">
+			<a href="<?php echo $red->tipoRedSocial->url_base . $red->usuario ?>" target="_blank" rel="nofollow">
 				<?php echo $red->tipoRedSocial->nombre ?>
 			</a>
 		</li>

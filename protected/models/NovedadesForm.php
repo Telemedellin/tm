@@ -27,6 +27,7 @@ class NovedadesForm extends CFormModel
 			array('nombre, entradilla, texto', 'required'),
 			array('enlace', 'url'),
 			array('imagen, miniatura', 'length', 'max'=>255),
+			array('estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
 	}
 

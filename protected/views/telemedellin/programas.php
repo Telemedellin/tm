@@ -52,7 +52,7 @@ cs()->registerScript( 'scroll',
 			<?php if($micrositio->destacado): ?>
 				<?php 
 					$destacados .= '<p><a href="' . bu($micrositio->url->slug) . '">';
-					$destacados .= '<img src="' . bu($micrositio->miniatura) . '" alt="' . $micrositio->nombre . '"/>';
+					$destacados .= '<img src="' . bu('images/'.$micrositio->miniatura) . '" alt="' . $micrositio->nombre . '"/>';
 					$destacados .= '</a></p>' . "\n\r";
 				?>
 			<?php else: ?>

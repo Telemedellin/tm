@@ -160,7 +160,7 @@ jQuery(function($) {
             
             if(window.c <= 0){
                 console.log(window.c);
-                $('.foto a.' + foto.attributes.id).trigger('click');
+                $('.foto a.' + foto.attributes.id).trigger('click').addClass('current');;
             }
             window.c += 1;
         }
@@ -189,7 +189,8 @@ jQuery(function($) {
                 var src = e.currentTarget.getAttribute('data-src');
                 var nombre = e.currentTarget.getAttribute('data-nombre');
             }
-            
+            $('.foto a').removeClass('current');
+            $(e.currentTarget).addClass('current');
             $('.full').fadeOut('fast', function(){
                 $('.full').html('<img src="' + src + '" /><h2>'+nombre+'</h2>').fadeIn('fast');
             });
@@ -346,14 +347,16 @@ jQuery(function($) {
                             alto = $('.fancybox-inner').height();
                         full.css('height', (alto - 180) );
                         $('#icontainer .galeria .full img').css('max-height', (alto - 228));
-                        window.slider = $('.fotos').bxSlider({
-                            pager: false,
-                            minSlides: 1,
-                            maxSlides: 15,
-                            slideWidth: 100,
-                            slideMargin: 8,
-                            viewportWidth: '94%'
-                        });
+                        if($(".fotos li").length > 8){
+                            window.slider = $('.fotos').bxSlider({
+                                pager: false,
+                                minSlides: 1,
+                                maxSlides: 15,
+                                slideWidth: 100,
+                                slideMargin: 8,
+                                viewportWidth: '94%'
+                            });
+                        }
                     }
                 } 
             );

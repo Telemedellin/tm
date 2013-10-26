@@ -13,12 +13,70 @@
 	</div>
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'entradilla'); ?>
-		<?php echo $form->textArea($model, 'entradilla', array('maxlength'=>255)); ?>
+		<?php //echo $form->textArea($model, 'entradilla', array('maxlength'=>255)); ?>
+        <?php $this->widget('ext.editMe.widgets.ExtEditMe', array(
+            'model'=>$model,
+            'attribute'=>'entradilla',
+            'toolbar' => array(
+                            array(
+                                    'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'Source',
+                            ),
+                            array(
+                                    'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'
+                            ),
+                            '/',
+                            array(
+                                    'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat',
+                            ),
+                             array(
+                                    'TextColor', 'BGColor',
+                            ),
+                            array(
+                                    'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+                            ),
+                            array(
+                                    /*'Image', */'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak', 'Iframe'
+                            ),
+                            array(
+                                    'Link', 'Unlink', 'Anchor',
+                            ),
+                        ),
+            //'optionName'=>'optionValue',
+        ));?>
 		<?php echo $form->error($model,'entradilla'); ?>
 	</div>
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'texto'); ?>
-		<?php echo $form->textArea($model, 'texto'); ?>
+		<?php //echo $form->textArea($model, 'texto'); ?>
+        <?php $this->widget('ext.editMe.widgets.ExtEditMe', array(
+            'model'=>$model,
+            'attribute'=>'texto',
+            'toolbar' => array(
+                            array(
+                                    'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'Source',
+                            ),
+                            array(
+                                    'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'
+                            ),
+                            '/',
+                            array(
+                                    'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat',
+                            ),
+                             array(
+                                    'TextColor', 'BGColor',
+                            ),
+                            array(
+                                    'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+                            ),
+                            array(
+                                    /*'Image', */'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak', 'Iframe'
+                            ),
+                            array(
+                                    'Link', 'Unlink', 'Anchor',
+                            ),
+                        ),
+            //'optionName'=>'optionValue',
+        ));?>
 		<?php echo $form->error($model,'texto'); ?>
 	</div>
     <div class="form-group">
@@ -37,7 +95,7 @@
                 <div class="row fileupload-buttonbar">
                     <div class="span8">
                         <!-- The fileinput-button span is used to style the file input field as button -->
-                        <span class="btn btn-success fileinput-button">
+                        <span class="btn btn-default fileinput-button">
                             <span>Añadir archivo</span>
                             <i class="icon-plus icon-white"></i>
                             <?php //echo $form->fileField($model, 'imagen', array('id' => 'archivoImagen', 'name' => 'archivoImagen[]')); ?>
@@ -73,7 +131,7 @@
                 <div class="row fileupload-buttonbar">
                     <div class="span8">
                         <!-- The fileinput-button span is used to style the file input field as button -->
-                        <span class="btn btn-success fileinput-button">
+                        <span class="btn btn-default fileinput-button">
                             <span>Añadir archivo</span>
                             <i class="icon-plus icon-white"></i>
                             <?php //echo $form->fileField($model, 'imagen', array('id' => 'archivoMiniatura', 'name' => 'archivoMiniatura[]')); ?>
@@ -109,7 +167,7 @@
 		<?php echo $form->error($model,'destacado'); ?>
 	</div>
 	<div class="form-group buttons">
-		<?php echo CHtml::submitButton('Guardar'); ?>
+		<?php echo CHtml::submitButton('Guardar', array('class' => 'btn btn-primary')); ?>
 	</div>
 	<input type="hidden" value="<?php echo Yii::app()->request->baseUrl ?>" id="PUBLIC_PATH"/>
 <?php $this->endWidget(); ?>

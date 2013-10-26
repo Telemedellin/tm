@@ -11,7 +11,7 @@ $json .= '{';
 				$destacados .= '{';
 				$destacados .= '"nombre":"' . $micrositio->nombre . '",';
 				$destacados .= '"url":"' . bu($micrositio->url->slug) . '",';
-				$destacados .= '"miniatura":"' . bu($micrositio->miniatura) . '"';
+				$destacados .= '"miniatura":"' . bu('images/'.$micrositio->miniatura) . '"';
 				$destacados .= '},';
 			endif;
 		$json .= '{';

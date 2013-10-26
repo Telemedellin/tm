@@ -24,7 +24,7 @@ $ru = Yii::app()->request->requestUri;
 	<!--[if LTE IE 8]>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" />
 	<![endif]-->
-	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="shortcut icon" href="<?php echo bu('/favicon.ico')?>" />
 	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
 	<?php $this->display_seo(); ?>
 </head>

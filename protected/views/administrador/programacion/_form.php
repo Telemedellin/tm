@@ -85,7 +85,7 @@ Yii::app()->clientScript->registerScript('datepicker',
 		<?php echo $form->error($model,'estado'); ?>
 	</div>
 	<div class="form-group buttons">
-		<?php echo CHtml::submitButton('Guardar'); ?>
+		<?php echo CHtml::submitButton('Guardar', array('class' => 'btn btn-primary')); ?>
 	</div>
 <?php $this->endWidget(); ?>
 </div><!-- form -->

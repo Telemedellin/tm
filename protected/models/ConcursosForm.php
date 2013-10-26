@@ -24,6 +24,7 @@ class ConcursosForm extends CFormModel
 			// name, email, subject and body are required
 			array('nombre, texto', 'required'),
 			array('imagen, miniatura', 'length', 'max'=>255),
+			array('estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
 	}
 
