@@ -2,8 +2,8 @@
 cs()->coreScriptPosition = CClientScript::POS_END;
 cs()->registerCoreScript( 'jquery.ui' );
 Yii::app()->clientScript->registerCssFile(Yii::app()->clientScript->getCoreScriptUrl().'/jui/css/base/jquery-ui.css');
-cs()->registerScriptFile('js/libs/admin/i18n/jquery.ui.datepicker-es.js', CClientScript::POS_END);
-cs()->registerScriptFile('js/libs/admin/jquery-ui-timepicker-addon.js', CClientScript::POS_END);
+cs()->registerScriptFile(bu('js/libs/admin/i18n/jquery.ui.datepicker-es.js'), CClientScript::POS_END);
+cs()->registerScriptFile(bu('js/libs/admin/jquery-ui-timepicker-addon.js'), CClientScript::POS_END);
 Yii::app()->clientScript->registerScript('datepicker', 
     'var startDateTextBox = $(".hora_inicio"),
          endDateTextBox = $(".hora_fin");

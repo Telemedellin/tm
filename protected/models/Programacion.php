@@ -157,7 +157,7 @@ class Programacion extends CActiveRecord
 		setlocale(LC_ALL, 'es_ES.UTF-8');
 	    if(parent::beforeSave())
 	    {
-	        if($this->isNewRecord)
+	        /*if($this->isNewRecord)
 	        {
 	        	$this->hora_inicio  = strtotime($this->hora_inicio);
 	        	$this->hora_fin  = strtotime($this->hora_fin);
@@ -166,7 +166,7 @@ class Programacion extends CActiveRecord
 	        {
 	            if($this->hora_inicio) $this->hora_inicio  = strtotime($this->hora_inicio);
 	        	if($this->hora_fin) $this->hora_fin  = strtotime($this->hora_fin);
-	        }
+	        }*/
 	        return true;
 	    }
 	    else

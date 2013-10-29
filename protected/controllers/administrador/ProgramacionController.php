@@ -137,6 +137,10 @@ class ProgramacionController extends Controller
 
 		if(isset($_POST['Programacion'])){
 			$programacion->attributes = $_POST['Programacion'];
+			date_default_timezone_set('America/Bogota');
+			setlocale(LC_ALL, 'es_ES.UTF-8');
+			$programacion->hora_inicio = strtotime($programacion->hora_inicio);
+			$programacion->hora_fin = strtotime($programacion->hora_fin);
 
 			if( $programacion->save() )
 			{
@@ -167,6 +171,10 @@ class ProgramacionController extends Controller
 		
 		if(isset($_POST['Programacion'])){
 			$programacion->attributes = $_POST['Programacion'];
+			date_default_timezone_set('America/Bogota');
+			setlocale(LC_ALL, 'es_ES.UTF-8');
+			$programacion->hora_inicio = strtotime($programacion->hora_inicio);
+			$programacion->hora_fin = strtotime($programacion->hora_fin);
 			
 			if( $programacion->save() )
 			{

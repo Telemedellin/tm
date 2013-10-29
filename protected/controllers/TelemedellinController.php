@@ -378,7 +378,9 @@ class TelemedellinController extends Controller
 	public function actionProgramar()
 	{
 		$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
-		$horarios = Horario::model()->with('pgPrograma')->findAll( array('order' => 'dia_semana ASC, hora_inicio ASC') );
+		$horarios = Horario::model()->with('pgPrograma')->findAll( 
+			array('order' => 'dia_semana ASC, hora_inicio ASC') 
+		);
 		
 		foreach($horarios as $horario)
 		{
