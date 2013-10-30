@@ -87,15 +87,16 @@ class Horarios{
 		if(isset($en_vivo)){
 			$html .= "En vivo ";			
 			foreach ($en_vivo as $ev) {							
+				//Inicial
 				if ($ev === reset($en_vivo)){
 					$html .= $dias_semana[ $ev['dia_semana'] - 1 ] . ' ';
 				}
-				if(count($en_vivo) > 1){
-					if ($ev === end($en_vivo)){
-						$html .= " a ";
-						$html .= $dias_semana[ $ev['dia_semana'] - 1 ] . ' ';
-					}	
-				}					
+
+				//Final
+				if ($ev === end($en_vivo) && count($en_vivo) > 1){
+					$html .= " a ";
+					$html .= $dias_semana[ $ev['dia_semana'] - 1 ] . ' ';
+				}
 			}
 			$html .= ' a las ' . Horarios::hora( $horario_en_vivo ) . ' ';			
 		}
