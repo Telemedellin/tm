@@ -1,12 +1,3 @@
-<?php
-/* @var $this UrlController */
-/* @var $dataProvider CActiveDataProvider */
-
-$this->breadcrumbs=array(
-	'Concursos',
-);
-?>
-
 <h1>Concursos</h1>
 <?php
     foreach(Yii::app()->user->getFlashes() as $key => $message) {
@@ -16,12 +7,18 @@ $this->breadcrumbs=array(
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
 	'enableSorting' => true,
+    'pager' => array('pageSize' => 25),
 	'columns'=>array(
         'id',
         'nombre',
         'creado',
         'modificado',
-        'estado',
+        array(
+            'name'=>'estado',
+            'header'=>'Publicado',
+            'filter'=>array('1'=>'Si','0'=>'No'),
+            'value'=>'($data->estado=="1")?("Si"):("No")'
+        ),
         array(
             'class'=>'CButtonColumn',
         ),

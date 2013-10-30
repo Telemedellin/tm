@@ -5,67 +5,80 @@
 	<meta name="language" content="es" />
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/styles.admin.min.css" />
 	<link rel="shortcut icon" href="<?php echo bu('/favicon.ico')?>" />
-	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
+	<title><?php echo h($this->pageTitle); ?> - Telemedellínn</title>
 </head>
 <body>
 	<div class="container">
-		<header>
-			<h1><?php echo l( 'Administrador Telemedellín', bu('administrador') ); ?></h1>
-		</header>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="navbar-header">
+			    <?php echo l( 'Telemedellín', bu('administrador'), array('class' => 'navbar-brand') ); ?>
+			</div>
+			<?php if(!Yii::app()->user->isGuest): ?>
+			<div class="navbar-collapse navbar-ex1-collapse">
+			    <ul class="nav navbar-nav">
+			    	<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Novedades <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><?php echo l( 'Listar', bu('administrador/novedades') ); ?></li>
+							<li><?php echo l( 'Crear nueva', bu('administrador/novedades/crear') ); ?></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Concursos <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><?php echo l( 'Listar', bu('administrador/concursos') ); ?></li>
+							<li><?php echo l( 'Crear nuevo', bu('administrador/concursos/crear') ); ?></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Parrilla (programación) <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><?php echo l( 'Listar', bu('administrador/programacion') ); ?></li>
+							<li><?php echo l( 'Agregar a la parrilla', bu('administrador/programacion/crear') ); ?></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Especiales <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><?php echo l( 'Listar', bu('administrador/especiales') ); ?></li>
+							<li><?php echo l( 'Crear nuevo', bu('administrador/especiales/crear') ); ?></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Programas <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><?php echo l( 'Listar', bu('administrador/programas') ); ?></li>
+							<li><?php echo l( 'Crear nuevo', bu('administrador/programas/crear') ); ?></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentales <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><?php echo l( 'Listar', bu('administrador/documentales') ); ?></li>
+							<li><?php echo l( 'Crear nuevo', bu('administrador/documentales/crear') ); ?></li>
+						</ul>
+					</li>
+			    </ul>
+			</div>
+			<p class="navbar-text pull-right">
+				<?php echo Yii::app()->user->getState('correo') ?> 
+				<?php echo l( 'Salir', bu('administrador/salir'), array('class' => 'navbar-link') ); ?>
+			</p>
+			<?php endif ?>
+		</nav>
 		<div class="row">
-			<nav class="col-lg-3">
-				<ul class="nav nav-stacked nav-pills">
-					<li>
-						<a href="<?php echo bu('administrador/novedades'); ?>">Novedades</a>
-						<ul class="nav nav-stacked nav-pills">
-							<li>
-								<a href="<?php echo bu('administrador/novedades/crear'); ?>">Crear</a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="<?php echo bu('administrador/concursos'); ?>">Concursos</a>
-						<ul class="nav nav-stacked nav-pills">
-							<li>
-								<a href="<?php echo bu('administrador/concursos/crear'); ?>">Crear</a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="<?php echo bu('administrador/programacion'); ?>">Programación</a>
-						<ul class="nav nav-stacked nav-pills">
-							<li>
-								<a href="<?php echo bu('administrador/programacion/crear'); ?>">Crear</a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="<?php echo bu('administrador/programas'); ?>">Programas</a>
-						<ul class="nav nav-stacked nav-pills">
-							<li>
-								<a href="<?php echo bu('administrador/programas/crear'); ?>">Crear</a>
-							</li>
-						</ul>
-					</li>
-					<!--<li>
-						<a href="<?php echo bu('administrador/pagina'); ?>">Páginas</a>
-						<ul class="nav nav-stacked nav-pills">
-							<li>
-								<a href="<?php echo bu('administrador/pagina/crear'); ?>">Crear</a>
-							</li>
-						</ul>
-					</li>-->
-				</ul>
-			</nav>
-			<section class="col-lg-9">
+			<section class="col-sm-12">
 				<?php echo $content; ?>
 			</section>
 		</div>
-		<footer>&copy; 2013</footer>
+		<!--<footer class="navbar-fixed-bottom">
+			<h4>Dudas, problemas o errores:</h4>
+			<p>Victor Arias - victor.arias@telemedellin.tv <small>Belmar Santanilla - belmar.santanilla@telemedellin.tv</small></p>
+			<p>448 95 90 op. 2 ext. 2013</p>
+		</footer>-->
 	</div>
 <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
 <?php 

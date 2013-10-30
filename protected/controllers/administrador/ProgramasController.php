@@ -42,7 +42,7 @@ class ProgramasController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->session->remove('dir');
+		Yii::app()->session->remove('dirp');
 		$dataProvider = new CActiveDataProvider('Micrositio', array(
 													    'criteria'=>array(
 													        'condition'=>'seccion_id = 2',
@@ -84,7 +84,7 @@ class ProgramasController extends Controller
 		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' =>$micrositio->id) );
 		$urlp_id = $pagina->url_id;
 		//Borrar PgPrograma
-		$PgP = pgPrograma::model()->findByAttributes(array('pagina_id' => $pagina->id));
+		$PgP = PgPrograma::model()->findByAttributes(array('pagina_id' => $pagina->id));
 		$transaccion = $PgP->dbConnection->beginTransaction();
 		if( $PgP->delete() )
 		{
@@ -95,8 +95,8 @@ class ProgramasController extends Controller
 				//Borrar micrositio
 
 				if($micrositio->delete()){
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
 					//Borrar url de micrositio
 					$url = Url::model()->findByPk($url_id);
 					$url->delete();
@@ -133,7 +133,7 @@ class ProgramasController extends Controller
 				$dirp = Yii::app()->session['dirp'];
 			}
 			if($programasForm->validate()){
-				$url = new URL;
+				$url = new Url;
 				$transaccion 	= $url->dbConnection->beginTransaction();
 				$url->slug 		= 'programas/' . $this->slugger($programasForm->nombre);
 				$url->tipo_id 	= 2; //Micrositio
@@ -336,7 +336,7 @@ class ProgramasController extends Controller
 			}
 			if($programasForm->validate()){
 				if($programasForm->nombre != $micrositio->nombre){
-					$url = URL::model()->findByPk($micrositio->url_id);
+					$url = Url::model()->findByPk($micrositio->url_id);
 					$url->slug 		= 'programas/' . $this->slugger($programasForm->nombre);
 					$url->save(false);
 

@@ -1,12 +1,3 @@
-<?php
-/* @var $this UrlController */
-/* @var $dataProvider CActiveDataProvider */
-
-$this->breadcrumbs=array(
-	'Programacion',
-);
-?>
-
 <h1>Programación</h1>
 <?php echo $menu; ?>
 <?php
@@ -29,7 +20,12 @@ $this->breadcrumbs=array(
             'name'=>'hora_fin',
             'value'=>'date("H:i", $data->hora_fin)',
         ),
-        'estado',
+        array(
+            'name'=>'estado',
+            'header'=>'Publicado',
+            'filter'=>array('1'=>'Si','0'=>'No'),
+            'value'=>'($data->estado=="1")?("Si"):("No")'
+        ),
         array(
             'class'=>'CButtonColumn',
         ),

@@ -22,6 +22,7 @@ module.exports = function(grunt) {
       },
       admin: {
         src: [
+          'js/libs/jquery.fancybox.pack.js', 
           'js/libs/admin/jquery.fileupload/vendor/*.js', 
           'js/libs/admin/jquery.fileupload/tmpl.min.js',
           'js/libs/admin/jquery.fileupload/load-image.min.js',
@@ -40,7 +41,7 @@ module.exports = function(grunt) {
         dest: 'css/styles.css'
       },
       admin_css: {
-        src: ['css/libs/admin/*.css', 'css/main_admin.css'],
+        src: ['css/libs/admin/*.css', 'css/libs/jquery.fancybox.css', 'css/main_admin.css'],
         dest: 'css/styles.admin.css'
       }
     },

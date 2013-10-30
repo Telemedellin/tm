@@ -15,24 +15,36 @@ $this->pageTitle= 'Ingresar - ' . Yii::app()->name;
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
+	'htmlOptions' => array(
+			'role' => 'form', 
+			'class' => 'form-horizontal', 
+		)
 )); ?>
 	<?php echo $form->errorSummary($model, '', '', array('class' => 'flash-notice') ); ?>
-	<div class="row">
-		<?php echo $form->label($model,'correo'); ?>
-		<?php echo $form->emailField($model,'correo'); ?>
+	<div class="form-group">
+		<?php echo $form->label($model,'correo', array('class' => 'col-sm-2 control-label')); ?>
+		<div class="col-sm-4">
+		<?php echo $form->emailField($model,'correo', array('class' => 'form-control')); ?>
+		</div>
 	</div>
-	<div class="row">
-		<?php echo $form->label($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password'); ?>
+	<div class="form-group">
+		<?php echo $form->label($model,'password', array('class' => 'col-sm-2 control-label')); ?>
+		<div class="col-sm-4">
+		<?php echo $form->passwordField($model,'password', array('class' => 'form-control')); ?>
+		</div>
 	</div>
-	<div class="row rememberMe">
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'rememberMe'); ?>
+	<!--<div class="form-group rememberMe">
+		<div class="checkbox">
+			<?php echo $form->checkBox($model,'rememberMe'); ?>
+			<?php echo $form->label($model,'rememberMe'); ?>
+		</div>
+	</div>-->
+	<div class="form-group buttons">
+		<div class="col-sm-offset-2 col-sm-4">
+		<?php echo CHtml::submitButton('Ingresar', array('class' =>'btn btn-default')); ?>
+		</div>
 	</div>
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Ingresar', array('class' =>'btn')); ?>
-	</div>
-	<div class="row">
+	<div class="form-group">
 		<?php echo CHtml::link('¿Olvidaste la contraseña?', array('administrador/recuperar-contrasena'), array('class' => 'recuperar' )); ?>
 	</div>
 <?php $this->endWidget(); ?>
