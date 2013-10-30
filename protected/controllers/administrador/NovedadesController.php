@@ -74,7 +74,7 @@ class NovedadesController extends Controller
 	public function actionDelete($id)
 	{
 		//Borrar pgArticuloBlog
-		$pgAB = pgArticuloBlog::model()->findByAttributes(array('pagina_id' => $id));
+		$pgAB = PgArticuloBlog::model()->findByAttributes(array('pagina_id' => $id));
 		$imagen = $pgAB->imagen;
 		$miniatura = $pgAB->miniatura;
 		$transaccion = $pgAB->dbConnection->beginTransaction();
@@ -82,6 +82,7 @@ class NovedadesController extends Controller
 		{
 			//Borrar Página
 			$pagina = Pagina::model()->findByPk($id);
+			$nombre = $pagina->nombre;
 			$url_id = $pagina->url_id;
 			if( $pagina->delete() ){
 				//Borrar Url
@@ -89,8 +90,9 @@ class NovedadesController extends Controller
 				if($url->delete()){
 					$transaccion->commit();
 					//Borrar Archivos
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
+					Yii::app()->user->setFlash('mensaje', 'Novedad ' . $nombre . ' eliminada');
 				}else{
 					$transaccion->rollback();
 				}
@@ -123,7 +125,7 @@ class NovedadesController extends Controller
 				$dir = Yii::app()->session['dir'];
 			}
 			if($novedadesForm->validate()){
-				$url = new URL;
+				$url = new Url;
 				$transaccion 	= $url->dbConnection->beginTransaction();
 				$url->slug 		= 'novedades/' . $this->slugger($novedadesForm->nombre);
 				$url->tipo_id 	= 3; //Página
@@ -141,7 +143,7 @@ class NovedadesController extends Controller
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
-				$pgAB = new pgArticuloBlog;
+				$pgAB = new PgArticuloBlog;
 				$pgAB->pagina_id 	= $pagina_id;
 				$pgAB->entradilla 	= $novedadesForm->entradilla;
 				$pgAB->texto 		= $novedadesForm->texto;
@@ -309,7 +311,7 @@ class NovedadesController extends Controller
 			}
 			if($novedadesForm->validate()){
 				if($novedadesForm->nombre != $pagina->nombre){
-					$url = URL::model()->findByPk($pagina->url_id);
+					$url = Url::model()->findByPk($pagina->url_id);
 					$url->slug 		= 'novedades/' . $this->slugger($novedadesForm->nombre);
 					$url->save(false);
 				}
@@ -323,7 +325,7 @@ class NovedadesController extends Controller
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->id;
 
-				$pgAB = pgArticuloBlog::model()->findByAttributes(array('pagina_id' => $pagina_id));
+				$pgAB = PgArticuloBlog::model()->findByAttributes(array('pagina_id' => $pagina_id));
 
 				if($dir . $novedadesForm->imagen != $pgAB->imagen)
 				{

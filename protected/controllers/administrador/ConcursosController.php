@@ -80,12 +80,13 @@ class ConcursosController extends Controller
 		$imagen = $micrositio->background;
 		$miniatura = $micrositio->miniatura;
 		$url_id = $micrositio->url_id;
+		$nombre = $micrositio->nombre;
 		$micrositio->pagina_id = null;
 		$micrositio->save();
 		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' =>$micrositio->id) );
 		$urlp_id = $pagina->url_id;
 		//Borrar PgGenericaSt
-		$pgGst = pgGenericaSt::model()->findByAttributes(array('pagina_id' => $pagina->id));
+		$pgGst = PgGenericaSt::model()->findByAttributes(array('pagina_id' => $pagina->id));
 		$transaccion = $pgGst->dbConnection->beginTransaction();
 		if( $pgGst->delete() )
 		{
@@ -96,8 +97,9 @@ class ConcursosController extends Controller
 				//Borrar micrositio
 
 				if($micrositio->delete()){
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
+					Yii::app()->user->setFlash('mensaje', 'Concurso ' . $nombre . ' eliminado');
 					//Borrar url de micrositio
 					$url = Url::model()->findByPk($url_id);
 					$url->delete();
@@ -134,7 +136,7 @@ class ConcursosController extends Controller
 				$dirc = Yii::app()->session['dirc'];
 			}
 			if($concursosForm->validate()){
-				$url = new URL;
+				$url = new Url;
 				$transaccion 	= $url->dbConnection->beginTransaction();
 				$url->slug 		= 'concursos/' . $this->slugger($concursosForm->nombre);
 				$url->tipo_id 	= 2; //Micrositio
@@ -340,7 +342,7 @@ class ConcursosController extends Controller
 			}
 			if($concursosForm->validate()){
 				if($concursosForm->nombre != $micrositio->nombre){
-					$url = URL::model()->findByPk($micrositio->url_id);
+					$url = Url::model()->findByPk($micrositio->url_id);
 					$url->slug 		= 'concursos/' . $this->slugger($concursosForm->nombre);
 					$url->save(false);
 

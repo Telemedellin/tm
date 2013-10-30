@@ -75,7 +75,7 @@ class PgArticuloBlog extends CActiveRecord
 			'pagina_id' => 'Pagina',
 			'entradilla' => 'Entradilla',
 			'texto' => 'Texto',
-			'enlace' => 'Enlace',
+			'enlace' => 'Enlace externo (Opcional)',
 			'imagen' => 'Imagen',
 			'miniatura' => 'Miniatura',
 			'estado' => 'Estado',

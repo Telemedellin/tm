@@ -44,7 +44,7 @@ cs()->registerScript(
       <div class="container">
         <h3><?php echo $novedad->nombre; ?></h3>
         <p><?php echo $novedad->pgArticuloBlogs->entradilla; ?></p>
-        <?php $enlace = ( is_null($novedad->pgArticuloBlogs->enlace) )? bu($novedad->url->slug):$novedad->pgArticuloBlogs->enlace;?>
+        <?php $enlace = ( $novedad->pgArticuloBlogs->enlace == '' )? bu($novedad->url->slug):$novedad->pgArticuloBlogs->enlace;?>
         <a href="<?php echo $enlace ?>" class="ver-mas">Ver más de <?php echo $novedad->nombre; ?></a>
       </div>
     </li>

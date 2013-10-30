@@ -1,37 +1,41 @@
-<?php
-/* @var $this UrlController */
-/* @var $model Url */
-
-$this->breadcrumbs=array(
-	'Novedades' => array('index'),
-	$model->nombre,
-);
-
-$this->menu=array(
-	array('label'=>'Listar Novedad', 'url'=>array('index')),
-	array('label'=>'Crear Novedad', 'url'=>array('create')),
-	array('label'=>'Actualizar Novedad', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Borrar Novedad', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Administrar Novedad', 'url'=>array('admin')),
-);
-?>
-
-<h1>Novedad <?php echo $model->nombre; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data' => $model,
-	'attributes'=>array(
-		'id',
-		'nombre',
-		'url.slug',
-		'pgArticuloBlogs.entradilla',
-		'pgArticuloBlogs.texto:html',
-		'pgArticuloBlogs.enlace',
-		'pgArticuloBlogs.imagen',
-		'pgArticuloBlogs.miniatura',
-		'creado',
-		'modificado',
-		'destacado',
-		'estado',
-	),
-)); ?>
+<div class="row">
+	<div class="col-sm-2">
+		<ul class="nav nav-pills nav-stacked">
+		  <li><?php echo l('Volver', bu('administrador/novedades'))?></li>
+		  <li><?php echo l('Editar', bu('administrador/novedades/update/' . $model->id))?></li>
+		  <li><small><?php echo l('Eliminar', bu('administrador/novedades/delete/' . $model->id), array('onclick' => 'if( !confirm(¿"Seguro que desea borrar la novedad "<?php echo $model->nombre; ?>") ) {return false;}'))?></small></li>
+		</ul>
+	</div>
+	<div class="col-sm-10">
+		<h1>Novedad "<?php echo $model->nombre; ?>"</h1>
+		<?php $this->widget('zii.widgets.CDetailView', array(
+			'data' => $model,
+			'attributes'=>array(
+				'id',
+				'nombre',
+				array(
+					'name' => 'url.slug', 
+					'type' => 'raw', 
+					'value' => l($model->url->slug, bu($model->url->slug), array('target' => '_blank')),
+				),
+				'pgArticuloBlogs.entradilla:html',
+				'pgArticuloBlogs.texto:html',
+				'pgArticuloBlogs.enlace',
+				array(
+					'name' => 'pgArticuloBlogs.imagen', 
+					'type' => 'raw', 
+					'value' => l($model->pgArticuloBlogs->imagen, bu('images/'.$model->pgArticuloBlogs->imagen), array('target' => '_blank', 'class' => 'fancybox')),
+				),
+				array(
+					'name' => 'pgArticuloBlogs.miniatura', 
+					'type' => 'raw', 
+					'value' => l($model->pgArticuloBlogs->miniatura, bu('images/'.$model->pgArticuloBlogs->miniatura), array('target' => '_blank', 'class' => 'fancybox')),
+				),
+				'creado',
+				'modificado',
+				'estado:boolean',
+				'destacado:boolean'
+			),
+		)); ?>
+	</div>
+</div>

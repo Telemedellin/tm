@@ -56,32 +56,46 @@ Yii::app()->clientScript->registerScript('datepicker',
 <div class="form">
 <?php $form = $this->beginWidget('CActiveForm', array(
 	'id'=>'url-form',
-	'enableAjaxValidation'=>false
+	'enableAjaxValidation'=>false,
+    'htmlOptions' => array(
+            'role' => 'form',
+            'class' => 'form-horizontal' 
+    )
 )); ?>
 	<?php echo $form->errorSummary($model); ?>
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'micrositio_id'); ?>
-        <?php echo $form->dropDownList($model,'micrositio_id', CHtml::listData(Micrositio::model()->findAll(), 'id', 'nombre') ); ?>
+		<?php echo $form->labelEx($model,'micrositio_id', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-4">
+            <?php echo $form->dropDownList($model,'micrositio_id', CHtml::listData(Micrositio::model()->findAll(), 'id', 'nombre'), array('class' => 'form-control') ); ?>
+        </div>
 		<?php echo $form->error($model,'micrositio_id'); ?>
 	</div>
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'hora_inicio'); ?>
-        <input name="Programacion[hora_inicio]" type="text" value="<?php echo ($model->hora_inicio)?date('Y-m-d H:i:s', $model->hora_inicio):'' ?>" class="hora_inicio" />
+		<?php echo $form->labelEx($model,'hora_inicio', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-4">
+            <input name="Programacion[hora_inicio]" type="text" value="<?php echo ($model->hora_inicio)?date('Y-m-d H:i:s', $model->hora_inicio):'' ?>" class="hora_inicio form-control" />
+        </div>
 		<?php echo $form->error($model,'hora_inicio'); ?>
 	</div>
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'hora_fin'); ?>
-		<input name="Programacion[hora_fin]" type="text" value="<?php echo ($model->hora_fin)?date('Y-m-d H:i:s', $model->hora_fin):'' ?>" class="hora_fin" />
+		<?php echo $form->labelEx($model,'hora_fin', array('class' => 'col-sm-2 control-label')); ?>
+		<div class="col-sm-4">
+            <input name="Programacion[hora_fin]" type="text" value="<?php echo ($model->hora_fin)?date('Y-m-d H:i:s', $model->hora_fin):'' ?>" class="hora_fin form-control" />
+        </div>
 		<?php echo $form->error($model,'hora_fin'); ?>
 	</div>
     <div class="form-group">
-        <?php echo $form->labelEx($model,'tipo_emision_id'); ?>
-        <?php echo $form->dropDownList($model,'tipo_emision_id', CHtml::listData(TipoEmision::model()->findAll(), 'id', 'nombre'), array('options' => array( '5' =>array('selected'=>true))) ); ?>
+        <?php echo $form->labelEx($model,'tipo_emision_id', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-4">
+            <?php echo $form->dropDownList($model,'tipo_emision_id', CHtml::listData(TipoEmision::model()->findAll(), 'id', 'nombre'), array('options' => array( '5' =>array('selected'=>true)), 'class' => 'form-control') ); ?>
+        </div>
         <?php echo $form->error($model,'tipo_emision_id'); ?>
     </div>
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'estado'); ?>
-		<?php echo $form->dropDownList($model, 'estado', array('1' => 'Si', '0' => 'No' )); ?>
+		<?php echo $form->labelEx($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
+		<div class="col-sm-4">
+            <?php echo $form->dropDownList($model, 'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control')); ?>
+        </div>
 		<?php echo $form->error($model,'estado'); ?>
 	</div>
 	<div class="form-group buttons">
