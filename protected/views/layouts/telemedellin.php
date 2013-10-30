@@ -49,12 +49,12 @@ $ru = Yii::app()->request->requestUri;
 		<footer>
 			<div class="redes">
 				<ul>
-					<li class="facebook"><a href="http://www.facebook.com/telemedellin.tv‎">Facebook</a></li>
-					<li class="twitter"><a href="http://www.twitter.com/telemedellin">Twitter</a></li>
-					<li class="flickr"><a href="http://www.flickr.com/telemedellin">Flickr</a></li>
-					<li class="youtube"><a href="http://www.youtube.com/user/telemedellin‎">Youtube</a></li>
-					<li class="foursquare"><a href="https://es.foursquare.com/telemedellin">Foursquare</a></li>
-					<li class="instagram"><a href="http://instagram.com/telemedellin">Instagram</a></li>
+					<li class="facebook"><a href="http://www.facebook.com/telemedellin.tv‎" target="_blank">Facebook</a></li>
+					<li class="twitter"><a href="http://www.twitter.com/telemedellin" target="_blank">Twitter</a></li>
+					<li class="flickr"><a href="http://www.flickr.com/telemedellin" target="_blank">Flickr</a></li>
+					<li class="youtube"><a href="http://www.youtube.com/user/telemedellin‎" target="_blank">Youtube</a></li>
+					<li class="foursquare"><a href="https://es.foursquare.com/telemedellin" target="_blank">Foursquare</a></li>
+					<li class="instagram"><a href="http://instagram.com/telemedellin" target="_blank">Instagram</a></li>
 				</ul>
 			</div>
 			<?php echo l( 'Contacto' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/utilidades/escribenos'), array('class' => 'escribenos') ); ?>

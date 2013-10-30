@@ -9,8 +9,10 @@ function success_popup(data) {
         var plantilla = 'programas.tmpl.html';
         break;
     case 'Documentales':
-    case 'Especiales':
         var plantilla = 'documentales.tmpl.html';
+        break;
+    case 'Especiales':
+        var plantilla = 'especiales.tmpl.html';
         break;
     default:
         var plantilla = 'seccion.tmpl.html';

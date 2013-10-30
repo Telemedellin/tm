@@ -175,7 +175,7 @@ class Pagina extends CActiveRecord
 		$c 			= new CDbCriteria;
 		$c->limit 	= $limite;
 		$c->offset 	= $offset;
-		$c->order 	= 't.creado DESC, t.destacado DESC';
+		$c->order 	= 't.destacado DESC, t.creado DESC';
 		$c->addCondition( 't.micrositio_id = "' . $micrositio_id . '"' );
 		$c->addCondition( 't.estado <> 0' );
 
@@ -220,7 +220,7 @@ class Pagina extends CActiveRecord
 		$c->join = 'JOIN tipo_pagina ON tipo_pagina.id = t.tipo_pagina_id';
 		$c->addCondition( 't.micrositio_id = "' . $micrositio_id . '"' );
 		$c->addCondition( 't.estado <> 0' );
-		$c->order 	= 't.nombre DESC';
+		$c->order 	= 't.nombre ASC';
 		$pagina  = $this->find( $c );
 
 		if( !$pagina ) return false;

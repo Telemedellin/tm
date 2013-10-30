@@ -641,6 +641,14 @@ nav ul {
 	width: 80%;
 	z-index: 0;
 }
+.home #content {
+	height: 100%;
+	left: auto;
+	padding-top: 0;
+	position: inherit;
+	top: auto;
+	width: 100%;
+}
 #ccontainer .archivos, 
 #ccontainer .carpetas{
 	list-style: none;
@@ -1379,7 +1387,9 @@ nav ul {
 	background: url(../images/static/iconos/overlay.png);
 	background: rgba(0, 0, 0, .8);
 	height: 100%;
+	left: 0;
 	position: absolute;
+	top: 0;
 	width: 100%;
 	z-index: 200;
 }
@@ -1802,10 +1812,12 @@ nav ul {
 
 #loading {
 	background: rgba(0, 0, 0, .7);;
-	width:100%;
 	height:100%;
-	z-index:9999;
+	left: 0;
 	position:absolute;
+	top: 0;
+	width:100%;
+	z-index:9999;
 }
 #loading .spinner{
 	background: url(../images/static/fancybox/fancybox_loading.gif) no-repeat center center #000;

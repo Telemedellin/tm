@@ -350,12 +350,12 @@ class ProgramasController extends Controller
 				$micrositio->nombre			= $programasForm->nombre;
 				if($programasForm->imagen != $micrositio->background)
 				{
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
 					$micrositio->background 	= $dirp . $programasForm->imagen;
 				}
 				if($programasForm->miniatura != $micrositio->miniatura)
 				{
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
 					$micrositio->miniatura 	= $dirp . $programasForm->miniatura;
 				}
 

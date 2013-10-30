@@ -41,10 +41,8 @@ cs()->registerScript( 'scroll',
 
 ?>
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
-	<div class="filtro">
-	 	<form method="get"> 
-	        <input type="text" id="txtFiltro" name="txtFiltro" placeholder="Filtrar <?php echo $seccion->url->slug; ?>..." />
-	    </form> 
+	<div class="filtro"> 
+	    <input type="text" id="txtFiltro" name="txtFiltro" placeholder="Filtrar <?php echo $seccion->url->slug; ?>..." />
 	</div>
 	<div class="listado">
 		<div class="inner">

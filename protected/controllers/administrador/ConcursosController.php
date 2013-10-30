@@ -328,13 +328,7 @@ class ConcursosController extends Controller
 		
 		$concursosForm = new ConcursosForm;
 		$concursosForm->id = $id;
-		$concursosForm->nombre = $micrositio->nombre;
-		$concursosForm->texto = $pagina->pgGenericaSts->texto;
-		$concursosForm->imagen = $micrositio->background;
-		$concursosForm->miniatura = $micrositio->miniatura;
-		$concursosForm->estado = $micrositio->estado;
-		$concursosForm->destacado = $micrositio->destacado;
-
+		
 		if(isset($_POST['ConcursosForm'])){
 			$concursosForm->attributes = $_POST['ConcursosForm'];
 			if( isset(Yii::app()->session['dirc']) ){
@@ -354,14 +348,14 @@ class ConcursosController extends Controller
 				$micrositio = Micrositio::model()->findByPk($id);
 				$transaccion 	= $micrositio->dbConnection->beginTransaction();
 				$micrositio->nombre			= $concursosForm->nombre;
-				if($dirc . $concursosForm->imagen != $micrositio->background)
+				if($concursosForm->imagen != $micrositio->background)
 				{
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
 					$micrositio->background 	= $dirc . $concursosForm->imagen;
 				}
-				if($dirc . $concursosForm->miniatura != $micrositio->miniatura)
+				if($concursosForm->miniatura != $micrositio->miniatura)
 				{
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
 					$micrositio->miniatura 	= $dirc . $concursosForm->miniatura;
 				}
 
@@ -394,6 +388,12 @@ class ConcursosController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+		$concursosForm->nombre = $micrositio->nombre;
+		$concursosForm->texto = $pagina->pgGenericaSts->texto;
+		$concursosForm->imagen = $micrositio->background;
+		$concursosForm->miniatura = $micrositio->miniatura;
+		$concursosForm->estado = $micrositio->estado;
+		$concursosForm->destacado = $micrositio->destacado;
 
 		$this->render('modificar',array(
 			'model'=>$concursosForm,

@@ -94,7 +94,8 @@ class TelemedellinController extends Controller
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
 		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
-		$micrositios = Micrositio::model()->cache(3600, $dependencia)->listarPorSeccion( $seccion->id );
+		$micrositios = Micrositio::model()->cache(3600, $dependencia)->with('pagina')->findAllByAttributes( array('seccion_id' => $seccion->id), array('condition' => 't.estado <> 0', 'order' => 't.creado DESC') );
+		//->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 		
 		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'] )
@@ -379,7 +380,7 @@ class TelemedellinController extends Controller
 	{
 		$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
 		$horarios = Horario::model()->with('pgPrograma')->findAll( 
-			array('order' => 'dia_semana ASC, hora_inicio ASC') 
+			array('order' => 'dia_semana ASC, hora_inicio ASC', 'condition' => 'pgPrograma.estado = 2') 
 		);
 		
 		foreach($horarios as $horario)

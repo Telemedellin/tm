@@ -4,7 +4,7 @@ cs()->registerScript(
   'novedades', 
   '$("#novedades").superslides({
     animation: "fade",
-    play: 20000,
+    play: 15000,
     //hashchange: true,
     pagination: false
   });
@@ -13,7 +13,7 @@ cs()->registerScript(
     $(this).superslides("stop");
   });
   $("#novedades").on("mouseleave", function() {
-    setTimeout(function(){$(this).superslides("start");}, 20000);
+    setTimeout(function(){$(this).superslides("start");}, 15000);
   });
   $("#novedades").on("started.slides", function(){
     set_current();

@@ -1,5 +1,5 @@
 <?php
-if( !empty($contenido['contenido']->miniatura) )
+if( !empty($contenido['contenido']->imagen) )
 cs()->registerCss('background', 'body{background-image: url("' . bu('/images/' . $contenido['contenido']->imagen) . '");}');
 ?>
 <p><?php echo date('d M Y', strtotime($contenido['pagina']['creado']) ) ?></p>

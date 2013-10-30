@@ -53,7 +53,7 @@ jQuery(function($) {
             minFileSize: 'El archivo no tiene peso suficiente'
         }
     }).bind('fileuploaddone', function(e, data){
-        $('#archivoMiniaturaH').attr('value', data.result.archivoMiniatura[0].name);
+        $('#archivoMiniaturaH').attr('value', 'thumbnail/'+data.result.archivoMiniatura[0].name);
     });
     // Enable iframe cross-domain access via redirect option:
     $('#miniatura').fileupload(
@@ -119,7 +119,7 @@ jQuery(function($) {
             minFileSize: 'El archivo no tiene peso suficiente'
         }
     }).bind('fileuploaddone', function(e, data){
-        $('#archivoMiniaturaH').attr('value', data.result.archivoMiniatura[0].name);
+        $('#archivoMiniaturaH').attr('value', 'thumbnail/'+data.result.archivoMiniatura[0].name);
     });
     // Enable iframe cross-domain access via redirect option:
     $('#miniatura_concurso').fileupload(
@@ -185,7 +185,7 @@ jQuery(function($) {
             minFileSize: 'El archivo no tiene peso suficiente'
         }
     }).bind('fileuploaddone', function(e, data){
-        $('#archivoMiniaturaH').attr('value', data.result.archivoMiniatura[0].name);
+        $('#archivoMiniaturaH').attr('value', 'thumbnail/'+data.result.archivoMiniatura[0].name);
     });
     // Enable iframe cross-domain access via redirect option:
     $('#miniatura_programa').fileupload(
@@ -253,7 +253,7 @@ jQuery(function($) {
             minFileSize: 'El archivo no tiene peso suficiente'
         }
     }).bind('fileuploaddone', function(e, data){
-        $('#archivoMiniaturaH').attr('value', data.result.archivoMiniatura[0].name);
+        $('#archivoMiniaturaH').attr('value', 'thumbnail/'+data.result.archivoMiniatura[0].name);
     });
     // Enable iframe cross-domain access via redirect option:
     $('#miniatura_documental').fileupload(

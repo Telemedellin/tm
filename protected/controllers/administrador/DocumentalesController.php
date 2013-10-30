@@ -353,12 +353,12 @@ class DocumentalesController extends Controller
 				$micrositio->nombre			= $documentalesForm->nombre;
 				if($documentalesForm->imagen != $micrositio->background)
 				{
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
 					$micrositio->background 	= $dird . $documentalesForm->imagen;
 				}
 				if($documentalesForm->miniatura != $micrositio->miniatura)
 				{
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
 					$micrositio->miniatura 	= $dird . $documentalesForm->miniatura;
 				}
 

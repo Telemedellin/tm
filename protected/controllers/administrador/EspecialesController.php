@@ -352,12 +352,12 @@ class EspecialesController extends Controller
 				$micrositio->nombre			= $espcialesForm->nombre;
 				if($espcialesForm->imagen != $micrositio->background)
 				{
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
 					$micrositio->background 	= $dire . $espcialesForm->imagen;
 				}
 				if($espcialesForm->miniatura != $micrositio->miniatura)
 				{
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
 					$micrositio->miniatura 	= $dire . $espcialesForm->miniatura;
 				}
 

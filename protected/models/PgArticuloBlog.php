@@ -46,7 +46,7 @@ class PgArticuloBlog extends CActiveRecord
 			array('pagina_id, entradilla, texto, imagen, miniatura, estado', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
 			array('pagina_id', 'length', 'max'=>10),
-			array('entradilla, imagen, miniatura', 'length', 'max'=>255),
+			array('entradilla, enlace, imagen, miniatura', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, pagina_id, entradilla, texto, enlace, imagen, miniatura, estado', 'safe', 'on'=>'search'),

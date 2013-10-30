@@ -296,13 +296,6 @@ class NovedadesController extends Controller
 		$pagina = Pagina::model()->with('url', 'pgArticuloBlogs')->findByPk($id);
 		$novedadesForm = new NovedadesForm;
 		$novedadesForm->id = $id;
-		$novedadesForm->nombre = $pagina->nombre;
-		$novedadesForm->entradilla = $pagina->pgArticuloBlogs->entradilla;
-		$novedadesForm->texto = $pagina->pgArticuloBlogs->texto;
-		$novedadesForm->imagen = $pagina->pgArticuloBlogs->imagen;
-		$novedadesForm->miniatura = $pagina->pgArticuloBlogs->miniatura;
-		$novedadesForm->estado = $pagina->estado;
-		$novedadesForm->destacado = $pagina->destacado;
 
 		if(isset($_POST['NovedadesForm'])){
 			$novedadesForm->attributes = $_POST['NovedadesForm'];
@@ -327,14 +320,14 @@ class NovedadesController extends Controller
 
 				$pgAB = PgArticuloBlog::model()->findByAttributes(array('pagina_id' => $pagina_id));
 
-				if($dir . $novedadesForm->imagen != $pgAB->imagen)
+				if($novedadesForm->imagen != $pgAB->imagen)
 				{
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $pgAB->imagen);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pgAB->imagen);
 					$pgAB->imagen 	= $dir . $novedadesForm->imagen;
 				}
-				if($dir . $novedadesForm->miniatura != $pgAB->miniatura)
+				if($novedadesForm->miniatura != $pgAB->miniatura)
 				{
-					unlink( Yii::getPathOfAlias('webroot').'/images/' . $pgAB->miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pgAB->miniatura);
 					$pgAB->miniatura 	= $dir . $novedadesForm->miniatura;
 				}
 
@@ -359,6 +352,14 @@ class NovedadesController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+		$novedadesForm->nombre = $pagina->nombre;
+		$novedadesForm->entradilla = $pagina->pgArticuloBlogs->entradilla;
+		$novedadesForm->texto = $pagina->pgArticuloBlogs->texto;
+		$novedadesForm->enlace = $pagina->pgArticuloBlogs->enlace;
+		$novedadesForm->imagen = $pagina->pgArticuloBlogs->imagen;
+		$novedadesForm->miniatura = $pagina->pgArticuloBlogs->miniatura;
+		$novedadesForm->estado = $pagina->estado;
+		$novedadesForm->destacado = $pagina->destacado;
 
 		$this->render('modificar',array(
 			'model'=>$novedadesForm,

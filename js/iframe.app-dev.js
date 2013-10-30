@@ -292,10 +292,8 @@ jQuery(function($) {
                     id_video = e.currentTarget.getAttribute('data-id_video'),
                     nombre = e.currentTarget.getAttribute('data-nombre');
             }
+            var full = $('.full');
             if(pv == 'Youtube'){
-                // height="290"
-                var full = $('.full');
-
                 full.fadeOut('fast', function(){
                     full.html('<iframe type="text/html" height="80%" width="90%" src="http://www.youtube.com/embed/'+id_video+'?rel=0" frameborder="0"></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
                 });

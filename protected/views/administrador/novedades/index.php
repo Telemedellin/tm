@@ -20,6 +20,11 @@
             'value'=>'($data->estado=="1")?("Si"):("No")'
         ),
         array(
+            'name'=>'destacado',
+            'filter'=>array('1'=>'Si','0'=>'No'),
+            'value'=>'($data->destacado=="1")?("Si"):("No")'
+        ),
+        array(
             'class'=>'CButtonColumn',
         ),
     )
