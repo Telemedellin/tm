@@ -174,13 +174,26 @@ class ApiController extends Controller
 		Yii::app()->end();
 	}
 
+	public function actionPagina(){
+		if(!$_GET['id']) throw new CHttpException(404, 'No se encontró la página solicitada');
+		$pagina_id = $_GET['id'];
+		$pagina = Pagina::model()->findByPk( $pagina_id );
+		header('Content-Type: application/json; charset="UTF-8"');
+		$json = '{';
+		$json .= '"id":"'.CHtml::encode($pagina->id).'",';
+		$json .= '"nombre":"'.CHtml::encode($pagina->nombre).'"';
+		$json .= '}';
+		echo $json;
+		Yii::app()->end();
+	}
+
 	public function actionCarpeta()
 	{
 		$params = array();
 
-		if( isset($_GET['micrositio_id']) ){
-			$micrositio_id = $_GET['micrositio_id'];
-			$params['micrositio_id'] = $micrositio_id;
+		if( isset($_GET['pagina_id']) ){
+			$pagina_id = $_GET['pagina_id'];
+			$params['pagina_id'] = $pagina_id;
 			$params['item_id'] = 0;
 		}
 		if( isset($_GET['hash']) ){
@@ -204,7 +217,7 @@ class ApiController extends Controller
 					foreach($c as $carpeta):
 					$json .= '{';
 						$json .= '"id":"'.CHtml::encode($carpeta->id).'",';
-						$json .= '"micrositio":"'.CHtml::encode($carpeta->micrositio_id).'",';
+						$json .= '"pagina":"'.CHtml::encode($carpeta->pagina_id).'",';
 						$json .= '"carpeta":"'.CHtml::encode($carpeta->carpeta).'",';
 						$json .= '"url":"'.$carpeta->url->slug.'",';
 						$json .= '"ruta":"'.$carpeta->ruta.'",';

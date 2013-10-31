@@ -53,6 +53,7 @@ class PgCarpeta extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'pagina' => array(self::BELONGS_TO, 'Pagina', 'pagina_id'),
 		);
 	}
 

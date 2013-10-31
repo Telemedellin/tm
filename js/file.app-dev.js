@@ -6,7 +6,7 @@ jQuery(function($) {
         defaults: {
 		    id: '', 
 		    url : '',
-            micrositio : '',
+            pagina : '',
             carpeta: '',
             ruta: '', 
             hijos: ''
@@ -25,8 +25,8 @@ jQuery(function($) {
         } 
     });
 
-    window.Micrositio = Backbone.Model.extend({
-       urlRoot: '/tm/api/micrositio',
+    window.Pagina = Backbone.Model.extend({
+       urlRoot: '/tm/api/pagina',
         defaults: {
             id: '', 
             nombre : ''
@@ -154,16 +154,16 @@ jQuery(function($) {
                 id = id.replace(re, '');
                 this.navigate(id, true);
             });
-            this.micrositio = new Micrositio();
-            this.micrositio_id = $('#micrositio').data('micrositio-id');
-            this.micrositio.fetch({data: {id: this.micrositio_id} });
+            this.pagina = new Pagina();
+            this.pagina_id = $('#micrositio').data('pagina-id');
+            this.pagina.fetch({data: {id: this.pagina_id} });
             if(window.location.hash == '') window.location.hash = 'archivos';
         },
         listar: function() {
             console.log('listar');
             this.carpetaList = new CarpetaCollection();
-            this.carpetaList.fetch({data: {micrositio_id: this.micrositio_id} });
-            this.carpetaListView = new CarpetaListView({collection:this.carpetaList, model: this.micrositio});
+            this.carpetaList.fetch({data: {pagina_id: this.pagina_id} });
+            this.carpetaListView = new CarpetaListView({collection:this.carpetaList, model: this.pagina});
             $('#ccontainer').html(this.carpetaListView.render().el);
         },
         listarCarpeta: function (a1, a2, a3, a4, a5) {
@@ -175,8 +175,8 @@ jQuery(function($) {
             this.archivoList.fetch( {data: {hash: window.location.hash}, success: function(){$('#loading').remove()} } );
             console.dir(this.carpetaList);
             console.dir(this.archivoList);
-            this.carpetaListView = new CarpetaListView( {collection:this.carpetaList, model: this.micrositio} );
-            this.archivoListView = new ArchivoListView( {collection:this.archivoList, model: this.micrositio} );
+            this.carpetaListView = new CarpetaListView( {collection:this.carpetaList, model: this.pagina} );
+            this.archivoListView = new ArchivoListView( {collection:this.archivoList, model: this.pagina} );
             if ($("#archivos").length == 0){
                 $('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
             }else{

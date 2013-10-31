@@ -46,14 +46,14 @@ class Carpeta extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('url_id, micrositio_id, carpeta, ruta, estado', 'required'),
+			array('url_id, pagina_id, carpeta, ruta, estado', 'required'),
 			array('hijos, estado', 'numerical', 'integerOnly'=>true),
-			array('url_id, micrositio_id, item_id', 'length', 'max'=>10),
+			array('url_id, pagina_id, item_id', 'length', 'max'=>10),
 			array('carpeta', 'length', 'max'=>100),
 			array('ruta', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, url_id, micrositio_id, item_id, carpeta, ruta, hijos, estado', 'safe', 'on'=>'search'),
+			array('id, url_id, pagina_id, item_id, carpeta, ruta, hijos, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,7 +66,7 @@ class Carpeta extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'archivos' => array(self::HAS_MANY, 'Archivo', 'carpeta_id'),
-			'micrositio' => array(self::BELONGS_TO, 'Micrositio', 'micrositio_id'),
+			'pagina' => array(self::BELONGS_TO, 'Pagina', 'pagina_id'),
 			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 		);
 	}
@@ -79,7 +79,7 @@ class Carpeta extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'url_id' => 'Url',
-			'micrositio_id' => 'Micrositio',
+			'pagina_id' => 'Página',
 			'item_id' => 'Item',
 			'carpeta' => 'Carpeta',
 			'ruta' => 'Ruta',
@@ -101,7 +101,7 @@ class Carpeta extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('url_id',$this->url_id,true);
-		$criteria->compare('micrositio_id',$this->micrositio_id,true);
+		$criteria->compare('pagina_id',$this->micrositio_id,true);
 		$criteria->compare('item_id',$this->item_id,true);
 		$criteria->compare('carpeta',$this->carpeta,true);
 		$criteria->compare('ruta',$this->ruta,true);
