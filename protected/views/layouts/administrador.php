@@ -34,7 +34,7 @@
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Parrilla (programación) <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Parrilla <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo l( 'Listar', bu('administrador/programacion') ); ?></li>
 							<li><?php echo l( 'Agregar a la parrilla', bu('administrador/programacion/crear') ); ?></li>
@@ -59,6 +59,13 @@
 						<ul class="dropdown-menu">
 							<li><?php echo l( 'Listar', bu('administrador/documentales') ); ?></li>
 							<li><?php echo l( 'Crear nuevo', bu('administrador/documentales/crear') ); ?></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Telemedellín <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><?php echo l( 'Listar', bu('administrador/telemedellin') ); ?></li>
+							<li><?php echo l( 'Crear nuevo', bu('administrador/telemedellin/crear') ); ?></li>
 						</ul>
 					</li>
 			    </ul>

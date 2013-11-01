@@ -1,6 +1,6 @@
 <?php
 
-class DocumentalesController extends Controller
+class TelemedellinController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -42,10 +42,10 @@ class DocumentalesController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->session->remove('dird');
+		Yii::app()->session->remove('dirt');
 		$dataProvider = new CActiveDataProvider('Micrositio', array(
 													    'criteria'=>array(
-													        'condition'=>'seccion_id = 4',
+													        'condition'=>'seccion_id = 1',
 													        'order'=>'t.nombre ASC',
 													        'with'=>array('url'),
 													    )) );
@@ -60,17 +60,16 @@ class DocumentalesController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model = Micrositio::model()->with('url', 'pagina')->findByPk($id);
-		$contenido = PgDocumental::model()->->findByAttributes(array('pagina_id' => $model->pagina->id));
-		$ficha_tecnica = new CActiveDataProvider( 'FichaTecnica', array(
+		$model = Micrositio::model()->with('url')->findByPk($id);
+		$contenido = new CActiveDataProvider('Pagina', array(
 													    'criteria'=>array(
-													        'condition'=>'pg_documental_id = '.$contenido->id,
-													        'order'=>'t.orden ASC'
+													        'condition'=>'micrositio_id = ' . $model->id,
+													        'order'=>'t.nombre ASC',
+													        'with'=>array('pgGenericaSts'),
 													    )) );
 		$this->render('ver', array(
 			'model' => $model,
-			'contenido' => $contenido,
-			'ficha_tecnica' => $ficha_tecnica,
+			'contenido' => $contenido
 		));
 	}
 
@@ -90,7 +89,7 @@ class DocumentalesController extends Controller
 		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' =>$micrositio->id) );
 		$urlp_id = $pagina->url_id;
 		//Borrar PgPrograma
-		$PgP = PgDocumental::model()->findByAttributes(array('pagina_id' => $pagina->id));
+		$PgP = PgPrograma::model()->findByAttributes(array('pagina_id' => $pagina->id));
 		$transaccion = $PgP->dbConnection->beginTransaction();
 		if( $PgP->delete() )
 		{
@@ -129,40 +128,40 @@ class DocumentalesController extends Controller
 	 */
 	public function actionCrear()
 	{
-		if( !isset(Yii::app()->session['dird']) ) Yii::app()->session['dird'] = 'backgrounds/documentales/';
+		if( !isset(Yii::app()->session['dirt']) ) Yii::app()->session['dirt'] = 'backgrounds/programas/';
 
-		$documentalesForm = new DocumentalesForm;		
+		$programasForm = new ProgramasForm;		
 
-		if(isset($_POST['DocumentalesForm'])){
-			$documentalesForm->attributes = $_POST['DocumentalesForm'];
-			if( isset(Yii::app()->session['dird']) ){
-				$dird = Yii::app()->session['dird'];
+		if(isset($_POST['ProgramasForm'])){
+			$programasForm->attributes = $_POST['ProgramasForm'];
+			if( isset(Yii::app()->session['dirt']) ){
+				$dirt = Yii::app()->session['dirt'];
 			}
-			if($documentalesForm->validate()){
+			if($programasForm->validate()){
 				$url = new Url;
 				$transaccion 	= $url->dbConnection->beginTransaction();
-				$url->slug 		= 'documentales/' . $this->slugger($documentalesForm->nombre);
+				$url->slug 		= 'programas/' . $this->slugger($programasForm->nombre);
 				$url->tipo_id 	= 2; //Micrositio
 				$url->estado  	= 1;
 				if( !$url->save(false) ) $transaccion->rollback();
 				$url_id = $url->getPrimaryKey();
 
 				$micrositio = new Micrositio;
-				$micrositio->seccion_id 	= 4; //Documentales
+				$micrositio->seccion_id 	= 2; //Programas
 				$micrositio->usuario_id 	= 1;
 				$micrositio->url_id 		= $url_id;
-				$micrositio->nombre			= $documentalesForm->nombre;
-				$micrositio->background 	= $dird . $documentalesForm->imagen;
-				$micrositio->miniatura 		= $dird . 'thumbnail/' . $documentalesForm->miniatura;
-				$micrositio->destacado		= $documentalesForm->destacado;
-				if($documentalesForm->estado > 0) $estado = 1;
+				$micrositio->nombre			= $programasForm->nombre;
+				$micrositio->background 	= $dirt . $programassForm->imagen;
+				$micrositio->miniatura 		= $dirt . 'thumbnail/' . $programasForm->miniatura;
+				$micrositio->destacado		= $programasForm->destacado;
+				if($programasForm->estado > 0) $estado = 1;
 				else $estado = 0;
 				$micrositio->estado			= $estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 				$micrositio_id = $micrositio->getPrimaryKey();
 
 				$purl = new Url;
-				$purl->slug 	= 'documentales/' . $url->slug .'/inicio';
+				$purl->slug 	= 'programas/' . $url->slug .'/inicio';
 				$purl->tipo_id 	= 3; //Pagina
 				$purl->estado  	= 1;
 				if( !$purl->save(false) ) $transaccion->rollback();
@@ -172,9 +171,9 @@ class DocumentalesController extends Controller
 				$pagina->micrositio_id 	= $micrositio_id;
 				$pagina->tipo_pagina_id = 1; //Página programa
 				$pagina->url_id 		= $purl_id;
-				$pagina->nombre			= $documentalesForm->nombre;
+				$pagina->nombre			= $programasForm->nombre;
 				$pagina->clase 			= NULL;
-				$pagina->destacado		= $documentalesForm->destacado;
+				$pagina->destacado		= $programasForm->destacado;
 				$pagina->estado			= $estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
@@ -182,20 +181,17 @@ class DocumentalesController extends Controller
 				$micrositio->pagina_id = $pagina_id;
 				$micrositio->save(false);
 
-				$pgD = new PgDocumental;
-				$pgD->pagina_id 	= $pagina_id;
-				$pgD->titulo 		= $documentalesForm->nombre;
-				$pgD->duracion 		= $documentalesForm->duracion;
-				$pgD->anio 			= $documentalesForm->anio;
-				$pgD->sinopsis 		= $documentalesForm->sinopsis;
-				$pgD->estado 		= $documentalesForm->estado;
+				$pgP = new PgPrograma;
+				$pgP->pagina_id 	= $pagina_id;
+				$pgP->resena 		= $programasForm->resena;
+				$pgP->estado 		= $programasForm->estado;
 				
-				if( !$pgD->save(false) )
+				if( !$pgP->save(false) )
 					$transaccion->rollback();
 				else
 				{
 					$transaccion->commit();
-					Yii::app()->user->setFlash('mensaje', 'Documental ' . $documentalesForm->nombre . ' guardado con éxito');
+					Yii::app()->user->setFlash('mensaje', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
 					$this->redirect('index');
 				}
 
@@ -208,22 +204,22 @@ class DocumentalesController extends Controller
 
 		
 		$this->render('crear',array(
-			'model'=>$documentalesForm,
+			'model'=>$programasForm,
 		));
 	}
 
 	public function actionImagen(){	
-		if(isset(Yii::app()->session['dird'])){
-			$dird = Yii::app()->session['dird'];
+		if(isset(Yii::app()->session['dirt'])){
+			$dirt = Yii::app()->session['dirt'];
 		}
 		$data = array(	/*'image_versions' => array( 'thumbnail' => array(	'max_width' => 50,
 																		'max_height' => 35
 																	 )
 												),*/
-					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/documentales/imagen',
+					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/programas/imagen',
 					  	'max_number_of_files' => null,
-						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/' . $dird,
-	            		'upload_url' => Yii::app()->request->baseUrl.'/images/' . $dird,	
+						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/' . $dirt,
+	            		'upload_url' => Yii::app()->request->baseUrl.'/images/' . $dirt,	
 	            		'accept_file_types' => '/(\.|\/)(gif|jpe?g|png)$/i',
 	            		'param_name' => 'archivoImagen',
 				);
@@ -249,17 +245,17 @@ class DocumentalesController extends Controller
 	}
 
 	public function actionMiniatura(){	
-		if(isset(Yii::app()->session['dird'])){
-			$dird = Yii::app()->session['dird'];
+		if(isset(Yii::app()->session['dirt'])){
+			$dirt = Yii::app()->session['dirt'];
 		}
 		$data = array(	'image_versions' => array( '' => array(	'max_width' => 50,
 																'max_height' => 35
 															 )
 												),
-					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/documentales/imagen',
+					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/programas/imagen',
 					  	'max_number_of_files' => null,
-						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/' . $dird . 'thumbnail/',
-	            		'upload_url' => Yii::app()->request->baseUrl.'/images/' . $dird . 'thumbnail/',	
+						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/' . $dirt . 'thumbnail/',
+	            		'upload_url' => Yii::app()->request->baseUrl.'/images/' . $dirt . 'thumbnail/',	
 	            		'accept_file_types' => '/(\.|\/)(gif|jpe?g|png)$/i',
 	            		'param_name' => 'archivoMiniatura',
 				);
@@ -329,71 +325,68 @@ class DocumentalesController extends Controller
 	public function actionUpdate($id)
 	{
 
-		if( !isset(Yii::app()->session['dird']) ) Yii::app()->session['dird'] = 'backgrounds/documentales/';
+		if( !isset(Yii::app()->session['dirt']) ) Yii::app()->session['dirt'] = 'backgrounds/programas/';
 
 		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
-		$pagina = Pagina::model()->with('url', 'pgDocumentals')->findByAttributes(array('micrositio_id' => $micrositio->id));
-		$pgD = PgDocumental::model()->with('fichaTecnicas')->findByAttributes(array('pagina_id' => $pagina->id));
+		$pagina = Pagina::model()->with('url', 'pgProgramas')->findByAttributes(array('micrositio_id' => $micrositio->id));
+		$pgP = PgPrograma::model()->with('horario')->findByAttributes(array('pagina_id' => $pagina->id));
 
-		$documentalesForm = new DocumentalesForm;		
-		$documentalesForm->id = $id;
+		$programasForm = new ProgramasForm;		
+		$programasForm->id = $id;
 
-		if(isset($_POST['DocumentalesForm'])){
-			$documentalesForm->attributes = $_POST['DocumentalesForm'];
-			if( isset(Yii::app()->session['dird']) ){
-				$dird = Yii::app()->session['dird'];
+		if(isset($_POST['ProgramasForm'])){
+			$programasForm->attributes = $_POST['ProgramasForm'];
+			if( isset(Yii::app()->session['dirt']) ){
+				$dirt = Yii::app()->session['dirt'];
 			}
-			if($documentalesForm->validate()){
-				if($documentalesForm->nombre != $micrositio->nombre){
+			if($programasForm->validate()){
+				if($programasForm->nombre != $micrositio->nombre){
 					$url = Url::model()->findByPk($micrositio->url_id);
-					$url->slug 		= 'documentales/' . $this->slugger($documentalesForm->nombre);
+					$url->slug 		= 'programas/' . $this->slugger($programasForm->nombre);
 					$url->save(false);
 
 					$purl = Url::model()->findByPk($pagina->url_id);
-					$purl->slug 	= 'documentales/' . $url->slug .'/inicio';
+					$purl->slug 	= 'programas/' . $url->slug .'/inicio';
 					$purl->save(false);
 				}
 
 				$micrositio = Micrositio::model()->findByPk($id);
 				$transaccion 	= $micrositio->dbConnection->beginTransaction();
-				$micrositio->nombre			= $documentalesForm->nombre;
-				if($documentalesForm->imagen != $micrositio->background)
+				$micrositio->nombre			= $programasForm->nombre;
+				if($programasForm->imagen != $micrositio->background)
 				{
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
-					$micrositio->background 	= $dird . $documentalesForm->imagen;
+					$micrositio->background 	= $dirt . $programasForm->imagen;
 				}
-				if($documentalesForm->miniatura != $micrositio->miniatura)
+				if($programasForm->miniatura != $micrositio->miniatura)
 				{
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
-					$micrositio->miniatura 	= $dird . $documentalesForm->miniatura;
+					$micrositio->miniatura 	= $dirt . $programasForm->miniatura;
 				}
 
-				$micrositio->destacado		= $documentalesForm->destacado;
-				if($documentalesForm->estado > 0) $estado = 1;
+				$micrositio->destacado		= $programasForm->destacado;
+				if($programasForm->estado > 0) $estado = 1;
 				else $estado = 0;
 				
 				$micrositio->estado			= $estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
-				$pagina->nombre			= $documentalesForm->nombre;
-				$pagina->destacado		= $documentalesForm->destacado;
+				$pagina->nombre			= $programasForm->nombre;
+				$pagina->destacado		= $programasForm->destacado;
 				$pagina->estado			= $estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 
-				$pgD = PgDocumental::model()->findByAttributes( array('pagina_id' => $pagina->id) );
-				$pgD->titulo 		= $documentalesForm->nombre;
-				$pgD->duracion 		= $documentalesForm->duracion;
-				$pgD->anio 			= $documentalesForm->anio;
-				$pgD->sinopsis 		= $documentalesForm->sinopsis;
-				$pgD->estado 		= $documentalesForm->estado;
-				if( !$pgD->save(false) )
+				$pgP = PgPrograma::model()->findByAttributes( array('pagina_id' => $pagina->id) );
+				$pgP->resena 		= $programasForm->resena;
+				$pgP->estado 		= $programasForm->estado;
+				if( !$pgP->save(false) )
 					$transaccion->rollback();
 				else
 				{
 					$transaccion->commit();
-					Yii::app()->user->setFlash('mensaje', 'Documental ' . $documentalesForm->nombre . ' guardado con éxito');
-					$this->redirect(array('view','id' => $documentalesForm->id));
+					Yii::app()->user->setFlash('mensaje', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
+					$this->redirect(array('view','id' => $programasForm->id));
 				}
 
 			}//if($novedadesForm->validate())
@@ -403,17 +396,15 @@ class DocumentalesController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$documentalesForm->nombre = $micrositio->nombre;
-		$documentalesForm->sinopsis = $pagina->pgDocumentals->sinopsis;
-		$documentalesForm->duracion = $pagina->pgDocumentals->duracion;
-		$documentalesForm->anio = $pagina->pgDocumentals->anio;
-		$documentalesForm->imagen = $micrositio->background;
-		$documentalesForm->miniatura = $micrositio->miniatura;
-		$documentalesForm->estado = $pagina->pgDocumentals->estado;
-		$documentalesForm->destacado = $micrositio->destacado;
+		$programasForm->nombre = $micrositio->nombre;
+		$programasForm->resena = $pagina->pgProgramas->resena;
+		$programasForm->imagen = $micrositio->background;
+		$programasForm->miniatura = $micrositio->miniatura;
+		$programasForm->estado = $pagina->pgProgramas->estado;
+		$programasForm->destacado = $micrositio->destacado;
 
 		$this->render('modificar',array(
-			'model'=>$documentalesForm,
+			'model'=>$programasForm,
 		));
 	}
 

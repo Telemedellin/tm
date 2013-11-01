@@ -18,7 +18,7 @@ function success_popup(data) {
         var plantilla = 'seccion.tmpl.html';
         break;
   }
-  $.get('/tm/js/libs/mustache/views/' + plantilla, function(vista) {
+  $.get('/js/libs/mustache/views/' + plantilla, function(vista) {
     var current_url = window.location.href, 
         output = Mustache.render(vista, data);
     modificar_url(data.url, data.seccion);
@@ -69,7 +69,7 @@ function cerrar_popup(e) {
       modificar_url(old_url);
     }else
     {
-      modificar_url('/tm');
+      modificar_url('/');
     }
   }
   $(document).attr('title', old_title);
@@ -131,7 +131,7 @@ jQuery(function($) {
       hash = current_hash;
       destino_url = current_url;
     }
-    var destino = '/tm/telemedellin/popup#' + hash;
+    var destino = '/telemedellin/popup#' + hash;
     $(this).fancybox({
       type: "ajax",
       href: destino,

@@ -272,7 +272,7 @@ class Pagina extends CActiveRecord
 	        
 	        if($this->isNewRecord)
 	        {
-	        	$this->usuario_id	= 1;
+	        	$this->usuario_id	= Yii::app()->user->id;
 	        	$this->revision_id 	= NULL;
 	        	$this->creado 		= date('Y-m-d H:i:s');
 	            $this->estado 		= 1;

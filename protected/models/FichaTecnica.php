@@ -76,7 +76,7 @@ class FichaTecnica extends CActiveRecord
 			'campo' => 'Campo',
 			'valor' => 'Valor',
 			'orden' => 'Orden',
-			'estado' => 'Estado',
+			'estado' => 'Publicado',
 		);
 	}
 

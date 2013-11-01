@@ -1,5 +1,5 @@
 <?php
-cs()->registerScriptFile(bu().'/js/libs/jquery.superslides.js', CClientScript::POS_END);
+cs()->registerScriptFile(bu('/js/libs/jquery.superslides.js'), CClientScript::POS_END);
 cs()->registerScript(
   'novedades', 
   '$("#novedades").superslides({
@@ -40,7 +40,7 @@ cs()->registerScript(
     $i         = 0;
     foreach($this->getNovedades() as $novedad): ?>
     <li class="novedad">
-      <img src="<?php echo bu() . '/images/' . $novedad->pgArticuloBlogs->imagen; ?>" alt="<?php echo $novedad->nombre; ?>" />
+      <img src="<?php echo bu('/images/' . $novedad->pgArticuloBlogs->imagen); ?>" alt="<?php echo $novedad->nombre; ?>" />
       <div class="container">
         <h3><?php echo $novedad->nombre; ?></h3>
         <p><?php echo $novedad->pgArticuloBlogs->entradilla; ?></p>
@@ -49,7 +49,7 @@ cs()->registerScript(
       </div>
     </li>
     <?php 
-    $paginador .= '<a class="'.$i.'" href="#'.($i+1).'"><img src="'. bu() . '/images/' . $novedad->pgArticuloBlogs->miniatura .'" /></a>' . "\r\n";
+    $paginador .= '<a class="'.$i.'" href="#'.($i+1).'"><img src="'. bu('/images/' . $novedad->pgArticuloBlogs->miniatura) . '" /></a>' . "\r\n";
     $i++;
     endforeach;
     ?>

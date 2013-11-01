@@ -28,16 +28,8 @@ class PaginaController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('crear','update'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('index','view', 'crear','update','delete'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -51,8 +43,9 @@ class PaginaController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+		$model = Pagina::model()->with('micrositio', 'tipoPagina', 'url')->findByPk($id);
+		$this->render('ver',array(
+			'model'=>$model,
 		));
 	}
 
@@ -62,14 +55,14 @@ class PaginaController extends Controller
 	 */
 	public function actionCrear()
 	{
-		$model=new Pagina;
+		$model = new Pagina;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Pagina']))
 		{
-			$model->attributes=$_POST['Pagina'];
+			$model->attributes = $_POST['Pagina'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

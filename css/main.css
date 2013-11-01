@@ -921,9 +921,15 @@ nav ul {
 	-webkit-border-bottom-right-radius: 10px;
 	-moz-border-radius-topleft: 10px;
 	-moz-border-radius-bottomright: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 	border-top-left-radius: 10px;
 	border-bottom-right-radius: 10px;
+	display: inline-block;
+	float: right;
 	margin: 5px 10px 5px 0;
+	min-width: 45%;
 	padding: 0 10px;
 }
 #menu_micrositio ul {
@@ -961,12 +967,13 @@ nav ul {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
+	clear: both;
+	float: right;
 	max-height: 70%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 0px 10px 15px 5px;
 	width: 45%;
-	float: right;
 }
 #micrositio.senal-en-vivo
 {

@@ -22,7 +22,7 @@ jQuery(function($) {
     window.slider;
     //Modelos
 	window.Album = Backbone.Model.extend({
-		urlRoot: '/tm/api/fotoalbum',
+		urlRoot: '/api/fotoalbum',
         defaults: {
 		    id: '', 
             nombre : '',
@@ -32,7 +32,7 @@ jQuery(function($) {
 	});
 
     window.Foto = Backbone.Model.extend({
-       urlRoot: '/tm/api/foto',
+       urlRoot: '/api/foto',
         defaults: {
             id: '', 
             nombre : '', 
@@ -46,7 +46,7 @@ jQuery(function($) {
     });
 
     window.VideoAlbum = Backbone.Model.extend({
-        urlRoot: '/tm/api/videoalbum',
+        urlRoot: '/api/videoalbum',
         defaults: {
             id: '', 
             nombre : '',
@@ -56,7 +56,7 @@ jQuery(function($) {
     });
 
     window.Video = Backbone.Model.extend({
-       urlRoot: '/tm/api/video',
+       urlRoot: '/api/video',
         defaults: {
             id: '', 
             nombre : '', 
@@ -72,7 +72,7 @@ jQuery(function($) {
     });
 
     window.Micrositio = Backbone.Model.extend({
-       urlRoot: '/tm/api/micrositio',
+       urlRoot: '/api/micrositio',
         defaults: {
             id: '', 
             nombre : ''
@@ -82,22 +82,22 @@ jQuery(function($) {
     //Colecciones
 	window.AlbumCollection = Backbone.Collection.extend({
 	    model : Album,
-        url: '/tm/api/fotoalbum'
+        url: '/api/fotoalbum'
 	});
 
     window.FotoCollection = Backbone.Collection.extend({
         model : Foto,
-        url: '/tm/api/foto'
+        url: '/api/foto'
     });
 
     window.VideoAlbumCollection = Backbone.Collection.extend({
         model : VideoAlbum,
-        url: '/tm/api/videoalbum'
+        url: '/api/videoalbum'
     });
 
     window.VideoCollection = Backbone.Collection.extend({
         model : Video,
-        url: '/tm/api/video'
+        url: '/api/video'
     });
 
     //Helpers

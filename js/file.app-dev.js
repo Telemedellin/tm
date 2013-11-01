@@ -2,7 +2,7 @@
 jQuery(function($) {
     //Modelos
 	window.Carpeta = Backbone.Model.extend({
-		urlRoot: '/tm/api/carpeta',
+		urlRoot: '/api/carpeta',
         defaults: {
 		    id: '', 
 		    url : '',
@@ -14,7 +14,7 @@ jQuery(function($) {
 	});
 
     window.Archivo = Backbone.Model.extend({
-       urlRoot: '/tm/api/archivo',
+       urlRoot: '/api/archivo',
         defaults: {
             id: '', 
             url: '', 
@@ -26,7 +26,7 @@ jQuery(function($) {
     });
 
     window.Pagina = Backbone.Model.extend({
-       urlRoot: '/tm/api/pagina',
+       urlRoot: '/api/pagina',
         defaults: {
             id: '', 
             nombre : ''
@@ -36,12 +36,12 @@ jQuery(function($) {
     //Colecciones
 	window.CarpetaCollection = Backbone.Collection.extend({
 	    model : Carpeta,
-        url: '/tm/api/carpeta'
+        url: '/api/carpeta'
 	});
 
     window.ArchivoCollection = Backbone.Collection.extend({
         model : Archivo,
-        url: '/tm/api/archivo'
+        url: '/api/archivo'
     });
 
     //Helpers
@@ -123,7 +123,7 @@ jQuery(function($) {
                 var archivo = e.currentTarget.getAttribute('data-archivo');
                 var nombre = e.currentTarget.getAttribute('data-nombre');
             }
-            var url_archivo = '/tm/archivos/' + carpeta + '/' + archivo;
+            var url_archivo = '/archivos/' + carpeta + '/' + archivo;
             var aiv = new ArchivoItemView( {model: this.model} );
             $('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
             $('#ccontainer').append( aiv.render().el );

@@ -1,6 +1,6 @@
 <section id="newsticker">
   <footer>
-    <a href="http://noticias.telemedellin.tv/"><img src="/tm/images/static/noticiastm.png" alt="Telemedellín" width="83%"></a>
+    <a href="http://noticias.telemedellin.tv/"><img src="/images/static/noticiastm.png" alt="Telemedellín" width="83%"></a>
   </footer>
 <?php
 $this->widget(
