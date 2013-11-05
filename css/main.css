@@ -4,7 +4,7 @@ a, a:hover{
 }
 
 body {
-	background: url('/tm/images/backgrounds/generica-interna-1.jpg') no-repeat #000 center center;
+	background: url('/images/backgrounds/generica-interna-1.jpg') no-repeat #000 center center;
 	background-size: cover;
 	background-attachment: fixed;
 	background-position:top;
@@ -1121,7 +1121,7 @@ nav ul {
 	height: 0;
 }
 #newsticker .bx-next, #newsticker .bx-prev {
-	background: url("/tm/images/glyphicons-halflings-white.png") -432px -72px no-repeat;
+	background: url("../images/glyphicons-halflings-white.png") -432px -72px no-repeat;
 	display: inline-block;
 	height: 14px;
 	line-height: 14px;
@@ -1788,7 +1788,7 @@ nav ul {
 	margin: 25px 0;
 }
 #second-nav {
-	background: #242626 url('/tm/images/static/overlays/08.png');
+	background: #242626 url('../images/static/overlays/08.png');
 	border: 2px solid #242626;
 	bottom: 0;
 	height: 21px;

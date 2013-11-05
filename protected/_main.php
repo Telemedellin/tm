@@ -64,8 +64,6 @@ return array(
 				    'class' => 'application.components.TmUrlRule',
 				    'connectionID' => 'db',
 			  	),
-			  	'mapa-del-sitio' => 'telemedellin/mapadelsitio', 
-			  	'sitemap.xml' => 'telemedellin/mapadelsitio', 
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -80,10 +78,10 @@ return array(
 		),
 		*/
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=telemede_tm',
+			'connectionString' => 'mysql:host=localhost;dbname=med2018_tm',
 			'emulatePrepare' => true,
-			'username' => 'telemede_tm',
-			'password' => 'kk_#=2B8I-+V',
+			'username' => 'med2018_tm',
+			'password' => 'asdf1234*',
 			'charset' => 'utf8',
 		),
 		'twitter' => array(

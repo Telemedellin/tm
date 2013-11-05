@@ -62,9 +62,15 @@ class ProgramasController extends Controller
 	{
 		$model = Micrositio::model()->with('url', 'pagina')->findByPk($id);
 		$contenido = PgPrograma::model()->with('horario')->findByAttributes(array('pagina_id' => $model->pagina->id));
+		$videos = new CActiveDataProvider( 'AlbumVideo', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$id,
+													        'with'=>array('videos', 'url'),
+													    )) );
 		$this->render('ver', array(
 			'model' => $model,
-			'contenido' => $contenido
+			'contenido' => $contenido,
+			'videos' => $videos
 		));
 	}
 

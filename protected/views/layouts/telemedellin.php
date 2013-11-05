@@ -34,7 +34,7 @@ $ru = Yii::app()->request->requestUri;
 		<div class="top">
 			<header>
 				<h1>
-					<a href="<?php echo bu(); ?>">
+					<a href="<?php echo bu('/'); ?>">
 						<img src="<?php echo bu('images/static'); ?>/logo.png" alt="<?php echo app()->name ?>" width="80%" />
 					</a>
 				</h1>

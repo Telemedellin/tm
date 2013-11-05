@@ -440,7 +440,7 @@ class TelemedellinController extends Controller
 
 	public function actionUrlsHuerfanas()
 	{
-		$urls = URL::model()->with('albumFotos', 'albumVideos', 'fotos', 'videos', 'archivos', 'carpetas', 'seccions', 'micrositios', 'menuItems', 'paginas')->findAll(array('limit' => 100, 'offset' => 0));
+		$urls = URL::model()->with('albumFotos', 'albumVideos', 'fotos', 'videos', 'archivos', 'carpetas', 'seccions', 'micrositios', 'menuItems', 'paginas')->findAll();
 		$huerfanos = array();
 		$c = 0;
 		echo '<h2>Buscando huerfanos...</h2>';
@@ -475,6 +475,41 @@ class TelemedellinController extends Controller
 		echo '<h2>Fin</h2>';
 	}
 
+	public function actionMapaDelSitio()
+	{
+		$cc = new CDbCriteria;
+		$ccc = array('tipo_id <> 5',
+					 'tipo_id <> 6',
+					 'tipo_id <> 8',
+					 'tipo_id <> 9',
+					 'tipo_id <> 10',
+					 'tipo_id <> 11',);
+		$cc->addCondition($ccc);
+		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM url");
+		$urls = URL::model()->cache(3600, $dependencia)->findAll($cc);
+		header("Content-type: text/xml; charset=utf-8");
+		if($this->beginCache('sitemap', 
+								array('dependency'=>
+										array(
+									       	'class'=>'system.caching.dependencies.CDbCacheDependency',
+									       	'sql'=>'SELECT MAX(creado) FROM url'
+									    )
+								)
+							)
+			) 
+		{
+			echo '<?xml version="1.0" encoding="UTF-8"?>' . "\r\n";
+			echo '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\r\n";
+			foreach($urls as $u){
+				echo '<url>' . "\r\n";
+				echo '	<loc>' . Yii::app()->request->hostInfo . bu($u->slug) . '</loc>' . "\r\n";
+				echo '</url>' . "\r\n";
+			}
+			echo '</urlset>';
+			$this->endCache(); 
+		}
+	}
+
 	/*public function actionThumbs(){
 		$fotos = Foto::model()->findAll();
 		foreach($fotos as $foto){
@@ -486,7 +521,7 @@ class TelemedellinController extends Controller
 			$foto->thumb = $nuevo_nombre;
 			$foto->save();
 		}
-	}*/
+	}
 	public function actionRutas(){
 		$fotos = Micrositio::model()->findAll(array('limit' => 100));
 		foreach($fotos as $foto){
@@ -496,10 +531,10 @@ class TelemedellinController extends Controller
 			/*
 			$thumb = $foto->thumb;
 			if(substr($thumb, 0, 16) == '/images/')
-				$foto->thumb = substr($thumb, 16);*/
+				$foto->thumb = substr($thumb, 16);
 			$foto->save();
 		}
-	}
+	}*/
 
 	// Uncomment the following methods and override them if needed
 	/*
