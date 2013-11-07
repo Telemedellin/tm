@@ -98,16 +98,16 @@ class Micrositio extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'nombre' => 'Nombre',
-			'seccion_id' => 'Seccion',
+			'seccion_id' => 'Sección',
 			'usuario_id' => 'Usuario',
 			'url_id' => 'Url',
 			'pagina_id' => 'Pagina',
 			'menu_id' => 'Menu',
-			'background' => 'Background',
-			'miniatura' => 'Miniatura',
+			'background' => 'Imagen de fondo',
+			'miniatura' => 'Imagen miniatura',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
-			'estado' => 'Estado',
+			'estado' => 'Publicado',
 			'destacado' => 'Destacado',
 		);
 	}

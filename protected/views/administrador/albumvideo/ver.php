@@ -27,7 +27,7 @@
 				'modificado',
 				array(
 					'name' => 'estado',
-					'value' => ($contenido->estado==1)?'Si':'No',
+					'value' => ($model->estado==1)?'Si':'No',
 				),
 				'destacado:boolean',
 			),

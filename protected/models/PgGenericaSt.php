@@ -65,7 +65,7 @@ class PgGenericaSt extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'texto' => 'Texto',
-			'estado' => 'Estado',
+			'estado' => 'Publicado',
 		);
 	}
 

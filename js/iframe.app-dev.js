@@ -250,7 +250,7 @@ jQuery(function($) {
         },
         render:function (eventName) {
             $(this.el).html( this.template( this.model ) ).fadeIn('fast');
-            window.c = 0;
+            window.cv = 0;
             return this;
         },
         add: function(video){

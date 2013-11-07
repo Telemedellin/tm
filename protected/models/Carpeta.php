@@ -84,7 +84,7 @@ class Carpeta extends CActiveRecord
 			'carpeta' => 'Carpeta',
 			'ruta' => 'Ruta',
 			'hijos' => 'Hijos',
-			'estado' => 'Estado',
+			'estado' => 'Publicado',
 		);
 	}
 

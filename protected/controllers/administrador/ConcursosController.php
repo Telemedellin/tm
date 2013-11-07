@@ -49,7 +49,11 @@ class ConcursosController extends Controller
 													        'condition'=>'seccion_id = 8',
 													        'order'=>'creado DESC',
 													        /*'with'=>array('author'),*/
-													    )) );
+													    ), 
+													    'pagination'=>array(
+													    	'pageSize'=>25,
+													    )
+													) );
 		$this->render('index', array(
 			'dataProvider'=>$dataProvider,
 		));

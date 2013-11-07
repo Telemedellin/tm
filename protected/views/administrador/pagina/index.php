@@ -1,19 +1,9 @@
-<?php
-/* @var $this PaginaController */
-/* @var $dataProvider CActiveDataProvider */
-
-$this->breadcrumbs=array(
-	'Páginas',
-);
-
-$this->menu=array(
-	array('label'=>'Crear Pagina', 'url'=>array('create')),
-	array('label'=>'Manage Pagina', 'url'=>array('admin')),
-);
-?>
-
 <h1>Páginas</h1>
-
+<?php
+    foreach(Yii::app()->user->getFlashes() as $key => $message) {
+        echo '<div class="flash-' . $key . ' alert-success">' . $message . "</div>\n";
+    }
+?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
 	'enableSorting' => true,

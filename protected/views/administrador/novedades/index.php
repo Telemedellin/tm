@@ -7,7 +7,7 @@
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
 	'enableSorting' => true,
-    'pager' => array('pageSize' => 25),
+    'defaultOrder'=>'creado DESC',
 	'columns'=>array(
         'id',
         'nombre',

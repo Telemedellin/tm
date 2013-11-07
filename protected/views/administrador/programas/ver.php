@@ -8,7 +8,6 @@
 	</div>
 	<div class="col-sm-10">
 		<h1>Programa <?php echo $model->nombre; ?></h1>
-
 		<?php $this->widget('zii.widgets.CDetailView', array(
 			'data' => array('programa' => $model, 'contenido' => $contenido),
 			'attributes'=>array(
@@ -21,7 +20,6 @@
 				'contenido.resena:html', 
 				array(
 		            'name' => 'contenido.horario',
-		            //'type'=>'time',
 		            'value' => Horarios::horario_parser($contenido->horario),
 		        ),
 				array(
@@ -43,6 +41,46 @@
 				'programa.destacado:boolean',
 			),
 		)); ?>
+		<h2>Horario fijo de emisión</h2>
+		<p class="pull-right"><?php echo l('Agregar horario', bu('administrador/horario/crear/' . $model->id), array('class' => 'btn btn-default btn-sm'))?></p>
+		<?php if($horario->getData()): ?>
+		<?php $this->widget('zii.widgets.grid.CGridView', array(
+			'dataProvider'=>$horario,
+			'enableSorting' => true,
+		    'pager' => array('pageSize' => 25),
+		    'htmlOptions' => array('style' => 'clear:both;'), 
+			'columns'=>array(
+		        'id',
+		        array(
+		        	'name' => 'dia_semana',
+		        	'value' => 'Horarios::getDiaSemana($data->dia_semana)'
+		        ),
+		        array(
+		        	'name' => 'hora_inicio',
+		        	'value' => 'Horarios::hora($data->hora_inicio, true)'
+		        ),
+		        array(
+		        	'name' => 'hora_fin',
+		        	'value' => 'Horarios::hora($data->hora_fin, true)'
+		        ),
+		        array(
+		        	'name' => 'tipoEmision.nombre',
+		        	'header' => 'Tipo de emisión'
+		        ),
+		        array(
+		            'name'=>'estado',
+		            'filter'=>array('1'=>'Si','0'=>'No'),
+		            'value'=>'($data->estado=="1")?("Si"):("No")'
+		        ),
+		        array(
+		            'class'=>'CButtonColumn',
+		            'template' => '{update}{delete}',
+		            'updateButtonUrl' => 'Yii::app()->createUrl("/administrador/horario/update", array("id"=>$data->id))',
+		            'deleteButtonUrl' => 'Yii::app()->createUrl("/administrador/horario/delete", array("id"=>$data->id))',
+		        ),
+		    )
+		)); ?>
+		<?php endif; ?>
 		<h2>Álbumes de videos</h2>
 		<p class="pull-right"><?php echo l('Agregar álbum de videos', bu('administrador/albumvideo/crear/' . $model->id), array('class' => 'btn btn-default btn-sm'))?></p>
 		<?php if($videos->getData()): ?>

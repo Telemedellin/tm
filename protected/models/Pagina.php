@@ -107,7 +107,7 @@ class Pagina extends CActiveRecord
 			'clase' => 'Clase',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
-			'estado' => 'Estado',
+			'estado' => 'Publicado',
 			'destacado' => 'Destacado',
 		);
 	}

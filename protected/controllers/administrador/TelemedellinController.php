@@ -48,7 +48,11 @@ class TelemedellinController extends Controller
 													        'condition'=>'seccion_id = 1',
 													        'order'=>'t.nombre ASC',
 													        'with'=>array('url'),
-													    )) );
+													    ),
+													    'pagination'=>array(
+													    	'pageSize'=>25,
+													    )
+													    ) );
 		$this->render('index', array(
 			'dataProvider'=>$dataProvider,
 		));

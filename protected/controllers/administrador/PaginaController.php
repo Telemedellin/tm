@@ -37,14 +37,36 @@ class PaginaController extends Controller
 	}
 
 	/**
+	 * Lists all models.
+	 */
+	public function actionIndex()
+	{
+		$dataProvider=new CActiveDataProvider('Pagina', 
+													array(
+														'pagination'=>array(
+													    	'pageSize'=>25,
+													    ),
+												)
+											);
+		$this->render('index',array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
+
+	/**
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
 	public function actionView($id)
 	{
-		$model = Pagina::model()->with('micrositio', 'tipoPagina', 'url')->findByPk($id);
+		//$model = Pagina::model()->with('micrositio', 'tipoPagina', 'url')->findByPk($id);
+		$pagina = Pagina::model()->cargarPagina($id);
+
+		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
+
 		$this->render('ver',array(
-			'model'=>$model,
+			'model'=>$pagina['pagina'],
+			'contenido'=>$contenido,
 		));
 	}
 
@@ -109,16 +131,7 @@ class PaginaController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-	/**
-	 * Lists all models.
-	 */
-	public function actionIndex()
-	{
-		$dataProvider=new CActiveDataProvider('Pagina');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
-	}
+	
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

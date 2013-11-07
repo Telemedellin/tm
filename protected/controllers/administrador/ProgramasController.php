@@ -43,12 +43,18 @@ class ProgramasController extends Controller
 	public function actionIndex()
 	{
 		Yii::app()->session->remove('dirp');
-		$dataProvider = new CActiveDataProvider('Micrositio', array(
+		$dataProvider = new CActiveDataProvider('Micrositio', 
+													array(
 													    'criteria'=>array(
 													        'condition'=>'seccion_id = 2',
 													        'order'=>'t.nombre ASC',
 													        'with'=>array('url'),
-													    )) );
+													    ),
+													    'pagination'=>array(
+													    	'pageSize'=>25,
+													    ),
+													)
+												);
 		$this->render('index', array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -67,10 +73,16 @@ class ProgramasController extends Controller
 													        'condition'=>'micrositio_id = '.$id,
 													        'with'=>array('videos', 'url'),
 													    )) );
+		$horario = new CActiveDataProvider( 'Horario', array(
+													    'criteria'=>array(
+													        'condition'=>'pg_programa_id = '.$contenido->id,
+													        'with'=>array('tipoEmision'),
+													    )) );
 		$this->render('ver', array(
 			'model' => $model,
 			'contenido' => $contenido,
-			'videos' => $videos
+			'videos' => $videos, 
+			'horario' => $horario
 		));
 	}
 

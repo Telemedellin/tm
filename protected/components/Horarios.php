@@ -1,9 +1,18 @@
 <?php
 class Horarios{
 
-	public static function horario_programa( $horarios )	
+	public static function getDiaSemana($dia)
 	{
 		$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
+		if(is_numeric($dia)){
+			if($dia>0)	$dia -= 1;
+			return $dias_semana[$dia];
+		}else return false;
+	}
+
+	public static function horario_programa( $horarios )	
+	{
+		//$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
 		$datos = array();
 		$html = '';
 		foreach( $horarios as $horario ):
@@ -42,7 +51,7 @@ class Horarios{
 					$html .= $dato['tipo_emision'] . ' ';
 				$te = $dato['tipo_emision_id'];
 			}
-			$html .= $dias_semana[ $dato['dia_semana'] - 1 ] . ' ';
+			$html .= Horarios::getDiaSemana($dato['dia_semana']) . ' ';
 			$html .= ' a las ' . Horarios::hora( $dato['hora_inicio'] ) . ' ';
 		}
 		$html = ucfirst(strtolower($html));
@@ -52,7 +61,7 @@ class Horarios{
 
 	public static function horario_parser( $horarios )	
 	{
-		$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
+		//$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
 		$datos = array();
 		$html = '';
 		foreach( $horarios as $horario ):
@@ -90,13 +99,13 @@ class Horarios{
 			foreach ($en_vivo as $ev) {							
 				//Inicial
 				if ($ev === reset($en_vivo)){
-					$html .= $dias_semana[ $ev['dia_semana'] - 1 ] . ' ';
+					$html .= Horarios::getDiaSemana($ev['dia_semana']) . ' ';
 				}
 
 				//Final
 				if ($ev === end($en_vivo) && count($en_vivo) > 1){
 					$html .= " a ";
-					$html .= $dias_semana[ $ev['dia_semana'] - 1 ] . ' ';
+					$html .= Horarios::getDiaSemana($ev['dia_semana']) . ' ';
 				}
 			}
 			$html .= ' a las ' . Horarios::hora( $horario_en_vivo ) . ' ';			
@@ -107,12 +116,12 @@ class Horarios{
 			foreach ($diferido as $df) {
 							
 				if ($df === reset($diferido)){
-					$html .= $dias_semana[ $df['dia_semana'] - 1 ] . ' ';
+					$html .= Horarios::getDiaSemana($df['dia_semana']) . ' ';
 				}				
 				if(count($diferido) > 1){
 					if ($df === end($diferido)){
 						$html .= " a ";
-						$html .= $dias_semana[ $df['dia_semana'] - 1 ] . ' ';
+						$html .= Horarios::getDiaSemana($df['dia_semana']) . ' ';
 					}						
 				}
 			}
@@ -124,12 +133,12 @@ class Horarios{
 			foreach ($reemision as $rem) {
 							
 				if ($rem === reset($reemision)){
-					$html .= $dias_semana[ $rem['dia_semana'] - 1 ] . ' ';
+					$html .= Horarios::getDiaSemana($rem['dia_semana']) . ' ';
 				}
 				if(count($reemision) > 1){
 					if ($rem === end($reemision)){
 						$html .= " a ";
-						$html .= $dias_semana[ $rem['dia_semana'] - 1 ] . ' ';
+						$html .= Horarios::getDiaSemana($rem['dia_semana']) . ' ';
 					}						
 				}
 			}
@@ -143,7 +152,7 @@ class Horarios{
 	{
 		date_default_timezone_set('America/Bogota');
 		setlocale(LC_ALL, 'es_ES.UTF-8');
-		$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
+		//$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
 		$datos = array();
 		$html = '';
 		foreach( $fechas as $fecha ):
@@ -218,7 +227,7 @@ class Horarios{
 		return $html;
 	}
 
-	public static function hora( $tiempo )
+	public static function hora( $tiempo, $con_minutos = false )
 	{		
 		if( strlen((string)$tiempo) == 4){
 			$hora 	= substr($tiempo, 0, 2);
@@ -231,21 +240,16 @@ class Horarios{
 			$hora 	= substr($tiempo, 0, 1);
 			$minuto = substr($tiempo, 1);
 		}
-		$ampm = 'a. m.';		
+		$ampm = 'am';		
 		if( $hora > 12)
 		{
-			if($hora == 24){
-				$hora -= 12;
-				$ampm = 'a. m.';							
-			}
-			else{
-				$hora -= 12;
-				$ampm = 'p. m.';
-			}
+			$hora -= 12;
+			if($hora == 24) $ampm = 'am';
+			else $ampm = 'pm';
 		}
 		$html = '';
 		$html .= $hora;
-		if($minuto != 00) $html .= ':' . $minuto;
+		if($minuto != 00 || $con_minutos != false) $html .= ':' . $minuto;
 		$html .= ' ' . $ampm;
 		return $html;
 	}
