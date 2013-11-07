@@ -37,7 +37,7 @@ foreach ($items as $item):
         <?php 
             if(mb_strlen($item->get_title()) > 80) $titulo = mb_substr($item->get_title(), 0, 80). ' ...';
             else $titulo = $item->get_title();?>
-        <a href="<?php echo $item->get_permalink(); ?>">
+        <a href="<?php echo $item->get_permalink(); ?>" target="_blank">
             <?php echo $titulo ?>
         </a>
     </h3>

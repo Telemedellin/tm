@@ -45,6 +45,7 @@ class Horarios{
 			$html .= $dias_semana[ $dato['dia_semana'] - 1 ] . ' ';
 			$html .= ' a las ' . Horarios::hora( $dato['hora_inicio'] ) . ' ';
 		}
+		$html = ucfirst(strtolower($html));
 		
 		return $html;
 	}
@@ -134,7 +135,7 @@ class Horarios{
 			}
 			$html .= ' a las ' . Horarios::hora( $horario_en_reemision ) . ' ';			
 		}			
-		
+		$html = ucfirst(strtolower($html));
 		return $html;
 	}
 
@@ -213,7 +214,7 @@ class Horarios{
 			$previous = $dato;
 		}
 		//$html = substr($html, 0, -2);
-		
+		$html = ucfirst(strtolower($html));
 		return $html;
 	}
 
@@ -230,16 +231,16 @@ class Horarios{
 			$hora 	= substr($tiempo, 0, 1);
 			$minuto = substr($tiempo, 1);
 		}
-		$ampm = 'am';		
+		$ampm = 'a. m.';		
 		if( $hora > 12)
 		{
 			if($hora == 24){
 				$hora -= 12;
-				$ampm = 'am';							
+				$ampm = 'a. m.';							
 			}
 			else{
 				$hora -= 12;
-				$ampm = 'pm';
+				$ampm = 'p. m.';
 			}
 		}
 		$html = '';

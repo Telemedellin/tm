@@ -15,7 +15,6 @@ class PaginaController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -118,21 +117,6 @@ class PaginaController extends Controller
 		$dataProvider=new CActiveDataProvider('Pagina');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-		));
-	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionAdmin()
-	{
-		$model=new Pagina('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Pagina']))
-			$model->attributes=$_GET['Pagina'];
-
-		$this->render('admin',array(
-			'model'=>$model,
 		));
 	}
 
