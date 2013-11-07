@@ -6,12 +6,12 @@
 )); ?>
 	<?php echo $form->errorSummary($model); ?>
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'nombre'); ?>
+		<?php echo $form->label($model,'nombre'); ?>
 		<?php echo $form->textField($model, 'nombre', array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'nombre'); ?>
 	</div>
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'resena'); ?>
+		<?php echo $form->label($model,'resena'); ?>
 		<?php //echo $form->textArea($model, 'resena'); ?>
         <?php $this->widget('ext.editMe.widgets.ExtEditMe', array(
             'model'=>$model,
@@ -45,7 +45,7 @@
 		<?php echo $form->error($model,'resena'); ?>
 	</div>
 	<div class="form-group">
-        <?php echo $form->labelEx($model,'imagen'); ?>
+        <?php echo $form->label($model,'imagen'); ?>
         <?php echo $form->hiddenField($model, 'imagen', array('id' => 'archivoImagenH') ); ?>
         <div class="controls">
             <div id="imagen_programa">
@@ -81,7 +81,7 @@
         </div>
 	</div>
 	<div class="form-group">
-        <?php echo $form->labelEx($model,'miniatura'); ?>
+        <?php echo $form->label($model,'miniatura'); ?>
         <?php echo $form->hiddenField($model, 'miniatura', array('id' => 'archivoMiniaturaH') ); ?>
         <div class="controls">
             <div id="miniatura_programa">
@@ -116,13 +116,18 @@
             </div>
         </div>
 	</div>
+    <div class="form-group">
+        <?php echo $form->label($model,'formulario'); ?>
+        <?php echo $form->textField($model, 'formulario'); ?>
+        <?php echo $form->error($model,'formulario'); ?>
+    </div>
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'estado'); ?>
+		<?php echo $form->label($model,'estado'); ?>
 		<?php echo $form->dropDownList($model, 'estado', array(2 => 'En emisión', 1 => 'No se emite', 0 => 'Desactivado' )); ?>
 		<?php echo $form->error($model,'estado'); ?>
 	</div>
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'destacado'); ?>
+		<?php echo $form->label($model,'destacado'); ?>
 		<?php echo $form->dropDownList($model, 'destacado', array(0 => 'No', 1 => 'Si' )); ?>
 		<?php echo $form->error($model,'destacado'); ?>
 	</div>

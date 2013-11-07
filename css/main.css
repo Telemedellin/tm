@@ -56,7 +56,7 @@ nav ul {
 	border-radius: 10px;
 	color: #FFF;
 	display: inline-block;
-	height: 24px;
+	height: 23px;
 	letter-spacing: 20px;
 	margin-right: 5px;
 	overflow: hidden;
@@ -72,10 +72,8 @@ nav ul {
 .breadcrumbs a:hover {
 	letter-spacing: .5px;
 	text-decoration: none;
-	max-width: 225px;
-	/*-moz-transition: letter-spacing .2s ease-out .2s;
-	-webkit-transition: letter-spacing .2s ease-out .2s;
-	transition: letter-spacing .2s ease-out .2s;*/
+	/*max-width: 225px;*/
+	max-width: 655px;
 }
 .breadcrumbs a.home {
 	background: rgb(0,0,0) url('../images/static/iconos/tmicons.png') no-repeat 4px -754px; 
@@ -826,6 +824,8 @@ nav ul {
 
 .ivideos li  {
 	clear:both;
+	margin-bottom: 10px;
+	overflow: hidden;
 }
 
 #icontainer ul li a {

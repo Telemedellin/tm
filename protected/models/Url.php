@@ -42,9 +42,10 @@ class Url extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('slug, tipo_id, creado, estado', 'required'),
+			array('slug, tipo_id, estado', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
 			array('slug', 'length', 'max'=>255),
+			array('slug', 'unique'),
 			array('tipo_id', 'length', 'max'=>10),
 			array('modificado', 'safe'),
 			// The following rule is used by search().

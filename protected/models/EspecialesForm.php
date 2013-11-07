@@ -24,8 +24,8 @@ class EspecialesForm extends CFormModel
 	{
 		return array(
 			// name, email, subject and body are required
-			array('nombre, resena, lugar, presentadores', 'required'),
-			array('resena, lugar, presentadores, imagen, miniatura', 'length', 'max'=>255),
+			array('nombre, resena', 'required'),
+			array('lugar, presentadores, imagen, miniatura', 'length', 'max'=>255),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
 	}

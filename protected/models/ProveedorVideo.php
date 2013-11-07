@@ -67,7 +67,7 @@ class ProveedorVideo extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'nombre' => 'Nombre',
+			'nombre' => 'Proveedor',
 			'estado' => 'Estado',
 		);
 	}

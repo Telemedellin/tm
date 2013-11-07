@@ -45,6 +45,7 @@
 		)); ?>
 		<h2>Álbumes de videos</h2>
 		<p class="pull-right"><?php echo l('Agregar álbum de videos', bu('administrador/albumvideo/crear/' . $model->id), array('class' => 'btn btn-default btn-sm'))?></p>
+		<?php if($videos->getData()): ?>
 		<?php $this->widget('zii.widgets.grid.CGridView', array(
 			'dataProvider'=>$videos,
 			'enableSorting' => true,
@@ -73,11 +74,13 @@
 		        ),
 		        array(
 		            'class'=>'CButtonColumn',
-		            'template' => '{update}{delete}',
+		            'template' => '{view}{update}{delete}',
+		            'viewButtonUrl' => 'Yii::app()->createUrl("/administrador/albumvideo/view", array("id"=>$data->id))',
 		            'updateButtonUrl' => 'Yii::app()->createUrl("/administrador/albumvideo/update", array("id"=>$data->id))',
 		            'deleteButtonUrl' => 'Yii::app()->createUrl("/administrador/albumvideo/delete", array("id"=>$data->id))',
 		        ),
 		    )
 		)); ?>
+	<?php endif; ?>
 	</div>
 </div>

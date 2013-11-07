@@ -193,8 +193,10 @@ class TelemedellinController extends Controller
 		$c->addCondition(' t.estado <> 0');
 		$c->join  = 'JOIN pagina ON pagina.micrositio_id = t.id';
 		$c->join  .= ' JOIN pg_especial ON pg_especial.pagina_id = pagina.id';
+		$c->join  .= ' LEFT JOIN fecha_especial ON pg_especial.id = fecha_especial.pg_especial_id';
+		$c->group = 'pg_especial.id';
 		$c->limit = 8;
-		$c->order = 'pg_especial.id DESC';
+		$c->order = 'fecha_especial.fecha DESC';
 		$recientes = Micrositio::model()->findAll( $c );
 
 		if( !$recientes ) throw new CHttpException(404, 'Invalid request');

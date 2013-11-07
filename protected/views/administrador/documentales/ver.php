@@ -43,8 +43,10 @@
 				),
 			),
 		)); ?>
+		
 		<h2>Ficha técnica</h2>
 		<p class="pull-right"><?php echo l('Agregar elemento a la ficha', bu('administrador/fichatecnica/crear/' . $contenido->id), array('class' => 'btn btn-default btn-sm'))?></p>
+		<?php if($ficha_tecnica->getData()): ?>
 		<?php $this->widget('zii.widgets.grid.CGridView', array(
 			'dataProvider'=>$ficha_tecnica,
 			'enableSorting' => true,
@@ -69,5 +71,6 @@
 		        ),
 		    )
 		)); ?>
+		<?php endif; ?>
 	</div>
 </div>

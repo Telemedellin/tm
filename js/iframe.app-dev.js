@@ -368,7 +368,7 @@ jQuery(function($) {
         },
         listarVideoAlbumes: function() {
             this.videoalbumList = new VideoAlbumCollection();
-            this.videoalbumList.fetch({data: {micrositio_id: this.micrositio_id} });
+            this.videoalbumList.fetch({reset:true, data: {micrositio_id: this.micrositio_id} });
             this.videoalbumListView = new VideoAlbumListView({collection:this.videoalbumList, model: this.micrositio});
             $('#icontainer').html(this.videoalbumListView.render().el);
         },
@@ -381,7 +381,6 @@ jQuery(function($) {
                         micrositio: this.micrositio_id
                     },
                     success: function(){
-                        
                         var full = $('.full'),
                             alto = $('.fancybox-inner').height();
                         full.css('height', (alto/1.6) );
@@ -392,7 +391,6 @@ jQuery(function($) {
                                 enable: true
                             }
                         });
-                        console.log('Success');
                     }
                 }
             );
@@ -401,6 +399,7 @@ jQuery(function($) {
             videoalbum = makeTitle(videoalbum);
             console.log(videoalbum);
             console.dir(this.videolist);
+            window.c = 0;
             this.videolistView = new VideoListView({collection:this.videolist, model: {nombre: videoalbum, video_activo: video} });
             $('#icontainer').html(this.videolistView.render().el);
         }

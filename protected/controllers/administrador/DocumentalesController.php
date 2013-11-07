@@ -61,7 +61,7 @@ class DocumentalesController extends Controller
 	public function actionView($id)
 	{
 		$model = Micrositio::model()->with('url', 'pagina')->findByPk($id);
-		$contenido = PgDocumental::model()->->findByAttributes(array('pagina_id' => $model->pagina->id));
+		$contenido = PgDocumental::model()->findByAttributes(array('pagina_id' => $model->pagina->id));
 		$ficha_tecnica = new CActiveDataProvider( 'FichaTecnica', array(
 													    'criteria'=>array(
 													        'condition'=>'pg_documental_id = '.$contenido->id,
@@ -162,7 +162,7 @@ class DocumentalesController extends Controller
 				$micrositio_id = $micrositio->getPrimaryKey();
 
 				$purl = new Url;
-				$purl->slug 	= 'documentales/' . $url->slug .'/inicio';
+				$purl->slug 	= $url->slug .'/inicio';
 				$purl->tipo_id 	= 3; //Pagina
 				$purl->estado  	= 1;
 				if( !$purl->save(false) ) $transaccion->rollback();
@@ -350,7 +350,7 @@ class DocumentalesController extends Controller
 					$url->save(false);
 
 					$purl = Url::model()->findByPk($pagina->url_id);
-					$purl->slug 	= 'documentales/' . $url->slug .'/inicio';
+					$purl->slug 	= $url->slug .'/inicio';
 					$purl->save(false);
 				}
 

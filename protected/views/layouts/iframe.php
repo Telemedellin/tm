@@ -25,7 +25,7 @@
 </script>
 <script id="videoalbumListItemViewTemplate" type="text/template">
 <a href="<%= url %>" class="in_fancy" data-id="<%= id %>">
-	<img src="<%= thumb %>" width="240" height="180" />
+	<img src="/images/<%= thumb %>" width="240" height="180" />
 	<h2><%= nombre %></h2>
 </a>
 </script>

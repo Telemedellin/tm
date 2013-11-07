@@ -86,7 +86,7 @@ class Pagina extends CActiveRecord
 			'pgDocumentals' => array(self::HAS_ONE, 'PgDocumental', 'pagina_id'),
 			'pgEspecials' => array(self::HAS_ONE, 'PgEspecial', 'pagina_id'),
 			'pgGenericaSts' => array(self::HAS_ONE, 'PgGenericaSt', 'pagina_id'),
-			'pgFormularioJfs' => array(self::HAS_ONE, 'pgFormularioJf', 'pagina_id'),
+			'pgFormularioJfs' => array(self::HAS_ONE, 'PgFormularioJf', 'pagina_id'),
 			'pgProgramas' => array(self::HAS_ONE, 'PgPrograma', 'pagina_id'),
 		);
 	}

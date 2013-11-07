@@ -1,5 +1,9 @@
 //"use strict";
 var old_title = '';  
+var redes = "<div><!--Facebook--><div id='fb-root'></div><div class='fb-like' data-send='false' data-layout='button_count' data-width='120' data-show-faces='false'></div>";
+redes += "<div><!--Twitter--><a href='https://twitter.com/share' class='twitter-share-button' data-text='#telemedellin' data-lang='es'>Twittear</a><script>!function(d,s,id) {var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)) {js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div>";
+redes += "<div><!--G+--><div class='g-plusone' data-size='medium'></div></div>";
+redes += "<div><!--Pinterest--><a href='//pinterest.com/pin/create/button/' data-pin-do='buttonBookmark' ><img src='//assets.pinterest.com/images/pidgets/pin_it_button.png' /></a><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = '//connect.facebook.net/es_LA/all.js#xfbml=1&appId=26028648916';fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><script type='text/javascript'>window.___gcfg = {lang: 'es'};(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();</script><script type='text/javascript' src='//assets.pinterest.com/js/pinit.js'></script></div></div>";
 function success_popup(data) {
   switch(data.seccion) {
     case 'Telemedellín':
@@ -77,8 +81,61 @@ function cerrar_popup(e) {
   e.preventDefault();
 }
 function abrir_multimedia(tipo) {
-  if(tipo != '')
-    $('a.fancybox.'+tipo).trigger('click');
+  if(tipo != ''){
+    //$('a.fancybox.'+tipo).trigger('click');
+    var hash = window.location.hash.substr(1),
+        destino = '/telemedellin/popup#' + hash;
+    $.fancybox.open({
+      type: "ajax",
+      href: destino,
+      autoSize: false,
+      height: $( window ).height() - ($( window ).height() * 0.10),
+      padding: [9, 20, 9, 20],
+      afterLoad: function(current, previous) {
+          var nombre = "Álbumes";
+          var pagina = '#'+hash;
+          if(!nombre) nombre = null;
+          if($('.no-history').length == 0) {
+            var stateObj = { state: nombre };
+            window.history.pushState( stateObj, nombre, pagina );
+          }else{
+            var hashito = pagina.indexOf('#');
+            hashito = pagina.substr(hashito).substr(1);
+            window.location.hash = hashito;
+          }
+      },
+      afterClose: function() {
+        if($('.no-history').length > 0)
+          window.location.hash = '';
+        modificar_url('#', "Álbumes");
+      },
+      beforeLoad: function() {
+        this.width  = '80%';
+      },
+      beforeShow: function() {
+        if (this.title) {
+          this.title += '<br />';
+        }else{
+          this.title = '';
+        }
+        this.title += redes;
+      },
+      afterShow: function() {
+        // Render tweet button
+        twttr.widgets.load();
+      },
+      helpers : {
+        overlay:{
+          css:{
+            "background" : "rgba(0, 0, 0, .7)"
+          }
+        },
+        title:{
+          type: 'inside'
+        }
+      }
+    });
+  }
 }
 function modificar_url(pagina, nombre) {
   if(!nombre) nombre = null;
@@ -121,16 +178,16 @@ jQuery(function($) {
       el_url = element.href,
       destino_url,
       hash;
-    if(!current_hash) {
+    //if(!current_hash || !current_hash.indexOf('/')) {
     //Si no existe el hash en la url actual, tomo el hash del enlace
       var hash_p = el_url.indexOf('#');
       hash = el_url.substr(hash_p).substr(1);
     //Asigno la url del elemento a la nueva
       destino_url = el_url;
-    }else{
-      hash = current_hash;
-      destino_url = current_url;
-    }
+    //}else{
+    //  hash = current_hash;
+    //  destino_url = current_url;
+    //}
     var destino = '/telemedellin/popup#' + hash;
     $(this).fancybox({
       type: "ajax",
@@ -167,10 +224,7 @@ jQuery(function($) {
         }else{
           this.title = '';
         }
-        this.title += "<div><!--Facebook--><div id='fb-root'></div><div class='fb-like' data-send='false' data-layout='button_count' data-width='120' data-show-faces='false'></div>";
-        this.title += "<div><!--Twitter--><a href='https://twitter.com/share' class='twitter-share-button' data-text='#telemedellin' data-lang='es'>Twittear</a><script>!function(d,s,id) {var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)) {js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div>";
-        this.title += "<div><!--G+--><div class='g-plusone' data-size='medium'></div></div>";
-        this.title += "<div><!--Pinterest--><a href='//pinterest.com/pin/create/button/' data-pin-do='buttonBookmark' ><img src='//assets.pinterest.com/images/pidgets/pin_it_button.png' /></a><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = '//connect.facebook.net/es_LA/all.js#xfbml=1&appId=26028648916';fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><script type='text/javascript'>window.___gcfg = {lang: 'es'};(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();</script><script type='text/javascript' src='//assets.pinterest.com/js/pinit.js'></script></div></div>";
+        this.title += redes;
       },
       afterShow: function() {
         // Render tweet button

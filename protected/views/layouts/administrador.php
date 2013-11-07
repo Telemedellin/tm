@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/styles.admin.min.css" />
 	<link rel="shortcut icon" href="<?php echo bu('/favicon.ico')?>" />
-	<title><?php echo h($this->pageTitle); ?> - Telemedellínn</title>
+	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
 </head>
 <body>
 	<div class="container">

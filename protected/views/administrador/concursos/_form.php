@@ -117,6 +117,11 @@
             </div>
         </div>
 	</div>
+    <div class="form-group">
+        <?php echo $form->label($model,'formulario'); ?>
+        <?php echo $form->textField($model, 'formulario'); ?>
+        <?php echo $form->error($model,'formulario'); ?>
+    </div>
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'estado'); ?>
 		<?php echo $form->dropDownList($model, 'estado', array('1' => 'Si', '0' => 'No' )); ?>

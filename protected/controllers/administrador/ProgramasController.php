@@ -87,13 +87,21 @@ class ProgramasController extends Controller
 		$url_id = $micrositio->url_id;
 		$micrositio->pagina_id = null;
 		$micrositio->save();
-		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' =>$micrositio->id) );
+		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 1) );
 		$urlp_id = $pagina->url_id;
 		//Borrar PgPrograma
 		$PgP = PgPrograma::model()->findByAttributes(array('pagina_id' => $pagina->id));
+		$formulario = Pagina::model()->with('url', 'pgFormularioJfs')->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 7));
+
 		$transaccion = $PgP->dbConnection->beginTransaction();
 		if( $PgP->delete() )
 		{
+			$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
+			if($pgF){
+				$pgF->delete();
+				$formulario->delete();
+				$furl = Url::model()->findByPk($formulario->url_id)->delete();
+			} 
 			//Borrar Página
 			if( $pagina->delete() ){
 				//Borrar Url de pagina
@@ -162,7 +170,7 @@ class ProgramasController extends Controller
 				$micrositio_id = $micrositio->getPrimaryKey();
 
 				$purl = new Url;
-				$purl->slug 	= 'programas/' . $url->slug .'/inicio';
+				$purl->slug 	= $url->slug .'/inicio';
 				$purl->tipo_id 	= 3; //Pagina
 				$purl->estado  	= 1;
 				if( !$purl->save(false) ) $transaccion->rollback();
@@ -181,6 +189,29 @@ class ProgramasController extends Controller
 
 				$micrositio->pagina_id = $pagina_id;
 				$micrositio->save(false);
+
+				if($programasForm->formulario != '')
+				{
+					$furl = new Url;
+					$furl->slug = $url->slug . '/escribenos';
+					$furl->tipo_id = 3; //Página
+					$furl->estado = 1;
+					if($furl->save()){
+						$formulario = new Pagina;
+						$formulario->micrositio_id = $micrositio_id;
+						$formulario->tipo_pagina_id = 7;								
+						$formulario->url_id = $furl->getPrimaryKey();
+						$formulario->nombre = 'Escríbenos';	
+						$formulario->estado = 1;
+						$formulario->destacado = 0;
+						$formulario->save();
+					}
+					$pgF = new PgFormularioJf;
+					$pgF->pagina_id 	= $pagina_id;
+					$pgF->formulario_id	= $programasForm->formulario;
+					$pgF->estado 		= 1;
+					$pgF->save();
+				}
 
 				$pgP = new PgPrograma;
 				$pgP->pagina_id 	= $pagina_id;
@@ -329,8 +360,9 @@ class ProgramasController extends Controller
 		if( !isset(Yii::app()->session['dirp']) ) Yii::app()->session['dirp'] = 'backgrounds/programas/';
 
 		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
-		$pagina = Pagina::model()->with('url', 'pgProgramas')->findByAttributes(array('micrositio_id' => $micrositio->id));
+		$pagina = Pagina::model()->with('url', 'pgProgramas')->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 1));
 		$pgP = PgPrograma::model()->with('horario')->findByAttributes(array('pagina_id' => $pagina->id));
+		$formulario = Pagina::model()->with('url', 'pgFormularioJfs')->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 7));
 
 		$programasForm = new ProgramasForm;		
 		$programasForm->id = $id;
@@ -347,7 +379,7 @@ class ProgramasController extends Controller
 					$url->save(false);
 
 					$purl = Url::model()->findByPk($pagina->url_id);
-					$purl->slug 	= 'programas/' . $url->slug .'/inicio';
+					$purl->slug 	= $url->slug .'/inicio';
 					$purl->save(false);
 				}
 
@@ -372,12 +404,49 @@ class ProgramasController extends Controller
 				$micrositio->estado			= $estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 
-				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
+				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 1));
 				$pagina->nombre			= $programasForm->nombre;
 				$pagina->destacado		= $programasForm->destacado;
 				$pagina->estado			= $estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 
+				if($programasForm->formulario != $formulario->pgFormularioJfs->formulario_id)
+				{
+					if($programasForm->formulario != '')
+					{
+						if(is_null($formulario))
+						{
+							
+							$furl = new Url;
+							$furl->slug = $micrositio->url->slug . '/escribenos';
+							$furl->tipo_id = 3; //Página
+							$furl->estado = 1;
+							if($furl->save()){
+								$formulario = new Pagina;
+								$formulario->micrositio_id = $micrositio->id;
+								$formulario->tipo_pagina_id = 7;								
+								$formulario->url_id = $furl->getPrimaryKey();
+								$formulario->nombre = 'Escríbenos';	
+								$formulario->estado = 1;
+								$formulario->destacado = 0;
+								$formulario->save();
+							}
+							
+						}
+						$pgF = new PgFormularioJf;
+						$pgF->pagina_id 	= $formulario->id;
+						$pgF->formulario_id	= $programasForm->formulario;
+						$pgF->estado 		= 1;
+						$pgF->save();
+					}else{
+						$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
+						if($pgF){
+							$pgF->delete();
+							$formulario->delete();
+							$furl = Url::model()->findByPk($formulario->url_id)->delete();
+						} 
+					}
+				}
 				$pgP = PgPrograma::model()->findByAttributes( array('pagina_id' => $pagina->id) );
 				$pgP->resena 		= $programasForm->resena;
 				$pgP->estado 		= $programasForm->estado;
@@ -401,6 +470,7 @@ class ProgramasController extends Controller
 		$programasForm->resena = $pagina->pgProgramas->resena;
 		$programasForm->imagen = $micrositio->background;
 		$programasForm->miniatura = $micrositio->miniatura;
+		$programasForm->formulario = $formulario->pgFormularioJfs->formulario_id;
 		$programasForm->estado = $pagina->pgProgramas->estado;
 		$programasForm->destacado = $micrositio->destacado;
 

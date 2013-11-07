@@ -50,9 +50,10 @@ class Video extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('album_video_id, proveedor_video_id, url_id, url_video, nombre, duracion, creado, estado, destacado', 'required'),
+			array('album_video_id, proveedor_video_id, url_video, nombre, estado, destacado', 'required'),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true),
 			array('album_video_id, proveedor_video_id, url_id', 'length', 'max'=>10),
+			array('url_video', 'url'),
 			array('url_video, nombre', 'length', 'max'=>100),
 			array('duracion', 'length', 'max'=>19),
 			array('descripcion, modificado', 'safe'),
@@ -92,7 +93,7 @@ class Video extends CActiveRecord
 			'duracion' => 'Duracion',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
-			'estado' => 'Estado',
+			'estado' => 'Publicado',
 			'destacado' => 'Destacado',
 		);
 	}

@@ -83,13 +83,20 @@ class ConcursosController extends Controller
 		$nombre = $micrositio->nombre;
 		$micrositio->pagina_id = null;
 		$micrositio->save();
-		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' =>$micrositio->id) );
+		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' =>$micrositio->id, 'tipo_pagina_id' => 2) );
 		$urlp_id = $pagina->url_id;
 		//Borrar PgGenericaSt
 		$pgGst = PgGenericaSt::model()->findByAttributes(array('pagina_id' => $pagina->id));
+		$formulario = Pagina::model()->with('url', 'pgFormularioJfs')->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 7));
 		$transaccion = $pgGst->dbConnection->beginTransaction();
 		if( $pgGst->delete() )
 		{
+			$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
+			if($pgF){
+				$pgF->delete();
+				$formulario->delete();
+				$furl = Url::model()->findByPk($formulario->url_id)->delete();
+			} 
 			//Borrar Página
 			if( $pagina->delete() ){
 				//Borrar Url de pagina
@@ -176,6 +183,29 @@ class ConcursosController extends Controller
 
 				$micrositio->pagina_id = $pagina_id;
 				$micrositio->save(false);
+
+				if($concursosForm->formulario != '')
+				{
+					$furl = new Url;
+					$furl->slug = $url->slug . '/escribenos';
+					$furl->tipo_id = 3; //Página
+					$furl->estado = 1;
+					if($furl->save()){
+						$formulario = new Pagina;
+						$formulario->micrositio_id = $micrositio_id;
+						$formulario->tipo_pagina_id = 7;								
+						$formulario->url_id = $furl->getPrimaryKey();
+						$formulario->nombre = 'Escríbenos';	
+						$formulario->estado = 1;
+						$formulario->destacado = 0;
+						$formulario->save();
+					}
+					$pgF = new PgFormularioJf;
+					$pgF->pagina_id 	= $pagina_id;
+					$pgF->formulario_id	= $concursosForm->formulario;
+					$pgF->estado 		= 1;
+					$pgF->save();
+				}
 
 				$pgGst = new PgGenericaSt;
 				$pgGst->pagina_id 	= $pagina_id;
@@ -325,6 +355,7 @@ class ConcursosController extends Controller
 
 		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
 		$pagina = Pagina::model()->with('url', 'pgGenericaSts')->findByAttributes(array('micrositio_id' => $micrositio->id));
+		$formulario = Pagina::model()->with('url', 'pgFormularioJfs')->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 7));
 		
 		$concursosForm = new ConcursosForm;
 		$concursosForm->id = $id;
@@ -369,6 +400,44 @@ class ConcursosController extends Controller
 				$pagina->estado			= $concursosForm->estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 
+				if($concursosForm->formulario != $formulario->pgFormularioJfs->formulario_id)
+				{
+					if($concursosForm->formulario != '')
+					{
+						if(is_null($formulario))
+						{
+							
+							$furl = new Url;
+							$furl->slug = $micrositio->url->slug . '/escribenos';
+							$furl->tipo_id = 3; //Página
+							$furl->estado = 1;
+							if($furl->save()){
+								$formulario = new Pagina;
+								$formulario->micrositio_id = $micrositio->id;
+								$formulario->tipo_pagina_id = 7;								
+								$formulario->url_id = $furl->getPrimaryKey();
+								$formulario->nombre = 'Escríbenos';	
+								$formulario->estado = 1;
+								$formulario->destacado = 0;
+								$formulario->save();
+							}
+							
+						}
+						$pgF = new PgFormularioJf;
+						$pgF->pagina_id 	= $formulario->id;
+						$pgF->formulario_id	= $concursosForm->formulario;
+						$pgF->estado 		= 1;
+						$pgF->save();
+					}else{
+						$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
+						if($pgF){
+							$pgF->delete();
+							$formulario->delete();
+							$furl = Url::model()->findByPk($formulario->url_id)->delete();
+						} 
+					}
+				}
+
 				$pgGst = PgGenericaSt::model()->findByAttributes( array('pagina_id' => $pagina->id) );
 				$pgGst->texto 		= $concursosForm->texto;
 				
@@ -392,6 +461,7 @@ class ConcursosController extends Controller
 		$concursosForm->texto = $pagina->pgGenericaSts->texto;
 		$concursosForm->imagen = $micrositio->background;
 		$concursosForm->miniatura = $micrositio->miniatura;
+		$concursosForm->formulario = $formulario->pgFormularioJfs->formulario_id;
 		$concursosForm->estado = $micrositio->estado;
 		$concursosForm->destacado = $micrositio->destacado;
 

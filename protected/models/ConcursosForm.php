@@ -12,6 +12,7 @@ class ConcursosForm extends CFormModel
 	public $texto;
 	public $imagen;
 	public $miniatura;
+	public $formulario;
 	public $destacado;
 	public $estado;
 	
@@ -23,7 +24,7 @@ class ConcursosForm extends CFormModel
 		return array(
 			// name, email, subject and body are required
 			array('nombre, texto', 'required'),
-			array('imagen, miniatura', 'length', 'max'=>255),
+			array('imagen, miniatura, formulario', 'length', 'max'=>255),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
 	}
@@ -39,6 +40,7 @@ class ConcursosForm extends CFormModel
 			'texto' => 'Texto',
 			'imagen' => 'Imagen',
 			'miniatura' => 'Imagen Miniatura',
+			'formulario' => 'Formulario (ID de JotForm)',
 			'estado' => 'Publicado',
 		);
 	}
