@@ -74,10 +74,10 @@ class Horario extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'pg_programa_id' => 'Programa',
-			'dia_semana' => 'Dia Semana',
-			'hora_inicio' => 'Hora Inicio',
-			'hora_fin' => 'Hora Fin',
-			'tipo_emision_id' => 'Tipo Emision',
+			'dia_semana' => 'Día de la semana',
+			'hora_inicio' => 'Hora de inicio',
+			'hora_fin' => 'Hora de terminación',
+			'tipo_emision_id' => 'Tipo de emisión',
 			'estado' => 'Publicado',
 		);
 	}

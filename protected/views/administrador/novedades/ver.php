@@ -20,7 +20,11 @@
 				),
 				'pgArticuloBlogs.entradilla:html',
 				'pgArticuloBlogs.texto:html',
-				'pgArticuloBlogs.enlace',
+				array(
+					'name' => 'pgArticuloBlogs.enlace', 
+					'type' => 'raw', 
+					'value' => l($model->pgArticuloBlogs->enlace, $model->pgArticuloBlogs->enlace, array('target' => '_blank')),
+				),
 				array(
 					'name' => 'pgArticuloBlogs.imagen', 
 					'type' => 'raw', 

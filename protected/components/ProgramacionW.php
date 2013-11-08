@@ -16,24 +16,29 @@ class ProgramacionW extends CWidget
         
     }
 
-    public static function getMenu($menu, $administrador = false){
+    public static function getMenu($menu, $adm = false){
+        date_default_timezone_set('America/Bogota');
+        setlocale(LC_ALL, 'es_ES.UTF-8');
+        $base = ($adm) ? bu('administrador/programacion'):bu('programacion');
         $hoy = mktime(0, 0, 0, date('m'), date('j'), date('Y'));
         $html = '';
-        $html .= ($administrador)? '<ul class="nav nav-tabs nav-justified">':'';
+        $manana = $hoy + 86400;
+        $ruri = Yii::app()->request->requestUri;
+        
+        $html .= ($adm)? '<ul class="nav nav-tabs nav-justified">':'';
         foreach($menu as $item):
-            $c = ( ($item >= $hoy && $item < ($hoy+86400))) ? "active":"";
-            $html .= ($administrador)? '<li class="'.$c.'">':'';
-            $base = ($administrador) ? bu('administrador/programacion'):bu('programacion');
             $url = $base . '?dia=' . date('j', $item) . '&mes=' . date('m', $item) . '&anio=' . date('Y', $item);
-            $clases = ( ($item >= $hoy && $item < ($hoy+86400)) ) ? "hoy ":"";
-            $clases .= ( $url == Yii::app()->request->requestUri ) ? "elegido":"";
-           
+            $h = ($url == $ruri) ? "active" : ( ( ($item >= $hoy && $item < $manana && empty($_GET)) ) ? "active" : "" );
+            $html .= ($adm)? '<li class="'.$h.'">':'';
+            $clases = ( ($item >= $hoy && $item < $manana) ) ? "hoy ":"";
+            $clases .= ( $url == $ruri ) ? "elegido":"";
             $html .= '<a href="'.$url.'" class="'.$clases.'">';
-            $html .= strftime("%A", $item) . ' ' . strftime("%e", $item);
+            $html .= ucfirst(strftime("%A", $item)) . ' ' . strftime("%e", $item);
             $html .= '</a>';
-            $html .= ($administrador)?'</li>':'';
+            $html .= ($adm)?'</li>':'';
         endforeach;
-        $html .= ($administrador)?'</ul>':'';
+        $html .= ($adm)?'</ul>':'';
+
         return $html;
     }
 

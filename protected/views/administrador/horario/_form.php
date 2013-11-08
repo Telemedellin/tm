@@ -77,28 +77,28 @@ Yii::app()->clientScript->registerScript('timepicker',
     </div>
     <div class="form-group">
 		<?php echo $form->label($model,'hora_inicio', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
             <input name="Horario[hora_inicio]" type="text" value="<?php echo ($model->hora_inicio)?Horarios::hora($model->hora_inicio, true):'' ?>" class="hora_inicio form-control" />
         </div>
 		<?php echo $form->error($model,'hora_inicio'); ?>
 	</div>
 	<div class="form-group">
 		<?php echo $form->label($model,'hora_fin', array('class' => 'col-sm-2 control-label')); ?>
-		<div class="col-sm-4">
+		<div class="col-sm-2">
             <input name="Horario[hora_fin]" type="text" value="<?php echo ($model->hora_fin)?Horarios::hora($model->hora_fin, true):'' ?>" class="hora_fin form-control" />
         </div>
 		<?php echo $form->error($model,'hora_fin'); ?>
 	</div>
 	<div class="form-group">
         <?php echo $form->label($model,'tipo_emision_id', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
             <?php echo $form->dropDownList($model,'tipo_emision_id', CHtml::listData(TipoEmision::model()->findAll(), 'id', 'nombre'), array( 'class' => 'form-control') ); ?>
         </div>
         <?php echo $form->error($model,'tipo_emision_id'); ?>
     </div>
 	<div class="form-group">
 		<?php echo $form->label($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
-		<div class="col-sm-4">
+		<div class="col-sm-2">
             <?php echo $form->dropDownList($model, 'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control')); ?>
         </div>
 		<?php echo $form->error($model,'estado'); ?>

@@ -80,17 +80,17 @@ class Foto extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'album_foto_id' => 'Album Foto',
+			'album_foto_id' => 'Álbum de fotos',
 			'url_id' => 'Url',
 			'src' => 'Src',
-			'thumb' => 'Thumb',
+			'thumb' => 'Miniatura',
 			'nombre' => 'Nombre',
-			'descripcion' => 'Descripcion',
+			'descripcion' => 'Descripción',
 			'ancho' => 'Ancho',
 			'alto' => 'Alto',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
-			'estado' => 'Estado',
+			'estado' => 'Publicado',
 			'destacado' => 'Destacado',
 		);
 	}

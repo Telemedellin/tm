@@ -3,51 +3,61 @@
 <?php $form = $this->beginWidget('CActiveForm', array(
 	'id'=>'url-form',
 	'enableAjaxValidation'=>false,
-    'htmlOptions' => array('enctype' => 'multipart/form-data')
+    'htmlOptions' => array(
+        'enctype' => 'multipart/form-data', 
+        'role' => 'form',
+        'class' => 'form-horizontal' 
+    )
 )); ?>
 	<?php echo $form->errorSummary($model); ?>
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'nombre'); ?>
-		<?php echo $form->textField($model, 'nombre', array('size'=>60,'maxlength'=>255)); ?>
+		<?php echo $form->label($model,'nombre', array('class' => 'col-sm-2 control-label')); ?>
+		<div class="col-sm-6">
+            <?php echo $form->textField($model, 'nombre', array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
+        </div>
 		<?php echo $form->error($model,'nombre'); ?>
 	</div>
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'texto'); ?>
-		<?php //echo $form->textArea($model, 'texto'); ?>
+		<?php echo $form->label($model,'texto', array('class' => 'col-sm-2 control-label')); ?>
+		<div class="col-sm-10">
+            <?php //echo $form->textArea($model, 'texto', array('class' => 'form-control')); ?>
         <?php $this->widget('ext.editMe.widgets.ExtEditMe', array(
             'model'=>$model,
             'attribute'=>'texto',
             'toolbar' => array(
                             array(
-                                    'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'Source',
+                                'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat',
+                            ),
+                             array(
+                                'TextColor', 'BGColor',
                             ),
                             array(
-                                    'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'
+                                'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+                            ),
+                            array(
+                                'Link', 'Unlink', 'Anchor',
                             ),
                             '/',
                             array(
-                                    'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat',
-                            ),
-                             array(
-                                    'TextColor', 'BGColor',
+                                'Source', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 
                             ),
                             array(
-                                    'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+                                'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'
                             ),
                             array(
-                                    /*'Image', */'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak', 'Iframe'
+                                /*'Image', */'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak', 'Iframe'
                             ),
-                            array(
-                                    'Link', 'Unlink', 'Anchor',
-                            ),
+                            
                         ),
             //'optionName'=>'optionValue',
         ));?>
+        </div>
 		<?php echo $form->error($model,'texto'); ?>
 	</div>
 	<div class="form-group">
-        <?php echo $form->labelEx($model,'imagen'); ?>
-        <?php echo $form->hiddenField($model, 'imagen', array('id' => 'archivoImagenH') ); ?>
+        <?php echo $form->label($model,'imagen', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-10">
+            <?php echo $form->hiddenField($model, 'imagen', array('id' => 'archivoImagenH')); ?>
         <div class="controls">
             <div id="imagen_concurso">
                 <!-- Mensaje cuando el Javascript se encuentra deshabilitado -->
@@ -56,7 +66,7 @@
                 <div class="row fileupload-buttonbar">
                     <div class="span8">
                         <!-- The fileinput-button span is used to style the file input field as button -->
-                        <span class="btn btn-success fileinput-button">
+                        <span class="btn btn-default fileinput-button">
                             <span>Añadir archivo</span>
                             <i class="icon-plus icon-white"></i>
                             <?php //echo $form->fileField($model, 'imagen', array('id' => 'archivoImagen', 'name' => 'archivoImagen[]')); ?>
@@ -80,10 +90,12 @@
                 </table>
             </div>
         </div>
+        </div>
 	</div>
 	<div class="form-group">
-        <?php echo $form->labelEx($model,'miniatura'); ?>
-        <?php echo $form->hiddenField($model, 'miniatura', array('id' => 'archivoMiniaturaH') ); ?>
+        <?php echo $form->label($model,'miniatura', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-10">
+            <?php echo $form->hiddenField($model, 'miniatura', array('id' => 'archivoMiniaturaH')); ?>
         <div class="controls">
             <div id="miniatura_concurso">
                 <!-- Mensaje cuando el Javascript se encuentra deshabilitado -->
@@ -92,7 +104,7 @@
                 <div class="row fileupload-buttonbar">
                     <div class="span8">
                         <!-- The fileinput-button span is used to style the file input field as button -->
-                        <span class="btn btn-success fileinput-button">
+                        <span class="btn btn-default fileinput-button">
                             <span>Añadir archivo</span>
                             <i class="icon-plus icon-white"></i>
                             <?php //echo $form->fileField($model, 'imagen', array('id' => 'archivoMiniatura', 'name' => 'archivoMiniatura[]')); ?>
@@ -116,20 +128,28 @@
                 </table>
             </div>
         </div>
+        </div>
 	</div>
     <div class="form-group">
-        <?php echo $form->label($model,'formulario'); ?>
-        <?php echo $form->textField($model, 'formulario'); ?>
+        <?php echo $form->label($model,'formulario', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-5">
+            <?php echo $form->textField($model, 'formulario', array('class' => 'form-control')); ?>
+            <span class="help-block">Por ejemplo: http://www.jotform.com/?formID=<strong>32834466613962</strong></span>
+        </div>
         <?php echo $form->error($model,'formulario'); ?>
     </div>
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'estado'); ?>
-		<?php echo $form->dropDownList($model, 'estado', array('1' => 'Si', '0' => 'No' )); ?>
+		<?php echo $form->label($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
+		<div class="col-sm-2">
+            <?php echo $form->dropDownList($model, 'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control')); ?>
+        </div>
 		<?php echo $form->error($model,'estado'); ?>
 	</div>
 	<div class="form-group">
-		<?php echo $form->labelEx($model,'destacado'); ?>
-		<?php echo $form->dropDownList($model, 'destacado', array('0' => 'No', '1' => 'Si' )); ?>
+		<?php echo $form->label($model,'destacado', array('class' => 'col-sm-2 control-label')); ?>
+		<div class="col-sm-2">
+            <?php echo $form->dropDownList($model, 'destacado', array('0' => 'No', '1' => 'Si' ), array('class' => 'form-control')); ?>
+        </div>
 		<?php echo $form->error($model,'destacado'); ?>
 	</div>
 	<div class="form-group buttons">

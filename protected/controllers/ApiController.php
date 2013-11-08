@@ -199,7 +199,7 @@ class ApiController extends Controller
 		if( isset($_GET['hash']) ){
 			$hash = $_GET['hash'];
 			$url = Url::model()->findByAttributes( array('slug' => $hash) );
-			$ca = Carpeta::model()->findByAttributes( array('url_id' => $url->id, array('order' => 'carpeta ASC')) );
+			$ca = Carpeta::model()->findByAttributes( array('url_id' => $url->id) );
 			if($ca)	$params['item_id'] = $ca->id;
 		}
 
@@ -208,8 +208,8 @@ class ApiController extends Controller
 
 		if($params){
 
-			$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM carpeta WHERE estado <> 0");
-			$c = Carpeta::model()->cache(3600, $dependencia)->findAllByAttributes( $params );	
+			//$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM carpeta WHERE estado <> 0");
+			$c = Carpeta::model()/*->cache(3600, $dependencia)*/->findAllByAttributes( $params );	
 			
 			if($c)
 			{

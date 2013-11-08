@@ -1,3 +1,3 @@
-<h1>Crear Programa</h1>
+<h1>Crear Micrositio</h1>
 
 <?php echo $this->renderPartial('_form', array('model' => $model)); ?>

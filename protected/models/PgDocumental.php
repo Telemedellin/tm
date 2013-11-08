@@ -74,12 +74,12 @@ class PgDocumental extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'pagina_id' => 'Pagina',
+			'pagina_id' => 'Página',
 			'titulo' => 'Titulo',
-			'duracion' => 'Duracion',
-			'anio' => 'Anio',
+			'duracion' => 'Duración',
+			'anio' => 'Año',
 			'sinopsis' => 'Sinopsis',
-			'estado' => 'Estado',
+			'estado' => 'Publicado',
 		);
 	}
 

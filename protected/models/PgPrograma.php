@@ -69,8 +69,8 @@ class PgPrograma extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'pagina_id' => 'Pagina',
-			'resena' => 'Resena',
+			'pagina_id' => 'Página',
+			'resena' => 'Reseña',
 			'estado' => 'Estado',
 		);
 	}

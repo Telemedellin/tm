@@ -71,11 +71,11 @@ class FechaEspecial extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'pg_especial_id' => 'Pg Especial',
+			'pg_especial_id' => 'Página Especial',
 			'fecha' => 'Fecha',
 			'hora_inicio' => 'Hora Inicio',
 			'hora_fin' => 'Hora Fin',
-			'estado' => 'Estado',
+			'estado' => 'Publicado',
 		);
 	}
 

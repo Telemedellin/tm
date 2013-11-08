@@ -58,9 +58,10 @@ jQuery(function($) {
             this.render;
         },
         render:function (eventName) {
+            this.$el.empty();
             $(this.el).html( this.template( this.model.toJSON() ) );
-            _.each(this.collection.models, function (album) {
-                $('.carpetas').append(new CarpetaListItemView({model:album}).render().el).fadeIn('slow');
+            _.each(this.collection.models, function (carpeta) {
+                $('.carpetas').append(new CarpetaListItemView({model:carpeta}).render().el).fadeIn('slow');
             }, this);
             return this;
         }
@@ -89,6 +90,7 @@ jQuery(function($) {
             this.collection.bind("add", this.add, this);
         },
         render:function (eventName) {
+            this.$el.empty();
             $(this.el).html( this.template( this.model ) );
             return this;
         },

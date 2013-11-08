@@ -89,10 +89,12 @@ class VideosController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCrear()
+	public function actionCrear($id)
 	{
 		
-		$video = new Video;		
+		$album_video = ($id)?AlbumVideo::model()->with('seccion')->findByPk($id):0;
+		$video = new Video;	
+		$album_video->id = $album_video;	
 
 		if(isset($_POST['Video'])){
 			$video->attributes = $_POST['Video'];

@@ -73,8 +73,8 @@ class Programacion extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'micrositio_id' => 'Micrositio',
-			'hora_inicio' => 'Hora Inicio',
-			'hora_fin' => 'Hora Fin',
+			'hora_inicio' => 'Hora de inicio',
+			'hora_fin' => 'Hora de terminación',
 			'tipo_emision_id' => 'Tipo de emisión',
 			'estado' => 'Publicado',
 		);

@@ -57,10 +57,15 @@ class HorarioController extends Controller
 	 */
 	public function actionCrear($id)
 	{
-		$pgPrograma = ($id)?PgPrograma::model()->with('pagina')->findByPk($id):0;
 		$horario = new Horario;	
-		$horario->pg_programa_id = $pgPrograma;
-
+		
+		if($id){
+			$micrositio = Micrositio::model()->findByPk($id);
+			$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
+			$pgPrograma = PgPrograma::model()->findByAttributes(array('pagina_id' => $pagina->id));
+			$horario->pg_programa_id = $pgPrograma->id;
+		}
+		
 		if(isset($_POST['Horario'])){
 			$horario->attributes = $_POST['Horario'];
 			if($horario->save()){

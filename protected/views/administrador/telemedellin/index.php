@@ -1,4 +1,4 @@
-<h1>Institucional</h1>
+<h1>Telemedellín <small>(Institucional)</small></h1>
 <?php
     foreach(Yii::app()->user->getFlashes() as $key => $message) {
         echo '<div class="flash-' . $key . ' alert-success">' . $message . "</div>\n";

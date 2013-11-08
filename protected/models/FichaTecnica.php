@@ -72,7 +72,7 @@ class FichaTecnica extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'pg_documental_id' => 'Pg Documental',
+			'pg_documental_id' => 'Página Documental',
 			'campo' => 'Campo',
 			'valor' => 'Valor',
 			'orden' => 'Orden',

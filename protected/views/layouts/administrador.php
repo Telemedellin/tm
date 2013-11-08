@@ -65,13 +65,13 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Telemedellín <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo l( 'Listar', bu('administrador/telemedellin') ); ?></li>
-							<li><?php echo l( 'Crear nuevo', bu('administrador/telemedellin/crear') ); ?></li>
+							<li><?php echo l( 'Crear micrositio', bu('administrador/telemedellin/crear') ); ?></li>
 						</ul>
 					</li>
 			    </ul>
 			</div>
 			<p class="navbar-text pull-right">
-				<?php echo Yii::app()->user->getState('correo') ?> 
+				<small><?php echo Yii::app()->user->getState('correo') ?></small> 
 				<?php echo l( 'Salir', bu('administrador/salir'), array('class' => 'navbar-link') ); ?>
 			</p>
 			<?php endif ?>

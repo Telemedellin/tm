@@ -114,6 +114,7 @@ jQuery(function($) {
             this.render;
         },
         render:function (eventName) {
+            this.$el.empty();
             $(this.el).html( this.template( this.model.toJSON() ) );
             _.each(this.collection.models, function (album) {
                 $('.albumes').append(new AlbumListItemView({model:album}).render().el).fadeIn('fast');
@@ -127,6 +128,7 @@ jQuery(function($) {
         className: 'album', 
         template: template('albumListItemViewTemplate'),
         render:function (eventName) {
+            this.$el.empty();
             console.log(this.model);
             $(this.el).html( this.template( this.model.toJSON() ) );
             return this;
@@ -147,6 +149,7 @@ jQuery(function($) {
             this.collection.bind("add", this.add, this);
         },
         render:function (eventName) {
+            this.$el.empty();
             $(this.el).html( this.template( this.model ) );
             window.c = 0;
             return this;
@@ -214,6 +217,7 @@ jQuery(function($) {
             //this.render();
         },
         render:function (eventName) {
+            this.$el.empty();
             $(this.el).html( this.template( this.model.toJSON() ) ).fadeIn('fast');
             _.each(this.collection.models, function (album) {
                 $('.videoalbumes').append(new VideoAlbumListItemView({model:album}).render().el);
@@ -249,6 +253,7 @@ jQuery(function($) {
             this.collection.bind("add", this.add, this);
         },
         render:function (eventName) {
+            this.$el.empty();
             $(this.el).html( this.template( this.model ) ).fadeIn('fast');
             window.cv = 0;
             return this;
@@ -295,11 +300,11 @@ jQuery(function($) {
             var full = $('.full');
             if(pv == 'Youtube'){
                 full.fadeOut('fast', function(){
-                    full.html('<iframe type="text/html" height="80%" width="90%" src="http://www.youtube.com/embed/'+id_video+'?rel=0" frameborder="0"></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
+                    full.html('<iframe src="http://www.youtube.com/embed/'+id_video+'?rel=0" type="text/html" height="85%" width="90%" frameborder="0"></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
                 });
             }else if(pv == 'Vimeo'){
                 full.fadeOut('fast', function(){
-                    full.html('<iframe src="http://player.vimeo.com/video/'+id_video+'" height="80%" width="90%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
+                    full.html('<iframe src="http://player.vimeo.com/video/'+id_video+'" height="85%" width="90%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
                 });
             }
             modificar_url(e.currentTarget.href, nombre);

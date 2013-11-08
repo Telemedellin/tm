@@ -11,8 +11,13 @@ $this->breadcrumbs = $bc;
 $this->pageTitle = $micrositio->nombre;
 
 if( !empty($micrositio->background) )
-	cs()->registerCss('background', 'body{background-image: url("' . bu('/images/'.$micrositio->background) . '");}');
-
+{
+	$bg = bu('/images/'.$micrositio->background);
+	cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');
+}else
+{
+	$bg = '/images/backgrounds/generica-interna-1.jpg';
+}
 cs()->registerScript( 'scroll', 
 	'$("#micrositio").mCustomScrollbar({
 		scrollType: "pixels",
@@ -47,6 +52,9 @@ cs()->registerScript( 'scroll',
 <div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo (!is_null($pagina->clase)) ? $pagina->clase : '' ?>" data-micrositio-id="<?php echo $micrositio->id; ?>" data-pagina-id="<?php echo $pagina->id; ?>">
 	<div class="contenidoScroll">
 	<?php echo $contenido; ?>
+	<div class="hidden">
+		<img src="<?php echo $bg ?>" width="1500" />
+	</div>
     </div>
 </div>
 

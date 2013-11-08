@@ -69,9 +69,9 @@ class PgFormularioJf extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'pagina_id' => 'Pagina',
-			'formulario_id' => 'Formulario',
-			'estado' => 'Estado',
+			'pagina_id' => 'Página',
+			'formulario_id' => 'Formulario (ID de Jotform)',
+			'estado' => 'Publicado',
 		);
 	}
 
