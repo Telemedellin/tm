@@ -9,12 +9,14 @@ cs()->registerScript(
     pagination: false
   });
   set_current();
+  /*
   $("#novedades").on("mouseenter", function() {
     $(this).superslides("stop");
   });
   $("#novedades").on("mouseleave", function() {
     setTimeout(function(){$(this).superslides("start");}, 15000);
   });
+*/
   $("#novedades").on("started.slides", function(){
     set_current();
   });
@@ -41,6 +43,7 @@ cs()->registerScript(
     foreach($this->getNovedades() as $novedad): ?>
     <li class="novedad">
       <img src="<?php echo bu('/images/' . $novedad->pgArticuloBlogs->imagen); ?>" alt="<?php echo $novedad->nombre; ?>" />
+      <div id="dots"></div>
       <div class="container">
         <h3><?php echo $novedad->nombre; ?></h3>
         <p><?php echo $novedad->pgArticuloBlogs->entradilla; ?></p>

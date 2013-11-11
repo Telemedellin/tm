@@ -62,6 +62,11 @@
 	            'title'=>'Álbumes de videos',
 	            'view'=>'_video', 
 	            'data'=> array('videos' => $videos, 'model' => $model)
+	        ),
+	        'tab3'=>array(
+	            'title'=>'Redes sociales',
+	            'view'=>'_redessociales', 
+	            'data'=> array('redes_sociales' => $redes_sociales, 'model' => $model)
 	        )
 	    ),
 	));

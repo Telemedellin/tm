@@ -229,16 +229,21 @@ class Horarios{
 
 	public static function hora( $tiempo, $con_minutos = false )
 	{		
-		if( strlen((string)$tiempo) == 4){
+		$len = strlen((string)$tiempo);
+		if( $len == 4){
 			$hora 	= substr($tiempo, 0, 2);
 			$minuto = substr($tiempo, 2);			
 		}
-		elseif($tiempo == 0){
-			$hora = 24;
+		elseif( $len == 3){
+			$hora 	= substr($tiempo, 0, 1);
+			$minuto = substr($tiempo, 1);		
+		}
+		elseif( $len == 2 || $len == 1){
+			$hora 	= 0;
+			$minuto = $tiempo;		
 		}
 		else{
-			$hora 	= substr($tiempo, 0, 1);
-			$minuto = substr($tiempo, 1);
+			$hora = 0;
 		}
 		$ampm = 'am';		
 		if( $hora > 12)

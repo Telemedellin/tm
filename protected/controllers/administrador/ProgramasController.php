@@ -78,11 +78,17 @@ class ProgramasController extends Controller
 													        'condition'=>'pg_programa_id = '.$contenido->id,
 													        'with'=>array('tipoEmision'),
 													    )) );
+		$redes_sociales = new CActiveDataProvider( 'RedSocial', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$id,
+													        'with'=>array('tipoRedSocial', 'micrositio'),
+													    )) );
 		$this->render('ver', array(
 			'model' => $model,
 			'contenido' => $contenido,
 			'videos' => $videos, 
-			'horario' => $horario
+			'horario' => $horario,
+			'redes_sociales' => $redes_sociales
 		));
 	}
 

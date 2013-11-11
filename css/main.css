@@ -620,6 +620,9 @@ nav ul {
 }
 #compartir {
 	bottom: 10px;
+	max-width: 50%;
+	min-width: 400px;
+	overflow: hidden;
 	position: absolute;
 	right: 15px;
 }
@@ -687,6 +690,10 @@ nav ul {
 	top: 0;
 	width: 100%;
 	z-index: 0;
+}
+.home .novedad #dots
+{
+	z-index: -1;
 }
 #icontainer
 {
@@ -1550,9 +1557,9 @@ nav ul {
 #overlay #seccion .destacados
 {
 	float: left;
-	height: 65%;
+	height: 85%;
 	margin-bottom: 1%;
-	width: 20%;
+	max-width: 20%;
 }
 
 #overlay #seccion .destacados .nombrePrograma

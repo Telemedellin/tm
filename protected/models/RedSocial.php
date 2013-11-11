@@ -76,7 +76,7 @@ class RedSocial extends CActiveRecord
 			'micrositio_id' => 'Micrositio',
 			'tipo_red_social_id' => 'Tipo Red Social',
 			'usuario' => 'Usuario',
-			'estado' => 'Estado',
+			'estado' => 'Publicado',
 		);
 	}
 

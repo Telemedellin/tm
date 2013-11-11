@@ -31,7 +31,7 @@ cs()->registerScript( 'scroll',
 ?>
 <?php if( isset( $micrositio->redSocials ) && count($micrositio->redSocials) ):  ?>
 <div id="redes_micrositio" class="redes">
-	<p>Visítanos en</p>
+	<p>Visitanos en</p>
 	<ul>
 	<?php foreach( $micrositio->redSocials as $red ): ?>
 		<li class="<?php echo strtolower($red->tipoRedSocial->nombre) ?>">
@@ -67,7 +67,7 @@ cs()->registerScript( 'scroll',
 				<?php if($seccion->nombre == 'Concursos'):?>
 					Formulario
 				<?php else:?>
-					Escríbenos
+					Escribinos
 				<?php endif?>
 			</span>
 		</a>

@@ -1,6 +1,6 @@
 jQuery(function($) {    
     var PUBLIC_PATH = $("#PUBLIC_PATH").val();
-    var numPerfil = $("#fotoPerfil .template-download:not('.ui-state-error')").length;
+    var numPerfil = $("#miniatura .template-download:not('.ui-state-error')").length;
 
     // Initialize the jQuery File Upload widget:
     $('#imagen').fileupload({        
@@ -41,8 +41,8 @@ jQuery(function($) {
         //xhrFields: {withCredentials: true},
         url: PUBLIC_PATH + '/administrador/novedades/miniatura',
         maxNumberOfFiles: 0,
-        previewMaxWidth: 200,
-        previewMaxHeight: 200,
+        previewMaxWidth: 50,
+        previewMaxHeight: 35,
         imageCrop: true,     
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         paramName: 'archivoMiniatura', 

@@ -76,6 +76,24 @@ Yii::app()->clientScript->registerScript('timepicker',
         <?php echo $form->error($model,'pg_programa_id'); ?>
     </div>
     <div class="form-group">
+        <?php echo $form->label($model,'dia_semana', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-2">
+            <?php echo $form->dropDownList($model, 'dia_semana', 
+                                                        array(
+                                                            '1' => 'Lunes', 
+                                                            '2' => 'Martes', 
+                                                            '3' => 'Miércoles', 
+                                                            '4' => 'Jueves', 
+                                                            '5' => 'Viernes', 
+                                                            '6' => 'Sábado', 
+                                                            '7' => 'Domingo', 
+                                                            ), 
+                                                        array('class' => 'form-control')
+                                                    ); ?>
+        </div>
+        <?php echo $form->error($model,'dia_semana'); ?>
+    </div>
+    <div class="form-group">
 		<?php echo $form->label($model,'hora_inicio', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-2">
             <input name="Horario[hora_inicio]" type="text" value="<?php echo ($model->hora_inicio)?Horarios::hora($model->hora_inicio, true):'' ?>" class="hora_inicio form-control" />

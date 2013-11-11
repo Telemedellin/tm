@@ -143,7 +143,7 @@
                             <span>Añadir archivo</span>
                             <i class="icon-plus icon-white"></i>
                             <?php //echo $form->fileField($model, 'imagen', array('id' => 'archivoMiniatura', 'name' => 'archivoMiniatura[]')); ?>
-                            <input id="archivoMiniatura" type="file" name="archivoMiniatura[]" multiple>
+                            <input id="archivoMiniatura" type="file" name="archivoMiniatura[]">
                         </span>              
                         <span class="fileupload-loading"></span>
                     </div>

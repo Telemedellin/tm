@@ -221,10 +221,10 @@ class NovedadesController extends Controller
 			$dir = Yii::app()->session['dir'];
 		}
 		$data = array(	'image_versions' => array( '' => array(	'max_width' => 50,
-																'max_height' => 35
+																'max_height' => 50
 															 )
 												),
-					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/novedades/imagen',
+					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/novedades/miniatura',
 					  	'max_number_of_files' => null,
 						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/' . $dir . 'thumbnail/',
 	            		'upload_url' => Yii::app()->request->baseUrl.'/images/' . $dir . 'thumbnail/',	

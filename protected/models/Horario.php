@@ -105,4 +105,15 @@ class Horario extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	protected function beforeFind()
+	{
+	    if(parent::beforeFind())
+	    {
+	        if($this->hora_inicio) $this->hora_inicio  = Horario::hora($this->hora_inicio, true);
+	        if($this->hora_fin) $this->hora_fin  = Horario::hora($this->hora_fin, true);
+	        return true;
+	    }
+	    else
+	        return false;
+	}
 }

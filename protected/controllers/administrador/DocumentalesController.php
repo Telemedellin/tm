@@ -71,10 +71,16 @@ class DocumentalesController extends Controller
 													        'condition'=>'pg_documental_id = '.$contenido->id,
 													        'order'=>'t.orden ASC'
 													    )) );
+		$videos = new CActiveDataProvider( 'AlbumVideo', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$id,
+													        'with'=>array('videos', 'url'),
+													    )) );
 		$this->render('ver', array(
 			'model' => $model,
 			'contenido' => $contenido,
 			'ficha_tecnica' => $ficha_tecnica,
+			'videos' => $videos
 		));
 	}
 

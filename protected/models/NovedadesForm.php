@@ -24,8 +24,9 @@ class NovedadesForm extends CFormModel
 	{
 		return array(
 			// name, email, subject and body are required
-			array('nombre, entradilla, texto', 'required'),
+			array('nombre, entradilla', 'required'),
 			array('enlace, imagen, miniatura', 'length', 'max'=>255),
+			array('texto', 'safe'),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
 	}

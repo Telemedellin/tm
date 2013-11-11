@@ -1,6 +1,6 @@
 <?php
 
-class FichatecnicaController extends Controller
+class RedsocialController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -44,8 +44,8 @@ class FichatecnicaController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$ficha_tecnica = FichaTecnica::model()->findByPk($id);
-		$ficha_tecnica->delete();
+		$red_social = RedSocial::model()->findByPk($id);
+		$red_social->delete();
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
@@ -57,25 +57,25 @@ class FichatecnicaController extends Controller
 	 */
 	public function actionCrear($id)
 	{
-		$ficha_tecnica = new FichaTecnica;	
+		$red_social = new RedSocial;	
 
-		if(isset($_POST['FichaTecnica'])){
-			$ficha_tecnica->attributes = $_POST['FichaTecnica'];
-			$pgDocumental = PgDocumental::model()->with('pagina')->findByPk($ficha_tecnica->pg_documental_id);
-			if($ficha_tecnica->save()){
-				Yii::app()->user->setFlash('mensaje', $ficha_tecnica->campo . ' guardado con éxito');
-					$this->redirect(bu('administrador/documentales/view/' . $pgDocumental->pagina->micrositio_id));
-			}//if($ficha_tecnica->save())
+		if(isset($_POST['RedSocial'])){
+			$red_social->attributes = $_POST['RedSocial'];
+			$micrositio = Micrositio::model()->with('pagina')->findByPk($red_social->micrositio_id);
+			if($red_social->save()){
+				Yii::app()->user->setFlash('mensaje', $red_social->tipoRedSocial->nombre . ' ' . $red_social->usuario . ' guardado con éxito');
+					$this->redirect(bu('administrador/programas/view/' . $micrositio->id));
+			}//if($red_social->save())
 
-		} //if(isset($_POST['FichaTecnica']))
+		} //if(isset($_POST['RedSocial']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		$pgDocumental = ($id)?PgDocumental::model()->with('pagina')->findByPk($id):0;
-		$ficha_tecnica->pg_documental_id = $pgDocumental;
+		$micrositio = ($id)?Micrositio::model()->with('pagina')->findByPk($id):0;
+		$red_social->micrositio_id = $micrositio;
 		
 		$this->render('crear',array(
-			'model'=>$ficha_tecnica,
+			'model'=>$red_social,
 		));
 	}
 
@@ -86,23 +86,23 @@ class FichatecnicaController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$ficha_tecnica = FichaTecnica::model()->findByPk($id);
+		$red_social = RedSocial::model()->findByPk($id);
 
-		if(isset($_POST['FichaTecnica'])){
-			$ficha_tecnica->attributes = $_POST['FichaTecnica'];
-			if($ficha_tecnica->save()){
-				Yii::app()->user->setFlash('mensaje', $ficha_tecnica->campo . ' guardado con éxito');
-				$pgDocumental = PgDocumental::model()->with('pagina')->findByPk($ficha_tecnica->pg_documental_id);
-				$this->redirect(bu('administrador/documentales/view/' . $pgDocumental->pagina->micrositio_id));
-			}//if($ficha_tecnica->save())
+		if(isset($_POST['RedSocial'])){
+			$red_social->attributes = $_POST['RedSocial'];
+			if($red_social->save()){
+				Yii::app()->user->setFlash('mensaje', $red_social->tipoRedSocial->nombre . ' ' . $red_social->usuario . ' guardado con éxito');
+				$pgDocumental = PgDocumental::model()->with('pagina')->findByPk($red_social->micrositio_id);
+				$this->redirect(bu('administrador/programas/view/' . $red_social->micrositio_id));
+			}//if($red_social->save())
 
-		}//if(isset($_POST['FichaTecnica']))
+		}//if(isset($_POST['RedSocial']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		$this->render('modificar',array(
-			'model'=>$ficha_tecnica,
+			'model'=>$red_social,
 		));
 	}
 
@@ -115,7 +115,7 @@ class FichatecnicaController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model = Micrositio::model()->with('url', 'pagina')->findByPk($id);
+		$model = RedSocial::model()->findByPk($id);
 
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');

@@ -92,9 +92,7 @@ class VideosController extends Controller
 	public function actionCrear($id)
 	{
 		
-		$album_video = ($id)?AlbumVideo::model()->with('seccion')->findByPk($id):0;
 		$video = new Video;	
-		$album_video->id = $album_video;	
 
 		if(isset($_POST['Video'])){
 			$video->attributes = $_POST['Video'];
@@ -120,6 +118,8 @@ class VideosController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+		$album_video = ($id)?AlbumVideo::model()->findByPk($id):0;
+		$video->album_video_id = $album_video;
 
 		
 		$this->render('crear',array(
