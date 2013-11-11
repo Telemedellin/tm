@@ -10,14 +10,17 @@ if($seccion->url->slug != 'sin-seccion')
 $this->breadcrumbs = $bc;
 $this->pageTitle = $micrositio->nombre;
 
-if( !empty($micrositio->background) )
+if( !empty($fondo_pagina) )
+{
+	$bg = bu('/images/' . $fondo_pagina);
+}elseif( !empty($micrositio->background) )
 {
 	$bg = bu('/images/'.$micrositio->background);
-	cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');
 }else
 {
-	$bg = '/images/backgrounds/generica-interna-1.jpg';
+	$bg = bu('/images/backgrounds/generica-interna-1.jpg');
 }
+cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');
 cs()->registerScript( 'scroll', 
 	'$("#micrositio").mCustomScrollbar({
 		scrollType: "pixels",

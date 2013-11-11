@@ -289,6 +289,7 @@ class TelemedellinController extends Controller
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
 		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
+		$fondo_pagina = (isset($pagina['contenido']->imagen) && !is_null($pagina['contenido']->imagen))?$pagina['contenido']->imagen:'';
 
 		$this->render( 
 			'micrositio', 
@@ -300,6 +301,7 @@ class TelemedellinController extends Controller
 					'video'		=> $videos,
 					'pagina' 	=> $pagina['pagina'], 
 					'contenido' => $contenido, 
+					'fondo_pagina' => $fondo_pagina
 				) 
 		);
 	}

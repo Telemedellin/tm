@@ -298,8 +298,8 @@ class ProgramasController extends Controller
 		if(isset(Yii::app()->session['dirp'])){
 			$dirp = Yii::app()->session['dirp'];
 		}
-		$data = array(	'image_versions' => array( '' => array(	'max_width' => 50,
-																'max_height' => 35
+		$data = array(	'image_versions' => array( '' => array(	'max_width' => 250,
+																'max_height' => 150
 															 )
 												),
 					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/programas/imagen',
