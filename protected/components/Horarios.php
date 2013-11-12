@@ -26,7 +26,7 @@ class Horarios{
 		endforeach;
 	
 		//Agrupo los datos por tipo de emisión y día
-		usort($datos, "Horarios::cmp");
+		usort($datos, "Horarios::ob_tipo_emision_dia");
 
 		for($i = 0; $i < count($datos) ; $i++){
 			switch ($datos[$i]['tipo_emision_id']) {
@@ -75,76 +75,87 @@ class Horarios{
 		endforeach;
 	
 		//Agrupo los datos por tipo de emisión y día
-		usort($datos, "Horarios::cmp");
+		usort($datos, "Horarios::ob_tipo_emision_dia");
 
 		for($i = 0; $i < count($datos) ; $i++){
 
 			switch ($datos[$i]['tipo_emision_id']) {
 				case 1:
 					$en_vivo[] = $datos[$i];
-					$horario_en_vivo = $datos[$i]['hora_inicio'];
 					break;
 				case 2:
 					$diferido[] = $datos[$i];
-					$horario_en_diferido = $datos[$i]['hora_inicio'];
 					break;
 				case 3:
 					$reemision[] = $datos[$i];
-					$horario_en_reemision = $datos[$i]['hora_inicio'];
 					break;
 			}
 		}
 		if(isset($en_vivo)){
 			$html .= "En vivo ";			
-			foreach ($en_vivo as $ev) {							
-				//Inicial
-				if ($ev === reset($en_vivo)){
-					$html .= Horarios::getDiaSemana($ev['dia_semana']) . ' ';
-				}
-
-				//Final
-				if ($ev === end($en_vivo) && count($en_vivo) > 1){
-					$html .= " a ";
-					$html .= Horarios::getDiaSemana($ev['dia_semana']) . ' ';
-				}
-			}
-			$html .= ' a las ' . Horarios::hora( $horario_en_vivo ) . ' ';			
+			$html .= Horarios::html_emision($en_vivo);
 		}
 
 		if(isset($diferido)){
-			
-			foreach ($diferido as $df) {
-							
-				if ($df === reset($diferido)){
-					$html .= Horarios::getDiaSemana($df['dia_semana']) . ' ';
-				}				
-				if(count($diferido) > 1){
-					if ($df === end($diferido)){
-						$html .= " a ";
-						$html .= Horarios::getDiaSemana($df['dia_semana']) . ' ';
-					}						
-				}
-			}
-			$html .= ' a las ' . Horarios::hora( $horario_en_diferido ) . ' ';			
+			$html .= Horarios::html_emision($diferido);
 		}	
-
+		
 		if(isset($reemision)){
 			$html .= "Reemisión ";
-			foreach ($reemision as $rem) {
+			$html .= Horarios::html_emision($reemision);
+		}
+		$html = substr($html, 0, -2) . '.';
+		$html = ucfirst( strtolower($html) );
+		return $html;
+	}
+
+	public static function html_emision($emision)
+	{
+		$subitem = null;
+		$html = '';
+		//Ordeno por hora de inicio
+		usort($emision, "Horarios::ob_hora_inicio");
+		//Agrupo por horas diferentes
+		$array_final = array();
+		foreach ($emision as $e) {
+			$hora = $e['hora_inicio'];
+			$array_final[$hora][] = $e;
+		}
+
+		foreach($array_final as $item){
+			
+			foreach ($item as $subitem) {
 							
-				if ($rem === reset($reemision)){
-					$html .= Horarios::getDiaSemana($rem['dia_semana']) . ' ';
+				if ($subitem === reset($item)){
+					$html .= Horarios::getDiaSemana($subitem['dia_semana']) . ' ';
 				}
-				if(count($reemision) > 1){
-					if ($rem === end($reemision)){
-						$html .= " a ";
-						$html .= Horarios::getDiaSemana($rem['dia_semana']) . ' ';
-					}						
+
+				if ($subitem !== reset($item) && count($item) == 2){
+					if($subitem === end($item))
+							$html .= ' y ' . Horarios::getDiaSemana($subitem['dia_semana']) . ' ';
+				}
+				if($subitem !== reset($item) && count($item) > 2){
+					if($subitem['dia_semana'] === prev($item)['dia_semana']+1 )
+						$html .= ', ' . Horarios::getDiaSemana($subitem['dia_semana']) . ' ';
+					else
+						if($subitem === end($item))
+							$html .= ' a ' . Horarios::getDiaSemana($subitem['dia_semana']) . ' ';					
 				}
 			}
-			$html .= ' a las ' . Horarios::hora( $horario_en_reemision ) . ' ';			
-		}			
-		$html = ucfirst(strtolower($html));
+
+			$html .= ' a la';
+			if($subitem['hora_inicio'] >= 1300 && $subitem['hora_inicio'] < 1400)
+				$html .= ' ';
+			else
+				$html .= 's ';
+			$html .= Horarios::hora( $subitem['hora_inicio'] );
+
+			if(next($array_final) !== end($array_final) && next($array_final) !== null)
+				$html .=  ' y ';
+			elseif($item !== end($array_final) && count($array_final) > 0)
+				$html .=  ', ';
+		}
+		$html = substr($html, 0, -3) . ', ';
 		return $html;
 	}
 
@@ -274,7 +285,7 @@ class Horarios{
 		return $timestamp;
 	}
 
-	public static function cmp($a, $b)
+	public static function ob_tipo_emision_dia($a, $b)
 	{
 	    if ($a['tipo_emision_id'] == $b['tipo_emision_id']) {
 	    	if($a['dia_semana'] == $b['dia_semana'])
@@ -283,6 +294,17 @@ class Horarios{
 	        	return ($a['dia_semana'] < $b['dia_semana']) ? -1 : 1;
 	    }
 	    return ($a['tipo_emision_id'] < $b['tipo_emision_id']) ? -1 : 1;
+	}
+
+	public static function ob_hora_inicio($a, $b)
+	{
+	    if ($a['dia_semana'] == $b['dia_semana']) {
+	    	if($a['hora_inicio'] == $b['hora_inicio'])
+	        	return 0;
+	        else
+	        	return ($a['hora_inicio'] < $b['hora_inicio']) ? -1 : 1;
+	    }
+	    return ($a['dia_semana'] < $b['dia_semana']) ? -1 : 1;
 	}
 }
 ?>

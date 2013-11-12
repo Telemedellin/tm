@@ -77,6 +77,9 @@ class ProgramasController extends Controller
 													    'criteria'=>array(
 													        'condition'=>'pg_programa_id = '.$contenido->id,
 													        'with'=>array('tipoEmision'),
+													    ),
+													    'pagination'=>array(
+													    	'pageSize'=>25,
 													    )) );
 		$redes_sociales = new CActiveDataProvider( 'RedSocial', array(
 													    'criteria'=>array(
