@@ -196,7 +196,7 @@ class TelemedellinController extends Controller
 		$c->join  .= ' LEFT JOIN fecha_especial ON pg_especial.id = fecha_especial.pg_especial_id';
 		$c->group = 'pg_especial.id';
 		$c->limit = 8;
-		$c->order = 'fecha_especial.fecha DESC';
+		$c->order = 'fecha_especial.fecha DESC, t.destacado DESC, t.creado DESC';
 		$recientes = Micrositio::model()->findAll( $c );
 
 		if( !$recientes ) throw new CHttpException(404, 'Invalid request');

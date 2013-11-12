@@ -181,8 +181,8 @@ class ProgramasController extends Controller
 				$micrositio->usuario_id 	= 1;
 				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $programasForm->nombre;
-				$micrositio->background 	= $dirp . $programassForm->imagen;
-				$micrositio->miniatura 		= $dirp . 'thumbnail/' . $programasForm->miniatura;
+				$micrositio->background 	= ($programassForm->imagen != '')?$dirp . $programassForm->imagen:NULL;
+				$micrositio->miniatura 		= ($programasForm->miniatura)?$dirp . 'thumbnail/' . $programasForm->miniatura:NULL;
 				$micrositio->destacado		= $programasForm->destacado;
 				if($programasForm->estado > 0) $estado = 1;
 				else $estado = 0;
@@ -410,12 +410,12 @@ class ProgramasController extends Controller
 				if($programasForm->imagen != $micrositio->background)
 				{
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
-					$micrositio->background 	= $dirp . $programasForm->imagen;
+					$micrositio->background 	= ($programasForm->imagen != '')?$dirp . $programasForm->imagen:NULL;
 				}
 				if($programasForm->miniatura != $micrositio->miniatura)
 				{
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
-					$micrositio->miniatura 	= $dirp . $programasForm->miniatura;
+					$micrositio->miniatura 	= ($programasForm->miniatura != '')?$dirp . $programasForm->miniatura:NULL;
 				}
 
 				$micrositio->destacado		= $programasForm->destacado;

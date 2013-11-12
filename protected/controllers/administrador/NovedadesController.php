@@ -221,7 +221,8 @@ class NovedadesController extends Controller
 			$dir = Yii::app()->session['dir'];
 		}
 		$data = array(	'image_versions' => array( '' => array(	'max_width' => 50,
-																'max_height' => 50
+																'max_height' => 50,
+																'jpeg_quality' => 100
 															 )
 												),
 					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/novedades/miniatura',

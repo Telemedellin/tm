@@ -5,7 +5,7 @@ cs()->registerScript(
   '$("#novedades").superslides({
     animation: "fade",
     play: 15000,
-    //hashchange: true,
+    hashchange: true,
     pagination: false
   });
   set_current();

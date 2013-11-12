@@ -66,6 +66,13 @@ class EspecialesController extends Controller
 	{
 		$model = Micrositio::model()->with('url', 'pagina')->findByPk($id);
 		$contenido = PgEspecial::model()->findByAttributes(array('pagina_id' => $model->pagina->id));
+		$fechas = new CActiveDataProvider( 'FechaEspecial', array(
+													    'criteria'=>array(
+													        'condition'=>'pg_especial_id = '.$contenido->id
+													    ),
+													    'pagination'=>array(
+													    	'pageSize'=>25,
+													    )) );
 		$videos = new CActiveDataProvider( 'AlbumVideo', array(
 													    'criteria'=>array(
 													        'condition'=>'micrositio_id = '.$id,
@@ -74,6 +81,7 @@ class EspecialesController extends Controller
 		$this->render('ver', array(
 			'model' => $model,
 			'contenido' => $contenido,
+			'fechas' => $fechas,
 			'videos' => $videos
 		));
 	}

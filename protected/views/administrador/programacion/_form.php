@@ -10,7 +10,7 @@ Yii::app()->clientScript->registerScript('datepicker',
     startDateTextBox.datetimepicker(
         {
             dateFormat: "yy-mm-dd",
-            timeFormat: "h:mm:ss",
+            timeFormat: "H:mm:ss",
             minuteGrid: 10,
             onClose: function(dateText, inst) {
                 if (endDateTextBox.val() != "") {
@@ -32,7 +32,7 @@ Yii::app()->clientScript->registerScript('datepicker',
     endDateTextBox.datetimepicker(
         { 
            dateFormat: "yy-mm-dd",
-           timeFormat: "h:mm:ss",
+           timeFormat: "H:mm:ss",
             minuteGrid: 10,
             onClose: function(dateText, inst) {
                 if (startDateTextBox.val() != "") {

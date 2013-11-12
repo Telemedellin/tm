@@ -1,4 +1,4 @@
-<?php if($contenido['contenido']->estado == 2):?>
+<?php if($contenido['contenido']->estado == 2 && !empty($contenido['contenido']->horario) ):?>
 <p>
 	<strong>
 		<?php echo Horarios::horario_parser( $contenido['contenido']->horario ); ?>
