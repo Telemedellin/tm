@@ -89,6 +89,9 @@ class TmUrlRule extends CBaseUrlRule
             else if($s == 'contactenos') Yii::app()->request->redirect(bu('telemedellin/utilidades/escribenos'), true, 301);
             else if($s == 'terminos-condiciones') Yii::app()->request->redirect(bu('telemedellin/utilidades/terminos-y-condiciones-de-uso'), true, 301);
             else if($s == 'mapa-sitio') Yii::app()->request->redirect(bu('mapa-del-sitio'), true, 301);
+            else if($s == 'concursoestamosdeestren') Yii::app()->request->redirect(bu('concursos/estamos-de-estren'), true, 301);
+            else if(strpos($s, "concursotelemedell") >= 0) Yii::app()->request->redirect(bu('concursos/ganate-un-balon-gilbert-con-la-copa-telemedellin-rugby-15-s'), true, 301);
+            else if($s == 'sistemainformativotelemedellin') Yii::app()->request->redirect(bu('programas/noticias-telemedellin'), true, 301);
             else if($this->verificar_slug($s)) Yii::app()->request->redirect(bu($s), true, 301);
             else if($this->verificar_slug($e)) Yii::app()->request->redirect(bu($e), true, 301);
             else if($this->verificar_slug($c)) Yii::app()->request->redirect(bu($c), true, 301);
