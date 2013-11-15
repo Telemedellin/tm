@@ -126,10 +126,10 @@ jQuery(function($) {
                 var nombre = e.currentTarget.getAttribute('data-nombre');
             }
             var url_archivo = '/archivos/' + carpeta + '/' + archivo;
-            var aiv = new ArchivoItemView( {model: this.model} );
-            $('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
-            $('#ccontainer').append( aiv.render().el );
-            modificar_url(e.currentTarget.href, nombre);
+            //var aiv = new ArchivoItemView( {model: this.model} );
+            //$('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
+            //$('#ccontainer').append( aiv.render().el );
+            //modificar_url(e.currentTarget.href, nombre);
             window.open(url_archivo);
             e.preventDefault();
         }

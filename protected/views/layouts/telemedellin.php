@@ -11,11 +11,7 @@ $ru = Yii::app()->request->requestUri;
 	if( n.search(/android|blackberry|iphone|ipod|iemobile|opera mobile|palmos|webos/) > -1 ){
 		document.location = 'http://m.telemedellin.tv';
 	}
-
 	</script>
-	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/bootstrap-responsive.min.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/libs/jquery.fancybox.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/styles.min.css" />
 	<!--[if LTE IE 9]>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie9.css" />
@@ -49,10 +45,10 @@ $ru = Yii::app()->request->requestUri;
 		<footer>
 			<div class="redes">
 				<ul>
-					<li class="facebook"><a href="http://www.facebook.com/telemedellin.tv‎" target="_blank" rel="nofollow">Facebook</a></li>
+					<li class="facebook"><a href="http://www.facebook.com/telemedellin.tv" target="_blank" rel="nofollow">Facebook</a></li>
 					<li class="twitter"><a href="http://www.twitter.com/telemedellin" target="_blank" rel="nofollow">Twitter</a></li>
 					<li class="flickr"><a href="http://www.flickr.com/telemedellin" target="_blank" rel="nofollow">Flickr</a></li>
-					<li class="youtube"><a href="http://www.youtube.com/user/telemedellin‎" target="_blank" rel="nofollow">Youtube</a></li>
+					<li class="youtube"><a href="http://www.youtube.com/user/telemedellin" target="_blank" rel="nofollow">Youtube</a></li>
 					<li class="foursquare"><a href="https://es.foursquare.com/telemedellin" target="_blank" rel="nofollow">Foursquare</a></li>
 					<li class="instagram"><a href="http://instagram.com/telemedellin" target="_blank" rel="nofollow">Instagram</a></li>
 				</ul>
@@ -90,9 +86,7 @@ $ru = Yii::app()->request->requestUri;
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs.min.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.min.js"></script>
 <!--[if LTE IE 9]>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/native.history.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/css3-multi-column.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/jquery.marquee.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/ie.js"></script>
 <script>$('.marquesina').marquee('marquesina');</script>
 <![endif]-->
 <script type="text/javascript">
