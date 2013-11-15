@@ -1,34 +1,163 @@
-[05-Aug-2013 09:01:23 America/Chicago] PHP Warning:  require_once(/home4/med2018/public_html/tm/../framework/yii.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home4/med2018/public_html/tm/index.php on line 12
-[05-Aug-2013 09:01:23 America/Chicago] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required '/home4/med2018/public_html/tm/../framework/yii.php' (include_path='.:/opt/php53/lib/php') in /home4/med2018/public_html/tm/index.php on line 12
-[05-Aug-2013 09:02:07 America/Chicago] PHP Warning:  include(/home4/med2018/public_html/framework/web/CWebApplication.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory in /home4/med2018/public_html/framework/YiiBase.php on line 397
-[05-Aug-2013 09:02:07 America/Chicago] PHP Warning:  include() [<a href='function.include'>function.include</a>]: Failed opening '/home4/med2018/public_html/framework/web/CWebApplication.php' for inclusion (include_path='.:/opt/php53/lib/php') in /home4/med2018/public_html/framework/YiiBase.php on line 397
-[05-Aug-2013 09:02:07 America/Chicago] PHP Fatal error:  Class 'CWebApplication' not found in /home4/med2018/public_html/framework/YiiBase.php on line 125
-[05-Aug-2013 09:02:10 America/Chicago] PHP Warning:  include(/home4/med2018/public_html/framework/web/CWebApplication.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory in /home4/med2018/public_html/framework/YiiBase.php on line 397
-[05-Aug-2013 09:02:10 America/Chicago] PHP Warning:  include() [<a href='function.include'>function.include</a>]: Failed opening '/home4/med2018/public_html/framework/web/CWebApplication.php' for inclusion (include_path='.:/opt/php53/lib/php') in /home4/med2018/public_html/framework/YiiBase.php on line 397
-[05-Aug-2013 09:02:10 America/Chicago] PHP Fatal error:  Class 'CWebApplication' not found in /home4/med2018/public_html/framework/YiiBase.php on line 125
-[05-Aug-2013 09:02:12 America/Chicago] PHP Warning:  include(/home4/med2018/public_html/framework/web/CWebApplication.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory in /home4/med2018/public_html/framework/YiiBase.php on line 397
-[05-Aug-2013 09:02:12 America/Chicago] PHP Warning:  include() [<a href='function.include'>function.include</a>]: Failed opening '/home4/med2018/public_html/framework/web/CWebApplication.php' for inclusion (include_path='.:/opt/php53/lib/php') in /home4/med2018/public_html/framework/YiiBase.php on line 397
-[05-Aug-2013 09:02:12 America/Chicago] PHP Fatal error:  Class 'CWebApplication' not found in /home4/med2018/public_html/framework/YiiBase.php on line 125
-[05-Aug-2013 09:02:16 America/Chicago] PHP Warning:  include(/home4/med2018/public_html/framework/web/CWebApplication.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory in /home4/med2018/public_html/framework/YiiBase.php on line 397
-[05-Aug-2013 09:02:16 America/Chicago] PHP Warning:  include() [<a href='function.include'>function.include</a>]: Failed opening '/home4/med2018/public_html/framework/web/CWebApplication.php' for inclusion (include_path='.:/opt/php53/lib/php') in /home4/med2018/public_html/framework/YiiBase.php on line 397
-[05-Aug-2013 09:02:16 America/Chicago] PHP Fatal error:  Class 'CWebApplication' not found in /home4/med2018/public_html/framework/YiiBase.php on line 125
-[05-Aug-2013 09:04:50 America/Chicago] PHP Warning:  include(/home4/med2018/public_html/framework/web/helpers/CHtml.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory in /home4/med2018/public_html/framework/YiiBase.php on line 397
-[05-Aug-2013 09:04:50 America/Chicago] PHP Warning:  include() [<a href='function.include'>function.include</a>]: Failed opening '/home4/med2018/public_html/framework/web/helpers/CHtml.php' for inclusion (include_path='.:/home4/med2018/public_html/tm/protected/components:/home4/med2018/public_html/tm/protected/models:/opt/php53/lib/php') in /home4/med2018/public_html/framework/YiiBase.php on line 397
-[05-Aug-2013 09:04:50 America/Chicago] PHP Warning:  include(/home4/med2018/public_html/framework/web/helpers/CHtml.php) [<a href='function.include'>function.include</a>]: failed to open stream: No such file or directory in /home4/med2018/public_html/framework/YiiBase.php on line 397
-[05-Aug-2013 09:04:50 America/Chicago] PHP Warning:  include() [<a href='function.include'>function.include</a>]: Failed opening '/home4/med2018/public_html/framework/web/helpers/CHtml.php' for inclusion (include_path='.:/home4/med2018/public_html/tm/protected/components:/home4/med2018/public_html/tm/protected/models:/opt/php53/lib/php') in /home4/med2018/public_html/framework/YiiBase.php on line 397
-[05-Aug-2013 09:04:50 America/Chicago] PHP Fatal error:  Class 'CHtml' not found in /home4/med2018/public_html/framework/base/CErrorHandler.php on line 500
-[26-Sep-2013 17:09:51 America/Bogota] PHP Parse error:  syntax error, unexpected ')', expecting ',' or ';' in /home4/med2018/public_html/tm/protected/components/Horarios.php on line 165
-[27-Sep-2013 09:07:48 America/Bogota] PHP Parse error:  syntax error, unexpected T_IF in /home4/med2018/public_html/tm/protected/components/Horarios.php on line 169
-[27-Sep-2013 09:35:47 America/Bogota] PHP Parse error:  syntax error, unexpected ',' in /home4/med2018/public_html/tm/protected/components/Horarios.php on line 156
-[27-Sep-2013 09:36:33 America/Bogota] PHP Parse error:  syntax error, unexpected ',' in /home4/med2018/public_html/tm/protected/components/Horarios.php on line 156
-[27-Sep-2013 09:36:42 America/Bogota] PHP Parse error:  syntax error, unexpected ',' in /home4/med2018/public_html/tm/protected/components/Horarios.php on line 156
-[27-Sep-2013 10:58:02 America/Bogota] PHP Parse error:  syntax error, unexpected T_VARIABLE in /home4/med2018/public_html/tm/protected/components/Horarios.php on line 201
-[27-Sep-2013 11:52:33 America/Bogota] PHP Parse error:  syntax error, unexpected '}' in /home4/med2018/public_html/tm/protected/components/Horarios.php on line 228
-[27-Sep-2013 11:53:27 America/Bogota] PHP Parse error:  syntax error, unexpected '}' in /home4/med2018/public_html/tm/protected/components/Horarios.php on line 232
-[27-Sep-2013 11:53:29 America/Bogota] PHP Parse error:  syntax error, unexpected '}' in /home4/med2018/public_html/tm/protected/components/Horarios.php on line 232
-[27-Sep-2013 16:24:35 America/Bogota] PHP Parse error:  syntax error, unexpected T_INC, expecting T_VARIABLE or '$' in /home4/med2018/public_html/tm/protected/components/views/newsticker.php on line 17
-[27-Sep-2013 16:24:39 America/Bogota] PHP Parse error:  syntax error, unexpected T_INC, expecting T_VARIABLE or '$' in /home4/med2018/public_html/tm/protected/components/views/newsticker.php on line 17
-[27-Sep-2013 16:24:42 America/Bogota] PHP Parse error:  syntax error, unexpected T_INC, expecting T_VARIABLE or '$' in /home4/med2018/public_html/tm/protected/components/views/newsticker.php on line 17
-[15-Oct-2013 15:56:26 America/Bogota] PHP Fatal error:  Call to a member function get() on a non-object in /home4/med2018/public_html/tm/protected/components/NewsTicker.php on line 8
-[15-Oct-2013 15:56:26 America/Bogota] PHP Fatal error:  Call to a member function get() on a non-object in /home4/med2018/public_html/tm/protected/components/NewsTicker.php on line 8
-[15-Oct-2013 15:56:26 America/Bogota] PHP Fatal error:  Call to a member function get() on a non-object in /home4/med2018/public_html/tm/protected/components/NewsTicker.php on line 8
+[01-Nov-2013 15:07:41 America/Bogota] PHP Warning:  require_once(/home/telemede/public_html/tm/../framework/yii.php): failed to open stream: No existe el fichero o el directorio in /home/telemede/public_html/tm/index.php on line 13
+[01-Nov-2013 15:07:41 America/Bogota] PHP Fatal error:  require_once(): Failed opening required '/home/telemede/public_html/tm/../framework/yii.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/telemede/public_html/tm/index.php on line 13
+[01-Nov-2013 16:15:01 America/Bogota] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/framework/zii/widgets/CBaseListView.php on line 107
+[01-Nov-2013 16:15:03 America/Bogota] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/framework/zii/widgets/CBaseListView.php on line 107
+[01-Nov-2013 16:16:42 America/Bogota] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/framework/zii/widgets/CBaseListView.php on line 107
+[01-Nov-2013 16:16:45 America/Bogota] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/framework/zii/widgets/CBaseListView.php on line 107
+[01-Nov-2013 16:18:54 America/Bogota] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/framework/zii/widgets/CBaseListView.php on line 107
+[01-Nov-2013 16:18:55 America/Bogota] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/framework/zii/widgets/CBaseListView.php on line 107
+[01-Nov-2013 16:18:56 America/Bogota] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/framework/zii/widgets/CBaseListView.php on line 107
+[01-Nov-2013 16:18:57 America/Bogota] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/framework/zii/widgets/CBaseListView.php on line 107
+[01-Nov-2013 16:18:57 America/Bogota] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/framework/zii/widgets/CBaseListView.php on line 107
+[01-Nov-2013 16:18:57 America/Bogota] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/framework/zii/widgets/CBaseListView.php on line 107
+[01-Nov-2013 16:18:57 America/Bogota] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/framework/zii/widgets/CBaseListView.php on line 107
+[01-Nov-2013 16:25:02 America/Bogota] PHP Parse error:  syntax error, unexpected '/' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:25:02 America/Bogota] PHP Parse error:  syntax error, unexpected '/' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:25:02 America/Bogota] PHP Parse error:  syntax error, unexpected '/' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:25:02 America/Bogota] PHP Parse error:  syntax error, unexpected '/' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:25:32 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:25:32 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:25:32 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:25:32 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:27:53 America/Bogota] PHP Parse error:  syntax error, unexpected '<' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:27:53 America/Bogota] PHP Parse error:  syntax error, unexpected '<' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:27:53 America/Bogota] PHP Parse error:  syntax error, unexpected '<' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:27:53 America/Bogota] PHP Parse error:  syntax error, unexpected '<' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:28:25 America/Bogota] PHP Parse error:  syntax error, unexpected '<' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:28:25 America/Bogota] PHP Parse error:  syntax error, unexpected '<' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:28:25 America/Bogota] PHP Parse error:  syntax error, unexpected '<' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:28:25 America/Bogota] PHP Parse error:  syntax error, unexpected '<' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:28:37 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:28:37 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:28:37 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:28:37 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:30:23 America/Bogota] PHP Parse error:  syntax error, unexpected '/' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:30:23 America/Bogota] PHP Parse error:  syntax error, unexpected '/' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:30:23 America/Bogota] PHP Parse error:  syntax error, unexpected '/' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:30:23 America/Bogota] PHP Parse error:  syntax error, unexpected '/' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:30:25 America/Bogota] PHP Parse error:  syntax error, unexpected '/' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:30:25 America/Bogota] PHP Parse error:  syntax error, unexpected '/' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:30:25 America/Bogota] PHP Parse error:  syntax error, unexpected '/' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:30:25 America/Bogota] PHP Parse error:  syntax error, unexpected '/' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:32:03 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:32:03 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:32:03 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:32:03 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:32:18 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:32:18 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:32:18 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:32:18 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[01-Nov-2013 16:47:07 America/Bogota] PHP Parse error:  syntax error, unexpected 'array' (T_ARRAY), expecting ')' in /home/telemede/public_html/protected/views/administrador/pagina/ver.php on line 21
+[01-Nov-2013 16:56:50 America/Bogota] PHP Fatal error:  Call to a member function getDbCriteria() on a non-object in /home/telemede/framework/web/CActiveDataProvider.php on line 176
+[01-Nov-2013 16:56:52 America/Bogota] PHP Fatal error:  Call to a member function getDbCriteria() on a non-object in /home/telemede/framework/web/CActiveDataProvider.php on line 176
+[01-Nov-2013 16:58:19 America/Bogota] PHP Fatal error:  Call to a member function setData() on a non-object in /home/telemede/public_html/protected/controllers/administrador/DocumentalesController.php on line 66
+[01-Nov-2013 16:58:42 America/Bogota] PHP Parse error:  syntax error, unexpected end of file, expecting ')' in /home/telemede/public_html/protected/controllers/administrador/DocumentalesController.php on line 252
+[01-Nov-2013 17:41:32 America/Bogota] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in /home/telemede/public_html/protected/views/administrador/fichatecnica/_form.php on line 9
+[01-Nov-2013 17:41:34 America/Bogota] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in /home/telemede/public_html/protected/views/administrador/fichatecnica/_form.php on line 9
+[01-Nov-2013 18:17:06 America/Bogota] PHP Parse error:  syntax error, unexpected '$this' (T_VARIABLE) in /home/telemede/public_html/protected/controllers/administrador/FichatecnicaController.php on line 96
+[05-Nov-2013 15:27:53 America/Bogota] PHP Parse error:  syntax error, unexpected '$raiz' (T_VARIABLE), expecting '(' in /home/telemede/public_html/protected/components/TmUrlRule.php on line 68
+[05-Nov-2013 15:28:47 America/Bogota] PHP Parse error:  syntax error, unexpected '$raiz' (T_VARIABLE), expecting '(' in /home/telemede/public_html/protected/components/TmUrlRule.php on line 68
+[05-Nov-2013 15:28:47 America/Bogota] PHP Parse error:  syntax error, unexpected '$raiz' (T_VARIABLE), expecting '(' in /home/telemede/public_html/protected/components/TmUrlRule.php on line 68
+[05-Nov-2013 15:28:48 America/Bogota] PHP Parse error:  syntax error, unexpected '$raiz' (T_VARIABLE), expecting '(' in /home/telemede/public_html/protected/components/TmUrlRule.php on line 68
+[05-Nov-2013 15:28:58 America/Bogota] PHP Parse error:  syntax error, unexpected '$raiz' (T_VARIABLE), expecting '(' in /home/telemede/public_html/protected/components/TmUrlRule.php on line 68
+[05-Nov-2013 15:29:53 America/Bogota] PHP Parse error:  syntax error, unexpected '$raiz' (T_VARIABLE), expecting '(' in /home/telemede/public_html/protected/components/TmUrlRule.php on line 68
+[05-Nov-2013 15:31:47 America/Bogota] PHP Parse error:  syntax error, unexpected '$raiz' (T_VARIABLE), expecting '(' in /home/telemede/public_html/protected/components/TmUrlRule.php on line 68
+[05-Nov-2013 15:32:12 America/Bogota] PHP Parse error:  syntax error, unexpected '$raiz' (T_VARIABLE), expecting '(' in /home/telemede/public_html/protected/components/TmUrlRule.php on line 68
+[05-Nov-2013 15:33:03 America/Bogota] PHP Parse error:  syntax error, unexpected '$raiz' (T_VARIABLE), expecting '(' in /home/telemede/public_html/protected/components/TmUrlRule.php on line 68
+[06-Nov-2013 11:58:46 America/Bogota] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/telemede/public_html/protected/controllers/administrador/DocumentalesController.php on line 64
+[06-Nov-2013 11:59:21 America/Bogota] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/telemede/public_html/protected/controllers/administrador/DocumentalesController.php on line 64
+[06-Nov-2013 11:59:29 America/Bogota] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/telemede/public_html/protected/controllers/administrador/DocumentalesController.php on line 64
+[06-Nov-2013 12:00:39 America/Bogota] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/telemede/public_html/protected/controllers/administrador/DocumentalesController.php on line 64
+[06-Nov-2013 12:00:42 America/Bogota] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home/telemede/public_html/protected/controllers/administrador/DocumentalesController.php on line 64
+[06-Nov-2013 12:39:30 America/Bogota] PHP Parse error:  syntax error, unexpected end of file in /home/telemede/public_html/protected/controllers/administrador/AlbumvideoController.php on line 99
+[06-Nov-2013 12:46:00 America/Bogota] PHP Parse error:  syntax error, unexpected '"', expecting identifier (T_STRING) in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[06-Nov-2013 12:56:00 America/Bogota] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/public_html/protected/views/administrador/videos/ver.php on line 33
+[06-Nov-2013 15:20:21 America/Bogota] PHP Parse error:  syntax error, unexpected end of file in /home/telemede/public_html/protected/models/AlbumFoto.php on line 104
+[06-Nov-2013 15:20:59 America/Bogota] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/telemede/public_html/protected/controllers/administrador/VideosController.php on line 91
+[06-Nov-2013 17:46:43 America/Bogota] PHP Fatal error:  Call to a member function getErrors() on a non-object in /home/telemede/framework/web/helpers/CHtml.php on line 1765
+[07-Nov-2013 10:38:20 America/Bogota] PHP Fatal error:  Call to a member function getDbCriteria() on a non-object in /home/telemede/framework/web/CActiveDataProvider.php on line 176
+[07-Nov-2013 10:38:23 America/Bogota] PHP Fatal error:  Call to a member function getDbCriteria() on a non-object in /home/telemede/framework/web/CActiveDataProvider.php on line 176
+[07-Nov-2013 10:38:25 America/Bogota] PHP Fatal error:  Call to a member function getDbCriteria() on a non-object in /home/telemede/framework/web/CActiveDataProvider.php on line 176
+[07-Nov-2013 10:39:05 America/Bogota] PHP Fatal error:  Call to a member function unsetAttributes() on a non-object in /home/telemede/public_html/protected/controllers/administrador/ProgramasController.php on line 62
+[07-Nov-2013 10:39:06 America/Bogota] PHP Fatal error:  Call to a member function unsetAttributes() on a non-object in /home/telemede/public_html/protected/controllers/administrador/ProgramasController.php on line 62
+[07-Nov-2013 11:24:01 America/Bogota] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:24:01 America/Bogota] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:24:01 America/Bogota] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:24:01 America/Bogota] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:24:01 America/Bogota] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:24:01 America/Bogota] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:24:01 America/Bogota] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:24:01 America/Bogota] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:24:01 America/Bogota] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:24:01 America/Bogota] PHP Parse error:  syntax error, unexpected '$data' (T_VARIABLE) in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:54:33 America/Bogota] PHP Fatal error:  Using $this when not in object context in /home/telemede/public_html/protected/components/Horarios.php on line 95
+[07-Nov-2013 11:55:08 America/Bogota] PHP Fatal error:  Using $this when not in object context in /home/telemede/public_html/protected/components/Horarios.php on line 95
+[07-Nov-2013 11:55:34 America/Bogota] PHP Fatal error:  Using $this when not in object context in /home/telemede/public_html/protected/components/Horarios.php on line 95
+[07-Nov-2013 11:55:42 America/Bogota] PHP Fatal error:  Using $this when not in object context in /home/telemede/public_html/protected/components/Horarios.php on line 112
+[07-Nov-2013 11:58:35 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:58:35 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:58:35 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:58:35 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:58:35 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:06 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:06 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:06 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:06 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:06 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:08 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:08 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:08 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:08 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:08 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:17 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:17 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:17 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:17 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 11:59:17 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 12:01:58 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 12:01:58 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 12:01:58 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 12:01:58 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 12:01:58 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 12:02:00 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 12:02:00 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 12:02:00 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 12:02:00 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 12:02:00 America/Bogota] PHP Parse error:  syntax error, unexpected '[' in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[07-Nov-2013 12:38:55 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/public_html/protected/views/administrador/horario/_form.php on line 76
+[07-Nov-2013 14:50:08 America/Bogota] PHP Parse error:  syntax error, unexpected ''sele' (T_ENCAPSED_AND_WHITESPACE), expecting ')' in /home/telemede/public_html/protected/views/administrador/horario/_form.php on line 95
+[08-Nov-2013 16:10:07 UTC] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/public_html/protected/views/administrador/programas/_horario.php on line 3
+[08-Nov-2013 16:10:08 UTC] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/public_html/protected/views/administrador/programas/_horario.php on line 3
+[08-Nov-2013 16:10:09 UTC] PHP Fatal error:  Call to a member function getData() on a non-object in /home/telemede/public_html/protected/views/administrador/programas/_horario.php on line 3
+[08-Nov-2013 16:10:39 UTC] PHP Parse error:  syntax error, unexpected ''data'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/ver.php on line 51
+[08-Nov-2013 16:10:40 UTC] PHP Parse error:  syntax error, unexpected ''data'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/ver.php on line 51
+[08-Nov-2013 16:22:08 UTC] PHP Parse error:  syntax error, unexpected 'badge' (T_STRING) in /home/telemede/framework/base/CComponent.php(606) : eval()'d code on line 1
+[08-Nov-2013 12:04:53 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/public_html/protected/components/ProgramacionW.php on line 31
+[08-Nov-2013 12:04:54 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/public_html/protected/components/ProgramacionW.php on line 31
+[08-Nov-2013 17:04:58 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/public_html/protected/components/ProgramacionW.php on line 31
+[08-Nov-2013 12:05:15 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/public_html/protected/components/ProgramacionW.php on line 31
+[08-Nov-2013 17:05:16 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/public_html/protected/components/ProgramacionW.php on line 31
+[08-Nov-2013 12:05:16 America/Bogota] PHP Parse error:  syntax error, unexpected ')' in /home/telemede/public_html/protected/components/ProgramacionW.php on line 31
+[08-Nov-2013 20:11:24 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/telemede/public_html/protected/controllers/administrador/HorarioController.php on line 66
+[08-Nov-2013 22:01:30 UTC] PHP Parse error:  syntax error, unexpected ')', expecting ',' or ';' in /home/telemede/public_html/protected/views/administrador/telemedellin/_form.php on line 15
+[10-Nov-2013 22:17:45 UTC] PHP Parse error:  syntax error, unexpected ''tipoRedSocial.nombre'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redes_sociales.php on line 13
+[10-Nov-2013 22:17:46 UTC] PHP Parse error:  syntax error, unexpected ''tipoRedSocial.nombre'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redes_sociales.php on line 13
+[10-Nov-2013 22:19:12 UTC] PHP Parse error:  syntax error, unexpected ''tipoRedSocial.nombre'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redes_sociales.php on line 13
+[10-Nov-2013 22:19:13 UTC] PHP Parse error:  syntax error, unexpected ''tipoRedSocial.nombre'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redes_sociales.php on line 13
+[10-Nov-2013 22:19:14 UTC] PHP Parse error:  syntax error, unexpected ''tipoRedSocial.nombre'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redes_sociales.php on line 13
+[10-Nov-2013 22:19:16 UTC] PHP Parse error:  syntax error, unexpected ''tipoRedSocial.nombre'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redes_sociales.php on line 13
+[10-Nov-2013 22:20:45 UTC] PHP Parse error:  syntax error, unexpected ''tipoRedSocial.nombre'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redessociales.php on line 13
+[10-Nov-2013 22:21:16 UTC] PHP Parse error:  syntax error, unexpected 'array' (T_ARRAY), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redessociales.php on line 14
+[10-Nov-2013 22:21:17 UTC] PHP Parse error:  syntax error, unexpected 'array' (T_ARRAY), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redessociales.php on line 14
+[10-Nov-2013 22:21:18 UTC] PHP Parse error:  syntax error, unexpected 'array' (T_ARRAY), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redessociales.php on line 14
+[10-Nov-2013 22:22:10 UTC] PHP Parse error:  syntax error, unexpected 'array' (T_ARRAY), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redessociales.php on line 14
+[10-Nov-2013 22:22:17 UTC] PHP Parse error:  syntax error, unexpected 'array' (T_ARRAY), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redessociales.php on line 14
+[10-Nov-2013 22:24:19 UTC] PHP Parse error:  syntax error, unexpected 'array' (T_ARRAY), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redessociales.php on line 14
+[10-Nov-2013 22:24:23 UTC] PHP Parse error:  syntax error, unexpected 'array' (T_ARRAY), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redessociales.php on line 14
+[10-Nov-2013 22:24:28 UTC] PHP Parse error:  syntax error, unexpected 'array' (T_ARRAY), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redessociales.php on line 14
+[10-Nov-2013 22:26:18 UTC] PHP Parse error:  syntax error, unexpected 'array' (T_ARRAY), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redessociales.php on line 14
+[10-Nov-2013 22:26:19 UTC] PHP Parse error:  syntax error, unexpected 'array' (T_ARRAY), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redessociales.php on line 14
+[10-Nov-2013 22:26:20 UTC] PHP Parse error:  syntax error, unexpected 'array' (T_ARRAY), expecting ')' in /home/telemede/public_html/protected/views/administrador/programas/_redessociales.php on line 14
+[11-Nov-2013 00:37:49 UTC] PHP Fatal error:  Call to a member function delete() on a non-object in /home/telemede/public_html/protected/controllers/administrador/VideosController.php on line 78
+[11-Nov-2013 01:16:22 UTC] PHP Fatal error:  Call to a member function getColumnNames() on a non-object in /home/telemede/framework/db/ar/CActiveFinder.php on line 385
+[11-Nov-2013 01:16:22 UTC] PHP Fatal error:  Call to a member function getColumnNames() on a non-object in /home/telemede/framework/db/ar/CActiveFinder.php on line 385

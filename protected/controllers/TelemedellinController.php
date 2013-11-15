@@ -68,7 +68,7 @@ class TelemedellinController extends Controller
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
 		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
-		$micrositios = Micrositio::model()->cache(3600, $dependencia)->listarPorSeccion( $seccion->id );
+		$micrositios = Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 		
 		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'] )
@@ -94,7 +94,7 @@ class TelemedellinController extends Controller
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
 		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
-		$micrositios = Micrositio::model()->cache(3600, $dependencia)->with('paginas')->findAllByAttributes( array('seccion_id' => $seccion->id), array('condition' => 't.estado <> 0', 'order' => 't.creado DESC') );
+		$micrositios = Micrositio::model()->with('paginas')->findAllByAttributes( array('seccion_id' => $seccion->id), array('condition' => 't.estado <> 0', 'order' => 't.creado DESC') );
 		//->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 		
@@ -121,7 +121,7 @@ class TelemedellinController extends Controller
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
 		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
-		$micrositios= Micrositio::model()->cache(3600, $dependencia)->listarPorSeccion( $seccion->id );
+		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 
 		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'])
@@ -160,7 +160,7 @@ class TelemedellinController extends Controller
 
 		if( !$recientes ) throw new CHttpException(404, 'Invalid request');
 		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
-		$micrositios= Micrositio::model()->cache(3600, $dependencia)->listarPorSeccion( $seccion->id );
+		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 
 		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'] )
@@ -201,7 +201,7 @@ class TelemedellinController extends Controller
 
 		if( !$recientes ) throw new CHttpException(404, 'Invalid request');
 		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
-		$micrositios = Micrositio::model()->cache(3600, $dependencia)->listarPorSeccion( $seccion->id );
+		$micrositios = Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 
 		if( Yii::app()->request->isAjaxRequest && $_GET['ajax'] )
@@ -230,7 +230,7 @@ class TelemedellinController extends Controller
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
 		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
-		$micrositios= Micrositio::model()->cache(3600, $dependencia)->listarPorSeccion( $seccion->id );
+		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 		$this->pageTitle = 'Concursos';
 		$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
@@ -490,7 +490,7 @@ class TelemedellinController extends Controller
 					 'tipo_id <> 11',);
 		$cc->addCondition($ccc);
 		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM url");
-		$urls = URL::model()->cache(3600, $dependencia)->findAll($cc);
+		$urls = URL::model()->findAll($cc);
 		header("Content-type: text/xml; charset=utf-8");
 		if($this->beginCache('sitemap', 
 								array('dependency'=>

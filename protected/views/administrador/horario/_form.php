@@ -50,9 +50,6 @@ Yii::app()->clientScript->registerScript('timepicker',
                 else {
                     startDateTextBox.val(dateText);
                 }
-            },
-            onSelect: function (selectedDateTime){
-                startDateTextBox.timepicker("option", "maxDate", endDateTextBox.datepicker("getDate") );
             }
         }
     );', 

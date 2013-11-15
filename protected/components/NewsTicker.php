@@ -72,8 +72,9 @@ class NewsTicker extends CWidget
 		        $texto_nuevo .= mb_substr($texto_original, $ultimo_indice, 200, 'UTF-8');
 		        $nuevos_tweets[] = $texto_nuevo;
 		    }
+		    Yii::app()->cache->set('tweets', $nuevos_tweets, 300);
 		}
-		Yii::app()->cache->set('tweets', $nuevos_tweets, 120);
+		
 	    return $nuevos_tweets;
     }
 }

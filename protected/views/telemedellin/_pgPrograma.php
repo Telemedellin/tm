@@ -1,3 +1,4 @@
+<?php $this->pageDesc = $contenido['contenido']->resena;?>
 <?php if($contenido['contenido']->estado == 2 && !empty($contenido['contenido']->horario) ):?>
 <p>
 	<strong>

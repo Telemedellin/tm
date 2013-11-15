@@ -115,7 +115,7 @@ return array(
 			),
 		),
 		'cache'=>array(
-            'class'=>'system.caching.CDummyCache',
+            'class'=>'system.caching.CFileCache',
         ),
 	),
 	

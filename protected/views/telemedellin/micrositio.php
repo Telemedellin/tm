@@ -24,6 +24,7 @@ cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');
 cs()->registerScript( 'scroll', 
 	'$("#micrositio").mCustomScrollbar({
 		scrollType: "pixels",
+		updateOnContentResize: true, 
 		scrollButtons: {
 			enable: true
 		}
