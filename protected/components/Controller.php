@@ -33,7 +33,7 @@ class Controller extends CController
 	    // -------------------------
 	    // Title/Desc
 	    echo "\t".''.PHP_EOL;
-	    echo "\t".'<meta name="description" content="', h(substr($this->pageDesc, 0, 155)),'">'.PHP_EOL;
+	    echo "\t".'<meta name="description" content="', h(substr(strip_tags($this->pageDesc), 0, 155)),'">'.PHP_EOL;
 
 	    // Option for NoIndex
 	    if ( $this->pageRobotsIndex == false ) {

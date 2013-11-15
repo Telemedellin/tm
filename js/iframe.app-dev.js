@@ -390,12 +390,18 @@ jQuery(function($) {
                             alto = $('.fancybox-inner').height();
                         full.css('height', (alto/1.6) );
                         $(".ivideos").wrap('<div id="scroll" style="height: '+(alto/4)+'px;"/>');
-                        $("#scroll").mCustomScrollbar({
-                            scrollType: "pixels",
-                            scrollButtons: {
-                                enable: true
-                            }
-                        });
+                        if($("#scroll").hasClass('mCustomScrollbar'))
+                        {
+                            $("#scroll").mCustomScrollbar('update');
+                        }else
+                        {
+                            $("#scroll").mCustomScrollbar({
+                                scrollType: "pixels",
+                                scrollButtons: {
+                                    enable: true
+                                }
+                            });
+                        }
                     }
                 }
             );

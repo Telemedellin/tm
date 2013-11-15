@@ -73,6 +73,10 @@ jQuery(function($) {
         template: template('carpetaListItemViewTemplate'),
         render:function (eventName) {
             $(this.el).html( this.template( this.model.toJSON() ) );
+            if($("#micrositio").hasClass('mCustomScrollbar'))
+            {
+                window.updateScrollbar();
+            }
             return this;
         },
         close:function () {
@@ -106,6 +110,10 @@ jQuery(function($) {
         template: template('archivoListItemViewTemplate'),
         render:function (eventName) {
             $(this.el).html(this.template(this.model.toJSON()));
+            if($("#micrositio").hasClass('mCustomScrollbar'))
+            {
+                window.updateScrollbar();
+            }
             return this;
         },
         events:{
@@ -180,16 +188,6 @@ jQuery(function($) {
                 }, 
                 success: function(){
                     $('#loading').remove();
-                    var full = $('.full'),
-                        alto = $('.fancybox-inner').height();
-                    full.css('height', (alto/1.6) );
-                    $(".ivideos").wrap('<div id="scroll" style="height: '+(alto/4)+'px;"/>');
-                    $("#scroll").mCustomScrollbar({
-                        scrollType: "pixels",
-                        scrollButtons: {
-                            enable: true
-                        }
-                    });
                 } 
             } );
             console.dir(this.carpetaList);
@@ -228,6 +226,13 @@ function makeTitle(slug) {
     return words.join(' ');
 }
 function back(e){
-    window.history.back();
+    //window.history.back();
+    var hasharray = window.location.hash.split('/'),
+        newhash = '';
+    for (var i=0; i < hasharray.length-1; i++)
+        newhash += hasharray[i] + "/";
+    newhash = newhash.substring(0, newhash.length-1);
+    window.location.hash = newhash;
+    //modificar_url(window.location.href + '#' + newhash);
     e.preventDefault();
 }
