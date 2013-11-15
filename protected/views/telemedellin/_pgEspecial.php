@@ -1,3 +1,4 @@
+<?php $this->pageDesc = $contenido['contenido']->resena;?>
 <?php if( count($contenido['contenido']->fechaEspecials) ): ?>
 <p><b>Fecha:</b> <?php echo Horarios::fecha_especial( $contenido['contenido']->fechaEspecials ); ?></p>
 <?php endif ?>

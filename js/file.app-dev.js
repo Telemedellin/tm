@@ -126,10 +126,10 @@ jQuery(function($) {
                 var nombre = e.currentTarget.getAttribute('data-nombre');
             }
             var url_archivo = '/archivos/' + carpeta + '/' + archivo;
-            var aiv = new ArchivoItemView( {model: this.model} );
-            $('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
-            $('#ccontainer').append( aiv.render().el );
-            modificar_url(e.currentTarget.href, nombre);
+            //var aiv = new ArchivoItemView( {model: this.model} );
+            //$('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
+            //$('#ccontainer').append( aiv.render().el );
+            //modificar_url(e.currentTarget.href, nombre);
             window.open(url_archivo);
             e.preventDefault();
         }
@@ -174,7 +174,24 @@ jQuery(function($) {
             this.carpetaList = new CarpetaCollection();
             this.carpetaList.fetch( {data: {hash: window.location.hash} });
             this.archivoList = new ArchivoCollection();
-            this.archivoList.fetch( {data: {hash: window.location.hash}, success: function(){$('#loading').remove()} } );
+            this.archivoList.fetch( {
+                data: {
+                    hash: window.location.hash
+                }, 
+                success: function(){
+                    $('#loading').remove();
+                    var full = $('.full'),
+                        alto = $('.fancybox-inner').height();
+                    full.css('height', (alto/1.6) );
+                    $(".ivideos").wrap('<div id="scroll" style="height: '+(alto/4)+'px;"/>');
+                    $("#scroll").mCustomScrollbar({
+                        scrollType: "pixels",
+                        scrollButtons: {
+                            enable: true
+                        }
+                    });
+                } 
+            } );
             console.dir(this.carpetaList);
             console.dir(this.archivoList);
             this.carpetaListView = new CarpetaListView( {collection:this.carpetaList, model: this.pagina} );

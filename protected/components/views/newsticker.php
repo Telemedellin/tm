@@ -11,9 +11,13 @@ cs()->registerScriptFile(bu().'/js/libs/jquery.bxslider/jquery.bxslider.js', CCl
 ?>
 <div class="marquesina">
 	<div>
-		<?php for($i=0; $i<count($tweets); $i++): ?>
+		<?php 
+    if(!empty($tweets)):
+      for($i=0; $i<count($tweets); $i++): ?>
 			<p><?php echo $tweets[$i] ?></p>
-		<?php endfor; ?>
+		<?php 
+      endfor; 
+    endif;?>
 	</div>
 </div>
   

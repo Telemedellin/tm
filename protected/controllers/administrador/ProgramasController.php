@@ -214,7 +214,7 @@ class ProgramasController extends Controller
 				if($programasForm->formulario != '')
 				{
 					$furl = new Url;
-					$furl->slug = $url->slug . '/escribenos';
+					$furl->slug = $url->slug . '/escribinos';
 					$furl->tipo_id = 3; //Página
 					$furl->estado = 1;
 					if($furl->save()){
@@ -222,7 +222,7 @@ class ProgramasController extends Controller
 						$formulario->micrositio_id = $micrositio_id;
 						$formulario->tipo_pagina_id = 7;								
 						$formulario->url_id = $furl->getPrimaryKey();
-						$formulario->nombre = 'Escríbenos';	
+						$formulario->nombre = 'Escribinos';	
 						$formulario->estado = 1;
 						$formulario->destacado = 0;
 						$formulario->save();
@@ -439,7 +439,7 @@ class ProgramasController extends Controller
 						{
 							
 							$furl = new Url;
-							$furl->slug = $micrositio->url->slug . '/escribenos';
+							$furl->slug = $micrositio->url->slug . '/escribinos';
 							$furl->tipo_id = 3; //Página
 							$furl->estado = 1;
 							if($furl->save()){
@@ -447,7 +447,7 @@ class ProgramasController extends Controller
 								$formulario->micrositio_id = $micrositio->id;
 								$formulario->tipo_pagina_id = 7;								
 								$formulario->url_id = $furl->getPrimaryKey();
-								$formulario->nombre = 'Escríbenos';	
+								$formulario->nombre = 'Escribinos';	
 								$formulario->estado = 1;
 								$formulario->destacado = 0;
 								$formulario->save();

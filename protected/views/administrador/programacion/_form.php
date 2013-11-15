@@ -38,15 +38,13 @@ Yii::app()->clientScript->registerScript('datepicker',
                 if (startDateTextBox.val() != "") {
                     var testStartDate = startDateTextBox.datetimepicker("getDate");
                     var testEndDate = endDateTextBox.datetimepicker("getDate");
+                    console.log("s " + testStartDate + " e " + testEndDate);
                     if (testStartDate > testEndDate)
                         startDateTextBox.datetimepicker("setDate", testEndDate);
                 }
                 else {
                     startDateTextBox.val(dateText);
                 }
-            },
-            onSelect: function (selectedDateTime){
-                startDateTextBox.datetimepicker("option", "maxDate", endDateTextBox.datetimepicker("getDate") );
             }
         },
         $.datepicker.regional[ "es" ]

@@ -72,7 +72,7 @@ return array(
 			),
 		),
 		'db'=>array(
-			'connectionString' => 'mysql:host=faciliptel.com;dbname=telemede_tm',
+			'connectionString' => 'mysql:host=telemedellin.tv;dbname=telemede_tm',
 			'emulatePrepare' => true,
 			'username' => 'telemede_tm',
 			'password' => 'kk_#=2B8I-+V',

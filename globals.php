@@ -98,7 +98,7 @@ function t($message, $category = 'dca', $params = array(), $source = null, $lang
  * @see http://www.php.net/manual/en/function.PDO-quote.php
  */
 function q($s) {
-        return Yii::app()->db->quoteValue($s);
+    return Yii::app()->db->quoteValue($s);
 }
  
 /**
