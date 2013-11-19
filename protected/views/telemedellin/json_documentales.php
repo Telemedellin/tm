@@ -7,7 +7,7 @@ $json .= '{';
 	$json .= '[';
 		foreach($recientes as $reciente):
 		$json .= '{';
-			$json .= '"nombre":"'.CHtml::encode($reciente->nombre).'",';
+			$json .= '"nombre":"'.$reciente->nombre.'",';
 			$json .= '"url":"'.bu($reciente->url->slug).'"';
 		$json .= '},';
 		endforeach;
@@ -17,7 +17,7 @@ $json .= '{';
 	$json .= '[';
 		foreach($micrositios as $micrositio):
 		$json .= '{';
-			$json .= '"nombre":"'.CHtml::encode($micrositio->nombre).'",';
+			$json .= '"nombre":"'.$micrositio->nombre.'",';
 			$json .= '"url":"'.bu($micrositio->url->slug).'"';
 		$json .= '},';
 		endforeach;

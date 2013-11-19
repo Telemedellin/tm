@@ -1,11 +1,16 @@
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$contenido['contenido'],
 	'attributes'=>array(
-		'id',
-		'texto:html',
+		'texto:html', 
 		array(
-			'name' => 'estado',
-			'value' => ($contenido['contenido']->estado==1)?'Si':'No',
-		)
+			'name' => 'imagen', 
+			'type' => 'raw', 
+			'value' => l($contenido['contenido']->imagen, bu('images/'.$contenido['contenido']->imagen), array('target' => '_blank')),
+		),
+		array(
+			'name' => 'miniatura', 
+			'type' => 'raw', 
+			'value' => l($contenido['contenido']->miniatura, bu('images/'.$contenido['contenido']->miniatura), array('target' => '_blank')),
+		),
 	),
 )); ?>

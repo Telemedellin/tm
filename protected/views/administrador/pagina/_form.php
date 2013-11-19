@@ -1,13 +1,19 @@
+<?php 
+cs()->registerScript('paginaedit', 
+    '', 
+    CClientScript::POS_READY);
+?>
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'pagina-form',
 	'enableAjaxValidation'=>false,
 	'htmlOptions' => array(
+        'enctype' => 'multipart/form-data', 
         'role' => 'form',
         'class' => 'form-horizontal' 
     )
 )); ?>
-	<?php echo $form->errorSummary($model); ?>
+	<?php echo $form->errorSummary( array($model, $contenido) ); ?>
 	<div class="form-group">
 		<?php echo $form->label($model,'micrositio_id', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-6">
@@ -15,7 +21,6 @@
 		</div>
 		<?php echo $form->error($model,'micrositio_id'); ?>
 	</div>
-
 	<div class="form-group">
 		<?php echo $form->label($model,'nombre', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-6">
@@ -23,7 +28,6 @@
 		</div>
 		<?php echo $form->error($model,'nombre'); ?>
 	</div>
-
 	<div class="form-group">
 		<?php echo $form->label($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-2">
@@ -31,7 +35,6 @@
 		</div>
 		<?php echo $form->error($model,'estado'); ?>
 	</div>
-
 	<div class="form-group">
 		<?php echo $form->label($model,'destacado', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-2">
@@ -39,20 +42,13 @@
 		</div>
 		<?php echo $form->error($model,'destacado'); ?>
 	</div>
-
-	<div class="form-group">
-		<?php echo $form->label($model,'tipo_pagina_id', array('class' => 'col-sm-2 control-label')); ?>
-		<div class="col-sm-3">
-			<?php echo $form->dropDownList($model,'tipo_pagina_id', CHtml::listData(TipoPagina::model()->findAll(), 'id', 'nombre'), array('class' => 'form-control') ); ?>
-		</div>
-		<?php echo $form->error($model,'tipo_pagina_id'); ?>
+	<div id="contenido">
+		<h3>Página <?php echo $model->tipoPagina->nombre ?></h3>
+		<?php $this->renderPartial('_' . lcfirst($partial) . 'Form', array('contenido' => $contenido, 'form' => $form)); 
+		?>
 	</div>
-
-	
 	<div class="form-group buttons">
 		<?php echo CHtml::submitButton('Guardar', array('class' => 'btn btn-primary')); ?>
 	</div>
-
 <?php $this->endWidget(); ?>
-
 </div><!-- form -->

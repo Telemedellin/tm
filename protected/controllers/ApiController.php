@@ -13,9 +13,9 @@ class ApiController extends Controller
 		$json .= '[';
 			foreach($af as $album):
 			$json .= '{';
-				$json .= '"id":"'.CHtml::encode($album->id).'",';
-				$json .= '"micrositio":"'.CHtml::encode($album->micrositio_id).'",';
-				$json .= '"nombre":"'.CHtml::encode($album->nombre).'",';
+				$json .= '"id":"'.$album->id.'",';
+				$json .= '"micrositio":"'.$album->micrositio_id.'",';
+				$json .= '"nombre":"'.$album->nombre.'",';
 				$json .= '"url":"'.$album->url->slug.'",';
 				$json .= '"thumb":"'.bu('images/galeria/' . $album->fotos[0]->src).'"';
 			$json .= '},';
@@ -52,14 +52,14 @@ class ApiController extends Controller
 		$json .= '[';
 			foreach($f as $foto):
 			$json .= '{';
-				$json .= '"id":"'.CHtml::encode($foto->id).'",';
-				$json .= '"album_foto":"'.CHtml::encode($foto->albumFoto->nombre).'",';
-				$json .= '"url":"'.CHtml::encode($foto->url->slug).'",';
-				$json .= '"nombre":"'.CHtml::encode($foto->nombre).'",';
+				$json .= '"id":"'.$foto->id.'",';
+				$json .= '"album_foto":"'.$foto->albumFoto->nombre.'",';
+				$json .= '"url":"'.$foto->url->slug.'",';
+				$json .= '"nombre":"'.$foto->nombre.'",';
 				$json .= '"src":"'.bu('images/galeria/' . $foto->src).'",';
 				$json .= '"thumb":"'.bu('images/galeria/' . $foto->thumb).'",';
-				$json .= '"ancho":"'.CHtml::encode($foto->ancho).'",';
-				$json .= '"alto":"'.CHtml::encode($foto->alto).'"';
+				$json .= '"ancho":"'.$foto->ancho.'",';
+				$json .= '"alto":"'.$foto->alto.'"';
 			$json .= '},';
 			endforeach;
 			$json = substr($json, 0, -1);

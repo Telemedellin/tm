@@ -7,7 +7,6 @@
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
 	'enableSorting' => true,
-    'defaultOrder'=>'creado DESC',
 	'columns'=>array(
         'id',
         'nombre',

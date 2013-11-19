@@ -37,7 +37,7 @@ class PgGenericaSt extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('texto, estado', 'required'),
+			array('texto', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
 			array('imagen, miniatura', 'length', 'max'=>255),
 			// The following rule is used by search().
@@ -65,6 +65,7 @@ class PgGenericaSt extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'pagina_id' => 'Página', 
 			'texto' => 'Texto',
 			'imagen' => 'Imagen de fondo',
 			'miniatura' => 'Miniatura',

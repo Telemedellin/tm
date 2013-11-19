@@ -15,7 +15,7 @@ $json .= '{';
 				$destacados .= '},';
 			endif;
 		$json .= '{';
-			$json .= '"nombre":"'.CHtml::encode($micrositio->nombre).'",';
+			$json .= '"nombre":"'.$micrositio->nombre.'",';
 			$json .= '"url":"'.bu($micrositio->url->slug).'"';
 		$json .= '},';
 		endforeach;

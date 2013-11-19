@@ -135,7 +135,8 @@ class Horarios{
 							$html .= ' y ' . Horarios::getDiaSemana($subitem['dia_semana']) . ' ';
 				}
 				if($subitem !== reset($item) && count($item) > 2){
-					if($subitem['dia_semana'] === prev($item)['dia_semana']+1 )
+					$prev = prev($item);
+					if($subitem['dia_semana'] === $prev['dia_semana']+1 )
 						$html .= ', ' . Horarios::getDiaSemana($subitem['dia_semana']) . ' ';
 					else
 						if($subitem === end($item))

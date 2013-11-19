@@ -53,7 +53,7 @@ $ru = Yii::app()->request->requestUri;
 					<li class="instagram"><a href="http://instagram.com/telemedellin" target="_blank" rel="nofollow">Instagram</a></li>
 				</ul>
 			</div>
-			<?php echo l( 'Contacto' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/utilidades/escribenos'), array('class' => 'escribenos') ); ?>
+			<?php echo l( 'Contacto' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/utilidades/escribinos'), array('class' => 'escribenos') ); ?>
 		</footer>
 	</div>
 	

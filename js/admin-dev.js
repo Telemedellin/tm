@@ -367,4 +367,69 @@ jQuery(function($) {
 
     // Load existing files:
     $('#thumb_albumvideo').addClass('fileupload-processing');
+
+
+    // Initialize the jQuery File Upload widget:
+    $('#imagen_pagina').fileupload({        
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: PUBLIC_PATH + '/administrador/pagina/imagen',
+        maxNumberOfFiles: 0,
+        previewMaxWidth: 200,
+        previewMaxHeight: 200,
+        imageCrop: true,     
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        paramName: 'archivoImagenPa', 
+        messages: {
+            maxNumberOfFiles: 'Solo se permite una imagen',
+            acceptFileTypes: 'No se acepta este tipo de archivo',
+            maxFileSize: 'El archivo es muy pesado',
+            minFileSize: 'El archivo no tiene peso suficiente'
+        },
+    }).bind('fileuploaddone', function(e, data){
+        $('#archivoImagenPaH').attr('value', data.result.archivoImagenPa[0].name);
+    });
+    // Enable iframe cross-domain access via redirect option:
+    $('#imagen_pagina').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+    // Load existing files:
+    $('#imagen_pagina').addClass('fileupload-processing');
+
+    // Initialize the jQuery File Upload widget:
+    $('#miniatura_pagina').fileupload({        
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: PUBLIC_PATH + '/administrador/pagina/miniatura',
+        maxNumberOfFiles: 0,
+        previewMaxWidth: 200,
+        previewMaxHeight: 200,
+        imageCrop: true,     
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        paramName: 'archivoMiniaturaPa', 
+        messages: {
+            maxNumberOfFiles: 'Solo se permite una imagen',
+            acceptFileTypes: 'No se acepta este tipo de archivo',
+            maxFileSize: 'El archivo es muy pesado',
+            minFileSize: 'El archivo no tiene peso suficiente'
+        }
+    }).bind('fileuploaddone', function(e, data){
+        $('#archivoMiniaturaPaH').attr('value', 'thumbnail/'+data.result.archivoMiniaturaPa[0].name);
+    });
+    // Enable iframe cross-domain access via redirect option:
+    $('#miniatura_pagina').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+    // Load existing files:
+    $('#miniatura_pagina').addClass('fileupload-processing');
 });

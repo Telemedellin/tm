@@ -8,7 +8,7 @@ $json .= '{';
 	$json .= '[';
 		foreach($micrositios as $micrositio):
 		$json .= '{';
-			$json .= '"nombre":"'.CHtml::encode($micrositio->nombre).'",';
+			$json .= '"nombre":"'.$micrositio->nombre.'",';
 			$json .= '"url":"'.bu($micrositio->url->slug).'"';
 		$json .= '},';
 		endforeach;

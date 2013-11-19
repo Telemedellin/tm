@@ -27,7 +27,7 @@ class PaginaController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'crear','update','delete'),
+				'actions'=>array('index','view', 'crear','update','delete', 'imagen', 'miniatura'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -59,7 +59,6 @@ class PaginaController extends Controller
 	 */
 	public function actionView($id)
 	{
-		//$model = Pagina::model()->with('micrositio', 'tipoPagina', 'url')->findByPk($id);
 		$pagina = Pagina::model()->cargarPagina($id);
 
 		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
@@ -74,9 +73,13 @@ class PaginaController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCrear()
+	public function actionCrear($id)
 	{
+		if( !isset(Yii::app()->session['dirpa']) ) Yii::app()->session['dirpa'] = 'backgrounds/paginas/';
+		$micrositio = ($id)?Micrositio::model()->with('seccion')->findByPk($id):0;
 		$model = new Pagina;
+		$model->micrositio_id = $micrositio;
+		$contenido = new PgGenericaSt;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -84,12 +87,37 @@ class PaginaController extends Controller
 		if(isset($_POST['Pagina']))
 		{
 			$model->attributes = $_POST['Pagina'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$m = Micrositio::model()->with('seccion')->findByPk($model->micrositio_id);
+			$model->tipo_pagina_id = 2;
+			$url = new Url;
+			$url->slug 		= $this->slugger($m->seccion->nombre) . '/' . $this->slugger($m->nombre) . '/' . $this->slugger($model->nombre);
+			$url->tipo_id 	= 3; //Pagina
+			$url->estado  	= 1;
+			if( !$url->save(false) ) $transaccion->rollback();
+			$url_id = $url->getPrimaryKey();
+			$model->url_id = $url_id;
+			if($model->save()){
+				if(isset($_POST['PgGenericaSt']))
+				{
+					if( isset(Yii::app()->session['dirpa']) ){
+						$dirpa = Yii::app()->session['dirpa'];
+					}
+					$contenido->pagina_id = $model->getPrimaryKey();
+					$contenido->imagen 	= ($_POST['PgGenericaSt']['imagen'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen']:NULL;
+					$contenido->miniatura 		= ($_POST['PgGenericaSt']['miniatura'])?$dirpa . 'thumbnail/' . $_POST['PgGenericaSt']['miniatura']:NULL;
+					$contenido->texto = $_POST['PgGenericaSt']['texto'];
+					$contenido->estado = 1;
+					if($contenido->save())
+						$this->redirect(array('view','id'=>$model->id));
+				}
+			}
+				
 		}
 
 		$this->render('crear',array(
 			'model'=>$model,
+			'partial' => 'PgGenericaSt',
+			'contenido' => $contenido,
 		));
 	}
 
@@ -100,21 +128,158 @@ class PaginaController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
-
+		if( !isset(Yii::app()->session['dirpa']) ) Yii::app()->session['dirpa'] = 'backgrounds/paginas/';
+		$datos = Pagina::model()->cargarPagina($id);
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['Pagina']))
 		{
-			$model->attributes=$_POST['Pagina'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$datos['pagina']->attributes = $_POST['Pagina'];
+			
+			if($datos['pagina']->save())
+			{
+				if(isset($_POST['PgGenericaSt']))
+				{
+					$contenido = PgGenericaSt::model()->findByPk($_POST['PgGenericaSt']['id']);
+					if( isset(Yii::app()->session['dirpa']) ){
+						$dirpa = Yii::app()->session['dirpa'];
+					}
+					if($_POST['PgGenericaSt']['imagen'] != $contenido->imagen)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen);
+						$contenido->imagen 	= ($_POST['PgGenericaSt']['imagen'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen']:NULL;
+					}
+					if($_POST['PgGenericaSt']['miniatura'] != $contenido->miniatura)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->miniatura);
+						$contenido->miniatura 	= ($_POST['PgGenericaSt']['miniatura'] != '')?$dirpa . $_POST['PgGenericaSt']['miniatura']:NULL;
+					}
+					$contenido->texto = $_POST['PgGenericaSt']['texto'];
+					if($contenido->save())
+						$this->redirect(array('view', 'id'=>$datos['pagina']->id));
+				}
+			}
+		}else
+		{
+			$contenido = new PgGenericaSt;
+			$contenido = $datos['contenido'];
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
+			'model'=> $datos['pagina'],
+			'partial' => $datos['partial'],
+			'contenido' => $contenido,
 		));
+	}
+
+	public function actionImagen(){	
+		if(isset(Yii::app()->session['dirpa'])){
+			$dirpa = Yii::app()->session['dirpa'];
+		}
+		$data = array(	/*'image_versions' => array( 'thumbnail' => array(	'max_width' => 50,
+																		'max_height' => 35
+																	 )
+												),*/
+					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/pagina/imagen',
+					  	'max_number_of_files' => null,
+						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/' . $dirpa,
+	            		'upload_url' => Yii::app()->request->baseUrl.'/images/' . $dirpa,	
+	            		'accept_file_types' => '/(\.|\/)(gif|jpe?g|png)$/i',
+	            		'param_name' => 'archivoImagenPa',
+				);
+		$messages = array(
+        			1 => 'El archivo subido excede la directiva upload_max_filesize en php.ini',
+        			2 => 'El archivo subido excede la directiva MAX_FILE_SIZE que se especificó en el formulario HTML',
+        			3 => 'El archivo subido fue sólo parcialmente cargado. Por favor cargarlo nuevamente.',
+        			4 => 'Ningún archivo fue subido',
+        			6 => 'La carpeta temporal no se encuentra',
+        			7 => 'Falló la escritura en el servidor',
+        			8 => 'Una extensión de PHP interrumpió la carga de archivos',
+        			'post_max_size' => 'El archivo subido excede la directiva post_max_size en php.ini',
+        			'max_file_size' => 'El archivo es demasiado pesado',
+        			'min_file_size' => 'El archivo no tiene el peso suficiente',
+        			'accept_file_types' => 'Tipo de archivo no permitido',
+        			'max_number_of_files' => 'Número máximo de archivos se superó. Solo se permite una imagen',
+        			'max_width' => 'La imagen excede el ancho máximo',
+        			'min_width' => 'La imagen no tiene el ancho suficiente',
+        			'max_height' => 'La imagen excede el alto máximo',
+        			'min_height' => 'La imagen no tiene el alto suficiente'
+    			);		
+		$upload_handler = new UploadHandler($data, true, $messages);	
+	}
+
+	public function actionMiniatura(){	
+		if(isset(Yii::app()->session['dirpa'])){
+			$dirpa = Yii::app()->session['dirpa'];
+		}
+		$data = array(	'image_versions' => array( '' => array(	'max_width' => 250,
+																'max_height' => 150
+															 )
+												),
+					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/pagina/miniatura',
+					  	'max_number_of_files' => null,
+						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/' . $dirpa . 'thumbnail/',
+	            		'upload_url' => Yii::app()->request->baseUrl.'/images/' . $dirpa . 'thumbnail/',	
+	            		'accept_file_types' => '/(\.|\/)(gif|jpe?g|png)$/i',
+	            		'param_name' => 'archivoMiniaturaPa',
+				);
+		$messages = array(
+        			1 => 'El archivo subido excede la directiva upload_max_filesize en php.ini',
+        			2 => 'El archivo subido excede la directiva MAX_FILE_SIZE que se especificó en el formulario HTML',
+        			3 => 'El archivo subido fue sólo parcialmente cargado. Por favor cargarlo nuevamente.',
+        			4 => 'Ningún archivo fue subido',
+        			6 => 'La carpeta temporal no se encuentra',
+        			7 => 'Falló la escritura en el servidor',
+        			8 => 'Una extensión de PHP interrumpió la carga de archivos',
+        			'post_max_size' => 'El archivo subido excede la directiva post_max_size en php.ini',
+        			'max_file_size' => 'El archivo es demasiado pesado',
+        			'min_file_size' => 'El archivo no tiene el peso suficiente',
+        			'accept_file_types' => 'Tipo de archivo no permitido',
+        			'max_number_of_files' => 'Número máximo de archivos se superó. Solo se permite una miniatura',
+        			'max_width' => 'La imagen excede el ancho máximo',
+        			'min_width' => 'La imagen no tiene el ancho suficiente',
+        			'max_height' => 'La imagen excede el alto máximo',
+        			'min_height' => 'La imagen no tiene el alto suficiente'
+    			);		
+		$upload_handler = new UploadHandler($data, true, $messages);	
+	}
+
+	private function slugger($title)
+	{
+		$characters = array(
+			"Á" => "A", "Ç" => "c", "É" => "e", "Í" => "i", "Ñ" => "n", "Ó" => "o", "Ú" => "u", 
+			"á" => "a", "ç" => "c", "é" => "e", "í" => "i", "ñ" => "n", "ó" => "o", "ú" => "u",
+			"à" => "a", "è" => "e", "ì" => "i", "ò" => "o", "ù" => "u"
+		);
+		
+		$string = strtr($title, $characters); 
+		$string = strtolower(trim($string));
+		$string = preg_replace("/[^a-z0-9-]/", "-", $string);
+		$string = preg_replace("/-+/", "-", $string);
+		
+		if(substr($string, strlen($string) - 1, strlen($string)) === "-") {
+			$string = substr($string, 0, strlen($string) - 1);
+		}
+		
+		return $string;
+	}
+	private function verificarSlug($slug)
+	{
+		$c = Url::model()->findByAttributes(array('slug' => $slug));
+		if($c)
+        {
+        	$lc = substr($slug, -1);
+        	if(is_numeric(substr($slug, -1)))
+        	{
+        		$slug = substr($slug, 0, -1) . ($lc+1);	
+        	}else
+        	{
+        		$slug += '-1';
+        	}
+        	$slug = $this->verificarSlug($slug);
+        }
+        return $slug;
 	}
 
 	/**
@@ -124,7 +289,12 @@ class PaginaController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$pagina = $this->loadModel($id);
+		$tabla 	= $pagina->tipoPagina->tabla;
+		$t 		= new $tabla();
+		$contenido = $t->findByAttributes( array('pagina_id' => $id) );
+		$contenido->delete();
+		$pagina->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

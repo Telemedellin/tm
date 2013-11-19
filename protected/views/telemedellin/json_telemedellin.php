@@ -8,13 +8,13 @@ $json .= '{';
 	$json .= '[';
 		foreach($micrositios as $micrositio):
 		$json .= '{';
-			$json .= '"nombre":"'.CHtml::encode($micrositio->nombre).'",';
+			$json .= '"nombre":"'.$micrositio->nombre.'",';
 			$json .= '"url":"'.bu($micrositio->url->slug).'",';
 			$json .= '"paginas":[';
 			foreach($micrositio->paginas as $pagina):
 				$json .= '{';
-				$json .= '"nombre":"'.CHtml::encode($pagina->nombre).'",';
-				$json .= '"url":"'.CHtml::encode($pagina->url->slug).'"';
+				$json .= '"nombre":"'.$pagina->nombre.'",';
+				$json .= '"url":"'.$pagina->url->slug.'"';
 				$json .= '},';
 			endforeach;
 			$json = substr($json, 0, -1);

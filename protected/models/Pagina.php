@@ -59,8 +59,7 @@ class Pagina extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('micrositio_id, tipo_pagina_id, nombre, url_id, estado, destacado', 'required'),
-			array('estado, url_id, destacado', 'numerical', 'integerOnly'=>true),
-			array('revision_id, usuario_id, url_id, micrositio_id, tipo_pagina_id, creado, modificado', 'length', 'max'=>10),
+			array('estado, usuario_id, url_id, micrositio_id, tipo_pagina_id, destacado', 'numerical', 'integerOnly'=>true),
 			array('nombre, clase', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

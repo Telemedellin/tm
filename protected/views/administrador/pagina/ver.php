@@ -1,9 +1,9 @@
 <div class="row">
 	<div class="col-sm-2">
 		<ul class="nav nav-pills nav-stacked">
-		  <li><?php echo l('Volver', bu('administrador/telemedellin'))?></li>
-		  <li><?php echo l('Editar', bu('administrador/telemedellin/update/' . $model->id))?></li>
-		  <li><small><?php echo l('Eliminar', bu('administrador/telemedellin/delete/' . $model->id), array('onclick' => 'if( !confirm(¿"Seguro que desea borrar la novedad "<?php echo $model->nombre; ?>") ) {return false;}'))?></small></li>
+		  <li><?php echo l('Volver', bu('administrador/pagina'))?></li>
+		  <li><?php echo l('Editar', bu('administrador/pagina/update/' . $model->id))?></li>
+		  <li><small><?php echo l('Eliminar', bu('administrador/pagina/delete/' . $model->id), array('onclick' => 'if( !confirm(¿"Seguro que desea borrar la novedad "<?php echo $model->nombre; ?>") ) {return false;}'))?></small></li>
 		</ul>
 	</div>
 	<div class="col-sm-10">
