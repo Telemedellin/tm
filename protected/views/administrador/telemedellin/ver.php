@@ -36,11 +36,19 @@
 				'destacado:boolean',
 			),
 		)); ?>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
 		<h2>Páginas</h2>
+		<p class="pull-right">
+		    <?php echo l('Agregar página', bu('administrador/pagina/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'role' => 'button'))?>
+		</p>
 		<?php $this->widget('zii.widgets.grid.CGridView', array(
 			'dataProvider'=>$contenido,
 			'enableSorting' => true,
 		    'pager' => array('pageSize' => 25),
+		    'htmlOptions' => array('style' => 'clear:both;'), 
 			'columns'=>array(
 		        'id',
 		        'nombre',

@@ -86,12 +86,19 @@ class ProgramasController extends Controller
 													        'condition'=>'micrositio_id = '.$id,
 													        'with'=>array('tipoRedSocial', 'micrositio'),
 													    )) );
+		$paginas = new CActiveDataProvider( 'Pagina', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id=' . $id . ' AND tipo_pagina_id=2',
+													        'with'=>array('pgGenericaSts', 'url'),
+													    )) );
+
 		$this->render('ver', array(
 			'model' => $model,
 			'contenido' => $contenido,
 			'videos' => $videos, 
 			'horario' => $horario,
-			'redes_sociales' => $redes_sociales
+			'redes_sociales' => $redes_sociales,
+			'paginas' => $paginas
 		));
 	}
 

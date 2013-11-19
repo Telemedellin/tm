@@ -53,20 +53,25 @@
 	<?php 
 	$this->widget('CTabView', array(
 	    'tabs'=>array(
-	        'tab1'=>array(
+	        'horarios'=>array(
 	            'title'=>'Horarios fijos de emisión',
 	            'view'=>'_horario', 
 	            'data'=> array('horario' => $horario, 'model' => $model)
 	        ),
-	        'tab2'=>array(
+	        'videos'=>array(
 	            'title'=>'Álbumes de videos',
 	            'view'=>'_video', 
 	            'data'=> array('videos' => $videos, 'model' => $model)
 	        ),
-	        'tab3'=>array(
+	        'redes-sociales'=>array(
 	            'title'=>'Redes sociales',
 	            'view'=>'_redessociales', 
 	            'data'=> array('redes_sociales' => $redes_sociales, 'model' => $model)
+	        ),
+	        'paginas'=>array(
+	            'title'=>'Páginas',
+	            'view'=>'_paginas', 
+	            'data'=> array('paginas' => $paginas, 'model' => $model)
 	        )
 	    ),
 	));
