@@ -9,12 +9,13 @@ class NovedadesForm extends CFormModel
 {
 	public $id;
 	public $nombre;
-	public $destacado;
 	public $entradilla;
 	public $texto;
 	public $enlace;
 	public $imagen;
 	public $miniatura;
+	public $posicion;
+	public $destacado;
 	public $estado;
 	
 	/**
@@ -27,7 +28,7 @@ class NovedadesForm extends CFormModel
 			array('nombre, entradilla', 'required'),
 			array('enlace, imagen, miniatura', 'length', 'max'=>255),
 			array('texto', 'safe'),
-			array('estado, destacado', 'numerical', 'integerOnly'=>true)
+			array('posicion, estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
 	}
 
@@ -44,6 +45,7 @@ class NovedadesForm extends CFormModel
 			'enlace' => 'Enlace externo (Opcional)',
 			'imagen' => 'Imagen',
 			'miniatura' => 'Imagen Miniatura',
+			'posicion' => 'Posición',
 			'estado' => 'Publicado',
 		);
 	}

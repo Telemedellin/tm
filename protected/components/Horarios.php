@@ -252,17 +252,19 @@ class Horarios{
 		}
 		elseif( $len == 2 || $len == 1){
 			$hora 	= 0;
-			$minuto = $tiempo;		
+			$minuto = $tiempo;
 		}
 		else{
 			$hora = 0;
 		}
-		$ampm = 'am';		
-		if( $hora > 12)
+		$ampm = 'am';
+		if( $hora > 12 )
 		{
 			$hora -= 12;
-			if($hora == 24) $ampm = 'am';
-			else $ampm = 'pm';
+			$ampm = 'pm';
+		}elseif($hora == 12)
+		{
+			$ampm = 'pm';
 		}
 		$html = '';
 		$html .= $hora;

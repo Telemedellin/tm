@@ -100,6 +100,7 @@ class HorarioController extends Controller
 			
 			$horario->hora_inicio = date('Gi', strtotime($horario->hora_inicio));
 			$horario->hora_fin = date('Gi', strtotime($horario->hora_fin));
+			
 			if($horario->save()){
 				Yii::app()->user->setFlash('mensaje', Horarios::getDiaSemana($horario->dia_semana) . ' ' . Horarios::hora($horario->hora_inicio) . ' guardado con éxito');
 				$pgPrograma = PgPrograma::model()->with('pagina')->findByPk($horario->pg_programa_id);

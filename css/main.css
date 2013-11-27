@@ -1199,6 +1199,7 @@ nav ul {
 }
 #novedades .novedad h3 {
 	line-height: 1.2;
+	margin-top: 0;
 }
 #novedades .novedad .container {
 	-webkit-border-bottom-left-radius: 10px;
@@ -1215,9 +1216,18 @@ nav ul {
 	color: #fff;
 	float: left;
 	line-height: 1.2;
-	margin: 5% 10% 0 46%;
-	padding: 2%;
-	width: 40%;
+	margin: 0 19% 0 58%;
+	padding: 1% 1.5%;
+	position: absolute;
+	width: 35%;
+}
+#novedades .novedad .container.ntop
+{
+	top: 68px;
+}
+#novedades .novedad .container.nbottom
+{
+	bottom: 125px;
 }
 #novedades .slides-navigation {
 	margin: 0 auto;
@@ -1233,7 +1243,7 @@ nav ul {
 	right: 0;
 	text-align: center;
 	top: 0;
-	width: 10%;
+	width: 6%;
 	z-index: 3;
 }
 #novedades .slides-pagination a {
@@ -1242,7 +1252,7 @@ nav ul {
 	height: 10%;
 	display: block;
 	zoom: 1;
-	margin-left: 80%;
+	margin-left: 70%;
 	overflow: hidden;
 	text-align: left;
 	-webkit-transition: all 0.4s linear;
@@ -1259,7 +1269,7 @@ nav ul {
 }
 
 #novedades .slides-pagination a:hover {
-	margin-left: 0;
+	margin-left: 20%;
 }
 #novedades .slides-pagination a:nth-child(3n+1) {
 	background: #51b053;
@@ -1271,7 +1281,7 @@ nav ul {
 	background: #e85133;
 }
 #novedades .slides-pagination a.current {
-	margin-left: 70%;
+	margin-left: 50%;
 }
 #programacion {
 	background: rgb(246, 128, 38);
@@ -1499,7 +1509,7 @@ nav ul {
 #overlay #seccion > div
 {
 	float: left;
-	height: 85%;
+	height: 84%;
 	margin-bottom: 1%;
 	overflow: hidden;
 	position: relative;
@@ -1532,15 +1542,15 @@ nav ul {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
-	margin-right: 2%;
-	padding-right: 2%;
-	width: 27%;
+	margin-right: 1%;
+	padding-right: 1%;
+	width: 25%;
 }
 #overlay #seccion .historial
 {
 	overflow-x: auto;
 	padding-bottom: 20px;
-	width: 70%
+	width: 73%
 }
 #overlay #seccion .historial h2
 {
@@ -1596,7 +1606,7 @@ nav ul {
 	font-size: .9em;
 	height: 15px;
 	margin: 0;
-	width: 95%;
+	width: 96%;
 }
 #overlay #seccion .filtro form
 {
@@ -1604,8 +1614,9 @@ nav ul {
 }
 #overlay #seccion .listado
 {
-	margin-right: 5%;
-	width: 70%;
+	margin-right: 3%;
+	overflow-x: auto;
+	width: 75%;
 }
 #overlay #seccion .listado .inner, 
 #overlay #seccion .historial .inner
@@ -1649,7 +1660,7 @@ nav ul {
 {
 	height: 10%;
 	margin-bottom: 1%;
-	width: 97%;
+	width: 98%;
 }
 #overlay #seccion.Especiales:after, 
 #overlay #seccion.Especiales:before
@@ -1999,8 +2010,8 @@ nav ul {
 		width: 100%;
 	}
 	#micrositio.senal-en-vivo {
-		height: 90%;
-		max-height: 90%;
+		height: 95%;
+		max-height: 95%;
 	}
 	#micrositio.senal-en-vivo iframe
 	{

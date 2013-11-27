@@ -63,7 +63,9 @@ class AlbumvideoController extends Controller
 	public function actionDelete($id)
 	{
 		$album_video = AlbumVideo::model()->findByPk($id);
+		$ui = $album_video->url_id;
 		$album_video->delete();
+		Url::model()->findByPk($ui)->delete();
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
@@ -78,11 +80,12 @@ class AlbumvideoController extends Controller
 
 		$micrositio = ($id)?Micrositio::model()->with('seccion')->findByPk($id):0;
 		$album_video = new AlbumVideo;	
-		$album_video->micrositio_id = $micrositio;
+		$album_video->micrositio_id = $micrositio->id;
 
 		if(isset($_POST['AlbumVideo'])){
 			$album_video->attributes = $_POST['AlbumVideo'];
-			$album_video->thumb 	 = 'videos/' . $album_video->thumb;
+			$album_video->thumb 	 = 'videos/' . $_POST['AlbumVideo']['thumb'];
+			$album_video->creado 	 = date('Y-m-d H:i:s');
 			
 			$url = new Url;
 			$url->slug 		= '#videos/' . $this->slugger($album_video->nombre);
@@ -94,7 +97,7 @@ class AlbumvideoController extends Controller
 
 			if($album_video->save()){
 				Yii::app()->user->setFlash('mensaje', $album_video->nombre . ' guardado con éxito');
-					$this->redirect(bu('administrador/'.$micrositio->seccion->nombre.'/view/' . $micrositio->id));
+				$this->redirect(bu('administrador/'.$micrositio->seccion->nombre.'/view/' . $micrositio->id));
 			}//if($album_video->save())
 
 		} //if(isset($_POST['AlbumVideo']))
@@ -197,20 +200,21 @@ class AlbumvideoController extends Controller
 			$string = substr($string, 0, strlen($string) - 1);
 		}
 		
-		return $string;
+		return $this->verificarSlug($string);
 	}
 	private function verificarSlug($slug)
 	{
-		$c = Url::model()->findByAttributes(array('slug' => $slug));
+		$base = '#videos/';
+		$c = Url::model()->findByAttributes(array('slug' => $base.$slug));
 		if($c)
         {
         	$lc = substr($slug, -1);
-        	if(is_numeric(substr($slug, -1)))
+        	if(is_numeric($lc))
         	{
         		$slug = substr($slug, 0, -1) . ($lc+1);	
         	}else
         	{
-        		$slug += '-1';
+        		$slug = $slug.'-1';
         	}
         	$slug = $this->verificarSlug($slug);
         }

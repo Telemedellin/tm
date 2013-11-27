@@ -155,6 +155,7 @@ class NovedadesController extends Controller
 				$pgAB->texto 		= $novedadesForm->texto;
 				$pgAB->enlace 		= $novedadesForm->enlace;
 				$pgAB->imagen 		= $dir . $novedadesForm->imagen;
+				$pgAB->posicion 	= $novedadesForm->posicion;
 				$pgAB->miniatura 	= $dir . 'thumbnail/' . $novedadesForm->miniatura;
 				$pgAB->estado 		= 1;
 				
@@ -341,6 +342,7 @@ class NovedadesController extends Controller
 				$pgAB->entradilla 	= $novedadesForm->entradilla;
 				$pgAB->texto 		= $novedadesForm->texto;
 				$pgAB->enlace 		= $novedadesForm->enlace;
+				$pgAB->posicion 	= $novedadesForm->posicion;
 				$pgAB->estado 		= $novedadesForm->estado;
 				
 				if( !$pgAB->save(false) )
@@ -365,6 +367,7 @@ class NovedadesController extends Controller
 		$novedadesForm->enlace = $pagina->pgArticuloBlogs->enlace;
 		$novedadesForm->imagen = $pagina->pgArticuloBlogs->imagen;
 		$novedadesForm->miniatura = $pagina->pgArticuloBlogs->miniatura;
+		$novedadesForm->posicion = $pagina->pgArticuloBlogs->posicion;
 		$novedadesForm->estado = $pagina->estado;
 		$novedadesForm->destacado = $pagina->destacado;
 

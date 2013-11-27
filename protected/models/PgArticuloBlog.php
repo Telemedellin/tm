@@ -44,7 +44,7 @@ class PgArticuloBlog extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('pagina_id, entradilla, texto, imagen, miniatura, estado', 'required'),
-			array('estado', 'numerical', 'integerOnly'=>true),
+			array('posicion, estado', 'numerical', 'integerOnly'=>true),
 			array('pagina_id', 'length', 'max'=>10),
 			array('entradilla, enlace, imagen, miniatura', 'length', 'max'=>255),
 			// The following rule is used by search().
@@ -78,6 +78,7 @@ class PgArticuloBlog extends CActiveRecord
 			'enlace' => 'Enlace externo (Opcional)',
 			'imagen' => 'Imagen',
 			'miniatura' => 'Miniatura',
+			'posicion' => 'Posicion',
 			'estado' => 'Estado',
 		);
 	}
@@ -100,6 +101,7 @@ class PgArticuloBlog extends CActiveRecord
 		$criteria->compare('enlace',$this->enlace,true);
 		$criteria->compare('imagen',$this->imagen,true);
 		$criteria->compare('miniatura',$this->miniatura,true);
+		$criteria->compare('posicion',$this->posicion);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(

@@ -39,7 +39,7 @@
                             ),
                             '/',
                             array(
-                                'Source', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 
+                                'Source', '-', 'Undo', 'Redo', 
                             ),
                             array(
                                 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'

@@ -25,10 +25,7 @@
             'attribute'=>'resena',
             'toolbar' => array(
                             array(
-                                    'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'Source',
-                            ),
-                            array(
-                                    'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'
+                                    'Undo', 'Redo', 'Source', '-', 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'
                             ),
                             '/',
                             array(

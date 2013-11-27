@@ -44,9 +44,9 @@ cs()->registerScript(
     <li class="novedad">
       <img src="<?php echo bu('/images/' . $novedad->pgArticuloBlogs->imagen); ?>" alt="<?php echo $novedad->nombre; ?>" />
       <div id="dots"></div>
-      <div class="container">
+      <div class="container <?php echo ($novedad->pgArticuloBlogs->posicion==1)?'ntop':'nbottom'; ?>">
         <h3><?php echo $novedad->nombre; ?></h3>
-        <p><?php echo $novedad->pgArticuloBlogs->entradilla; ?></p>
+        <?php echo $novedad->pgArticuloBlogs->entradilla; ?>
         <?php $enlace = ( $novedad->pgArticuloBlogs->enlace == '' )? bu($novedad->url->slug):$novedad->pgArticuloBlogs->enlace;?>
         <a href="<?php echo $enlace ?>" class="ver-mas">Ver más de <?php echo $novedad->nombre; ?></a>
       </div>

@@ -8,7 +8,7 @@
             'attribute'=>'texto',
             'toolbar' => array(
                             array(
-                                'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat',
+                                'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat',
                             ),
                              array(
                                 'TextColor', 'BGColor',
@@ -21,7 +21,7 @@
                             ),
                             '/',
                             array(
-                                'Source', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 
+                                'Source', '-', 'Undo', 'Redo', 
                             ),
                             array(
                                 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'

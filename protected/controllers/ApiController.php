@@ -278,4 +278,22 @@ class ApiController extends Controller
 		Yii::app()->end();
 	}
 
+	public function actionMicrositios($term = '')
+	{
+		$micrositios = Micrositio::model()->with('seccion')->findAll('(seccion_id = 2 OR seccion_id = 3 OR seccion_id = 4) AND t.nombre LIKE "%'.$term.'%"');
+		header('Content-Type: application/json; charset="UTF-8"');
+		$json = '[';
+		foreach($micrositios as $micrositio):
+			$json .= '{';
+			$json .= '"label":"'.$micrositio->nombre.'",';
+			$json .= '"value":"'.$micrositio->nombre.'",';
+			$json .= '"id":"'.$micrositio->id.'"';
+			$json .= '},';
+		endforeach;
+		$json = substr($json, 0, -1);
+		$json .= ']';
+		echo $json;
+		Yii::app()->end();
+	}
+
 }

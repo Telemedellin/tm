@@ -64,7 +64,27 @@ Yii::app()->clientScript->registerScript('datepicker',
 	<div class="form-group">
 		<?php echo $form->label($model,'micrositio_id', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-5">
-            <?php echo $form->dropDownList($model,'micrositio_id', CHtml::listData(Micrositio::model()->findAll('seccion_id = 2 OR seccion_id = 3 OR seccion_id = 4'), 'id', 'nombre'), array('class' => 'form-control') ); ?>
+            <?php //echo $form->dropDownList($model,'micrositio_id', CHtml::listData(Micrositio::model()->findAll('seccion_id = 2 OR seccion_id = 3 OR seccion_id = 4'), 'id', 'nombre'), array('class' => 'form-control') ); ?>
+            <?php $this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+                'name'=>'micrositio',
+                'sourceUrl' => bu('api/micrositios'), 
+                'value' => $model->micrositio->nombre, 
+                'options'=>array(
+                    'minLength'=>'2',
+                    'delay'=>'0',
+                    'select' => new CJavaScriptExpression('function( event, ui ) {
+                        $( "#Programacion_micrositio_id" ).val( ui.item.id );
+                    }'),
+                    'change' => new CJavaScriptExpression('function( event, ui ) {
+                        $( "#Programacion_micrositio_id" ).attr( "value", "" );
+                    }'),
+                ),
+                'htmlOptions'=>array(
+                    'class'=>'form-control',
+                ),
+            ));
+            echo $form->hiddenField($model, 'micrositio_id');
+            ?>
         </div>
 		<?php echo $form->error($model,'micrositio_id'); ?>
 	</div>

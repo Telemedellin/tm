@@ -37,6 +37,11 @@
 				),
 				'creado',
 				'modificado',
+				array(
+					'name' => 'pgArticuloBlogs.posicion', 
+					'type' => 'raw', 
+					'value' => ($model->pgArticuloBlogs->posicion==1)?'Arriba':'Abajo',
+				),
 				'estado:boolean',
 				'destacado:boolean'
 			),

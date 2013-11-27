@@ -27,7 +27,7 @@ class PaginaController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'crear','update','delete', 'imagen', 'miniatura'),
+				'actions'=>array('index','view', 'crear','update','delete', 'imagen', 'miniatura', 'imagelist'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -35,6 +35,66 @@ class PaginaController extends Controller
 			),
 		);
 	}
+
+	/*public function actions()
+    {
+        return array(
+        	'imageList'=>array(
+                'class'=>'ext.redactor.actions.ImageList',
+                'uploadPath'=>Yii::app()->basePath.'/../images',
+                'uploadUrl'=>bu('images'),
+            ),
+            'fileUpload'=> array(
+            	'class' => 'ext.redactor.actions.FileUpload', 
+            	'uploadPath'=>'/tm/archivos/'.date('Y').'/'.date('m'),
+                'uploadUrl'=>'/tm/archivos/'.date('Y').'/'.date('m'),
+                'uploadCreate'=>true,
+                'permissions'=>0755,
+            ),
+            'imageUpload'=>array(
+                'class'=>'ext.redactor.actions.ImageUpload',
+                'uploadPath'=>'/tm/images/contenido/'.date('Y').'/'.date('m'),
+                'uploadUrl'=>'/tm/images/contenido/'.date('Y').'/'.date('m'),
+                'uploadCreate'=>true,
+                'permissions'=>0755,
+            ),
+        );
+    }*/
+
+   	
+    public function actionImagelist($attr)
+    {
+		$attribute=strtolower($attr);
+		$uploadPath=Yii::app()->basePath.'/../images';
+		$uploadUrl=bu('images');
+
+		if ($uploadPath===null) {
+			$path=Yii::app()->basePath.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'uploads';
+			$uploadPath=realpath($path);
+			if ($uploadPath===false) {
+				exit;
+			}
+		}
+		if ($uploadUrl===null) {
+			$uploadUrl=Yii::app()->request->baseUrl .'/uploads';
+		}
+
+		$attributePath=$uploadPath.DIRECTORY_SEPARATOR.$attribute;
+		$attributeUrl=$uploadUrl.'/'.$attribute.'/';
+
+		$files=CFileHelper::findFiles($attributePath,array('fileTypes'=>array('gif','png','jpg','jpeg'), 'level'=>0));
+		$data=array();
+		if ($files) {
+			foreach($files as $file) {
+				$data[]=array(
+					'thumb'=>$attributeUrl.basename($file),
+					'image'=>$attributeUrl.basename($file),
+				);
+			}
+		}
+		echo CJSON::encode($data);
+		exit;
+    }
 
 	/**
 	 * Lists all models.

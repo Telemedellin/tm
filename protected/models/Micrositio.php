@@ -77,10 +77,10 @@ class Micrositio extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'albumFotos' => array(self::HAS_MANY, 'AlbumFoto', 'micrositio_id'),
-			'albumVideos' => array(self::HAS_MANY, 'AlbumVideo', 'micrositio_id'),
+			'albumFotos' => array(self::HAS_MANY, 'AlbumFoto', 'micrositio_id', 'on' => 'albumFotos.estado <> 0'),
+			'albumVideos' => array(self::HAS_MANY, 'AlbumVideo', 'micrositio_id', 'on' => 'albumVideos.estado <> 0'),
 			'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
-			'pagina' => array(self::BELONGS_TO, 'Pagina', 'pagina_id'),
+			'pagina' => array(self::BELONGS_TO, 'Pagina', 'pagina_id'/*, 'on' => 'pagina.estado <> 0'*/),
 			'seccion' => array(self::BELONGS_TO, 'Seccion', 'seccion_id'),
 			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 			'usuario' => array(self::BELONGS_TO, 'Usuario', 'usuario_id'),
@@ -151,13 +151,13 @@ class Micrositio extends CActiveRecord
 	public function cargarPorUrl($url_id)
 	{
 		if( !$url_id ) return false;
-		return $this->with('url', 'seccion', 'redSocials', 'albumVideos', 'paginas')->findByAttributes( array('url_id' => $url_id), 't.estado <> 0' );
+		return $this->with('url', 'seccion', 'redSocials', 'albumVideos', 'paginas')->findByAttributes( array('url_id' => $url_id)/*, 't.estado <> 0'*/ );
 	}
 
 	public function cargarMicrositio($micrositio_id)
 	{
 		if( !$micrositio_id ) return false;
-		return $this->with('url', 'seccion', 'redSocials', 'albumVideos', 'paginas')->findByPk( $micrositio_id, 't.estado <> 0' );
+		return $this->with('url', 'seccion', 'redSocials', 'albumVideos', 'paginas')->findByPk( $micrositio_id/*, 't.estado <> 0'*/ );
 	}
 
 	public function getDefaultPage( $micrositio_id )

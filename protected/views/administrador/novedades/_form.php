@@ -34,7 +34,7 @@
                                 'Link', 'Unlink', 'Anchor',
                             ),
                             array(
-                                'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 'Source',
+                                'Undo', 'Redo', 'Source',
                             ),
                             array(
                                 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'
@@ -67,7 +67,7 @@
                             ),
                             '/',
                             array(
-                                'Source', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo', 
+                                'Source', '-', 'Undo', 'Redo', 
                             ),
                             array(
                                 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'
@@ -165,6 +165,13 @@
         </div>
         </div>
 	</div>
+    <div class="form-group">
+        <?php echo $form->label($model,'posicion', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-2">
+            <?php echo $form->dropDownList($model, 'posicion', array('1' => 'Arriba', '2' => 'Abajo' ), array('class' => 'form-control')); ?>
+        </div>
+        <?php echo $form->error($model,'posicion'); ?>
+    </div>
 	<div class="form-group">
 		<?php echo $form->label($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-2">
