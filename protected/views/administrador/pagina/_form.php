@@ -1,8 +1,3 @@
-<?php 
-cs()->registerScript('paginaedit', 
-    '', 
-    CClientScript::POS_READY);
-?>
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'pagina-form',
@@ -17,7 +12,12 @@ cs()->registerScript('paginaedit',
 	<div class="form-group">
 		<?php echo $form->label($model,'micrositio_id', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-6">
-			<?php echo $form->dropDownList($model,'micrositio_id', CHtml::listData(Micrositio::model()->findAll(), 'id', 'nombre'), array('class' => 'form-control') ); ?>
+			<?php 
+				$opciones = array('class' => 'form-control'); 
+				if(!$model->isNewRecord) $opciones['disabled'] = true;
+			?>
+			<?php echo $form->dropDownList($model,'micrositio_id', CHtml::listData(Micrositio::model()->findAll(), 'id', 'nombre'), $opciones ); ?>
+			<?php  ?>
 		</div>
 		<?php echo $form->error($model,'micrositio_id'); ?>
 	</div>

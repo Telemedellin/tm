@@ -27,7 +27,7 @@ class PaginaController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'crear','update','delete', 'imagen', 'miniatura', 'imagelist'),
+				'actions'=>array('index','view', 'crear','update','delete', 'imagen', 'miniatura'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -36,7 +36,37 @@ class PaginaController extends Controller
 		);
 	}
 
-	/*public function actions()
+	public function actions()
+	{
+		return array(
+			'imagen'=>array(
+                'class'=>'application.components.actions.SubirArchivo',
+                'directorio' => 'images/backgrounds/paginas/',
+                'param_name' => 'archivoImagenPa'
+            ),
+            'miniatura'=> array(
+                'class'=>'application.components.actions.SubirArchivo',
+                'directorio' => 'images/backgrounds/paginas/thumbnail/',
+                'param_name' => 'archivoMiniaturaPa',
+                'image_versions' => 
+					array(
+						'' => array('max_width' => 250, 'max_height' => 150)
+					)
+            )
+		);
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'utilities'=>array(
+                'class'=>'application.components.behaviors.Utilities'
+            )
+		);
+	}
+
+	/*
+	public function actions()
     {
         return array(
         	'imageList'=>array(
@@ -150,7 +180,9 @@ class PaginaController extends Controller
 			$m = Micrositio::model()->with('seccion')->findByPk($model->micrositio_id);
 			$model->tipo_pagina_id = 2;
 			$url = new Url;
-			$url->slug 		= $this->slugger($m->seccion->nombre) . '/' . $this->slugger($m->nombre) . '/' . $this->slugger($model->nombre);
+			$slug = $this->slugger($m->seccion->nombre) . '/' . $this->slugger($m->nombre) . '/' . $this->slugger($model->nombre);
+			$slug = $this->verificarSlug($slug);
+			$url->slug 		= $slug;
 			$url->tipo_id 	= 3; //Pagina
 			$url->estado  	= 1;
 			if( !$url->save(false) ) $transaccion->rollback();
@@ -195,8 +227,19 @@ class PaginaController extends Controller
 
 		if(isset($_POST['Pagina']))
 		{
+			$m = Micrositio::model()->with('seccion')->findByPk($datos['pagina']->micrositio_id);
+
+			if($datos['pagina']->nombre != $_POST['Pagina']['nombre'])
+			{
+				$url = Url::model()->findByPk($datos['pagina']->url_id);;
+				$slug = $this->slugger($m->seccion->nombre) . '/' . $this->slugger($m->nombre) . '/' . $this->slugger($_POST['Pagina']['nombre']);
+				$slug = $this->verificarSlug($slug);
+				$url->slug 	= $slug;
+				$url->save();
+			}			
+
 			$datos['pagina']->attributes = $_POST['Pagina'];
-			
+
 			if($datos['pagina']->save())
 			{
 				if(isset($_POST['PgGenericaSt']))
@@ -232,116 +275,7 @@ class PaginaController extends Controller
 			'contenido' => $contenido,
 		));
 	}
-
-	public function actionImagen(){	
-		if(isset(Yii::app()->session['dirpa'])){
-			$dirpa = Yii::app()->session['dirpa'];
-		}
-		$data = array(	/*'image_versions' => array( 'thumbnail' => array(	'max_width' => 50,
-																		'max_height' => 35
-																	 )
-												),*/
-					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/pagina/imagen',
-					  	'max_number_of_files' => null,
-						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/' . $dirpa,
-	            		'upload_url' => Yii::app()->request->baseUrl.'/images/' . $dirpa,	
-	            		'accept_file_types' => '/(\.|\/)(gif|jpe?g|png)$/i',
-	            		'param_name' => 'archivoImagenPa',
-				);
-		$messages = array(
-        			1 => 'El archivo subido excede la directiva upload_max_filesize en php.ini',
-        			2 => 'El archivo subido excede la directiva MAX_FILE_SIZE que se especificó en el formulario HTML',
-        			3 => 'El archivo subido fue sólo parcialmente cargado. Por favor cargarlo nuevamente.',
-        			4 => 'Ningún archivo fue subido',
-        			6 => 'La carpeta temporal no se encuentra',
-        			7 => 'Falló la escritura en el servidor',
-        			8 => 'Una extensión de PHP interrumpió la carga de archivos',
-        			'post_max_size' => 'El archivo subido excede la directiva post_max_size en php.ini',
-        			'max_file_size' => 'El archivo es demasiado pesado',
-        			'min_file_size' => 'El archivo no tiene el peso suficiente',
-        			'accept_file_types' => 'Tipo de archivo no permitido',
-        			'max_number_of_files' => 'Número máximo de archivos se superó. Solo se permite una imagen',
-        			'max_width' => 'La imagen excede el ancho máximo',
-        			'min_width' => 'La imagen no tiene el ancho suficiente',
-        			'max_height' => 'La imagen excede el alto máximo',
-        			'min_height' => 'La imagen no tiene el alto suficiente'
-    			);		
-		$upload_handler = new UploadHandler($data, true, $messages);	
-	}
-
-	public function actionMiniatura(){	
-		if(isset(Yii::app()->session['dirpa'])){
-			$dirpa = Yii::app()->session['dirpa'];
-		}
-		$data = array(	'image_versions' => array( '' => array(	'max_width' => 250,
-																'max_height' => 150
-															 )
-												),
-					  	'script_url' => Yii::app()->request->baseUrl.'/administrador/pagina/miniatura',
-					  	'max_number_of_files' => null,
-						'upload_dir' => Yii::getPathOfAlias('webroot').'/images/' . $dirpa . 'thumbnail/',
-	            		'upload_url' => Yii::app()->request->baseUrl.'/images/' . $dirpa . 'thumbnail/',	
-	            		'accept_file_types' => '/(\.|\/)(gif|jpe?g|png)$/i',
-	            		'param_name' => 'archivoMiniaturaPa',
-				);
-		$messages = array(
-        			1 => 'El archivo subido excede la directiva upload_max_filesize en php.ini',
-        			2 => 'El archivo subido excede la directiva MAX_FILE_SIZE que se especificó en el formulario HTML',
-        			3 => 'El archivo subido fue sólo parcialmente cargado. Por favor cargarlo nuevamente.',
-        			4 => 'Ningún archivo fue subido',
-        			6 => 'La carpeta temporal no se encuentra',
-        			7 => 'Falló la escritura en el servidor',
-        			8 => 'Una extensión de PHP interrumpió la carga de archivos',
-        			'post_max_size' => 'El archivo subido excede la directiva post_max_size en php.ini',
-        			'max_file_size' => 'El archivo es demasiado pesado',
-        			'min_file_size' => 'El archivo no tiene el peso suficiente',
-        			'accept_file_types' => 'Tipo de archivo no permitido',
-        			'max_number_of_files' => 'Número máximo de archivos se superó. Solo se permite una miniatura',
-        			'max_width' => 'La imagen excede el ancho máximo',
-        			'min_width' => 'La imagen no tiene el ancho suficiente',
-        			'max_height' => 'La imagen excede el alto máximo',
-        			'min_height' => 'La imagen no tiene el alto suficiente'
-    			);		
-		$upload_handler = new UploadHandler($data, true, $messages);	
-	}
-
-	private function slugger($title)
-	{
-		$characters = array(
-			"Á" => "A", "Ç" => "c", "É" => "e", "Í" => "i", "Ñ" => "n", "Ó" => "o", "Ú" => "u", 
-			"á" => "a", "ç" => "c", "é" => "e", "í" => "i", "ñ" => "n", "ó" => "o", "ú" => "u",
-			"à" => "a", "è" => "e", "ì" => "i", "ò" => "o", "ù" => "u"
-		);
-		
-		$string = strtr($title, $characters); 
-		$string = strtolower(trim($string));
-		$string = preg_replace("/[^a-z0-9-]/", "-", $string);
-		$string = preg_replace("/-+/", "-", $string);
-		
-		if(substr($string, strlen($string) - 1, strlen($string)) === "-") {
-			$string = substr($string, 0, strlen($string) - 1);
-		}
-		
-		return $string;
-	}
-	private function verificarSlug($slug)
-	{
-		$c = Url::model()->findByAttributes(array('slug' => $slug));
-		if($c)
-        {
-        	$lc = substr($slug, -1);
-        	if(is_numeric(substr($slug, -1)))
-        	{
-        		$slug = substr($slug, 0, -1) . ($lc+1);	
-        	}else
-        	{
-        		$slug += '-1';
-        	}
-        	$slug = $this->verificarSlug($slug);
-        }
-        return $slug;
-	}
-
+	
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.

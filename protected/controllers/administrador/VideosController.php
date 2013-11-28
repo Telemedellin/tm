@@ -37,6 +37,15 @@ class VideosController extends Controller
 		);
 	}
 
+	public function behaviors()
+	{
+		return array(
+			'utilities'=>array(
+                'class'=>'application.components.behaviors.Utilities'
+            )
+		);
+	}
+
 	/**
 	 * Lists all models.
 	 */
@@ -99,7 +108,9 @@ class VideosController extends Controller
 			if($video->validate()){
 				$album_video = AlbumVideo::model()->findByPk($video->album_video_id);
 				$url = new Url;
-				$url->slug 		= '#videos/'.$this->slugger($album_video->nombre).'/'.$this->slugger($video->nombre);
+				$slug = '#videos/'.$this->slugger($album_video->nombre).'/'.$this->slugger($video->nombre);
+				$slug = $this->verificarSlug($slug);
+				$url->slug 		= $slug;
 				$url->tipo_id 	= 9; //Video
 				$url->estado  	= 1;
 				$url->save();
@@ -127,44 +138,6 @@ class VideosController extends Controller
 		));
 	}
 
-	
-	private function slugger($title)
-	{
-		$characters = array(
-			"Á" => "A", "Ç" => "c", "É" => "e", "Í" => "i", "Ñ" => "n", "Ó" => "o", "Ú" => "u", 
-			"á" => "a", "ç" => "c", "é" => "e", "í" => "i", "ñ" => "n", "ó" => "o", "ú" => "u",
-			"à" => "a", "è" => "e", "ì" => "i", "ò" => "o", "ù" => "u"
-		);
-		
-		$string = strtr($title, $characters); 
-		$string = strtolower(trim($string));
-		$string = preg_replace("/[^a-z0-9-]/", "-", $string);
-		$string = preg_replace("/-+/", "-", $string);
-		
-		if(substr($string, strlen($string) - 1, strlen($string)) === "-") {
-			$string = substr($string, 0, strlen($string) - 1);
-		}
-		
-		return $string;
-	}
-	private function verificarSlug($slug)
-	{
-		$c = Url::model()->findByAttributes(array('slug' => $slug));
-		if($c)
-        {
-        	$lc = substr($slug, -1);
-        	if(is_numeric(substr($slug, -1)))
-        	{
-        		$slug = substr($slug, 0, -1) . ($lc+1);	
-        	}else
-        	{
-        		$slug += '-1';
-        	}
-        	$slug = $this->verificarSlug($slug);
-        }
-        return $slug;
-	}
-
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -181,7 +154,9 @@ class VideosController extends Controller
 			if($video->validate()){
 				if($video->nombre != $nombre){
 					$url = Url::model()->findByPk($video->url_id);
-					$url->slug 		= '#videos/' . $this->slugger($video->albumVideo->nombre).'/'.$this->slugger($video->nombre);
+					$slug = '#videos/' . $this->slugger($video->albumVideo->nombre).'/'.$this->slugger($video->nombre);
+					$slug = $this->verificarSlug($slug);
+					$url->slug 		= $slug;
 					$url->save(false);
 				}
 
