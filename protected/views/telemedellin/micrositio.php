@@ -46,7 +46,7 @@ cs()->registerScript( 'scroll',
 ?>
 <?php if( isset( $micrositio->redSocials ) && count($micrositio->redSocials) ):  ?>
 <div id="redes_micrositio" class="redes">
-	<p>Visitanos en</p>
+	<p>Visitá este programa en:</p>
 	<ul>
 	<?php foreach( $micrositio->redSocials as $red ): ?>
 		<li class="<?php echo strtolower($red->tipoRedSocial->nombre) ?>">
