@@ -41,6 +41,7 @@ class NewsTicker extends CWidget
 		        $texto_nuevo = '';
 		        $ultimo_indice = 0;
 		        $entidades = array();
+		        //print_r($tweet->entities);exit();
 		        if( count($tweet->entities->hashtags) )
 		        {
 		          foreach ($tweet->entities->hashtags as $hashtag) {
@@ -60,6 +61,13 @@ class NewsTicker extends CWidget
 		          foreach ($tweet->entities->urls as $url) {
 		            $nu = '<a href="'.$url->expanded_url.'" target="_blank" rel="nofollow" class="tlink">' . $url->url . '</a>';
 		            $entidades[] = array('texto' => $nu, 'pi' => $url->indices[0], 'pf' => $url->indices[1]);
+		          }
+		        }
+		        if( count($tweet->entities->media) )
+		        {
+		          foreach ($tweet->entities->media as $media) {
+		            $nm = '<a href="'.$media->expanded_url.'" target="_blank" rel="nofollow" class="tlink">' . $media->url . '</a>';
+		            $entidades[] = array('texto' => $nm, 'pi' => $media->indices[0], 'pf' => $media->indices[1]);
 		          }
 		        }
 		        usort($entidades, "NewsTicker::ceo");

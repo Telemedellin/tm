@@ -33,7 +33,9 @@ class ProgramacionW extends CWidget
             $clases = ( ($item >= $hoy && $item < $manana) ) ? "hoy ":"";
             $clases .= ( $url == $ruri ) ? "elegido":"";
             $html .= '<a href="'.$url.'" class="'.$clases.'">';
+            $html .= '<time datetime="' . date("Y-m-d H:i", $item) . '">';
             $html .= ucfirst(strftime("%A", $item)) . ' ' . strftime("%e", $item);
+            $html .= '</time>';
             $html .= '</a>';
             $html .= ($adm)?'</li>':'';
         endforeach;

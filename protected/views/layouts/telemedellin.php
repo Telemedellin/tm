@@ -56,27 +56,25 @@ $ru = Yii::app()->request->requestUri;
 			<?php echo l( 'Contacto' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/utilidades/escribinos'), array('class' => 'escribenos') ); ?>
 		</footer>
 	</div>
-	
 	<div id="content">
-		<?php if( count($this->breadcrumbs) ): ?>
-	      <?php 
-	        $this->widget( 'zii.widgets.CBreadcrumbs', 
-	          array(
-	            'homeLink' => CHtml::link( 'Inicio' , CHtml::normalizeUrl(Yii::app()->homeUrl), array('class' => 'home') ),
-	            'separator'=> '',
-	            'links'    => $this->breadcrumbs,
-	            'inactiveLinkTemplate' => '<h1>{label}</h1>',
-	          )
-	        ); 
-	      ?><!-- breadcrumbs -->
-	    <?php endif; ?>
-		<?php echo $content; ?>
+	<?php if( count($this->breadcrumbs) ): ?>
+	<?php 
+	$this->widget( 'zii.widgets.CBreadcrumbs', 
+	  array(
+	    'homeLink' => CHtml::link( 'Inicio' , CHtml::normalizeUrl(Yii::app()->homeUrl), array('class' => 'home') ),
+	    'separator'=> '',
+	    'links'    => $this->breadcrumbs,
+	    'inactiveLinkTemplate' => '<h1>{label}</h1>',
+	  )
+	); 
+	?><!-- breadcrumbs -->
+    <?php endif; ?>
+	<?php echo $content; ?>
 	</div>
 	<?php $this->widget('ProgramacionW'); ?>
 	<?php 
-		if( !count($this->breadcrumbs) )
-			$this->widget('NewsTicker'); ?>
-	<?php 
+	if( !count($this->breadcrumbs) )
+		$this->widget('NewsTicker');
 	if( count($this->breadcrumbs) )
 		$this->widget('Compartir'); 
 	?>
@@ -93,10 +91,10 @@ $ru = Yii::app()->request->requestUri;
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-5650687-11']);
   _gaq.push(['_trackPageview']);
-
   (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    //ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>

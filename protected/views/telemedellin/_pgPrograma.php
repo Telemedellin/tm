@@ -6,4 +6,4 @@
 	</strong>
 </p>
 <?php endif; ?>
-<p><?php echo $contenido['contenido']->resena ?></p>
+<?php echo $contenido['contenido']->resena ?>

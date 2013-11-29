@@ -11,7 +11,7 @@
 	<?php else: ?>
 		<span>
 	<?php endif ?>
-			<div class="hora"><?php echo date('h:i a', $programa->hora_inicio) ?></div>
+			<div class="hora"><time><?php echo date('h:i a', $programa->hora_inicio) ?></time></div>
 			<div class="tit_programa"><?php echo $programa->micrositio->nombre ?></div>
 	<?php if($programa->micrositio->estado == 1): ?>
 		</a>

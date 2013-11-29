@@ -149,7 +149,7 @@ class Horarios{
 				$html .= ' ';
 			else
 				$html .= 's ';
-			$html .= Horarios::hora( $subitem['hora_inicio'] );
+			$html .= '<time>' . Horarios::hora( $subitem['hora_inicio'] ) . '</time>';
 
 			if(next($array_final) !== end($array_final) && next($array_final) !== null)
 				$html .=  ' y ';
@@ -198,23 +198,23 @@ class Horarios{
 			$dp = $da-1;
 			if($c == 1){
 				$html .= ucfirst ( strftime('%A', $f) ) .' ' . date('d', $f) . ' de ' . ucfirst ( strftime('%B', $f) );
-				$html .= ' de ' . Horarios::hora( $dato['hora_inicio'] );
-				$html .= ' a ' . Horarios::hora( $dato['hora_fin'] );
+				$html .= ' de ' . '<time>' . Horarios::hora( $dato['hora_inicio'] ) . '</time>';
+				$html .= ' a ' . '<time>' . Horarios::hora( $dato['hora_fin'] ) . '</time>';
 				break;
 			}
 			if($flag){				
 				$html .= ucfirst ( strftime('%A', $f) ) .' ' . date('d', $f) . ' de ' . ucfirst ( strftime('%B', $f) );
 				if($f !== $fant){
-					$html .= ' de ' . Horarios::hora( $dato['hora_inicio'] );
-					$html .= ' a ' . Horarios::hora( $dato['hora_fin'] );					
+					$html .= ' de ' . '<time>' . Horarios::hora( $dato['hora_inicio'] ) . '</time>';
+					$html .= ' a ' . '<time>' . Horarios::hora( $dato['hora_fin'] ). '</time>';					
 				}
 			}
 			if($dp != $dan){
 				if($f !== $fant){
 					$html .= " al ";
 					$html .= ucfirst ( strftime('%A', $fant) ) . ' ' . date('d', $fant) . ' de ' . ucfirst ( strftime('%B', $fant) );
-					$html .= ' de ' . Horarios::hora( $dato['hora_inicio'] );
-					$html .= ' a ' . Horarios::hora( $dato['hora_fin'] );	
+					$html .= ' de ' . '<time>' . Horarios::hora( $dato['hora_inicio'] ) . '</time>';
+					$html .= ' a ' . '<time>' . Horarios::hora( $dato['hora_fin'] ) . '</time>';	
 					$html .= "<br/><br/>";
 					$html .= ucfirst ( strftime('%A', $f) ) . ' ' . date('d', $f) . ' de ' . ucfirst ( strftime('%B', $f) );
 				}
@@ -223,13 +223,13 @@ class Horarios{
 				if($f !== $fant){
 					$html .= " al ";
 					$html .= ucfirst ( strftime('%A', $f) ) . ' ' . date('d', $f) . ' de ' . ucfirst ( strftime('%B', $f) );
-					$html .= ' de ' . Horarios::hora( $dato['hora_inicio'] );
-					$html .= ' a ' . Horarios::hora( $dato['hora_fin'] );	
+					$html .= ' de ' . '<time>' . Horarios::hora( $dato['hora_inicio'] ) . '</time>' ;
+					$html .= ' a ' . '<time>' . Horarios::hora( $dato['hora_fin'] ) . '</time>';	
 				}
 				else{
 					$html .= " y ";
-					$html .= ' de ' . Horarios::hora( $dato['hora_inicio'] );
-					$html .= ' a ' . Horarios::hora( $dato['hora_fin'] );						
+					$html .= ' de ' . '<time>' . Horarios::hora( $dato['hora_inicio'] ) . '</time>';
+					$html .= ' a ' . '<time>' . Horarios::hora( $dato['hora_fin'] ) . '</time>';						
 				}
 			}
 			$previous = $dato;

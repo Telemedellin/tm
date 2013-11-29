@@ -1,5 +1,5 @@
 <?php $this->pageDesc = $contenido['contenido']->sinopsis;?>
-<p><?php echo $contenido['contenido']->sinopsis ?></p>
+<?php echo $contenido['contenido']->sinopsis ?>
 <h3>Ficha Técnica</h3>
 <p><b>Título:</b> <?php echo $contenido['contenido']->titulo ?></p>
 <p><b>Año:</b> <?php echo $contenido['contenido']->anio ?></p>
