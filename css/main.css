@@ -1517,7 +1517,7 @@ nav ul {
 #overlay #seccion .paginas > div
 {
 	float: left;
-	width: 25%;
+	width: 20%;
 }
 
 .paginas ul li
@@ -1636,7 +1636,7 @@ nav ul {
        	   column-rule-color: rgba(255, 255, 255, .2);
 		   column-rule-style: solid;
 		   column-rule-width:  1px;
-	height: 90%;
+	height: 95%;
 	width: 100%;
 }
 #overlay #seccion .historial .inner

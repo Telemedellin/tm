@@ -10,15 +10,19 @@ $json .= '{';
 		$json .= '{';
 			$json .= '"nombre":"'.$micrositio->nombre.'",';
 			$json .= '"url":"'.bu($micrositio->url->slug).'",';
-			$json .= '"paginas":[';
-			foreach($micrositio->paginas as $pagina):
-				$json .= '{';
-				$json .= '"nombre":"'.$pagina->nombre.'",';
-				$json .= '"url":"'.$pagina->url->slug.'"';
-				$json .= '},';
-			endforeach;
+			if($micrositio->paginas):
+				$json .= '"paginas":[';
+				foreach($micrositio->paginas as $pagina):
+					$json .= '{';
+					$json .= '"nombre":"'.$pagina->nombre.'",';
+					$json .= '"url":"'.$pagina->url->slug.'"';
+					$json .= '},';
+				endforeach;
 			$json = substr($json, 0, -1);
 			$json .= ']';
+			else:
+				$json = substr($json, 0, -1);
+			endif;
 		$json .= '},';
 		endforeach;
 		$json = substr($json, 0, -1);
