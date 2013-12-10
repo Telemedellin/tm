@@ -16,8 +16,8 @@
  * 
  */ 
 ?>
-<?php $this->registerClientScript('yii-feeds-widget.js'); ?>
-<?php $this->registerClientCSS('yii-feeds-widget.css'); ?>
+<?php //$this->registerClientScript('yii-feeds-widget.js'); ?>
+<?php //$this->registerClientCSS('yii-feeds-widget.css'); ?>
 <?php echo CHtml::hiddenField('yii-feeds-widget-url', $url); ?>
 <?php echo CHtml::hiddenField('yii-feeds-widget-limit', $limit); ?>
 <?php 

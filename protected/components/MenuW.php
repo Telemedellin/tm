@@ -15,7 +15,7 @@ class MenuW extends CWidget
     {
     	$ru = Yii::app()->request->requestUri;
 
-        $dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM menu WHERE estado = 1");
+        $dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM menu WHERE estado = 1");
 
         $c = new CDbCriteria;
         $c->addCondition('t.estado <> 0');
@@ -66,7 +66,7 @@ class MenuW extends CWidget
 
     protected function getSubItems($item_id)
     {
-    	$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM menuItem WHERE estado = 1");
+    	$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM menuItem WHERE estado = 1");
 
         $c = new CDbCriteria;
         $c->addCondition('t.estado <> 0');
