@@ -3,7 +3,7 @@ a, a:hover{
 	text-decoration:none;
 }
 body {
-	background: url('/images/backgrounds/generica-interna-1.jpg') no-repeat #000 center center;
+	background: url('../images/backgrounds/generica-interna-1.jpg') no-repeat #000 center center;
 	background-size: cover;
 	background-attachment: fixed;
 	background-position:top;
