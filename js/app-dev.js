@@ -252,12 +252,31 @@ jQuery(function($) {
         //replace contents of widget div with returned items
         $('#yii-feed-container').html(html);
         $(".noticias").bxSlider({
-      slideWidth: 230,
-      /*minSlides: 3,
-      maxSlides: 4,*/
-      pager: false,
-      vaMaxWidth: "82%"
-      //,slideMargin: 7
+        slideWidth: 230,
+        /*minSlides: 3,
+        maxSlides: 4,*/
+        pager: false,
+        vaMaxWidth: "82%"
+        //,slideMargin: 7
+      });
     });
+    $("#txtFiltro").keyup(function(){
+      var table = $(".listado");
+      var value = this.value;
+      table.find("p").each(function(index, row) {
+        var allCells = $(row).find("a");
+        if(allCells.length > 0) {
+          var found = false;
+          allCells.each(function(index, a) {
+            var regExp = new RegExp(value, "i");
+            if(regExp.test($(a).text())) {
+              found = true;
+              return false;
+            }
+          });
+          if (found == true) $(row).show();
+          else $(row).hide();
+        }
+      });
     });
 });

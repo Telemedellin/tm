@@ -1,3 +1,7 @@
+<?php cs()->registerScriptFile(bu('/js/libs/iframe/underscore-min.js'), CClientScript::POS_END);?>
+<?php cs()->registerScriptFile(bu('/js/libs/iframe/backbone-min.js'), CClientScript::POS_END);?>
+<?php cs()->registerScriptFile(bu('/js/libs/iframe/screenfull.js'), CClientScript::POS_END);?>
+<?php cs()->registerScriptFile(bu('/js/iframe.app.min.js'), CClientScript::POS_END);?>
 <script id="albumListViewTemplate" type="text/template">
 	<h1>Álbumes de fotos <%= nombre %></h1>
 	<ul class="albumes"></ul>
@@ -47,8 +51,3 @@
 <div id="icontainer">
 	<?php echo $content; ?>
 </div>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/underscore-min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/backbone-min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/screenfull.js"></script>
-<!--<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/jquery.bxslider.js"></script>-->
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/iframe.app.min.js"></script>

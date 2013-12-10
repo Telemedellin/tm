@@ -51,7 +51,7 @@ class Archivo extends CActiveRecord
 			array('nombre, archivo', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, url_id, tipo_archivo_id, carpeta_id, nombre, archivo, estado', 'safe', 'on'=>'search'),
+			array('id, url_id, tipo_archivo_id, carpeta_id, nombre, archivo, creado, modificado, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,6 +81,8 @@ class Archivo extends CActiveRecord
 			'carpeta_id' => 'Carpeta',
 			'nombre' => 'Nombre',
 			'archivo' => 'Archivo',
+			'creado' => 'Creado',
+			'modificado' => 'Modificado',
 			'estado' => 'Estado',
 		);
 	}
@@ -102,10 +104,30 @@ class Archivo extends CActiveRecord
 		$criteria->compare('carpeta_id',$this->carpeta_id,true);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('archivo',$this->archivo,true);
+		$criteria->compare('creado',$this->creado,true);
+		$criteria->compare('modificado',$this->modificado,true);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	protected function beforeSave()
+	{
+	    if(parent::beforeSave())
+	    {
+	        
+	        if($this->isNewRecord)
+	        {
+	        	$this->creado 		= date('Y-m-d H:i:s');
+	        }
+	        else
+	        {
+	            $this->modificado	= date('Y-m-d H:i:s');
+	        }
+	        return true;
+	    }
+	    else
+	        return false;
 	}
 }

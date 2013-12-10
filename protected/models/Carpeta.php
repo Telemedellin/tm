@@ -53,7 +53,7 @@ class Carpeta extends CActiveRecord
 			array('ruta', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, url_id, pagina_id, item_id, carpeta, ruta, hijos, estado', 'safe', 'on'=>'search'),
+			array('id, url_id, pagina_id, item_id, carpeta, ruta, hijos, creado, modificado, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,6 +85,8 @@ class Carpeta extends CActiveRecord
 			'carpeta' => 'Carpeta',
 			'ruta' => 'Ruta',
 			'hijos' => 'Hijos',
+			'creado' => 'Creado',
+			'modificado' => 'Modificado',
 			'estado' => 'Publicado',
 		);
 	}
@@ -107,10 +109,30 @@ class Carpeta extends CActiveRecord
 		$criteria->compare('carpeta',$this->carpeta,true);
 		$criteria->compare('ruta',$this->ruta,true);
 		$criteria->compare('hijos',$this->hijos);
+		$criteria->compare('creado',$this->creado,true);
+		$criteria->compare('modificado',$this->modificado,true);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	protected function beforeSave()
+	{
+	    if(parent::beforeSave())
+	    {
+	        
+	        if($this->isNewRecord)
+	        {
+	        	$this->creado 		= date('Y-m-d H:i:s');
+	        }
+	        else
+	        {
+	            $this->modificado	= date('Y-m-d H:i:s');
+	        }
+	        return true;
+	    }
+	    else
+	        return false;
 	}
 }

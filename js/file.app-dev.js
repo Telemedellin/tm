@@ -1,4 +1,4 @@
-"use strict";
+//"use strict";
 jQuery(function($) {
     //Modelos
 	window.Carpeta = Backbone.Model.extend({

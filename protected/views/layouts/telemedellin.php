@@ -6,7 +6,6 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script>
 	var n = navigator.userAgent.toLowerCase();
@@ -14,7 +13,7 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 		document.location = 'http://m.telemedellin.tv';
 	}
 	</script>
-	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/styles.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo bu('css/styles.min.css'); ?>" />
 	<!--[if LTE IE 9]>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie9.css" />
 	  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/html5shiv.js"></script>
@@ -82,9 +81,8 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 	?>
 </div>
 <div id="dots"></div>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs.min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/app.min.js"></script>
+<?php cs()->registerScriptFile(bu('/js/libs.min.js'), CClientScript::POS_END);?>
+<?php cs()->registerScriptFile(bu('/js/app.min.js'), CClientScript::POS_END);?>
 <!--[if LTE IE 9]>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/ie.js"></script>
 <script>$('.marquesina').marquee('marquesina');</script>

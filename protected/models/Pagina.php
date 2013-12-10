@@ -150,8 +150,8 @@ class Pagina extends CActiveRecord
 		$c->addCondition( 't.micrositio_id = "' . $micrositio_id . '"' );
 		$c->addCondition( 't.estado <> 0' );
 
-		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM pagina WHERE micrositio_id = $micrositio_id AND estado <> 0");
-		$paginas  	= $this->with('url', 'tipoPagina')->findAll( $c );
+		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM pagina WHERE micrositio_id = $micrositio_id AND estado <> 0");
+		$paginas  	= $this->cache(3600, $dependencia)->with('url', 'tipoPagina')->findAll( $c );
 
 		if( !$paginas ) return false;
 		$r = array();

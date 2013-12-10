@@ -1,3 +1,6 @@
+<?php cs()->registerScriptFile(bu('/js/libs/iframe/underscore-min.js'), CClientScript::POS_END);?>
+<?php cs()->registerScriptFile(bu('/js/libs/iframe/backbone-min.js'), CClientScript::POS_END);?>
+<?php cs()->registerScriptFile(bu('/js/file.app.min.js'), CClientScript::POS_END);?>
 <script id="carpetaListViewTemplate" type="text/template">
 	<ul class="carpetas"></ul>
 </script>
@@ -18,6 +21,3 @@
 	<p>Detalles del archivo <%= nombre %> <%= tipo_archivo %></p>
 </script>
 <div id="ccontainer"></div>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/underscore-min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/iframe/backbone-min.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/file.app.min.js"></script>

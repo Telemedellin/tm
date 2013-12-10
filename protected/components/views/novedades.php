@@ -1,5 +1,5 @@
 <?php
-cs()->registerScriptFile(bu('/js/libs/jquery.superslides.js'), CClientScript::POS_END);
+//cs()->registerScriptFile(bu('/js/libs/jquery.superslides.js'), CClientScript::POS_END);
 cs()->registerScript(
   'novedades', 
   '$("#novedades").superslides({

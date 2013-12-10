@@ -31,14 +31,6 @@ cs()->registerScript( 'scroll',
 		}
 	});
 	window.updateScrollbar = function() {
-		/*$("#micrositio").mCustomScrollbar("destroy");
-		$("#micrositio").mCustomScrollbar({
-			scrollType: "pixels",
-			updateOnContentResize: true, 
-			scrollButtons: {
-				enable: true
-			}
-		});*/
 		$("#micrositio").mCustomScrollbar("update");
 	}
 	',
