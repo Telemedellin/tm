@@ -224,7 +224,7 @@ class ConcursosController extends Controller
 				if($concursosForm->formulario != '')
 				{
 					$furl = new Url;
-					$fslug = $url->slug . '/escribenos';
+					$fslug = $url->slug . '/escribinos';
 					$fslug = $this->verificarSlug($fslug);
 					$furl->slug = $fslug;
 					$furl->tipo_id = 3; //Página
@@ -234,7 +234,7 @@ class ConcursosController extends Controller
 						$formulario->micrositio_id = $micrositio_id;
 						$formulario->tipo_pagina_id = 7;								
 						$formulario->url_id = $furl->getPrimaryKey();
-						$formulario->nombre = 'Escríbenos';	
+						$formulario->nombre = 'Escribinos';	
 						$formulario->estado = 1;
 						$formulario->destacado = 0;
 						$formulario->save();
@@ -342,7 +342,7 @@ class ConcursosController extends Controller
 						{
 							
 							$furl = new Url;
-							$fslug = $micrositio->url->slug . '/escribenos';
+							$fslug = $micrositio->url->slug . '/escribinos';
 							$fslug = $this->verificarSlug($fslug);
 							$furl->slug = $fslug;
 							$furl->tipo_id = 3; //Página
@@ -352,7 +352,7 @@ class ConcursosController extends Controller
 								$formulario->micrositio_id = $micrositio->id;
 								$formulario->tipo_pagina_id = 7;								
 								$formulario->url_id = $furl->getPrimaryKey();
-								$formulario->nombre = 'Escríbenos';	
+								$formulario->nombre = 'Escribinos';	
 								$formulario->estado = 1;
 								$formulario->destacado = 0;
 								$formulario->save();

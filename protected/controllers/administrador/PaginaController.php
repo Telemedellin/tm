@@ -151,8 +151,15 @@ class PaginaController extends Controller
 	{
 		$pagina = Pagina::model()->cargarPagina($id);
 
-		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
-
+		if( lcfirst($pagina['partial']) == 'carpeta' )
+		{
+			$ca = Carpeta::model()->with('carpetas', 'archivos', 'url')->findAllByAttributes( array('pagina_id' => $id, 'item_id' => 0) );
+			$contenido = $this->renderPartial('_carpeta', array('contenido' => $pagina, 'carpeta' => $ca), true);
+		}else
+		{
+			$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
+		}
+		
 		$this->render('ver',array(
 			'model'=>$pagina['pagina'],
 			'contenido'=>$contenido,

@@ -65,6 +65,7 @@ class Carpeta extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'carpetas' => array(self::BELONGS_TO, 'Carpeta', 'item_id'),
 			'archivos' => array(self::HAS_MANY, 'Archivo', 'carpeta_id'),
 			'pagina' => array(self::BELONGS_TO, 'Pagina', 'pagina_id'),
 			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
