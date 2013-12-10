@@ -1,5 +1,7 @@
 <?php /* @var $this Controller */ 
 $ru = Yii::app()->request->requestUri;
+cs()->coreScriptPosition 		= CClientScript::POS_END;
+cs()->defaultScriptFilePosition = CClientScript::POS_END;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,7 +23,7 @@ $ru = Yii::app()->request->requestUri;
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" />
 	<![endif]-->
 	<link rel="shortcut icon" href="<?php echo bu('/favicon.ico')?>" />
-	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
+	<title><?php echo h($this->pageTitle); ?> - Telemedellín, aquí te ves</title>
 	<?php $this->display_seo(); ?>
 </head>
 <body <?php if( !count($this->breadcrumbs) ) echo 'class="home"' ?>>

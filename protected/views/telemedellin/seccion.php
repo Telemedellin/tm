@@ -32,18 +32,9 @@ if($seccion->url->slug == 'concursos')
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
 	<div class="listado">
 	<?php foreach($micrositios as $micrositio):?>
-		<?php if($micrositio->destacado): ?>
-			<?php 
-			$destacados .= '<p><a href="' . bu($micrositio->url->slug) . '">';
-			$destacados .= '<img src="' . bu($micrositio->miniatura) . '" alt="' . $micrositio->nombre . '"/>';
-			$destacados .= '<div class="nombrePrograma"></div>';
-			$destacados .= '</a></p>' . "\n\r";
-			?>
-		<?php else: ?>
 		<p>
 			<a href="<?php echo bu($micrositio->url->slug); ?>"><?php echo $micrositio->nombre; ?></a>
 		</p>
-		<?php endif; ?>
 	<?php endforeach; ?>
 	</div>
 </div>

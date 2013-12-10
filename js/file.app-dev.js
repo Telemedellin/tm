@@ -180,15 +180,19 @@ jQuery(function($) {
             console.log('listarCarpeta');
             $('#container').append('<div id="loading"><span class="spinner"></span></div>').fadeIn('slow');
             this.carpetaList = new CarpetaCollection();
-            this.carpetaList.fetch( {data: {hash: window.location.hash} });
-            this.archivoList = new ArchivoCollection();
-            this.archivoList.fetch( {
+            this.carpetaList.fetch( {
                 data: {
                     hash: window.location.hash
                 }, 
                 success: function(){
                     $('#loading').remove();
                 } 
+            });
+            this.archivoList = new ArchivoCollection();
+            this.archivoList.fetch( {
+                data: {
+                    hash: window.location.hash
+                }
             } );
             console.dir(this.carpetaList);
             console.dir(this.archivoList);
