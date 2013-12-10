@@ -1,6 +1,6 @@
 <?php
 class ProgramacionCommand extends CConsoleCommand {
-    public function run() 
+    public function run($args) 
     {
 		$horarios = Horario::model()->with('pgPrograma')->findAll( 
 			array('order' => 'dia_semana ASC, hora_inicio ASC', 'condition' => 'pgPrograma.estado = 2') 
@@ -49,10 +49,10 @@ class ProgramacionCommand extends CConsoleCommand {
 				$p->tipo_emision_id = $tipo_emision_id;
 				$p->estado = $estado;
 				$p->save();
-				if($p) echo '+ Guardado ' . $pagina->nombre . ' ' . $hora_inicio . '<br />';
+				if($p) echo '+ Guardado ' . $pagina->nombre . ' ' . $hora_inicio . '<br />' . "\r\n";
 			}else
 			{
-				echo '- Existía ' . $pagina->nombre . '<br />';
+				echo '- Existía ' . $pagina->nombre . '<br />' . "\r\n";
 			}
 			
 		}
