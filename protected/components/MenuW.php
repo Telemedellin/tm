@@ -15,12 +15,14 @@ class MenuW extends CWidget
     {
     	$ru = Yii::app()->request->requestUri;
 
+        $dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM menu WHERE estado = 1");
+
         $c = new CDbCriteria;
         $c->addCondition('t.estado <> 0');
         $c->addCondition('menuItems.estado = 1');
         $c->order  = 'menuItems.orden ASC';
 
-    	$menu = Menu::model()->with('menuItems')->findByPk($this->id, $c);
+    	$menu = Menu::model()->cache(3600, $dependencia)->with('menuItems')->findByPk($this->id, $c);
     	$items = $menu->menuItems;
     	$items_menu = array();
     	foreach($items as $item)
@@ -64,10 +66,12 @@ class MenuW extends CWidget
 
     protected function getSubItems($item_id)
     {
-    	$c = new CDbCriteria;
+    	$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM menuItem WHERE estado = 1");
+
+        $c = new CDbCriteria;
         $c->addCondition('t.estado <> 0');
         $c->order  = 't.orden ASC';
-        return MenuItem::model()->findAllByAttributes( array('item_id' => $this->id), $c );
+        return MenuItem::model()->cache(3600, $dependencia)->findAllByAttributes( array('item_id' => $this->id), $c );
     }
 
     protected function getUrl($item)
