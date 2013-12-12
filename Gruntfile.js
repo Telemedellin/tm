@@ -23,6 +23,7 @@ module.exports = function(grunt) {
       admin: {
         src: [
           'js/libs/jquery.fancybox.pack.js', 
+          'js/libs/admin/jstree.min.js',
           'js/libs/admin/jquery.fileupload/vendor/*.js', 
           'js/libs/admin/jquery.fileupload/tmpl.min.js',
           'js/libs/admin/jquery.fileupload/load-image.min.js',

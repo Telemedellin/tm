@@ -1,32 +1,37 @@
+<p class="pull-right">
+    <?php echo l('Crear carpeta', bu('administrador/carpeta/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'role' => 'button'))?>
+</p>
+<div id="carpetas">
 <ul>
 	<?php foreach($carpeta as $c): ?>
 	<li><?php echo $c->carpeta; ?>
 		<?php if($c->carpetas || $c->archivos):?>
-		<span class="caret"></span><ul class="collapse">
-		<?php if($c->carpetas):?>
-		<?php foreach($c->carpetas as $carpetas):?>
+		<ul>
+			<?php if($c->carpetas):?>
+			<?php foreach($c->carpetas as $carpetas):?>
 			<li>
 				<?php echo $carpetas->carpeta; ?>
 				<?php if($carpetas->archivos): ?>
-				<span class="caret"></span><ul class="collapse">
+				<ul>
 				<?php foreach($carpetas->archivos as $a):?>
-					<li><?php echo $a->nombre ?></li>
+					<li><a href="<?php echo bu('archivos/' . $a->carpeta->ruta . '/' . $a->archivo)?>"><?php echo $a->nombre ?></a></li>
 				<?php endforeach; ?>
 				</ul>
 				<?php endif; ?>
 			</li>
-		<?php endforeach; ?>
-		<?php endif;?>
-		<?php if($c->archivos): ?>
-		<?php foreach($c->archivos as $archivo):?>
-			<li><?php echo $archivo->nombre ?></li>
-		<?php endforeach; ?>
-		<?php endif; ?>
+			<?php endforeach; ?>
+			<?php endif;?>
+			<?php if($c->archivos): ?>
+			<?php foreach($c->archivos as $archivo):?>
+			<li><a href="<?php echo bu('archivos/' . $archivo->carpeta->ruta . '/' . $archivo->archivo)?>"><?php echo $archivo->nombre ?></a></li>
+			<?php endforeach; ?>
+			<?php endif; ?>
 		</ul>
 		<?php endif; ?>
 	</li>
 	<?php endforeach; ?>
 </ul>
+</div>
 <?php
 /*foreach($carpeta->archivos as $archivo)
 {

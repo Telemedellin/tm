@@ -1,4 +1,13 @@
 jQuery(function($) {    
+    $('#carpetas').jstree({
+        "themes" : {
+            "theme" : "default",
+            "dots"  : true,
+            "icons" : true
+        },
+        "plugins" : [ "themes", "html_data" ]
+    });
+
     var PUBLIC_PATH = $("#PUBLIC_PATH").val();
     var numPerfil = $("#miniatura .template-download:not('.ui-state-error')").length;
 

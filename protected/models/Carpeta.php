@@ -65,7 +65,7 @@ class Carpeta extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'carpetas' => array(self::BELONGS_TO, 'Carpeta', 'item_id'),
+			'carpetas' => array(self::HAS_MANY, 'Carpeta', 'item_id'),
 			'archivos' => array(self::HAS_MANY, 'Archivo', 'carpeta_id'),
 			'pagina' => array(self::BELONGS_TO, 'Pagina', 'pagina_id'),
 			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
@@ -81,7 +81,7 @@ class Carpeta extends CActiveRecord
 			'id' => 'ID',
 			'url_id' => 'Url',
 			'pagina_id' => 'Página',
-			'item_id' => 'Item',
+			'item_id' => 'Crear dentro de',
 			'carpeta' => 'Carpeta',
 			'ruta' => 'Ruta',
 			'hijos' => 'Hijos',
@@ -117,6 +117,22 @@ class Carpeta extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public static function getList($pagina_id = 0, $id = 0, $espacio = '--') {
+	    $list = array();
+	    
+	    $atributos = array('item_id' => $id);
+	    if($pagina_id != 0) $atributos = array_merge($atributos, array('pagina_id' => $pagina_id));
+	    
+	    $models = Carpeta::model()->findAllByAttributes($atributos);
+	    foreach ($models as $model) {
+	    	$childList = Carpeta::getList($pagina_id, $model->id, $espacio.'--');
+	    	array_push($list, array('id' => $model->id, 'carpeta' => $espacio.' '.$model->carpeta));
+	    	$list = array_merge($list, $childList);
+	    }
+	    return $list;
+	}
+
 	protected function beforeSave()
 	{
 	    if(parent::beforeSave())
