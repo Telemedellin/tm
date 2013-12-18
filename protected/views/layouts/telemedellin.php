@@ -45,13 +45,14 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 		</div>
 		<footer>
 			<div class="redes">
+				<p>Telemedellín en las redes</p>
 				<ul>
-					<li class="facebook"><a href="http://www.facebook.com/telemedellin.tv" target="_blank" rel="nofollow">Facebook</a></li>
-					<li class="twitter"><a href="http://www.twitter.com/telemedellin" target="_blank" rel="nofollow">Twitter</a></li>
-					<li class="flickr"><a href="http://www.flickr.com/telemedellin" target="_blank" rel="nofollow">Flickr</a></li>
-					<li class="youtube"><a href="http://www.youtube.com/user/telemedellin" target="_blank" rel="nofollow">Youtube</a></li>
-					<li class="foursquare"><a href="https://es.foursquare.com/telemedellin" target="_blank" rel="nofollow">Foursquare</a></li>
-					<li class="instagram"><a href="http://instagram.com/telemedellin" target="_blank" rel="nofollow">Instagram</a></li>
+					<li class="facebook"><a href="http://www.facebook.com/telemedellin.tv" target="_blank" title="Facebook" rel="nofollow">Facebook</a></li>
+					<li class="twitter"><a href="http://www.twitter.com/telemedellin" target="_blank" title="Twitter" rel="nofollow">Twitter</a></li>
+					<li class="flickr"><a href="http://www.flickr.com/telemedellin" target="_blank" title="Flickr" rel="nofollow">Flickr</a></li>
+					<li class="youtube"><a href="http://www.youtube.com/user/telemedellin" target="_blank" title="Youtube" rel="nofollow">Youtube</a></li>
+					<li class="foursquare"><a href="https://es.foursquare.com/telemedellin" target="_blank" title="Foursquare" rel="nofollow">Foursquare</a></li>
+					<li class="instagram"><a href="http://instagram.com/telemedellin" target="_blank" title="Instagram" rel="nofollow">Instagram</a></li>
 				</ul>
 			</div>
 			<?php echo l( 'Contacto' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/utilidades/escribinos'), array('class' => 'escribenos') ); ?>

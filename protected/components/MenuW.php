@@ -15,14 +15,14 @@ class MenuW extends CWidget
     {
     	$ru = Yii::app()->request->requestUri;
 
-        $dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM menu WHERE estado = 1");
+        $dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM menuItems WHERE menu_id = ".$this->id." AND estado = 1");
 
         $c = new CDbCriteria;
         $c->addCondition('t.estado <> 0');
         $c->addCondition('menuItems.estado = 1');
         $c->order  = 'menuItems.orden ASC';
 
-    	$menu = Menu::model()->cache(3600, $dependencia)->with('menuItems')->findByPk($this->id, $c);
+    	$menu = Menu::model()/*->cache(3600, $dependencia)*/->with('menuItems')->findByPk($this->id, $c);
     	$items = $menu->menuItems;
     	$items_menu = array();
     	foreach($items as $item)

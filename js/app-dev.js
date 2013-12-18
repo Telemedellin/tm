@@ -252,11 +252,11 @@ jQuery(function($) {
         //replace contents of widget div with returned items
         $('#yii-feed-container').html(html);
         $(".noticias").bxSlider({
-        slideWidth: 230,
+        slideWidth: 255,
         /*minSlides: 3,
         maxSlides: 4,*/
         pager: false,
-        vaMaxWidth: "82%"
+        vaMaxWidth: "85%"
         //,slideMargin: 7
       });
     });

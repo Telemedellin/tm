@@ -39,6 +39,9 @@ class Controller extends CController
 	    if ( $this->pageRobotsIndex == false ) {
 	        echo '<meta name="robots" content="noindex">'.PHP_EOL;
 	    }
-
+	    echo '<meta property="og:title" content="' . CHtml::encode($this->pageTitle).'" />'.PHP_EOL;
+	    echo '<meta property="og:type" content="website" />'.PHP_EOL;
+	    echo '<meta property="og:url" content="'. Yii::app()->getBaseUrl(true) . Yii::app()->request->requestUri .'" />'.PHP_EOL;
+		//echo '<meta property="og:image" content="'. Yii::app()->request->baseUrl.'/images/static/fb-img.jpg" />'.PHP_EOL;
 	}
 }

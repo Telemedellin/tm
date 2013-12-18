@@ -58,7 +58,7 @@ cs()->registerScript(
       <div class="container <?php echo ($novedad->pgArticuloBlogs->posicion==1)?'ntop':'nbottom'; ?>">
         <h3><?php echo $novedad->nombre; ?></h3>
         <?php echo $novedad->pgArticuloBlogs->entradilla; ?>
-        <a href="<?php echo $enlace['enlace'] ?>" class="ver-mas" <?php if( $enlace['tipo'] == 'externo' ) echo 'rel="nofollow"'?>>Ver más de <?php echo $novedad->nombre; ?></a>
+        <a href="<?php echo $enlace['enlace'] ?>" class="ver-mas" <?php if( $enlace['tipo'] == 'externo' ) echo 'rel="nofollow"'?>>+ Ver más</a>
       </div>
     </li>
     <?php 
