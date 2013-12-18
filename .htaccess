@@ -36,7 +36,7 @@ Header append Vary User-Agent
  ExpiresByType application/javascript "access plus 1 month"
  ExpiresByType application/x-shockwave-flash "access plus 1 month"
  ExpiresByType image/x-icon "access plus 1 year"
- ExpiresDefault "access plus 1 days"
+# ExpiresDefault "access plus 1 days"
 # </IfModule>
 ## EXPIRES CACHING ##
 AddDefaultCharset UTF-8

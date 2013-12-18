@@ -51,30 +51,37 @@
 <div class="row">
 	<div class="col-sm-12">
 	<?php 
-	$this->widget('CTabView', array(
-	    'tabs'=>array(
-	        'horarios'=>array(
-	            'title'=>'Horarios fijos de emisión',
-	            'view'=>'_horario', 
-	            'data'=> array('horario' => $horario, 'model' => $model)
-	        ),
-	        'videos'=>array(
-	            'title'=>'Álbumes de videos',
-	            'view'=>'_video', 
-	            'data'=> array('videos' => $videos, 'model' => $model)
-	        ),
-	        'redes-sociales'=>array(
-	            'title'=>'Redes sociales',
-	            'view'=>'_redessociales', 
-	            'data'=> array('redes_sociales' => $redes_sociales, 'model' => $model)
-	        ),
-	        'paginas'=>array(
-	            'title'=>'Páginas',
-	            'view'=>'_paginas', 
-	            'data'=> array('paginas' => $paginas, 'model' => $model)
-	        )
-	    ),
-	));
+	$tabs_content = array(
+        'horarios'=>array(
+            'title'=>'Horarios fijos de emisión',
+            'view'=>'_horario', 
+            'data'=> array('horario' => $horario, 'model' => $model)
+        ),
+        'videos'=>array(
+            'title'=>'Álbumes de videos',
+            'view'=>'_video', 
+            'data'=> array('videos' => $videos, 'model' => $model)
+        ),
+        'redes-sociales'=>array(
+            'title'=>'Redes sociales',
+            'view'=>'_redessociales', 
+            'data'=> array('redes_sociales' => $redes_sociales, 'model' => $model)
+        ),
+        'paginas'=>array(
+            'title'=>'Páginas',
+            'view'=>'_paginas', 
+            'data'=> array('paginas' => $paginas, 'model' => $model)
+        )
+    );
+    if($menu)
+    {
+        $tabs_content['menu'] = array(
+            'title'=>'Menú',
+            'view'=>'_menu', 
+            'data'=> array('menu' => $menu, 'model' => $model)
+        );
+    }
+	$this->widget('CTabView', array('tabs' => $tabs_content));
 	?>
 	</div>
 </div>

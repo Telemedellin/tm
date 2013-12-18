@@ -68,7 +68,7 @@ class MenuItem extends CActiveRecord
 		return array(
 			'menu' => array(self::BELONGS_TO, 'Menu', 'menu_id'),
 			'tipoLink' => array(self::BELONGS_TO, 'TipoLink', 'tipo_link_id'),
-			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
+			'urlx' => array(self::BELONGS_TO, 'Url', 'url_id'),
 		);
 	}
 
@@ -87,7 +87,7 @@ class MenuItem extends CActiveRecord
 			'hijos' => 'Hijos',
 			'label' => 'Label',
 			'url' => 'Url',
-			'estado' => 'Estado',
+			'estado' => 'Publicado',
 		);
 	}
 

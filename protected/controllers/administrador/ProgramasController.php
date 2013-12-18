@@ -95,7 +95,7 @@ class ProgramasController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model = Micrositio::model()->with('url', 'pagina')->findByPk($id);
+		$model = Micrositio::model()->with('url', 'pagina', 'menu')->findByPk($id);
 		$contenido = PgPrograma::model()->with('horario')->findByAttributes(array('pagina_id' => $model->pagina->id));
 		$videos = new CActiveDataProvider( 'AlbumVideo', array(
 													    'criteria'=>array(
@@ -121,13 +121,20 @@ class ProgramasController extends Controller
 													        'with'=>array('pgGenericaSts', 'url'),
 													    )) );
 
+		$menu = new CActiveDataProvider( 'MenuItem', array(
+													    'criteria'=>array(
+													        'condition'=>'menu_id=' . $model->menu->id,
+													        'with'=>array('urlx'),
+													    )) );
+
 		$this->render('ver', array(
 			'model' => $model,
 			'contenido' => $contenido,
 			'videos' => $videos, 
 			'horario' => $horario,
 			'redes_sociales' => $redes_sociales,
-			'paginas' => $paginas
+			'paginas' => $paginas, 
+			'menu' => $menu
 		));
 	}
 

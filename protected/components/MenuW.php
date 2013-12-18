@@ -25,42 +25,45 @@ class MenuW extends CWidget
     	$menu = Menu::model()/*->cache(3600, $dependencia)*/->with('menuItems')->findByPk($this->id, $c);
     	$items = $menu->menuItems;
     	$items_menu = array();
-    	foreach($items as $item)
-    	{
-    		if($item->item_id != 0) continue;
-            $url = $this->getUrl($item);
-            $clase = $item->clase;
-            
-    		$item_actual = array(
-    				'label' => $item->label,
-    				'url'	=> $url,
-                    'itemOptions' => array('class' => $clase),
-    				'active'=> strpos($ru, $url)
-    			);
-            if($item->tipo_link_id == 2)
-                $item_actual['linkOptions'] = array('target' => '_blank');
-    		if($item->hijos == 1)
-    		{
-    			$hijos = $this->getSubItems($item->item_id);
-    			$subitems = array();
-    			foreach($hijos as $hijo)
-    			{
-    				$hurl = $this->getUrl($hijo);
-                    $hclase = $hijo->clase;
-                    $subitems[] = array(
-    						'label' => $hijo->label,
-    						'url'	=> $hurl,
-                            'itemOptions' => array('class' => $hclase),
-    						'active' => strpos($ru, $hurl)
-    					);
-                    if($hijo->tipo_link_id == 2){
-                        $subitems[key(end($a))]['linkOptions'] = array('target' => '_blank');
-                    }
-    			}
-    			$item_actual['items'] = $subitems;
-    		}
-    		$items_menu[] = $item_actual;
-    	}
+        if($items)
+        {
+        	foreach($items as $item)
+        	{
+        		if($item->item_id != 0) continue;
+                $url = $this->getUrl($item);
+                $clase = $item->clase;
+                
+        		$item_actual = array(
+        				'label' => $item->label,
+        				'url'	=> $url,
+                        'itemOptions' => array('class' => $clase),
+        				'active'=> strpos($ru, $url)
+        			);
+                if($item->tipo_link_id == 2)
+                    $item_actual['linkOptions'] = array('target' => '_blank');
+        		if($item->hijos == 1)
+        		{
+        			$hijos = $this->getSubItems($item->item_id);
+        			$subitems = array();
+        			foreach($hijos as $hijo)
+        			{
+        				$hurl = $this->getUrl($hijo);
+                        $hclase = $hijo->clase;
+                        $subitems[] = array(
+        						'label' => $hijo->label,
+        						'url'	=> $hurl,
+                                'itemOptions' => array('class' => $hclase),
+        						'active' => strpos($ru, $hurl)
+        					);
+                        if($hijo->tipo_link_id == 2){
+                            $subitems[key(end($a))]['linkOptions'] = array('target' => '_blank');
+                        }
+        			}
+        			$item_actual['items'] = $subitems;
+        		}
+        		$items_menu[] = $item_actual;
+        	}
+        }//if($items)
     	return $items_menu;
     }
 
