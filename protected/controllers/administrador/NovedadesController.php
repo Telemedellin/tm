@@ -169,13 +169,13 @@ class NovedadesController extends Controller
 				$url->estado  	= 1;
 				if( !$url->save(false) ) $transaccion->rollback();
 				$url_id = $url->getPrimaryKey();
-
 				$pagina = new Pagina;
 				$pagina->micrositio_id 	= 2; //Novedades
 				$pagina->tipo_pagina_id = 3; //Novedad
 				$pagina->url_id 		= $url_id;
 				$pagina->nombre			= $novedadesForm->nombre;
 				$pagina->clase 			= NULL;
+				$pagina->estado 		= $novedadesForm->estado;
 				$pagina->destacado		= $novedadesForm->destacado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
@@ -187,8 +187,8 @@ class NovedadesController extends Controller
 				$pgAB->enlace 		= $novedadesForm->enlace;
 				$pgAB->imagen 		= $dir . $novedadesForm->imagen;
 				$pgAB->posicion 	= $novedadesForm->posicion;
-				$pgAB->miniatura 	= $dir . 'thumbnail/' . $novedadesForm->miniatura;
-				$pgAB->estado 		= 1;
+				$pgAB->miniatura 	= $dir . $novedadesForm->miniatura;
+				$pgAB->estado 		= $novedadesForm->estado;
 				
 				if( !$pgAB->save(false) )
 					$transaccion->rollback();
