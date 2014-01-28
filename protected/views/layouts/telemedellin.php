@@ -14,6 +14,7 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 	}
 	</script>
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css/styles.min.css'); ?>" />
+	<link rel="canonical" href="http://telemedellin.tv<?php echo $ru; ?>" />
 	<!--[if LTE IE 9]>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie9.css" />
 	  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/html5shiv.js"></script>
