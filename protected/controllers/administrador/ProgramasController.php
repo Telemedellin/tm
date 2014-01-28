@@ -121,12 +121,15 @@ class ProgramasController extends Controller
 													        'with'=>array('pgGenericaSts', 'url'),
 													    )) );
 
-		$menu = new CActiveDataProvider( 'MenuItem', array(
+		if($model->menu):
+			$menu = new CActiveDataProvider( 'MenuItem', array(
 													    'criteria'=>array(
 													        'condition'=>'menu_id=' . $model->menu->id,
 													        'with'=>array('urlx'),
 													    )) );
-
+		else:
+			$menu = false;
+		endif;
 		$this->render('ver', array(
 			'model' => $model,
 			'contenido' => $contenido,
