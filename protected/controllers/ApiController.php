@@ -212,7 +212,7 @@ class ApiController extends Controller
 		$json = '';
 
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM carpeta WHERE " .$w. " estado <> 0");
-		$c = Carpeta::model()->cache(3600, $dependencia)->findAllByAttributes( $params );	
+		$c = Carpeta::model()->/*cache(3600, $dependencia)->*/findAllByAttributes( $params );	
 		
 		if($c)
 		{
