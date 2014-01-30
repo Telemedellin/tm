@@ -19,7 +19,7 @@ class NewsTicker extends CWidget
 
     private function obtener_tuits()
     {
-    	$search = "from%3Atelemedellin%20#NTMed";
+    	$search = "from%3Atelemedellin%20#NoticiasTM";
 		$notweets = 6;
 		$consumerkey = "lvX5ZuwYkNNFwaYaLz0Rw";
 		$consumersecret = "tkEfo98Xcpg0rYphooAetOSVjBcYEXhM4pKTGh1Bw";
@@ -45,7 +45,7 @@ class NewsTicker extends CWidget
 		        if( count($tweet->entities->hashtags) )
 		        {
 		          foreach ($tweet->entities->hashtags as $hashtag) {
-		            $nh = '<a href="https://twitter.com/search?q=%23NTMed" target="_blank" rel="nofollow"><s>#</s><b class="hashtag">' . $hashtag->text . '</b></a>';
+		            $nh = '<a href="https://twitter.com/search?q=%23NoticiasTM" target="_blank" rel="nofollow"><s>#</s><b class="hashtag">' . $hashtag->text . '</b></a>';
 		            $entidades[] = array('texto' => $nh, 'pi' => $hashtag->indices[0], 'pf' => $hashtag->indices[1]);
 		          }
 		        }
