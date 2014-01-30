@@ -25,17 +25,17 @@ Header append Vary User-Agent
 
 ## EXPIRES CACHING ##
 # <IfModule mod_expires.c>
- ExpiresActive On
- ExpiresByType image/jpg "access plus 7 days"
- ExpiresByType image/jpeg "access plus 7 days"
- ExpiresByType image/gif "access plus 1 month"
- ExpiresByType image/png "access plus 7 days"
- ExpiresByType text/css "access plus 1 month"
- ExpiresByType application/pdf "access plus 1 month"
- ExpiresByType text/x-javascript "access plus 1 month"
- ExpiresByType application/javascript "access plus 1 month"
- ExpiresByType application/x-shockwave-flash "access plus 1 month"
- ExpiresByType image/x-icon "access plus 1 year"
+# ExpiresActive On
+# ExpiresByType image/jpg "access plus 7 days"
+# ExpiresByType image/jpeg "access plus 7 days"
+# ExpiresByType image/gif "access plus 1 month"
+# ExpiresByType image/png "access plus 7 days"
+# ExpiresByType text/css "access plus 1 month"
+# ExpiresByType application/pdf "access plus 1 month"
+# ExpiresByType text/x-javascript "access plus 1 month"
+# ExpiresByType application/javascript "access plus 1 month"
+# ExpiresByType application/x-shockwave-flash "access plus 1 month"
+# ExpiresByType image/x-icon "access plus 1 year"
 # ExpiresDefault "access plus 1 days"
 # </IfModule>
 ## EXPIRES CACHING ##
