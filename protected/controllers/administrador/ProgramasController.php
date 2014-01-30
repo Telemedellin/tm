@@ -378,13 +378,14 @@ class ProgramasController extends Controller
 				$pagina->estado			= $estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 
+				$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
+
 				if($programasForm->formulario != $formulario->pgFormularioJfs->formulario_id)
 				{
 					if($programasForm->formulario != '')
 					{
 						if(is_null($formulario))
 						{
-							
 							$furl = new Url;
 							$fslug = $micrositio->url->slug . '/escribinos';
 							$fslug = $this->verificarSlug($fslug);
@@ -401,15 +402,12 @@ class ProgramasController extends Controller
 								$formulario->destacado = 0;
 								$formulario->save();
 							}
-							
 						}
-						$pgF = new PgFormularioJf;
-						$pgF->pagina_id 	= $formulario->id;
+						
 						$pgF->formulario_id	= $programasForm->formulario;
-						$pgF->estado 		= 1;
 						$pgF->save();
 					}else{
-						$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
+						
 						if($pgF){
 							$pgF->delete();
 							$formulario->delete();
