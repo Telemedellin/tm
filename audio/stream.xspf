@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<playlist xmlns="http://xspf.org/ns/0/" version="1">
+  <title/>
+  <creator/>
+  <trackList>
+    <track>
+      <location>http://telemedellin.tv:8348/stream</location>
+      <title/>
+      <annotation>Stream Title: Telemedellin
+Stream Description: This is my server description
+Content Type:audio/mpeg
+Bitrate: 96
+Current Listeners: 0
+Peak Listeners: 2
+Stream Genre: Rock</annotation>
+      <info>http://www.oddsock.org</info>
+    </track>
+  </trackList>
+</playlist>
