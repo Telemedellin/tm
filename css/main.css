@@ -133,6 +133,13 @@ nav ul {
     animation: marquee 70s linear infinite;
     width: 400%;
 }
+.marquesina div:hover
+{
+	-webkit-animation-play-state: paused;
+	-moz-animation-play-state: paused;
+	-o-animation-play-state: paused;
+	animation-play-state: paused;
+}
 .marquesina p {
 	background: url(../images/static/iconos/tuit.png) no-repeat left center;
     float: left;
