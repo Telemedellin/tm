@@ -65,6 +65,11 @@ function click_popup(e) {
   cargar_popup(url);
   e.preventDefault();
 }
+function v_cerrar_popup(e) {
+  if(e.target == $('#overlay')[0])
+    $('#overlay a.close').trigger('click');    
+}
+
 function cerrar_popup(e) {
   if(Modernizr.history) {
     var old_url = $('.close').attr('href');
@@ -180,7 +185,8 @@ function accentsTidy(s){
 jQuery(function($) {
   $(document).on('click', '.ajax a', click_popup);
   $(document).on('click', '#overlay a.close', cerrar_popup);
-
+  $(document).on('click', '#overlay', v_cerrar_popup);
+  
   var cf = 0;
   $("a.fancybox").each(function() {
     //Capturo el elemento al que se hizo clic
