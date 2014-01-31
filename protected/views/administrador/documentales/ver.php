@@ -59,6 +59,11 @@
 	            'title'=>'Álbumes de videos',
 	            'view'=>'_video', 
 	            'data'=> array('videos' => $videos, 'model' => $model, 'contenido' => $contenido)
+	        ),
+	        'paginas'=>array(
+	            'title'=>'Páginas',
+	            'view'=>'_paginas', 
+	            'data'=> array('paginas' => $paginas, 'model' => $model)
 	        )
 	    ),
 	));

@@ -269,10 +269,20 @@ class PaginaController extends Controller
 					if($contenido->save())
 						$this->redirect(array('view', 'id'=>$datos['pagina']->id));
 				}
+				if(isset($_POST['PgDocumental']))
+				{
+					$contenido = PgDocumental::model()->findByPk($_POST['PgDocumental']['id']);
+					$contenido->titulo 	 = $_POST['PgDocumental']['titulo'];
+					$contenido->duracion = $_POST['PgDocumental']['duracion'];
+					$contenido->anio 	 = $_POST['PgDocumental']['anio'];
+					$contenido->sinopsis = $_POST['PgDocumental']['sinopsis'];
+					if($contenido->save())
+						$this->redirect(array('view', 'id'=>$datos['pagina']->id));
+				}
 			}
 		}else
 		{
-			$contenido = new PgGenericaSt;
+			$contenido = new $datos['partial'];
 			$contenido = $datos['contenido'];
 		}
 

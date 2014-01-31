@@ -105,11 +105,19 @@ class DocumentalesController extends Controller
 													        'condition'=>'micrositio_id = '.$id,
 													        'with'=>array('videos', 'url'),
 													    )) );
+
+		$paginas = new CActiveDataProvider( 'Pagina', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id=' . $id . ' AND tipo_pagina_id=4',
+													        'with'=>array('pgDocumentals', 'url'),
+													    )) );
+
 		$this->render('ver', array(
 			'model' => $model,
 			'contenido' => $contenido,
 			'ficha_tecnica' => $ficha_tecnica,
-			'videos' => $videos
+			'videos' => $videos, 
+			'paginas' => $paginas
 		));
 	}
 
