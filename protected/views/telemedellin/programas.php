@@ -15,7 +15,6 @@ cs()->registerScript( 'scroll',
 	});',
 	CClientScript::POS_READY
 );
-
 ?>
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
 	<div class="filtro"> 
@@ -43,5 +42,4 @@ cs()->registerScript( 'scroll',
 		<?php echo $destacados ?>
 	</div>
 	<?php endif; ?>
-	sdfsdfsdfs
 </div>

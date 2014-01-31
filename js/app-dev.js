@@ -162,6 +162,21 @@ function verificar_hash() {
   }
 }
 
+function accentsTidy(s){
+  var r = s.toLowerCase();
+  r = r.replace(new RegExp("[àáâãäå]", 'gi'),"a");
+  r = r.replace(new RegExp("æ", 'gi'),"ae");
+  r = r.replace(new RegExp("ç", 'gi'),"c");
+  r = r.replace(new RegExp("[èéêë]", 'gi'),"e");
+  r = r.replace(new RegExp("[ìíîï]", 'gi'),"i");
+  r = r.replace(new RegExp("ñ", 'gi'),"n");                            
+  r = r.replace(new RegExp("[òóôõö]", 'gi'),"o");
+  r = r.replace(new RegExp("œ", 'gi'),"oe");
+  r = r.replace(new RegExp("[ùúûü]", 'gi'),"u");
+  r = r.replace(new RegExp("[ýÿ]", 'gi'),"y");
+  return r;
+};
+
 jQuery(function($) {
   $(document).on('click', '.ajax a', click_popup);
   $(document).on('click', '#overlay a.close', cerrar_popup);
@@ -260,16 +275,18 @@ jQuery(function($) {
         //,slideMargin: 7
       });
     });
-    $("#txtFiltro").keyup(function(){
-      var table = $(".listado");
-      var value = this.value;
+    $(document).on('keyup', '#txtFiltro', filtrar);
+    function filtrar(){
+      var table = $(".inner");
+      var value = accentsTidy(this.value);
       table.find("p").each(function(index, row) {
         var allCells = $(row).find("a");
         if(allCells.length > 0) {
           var found = false;
           allCells.each(function(index, a) {
             var regExp = new RegExp(value, "i");
-            if(regExp.test($(a).text())) {
+            var t = accentsTidy($(a).text());
+            if(regExp.test(t)) {
               found = true;
               return false;
             }
@@ -278,5 +295,5 @@ jQuery(function($) {
           else $(row).hide();
         }
       });
-    });
+    };
 });
