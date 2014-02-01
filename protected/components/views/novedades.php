@@ -40,6 +40,7 @@ cs()->registerScript(
   <?php 
     $paginador = ''; 
     $i         = 0;
+    if($this->getNovedades()):
     foreach($this->getNovedades() as $novedad): 
       $ee = $novedad->pgArticuloBlogs->enlace;
       if( $ee == '' ){
@@ -65,6 +66,7 @@ cs()->registerScript(
     $paginador .= '<a class="'.$i.'" href="#'.($i+1).'"><img src="'. bu('/images/' . $novedad->pgArticuloBlogs->miniatura) . '" /></a>' . "\r\n";
     $i++;
     endforeach;
+    endif;
     ?>
   </ul>
   <nav class="slides-pagination">

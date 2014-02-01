@@ -176,7 +176,7 @@ class Pagina extends CActiveRecord
 		$c->offset 	= $offset;
 		$c->order 	= 't.destacado DESC, t.creado DESC';
 		$c->addCondition( 't.micrositio_id = "' . $micrositio_id . '"' );
-		$c->addCondition( 't.estado <> 0' );
+		$c->addCondition( 't.estado = 2' );
 
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM pagina WHERE micrositio_id = $micrositio_id AND estado <> 0");
 		$paginas  	= $this->cache(3600, $dependencia)->with('url', 'tipoPagina', 'pgArticuloBlogs')->findAll( $c );
@@ -250,6 +250,7 @@ class Pagina extends CActiveRecord
 		$pagina  = $this->with('url')->find( $c );
 
 		$tabla = $pagina->tipoPagina->tabla;
+		if( !$tabla ) return false;
 		$t = new $tabla();
 		$contenido = $t->findByAttributes( array('pagina_id' => $pagina->id) );
 

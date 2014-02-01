@@ -42,7 +42,11 @@
 					'type' => 'raw', 
 					'value' => ($model->pgArticuloBlogs->posicion==1)?'Arriba':'Abajo',
 				),
-				'estado:boolean',
+				array(
+					'name' => 'estado',
+					'label' => 'Estado', 
+					'value' => ($model->estado==2)?'Publicado (en el home)':(($model->estado==1)?'Archivado':'Desactivado'),
+				),
 				'destacado:boolean'
 			),
 		)); ?>

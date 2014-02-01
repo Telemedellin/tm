@@ -46,7 +46,7 @@ class NovedadesForm extends CFormModel
 			'imagen' => 'Imagen',
 			'miniatura' => 'Imagen Miniatura',
 			'posicion' => 'Posición',
-			'estado' => 'Publicado',
+			'estado' => 'Estado',
 		);
 	}
 

@@ -188,7 +188,7 @@ class NovedadesController extends Controller
 				$pgAB->imagen 		= $dir . $novedadesForm->imagen;
 				$pgAB->posicion 	= $novedadesForm->posicion;
 				$pgAB->miniatura 	= $dir . $novedadesForm->miniatura;
-				$pgAB->estado 		= $novedadesForm->estado;
+				$pgAB->estado 		= ($novedadesForm->estado)?1:0;
 				
 				if( !$pgAB->save(false) )
 					$transaccion->rollback();
@@ -266,7 +266,7 @@ class NovedadesController extends Controller
 				$pgAB->texto 		= $novedadesForm->texto;
 				$pgAB->enlace 		= $novedadesForm->enlace;
 				$pgAB->posicion 	= $novedadesForm->posicion;
-				$pgAB->estado 		= $novedadesForm->estado;
+				$pgAB->estado 		= ($novedadesForm->estado)?1:0;
 				
 				if( !$pgAB->save(false) )
 					$transaccion->rollback();

@@ -14,8 +14,8 @@
         'modificado',
         array(
             'name'=>'estado',
-            'header'=>'Publicado',
-            'filter'=>array('1'=>'Si','0'=>'No'),
+            'header'=>'Estado',
+            'filter'=>array('2' => 'Publicado (en el home)', '1' => 'Archivado', '0' => 'Desactivado'),
             'value'=>'($data->estado=="1")?("Si"):("No")'
         ),
         array(

@@ -175,7 +175,7 @@
 	<div class="form-group">
 		<?php echo $form->label($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-2">
-            <?php echo $form->dropDownList($model, 'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control')); ?>
+            <?php echo $form->dropDownList($model, 'estado', array('2' => 'Publicado (en el home)', '1' => 'Archivado', '0' => 'Desactivado' ), array('class' => 'form-control')); ?>
         </div>
 		<?php echo $form->error($model,'estado'); ?>
 	</div>
