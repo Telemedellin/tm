@@ -176,7 +176,9 @@ class PaginaController extends Controller
 		$micrositio = ($id)?Micrositio::model()->with('seccion')->findByPk($id):0;
 		$model = new Pagina;
 		$model->micrositio_id = $micrositio;
-		$contenido = new PgGenericaSt;
+		if(isset($micrositio->seccion_id) && $micrositio->seccion_id == 4) $ppc = 'PgDocumental';
+		else $ppc = 'PgGenericaSt';
+		$contenido = new $ppc;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -209,13 +211,25 @@ class PaginaController extends Controller
 					if($contenido->save())
 						$this->redirect(array('view','id'=>$model->id));
 				}
+				if(isset($_POST['PgDocumental']))
+				{
+					$contenido->pagina_id = $model->getPrimaryKey();
+					$contenido = PgDocumental::model()->findByPk($_POST['PgDocumental']['id']);
+					$contenido->titulo 	 = $_POST['PgDocumental']['titulo'];
+					$contenido->duracion = $_POST['PgDocumental']['duracion'];
+					$contenido->anio 	 = $_POST['PgDocumental']['anio'];
+					$contenido->sinopsis = $_POST['PgDocumental']['sinopsis'];
+					$contenido->estado = 1;
+					if($contenido->save())
+						$this->redirect(array('view', 'id'=>$model->id));
+				}
 			}
-				
+			
 		}
 
 		$this->render('crear',array(
 			'model'=>$model,
-			'partial' => 'PgGenericaSt',
+			'partial' => $ppc,
 			'contenido' => $contenido,
 		));
 	}
