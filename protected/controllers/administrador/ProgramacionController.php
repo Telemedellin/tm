@@ -86,7 +86,7 @@ class ProgramacionController extends Controller
 													        'order'=>'hora_inicio ASC',
 													        'with'=>array('micrositio'),
 													    ),
-													    'pagination'=>array('pageSize'=>25),
+													    'pagination'=>array('pageSize'=>40),
 													    ) );
 
 		$this->render('index', array(
