@@ -316,7 +316,7 @@ var image = {
     var $img = $(image);
 
     $img.css({
-      top: (that.height - $img.height()) / 2
+      //VA top: (that.height - $img.height()) / 2
     });
   },
   _centerX: function(image) {
