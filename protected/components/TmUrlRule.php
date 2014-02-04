@@ -69,6 +69,7 @@ class TmUrlRule extends CBaseUrlRule
             else if($raiz == 'suso-show') Yii::app()->request->redirect(bu('programas/the-suso-s-show'), true, 301);
             else if($raiz == 'clima247') Yii::app()->request->redirect(bu('programas/clima-247'), true, 301);
             else if($raiz == 'copatelemedellinrugby') Yii::app()->request->redirect(bu('programas/copa-telemedellin-de-rugby-15-s'), true, 301);
+            else if($raiz == 'capicua') Yii::app()->request->redirect(bu('programas/ciudad-escuela'), true, 301);
             else if($this->verificar_slug($p)) Yii::app()->request->redirect(bu($p), true, 301);
             else if($this->verificar_slug($e)) Yii::app()->request->redirect(bu($e), true, 301);
             else if($this->verificar_slug($c)) Yii::app()->request->redirect(bu($c), true, 301);
