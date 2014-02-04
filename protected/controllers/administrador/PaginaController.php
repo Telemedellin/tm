@@ -296,7 +296,7 @@ class PaginaController extends Controller
 			}
 		}else
 		{
-			$contenido = new $datos['partial'];
+			$contenido = new $datos['partial']();
 			$contenido = $datos['contenido'];
 		}
 

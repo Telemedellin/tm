@@ -192,7 +192,7 @@ class Pagina extends CActiveRecord
 		$c->select = 't.*, tipo_pagina.tabla';
 		$c->join = 'JOIN tipo_pagina ON tipo_pagina.id = t.tipo_pagina_id';
 		$c->addCondition( 't.id = "' . $pagina_id . '"' );
-		$c->addCondition( 't.estado <> 0' );
+		//$c->addCondition( 't.estado <> 0' );
 		$pagina  = $this->find( $c );
 
 		if( !$pagina ) return false;
