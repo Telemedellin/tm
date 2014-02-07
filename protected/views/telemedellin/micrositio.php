@@ -70,12 +70,12 @@ cs()->registerScript( 'scroll',
 <div style="clear:both;"></div>
 <div id="menu_inferior">
 	<?php if($formulario): ?>
-		<a href="<?php echo bu($micrositio->url->slug) ?>/escribinos" class="formulario"><span class="iconoForm"></span>
+		<a href="<?php echo bu($micrositio->url->slug) ?>/escribenos" class="formulario"><span class="iconoForm"></span>
 			<span>
 				<?php if($seccion->nombre == 'Concursos'):?>
 					Formulario
 				<?php else:?>
-					Escribinos
+					Escríbenos
 				<?php endif?>
 			</span>
 		</a>
