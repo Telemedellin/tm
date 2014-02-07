@@ -63,7 +63,7 @@ class AdminController extends Controller
 		Yii::app()->user->logout();
 		Yii::app()->session->clear();
 		Yii::app()->session->destroy();
-		$this->redirect(Yii::app()->homeUrl . '/administrador');
+		$this->redirect(bu('/administrador'));
 	}
 
 	public function actionRegistro()
