@@ -489,13 +489,13 @@ nav ul {
 	line-height:25px;
 }
 #bar nav li a {
-	background: url('../images/static/iconos/tmicons.png') no-repeat 5px -1.8%;
+	background: url('../images/static/iconos/tmicons.png') no-repeat 5px 10px;
 	background-size: 25px auto;
 	color: #FFF;
 	display: block;
 	font-size: 18px;
 	margin: 0 8px;
-	padding: 7px 0 7px 30px;
+	padding: 6px 0 6px 30px;
 	text-transform: uppercase;
 	text-decoration:none;
 }
@@ -525,13 +525,35 @@ nav ul {
 	display: block;
 }
 #bar nav li.programas a {
-	background-position: 5px 4.6%;
+	background-position: 5px -29px;
 }
 #bar nav li.especiales a {
-	background-position: 5px 10%;
+	background-position: 5px -65px;
 }
 #bar nav li.documentales a {
-	background-position: 5px 16%;
+	background-position: 5px -103px;
+}
+#bar nav li.tmradio
+{
+	background: #fc7812;
+	-webkit-border-top-right-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	   -moz-border-radius-topright: 10px;
+	   -moz-border-radius-bottomright: 10px;
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px;
+	margin-top: 50px;
+	width: 85%;
+}
+#bar nav li.tmradio a {
+	background-position: 5px -672px;
+	line-height: 1.2;
+	padding-right: 10px;
+}
+#bar nav li.tmradio:hover
+{
+	background: #ef6800;
+	color: #FFF;
 }
 #bar .escribenos {
 	background: rgb(137, 222, 21) url('../images/static/iconos/tmicons.png') no-repeat 21% -377px;
@@ -571,22 +593,22 @@ nav ul {
 	height: 25px;
 }
 #bar .redes li.facebook a {
-	background-position: 0px 45.5%;
+	background-position: 0px -356px;
 }
 #bar .redes li.twitter a {
-	background-position: 0px 51%;
+	background-position: 0px -399px;
 }
 #bar .redes li.flickr a {
-	background-position: 0px 62.7%;
+	background-position: 0px -490px;
 }
 #bar .redes li.youtube a {
-	background-position: 0px 57.1%;
+	background-position: 0px -446px;
 }
 #bar .redes li.foursquare a {
-	background-position: 0px 68.6%;
+	background-position: 0px -536px;
 }
 #bar .redes li.instagram a {
-	background-position: 0px 74.2%;
+	background-position: 0px -579px;
 }
 #bar .top{
 	-webkit-box-sizing: border-box;
@@ -1986,7 +2008,10 @@ nav ul {
 	#bar nav li a {
 		background-size: 24px auto;
 		font-size: 12px;
-		padding: 5px 0 5px 30px;
+		padding: 4px 0 4px 30px;
+	}
+	#bar nav li.tmradio a {
+		background-position: 5px -652px;
 	}
 	#bar .redes li a {
 		background-size: 20px auto;
@@ -2064,8 +2089,21 @@ nav ul {
 @media (min-width: 768px) and (max-width: 979px) {
 	#bar nav li a {
 		background-size: 24px auto;
+		background-position: 5px 9px;
 		font-size: 14px;
-		padding: 5px 0 5px 30px;
+		padding: 4px 0 4px 30px;
+	}
+	#bar nav li.programas a {
+		background-position: 5px -29px;
+	}
+	#bar nav li.especiales a {
+		background-position: 5px -63px;
+	}
+	#bar nav li.documentales a {
+		background-position: 5px -99px;
+	}
+	#bar nav li.tmradio a {
+		background-position: 5px -652px;
 	}
 	#bar .escribenos {
 		background-position: 15% -377px;
@@ -2089,7 +2127,7 @@ nav ul {
 		background-position: 0px -443px;
 	}
 	#bar .redes li.instagram a {
-		background-position: 0px -481px;
+		background-position: 0px -479px;
 	}
 	#bar .redes p
 	{
@@ -2131,9 +2169,22 @@ nav ul {
 @media (min-width: 1200px) {
 	#bar nav li a {
 		background-size: 30px auto;
+		background-position: 5px 14px;
 		font-size: 20px;
-		padding: 7px 0 7px 35px;
+		padding: 6px 0 6px 35px;
 		line-height: 1.8em;
+	}
+	#bar nav li.programas a {
+		background-position: 5px -33px;
+	}
+	#bar nav li.especiales a {
+		background-position: 5px -77px;
+	}
+	#bar nav li.documentales a {
+		background-position: 5px -121px;
+	}
+	#bar nav li.tmradio a {
+		background-position: 5px -810px;
 	}
 	#bar footer .extended-address .title {
 		background-size: 7%;
@@ -2190,19 +2241,22 @@ nav ul {
 		width: 15%;
 	}
 	#bar nav li a {
-		background-position: 5px -2.2%;
+		background-position: 5px 16px;
 		background-size: 32px auto;
 		font-size: 1.3em;
-		padding: 11px 0 11px 35px;
+		padding: 10px 0 10px 35px;
 	}
 	#bar nav li.programas a {
-		background-position: 5px 4.2%;
+		background-position: 5px -35px;
 	}
 	#bar nav li.especiales a {
-		background-position: 5px 10%;
+		background-position: 5px -80px;
 	}
 	#bar nav li.documentales a {
-		background-position: 5px 16%;
+		background-position: 5px -128px;
+	}
+	#bar nav li.tmradio a {
+		background-position: 5px -870px;
 	}
 	#bar footer .extended-address .title {
 		background-size: 6%;
@@ -2212,6 +2266,24 @@ nav ul {
 	}
 	#bar footer .email .title {
 		background-size: 6%;
+	}
+	#bar .redes li.facebook a {
+		background-position: 0px -348px;
+	}
+	#bar .redes li.twitter a {
+		background-position: 0px -390px;
+	}
+	#bar .redes li.flickr a {
+		background-position: 0px -479px;
+	}
+	#bar .redes li.youtube a {
+		background-position: 0px -436px;
+	}
+	#bar .redes li.foursquare a {
+		background-position: 0px -525px;
+	}
+	#bar .redes li.instagram a {
+		background-position: 0px -567px;
 	}
 	#content {
 		left: 15%;
