@@ -1,0 +1,37 @@
+<?xml version="1.0" standalone="yes"?>
+<aacplayer>
+	<stationinfo>
+		<station>RadioDigital Radiomagazine</station>
+		<caption>Stream Radio</caption>
+		<statusscriptlink>listeners.php</statusscriptlink>
+		<logo x="60" y="25">1.png</logo>
+	</stationinfo>
+	
+	<skinconfig>
+		<backgroundcolor>5c5c5c</backgroundcolor>
+		<textcolor>ffffff</textcolor>
+		<toolbarcolor>818181</toolbarcolor>
+	</skinconfig>
+	
+	<iconlink>
+		<facebooklink>https://www.facebook.com/pages/RadioDigital/140054589427690</facebooklink>
+		<twitterlink>https://twitter.com/RadioDigitalCo</twitterlink>
+		<emaillink>comunicaciones@ticdigital.co</emaillink>
+	</iconlink>
+	
+	<equalizerconfig>
+		<bottomcolor>ffffff</bottomcolor>
+	    <middlecolor>ffffff</middlecolor>
+		<topcolor>ffffff</topcolor>
+		<peakcolor>ffffff</peakcolor>
+	</equalizerconfig>
+	
+	<mediaconfig>
+		<autoplay>yes</autoplay>
+                                <rtmp></rtmp>
+	<streamaddress>http://real2.streaming-co.com:8127/stream?type=.flv</streamaddress>
+		<videointro width="325" height="220"></videointro>
+	</mediaconfig>
+	
+	
+</aacplayer>
