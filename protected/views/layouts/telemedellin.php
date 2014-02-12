@@ -54,6 +54,7 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 					<li class="youtube"><a href="http://www.youtube.com/user/telemedellin" target="_blank" title="Youtube" rel="nofollow">Youtube</a></li>
 					<li class="foursquare"><a href="https://es.foursquare.com/telemedellin" target="_blank" title="Foursquare" rel="nofollow">Foursquare</a></li>
 					<li class="instagram"><a href="http://instagram.com/telemedellin" target="_blank" title="Instagram" rel="nofollow">Instagram</a></li>
+					<li class="vimeo"><a href="http://vimeo.com/telemedellintv" target="_blank" title="Vimeo" rel="nofollow">Vimeo</a></li>
 				</ul>
 			</div>
 			<?php echo l( 'Contacto' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/utilidades/escribinos'), array('class' => 'escribenos') ); ?>

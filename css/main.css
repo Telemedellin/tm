@@ -584,7 +584,7 @@ nav ul {
 	margin: 0 1% 0 0;
 	height: 24px;
 	text-indent: -9999px;
-	width: 15%;
+	width: 13%;
 }
 #bar .redes li a {
 	display: block;
@@ -609,6 +609,9 @@ nav ul {
 }
 #bar .redes li.instagram a {
 	background-position: 0px -579px;
+}
+#bar .redes li.vimeo a {
+	background-position: 0px -871px;
 }
 #bar .top{
 	-webkit-box-sizing: border-box;
@@ -1322,7 +1325,7 @@ nav ul {
 }
 #novedades .slides-pagination {
 	height: 65%;
-	margin-top: 5%;
+	margin-top: 68px;
 	position: absolute;
 	right: 0;
 	text-align: center;
@@ -1350,6 +1353,11 @@ nav ul {
 	border: thin solid rgba(255, 255, 255, .3);	
 	height: 85%;
 	margin: 2% 5%;
+	-webkit-transition: all 0.4s linear;
+	-moz-transition: all 0.4s linear;
+	-ms-transition: all 0.4s linear;
+	-o-transition: all 0.4s linear;
+	transition: all 0.4s linear;
 }
 #novedades .slides-pagination a:first-child, 
 #novedades .slides-pagination a:first-child img
@@ -2035,6 +2043,9 @@ nav ul {
 	#bar .redes li.instagram a {
 		background-position: 0px -379px;
 	}
+	#bar .redes li.vimeo a {
+		background-position: 0px -573px;
+	}
 	#bar .redes p
 	{
 		font-size: 11px;
@@ -2128,6 +2139,9 @@ nav ul {
 	}
 	#bar .redes li.instagram a {
 		background-position: 0px -479px;
+	}
+	#bar .redes li.vimeo a {
+		background-position: 0px -722px;
 	}
 	#bar .redes p
 	{
@@ -2255,8 +2269,13 @@ nav ul {
 	#bar nav li.documentales a {
 		background-position: 5px -128px;
 	}
+	#bar nav li.tmradio
+	{
+		max-width: 230px;
+	}
+	
 	#bar nav li.tmradio a {
-		background-position: 5px -870px;
+		background-position: 5px -863px;
 	}
 	#bar footer .extended-address .title {
 		background-size: 6%;
@@ -2268,22 +2287,25 @@ nav ul {
 		background-size: 6%;
 	}
 	#bar .redes li.facebook a {
-		background-position: 0px -348px;
+		background-position: 0px -356px;
 	}
 	#bar .redes li.twitter a {
-		background-position: 0px -390px;
+		background-position: 0px -398px;
 	}
 	#bar .redes li.flickr a {
-		background-position: 0px -479px;
+		background-position: 0px -490px;
 	}
 	#bar .redes li.youtube a {
-		background-position: 0px -436px;
+		background-position: 0px -446px;
 	}
 	#bar .redes li.foursquare a {
-		background-position: 0px -525px;
+		background-position: 0px -536px;
 	}
 	#bar .redes li.instagram a {
-		background-position: 0px -567px;
+		background-position: 0px -580px;
+	}
+	#bar .redes li.vimeo a {
+		background-position: 0px -872px;
 	}
 	#content {
 		left: 15%;
