@@ -91,9 +91,11 @@ class TmUrlRule extends CBaseUrlRule
             else if($s == 'contactenos') Yii::app()->request->redirect(bu('telemedellin/utilidades/escribinos'), true, 301);
             else if($s == 'terminos-condiciones') Yii::app()->request->redirect(bu('telemedellin/utilidades/terminos-y-condiciones-de-uso'), true, 301);
             else if($s == 'mapa-sitio') Yii::app()->request->redirect(bu('mapa-del-sitio'), true, 301);
-            else if($s == 'concursoestamosdeestren') Yii::app()->request->redirect(bu('concursos/estamos-de-estren'), true, 301);
-            else if(strpos($s, "concursotelemedell") >= 0) Yii::app()->request->redirect(bu('concursos/ganate-un-balon-gilbert-con-la-copa-telemedellin-rugby-15-s'), true, 301);
+            else if(strpos($s, "concurso") !== false) Yii::app()->request->redirect(bu('concursos'), true, 301);
             else if($s == 'sistemainformativotelemedellin') Yii::app()->request->redirect(bu('programas/noticias-telemedellin'), true, 301);
+            else if(strpos($s, "valiente") !== false) Yii::app()->request->redirect(bu('documentales/valiente-valentina'), true, 301);
+            else if(strpos($s, "elhacedor") !== false) Yii::app()->request->redirect(bu('documentales/el-hacedor-de-imanes'), true, 301);
+            else if(strpos($s, "especial") !== false) Yii::app()->request->redirect(bu('especiales'), true, 301);
             else if($this->verificar_slug($s)) Yii::app()->request->redirect(bu($s), true, 301);
             else if($this->verificar_slug($e)) Yii::app()->request->redirect(bu($e), true, 301);
             else if($this->verificar_slug($c)) Yii::app()->request->redirect(bu($c), true, 301);

@@ -1,6 +1,25 @@
 Allow from all
 RewriteEngine On
 # RewriteBase /
+RewriteCond %{HTTP_HOST} ^www\.telemedellin\.tv$
+RewriteRule ^(.*)$ "http\:\/\/telemedellin\.tv\/$1" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^telemedellin\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.telemedellin\.com$
+RewriteRule ^(.*)$ "http\:\/\/telemedellin\.tv\/$1" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^telemedellin\.com\.co$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.telemedellin\.com\.co$
+RewriteRule ^(.*)$ "http\:\/\/telemedellin\.tv\/$1" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^telemedellin\.gov\.co$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.telemedellin\.gov\.co$
+RewriteRule ^(.*)$ "http\:\/\/telemedellin\.tv\/$1" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^telemedellin\.mobi$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.telemedellin\.mobi$
+RewriteRule ^(.*)$ "http\:\/\/telemedellin\.tv\/$1" [R=301,L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
