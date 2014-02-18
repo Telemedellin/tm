@@ -57,7 +57,7 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 					<li class="vimeo"><a href="http://vimeo.com/telemedellintv" target="_blank" title="Vimeo" rel="nofollow">Vimeo</a></li>
 				</ul>
 			</div>
-			<?php echo l( 'Contacto' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/utilidades/escribinos'), array('class' => 'escribenos') ); ?>
+			<?php echo l( 'Contacto' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/utilidades/escribenos'), array('class' => 'escribenos') ); ?>
 		</footer>
 	</div>
 	<div id="content">
