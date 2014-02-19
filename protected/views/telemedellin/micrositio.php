@@ -8,8 +8,8 @@ if($seccion->url->slug != 'sin-seccion')
 ($pagina->id != $micrositio->pagina_id) ? $bc[ucfirst($micrositio->nombre)] = bu( $micrositio->url->slug ) : $bc[] = ucfirst($micrositio->nombre);
 ($pagina->id != $micrositio->pagina_id) ? $bc[] = ucfirst($pagina->nombre) : false;
 $this->breadcrumbs = $bc;
-$pt = ($pagina->id != $micrositio->pagina_id) ? ' - ' . ucfirst($pagina->nombre) : '';
-$this->pageTitle = $micrositio->nombre . $pt;
+$pt = ($pagina->id != $micrositio->pagina_id) ? ucfirst($pagina->nombre) . ' - ': '';
+$this->pageTitle = $pt . $micrositio->nombre;
 
 if( !empty($fondo_pagina) )
 {
@@ -43,7 +43,7 @@ cs()->registerScript( 'scroll',
 	<ul>
 	<?php foreach( $micrositio->redSocials as $red ): ?>
 		<li class="<?php echo strtolower($red->tipoRedSocial->nombre) ?>">
-			<a href="<?php echo $red->tipoRedSocial->url_base . $red->usuario ?>" target="_blank" title="<?php echo $red->tipoRedSocial->nombre ?>" rel="nofollow">
+			<a href="<?php echo $red->tipoRedSocial->url_base . $red->usuario ?>" target="_blank" title="<?php echo $red->tipoRedSocial->nombre ?> de <?php echo $micrositio->nombre ?>" rel="nofollow">
 				<?php echo $red->tipoRedSocial->nombre ?>
 			</a>
 		</li>
@@ -70,23 +70,17 @@ cs()->registerScript( 'scroll',
 <div style="clear:both;"></div>
 <div id="menu_inferior">
 	<?php if($formulario): ?>
-		<a href="<?php echo bu($micrositio->url->slug) ?>/escribenos" class="formulario"><span class="iconoForm"></span>
-			<span>
-				<?php if($seccion->nombre == 'Concursos'):?>
-					Formulario
-				<?php else:?>
-					Escríbenos
-				<?php endif?>
-			</span>
+		<a href="<?php echo bu($micrositio->url->slug) ?>/escribenos" class="formulario" title="Ir al formulario de <?php echo $micrositio->nombre ?>"><span class="iconoForm"></span>
+			<span><?php echo ($seccion->nombre == 'Concursos')? 'Formulario' : 'Escríbenos'; ?></span>
 		</a>
 	<?php endif;?>
 	<?php if($galeria): ?>
-		<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes">
+		<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes" title="Ver las imágenes de <?php echo $micrositio->nombre ?>">
 			<span class="iconoImagen"></span><span>Imágenes</span>
 		</a>
 	<?php endif;?>
 	<?php if($video): ?>
-		<a href="<?php echo bu($micrositio->url->slug) ?>#videos" class="fancybox fancybox.ajax videos"><span class="iconoVideo"></span><span>Videos</span></a>
+		<a href="<?php echo bu($micrositio->url->slug) ?>#videos" class="fancybox fancybox.ajax videos" title="Ver los videos de <?php echo $micrositio->nombre ?>"><span class="iconoVideo"></span><span>Videos</span></a>
 	<?php endif;?>
 </div>
 <?php endif; ?>

@@ -27,7 +27,7 @@ function success_popup(data) {
         output = Mustache.render(vista, data);
     modificar_url(data.url, data.seccion);
     old_title = $(document).attr('title');
-    $(document).attr('title', data.seccion + ' - Telemedellín');
+    $(document).attr('title', data.seccion + ' - Telemedellín, aquí te');
     
     $('#loading').remove();
     $('#container').append(output).fadeIn('slow');
@@ -285,7 +285,7 @@ jQuery(function($) {
     function filtrar(){
       var table = $(".inner");
       var value = accentsTidy(this.value);
-      table.find("p").each(function(index, row) {
+      table.find("h2").each(function(index, row) {
         var allCells = $(row).find("a");
         if(allCells.length > 0) {
           var found = false;

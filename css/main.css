@@ -733,7 +733,7 @@ nav ul {
 	display: block;
 	margin-bottom: 10px;
 }
-#dots
+.dots
 {
 	background: url(../images/static/overlays/02.png);
 	filter: alpha(opacity=20);
@@ -746,7 +746,7 @@ nav ul {
 	width: 100%;
 	z-index: 0;
 }
-.home .novedad #dots
+.home .novedad .dots
 {
 	z-index: -1;
 }
@@ -1284,7 +1284,8 @@ nav ul {
 {
 	color: #FFF;
 }
-#novedades .novedad h3 {
+#novedades .novedad h2 {
+	font-size: 24.5px;
 	line-height: 1.2;
 	margin-top: 0;
 }
@@ -1572,6 +1573,12 @@ nav ul {
 }
 #overlay #seccion h2
 {
+	font-size: 1.1em;
+	line-height: 20px;
+	margin: 0 0 10px;
+}
+#overlay #seccion h3
+{
 	font-size: 1.2em;
 	line-height: 1.5;
 	margin: 0 0 10px;
@@ -1589,13 +1596,11 @@ nav ul {
 	float: left;
 	width: 20%;
 }
-
 .paginas ul li
 {
 	list-style-image:url(../images/static/iconos/ligenerico.png);
 	padding-bottom:5px;
 }
-
 .contenidoScroll {
 	margin:10px;
 	}
@@ -1622,7 +1627,7 @@ nav ul {
 	padding-bottom: 20px;
 	width: 73%
 }
-#overlay #seccion .historial h2
+#overlay #seccion .historial h3
 {
 	float: left;
 	width: 50%;
@@ -1650,7 +1655,7 @@ nav ul {
 	margin-top:-40px;
 	position:relative;
 	text-align:center;
-	z-index:10px;
+	z-index: 10;
 }
 
 #overlay #seccion .destacados a {
@@ -1687,6 +1692,11 @@ nav ul {
 	margin-right: 3%;
 	overflow-x: auto;
 	width: 75%;
+}
+#overlay #seccion .listado h2
+{
+	font-size: 1.1em;
+	line-height: 1.2;
 }
 #overlay #seccion .listado .inner, 
 #overlay #seccion .historial .inner
@@ -1916,7 +1926,7 @@ nav ul {
 }
 #redes_micrositio li.instagram a
 {
-	background-position: 0px -536px;
+	background-position: 0px -463px;
 }
 
 #redes_micrositio li.myspace a

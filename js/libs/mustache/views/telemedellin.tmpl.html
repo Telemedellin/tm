@@ -4,15 +4,15 @@
 		<div class="paginas">
 			{{#micrositios}}
 				<div>
-					<h2><a href="{{url}}">{{nombre}}</a></h2>
+					<h2><a href="{{url}}" title="Ir al micrositio {{nombre}}">{{nombre}}</a></h2>
 					<ul>
 						{{#paginas}}
-						<li><a href="{{url}}">{{nombre}}</a></li>
+						<li><a href="{{url}}" title="Ir a la página {{nombre}}">{{nombre}}</a></li>
 						{{/paginas}}
 					</ul>
 				</div>
 			{{/micrositios}}
 		</div>
-		<a href="#" class="close">X</a>
+		<a href="#" class="close" title="Cerrar esta ventana emergente">X</a>
 	</div>
 </div>

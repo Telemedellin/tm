@@ -45,14 +45,14 @@ class NewsTicker extends CWidget
 		        if( count($tweet->entities->hashtags) )
 		        {
 		          foreach ($tweet->entities->hashtags as $hashtag) {
-		            $nh = '<a href="https://twitter.com/search?q=%23NoticiasTM" target="_blank" rel="nofollow"><s>#</s><b class="hashtag">' . $hashtag->text . '</b></a>';
+		            $nh = '<a href="https://twitter.com/search?q=%23NoticiasTM" target="_blank" rel="nofollow" title="Ver los tuits del Hashtag #NoticiasTM en Twitter"><s>#</s><b class="hashtag">' . $hashtag->text . '</b></a>';
 		            $entidades[] = array('texto' => $nh, 'pi' => $hashtag->indices[0], 'pf' => $hashtag->indices[1]);
 		          }
 		        }
 		        if( count($tweet->entities->user_mentions) )
 		        {
 		          foreach ($tweet->entities->user_mentions as $user_mention) {
-		            $num = '<a href="https://twitter.com/'.$user_mention->screen_name.'" target="_blank" rel="nofollow"><s>@</s><b class="user_mention">' . $user_mention->screen_name . '</b></a>';
+		            $num = '<a href="https://twitter.com/'.$user_mention->screen_name.'" target="_blank" rel="nofollow" title="Ver el perfil del usuario ' . $user_mention->screen_name . ' en Twitter"><s>@</s><b class="user_mention">' . $user_mention->screen_name . '</b></a>';
 		            $entidades[] = array('texto' => $num, 'pi' => $user_mention->indices[0], 'pf' => $user_mention->indices[1]);
 		          }
 		        }

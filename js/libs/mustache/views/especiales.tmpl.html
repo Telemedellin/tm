@@ -2,22 +2,22 @@
 	<div id="seccion" class="{{seccion}}">
 		<h1>{{seccion}}</h1>
 		<div class="recientes">
-			<h2>Recientes</h2>
+			<h3>Recientes</h3>
 			{{#recientes}}
-				<p><a href="{{url}}">{{nombre}}</a></p>
+				<h2><a href="{{url}}" title="Ir al micrositio {{nombre}}">{{nombre}}</a></h2>
 			{{/recientes}}
 		</div>
 		<div class="historial">
-			<h2>Historial</h2>
+			<h3>Historial</h3>
 			<div class="filtro">
 			    <input type="text" id="txtFiltro" name="txtFiltro" placeholder="Filtrar...">
 			</div>
 			<div class="inner">
 			{{#micrositios}}
-				<p><a href="{{url}}">{{nombre}}</a></p>
+				<h2><a href="{{url}}" title="Ir al documental {{nombre}}">{{nombre}}</a></h2>
 			{{/micrositios}}
 			</div>
 		</div>
-		<a href="#" class="close">X</a>
+		<a href="#" class="close" title="Cerrar esta ventana emergente">X</a>
 	</div>
 </div>

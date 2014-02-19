@@ -24,7 +24,7 @@ class Controller extends CController
 	 * SEO
 	 */
 	public $pageTitle = '';
-    public $pageDesc = 'Canal público cultural de la ciudad de Medellín.';
+    public $pageDesc = 'Canal público cultural de la ciudad de Medellín. Programación, noticias, horarios.';
     public $pageRobotsIndex = true;
 
     public function display_seo()

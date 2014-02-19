@@ -37,12 +37,12 @@ foreach ($items as $item):
         <?php 
             if(mb_strlen($item->get_title()) > 90) $titulo = mb_substr($item->get_title(), 0, 90). ' ...';
             else $titulo = $item->get_title();?>
-        <a href="<?php echo $item->get_permalink(); ?>" target="_blank">
+        <a href="<?php echo $item->get_permalink(); ?>" target="_blank" title="Ver la noticia <?php echo str_replace('"', "'", $titulo) ?> en el portal de Noticias Telemedellín">
             <?php echo $titulo ?>
         </a>
     </h3>
     <div class="meta">
-        <time><?php echo ucfirst(strftime('%B %e, %l:%M', $f)) . ' ' . date('a', $f); ?></time> - <span><?php echo $item->get_category()->get_term(); ?>
-    </span></div>
+        <time datetime="<?php echo $item->get_date('Y-m-d G:i:s') ?>"><?php echo ucfirst(strftime('%B %e, %l:%M', $f)) . ' ' . date('a', $f); ?></time> - <span><?php echo $item->get_category()->get_term(); ?></span>
+    </div>
 </div>
 <?php endforeach; ?>

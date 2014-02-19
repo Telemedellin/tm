@@ -54,16 +54,16 @@ cs()->registerScript(
       }
   ?>
     <li class="novedad">
-      <img src="<?php echo bu('/images/' . $novedad->pgArticuloBlogs->imagen); ?>" alt="<?php echo $novedad->nombre; ?>" />
-      <div id="dots"></div>
+      <img src="<?php echo bu('/images/' . $novedad->pgArticuloBlogs->imagen); ?>" alt="<?php echo str_replace('"', "'", $novedad->nombre); ?>" />
+      <div class="dots"></div>
       <div class="container <?php echo ($novedad->pgArticuloBlogs->posicion==1)?'ntop':'nbottom'; ?>">
-        <h3><?php echo $novedad->nombre; ?></h3>
+        <h2><?php echo $novedad->nombre; ?></h2>
         <?php echo $novedad->pgArticuloBlogs->entradilla; ?>
-        <a href="<?php echo $enlace['enlace'] ?>" class="ver-mas" <?php if( $enlace['tipo'] == 'externo' ) echo 'rel="nofollow"'?>>+ Ver más</a>
+        <a href="<?php echo $enlace['enlace'] ?>" class="ver-mas" <?php if( $enlace['tipo'] == 'externo' ) echo 'rel="nofollow"'?> title="Ver más información sobre <?php echo str_replace('"', "'", lcfirst($novedad->nombre)) ?>">+ Ver más</a>
       </div>
     </li>
     <?php 
-    $paginador .= '<a class="'.$i.'" href="#'.($i+1).'"><img src="'. bu('/images/' . $novedad->pgArticuloBlogs->miniatura) . '" /></a>' . "\r\n";
+    $paginador .= '<a class="'.$i.'" href="#'.($i+1).'" title="Ver la novedad ' . str_replace('"', "'", lcfirst($novedad->nombre)) . '"><img src="'. bu('/images/' . $novedad->pgArticuloBlogs->miniatura) . '" alt="'. str_replace('"', "'", $novedad->nombre).'" /></a>' . "\r\n";
     $i++;
     endforeach;
     endif;

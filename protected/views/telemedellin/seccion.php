@@ -10,9 +10,9 @@ if($seccion->url->slug == 'concursos')
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
 	<div class="listado">
 	<?php foreach($micrositios as $micrositio):?>
-		<p>
-			<a href="<?php echo bu($micrositio->url->slug); ?>"><?php echo $micrositio->nombre; ?></a>
-		</p>
+		<h2>
+			<a href="<?php echo bu($micrositio->url->slug); ?>" title="Ir al micrositio <?php echo $micrositio->nombre; ?>"><?php echo $micrositio->nombre; ?></a>
+		</h2>
 	<?php endforeach; ?>
 	</div>
 </div>

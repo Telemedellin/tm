@@ -7,15 +7,15 @@
 		<div class="listado">
 			<div class="inner">
 			{{#micrositios}}
-				<p><a href="{{url}}">{{nombre}}</a></p>
+				<h2><a href="{{url}}" title="Ir al micrositio {{nombre}}">{{nombre}}</a></h2>
 			{{/micrositios}}
 			</div>
 		</div>
 		<div class="destacados">
 			{{#destacados}}
-			<p><a href="{{url}}"><img src="{{miniatura}}" alt="{{nombre}}" /></a></p>
+			<h2><a href="{{url}}" title="Ir al micrositio {{nombre}}"><img src="{{miniatura}}" alt="{{nombre}}" /></a></h2>
 			{{/destacados}}
 		</div>
-		<a href="#" class="close">X</a>
+		<a href="#" class="close" title="Cerrar esta ventana emergente">X</a>
 	</div>
 </div>
