@@ -29,7 +29,7 @@
 	<mediaconfig>
 		<autoplay>yes</autoplay>
                                 <rtmp></rtmp>
-	<streamaddress>http://real2.streaming-co.com:8127/stream?type=.flv</streamaddress>
+	<streamaddress>http://199.217.118.14:8348/stream</streamaddress>
 		<videointro width="325" height="220"></videointro>
 	</mediaconfig>
 	

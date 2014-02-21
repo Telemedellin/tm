@@ -16,7 +16,7 @@
             'name'=>'estado',
             'header'=>'Estado',
             'filter'=>array('2' => 'Publicado (en el home)', '1' => 'Archivado', '0' => 'Desactivado'),
-            'value'=>'($data->estado=="1")?("Si"):("No")'
+            'value'=>'($data->estado=="2")?("En home"):(($data->estado=="1")?("Archivado"):("No"))'
         ),
         array(
             'name'=>'destacado',

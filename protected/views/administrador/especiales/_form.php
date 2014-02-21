@@ -35,13 +35,13 @@
                                     'TextColor', 'BGColor',
                             ),
                             array(
-                                    'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+                                'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
                             ),
                             array(
-                                    /*'Image', */'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak', 'Iframe'
+                                'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak', 'Iframe'
                             ),
                             array(
-                                    'Link', 'Unlink', 'Anchor',
+                                'Link', 'Unlink', 'Anchor', 'Image'
                             ),
                         ),
             //'optionName'=>'optionValue',

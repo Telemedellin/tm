@@ -31,8 +31,7 @@ return array(
 		),
 	),
 	'controllerMap'=>array(
-	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController',
-	    'buscar' => 'ext.tm-buscador.TmBuscadorController'
+	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController'
 	),
 	// application components
 	'components'=>array(

@@ -31,7 +31,7 @@
                                 'TextColor', 'BGColor',
                             ),
                             array(
-                                'Link', 'Unlink', 'Anchor',
+                                'Link', 'Unlink', 'Anchor',  
                             ),
                             array(
                                 'Undo', 'Redo', 'Source',
@@ -63,7 +63,7 @@
                                 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
                             ),
                             array(
-                                'Link', 'Unlink', 'Anchor',
+                                'Link', 'Unlink', 'Anchor', 'Image',
                             ),
                             '/',
                             array(

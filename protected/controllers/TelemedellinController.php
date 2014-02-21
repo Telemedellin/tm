@@ -234,8 +234,8 @@ class TelemedellinController extends Controller
 		$url_id = $_GET['tm']->id;
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
-		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
-		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
+		$micrositios = Micrositio::model()->listarPorSeccion( $seccion->id );
+		//if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 		$this->pageTitle = 'Concursos';
 		$this->render( 'seccion', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 	}
