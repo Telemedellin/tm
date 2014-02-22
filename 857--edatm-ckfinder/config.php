@@ -29,7 +29,8 @@ function CheckAuthentication()
 	// ... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
 	// user logs in your system. To be able to use session variables don't
 	// forget to add session_start() at the top of this file.
-	if(isset($_SESSION['perfil']) && $_SESSION['perfil'] == -1)
+	//print_r($_SESSION);exit();
+	if(isset($_SESSION['auth']) && $_SESSION['auth'] == 'True')
 		return true;
 	else
 		return false;
@@ -62,7 +63,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = 'http://concursomedellin2018.com/tm/';
+$baseUrl = 'http://telemedellin.tv/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the
@@ -82,7 +83,7 @@ Examples:
 ATTENTION: The trailing slash is required.
 */
 //$baseDir = resolveUrl($baseUrl);
-$baseDir = '/home4/med2018/public_html/tm/';
+$baseDir = '/home/telemede/public_html/';
 
 /*
  * ### Advanced Settings

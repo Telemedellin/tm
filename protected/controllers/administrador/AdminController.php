@@ -48,6 +48,7 @@ class AdminController extends Controller
 			$model->attributes = $_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login()){
+				Yii::app()->session['auth'] = 'True';
 				$this->redirect(bu('/administrador'));
 				//$this->redirect(Yii::app()->user->returnUrl);
 			}

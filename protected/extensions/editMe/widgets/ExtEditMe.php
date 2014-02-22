@@ -50,7 +50,7 @@ class ExtEditMe extends CInputWidget {
 	/**
 	 * @var string URL to the file browser ("Link" dialog).
 	 */
-	public $filebrowserBrowseUrl = '/tm/857--edatm-ckfinder/ckfinder.php?Type=Archivos';
+	public $filebrowserBrowseUrl = '/857--edatm-ckfinder/ckfinder.php?Type=Archivos';
 
 	/**
 	 * @var string URL to the file browser ("Flash Properties" dialog).
@@ -60,12 +60,12 @@ class ExtEditMe extends CInputWidget {
 	/**
 	 * @var string URL to the file browser ("Image Properties" dialog).
 	 */
-	public $filebrowserImageBrowseUrl = '/tm/857--edatm-ckfinder/ckfinder.php?Type=Images';
+	public $filebrowserImageBrowseUrl = '/857--edatm-ckfinder/ckfinder.php?Type=Images';
 
 	/**
 	 * @var string URL to the file browser ("Link" tab in "Image Properties" dialog).
 	 */
-	public $filebrowserImageBrowseLinkUrl = '/tm/857--edatm-ckfinder/ckfinder.php?Type=Images';
+	public $filebrowserImageBrowseLinkUrl = '/857--edatm-ckfinder/ckfinder.php?Type=Images';
 
 	/**
 	 * @var string URL to the file uploader ("Link" dialog).
