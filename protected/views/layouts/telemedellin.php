@@ -1,12 +1,10 @@
 <?php /* @var $this Controller */ 
-$ru = Yii::app()->request->requestUri;
 cs()->coreScriptPosition 		= CClientScript::POS_END;
 cs()->defaultScriptFilePosition = CClientScript::POS_END;
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script>
 	var n = navigator.userAgent.toLowerCase();
 	if( n.search(/android|blackberry|iphone|ipod|iemobile|opera mobile|palmos|webos/) > -1 ){
@@ -14,7 +12,6 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 	}
 	</script>
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css/styles.min.css'); ?>" />
-	<link rel="canonical" href="http://telemedellin.tv<?php echo $ru; ?>" />
 	<!--[if LTE IE 9]>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie9.css" />
 	  <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/libs/ie/html5shiv.js"></script>
@@ -22,9 +19,7 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 	<!--[if LTE IE 8]>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" />
 	<![endif]-->
-	<link rel="shortcut icon" href="<?php echo bu('/favicon.ico')?>" />
-	<title><?php echo ($this->pageTitle != '')? h($this->pageTitle) . ' - ':''; ?>Telemedellín, aquí te ves</title>
-	<?php $this->display_seo(); ?>
+	<?php $this->display_seo($this->pageTitle); //SEO?>
 </head>
 <body <?php if( !count($this->breadcrumbs) ) echo 'class="home"' ?>>
 <div id="container">
@@ -42,23 +37,8 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 				$this->widget( 'MenuW', array( 'id' => 1 ) ); // Menú principal
 		    ?>
 			</nav>
-			<?php //$this->widget('ext.tm-buscador.TmBuscador'); ?>
 		</div>
-		<footer>
-			<div class="redes">
-				<p>Telemedellín en las redes</p>
-				<ul>
-					<li class="facebook"><a href="http://www.facebook.com/telemedellin.tv" target="_blank" title="Facebook de Telemedellín" rel="nofollow">Facebook</a></li>
-					<li class="twitter"><a href="http://www.twitter.com/telemedellin" target="_blank" title="Twitter de Telemedellín" rel="nofollow">Twitter</a></li>
-					<li class="flickr"><a href="http://www.flickr.com/telemedellin" target="_blank" title="Flickr de Telemedellín" rel="nofollow">Flickr</a></li>
-					<li class="youtube"><a href="http://www.youtube.com/user/telemedellin" target="_blank" title="Youtube de Telemedellín" rel="nofollow">Youtube</a></li>
-					<li class="foursquare"><a href="https://es.foursquare.com/telemedellin" target="_blank" title="Foursquare de Telemedellín" rel="nofollow">Foursquare</a></li>
-					<li class="instagram"><a href="http://instagram.com/telemedellin" target="_blank" title="Instagram de Telemedellín" rel="nofollow">Instagram</a></li>
-					<li class="vimeo"><a href="http://vimeo.com/telemedellintv" target="_blank" title="Vimeo de Telemedellín" rel="nofollow">Vimeo</a></li>
-				</ul>
-			</div>
-			<?php echo l( 'Contacto' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/utilidades/escribenos'), array('class' => 'escribenos') ); ?>
-		</footer>
+		<?php $this->renderPartial('/layouts/_footer'); ?>
 	</div>
 	<div id="content">
 	<?php if( count($this->breadcrumbs) ): ?>
@@ -90,16 +70,6 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/ie.js"></script>
 <script>$('.marquesina').marquee('marquesina');</script>
 <![endif]-->
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-5650687-11']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-    //ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
+<?php $this->renderPartial('/layouts/_analytics'); ?>
 </body>
 </html>
