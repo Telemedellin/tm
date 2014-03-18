@@ -2,30 +2,24 @@
 //cs()->registerScriptFile(bu('/js/libs/jquery.superslides.js'), CClientScript::POS_END);
 cs()->registerScript(
   'novedades', 
-  '$("#novedades").superslides({
+  '
+  var novedades = $("novedades");
+  novedades.superslides({
     animation: "fade",
     play: 15000,
     hashchange: true,
     pagination: false
   });
   set_current();
-  /*
-  $("#novedades").on("mouseenter", function() {
-    $(this).superslides("stop");
-  });
-  $("#novedades").on("mouseleave", function() {
-    setTimeout(function(){$(this).superslides("start");}, 15000);
-  });
-*/
-  $("#novedades").on("started.slides", function(){
+  novedades.on("started.slides", function(){
     set_current();
   });
-  $("#novedades").on("animated.slides", function(){
+  novedades.on("animated.slides", function(){
     set_current();
   });
   function set_current()
   {
-    var current = $("#novedades").superslides("current");
+    var current = novedades.superslides("current");
     $( ".slides-pagination a" ).each(function( index ) {
       $(this).removeClass("current");
     });
