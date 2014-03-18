@@ -1,5 +1,5 @@
 a, a:hover{
-	color: #FFF;
+	color: #fc7812;
 	text-decoration:none;
 }
 body {
@@ -79,8 +79,8 @@ nav ul {
 	max-width: 655px;
 }
 .breadcrumbs a.home {
-	background: rgb(0,0,0) url('../images/static/iconos/tmicons.png') no-repeat 4px -754px; 
-	background: rgba(0,0,0,.6) url('../images/static/iconos/tmicons.png') no-repeat 4px -754px;
+	background: rgb(0,0,0) url('../images/static/iconos/tmicons.png') no-repeat 4px -758px; 
+	background: rgba(0,0,0,.6) url('../images/static/iconos/tmicons.png') no-repeat 4px -758px;
 	text-indent: 30px;
 }
 .breadcrumbs h1 {
@@ -489,7 +489,7 @@ nav ul {
 	line-height:25px;
 }
 #bar nav li a {
-	background: url('../images/static/iconos/tmicons.png') no-repeat 5px 10px;
+	background: url('../images/static/iconos/tmicons.png') no-repeat 5px 7px;
 	background-size: 25px auto;
 	color: #FFF;
 	display: block;
@@ -525,13 +525,17 @@ nav ul {
 	display: block;
 }
 #bar nav li.programas a {
-	background-position: 5px -29px;
+	background-position: 5px -32px;
 }
 #bar nav li.especiales a {
-	background-position: 5px -65px;
+	background-position: 5px -69px;
 }
 #bar nav li.documentales a {
-	background-position: 5px -103px;
+	background-position: 5px -106px;
+}
+#bar nav li.noticiastm a
+{
+	background-position: 5px -762px;
 }
 #bar nav li.tmradio
 {
@@ -546,7 +550,7 @@ nav ul {
 	width: 85%;
 }
 #bar nav li.tmradio a {
-	background-position: 5px -672px;
+	background-position: 5px -675px;
 	line-height: 1.2;
 	padding-right: 10px;
 }
@@ -556,8 +560,8 @@ nav ul {
 	color: #FFF;
 }
 #bar .escribenos {
-	background: rgb(137, 222, 21) url('../images/static/iconos/tmicons.png') no-repeat 21% -377px;
-	background: rgba(137, 222, 21, 0.6) url('../images/static/iconos/tmicons.png') no-repeat 21% -377px;
+	background: rgb(137, 222, 21);
+	background: rgba(137, 222, 21, 0.6);
 	-webkit-border-top-right-radius: 10px;
 	-moz-border-radius-topright: 10px;
 	border-top-right-radius: 10px;
@@ -566,6 +570,11 @@ nav ul {
 	padding: 6px 4px;
 	text-align: center;
 	text-transform: uppercase;
+}
+#bar .escribenos span
+{
+	background: url('../images/static/iconos/tmicons.png') no-repeat 0 -386px;
+	padding-left: 30px;
 }
 #bar .escribenos:hover
 {
@@ -593,25 +602,25 @@ nav ul {
 	height: 25px;
 }
 #bar .redes li.facebook a {
-	background-position: 0px -356px;
+	background-position: 0px -361px;
 }
 #bar .redes li.twitter a {
-	background-position: 0px -399px;
+	background-position: 0px -403px;
 }
 #bar .redes li.flickr a {
-	background-position: 0px -490px;
+	background-position: 0px -495px;
 }
 #bar .redes li.youtube a {
-	background-position: 0px -446px;
+	background-position: 0px -451px;
 }
 #bar .redes li.foursquare a {
-	background-position: 0px -536px;
+	background-position: 0px -541px;
 }
 #bar .redes li.instagram a {
-	background-position: 0px -579px;
+	background-position: 0px -584px;
 }
 #bar .redes li.vimeo a {
-	background-position: 0px -871px;
+	background-position: 0px -875px;
 }
 #bar .top{
 	-webkit-box-sizing: border-box;
@@ -755,6 +764,23 @@ nav ul {
 	min-height: 500px;
 	width: 98%;
 }
+#icontainer figure
+{
+	display: block;
+	/*height: 125px;*/
+	margin: 0;
+	overflow: hidden;
+	width: 100%;
+}
+#icontainer .videoalbumes figure
+{
+	min-height: 175px;
+}
+#icontainer figure img
+{
+	/*min-height: 125px;*/
+	width: 100%;
+}
 #icontainer h1
 {
 	background: #0f0e13;
@@ -844,6 +870,17 @@ nav ul {
 {
 	margin: 0;
 }
+#icontainer .videogaleria .full
+{
+	float: left;
+	margin-right: 3%;
+	width: 57%;
+}
+#icontainer .videogaleria #scroll
+{
+	float: left;
+	width: 40%;
+}
 #icontainer .videogaleria .full iframe{
 	display:block;
 	margin: 0 auto;
@@ -889,10 +926,6 @@ nav ul {
 	padding: 1em;
 }
 
-.ivideos  {
-	clear:both;
-}
-
 .ivideos li  {
 	clear:both;
 	margin-bottom: 10px;
@@ -900,20 +933,40 @@ nav ul {
 }
 
 #icontainer ul li a {
-	display:block;}
-
-.imgVideo {
-	float:left;
-	width:120px;
-	margin:0 10px 0 0;}
-
+	display:block;
+}
+#icontainer .ivideos figure
+{
+	display: block;
+	float: left;
+	height: 125px;
+	margin-right: 2%;
+	overflow: hidden;
+	width: 48%;
+}
+#icontainer .ivideos h2
+{
+	background: transparent;
+	color: #fff;
+	font-size: 1.14em;
+	font-weight: bold;
+	padding: 0;
+	text-align: left;
+}
+#icontainer .ivideos .descripcion
+{
+	color: #fff;
+}
 .infoVideo {
 	float:left;
-	width:70%;}
+	width:48%;
+}
 
 .infoVideo p {
+	color: #fff;
 	font-size:12px;
-	line-height:16px;}
+	line-height:16px;
+}
 
 #menu_inferior
 {
@@ -941,6 +994,7 @@ nav ul {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
+	color: #fff;
 	display: block;
 	float: right;
 	margin-left: 2%;
@@ -951,12 +1005,9 @@ nav ul {
 }
 #menu_inferior a:hover
 {
-	text-decoration: none;
-}
-#menu_inferior a:hover
-{
 	background-color: rgb(75, 70, 65);
 	background-color: rgba(255, 255, 255, .5);
+	text-decoration: none;
 }
 #menu_inferior .iconoVideo, 
 #menu_inferior .iconoImagen, 
@@ -1461,7 +1512,7 @@ nav ul {
     width: 16px;
     height: 16px;
     padding: 4px;
-    background: white url(https://github.com/openxe/django-ace/diff_blob/1993c731626a44139b97d2d9fca8f4f4023f107a/django_ace/static/django_ace/img/expand.png?raw=true) center center no-repeat;
+    background: #000 url(../images/static/iconos/expander.png) center center no-repeat;
     z-index: 99999;   
     cursor: pointer;
 }
@@ -1531,7 +1582,8 @@ nav ul {
 	top: 45px;
 	width: 80%;
 }
-#overlay #seccion:after, #overlay #seccion:before {
+#overlay #seccion:after, #overlay #seccion:before, 
+#overlay #seccion:after, #overlay #seccion::before {
 	right: 100%;
 	border: solid transparent;
 	content: " ";
@@ -1547,7 +1599,8 @@ nav ul {
 	top: 22%;
 	margin-top: -20px;
 }
-#overlay #seccion:before {
+#overlay #seccion:before, 
+#overlay #seccion::before {
 	border-color: rgba(255, 255, 255, 0);
 	border-right-color: rgba(255, 255, 255, 0.4);
 	border-width: 23px;
@@ -1865,7 +1918,7 @@ nav ul {
 	background-position: left bottom;
 }
 #programacion .senal-en-vivo span {
-	background: url('../images/static/iconos/tmicons.png') no-repeat 0px -931px;
+	background: url('../images/static/iconos/tmicons.png') no-repeat 0px -936px;
 	display: inline-block;
 	font-size: 17px;
 	margin-left: 21px;
@@ -1910,19 +1963,19 @@ nav ul {
 }
 #redes_micrositio li.twitter a
 {
-	background-position: 0px -318px;
+	background-position: 0px -321px;
 }
 #redes_micrositio li.facebook a
 {
-	background-position: 0px -285px;
+	background-position: 0px -287px;
 }
 #redes_micrositio li.youtube a
 {
-	background-position: 0px -357px;
+	background-position: 0px -360px;
 }
 #redes_micrositio li.flickr a
 {
-	background-position: 0px -392px;
+	background-position: 0px -395px;
 }
 #redes_micrositio li.instagram a
 {
@@ -1931,7 +1984,7 @@ nav ul {
 
 #redes_micrositio li.myspace a
 {
-	background-position: 0px -537px;
+	background-position: 0px -540px;
 }
 
 #redes_micrositio li.vimeo a
@@ -2110,21 +2163,24 @@ nav ul {
 @media (min-width: 768px) and (max-width: 979px) {
 	#bar nav li a {
 		background-size: 24px auto;
-		background-position: 5px 9px;
+		background-position: 5px 7px;
 		font-size: 14px;
 		padding: 4px 0 4px 30px;
 	}
 	#bar nav li.programas a {
-		background-position: 5px -29px;
+		background-position: 5px -32px;
 	}
 	#bar nav li.especiales a {
-		background-position: 5px -63px;
+		background-position: 5px -66px;
 	}
 	#bar nav li.documentales a {
-		background-position: 5px -99px;
+		background-position: 5px -102px;
+	}
+	#bar nav li.noticiastm a {
+		background-position: 5px -732px;
 	}
 	#bar nav li.tmradio a {
-		background-position: 5px -652px;
+		background-position: 5px -655px;
 	}
 	#bar .escribenos {
 		background-position: 15% -377px;
@@ -2133,25 +2189,25 @@ nav ul {
 		background-size: 25px auto;
 	}
 	#bar .redes li.facebook a {
-		background-position: 0px -293px;
+		background-position: 0px -297px;
 	}
 	#bar .redes li.twitter a {
-		background-position: 0px -329px;
+		background-position: 0px -332px;
 	}
 	#bar .redes li.flickr a {
-		background-position: 0px -405px;
+		background-position: 0px -408px;
 	}
 	#bar .redes li.youtube a {
-		background-position: 0px -368px;
+		background-position: 0px -371px;
 	}
 	#bar .redes li.foursquare a {
-		background-position: 0px -443px;
+		background-position: 0px -446px;
 	}
 	#bar .redes li.instagram a {
-		background-position: 0px -479px;
+		background-position: 0px -482px;
 	}
 	#bar .redes li.vimeo a {
-		background-position: 0px -722px;
+		background-position: 0px -725px;
 	}
 	#bar .redes p
 	{
@@ -2193,22 +2249,26 @@ nav ul {
 @media (min-width: 1200px) {
 	#bar nav li a {
 		background-size: 30px auto;
-		background-position: 5px 14px;
+		background-position: 5px 10px;
 		font-size: 20px;
 		padding: 6px 0 6px 35px;
 		line-height: 1.8em;
 	}
 	#bar nav li.programas a {
-		background-position: 5px -33px;
+		background-position: 5px -38px;
 	}
 	#bar nav li.especiales a {
-		background-position: 5px -77px;
+		background-position: 5px -81px;
 	}
 	#bar nav li.documentales a {
-		background-position: 5px -121px;
+		background-position: 5px -125px;
+	}
+	#bar nav li.noticiastm a
+	{
+		background-position: 5px -913px;
 	}
 	#bar nav li.tmradio a {
-		background-position: 5px -810px;
+		background-position: 5px -814px;
 	}
 	#bar footer .extended-address .title {
 		background-size: 7%;
