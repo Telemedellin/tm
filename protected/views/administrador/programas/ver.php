@@ -25,6 +25,7 @@
 				'contenido.resena:html', 
 				array(
 		            'name' => 'contenido.horario',
+		            'type' => 'raw', 
 		            'value' => Horarios::horario_parser($contenido->horario),
 		        ),
 				array(
