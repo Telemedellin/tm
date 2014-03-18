@@ -1,6 +1,5 @@
 <div id="compartir">
 	<!--Facebook-->
-	<div id="fb-root"></div>
 	<div class="fb-share-button" data-type="button_count" data-width="130"></div>
 	<!--Twitter-->
 	<a href="https://twitter.com/share" class="twitter-share-button" data-via="telemedellin" data-lang="es">Twittear</a>
@@ -10,6 +9,7 @@
 	<!--Pinterest-->
 	<a href="//pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" ><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a>
 
+	<div id="fb-root"></div>
 	<script>(function(d, s, id) {
 	  var js, fjs = d.getElementsByTagName(s)[0];
 	  if (d.getElementById(id)) return;
