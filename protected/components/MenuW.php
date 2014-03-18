@@ -3,68 +3,36 @@ Yii::import('system.web.widgets.CWidget');
 
 class MenuW extends CWidget
 {
-    public $id;
+    public  $id;
+    private $menu = array();
 
     public function run()
     {
-        $items = $this->getItems();
-        $this->widget('zii.widgets.CMenu', array('items' => $items) );
+        $this->getItems();
+        $this->widget('zii.widgets.CMenu', array('items' => $this->menu) );
     }
 
     protected function getItems()
     {
     	$ru = Yii::app()->request->requestUri;
 
-        $dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM menuItems WHERE menu_id = ".$this->id." AND estado = 1");
-
         $c = new CDbCriteria;
         $c->addCondition('t.estado <> 0');
-        $c->addCondition('menuItems.estado = 1');
+        $c->addCondition('menuItems.estado <> 0');
         $c->order  = 'menuItems.orden ASC';
 
-    	$menu = Menu::model()/*->cache(3600, $dependencia)*/->with('menuItems')->findByPk($this->id, $c);
+    	$menu = Menu::model()->with('menuItems')->findByPk($this->id, $c);
     	$items = $menu->menuItems;
-    	$items_menu = array();
         if($items)
         {
         	foreach($items as $item)
         	{
         		if($item->item_id != 0) continue;
-                $url = $this->getUrl($item);
-                $clase = $item->clase;
-                
-        		$item_actual = array(
-        				'label' => $item->label,
-        				'url'	=> $url,
-                        'itemOptions' => array('class' => $clase),
-        				'active'=> strpos($ru, $url)
-        			);
-                if($item->tipo_link_id == 2)
-                    $item_actual['linkOptions'] = array('target' => '_blank');
-        		if($item->hijos == 1)
-        		{
-        			$hijos = $this->getSubItems($item->item_id);
-        			$subitems = array();
-        			foreach($hijos as $hijo)
-        			{
-        				$hurl = $this->getUrl($hijo);
-                        $hclase = $hijo->clase;
-                        $subitems[] = array(
-        						'label' => $hijo->label,
-        						'url'	=> $hurl,
-                                'itemOptions' => array('class' => $hclase),
-        						'active' => strpos($ru, $hurl)
-        					);
-                        if($hijo->tipo_link_id == 2){
-                            $subitems[key(end($a))]['linkOptions'] = array('target' => '_blank');
-                        }
-        			}
-        			$item_actual['items'] = $subitems;
-        		}
-        		$items_menu[] = $item_actual;
+                $actual = $this->build($item);
+
+                $this->menu[] = $actual;
         	}
         }//if($items)
-    	return $items_menu;
     }
 
     protected function getSubItems($item_id)
@@ -74,7 +42,8 @@ class MenuW extends CWidget
         $c = new CDbCriteria;
         $c->addCondition('t.estado <> 0');
         $c->order  = 't.orden ASC';
-        return MenuItem::model()->cache(3600, $dependencia)->findAllByAttributes( array('item_id' => $this->id), $c );
+        $menu_items = MenuItem::model()->cache(3600, $dependencia)->findAllByAttributes( array('item_id' => $this->id), $c );
+        return ($menu_items) ? $menu_items : false;
     }
 
     protected function getUrl($item)
@@ -92,6 +61,33 @@ class MenuW extends CWidget
                 break;
         }
         return $url;
+    }
+
+    protected function build($item)
+    {
+        $url = $this->getUrl($item);
+
+        $actual = array(
+                'label' => (isset($item->label))?$item->label:$item->nombre,
+                'url'   => $url,
+                'itemOptions' => array('class' => (isset($item->clase))?$item->clase:'' ),
+                'active'=> strpos($ru, $url)
+            );
+        if(isset($item->tipo_link_id) && $item->tipo_link_id == 2)
+            $actual['linkOptions'] = array('target' => '_blank');
+        
+        if($item->hijos == 1)
+        {
+            $hijos = $this->getSubItems($item->item_id);
+            $subitems = array();
+            foreach($hijos as $hijo)
+            {
+                $subitems[] = $this->build($hijo);
+            }
+            $actual['items'] = $subitems;
+        }
+       
+       return $actual;
     }
 
     protected function parseUrl($url)
