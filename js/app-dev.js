@@ -1,9 +1,9 @@
 //"use strict";
 var old_title = '';  
 var redes = "<div><!--Facebook--><div class='fb-share-button' data-type='button_count' data-width='120'></div>";
-redes += "<div><!--Twitter--><a href='https://twitter.com/share' class='twitter-share-button' data-text='#telemedellin' data-lang='es'>Twittear</a><script>!function(d,s,id) {var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)) {js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></div>";
+redes += "<div><!--Twitter--><a href='https://twitter.com/share' class='twitter-share-button' data-text='#telemedellin' data-lang='es'>Twittear</a></div>";
 redes += "<div><!--G+--><div class='g-plusone' data-size='medium'></div></div>";
-redes += "<div><!--Pinterest--><a href='//pinterest.com/pin/create/button/' data-pin-do='buttonBookmark' ><img src='//assets.pinterest.com/images/pidgets/pin_it_button.png' /></a><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = '//connect.facebook.net/es_LA/all.js#xfbml=1&appId=26028648916';fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><script type='text/javascript'>window.___gcfg = {lang: 'es'};(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();</script><script type='text/javascript' src='//assets.pinterest.com/js/pinit.js'></script></div></div>";
+redes += "<div><!--Pinterest--><a href='//pinterest.com/pin/create/button/' data-pin-do='buttonBookmark' ><img src='//assets.pinterest.com/images/pidgets/pin_it_button.png' /></a><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = '//connect.facebook.net/es_LA/all.js#xfbml=1&appId=26028648916';fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><script type='text/javascript'>window.___gcfg = {lang: 'es'};(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();FB.XFBML.parse();window.twttr.widgets.load();</script><script type='text/javascript' src='//assets.pinterest.com/js/pinit.js'></script></div></div>";
 function success_popup(data) {
   switch(data.seccion) {
     case 'Telemedellín':
@@ -27,7 +27,7 @@ function success_popup(data) {
         output = Mustache.render(vista, data);
     modificar_url(data.url, data.seccion);
     old_title = $(document).attr('title');
-    $(document).attr('title', data.seccion + ' - Telemedellín, aquí te');
+    $(document).attr('title', data.seccion + ' - Telemedellín, aquí te ves');
     
     $('#loading').remove();
     $('#container').append(output).fadeIn('slow');
@@ -78,7 +78,7 @@ function cerrar_popup(e) {
       modificar_url(old_url);
     }else
     {
-      modificar_url('/');
+      modificar_url('');
     }
   }
   $(document).attr('title', old_title);
@@ -87,7 +87,6 @@ function cerrar_popup(e) {
 }
 function abrir_multimedia(tipo) {
   if(tipo != ''){
-    //$('a.fancybox.'+tipo).trigger('click');
     var hash = window.location.hash.substr(1),
         destino = '/telemedellin/popup#' + hash;
     $.fancybox.open({
@@ -183,123 +182,120 @@ function accentsTidy(s){
 };
 
 jQuery(function($) {
-  $(document).on('click', '.ajax a', click_popup);
-  $(document).on('click', '#overlay a.close', cerrar_popup);
-  $(document).on('click', '#overlay', v_cerrar_popup);
-  
-  var cf = 0;
-  $("a.fancybox").each(function() {
-    //Capturo el elemento al que se hizo clic
-    var element = this,
-      //Capturo la url que está en la barra del navegador
-      current_url = window.location.href,
-      //Capturo el hash de la url actual
-      current_hash = window.location.hash.substr(1),
-      //Capturo la url del elemento al que se hizo clic           
-      el_url = element.href,
-      destino_url,
-      hash;
-    //if(!current_hash || !current_hash.indexOf('/')) {
-    //Si no existe el hash en la url actual, tomo el hash del enlace
-      var hash_p = el_url.indexOf('#');
-      hash = el_url.substr(hash_p).substr(1);
-    //Asigno la url del elemento a la nueva
-      destino_url = el_url;
-    //}else{
-    //  hash = current_hash;
-    //  destino_url = current_url;
-    //}
-    var destino = '/telemedellin/popup#' + hash;
-    $(this).fancybox({
-      type: "ajax",
-      href: destino,
-      autoSize: false,
-      height: $( window ).height() - ($( window ).height() * 0.10),
-      padding: [9, 20, 9, 20],
-      afterLoad: function(current, previous) {
-          var nombre = "Álbumes";
-          //var pagina = destino_url;
-          var pagina = '#'+hash;
-          //modificar_url(pagina, nombre);
-          if(!nombre) nombre = null;
-          if($('.no-history').length == 0) {
-            var stateObj = { state: nombre };
-            window.history.pushState( stateObj, nombre, pagina );
-          }else{
-            var hashito = pagina.indexOf('#');
-            hashito = pagina.substr(hashito).substr(1);
-            window.location.hash = hashito;
+  var doc   = $(document), 
+      body  = $('body'), 
+      micro = $('#micrositio');
+
+  doc.on('click', '.ajax a', click_popup);
+  doc.on('click', '#overlay a.close', cerrar_popup);
+  doc.on('click', '#overlay', v_cerrar_popup);
+  doc.on('keyup', '#txtFiltro', filtrar);
+  function filtrar(){
+    var table = $(".inner");
+    var value = accentsTidy(this.value);
+    table.find("h2").each(function(index, row) {
+      var allCells = $(row).find("a");
+      if(allCells.length > 0) {
+        var found = false;
+        allCells.each(function(index, a) {
+          var regExp = new RegExp(value, "i");
+          var t = accentsTidy($(a).text());
+          if(regExp.test(t)) {
+            found = true;
+            return false;
           }
-      },
-      afterClose: function() {
-        if($('.no-history').length > 0)
-          window.location.hash = '';
-        modificar_url('#', "Álbumes");
-      },
-      beforeLoad: function() {
-        this.width  = '80%';
-      },
-      beforeShow: function() {
-        if (this.title) {
-          this.title += '<br />';
-        }else{
-          this.title = '';
-        }
-        this.title += redes;
-      },
-      afterShow: function() {
-        // Render tweet button
-        twttr.widgets.load();
-      },
-      helpers : {
-        overlay:{
-          css:{
-            "background" : "rgba(0, 0, 0, .7)"
-          }
-        },
-        title:{
-          type: 'inside'
-        }
+        });
+        if (found == true) $(row).show();
+        else $(row).hide();
       }
     });
-  });
-  verificar_hash();
-
-  var url = $('#yii-feeds-widget-url').val();
-    var limit = $('#yii-feeds-widget-limit').val();
-    var widgetActionUrl = $('#yii-feeds-widget-action-url').val();
-    //send ajax request
-    $.get(widgetActionUrl, {url:url, limit:limit}, function(html){
-        //replace contents of widget div with returned items
-        $('#yii-feed-container').html(html);
-        $(".noticias").bxSlider({
-        slideWidth: 255,
-        /*minSlides: 3,
-        maxSlides: 4,*/
-        pager: false,
-        vaMaxWidth: "85%"
-        //,slideMargin: 7
-      });
-    });
-    $(document).on('keyup', '#txtFiltro', filtrar);
-    function filtrar(){
-      var table = $(".inner");
-      var value = accentsTidy(this.value);
-      table.find("h2").each(function(index, row) {
-        var allCells = $(row).find("a");
-        if(allCells.length > 0) {
-          var found = false;
-          allCells.each(function(index, a) {
-            var regExp = new RegExp(value, "i");
-            var t = accentsTidy($(a).text());
-            if(regExp.test(t)) {
-              found = true;
-              return false;
+  }//filtrar
+  
+  var cf = 0;
+  if(micro[0]){
+    $("a.fancybox").each(function() {
+      //Capturo el elemento al que se hizo clic
+      var element     = this,
+        //Capturo la url que está en la barra del navegador
+        current_url   = window.location.href,
+        //Capturo el hash de la url actual
+        current_hash  = window.location.hash.substr(1),
+        //Capturo la url del elemento al que se hizo clic           
+        el_url        = element.href,
+        hash_p        = el_url.indexOf('#'),
+        hash          = el_url.substr(hash_p).substr(1),
+      //Asigno la url del elemento a la nueva
+        destino_url   = el_url;
+      var destino     = '/telemedellin/popup#' + hash;
+      $(this).fancybox({
+        type: "ajax",
+        href: destino,
+        autoSize: false,
+        height: $( window ).height() - ($( window ).height() * 0.10),
+        padding: [9, 20, 9, 20],
+        afterLoad: function(current, previous) {
+            var nombre = "Álbumes";
+            //var pagina = destino_url;
+            var pagina = '#'+hash;
+            //modificar_url(pagina, nombre);
+            if(!nombre) nombre = null;
+            if($('.no-history').length == 0) {
+              var stateObj = { state: nombre };
+              window.history.pushState( stateObj, nombre, pagina );
+            }else{
+              var hashito = pagina.indexOf('#');
+              hashito = pagina.substr(hashito).substr(1);
+              window.location.hash = hashito;
             }
-          });
-          if (found == true) $(row).show();
-          else $(row).hide();
+        },
+        afterClose: function() {
+          if($('.no-history').length > 0)
+            window.location.hash = '';
+          modificar_url('#', "Álbumes");
+        },
+        beforeLoad: function() {
+          this.width  = '80%';
+        },
+        beforeShow: function() {
+          if (this.title) {
+            this.title += '<br />';
+          }else{
+            this.title = '';
+          }
+          this.title += redes;
+        },
+        afterShow: function() {
+          // Render tweet button
+          twttr.widgets.load();
+        },
+        helpers : {
+          overlay:{
+            css:{
+              "background" : "rgba(0, 0, 0, .7)"
+            }
+          },
+          title:{
+            type: 'inside'
+          }
         }
       });
-    };
+    });
+    verificar_hash();
+  }//if micro[0]
+
+  if(body.hasClass('home')){
+    var url       = $('#yii-feeds-widget-url').val(), 
+      limit       = $('#yii-feeds-widget-limit').val(), 
+      widgetActionUrl = $('#yii-feeds-widget-action-url').val(), 
+      yfContainer   = $('#yii-feed-container'), 
+      noticias    = $(".noticias");
+    $.get(widgetActionUrl, {url:url, limit:limit}, function(html){
+        yfContainer.html(html);
+        noticias.bxSlider({
+        slideWidth: 255,
+        pager: false,
+        vaMaxWidth: "85%"
+      });
+    });
+  }//if body.hasClass('home')
 });
