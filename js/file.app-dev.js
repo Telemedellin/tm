@@ -175,10 +175,12 @@ jQuery(function($) {
             this.carpetaList.fetch({data: {pagina_id: this.pagina_id} });
             this.carpetaListView = new CarpetaListView({collection:this.carpetaList, model: this.pagina});
             $('#ccontainer').html(this.carpetaListView.render().el);
+            ga_track();
         },
         listarCarpeta: function (a1, a2, a3, a4, a5) {
             console.log('listarCarpeta');
-            $('#container').append('<div id="loading"><span class="spinner"></span></div>').fadeIn('slow');
+            var cc = $('#ccontainer');
+            cc.append('<div id="loading"><span class="spinner"></span></div>').fadeIn('slow');
             this.carpetaList = new CarpetaCollection();
             this.carpetaList.fetch( {
                 data: {
@@ -199,12 +201,13 @@ jQuery(function($) {
             this.carpetaListView = new CarpetaListView( {collection:this.carpetaList, model: this.pagina} );
             this.archivoListView = new ArchivoListView( {collection:this.archivoList, model: this.pagina} );
             if ($("#archivos").length == 0){
-                $('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
+                cc.html('<a href="#archivos" class="back">Volver</a>');
             }else{
                 console.log('Ya estaba el back');
             }
-            $('#ccontainer').append(this.carpetaListView.render().el);
-            $('#ccontainer').append(this.archivoListView.render().el);
+            cc.append(this.carpetaListView.render().el);
+            cc.append(this.archivoListView.render().el);
+            ga_track();
         }
     });
     var app = new AppRouter();
@@ -239,4 +242,9 @@ function back(e){
     window.location.hash = newhash;
     //modificar_url(window.location.href + '#' + newhash);
     e.preventDefault();
+}
+function ga_track(){
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-5650687-11']);
+    _gaq.push(['_trackPageview']);
 }

@@ -5,7 +5,7 @@
 	<meta name="language" content="es" />
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css'); ?>/styles.admin.min.css" />
 	<link rel="shortcut icon" href="<?php echo bu('/favicon.ico')?>" />
 	<title><?php echo h($this->pageTitle); ?> - Telemedellín</title>
@@ -92,7 +92,7 @@
 cs()->coreScriptPosition = CClientScript::POS_END;
 cs()->registerCoreScript('jquery');
 ?>
-<?php cs()->registerScriptFile('http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js', CClientScript::POS_END) ?>
+<?php cs()->registerScriptFile('http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js', CClientScript::POS_END) ?>
 <?php cs()->registerScriptFile(bu('/js/admin.libs.min.js'), CClientScript::POS_END); ?>
 <?php cs()->registerScriptFile(bu('/js/admin-dev.js'), CClientScript::POS_END); ?>
 </body>

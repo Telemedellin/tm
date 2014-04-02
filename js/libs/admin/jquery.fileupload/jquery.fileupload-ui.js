@@ -69,9 +69,11 @@
 
             // Callback to retrieve the list of files from the server response:
             getFilesFromResponse: function (data) {
-                if (data.result && ($.isArray(data.result.files) || $.isArray(data.result.archivoImagen) || $.isArray(data.result.archivoMiniatura) )) {
+                if (data.result && ($.isArray(data.result.files) || $.isArray(data.result.archivoImagen) || $.isArray(data.result.archivoMiniatura) || $.isArray(data.result.archivoImagenMobile) )) {
                     if( $.isArray(data.result.archivoImagen) )
                         return data.result.archivoImagen;
+                    if( $.isArray(data.result.archivoImagenMobile) )
+                        return data.result.archivoImagenMobile;
                     if( $.isArray(data.result.archivoMiniatura) )
                         return data.result.archivoMiniatura;
                     if( $.isArray(data.result.files) )

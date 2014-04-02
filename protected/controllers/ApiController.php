@@ -85,7 +85,7 @@ class ApiController extends Controller
 				$json .= '"micrositio":"'.CHtml::encode($videoalbum->micrositio_id).'",';
 				$json .= '"nombre":"'.CHtml::encode($videoalbum->nombre).'",';
 				$json .= '"url":"'.$videoalbum->url->slug.'",';
-				$json .= '"thumb":"'.$videoalbum->thumb.'"';
+				$json .= '"thumb":"'.bu('images/'.$videoalbum->thumb).'"';
 			$json .= '},';
 			endforeach;
 			$json = substr($json, 0, -1);

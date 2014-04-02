@@ -3,7 +3,7 @@ jQuery(function($) {
         "themes" : {
             "theme" : "default",
             "dots"  : true,
-            "icons" : true
+            "icons" : false
         },
         "plugins" : [ "themes", "html_data" ]
     });
@@ -43,6 +43,39 @@ jQuery(function($) {
 
     // Load existing files:
     $('#imagen').addClass('fileupload-processing');
+
+    // Initialize the jQuery File Upload widget:
+    $('#imagen_mobile').fileupload({        
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: PUBLIC_PATH + '/administrador/novedades/imagen_mobile',
+        maxNumberOfFiles: 0,
+        previewMaxWidth: 200,
+        previewMaxHeight: 200,
+        imageCrop: true,     
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        paramName: 'archivoImagenMobile', 
+        messages: {
+            maxNumberOfFiles: 'Solo se permite una imagen',
+            acceptFileTypes: 'No se acepta este tipo de archivo',
+            maxFileSize: 'El archivo es muy pesado',
+            minFileSize: 'El archivo no tiene peso suficiente'
+        },
+    }).bind('fileuploaddone', function(e, data){
+        $('#archivoImagenMobileH').attr('value', data.result.archivoImagenMobile[0].name);
+    });
+    // Enable iframe cross-domain access via redirect option:
+    $('#imagen_mobile').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+
+    // Load existing files:
+    $('#imagen_mobile').addClass('fileupload-processing');
 
     // Initialize the jQuery File Upload widget:
     $('#miniatura').fileupload({        
@@ -111,6 +144,39 @@ jQuery(function($) {
     $('#imagen_concurso').addClass('fileupload-processing');
 
     // Initialize the jQuery File Upload widget:
+    $('#imagen_mobile_concurso').fileupload({        
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: PUBLIC_PATH + '/administrador/concursos/imagen_mobile',
+        maxNumberOfFiles: 0,
+        previewMaxWidth: 200,
+        previewMaxHeight: 200,
+        imageCrop: true,     
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        paramName: 'archivoImagenMobile', 
+        messages: {
+            maxNumberOfFiles: 'Solo se permite una imagen',
+            acceptFileTypes: 'No se acepta este tipo de archivo',
+            maxFileSize: 'El archivo es muy pesado',
+            minFileSize: 'El archivo no tiene peso suficiente'
+        },
+    }).bind('fileuploaddone', function(e, data){
+        $('#archivoImagenMobileH').attr('value', data.result.archivoImagenMobile[0].name);
+    });
+    // Enable iframe cross-domain access via redirect option:
+    $('#imagen_mobile_concurso').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+
+    // Load existing files:
+    $('#imagen_mobile_concurso').addClass('fileupload-processing');
+
+    // Initialize the jQuery File Upload widget:
     $('#miniatura_concurso').fileupload({        
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
@@ -175,6 +241,39 @@ jQuery(function($) {
 
     // Load existing files:
     $('#imagen_programa').addClass('fileupload-processing');
+
+    // Initialize the jQuery File Upload widget:
+    $('#imagen_mobile_programa').fileupload({        
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: PUBLIC_PATH + '/administrador/programas/imagen_mobile',
+        maxNumberOfFiles: 0,
+        previewMaxWidth: 200,
+        previewMaxHeight: 200,
+        imageCrop: true,     
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        paramName: 'archivoImagenMobile', 
+        messages: {
+            maxNumberOfFiles: 'Solo se permite una imagen',
+            acceptFileTypes: 'No se acepta este tipo de archivo',
+            maxFileSize: 'El archivo es muy pesado',
+            minFileSize: 'El archivo no tiene peso suficiente'
+        },
+    }).bind('fileuploaddone', function(e, data){
+        $('#archivoImagenMobileH').attr('value', data.result.archivoImagenMobile[0].name);
+    });
+    // Enable iframe cross-domain access via redirect option:
+    $('#imagen_mobile_programa').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+
+    // Load existing files:
+    $('#imagen_mobile_programa').addClass('fileupload-processing');
 
     // Initialize the jQuery File Upload widget:
     $('#miniatura_programa').fileupload({        
@@ -245,6 +344,39 @@ jQuery(function($) {
     $('#imagen_documental').addClass('fileupload-processing');
 
     // Initialize the jQuery File Upload widget:
+    $('#imagen_mobile_documental').fileupload({        
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: PUBLIC_PATH + '/administrador/documentales/imagen_mobile',
+        maxNumberOfFiles: 0,
+        previewMaxWidth: 200,
+        previewMaxHeight: 200,
+        imageCrop: true,     
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        paramName: 'archivoImagenMobile', 
+        messages: {
+            maxNumberOfFiles: 'Solo se permite una imagen',
+            acceptFileTypes: 'No se acepta este tipo de archivo',
+            maxFileSize: 'El archivo es muy pesado',
+            minFileSize: 'El archivo no tiene peso suficiente'
+        },
+    }).bind('fileuploaddone', function(e, data){
+        $('#archivoImagenMobileH').attr('value', data.result.archivoImagenMobile[0].name);
+    });
+    // Enable iframe cross-domain access via redirect option:
+    $('#imagen_mobile_documental').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+
+    // Load existing files:
+    $('#imagen_mobile_documental').addClass('fileupload-processing');
+
+    // Initialize the jQuery File Upload widget:
     $('#miniatura_documental').fileupload({        
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
@@ -309,6 +441,39 @@ jQuery(function($) {
 
     // Load existing files:
     $('#imagen_especial').addClass('fileupload-processing');
+
+    // Initialize the jQuery File Upload widget:
+    $('#imagen_mobile_especial').fileupload({        
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: PUBLIC_PATH + '/administrador/especiales/imagen_mobile',
+        maxNumberOfFiles: 0,
+        previewMaxWidth: 200,
+        previewMaxHeight: 200,
+        imageCrop: true,     
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        paramName: 'archivoImagenMobile', 
+        messages: {
+            maxNumberOfFiles: 'Solo se permite una imagen',
+            acceptFileTypes: 'No se acepta este tipo de archivo',
+            maxFileSize: 'El archivo es muy pesado',
+            minFileSize: 'El archivo no tiene peso suficiente'
+        },
+    }).bind('fileuploaddone', function(e, data){
+        $('#archivoImagenMobileH').attr('value', data.result.archivoImagenMobile[0].name);
+    });
+    // Enable iframe cross-domain access via redirect option:
+    $('#imagen_especial').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+
+    // Load existing files:
+    $('#imagen_mobile_especial').addClass('fileupload-processing');
 
     // Initialize the jQuery File Upload widget:
     $('#miniatura_especial').fileupload({        
@@ -388,7 +553,7 @@ jQuery(function($) {
         previewMaxHeight: 200,
         imageCrop: true,     
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-        paramName: 'archivoImagenPa', 
+        paramName: 'archivoImagen', 
         messages: {
             maxNumberOfFiles: 'Solo se permite una imagen',
             acceptFileTypes: 'No se acepta este tipo de archivo',
@@ -396,7 +561,7 @@ jQuery(function($) {
             minFileSize: 'El archivo no tiene peso suficiente'
         },
     }).bind('fileuploaddone', function(e, data){
-        $('#archivoImagenPaH').attr('value', data.result.archivoImagenPa[0].name);
+        $('#archivoImagenH').attr('value', data.result.archivoImagen[0].name);
     });
     // Enable iframe cross-domain access via redirect option:
     $('#imagen_pagina').fileupload(
@@ -411,6 +576,38 @@ jQuery(function($) {
     $('#imagen_pagina').addClass('fileupload-processing');
 
     // Initialize the jQuery File Upload widget:
+    $('#imagen_mobile_pagina').fileupload({        
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: PUBLIC_PATH + '/administrador/pagina/imagen_mobile',
+        maxNumberOfFiles: 0,
+        previewMaxWidth: 200,
+        previewMaxHeight: 200,
+        imageCrop: true,     
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        paramName: 'archivoImagenMobile', 
+        messages: {
+            maxNumberOfFiles: 'Solo se permite una imagen',
+            acceptFileTypes: 'No se acepta este tipo de archivo',
+            maxFileSize: 'El archivo es muy pesado',
+            minFileSize: 'El archivo no tiene peso suficiente'
+        },
+    }).bind('fileuploaddone', function(e, data){
+        $('#archivoImagenMobileH').attr('value', data.result.archivoImagenMobile[0].name);
+    });
+    // Enable iframe cross-domain access via redirect option:
+    $('#imagen_mobile_pagina').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+    // Load existing files:
+    $('#imagen_mobile_pagina').addClass('fileupload-processing');
+
+    // Initialize the jQuery File Upload widget:
     $('#miniatura_pagina').fileupload({        
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
@@ -420,7 +617,7 @@ jQuery(function($) {
         previewMaxHeight: 200,
         imageCrop: true,     
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-        paramName: 'archivoMiniaturaPa', 
+        paramName: 'archivoMiniatura', 
         messages: {
             maxNumberOfFiles: 'Solo se permite una imagen',
             acceptFileTypes: 'No se acepta este tipo de archivo',
@@ -428,7 +625,7 @@ jQuery(function($) {
             minFileSize: 'El archivo no tiene peso suficiente'
         }
     }).bind('fileuploaddone', function(e, data){
-        $('#archivoMiniaturaPaH').attr('value', 'thumbnail/'+data.result.archivoMiniaturaPa[0].name);
+        $('#archivoMiniaturaH').attr('value', 'thumbnail/'+data.result.archivoMiniatura[0].name);
     });
     // Enable iframe cross-domain access via redirect option:
     $('#miniatura_pagina').fileupload(
