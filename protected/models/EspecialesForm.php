@@ -13,6 +13,7 @@ class EspecialesForm extends CFormModel
 	public $lugar;
 	public $presentadores;
 	public $imagen;
+	public $imagen_mobile;
 	public $miniatura;
 	public $destacado;
 	public $estado;
@@ -25,7 +26,7 @@ class EspecialesForm extends CFormModel
 		return array(
 			// name, email, subject and body are required
 			array('nombre, resena', 'required'),
-			array('lugar, presentadores, imagen, miniatura', 'length', 'max'=>255),
+			array('lugar, presentadores, imagen, imagen_mobile, miniatura', 'length', 'max'=>255),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
 	}
@@ -42,6 +43,7 @@ class EspecialesForm extends CFormModel
 			'lugar' => 'Lugar (Opcional)',
 			'presentadores' => 'Presentadores (Opcional)',
 			'imagen' => 'Imagen',
+			'imagen_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Imagen Miniatura',
 			'estado' => 'Publicado',
 		);

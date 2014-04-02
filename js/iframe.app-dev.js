@@ -16,7 +16,13 @@ function makeTitle(slug) {
 
     return words.join(' ');
 }
+function ga_track(){
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-5650687-11']);
+    _gaq.push(['_trackPageview']);
+}
 jQuery(function($) {
+    window.mobile = $('#icontainer').hasClass('mobile');
     window.cv = 0;
     window.cva = 0;
     window.slider;
@@ -158,11 +164,10 @@ jQuery(function($) {
             var fliv = new FotoListItemView({model:foto});
             $('.fotos').append(fliv.render().el);
             if(foto.attributes.url == '#'+Backbone.history.fragment){
+                if(window.mobile) $('.foto a.' + foto.attributes.id).swipebox();
                 $('.foto a.' + foto.attributes.id).trigger('click');
-            }
-            
-            if(window.c <= 0){
-                console.log(window.c);
+            }            
+            if(window.c <= 0 && !window.mobile){
                 $('.foto a.' + foto.attributes.id).trigger('click').addClass('current');;
             }
             window.c += 1;
@@ -188,22 +193,31 @@ jQuery(function($) {
             if(e.currentTarget.dataset !== undefined) {
                 var src = e.currentTarget.dataset.src;
                 var nombre = e.currentTarget.dataset.nombre;
+                var url = e.currentTarget.dataset.url;
             } else {
                 var src = e.currentTarget.getAttribute('data-src');
                 var nombre = e.currentTarget.getAttribute('data-nombre');
+                var url = e.currentTarget.getAttribute('data-url');
             }
             $('.foto a').removeClass('current');
             $(e.currentTarget).addClass('current');
-            $('.full').fadeOut('fast', function(){
-                $('.full').html('<img src="' + src + '" /><h2>'+nombre+'</h2>').fadeIn('fast');
-            });
-            modificar_url(e.currentTarget.href, nombre);
-            $('<div class="expander"></div>').appendTo('.full').fadeIn('slow').click(function() {
-                if (screenfull.enabled) {
-                    screenfull.toggle( $('.fancybox-outer')[0] );
-                    $('.fancybox-outer').toggleClass('fullscreen');
-                }
-            });
+            if(window.mobile)
+            {
+                modificar_url(url, nombre);                
+            }
+            else
+            {
+                $('.full').fadeOut('fast', function(){
+                    $('.full').html('<img src="' + src + '" /><h2>'+nombre+'</h2>').fadeIn('fast').append('<div class="expander" />');
+                    $('.expander').on('click', function() {
+                        if (screenfull.enabled) {
+                            screenfull.toggle( $('.fancybox-outer')[0] );
+                            $('.fancybox-outer').toggleClass('fullscreen');
+                        }
+                    });
+                });
+                modificar_url(e.currentTarget.href, nombre);
+            }            
             e.preventDefault();
         }
     });
@@ -212,9 +226,7 @@ jQuery(function($) {
         template: template('videoalbumListViewTemplate'),
         initialize:function () {
             this.collection.bind("reset", this.render, this);
-            //this.collection.bind("add", this.render, this);
             this.collection.bind("add", this.add, this);
-            //this.render();
         },
         render:function (eventName) {
             this.$el.empty();
@@ -259,15 +271,15 @@ jQuery(function($) {
             return this;
         },
         add: function(video){
-            var vliv = new VideoListItemView({model:video});
+            var vliv    = new VideoListItemView({model:video});
             $('.ivideos').append(vliv.render().el).fadeIn('slow');
             if(video.attributes.url == '#'+Backbone.history.fragment){
                 $('.video a.' + video.attributes.id).trigger('click');
             }
-            if(window.cv <= 0){
+            if(window.cv <= 0 && !window.mobile){
                 $('.video a.' + video.attributes.id).trigger('click');
-                console.log('disparado el video ' + video.attributes.id);
             }
+        
             window.cv += 1;
         }
     });
@@ -288,6 +300,7 @@ jQuery(function($) {
             $(this.el).remove();
         },
         ver: function (e) {
+            var full = $('.full');
             if(e.currentTarget.dataset !== undefined) {
                 var pv = e.currentTarget.dataset.pv,
                     id_video = e.currentTarget.dataset.id_video,
@@ -297,15 +310,18 @@ jQuery(function($) {
                     id_video = e.currentTarget.getAttribute('data-id_video'),
                     nombre = e.currentTarget.getAttribute('data-nombre');
             }
-            var full = $('.full');
             if(pv == 'Youtube'){
                 full.fadeOut('fast', function(){
-                    full.html('<iframe src="http://www.youtube.com/embed/'+id_video+'?rel=0" type="text/html" height="85%" width="90%" frameborder="0"></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
+                    full.html('<iframe src="http://www.youtube.com/embed/'+id_video+'?rel=0" type="text/html" height="85%" width="90%" frameborder="0"></iframe><h2>'+nombre+'</h2><div class="descripcion"></div>').fadeIn('fast');
                 });
             }else if(pv == 'Vimeo'){
                 full.fadeOut('fast', function(){
-                    full.html('<iframe src="http://player.vimeo.com/video/'+id_video+'" height="85%" width="90%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+nombre+'</h2>').fadeIn('fast');
+                    full.html('<iframe src="http://player.vimeo.com/video/'+id_video+'" height="85%" width="90%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe><h2>'+nombre+'</h2><div class="descripcion"></div>').fadeIn('fast');
                 });
+            }
+            if(window.mobile)
+            {
+                $('body').scrollTop(200);
             }
             modificar_url(e.currentTarget.href, nombre);
             e.preventDefault();
@@ -335,6 +351,7 @@ jQuery(function($) {
             this.albumList = new AlbumCollection();
             this.albumList.fetch({data: {micrositio_id: this.micrositio_id} });
             this.albumListView = new AlbumListView({collection:this.albumList, model: this.micrositio});
+            ga_track();
             $('#icontainer').html(this.albumListView.render().el);
         },
         listarFotos: function (album, foto) {
@@ -348,18 +365,42 @@ jQuery(function($) {
                     success: function(){
                         var full = $('.full'),
                             alto = $('.fancybox-inner').height();
-                        full.css('height', (alto - 180) );
-                        $('#icontainer .galeria .full img').css('max-height', (alto - 228));
-                        if($(".fotos li").length > 8){
-                            window.slider = $('.fotos').bxSlider({
-                                pager: false,
-                                minSlides: 1,
-                                maxSlides: 15,
-                                slideWidth: 100,
-                                slideMargin: 8,
-                                viewportWidth: '94%'
+                        ga_track();
+                        if(!window.mobile)
+                        {
+                            full.css('height', (alto - 180) );
+                            $('#icontainer .galeria .full img').css('max-height', (alto - 228));
+                            if($(".fotos li").length > 8){
+                                window.slider = $('.fotos').bxSlider({
+                                    pager: false,
+                                    minSlides: 1,
+                                    maxSlides: 15,
+                                    slideWidth: 100,
+                                    slideMargin: 8,
+                                    viewportWidth: '94%'
+                                });
+                            }
+                        }else
+                        {
+                            $('.swb').swipebox();
+                            $('.swb').on('swipebox-change', function(){
+                                var c = $( '.swb.current' );
+                                if(c.dataset !== undefined) {
+                                    var nombre = c.dataset.nombre;
+                                    var url = c.dataset.url;
+                                } else {
+                                    var nombre = c.attr('data-nombre');
+                                    var url = c.attr('data-url');
+                                }
+                                modificar_url(url, nombre);
                             });
+                            var hash = window.location.hash;
+                            $('.swb').on('swipebox-desroy', function(){
+                                modificar_url(hash);
+                            });
+
                         }
+                        
                     }
                 } 
             );
@@ -376,6 +417,7 @@ jQuery(function($) {
             this.videoalbumList.fetch({reset:true, data: {micrositio_id: this.micrositio_id} });
             this.videoalbumListView = new VideoAlbumListView({collection:this.videoalbumList, model: this.micrositio});
             $('#icontainer').html(this.videoalbumListView.render().el);
+            ga_track();
         },
         listarVideos: function (videoalbum, video) {
             this.videolist = new VideoCollection();
@@ -386,16 +428,25 @@ jQuery(function($) {
                         micrositio: this.micrositio_id
                     },
                     success: function(){
-                        var full = $('.full'),
-                            alto = $('.fancybox-inner').height();
-                        full.css('height', (alto/1.6) );
-                        $(".ivideos").wrap('<div id="scroll" style="height: '+(alto/4)+'px;"/>');
-                        if($("#scroll").hasClass('mCustomScrollbar'))
+                        var full    = $('.full'),
+                            alto    = $('.fancybox-inner').height(), 
+                            ivideos = $(".ivideos");
+                            ga_track();
+                        if(!window.mobile)
                         {
-                            $("#scroll").mCustomScrollbar('update');
+                            full.css('height', (alto/1.6) );
+                            ivideos.wrap('<div id="scroll" style="height: '+(alto/1.2)+'px;"/>');
+                        }
+                        else
+                            ivideos.addClass('full-list');
+                        var scroll  = $("#scroll");
+                        
+                        if(scroll.hasClass('mCustomScrollbar'))
+                        {
+                            scroll.mCustomScrollbar('update');
                         }else
                         {
-                            $("#scroll").mCustomScrollbar({
+                            scroll.mCustomScrollbar({
                                 scrollType: "pixels",
                                 scrollButtons: {
                                     enable: true

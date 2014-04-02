@@ -60,12 +60,12 @@ class Micrositio extends CActiveRecord
 		return array(
 			array('nombre, seccion_id, usuario_id, url_id, creado, estado, destacado', 'required'),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true),
-			array('nombre, background, miniatura', 'length', 'max'=>255),
+			array('nombre, background, background_mobile, miniatura', 'length', 'max'=>255),
 			array('seccion_id, usuario_id, url_id, pagina_id, menu_id', 'length', 'max'=>10),
 			array('modificado', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nombre, seccion_id, usuario_id, url_id, pagina_id, menu_id, background, miniatura, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
+			array('id, nombre, seccion_id, usuario_id, url_id, pagina_id, menu_id, background, background_mobile, miniatura, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -104,6 +104,7 @@ class Micrositio extends CActiveRecord
 			'pagina_id' => 'Página',
 			'menu_id' => 'Menu',
 			'background' => 'Imagen',
+			'background_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Imagen miniatura',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
@@ -131,6 +132,7 @@ class Micrositio extends CActiveRecord
 		$criteria->compare('pagina_id',$this->pagina_id,true);
 		$criteria->compare('menu_id',$this->menu_id,true);
 		$criteria->compare('background',$this->background,true);
+		$criteria->compare('background_mobile',$this->background_mobile,true);
 		$criteria->compare('miniatura',$this->miniatura,true);
 		$criteria->compare('creado',$this->creado,true);
 		$criteria->compare('modificado',$this->modificado,true);

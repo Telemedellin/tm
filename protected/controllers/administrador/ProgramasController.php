@@ -28,7 +28,7 @@ class ProgramasController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'miniatura', 'crear','update', 'delete'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -44,6 +44,11 @@ class ProgramasController extends Controller
                 'class'=>'application.components.actions.SubirArchivo',
                 'directorio' => 'images/backgrounds/programas/',
                 'param_name' => 'archivoImagen'
+            ),
+            'imagen_mobile'=>array(
+                'class'=>'application.components.actions.SubirArchivo',
+                'directorio' => 'images/backgrounds/programas/',
+                'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
@@ -150,6 +155,7 @@ class ProgramasController extends Controller
 	{
 		$micrositio = Micrositio::model()->findByPk($id);
 		$imagen = $micrositio->background;
+		$imagen_mobile = $micrositio->background_mobile;
 		$miniatura = $micrositio->miniatura;
 		$url_id = $micrositio->url_id;
 		$micrositio->pagina_id = null;
@@ -177,6 +183,7 @@ class ProgramasController extends Controller
 
 				if($micrositio->delete()){
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen_mobile);
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
 					//Borrar url de micrositio
 					$url = Url::model()->findByPk($url_id);
@@ -230,6 +237,7 @@ class ProgramasController extends Controller
 				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $programasForm->nombre;
 				$micrositio->background 	= ($programassForm->imagen != '')?$dirp . $programassForm->imagen:NULL;
+				$micrositio->background_mobile 	= ($programassForm->imagen_mobile != '')?$dirp . $programassForm->imagen_mobile:NULL;
 				$micrositio->miniatura 		= ($programasForm->miniatura)?$dirp . 'thumbnail/' . $programasForm->miniatura:NULL;
 				$micrositio->destacado		= $programasForm->destacado;
 				if($programasForm->estado > 0) $estado = 1;
@@ -359,6 +367,11 @@ class ProgramasController extends Controller
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
 					$micrositio->background 	= ($programasForm->imagen != '')?$dirp . $programasForm->imagen:NULL;
 				}
+				if($programasForm->imagen_mobile != $micrositio->background_mobile)
+				{
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background_mobile);
+					$micrositio->background_mobile 	= ($programasForm->imagen_mobile != '')?$dirp . $programasForm->imagen_mobile:NULL;
+				}
 				if($programasForm->miniatura != $micrositio->miniatura)
 				{
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
@@ -437,6 +450,7 @@ class ProgramasController extends Controller
 		$programasForm->nombre = $micrositio->nombre;
 		$programasForm->resena = $pagina->pgProgramas->resena;
 		$programasForm->imagen = $micrositio->background;
+		$programasForm->imagen_mobile = $micrositio->background_mobile;
 		$programasForm->miniatura = $micrositio->miniatura;
 		$programasForm->formulario = $formulario->pgFormularioJfs->formulario_id;
 		$programasForm->estado = $pagina->pgProgramas->estado;

@@ -28,7 +28,7 @@ class NovedadesController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'miniatura', 'crear','update', 'delete'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -44,6 +44,11 @@ class NovedadesController extends Controller
                 'class'=>'application.components.actions.SubirArchivo',
                 'directorio' => 'images/novedades/' . date('Y') . '/' . date('m') . '/',
                 'param_name' => 'archivoImagen'
+            ),
+            'imagen_mobile'=>array(
+                'class'=>'application.components.actions.SubirArchivo',
+                'directorio' => 'images/novedades/' . date('Y') . '/' . date('m') . '/',
+                'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
@@ -111,6 +116,7 @@ class NovedadesController extends Controller
 		//Borrar pgArticuloBlog
 		$pgAB = PgArticuloBlog::model()->findByAttributes(array('pagina_id' => $id));
 		$imagen = $pgAB->imagen;
+		$imagen_mobile = $pgAB->imagen_mobile;
 		$miniatura = $pgAB->miniatura;
 		$transaccion = $pgAB->dbConnection->beginTransaction();
 		if( $pgAB->delete() )
@@ -126,6 +132,7 @@ class NovedadesController extends Controller
 					$transaccion->commit();
 					//Borrar Archivos
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen_mobile);
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
 					Yii::app()->user->setFlash('mensaje', 'Novedad ' . $nombre . ' eliminada');
 				}else{
@@ -186,6 +193,7 @@ class NovedadesController extends Controller
 				$pgAB->texto 		= $novedadesForm->texto;
 				$pgAB->enlace 		= $novedadesForm->enlace;
 				$pgAB->imagen 		= $dir . $novedadesForm->imagen;
+				$pgAB->imagen_mobile = $dir . $novedadesForm->imagen_mobile;
 				$pgAB->posicion 	= $novedadesForm->posicion;
 				$pgAB->miniatura 	= $dir . $novedadesForm->miniatura;
 				$pgAB->estado 		= ($novedadesForm->estado)?1:0;
@@ -256,6 +264,11 @@ class NovedadesController extends Controller
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pgAB->imagen);
 					$pgAB->imagen 	= $dir . $novedadesForm->imagen;
 				}
+				if($novedadesForm->imagen_mobile != $pgAB->imagen_mobile)
+				{
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pgAB->imagen_mobile);
+					$pgAB->imagen_mobile 	= $dir . $novedadesForm->imagen_mobile;
+				}
 				if($novedadesForm->miniatura != $pgAB->miniatura)
 				{
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pgAB->miniatura);
@@ -289,6 +302,7 @@ class NovedadesController extends Controller
 		$novedadesForm->texto = $pagina->pgArticuloBlogs->texto;
 		$novedadesForm->enlace = $pagina->pgArticuloBlogs->enlace;
 		$novedadesForm->imagen = $pagina->pgArticuloBlogs->imagen;
+		$novedadesForm->imagen_mobile = $pagina->pgArticuloBlogs->imagen_mobile;
 		$novedadesForm->miniatura = $pagina->pgArticuloBlogs->miniatura;
 		$novedadesForm->posicion = $pagina->pgArticuloBlogs->posicion;
 		$novedadesForm->estado = $pagina->estado;

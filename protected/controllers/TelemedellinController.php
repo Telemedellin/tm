@@ -103,6 +103,11 @@ class TelemedellinController extends Controller
 			$this->renderPartial( 'json_telemedellin', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 			Yii::app()->end();
 		}
+		elseif( $this->theme != 'pc' )
+		{
+			$this->pageTitle = 'Telemedellín';
+			$this->render('seccion', array('seccion' => $seccion, 'micrositios' => $micrositios));
+		}
 		else 
 		{
 			$datos = $this->renderPartial( 'json_telemedellin', array('seccion' => $seccion, 'micrositios' => $micrositios), true );
@@ -127,6 +132,11 @@ class TelemedellinController extends Controller
 			header('Content-Type: application/json; charset="UTF-8"');
 			$this->renderPartial( 'json_programas', array('seccion' => $seccion, 'micrositios' => $micrositios) );
 			Yii::app()->end();
+		}
+		elseif( $this->theme != 'pc' )
+		{
+			$this->pageTitle = 'Programas';
+			$this->render('programas', array('seccion' => $seccion, 'micrositios' => $micrositios));
 		}
 		else 
 		{
@@ -170,6 +180,11 @@ class TelemedellinController extends Controller
 			$this->renderPartial( 'json_documentales', array('seccion' => $seccion, 'recientes' => $recientes, 'micrositios' => $micrositios) );
 			Yii::app()->end();
 		}
+		elseif( $this->theme != 'pc' )
+		{
+			$this->pageTitle = 'Documentales y especiales periodísticos';
+			$this->render('seccion', array('seccion' => $seccion, 'micrositios' => $micrositios));
+		}
 		else 
 		{
 			$datos = $this->renderPartial( 'json_documentales', array('seccion' => $seccion, 'recientes' => $recientes, 'micrositios' => $micrositios), true );
@@ -177,7 +192,7 @@ class TelemedellinController extends Controller
 				'success_popup(' . $datos . ');',
 				CClientScript::POS_READY
 			);
-			$this->pageTitle = 'Documentales';
+			$this->pageTitle = 'Documentales y especiales periodísticos';
 			$this->render('index');
 		}
 	}
@@ -215,6 +230,11 @@ class TelemedellinController extends Controller
 			$this->renderPartial( 'json_documentales', 
 				array('seccion' => $seccion, 'recientes' => $recientes, 'micrositios' => $micrositios) );
 			Yii::app()->end();
+		}
+		elseif( $this->theme != 'pc' )
+		{
+			$this->pageTitle = 'Especiales';
+			$this->render('seccion', array('seccion' => $seccion, 'recientes' => $recientes, 'micrositios' => $micrositios));
 		}
 		else 
 		{
@@ -293,7 +313,19 @@ class TelemedellinController extends Controller
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
 		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
-		$fondo_pagina = (isset($pagina['contenido']->imagen) && !is_null($pagina['contenido']->imagen))?$pagina['contenido']->imagen:'';
+		if(isset($pagina['contenido']->imagen) && !is_null($pagina['contenido']->imagen))
+		{
+			$fondo_pagina = $pagina['contenido']->imagen;
+		}elseif($this->theme != 'pc' && !empty($micrositio->background_mobile))
+		{
+			$fondo_pagina = $micrositio->background_mobile;
+		}elseif(!empty($micrositio->background))
+		{
+			$fondo_pagina = $micrositio->background;
+		}else
+		{
+			$fondo_pagina = 'backgrounds/generica-interna-1.jpg';
+		}
 
 		$this->render( 
 			'micrositio', 
@@ -406,6 +438,7 @@ class TelemedellinController extends Controller
 
 			$sts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 			$tts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+			if( $sts == mktime(0, 0, 0, 3, 24, date('Y')) ) continue;
 
 			// set current date
 			// parse about any English textual datetime description into a Unix timestamp

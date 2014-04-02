@@ -13,6 +13,7 @@ class DocumentalesForm extends CFormModel
 	public $duracion;
 	public $anio;
 	public $imagen;
+	public $imagen_mobile;
 	public $miniatura;
 	public $destacado;
 	public $estado;
@@ -25,7 +26,7 @@ class DocumentalesForm extends CFormModel
 		return array(
 			// name, email, subject and body are required
 			array('nombre, sinopsis, duracion, anio', 'required'),
-			array('imagen, miniatura', 'length', 'max'=>255),
+			array('imagen, imagen_mobile, miniatura', 'length', 'max'=>255),
 			array('duracion, anio, estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
 	}
@@ -42,6 +43,7 @@ class DocumentalesForm extends CFormModel
 			'duracion' => 'Duración',
 			'anio' => 'Año',
 			'imagen' => 'Imagen',
+			'imagen_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Imagen Miniatura',
 			'estado' => 'Publicado',
 		);

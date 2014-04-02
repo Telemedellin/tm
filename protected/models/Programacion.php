@@ -119,7 +119,7 @@ class Programacion extends CActiveRecord
 
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM programacion WHERE hora_inicio > " . $timestamp . " AND hora_inicio < " . ($timestamp + 86400) ." AND estado <> 0");
 
-		return $this->cache(3600, $dependencia)->with('micrositio')->findAll( $c );
+		return $this->cache(21600, $dependencia)->with('micrositio')->findAll( $c );
 	}
 
 	public function getCurrent()

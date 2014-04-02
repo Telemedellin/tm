@@ -72,7 +72,7 @@ class YiiFeedWidgetController extends CExtController
      * 
      * @return null; 
      */
-    public function actionGetFeed($url, $limit) 
+    public function actionGetFeed($url, $limit, $layout = 'pc') 
     {
         
 
@@ -98,7 +98,7 @@ class YiiFeedWidgetController extends CExtController
 
         $items = $feed->get_items(0, (int) $limit );
 
-        $this->renderPartial('ext.yii-feed-widget.views._YiiFeeds', array('items' => $items));
+        $this->renderPartial('ext.yii-feed-widget.views._YiiFeeds', array('items' => $items, 'layout'=> $layout));
         
     }
 

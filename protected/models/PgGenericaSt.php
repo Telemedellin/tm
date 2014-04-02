@@ -39,7 +39,7 @@ class PgGenericaSt extends CActiveRecord
 		return array(
 			array('texto', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
-			array('imagen, miniatura', 'length', 'max'=>255),
+			array('imagen, imagen_mobile, miniatura', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, texto, estado', 'safe', 'on'=>'search'),
@@ -68,6 +68,7 @@ class PgGenericaSt extends CActiveRecord
 			'pagina_id' => 'Página', 
 			'texto' => 'Texto',
 			'imagen' => 'Imagen de fondo',
+			'imagen_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Miniatura',
 			'estado' => 'Publicado',
 		);
@@ -87,6 +88,7 @@ class PgGenericaSt extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('texto',$this->texto,true);
 		$criteria->compare('imagen',$this->imagen,true);
+		$criteria->compare('imagen_mobile',$this->imagen_mobile,true);
 		$criteria->compare('miniatura',$this->miniatura,true);
 		$criteria->compare('estado',$this->estado);
 

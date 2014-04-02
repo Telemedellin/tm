@@ -1,3 +1,4 @@
+<?php if( $this->beginCache( 'footer', array('duration' => 21600) ) ): ?>
 <footer>
 	<div class="redes">
 		<p>Telemedellín en las redes</p>
@@ -13,3 +14,4 @@
 	</div>
 	<?php echo l( '<span>Contacto</span>' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/utilidades/escribenos'), array('class' => 'escribenos') ); ?>
 </footer>
+<?php $this->endCache(); endif; ?>

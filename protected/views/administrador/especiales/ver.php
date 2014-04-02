@@ -27,6 +27,11 @@
 					'value' => l($model->background, bu('images/'.$model->background), array('target' => '_blank', 'class' => 'fancybox')),
 				),
 				array(
+					'name' => 'especial.background_mobile', 
+					'type' => 'raw', 
+					'value' => l($model->background_mobile, bu('images/'.$model->background_mobile), array('target' => '_blank', 'class' => 'fancybox')),
+				),
+				array(
 					'name' => 'especial.miniatura', 
 					'type' => 'raw', 
 					'value' => l($model->miniatura, bu('images/'.$model->miniatura), array('target' => '_blank', 'class' => 'fancybox')),

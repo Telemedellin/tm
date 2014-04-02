@@ -1,20 +1,21 @@
 <p class="pull-right">
     <?php echo l('Crear carpeta', bu('administrador/carpeta/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'role' => 'button'))?>
+    <?php //echo l('Añadir archivo', bu('administrador/archivo/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'role' => 'button'))?>
 </p>
 <div id="carpetas">
 <ul>
 	<?php foreach($carpeta as $c): ?>
-	<li><?php echo $c->carpeta; ?>
+	<li data-jstree='{"icon":"glyphicon glyphicon-folder-open"}'><?php echo $c->carpeta; ?>
 		<?php if($c->carpetas || $c->archivos):?>
 		<ul>
 			<?php if($c->carpetas):?>
 			<?php foreach($c->carpetas as $carpetas):?>
-			<li>
+			<li data-jstree='{"icon":"glyphicon glyphicon-folder-open"}'>
 				<?php echo $carpetas->carpeta; ?>
 				<?php if($carpetas->archivos): ?>
 				<ul>
 				<?php foreach($carpetas->archivos as $a):?>
-					<li><a href="<?php echo bu('archivos/' . $a->carpeta->ruta . '/' . $a->archivo)?>"><?php echo $a->nombre ?></a></li>
+					<li data-jstree='{"icon":"glyphicon glyphicon-file"}'><a href="<?php echo bu('archivos/' . $a->carpeta->ruta . '/' . $a->archivo)?>"><?php echo $a->nombre ?></a></li>
 				<?php endforeach; ?>
 				</ul>
 				<?php endif; ?>
@@ -23,7 +24,7 @@
 			<?php endif;?>
 			<?php if($c->archivos): ?>
 			<?php foreach($c->archivos as $archivo):?>
-			<li><a href="<?php echo bu('archivos/' . $archivo->carpeta->ruta . '/' . $archivo->archivo)?>"><?php echo $archivo->nombre ?></a></li>
+			<li data-jstree='{"icon":"glyphicon glyphicon-file"}'><a href="<?php echo bu('archivos/' . $archivo->carpeta->ruta . '/' . $archivo->archivo)?>"><?php echo $archivo->nombre ?></a></li>
 			<?php endforeach; ?>
 			<?php endif; ?>
 		</ul>

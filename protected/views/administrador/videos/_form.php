@@ -46,7 +46,6 @@
 	<div class="form-group">
 		<?php echo $form->label($model,'descripcion', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-10">
-            <?php //echo $form->textArea($model, 'descripcion'); ?>
         <?php $this->widget('ext.editMe.widgets.ExtEditMe', array(
             'model'=>$model,
             'attribute'=>'descripcion',

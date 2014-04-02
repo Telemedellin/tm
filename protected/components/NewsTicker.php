@@ -3,13 +3,19 @@ Yii::import('system.web.widgets.CWidget');
 
 class NewsTicker extends CWidget
 {
+    public $layout = 'pc';
+
     public function run()
     {
-		$nuevos_tweets = Yii::app()->cache->get('tweets');
-		if($nuevos_tweets === false){
-			$nuevos_tweets = $this->obtener_tuits();
-		}
-        $this->render( 'newsticker', array('tweets' => $nuevos_tweets) );
+		if($this->layout == 'pc')
+		{
+			$nuevos_tweets = Yii::app()->cache->get('tweets');
+			if($nuevos_tweets === false){
+				$nuevos_tweets = $this->obtener_tuits();
+			}
+        	$this->render( 'newsticker', array('tweets' => $nuevos_tweets, 'layout' => $this->layout) );
+		}else
+			$this->render( 'newsticker', array('layout' => $this->layout) );
     }
 
     public static function ceo($a, $b)

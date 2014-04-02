@@ -28,7 +28,7 @@ class DocumentalesController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'miniatura', 'crear','update', 'delete'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -44,6 +44,11 @@ class DocumentalesController extends Controller
                 'class'=>'application.components.actions.SubirArchivo',
                 'directorio' => 'images/backgrounds/documentales/',
                 'param_name' => 'archivoImagen'
+            ),
+            'imagen_mobile'=>array(
+                'class'=>'application.components.actions.SubirArchivo',
+                'directorio' => 'images/backgrounds/documentales/',
+                'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
@@ -130,6 +135,7 @@ class DocumentalesController extends Controller
 	{
 		$micrositio = Micrositio::model()->findByPk($id);
 		$imagen = $micrositio->background;
+		$imagen_mobile = $micrositio->background_mobile;
 		$miniatura = $micrositio->miniatura;
 		$url_id = $micrositio->url_id;
 		$micrositio->pagina_id = null;
@@ -149,6 +155,7 @@ class DocumentalesController extends Controller
 
 				if($micrositio->delete()){
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen_mobile);
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
 					//Borrar url de micrositio
 					$url = Url::model()->findByPk($url_id);
@@ -202,6 +209,7 @@ class DocumentalesController extends Controller
 				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $documentalesForm->nombre;
 				$micrositio->background 	= $dird . $documentalesForm->imagen;
+				$micrositio->background_mobile 	= $dird . $documentalesForm->imagen_mobile;
 				$micrositio->miniatura 		= $dird . 'thumbnail/' . $documentalesForm->miniatura;
 				$micrositio->destacado		= $documentalesForm->destacado;
 				if($documentalesForm->estado > 0) $estado = 1;
@@ -308,6 +316,11 @@ class DocumentalesController extends Controller
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
 					$micrositio->background 	= $dird . $documentalesForm->imagen;
 				}
+				if($documentalesForm->imagen_mobile != $micrositio->background_mobile)
+				{
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background_mobile);
+					$micrositio->background_mobile 	= $dird . $documentalesForm->imagen_mobile;
+				}
 				if($documentalesForm->miniatura != $micrositio->miniatura)
 				{
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
@@ -354,6 +367,7 @@ class DocumentalesController extends Controller
 		$documentalesForm->duracion = $pagina->pgDocumentals->duracion;
 		$documentalesForm->anio = $pagina->pgDocumentals->anio;
 		$documentalesForm->imagen = $micrositio->background;
+		$documentalesForm->imagen_mobile = $micrositio->background_mobile;
 		$documentalesForm->miniatura = $micrositio->miniatura;
 		$documentalesForm->estado = $pagina->pgDocumentals->estado;
 		$documentalesForm->destacado = $micrositio->destacado;

@@ -20,6 +20,7 @@
 <?php //$this->registerClientCSS('yii-feeds-widget.css'); ?>
 <?php echo CHtml::hiddenField('yii-feeds-widget-url', $url); ?>
 <?php echo CHtml::hiddenField('yii-feeds-widget-limit', $limit); ?>
+<?php echo CHtml::hiddenField('yii-feeds-widget-layout', $layout); ?>
 <?php 
 echo CHtml::hiddenField(
     'yii-feeds-widget-action-url',  

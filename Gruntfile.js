@@ -37,6 +37,20 @@ module.exports = function(grunt) {
           ],
         dest: 'js/admin.libs.js'
       },
+      mobile: {
+        src: [
+          'js/libs/modernizr.custom.30163.js',
+          'js/libs/mobile/jquery.fittext.js', 
+          'js/libs/jquery.animate-enhanced.min.js',
+          'js/libs/jquery.superslides.js',
+          'js/libs/jquery.bxslider/*.js', 
+          'js/libs/moment-with-langs.js', 
+          'js/libs/jquery.mCustomScrollbar.concat.min.js', 
+          'js/libs/mobile/jquery.backstretch.min.js',
+          'js/libs/mobile/bootstrap.min.js', 
+          ],
+        dest: 'js/mobile.libs.js'
+      },
       css: {
         src: ['css/libs/*.css', 'css/main.css'],
         dest: 'css/styles.css'
@@ -44,6 +58,10 @@ module.exports = function(grunt) {
       admin_css: {
         src: ['css/libs/admin/*.css', 'css/libs/jquery.fancybox.css', 'css/main_admin.css'],
         dest: 'css/styles.admin.css'
+      },
+      mobile_css: {
+        src: ['css/libs/mobile/*.css', 'css/main_mobile.css'],
+        dest: 'css/mobile.css'
       }
     },
     removelogging: {
@@ -54,6 +72,10 @@ module.exports = function(grunt) {
       admin_app: {
         src: "js/admin-dev.js",
         dest: "js/admin.min.js",
+      },
+      mobile_app: {
+        src: "js/mobile-dev.js",
+        dest: "js/mobile.min.js",
       },
       iframe_app: {
         src: "js/iframe.app-dev.js",
@@ -74,6 +96,10 @@ module.exports = function(grunt) {
       admin: {
         src: "js/admin.libs.js",
         dest: "js/admin.libs.js",
+      },
+      mobile: {
+        src: "js/mobile.libs.js",
+        dest: "js/mobile.libs.js",
       }
     },
     uglify: {
@@ -84,6 +110,10 @@ module.exports = function(grunt) {
       admin_app: {
         src: 'js/admin.min.js',
         dest: 'js/admin.min.js'
+      },
+      mobile_app: {
+        src: 'js/mobile.min.js',
+        dest: 'js/mobile.min.js'
       },
       iframe_app: {
         src: 'js/iframe.app.min.js',
@@ -104,6 +134,10 @@ module.exports = function(grunt) {
       admin: {
         src: 'js/admin.libs.js',
         dest: 'js/admin.libs.min.js'
+      },
+      mobile: {
+        src: 'js/mobile.libs.js',
+        dest: 'js/mobile.libs.min.js'
       }
     },
     cssmin: {
@@ -120,9 +154,16 @@ module.exports = function(grunt) {
         src: ['styles.admin.css'],
         dest: 'css/',
         ext: '.admin.min.css'
+      },
+      mminify: {
+        expand: true,
+        cwd: 'css/',
+        src: ['mobile.css'],
+        dest: 'css/',
+        ext: '.min.css'
       }
     },
-    clean: ['js/libs.js', 'css/styles.css', 'css/styles.admin.css', 'js/iframe.libs.js', 'js/admin.libs.js'],
+    clean: ['js/libs.js', 'css/styles.css', 'css/styles.admin.css', 'css/mobile.css', 'js/iframe.libs.js', 'js/admin.libs.js', 'js/mobile.libs.js'],
     watch : {
       scripts: {
         files: ['js/app-dev.js'],
@@ -133,7 +174,14 @@ module.exports = function(grunt) {
       },
       admin: {
         files: ['js/admin-dev.js'],
-        tasks: ['admin'],
+        tasks: ['admin', 'admin-app'],
+        options: {
+          spawn: false
+        },
+      },
+      mobile: {
+        files: ['js/mobile-dev.js'],
+        tasks: ['mobile', 'mobile-app'],
         options: {
           spawn: false
         },
@@ -165,6 +213,13 @@ module.exports = function(grunt) {
         options: {
           spawn: false
         },
+      },
+      styles_mobile: {
+        files: ['css/main_mobile.css', 'css/libs/mobile/*.css'] ,
+        tasks: ['css_mobile'],
+        options: {
+          spawn: false
+        },
       }
     }
   });
@@ -180,10 +235,13 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['concat:js', 'removelogging:libs', 'uglify:libs', 'clean']);
   grunt.registerTask('iframe', ['concat:iframe', 'removelogging:iframe', 'uglify:iframe', 'clean']);
   grunt.registerTask('admin', ['concat:admin', 'removelogging:admin', 'uglify:admin', 'clean']);
+  grunt.registerTask('mobile', ['concat:mobile', 'removelogging:mobile', 'uglify:mobile', 'clean']);
   grunt.registerTask('app', ['removelogging:app', 'uglify:app']); 
   grunt.registerTask('admin-app', ['removelogging:admin_app', 'uglify:admin_app']); 
+  grunt.registerTask('mobile-app', ['removelogging:mobile_app', 'uglify:mobile_app']); 
   grunt.registerTask('iframe-app', ['removelogging:iframe_app', 'uglify:iframe_app']); 
   grunt.registerTask('file-app', ['removelogging:file_app', 'uglify:file_app']); 
   grunt.registerTask('css', ['concat:css', 'cssmin:minify', 'clean']);
   grunt.registerTask('css_admin', ['concat:admin_css', 'cssmin:aminify', 'clean']);
+  grunt.registerTask('css_mobile', ['concat:mobile_css', 'cssmin:mminify', 'clean']);
 };

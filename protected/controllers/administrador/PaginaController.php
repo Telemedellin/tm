@@ -27,7 +27,7 @@ class PaginaController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'crear','update','delete', 'imagen', 'miniatura'),
+				'actions'=>array('index','view', 'crear','update','delete', 'imagen', 'imagen_mobile', 'miniatura'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -42,12 +42,17 @@ class PaginaController extends Controller
 			'imagen'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
                 'directorio' => 'images/backgrounds/paginas/',
-                'param_name' => 'archivoImagenPa'
+                'param_name' => 'archivoImagen'
+            ),
+            'imagen_mobile'=>array(
+                'class'=>'application.components.actions.SubirArchivo',
+                'directorio' => 'images/backgrounds/paginas/',
+                'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
                 'directorio' => 'images/backgrounds/paginas/thumbnail/',
-                'param_name' => 'archivoMiniaturaPa',
+                'param_name' => 'archivoMiniatura',
                 'image_versions' => 
 					array(
 						'' => array('max_width' => 250, 'max_height' => 150)
@@ -205,6 +210,7 @@ class PaginaController extends Controller
 					}
 					$contenido->pagina_id = $model->getPrimaryKey();
 					$contenido->imagen 	= ($_POST['PgGenericaSt']['imagen'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen']:NULL;
+					$contenido->imagen_mobile 	= ($_POST['PgGenericaSt']['imagen_mobile'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen_mobile']:NULL;
 					$contenido->miniatura 		= ($_POST['PgGenericaSt']['miniatura'])?$dirpa . 'thumbnail/' . $_POST['PgGenericaSt']['miniatura']:NULL;
 					$contenido->texto = $_POST['PgGenericaSt']['texto'];
 					$contenido->estado = 1;
@@ -273,6 +279,11 @@ class PaginaController extends Controller
 					{
 						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen);
 						$contenido->imagen 	= ($_POST['PgGenericaSt']['imagen'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen']:NULL;
+					}
+					if($_POST['PgGenericaSt']['imagen_mobile'] != $contenido->imagen_mobile)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen_mobile);
+						$contenido->imagen_mobile 	= ($_POST['PgGenericaSt']['imagen_mobile'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen_mobile']:NULL;
 					}
 					if($_POST['PgGenericaSt']['miniatura'] != $contenido->miniatura)
 					{

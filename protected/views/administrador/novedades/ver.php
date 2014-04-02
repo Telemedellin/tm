@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-sm-2">
+	<div class="col-sm-2 panel panel-default">
 		<ul class="nav nav-pills nav-stacked">
 		  <li><?php echo l('Volver', bu('administrador/novedades'))?></li>
 		  <li><?php echo l('Editar', bu('administrador/novedades/update/' . $model->id))?></li>
@@ -29,6 +29,11 @@
 					'name' => 'pgArticuloBlogs.imagen', 
 					'type' => 'raw', 
 					'value' => l($model->pgArticuloBlogs->imagen, bu('images/'.$model->pgArticuloBlogs->imagen), array('target' => '_blank', 'class' => 'fancybox')),
+				),
+				array(
+					'name' => 'pgArticuloBlogs.imagen_mobile', 
+					'type' => 'raw', 
+					'value' => l($model->pgArticuloBlogs->imagen_mobile, bu('images/'.$model->pgArticuloBlogs->imagen_mobile), array('target' => '_blank', 'class' => 'fancybox')),
 				),
 				array(
 					'name' => 'pgArticuloBlogs.miniatura', 

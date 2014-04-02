@@ -13,6 +13,7 @@ class NovedadesForm extends CFormModel
 	public $texto;
 	public $enlace;
 	public $imagen;
+	public $imagen_mobile;
 	public $miniatura;
 	public $posicion;
 	public $destacado;
@@ -26,7 +27,7 @@ class NovedadesForm extends CFormModel
 		return array(
 			// name, email, subject and body are required
 			array('nombre, entradilla', 'required'),
-			array('enlace, imagen, miniatura', 'length', 'max'=>255),
+			array('enlace, imagen, imagen_mobile, miniatura', 'length', 'max'=>255),
 			array('texto', 'safe'),
 			array('posicion, estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
@@ -44,6 +45,7 @@ class NovedadesForm extends CFormModel
 			'texto' => 'Texto',
 			'enlace' => 'Enlace externo (Opcional)',
 			'imagen' => 'Imagen',
+			'imagen_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Imagen Miniatura',
 			'posicion' => 'Posición',
 			'estado' => 'Estado',

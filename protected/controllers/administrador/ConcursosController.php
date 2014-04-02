@@ -28,7 +28,7 @@ class ConcursosController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'miniatura', 'crear','update', 'delete'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -44,6 +44,11 @@ class ConcursosController extends Controller
                 'class'=>'application.components.actions.SubirArchivo',
                 'directorio' => 'images/concursos/' . date('Y') . '/' . date('m') . '/',
                 'param_name' => 'archivoImagen'
+            ),
+            'imagen_mobile'=>array(
+                'class'=>'application.components.actions.SubirArchivo',
+                'directorio' => 'images/concursos/' . date('Y') . '/' . date('m') . '/',
+                'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
@@ -111,6 +116,7 @@ class ConcursosController extends Controller
 	{
 		$micrositio = Micrositio::model()->findByPk($id);
 		$imagen = $micrositio->background;
+		$imagen_mobile = $micrositio->background_mobile;
 		$miniatura = $micrositio->miniatura;
 		$url_id = $micrositio->url_id;
 		$nombre = $micrositio->nombre;
@@ -139,6 +145,7 @@ class ConcursosController extends Controller
 				if($micrositio->delete()){
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
+					@unlink( Yii::getPathOfAlias('webroot').'/images' . $imagen_mobile);
 					Yii::app()->user->setFlash('mensaje', 'Concurso ' . $nombre . ' eliminado');
 					//Borrar url de micrositio
 					$url = Url::model()->findByPk($url_id);
@@ -192,6 +199,7 @@ class ConcursosController extends Controller
 				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $concursosForm->nombre;
 				$micrositio->background 	= $dirc . $concursosForm->imagen;
+				$micrositio->background_mobile 	= $dirc . $concursosForm->imagen_mobile;
 				$micrositio->miniatura 		= $dirc . 'thumbnail/' . $concursosForm->miniatura;
 				$micrositio->destacado		= $concursosForm->destacado;
 				$micrositio->estado			= $concursosForm->estado;
@@ -318,6 +326,11 @@ class ConcursosController extends Controller
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
 					$micrositio->background 	= $dirc . $concursosForm->imagen;
 				}
+				if($concursosForm->imagen_mobile != $micrositio->background_mobile)
+				{
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background_mobile);
+					$micrositio->background_mobile 	= $dirc . $concursosForm->imagen_mobile;
+				}
 				if($concursosForm->miniatura != $micrositio->miniatura)
 				{
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
@@ -396,6 +409,7 @@ class ConcursosController extends Controller
 		$concursosForm->nombre = $micrositio->nombre;
 		$concursosForm->texto = $pagina->pgGenericaSts->texto;
 		$concursosForm->imagen = $micrositio->background;
+		$concursosForm->imagen_mobile = $micrositio->background_mobile;
 		$concursosForm->miniatura = $micrositio->miniatura;
 		$concursosForm->formulario = $formulario->pgFormularioJfs->formulario_id;
 		$concursosForm->estado = $micrositio->estado;

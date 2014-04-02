@@ -28,7 +28,7 @@ class EspecialesController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'miniatura', 'crear','update', 'delete'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -44,6 +44,11 @@ class EspecialesController extends Controller
                 'class'=>'application.components.actions.SubirArchivo',
                 'directorio' => 'images/backgrounds/especiales/',
                 'param_name' => 'archivoImagen'
+            ),
+            'imagen_mobile'=>array(
+                'class'=>'application.components.actions.SubirArchivo',
+                'directorio' => 'images/backgrounds/especiales/',
+                'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
@@ -124,6 +129,7 @@ class EspecialesController extends Controller
 	{
 		$micrositio = Micrositio::model()->findByPk($id);
 		$imagen = $micrositio->background;
+		$imagen_mobile = $micrositio->background_mobile;
 		$miniatura = $micrositio->miniatura;
 		$url_id = $micrositio->url_id;
 		$micrositio->pagina_id = null;
@@ -143,6 +149,7 @@ class EspecialesController extends Controller
 
 				if($micrositio->delete()){
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen_mobile);
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
 					//Borrar url de micrositio
 					$url = Url::model()->findByPk($url_id);
@@ -196,6 +203,7 @@ class EspecialesController extends Controller
 				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $especialesForm->nombre;
 				$micrositio->background 	= ($especialesForm->imagen)?$dire . $especialesForm->imagen:NULL;
+				$micrositio->background_mobile 	= ($especialesForm->imagen_mobile)?$dire . $especialesForm->imagen_mobile:NULL;
 				$micrositio->miniatura 		= ($especialesForm->miniatura)?$dire . 'thumbnail/' . $especialesForm->miniatura:NULL;
 				$micrositio->destacado		= $especialesForm->destacado;
 				if($especialesForm->estado > 0) $estado = 1;
@@ -301,6 +309,11 @@ class EspecialesController extends Controller
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
 					$micrositio->background 	= $dire . $especialesForm->imagen;
 				}
+				if($especialesForm->imagen_mobile != $micrositio->background_mobile)
+				{
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background_mobile);
+					$micrositio->background_mobile 	= $dire . $especialesForm->imagen_mobile;
+				}
 				if($especialesForm->miniatura != $micrositio->miniatura)
 				{
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
@@ -346,6 +359,7 @@ class EspecialesController extends Controller
 		$especialesForm->lugar = $pagina->pgEspecials->lugar;
 		$especialesForm->presentadores = $pagina->pgEspecials->presentadores;
 		$especialesForm->imagen = $micrositio->background;
+		$especialesForm->imagen_mobile = $micrositio->background_mobile;
 		$especialesForm->miniatura = $micrositio->miniatura;
 		$especialesForm->estado = $pagina->pgEspecials->estado;
 		$especialesForm->destacado = $micrositio->destacado;

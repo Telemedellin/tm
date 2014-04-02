@@ -11,6 +11,7 @@ class ProgramasForm extends CFormModel
 	public $nombre;
 	public $resena;
 	public $imagen;
+	public $imagen_mobile;
 	public $miniatura;
 	public $formulario;
 	public $destacado;
@@ -24,7 +25,7 @@ class ProgramasForm extends CFormModel
 		return array(
 			// name, email, subject and body are required
 			array('nombre, resena', 'required'),
-			array('imagen, miniatura, formulario', 'length', 'max'=>255),
+			array('imagen, imagen_mobile, miniatura, formulario', 'length', 'max'=>255),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
 	}
@@ -39,6 +40,7 @@ class ProgramasForm extends CFormModel
 			'destacado' => 'Destacado',
 			'resena' => 'Reseña',
 			'imagen' => 'Imagen',
+			'imagen_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Imagen Miniatura',
 			'formulario' => 'Formulario (ID de JotForm)',
 			'estado' => 'Publicado',

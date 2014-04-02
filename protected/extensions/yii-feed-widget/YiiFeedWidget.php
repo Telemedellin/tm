@@ -66,6 +66,11 @@ class YiiFeedWidget extends CWidget
      * @var integer $limit - Number of items to parse. 0 for all.
      */
     public $limit;
+
+    /** 
+     * @var string $layout  - The layout of the feed 
+     */
+    public $layout = 'pc';
     
     /**
      * @var string $_assetsUrl - The published url location where assets for

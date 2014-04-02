@@ -42,7 +42,7 @@ class MenuW extends CWidget
         $c = new CDbCriteria;
         $c->addCondition('t.estado <> 0');
         $c->order  = 't.orden ASC';
-        $menu_items = MenuItem::model()->cache(3600, $dependencia)->findAllByAttributes( array('item_id' => $this->id), $c );
+        $menu_items = MenuItem::model()->cache(21600, $dependencia)->findAllByAttributes( array('item_id' => $this->id), $c );
         return ($menu_items) ? $menu_items : false;
     }
 

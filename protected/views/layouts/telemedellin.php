@@ -5,12 +5,6 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<script>
-	var n = navigator.userAgent.toLowerCase();
-	if( n.search(/android|blackberry|iphone|ipod|iemobile|opera mobile|palmos|webos/) > -1 ){
-		document.location = 'http://m.telemedellin.tv';
-	}
-	</script>
 	<link rel="stylesheet" type="text/css" href="<?php echo bu('css/styles.min.css'); ?>" />
 	<!--[if LTE IE 9]>
 	  <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie9.css" />
@@ -64,6 +58,7 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 	?>
 </div>
 <div class="dots"></div>
+<?php cs()->registerCoreScript('jquery'); ?>
 <?php cs()->registerScriptFile(bu('/js/libs.min.js'), CClientScript::POS_END);?>
 <?php cs()->registerScriptFile(bu('/js/app.min.js'), CClientScript::POS_END);?>
 <!--[if LTE IE 9]>

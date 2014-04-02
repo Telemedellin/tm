@@ -1,14 +1,23 @@
 <?php cs()->registerScriptFile(bu('/js/libs/iframe/underscore-min.js'), CClientScript::POS_END);?>
 <?php cs()->registerScriptFile(bu('/js/libs/iframe/backbone-min.js'), CClientScript::POS_END);?>
-<?php cs()->registerScriptFile(bu('/js/libs/iframe/screenfull.js'), CClientScript::POS_END);?>
-<?php cs()->registerScriptFile(bu('/js/iframe.app.min.js'), CClientScript::POS_END);?>
+<?php 
+if($this->theme != 'pc')
+	cs()->registerScriptFile(bu('/js/libs/mobile/jquery.swipebox.js'), CClientScript::POS_END);
+else
+	cs()->registerScriptFile(bu('/js/libs/iframe/screenfull.js'), CClientScript::POS_END);
+
+cs()->registerScriptFile(bu('/js/iframe.app.min.js'), CClientScript::POS_END);
+?>
 <script id="albumListViewTemplate" type="text/template">
+	<?php if($this->theme != 'pc'): ?>
+		<a href="" class="back">Volver</a>
+	<?php endif; ?>
 	<h1>Álbumes de fotos <%= nombre %></h1>
 	<ul class="albumes"></ul>
 </script>
 <script id="albumListItemViewTemplate" type="text/template">
 <a href="<%= url %>" class="in_fancy" data-id="<%= id %>">
-	<img src="<%= thumb %>" width="240" height="180" />
+	<figure><img src="<%= thumb %>" /></figure>
 	<h2><%= nombre %></h2>
 </a>
 </script>
@@ -19,17 +28,21 @@
 	<ul class="fotos"></ul>
 </script>
 <script id="fotoListItemViewTemplate" type="text/template">
-	<a href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-src="<%= src %>" data-nombre="<%= nombre %>">
-		<img src="<%= thumb %>" width="100" height="60" />
+	<a href="<%= <?php echo ($this->theme == 'pc')? 'url':'src'?> %>" class="<%= id %> <?php echo ($this->theme == 'pc')? '':'swb'?>" data-id="<%= id %>" data-src="<%= src %>" data-url="<%= url %>" data-nombre="<%= nombre %>" <?php echo ($this->theme == 'pc')? '':'rel="galeria"'?> title="<%= nombre %>">
+		<figure><img src="<%= thumb %>" width="100" height="60" /></figure>
+		<?php if($this->theme != 'pc'):?><p><%= nombre %></p><?php endif; ?>
 	</a>
 </script>
 <script id="videoalbumListViewTemplate" type="text/template">
+	<?php if($this->theme != 'pc'): ?>
+		<a href="" class="back">Volver</a>
+	<?php endif; ?>
 	<h1>Álbumes de video de <%= nombre %></h1>
 	<ul class="videoalbumes"></ul>
 </script>
 <script id="videoalbumListItemViewTemplate" type="text/template">
 <a href="<%= url %>" class="in_fancy" data-id="<%= id %>">
-	<img src="/images/<%= thumb %>" width="240" height="180" />
+	<figure><img src="<%= thumb %>" /></figure>
 	<h2><%= nombre %></h2>
 </a>
 </script>
@@ -41,13 +54,13 @@
 </script>
 <script id="videoListItemViewTemplate" type="text/template">
 	<a style="display:block;" href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-id_video="<%= id_video %>" data-nombre="<%= nombre %>" data-pv="<%= proveedor_video %>">
-		<div class="imgVideo"><img src="<%= thumbnail %>" width="120" height="90" /></div>
+		<figure><img src="<%= thumbnail %>" /></figure>
 		<div class="infoVideo">
 			<h2><%= nombre %></h2>
-			<p><%= descripcion %></p>
+			<div class="descripcion"><%= descripcion %></div>
 		</div>
 	</a>
 </script>
-<div id="icontainer">
+<div id="icontainer"<?php echo ($this->theme != 'pc')?' class="mobile"':'' ?>>
 	<?php echo $content; ?>
 </div>

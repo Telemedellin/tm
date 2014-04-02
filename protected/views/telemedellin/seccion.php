@@ -6,6 +6,17 @@ $this->pageTitle = $seccion->nombre;
 $destacados = '';
 if($seccion->url->slug == 'concursos')
 	cs()->registerCss('background', 'body{background-image: url("' . bu('/images/backgrounds/concursos/general-de-concurso.jpg') . '");}');
+cs()->registerScript( 'scroll', 
+	'$(".listado").mCustomScrollbar({
+		scrollType: "pixels",
+		scrollButtons:{
+			mouseWheel:false,
+			enable: true,
+			horizontalScroll:true
+		}
+	});',
+	CClientScript::POS_READY
+);
 ?>
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
 	<div class="listado">

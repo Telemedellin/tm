@@ -11,31 +11,9 @@ $this->breadcrumbs = $bc;
 $pt = ($pagina->id != $micrositio->pagina_id) ? ucfirst($pagina->nombre) . ' - ': '';
 $this->pageTitle = $pt . $micrositio->nombre;
 
-if( !empty($fondo_pagina) )
-{
-	$bg = bu('/images/' . $fondo_pagina);
-}elseif( !empty($micrositio->background) )
-{
-	$bg = bu('/images/'.$micrositio->background);
-}else
-{
-	$bg = bu('/images/backgrounds/generica-interna-1.jpg');
-}
+$bg = bu('/images/' . $fondo_pagina);
+
 cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');
-cs()->registerScript( 'scroll', 
-	'$("#micrositio").mCustomScrollbar({
-		scrollType: "pixels",
-		updateOnContentResize: true, 
-		scrollButtons: {
-			enable: true
-		}
-	});
-	window.updateScrollbar = function() {
-		$("#micrositio").mCustomScrollbar("update");
-	}
-	',
-	CClientScript::POS_READY
-);
 ?>
 <?php if( isset( $micrositio->redSocials ) && count($micrositio->redSocials) ):  ?>
 <div id="redes_micrositio" class="redes">

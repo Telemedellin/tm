@@ -1,33 +1,16 @@
 <?php
-//cs()->registerScriptFile(bu('/js/libs/jquery.superslides.js'), CClientScript::POS_END);
-cs()->registerScript(
-  'novedades', 
-  '
-  var novedades = $("novedades");
-  novedades.superslides({
-    animation: "fade",
-    play: 15000,
-    hashchange: true,
-    pagination: false
-  });
-  set_current();
-  novedades.on("started.slides", function(){
-    set_current();
-  });
-  novedades.on("animated.slides", function(){
-    set_current();
-  });
-  function set_current()
-  {
-    var current = novedades.superslides("current");
-    $( ".slides-pagination a" ).each(function( index ) {
-      $(this).removeClass("current");
-    });
-    $(".slides-pagination ." + current).addClass("current");
-  }
-  ',
-  CClientScript::POS_READY
-);
+cs()->registerCoreScript('jquery');
+$dependencia = "SELECT GREATEST(MAX(creado), MAX(modificado)) FROM pagina WHERE micrositio_id = 2 AND estado = 2";
+if($this->beginCache(
+    'novedades_pc', 
+    array('duration' => 21600,
+          'dependency' => array(
+            'class' => 'system.caching.dependencies.CDbCacheDependency',
+            'sql' => $dependencia
+          )
+    )
+  )
+):
 ?>
 <div id="novedades">
   <ul class="novedades slides-container">
@@ -67,3 +50,4 @@ cs()->registerScript(
     <?php echo $paginador; ?>
   </nav>
 </div>
+<?php $this->endCache(); endif; ?>

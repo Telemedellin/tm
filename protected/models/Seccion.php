@@ -55,6 +55,7 @@ class Seccion extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
+			'micrositios' => array(self::HAS_MANY, 'Micrositio', 'seccion_id', 'order' => 'micrositios.nombre ASC'),
 		);
 	}
 

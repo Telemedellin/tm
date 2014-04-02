@@ -28,7 +28,7 @@ class TelemedellinController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'miniatura', 'crear','update', 'delete'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -42,12 +42,17 @@ class TelemedellinController extends Controller
 		return array(
 			'imagen'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/documentales/',
+                'directorio' => 'images/backgrounds/telemedellin/',
                 'param_name' => 'archivoImagen'
+            ),
+            'imagen_mobile'=>array(
+                'class'=>'application.components.actions.SubirArchivo',
+                'directorio' => 'images/backgrounds/telemedellin/',
+                'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/documentales/thumbnail/',
+                'directorio' => 'images/backgrounds/telemedellin/thumbnail/',
                 'param_name' => 'archivoMiniatura',
                 'image_versions' => 
 					array(
@@ -81,7 +86,7 @@ class TelemedellinController extends Controller
 													    'pagination'=>array(
 													    	'pageSize'=>25,
 													    )
-													    ) );
+												    ) );
 		$this->render('index', array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -115,16 +120,17 @@ class TelemedellinController extends Controller
 	{
 		$micrositio = Micrositio::model()->findByPk($id);
 		$imagen = $micrositio->background;
+		$imagen_mobile = $micrositio->background_mobile;
 		$miniatura = $micrositio->miniatura;
 		$url_id = $micrositio->url_id;
 		$micrositio->pagina_id = null;
 		$micrositio->save();
 		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' =>$micrositio->id) );
 		$urlp_id = $pagina->url_id;
-		//Borrar PgPrograma
-		$PgP = PgPrograma::model()->findByAttributes(array('pagina_id' => $pagina->id));
-		$transaccion = $PgP->dbConnection->beginTransaction();
-		if( $PgP->delete() )
+		//Borrar PgGenericaSt
+		$PgSt = PgGenericaSt::model()->findByAttributes(array('pagina_id' => $pagina->id));
+		$transaccion = $PgSt->dbConnection->beginTransaction();
+		if( $PgSt->delete() )
 		{
 			//Borrar Página
 			if( $pagina->delete() ){
@@ -134,6 +140,7 @@ class TelemedellinController extends Controller
 
 				if($micrositio->delete()){
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen_mobile);
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
 					//Borrar url de micrositio
 					$url = Url::model()->findByPk($url_id);
@@ -161,7 +168,7 @@ class TelemedellinController extends Controller
 	 */
 	public function actionCrear()
 	{
-		if( !isset(Yii::app()->session['dirt']) ) Yii::app()->session['dirt'] = 'backgrounds/programas/';
+		if( !isset(Yii::app()->session['dirt']) ) Yii::app()->session['dirt'] = 'backgrounds/telemedellin/';
 
 		$programasForm = new ProgramasForm;		
 
@@ -173,7 +180,7 @@ class TelemedellinController extends Controller
 			if($programasForm->validate()){
 				$url = new Url;
 				$transaccion 	= $url->dbConnection->beginTransaction();
-				$slug = 'programas/' . $this->slugger($programasForm->nombre);
+				$slug = 'telemedellin/' . $this->slugger($programasForm->nombre);
 				$slug = $this->verificarSlug($slug);
 				$url->slug 		= $slug;
 				$url->tipo_id 	= 2; //Micrositio
@@ -182,11 +189,12 @@ class TelemedellinController extends Controller
 				$url_id = $url->getPrimaryKey();
 
 				$micrositio = new Micrositio;
-				$micrositio->seccion_id 	= 2; //Programas
+				$micrositio->seccion_id 	= 1; //Telemedellín
 				$micrositio->usuario_id 	= 1;
 				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $programasForm->nombre;
-				$micrositio->background 	= $dirt . $programassForm->imagen;
+				$micrositio->background 	= $dirt . $programasForm->imagen;
+				$micrositio->background_mobile 	= $dirt . $programasForm->imagen_mobile;
 				$micrositio->miniatura 		= $dirt . 'thumbnail/' . $programasForm->miniatura;
 				$micrositio->destacado		= $programasForm->destacado;
 				if($programasForm->estado > 0) $estado = 1;
@@ -196,7 +204,7 @@ class TelemedellinController extends Controller
 				$micrositio_id = $micrositio->getPrimaryKey();
 
 				$purl = new Url;
-				$pslug = 'programas/' . $url->slug .'/inicio';
+				$pslug = 'telemedellin/' . $url->slug .'/inicio';
 				$pslug = $this->verificarSlug($pslug);
 				$purl->slug 	= $pslug;
 				$purl->tipo_id 	= 3; //Pagina
@@ -206,7 +214,7 @@ class TelemedellinController extends Controller
 
 				$pagina = new Pagina;
 				$pagina->micrositio_id 	= $micrositio_id;
-				$pagina->tipo_pagina_id = 1; //Página programa
+				$pagina->tipo_pagina_id = 2; //Página programa
 				$pagina->url_id 		= $purl_id;
 				$pagina->nombre			= $programasForm->nombre;
 				$pagina->clase 			= NULL;
@@ -218,17 +226,17 @@ class TelemedellinController extends Controller
 				$micrositio->pagina_id = $pagina_id;
 				$micrositio->save(false);
 
-				$pgP = new PgPrograma;
-				$pgP->pagina_id 	= $pagina_id;
-				$pgP->resena 		= $programasForm->resena;
-				$pgP->estado 		= $programasForm->estado;
+				$pgGst = new PgGenericaSt;
+				$pgGst->pagina_id 	= $pagina_id;
+				$pgGst->texto 		= $programasForm->resena;
+				$pgGst->estado 		= $programasForm->estado;
 				
-				if( !$pgP->save(false) )
+				if( !$pgGst->save(false) )
 					$transaccion->rollback();
 				else
 				{
 					$transaccion->commit();
-					Yii::app()->user->setFlash('mensaje', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
+					Yii::app()->user->setFlash('mensaje', 'Micrositio ' . $programasForm->nombre . ' guardado con éxito');
 					$this->redirect('index');
 				}
 
@@ -253,11 +261,11 @@ class TelemedellinController extends Controller
 	public function actionUpdate($id)
 	{
 
-		if( !isset(Yii::app()->session['dirt']) ) Yii::app()->session['dirt'] = 'backgrounds/programas/';
+		if( !isset(Yii::app()->session['dirt']) ) Yii::app()->session['dirt'] = 'backgrounds/telemedellin/';
 
 		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
-		$pagina = Pagina::model()->with('url', 'pgProgramas')->findByAttributes(array('micrositio_id' => $micrositio->id));
-		$pgP = PgPrograma::model()->with('horario')->findByAttributes(array('pagina_id' => $pagina->id));
+		$pagina = Pagina::model()->with('url', 'pgGenericaSts')->findByAttributes(array('micrositio_id' => $micrositio->id));
+		$pgGst = PgGenericaSt::model()->findByAttributes(array('pagina_id' => $pagina->id));
 
 		$programasForm = new ProgramasForm;		
 		$programasForm->id = $id;
@@ -270,13 +278,13 @@ class TelemedellinController extends Controller
 			if($programasForm->validate()){
 				if($programasForm->nombre != $micrositio->nombre){
 					$url = Url::model()->findByPk($micrositio->url_id);
-					$slug = 'programas/' . $this->slugger($programasForm->nombre);
+					$slug = 'telemedellin/' . $this->slugger($telemedellinForm->nombre);
 					$slug = $this->verificarSlug($slug);
 					$url->slug 		= $slug;
 					$url->save(false);
 
 					$purl = Url::model()->findByPk($pagina->url_id);
-					$pslug = 'programas/' . $url->slug .'/inicio';
+					$pslug = 'telemedellin/' . $url->slug .'/inicio';
 					$pslug = $this->verificarSlug($pslug);
 					$purl->slug 	= $pslug;
 					$purl->save(false);
@@ -289,6 +297,11 @@ class TelemedellinController extends Controller
 				{
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
 					$micrositio->background 	= $dirt . $programasForm->imagen;
+				}
+				if($programasForm->imagen_mobile != $micrositio->background_mobile)
+				{
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background_mobile);
+					$micrositio->background_mobile 	= $dirt . $programasForm->imagen_mobile;
 				}
 				if($programasForm->miniatura != $micrositio->miniatura)
 				{
@@ -309,15 +322,15 @@ class TelemedellinController extends Controller
 				$pagina->estado			= $estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 
-				$pgP = PgPrograma::model()->findByAttributes( array('pagina_id' => $pagina->id) );
-				$pgP->resena 		= $programasForm->resena;
-				$pgP->estado 		= $programasForm->estado;
-				if( !$pgP->save(false) )
+				$pgGst = PgGenericaSt::model()->findByAttributes( array('pagina_id' => $pagina->id) );
+				$pgGst->texto 		= $programasForm->resena;
+				$pgGst->estado 		= $programasForm->estado;
+				if( !$pgGst->save(false) )
 					$transaccion->rollback();
 				else
 				{
 					$transaccion->commit();
-					Yii::app()->user->setFlash('mensaje', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
+					Yii::app()->user->setFlash('mensaje', 'Micrositio ' . $programasForm->nombre . ' guardado con éxito');
 					$this->redirect(array('view','id' => $programasForm->id));
 				}
 
@@ -329,10 +342,11 @@ class TelemedellinController extends Controller
 		// $this->performAjaxValidation($model);
 
 		$programasForm->nombre = $micrositio->nombre;
-		$programasForm->resena = $pagina->pgProgramas->resena;
+		$programasForm->resena = $pagina->pgGenericaSts->texto;
 		$programasForm->imagen = $micrositio->background;
+		$programasForm->imagen_mobile = $micrositio->background_mobile;
 		$programasForm->miniatura = $micrositio->miniatura;
-		$programasForm->estado = $pagina->pgProgramas->estado;
+		$programasForm->estado = $pagina->pgGenericaSts->estado;
 		$programasForm->destacado = $micrositio->destacado;
 
 		$this->render('modificar',array(

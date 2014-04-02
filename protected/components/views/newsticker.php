@@ -1,24 +1,28 @@
 <section id="newsticker">
+  <?php if($layout == 'pc'): ?>
   <footer>
     <a href="http://noticias.telemedellin.tv/" target="_blank" class="todas-las-noticias" title="Ir al portal de Noticias Telemedellín">Ver todas las noticias</a>
   </footer>
+  <?php else: ?>
+  <h2>Noticias</h2>
+  <?php endif; ?>
 <?php
+$limit = ($layout == 'pc')?10:5;
 $this->widget(
        'ext.yii-feed-widget.YiiFeedWidget',
-       array('url'=>'http://noticias.telemedellin.tv/feed', 'limit'=>10)
+       array('url'=>'http://noticias.telemedellin.tv/feed', 'limit'=>$limit, 'layout'=>$layout)
     );
-//cs()->registerScriptFile(bu().'/js/libs/jquery.bxslider/jquery.bxslider.js', CClientScript::POS_END);
 ?>
+<?php if(!empty($tweets)): ?>
 <div class="marquesina">
 	<div>
-		<?php 
-    if(!empty($tweets)):
-      for($i=0; $i<count($tweets); $i++): ?>
+		<?php for($i=0; $i<count($tweets); $i++): ?>
 			<p><?php echo $tweets[$i] ?></p>
-		<?php 
-      endfor; 
-    endif;?>
+		<?php endfor; ?>
 	</div>
 </div>
-  
+<?php endif; ?>
+<?php if($layout != 'pc'): ?>
+<a href="http://noticias.telemedellin.tv/" target="_blank" class="ver-mas todas-las-noticias" title="Ir al portal de Noticias Telemedellín">Ver todas las noticias</a>
+<?php endif; ?>
 </section>
