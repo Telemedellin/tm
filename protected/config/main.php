@@ -1,4 +1,5 @@
 <?php
+
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 
@@ -20,15 +21,15 @@ return array(
 		'application.vendors.bcrypt.*',
 		'application.vendors.UploadHandler.*'
 	),
-	
+
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		'gii'=>array(
+		/*'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'asdf1234*',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
-		),
+		),*/
 	),
 	'controllerMap'=>array(
 	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController'
@@ -70,8 +71,16 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
+		/*'db'=>array(
+			'connectionString' => 'mysql:host=noticias.telemedellin.tv;dbname=telemede_telemedellin',
+			'emulatePrepare' => true,
+			'username' => 'telemede_telemed',
+			'password' => ';0?LegNmMi)O',
+			'charset' => 'utf8',
+		),
+		*/
 		'db'=>array(
-			'connectionString' => 'mysql:host=telemedellin.tv;dbname=telemede_tm',
+			'connectionString' => 'mysql:host=localhost;dbname=telemede_tm',
 			'emulatePrepare' => true,
 			'username' => 'telemede_tm',
 			'password' => 'kk_#=2B8I-+V',
@@ -83,7 +92,9 @@ return array(
             'consumer_secret' => 'tkEfo98Xcpg0rYphooAetOSVjBcYEXhM4pKTGh1Bw',
             'callback' => '',
         ),
-			
+		/*'db'=>array(
+			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
+		),*/
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'telemedellin/error',
@@ -95,6 +106,11 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
+				array(
+                    'class' => 'CFileLogRoute',
+                    'categories' => '404',
+                    'logFile' => '404'
+                ), 
 				// uncomment the following to show log messages on web pages
 				/*
 				array(
@@ -104,7 +120,7 @@ return array(
 			),
 		),
 		'cache'=>array(
-            'class'=>'system.caching.CDummyCache',
+            'class'=>'system.caching.CFileCache',
         ),
 	),
 	
