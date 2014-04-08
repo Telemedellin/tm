@@ -41,9 +41,15 @@
 <div class="row">
 	<div class="col-sm-12">
 		<h2>Páginas</h2>
-		<p class="pull-right">
-		    <?php echo l('Agregar página', bu('administrador/pagina/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'role' => 'button'))?>
-		</p>
+		<div class="btn-group pull-right">
+		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		    Agregar página <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" role="menu">
+		    <li><a href="<?php echo bu('administrador/pagina/crear/' . $model->id . '/2'); ?>">Genérica</a></li>
+		    <li><a href="<?php echo bu('administrador/pagina/crear/' . $model->id . '/8'); ?>">Filtro</a></li>
+		  </ul>
+		</div>
 		<?php $this->widget('zii.widgets.grid.CGridView', array(
 			'dataProvider'=>$contenido,
 			'enableSorting' => true,

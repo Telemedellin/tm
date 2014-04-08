@@ -731,6 +731,104 @@ p{
 	font-size: 1.4em;
 	font-weight: normal;
 }
+#micrositio .filtro
+{
+	margin-bottom: 10px;
+}
+#micrositio .filtro input
+{
+	background: rgb(30, 30, 30);
+	background: rgba(255, 255, 255, 0.1);
+	border: none;
+	-webkit-border-radius: 10px;
+	   -moz-border-radius: 10px;
+			border-radius: 10px;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+	color: #FFF;
+	font-size: 1em;
+	font-weight: bold;
+	height: 3em;
+	padding: 1em;
+	margin: 0;
+	width: 100%;
+}
+#micrositio .listado li.hidden
+{
+	display: none;
+}
+#micrositio .listado ul
+{
+	list-style: none;
+	margin: 0;
+	padding: 0; 
+}
+#micrositio .listado .nivel-1 > li > span
+{
+	cursor: pointer;
+	display: block;
+	font-weight: bold;
+	padding: 8px;
+}
+#micrositio .listado .filtrable > span
+{
+	cursor: pointer;
+}
+#micrositio .listado .nivel-1 > li.open > span:before, 
+#micrositio .listado .nivel-1 > li.open > span::before
+{
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-top: 14px solid #FFF;
+	content: "";
+	display: block;
+	float: right;
+}
+#micrositio .listado .nivel-2 > li:before, 
+#micrositio .listado .nivel-2 > li::before
+{
+	border-bottom: 4px solid transparent;
+	border-top: 4px solid transparent;
+	border-left: 8px solid #fc7812;
+	content: "";
+	display: block;
+	float: left;
+	margin: 6px 8px 0 0;
+}
+#micrositio .listado .nivel-2 > li.open:before, 
+#micrositio .listado .nivel-2 > li.open::before
+{
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+	border-top: 8px solid #fc7812;
+}
+#micrositio .listado .nivel-2, 
+#micrositio .listado .nivel-3
+{
+	display: none;
+	padding-left: 1em;
+}
+#micrositio .listado .open > .nivel-2, 
+#micrositio .listado .open > .nivel-3
+{
+	display: block;
+}
+#micrositio .listado .nivel-1 > .open
+{
+	background: rgb(30, 30, 30);
+	background: rgba(255, 255, 255, 0.1);
+	-webkit-border-radius: 10px;
+	   -moz-border-radius: 10px;
+			border-radius: 10px;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+}
+#micrositio .listado .nivel-3
+{
+	color: #b8b8b8;
+	padding-left: 3em;
+}
 #newsticker
 {
 	background: #000;

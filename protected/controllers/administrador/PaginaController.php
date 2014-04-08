@@ -70,33 +70,7 @@ class PaginaController extends Controller
 		);
 	}
 
-	/*
-	public function actions()
-    {
-        return array(
-        	'imageList'=>array(
-                'class'=>'ext.redactor.actions.ImageList',
-                'uploadPath'=>Yii::app()->basePath.'/../images',
-                'uploadUrl'=>bu('images'),
-            ),
-            'fileUpload'=> array(
-            	'class' => 'ext.redactor.actions.FileUpload', 
-            	'uploadPath'=>'/tm/archivos/'.date('Y').'/'.date('m'),
-                'uploadUrl'=>'/tm/archivos/'.date('Y').'/'.date('m'),
-                'uploadCreate'=>true,
-                'permissions'=>0755,
-            ),
-            'imageUpload'=>array(
-                'class'=>'ext.redactor.actions.ImageUpload',
-                'uploadPath'=>'/tm/images/contenido/'.date('Y').'/'.date('m'),
-                'uploadUrl'=>'/tm/images/contenido/'.date('Y').'/'.date('m'),
-                'uploadCreate'=>true,
-                'permissions'=>0755,
-            ),
-        );
-    }*/
-
-   	
+	
     public function actionImagelist($attr)
     {
 		$attribute=strtolower($attr);
@@ -160,8 +134,21 @@ class PaginaController extends Controller
 		{
 			$ca = Carpeta::model()->with('carpetas', 'archivos', 'url')->findAllByAttributes( array('pagina_id' => $id, 'item_id' => 0) );
 			$contenido = $this->renderPartial('_carpeta', array('contenido' => $pagina, 'carpeta' => $ca, 'model' => $pagina['pagina']), true);
-		}else
+		}
+		else
 		{
+			if($pagina['pagina']->tipo_pagina_id == 8)
+			{
+				$fi = new CActiveDataProvider('FiltroItem', array(
+				    'criteria'=>array(
+				        'condition'=>'pg_filtro_id='.$pagina['contenido']->id
+				    ),
+				    'pagination'=>array(
+				        'pageSize'=>50,
+				    ),
+				));
+				$pagina['contenido']['filtroItems'] = $fi;
+			}
 			$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
 		}
 		
@@ -175,14 +162,26 @@ class PaginaController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCrear($id)
+	public function actionCrear($id, $tipo_pagina_id = 2)
 	{
 		if( !isset(Yii::app()->session['dirpa']) ) Yii::app()->session['dirpa'] = 'backgrounds/paginas/';
 		$micrositio = ($id)?Micrositio::model()->with('seccion')->findByPk($id):0;
 		$model = new Pagina;
 		$model->micrositio_id = $micrositio;
-		if(isset($micrositio->seccion_id) && $micrositio->seccion_id == 4) $ppc = 'PgDocumental';
-		else $ppc = 'PgGenericaSt';
+		switch($tipo_pagina_id)
+		{
+			case 2:
+				$ppc = 'PgGenericaSt';
+				break;
+			case 4:
+				$ppc = 'PgDocumental';
+				break;
+			case 8:
+				$ppc = 'PgFiltro';
+				break;
+			default: 
+				$ppc = 'PgGenericaSt';
+		}
 		$contenido = new $ppc;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -192,7 +191,7 @@ class PaginaController extends Controller
 		{
 			$model->attributes = $_POST['Pagina'];
 			$m = Micrositio::model()->with('seccion')->findByPk($model->micrositio_id);
-			$model->tipo_pagina_id = 2;
+			$model->tipo_pagina_id = $tipo_pagina_id;
 			$url = new Url;
 			$slug = $this->slugger($m->seccion->nombre) . '/' . $this->slugger($m->nombre) . '/' . $this->slugger($model->nombre);
 			$slug = $this->verificarSlug($slug);
@@ -203,32 +202,35 @@ class PaginaController extends Controller
 			$url_id = $url->getPrimaryKey();
 			$model->url_id = $url_id;
 			if($model->save()){
+				if( isset(Yii::app()->session['dirpa']) ){
+					$dirpa = Yii::app()->session['dirpa'];
+				}
 				if(isset($_POST['PgGenericaSt']))
 				{
-					if( isset(Yii::app()->session['dirpa']) ){
-						$dirpa = Yii::app()->session['dirpa'];
-					}
-					$contenido->pagina_id = $model->getPrimaryKey();
 					$contenido->imagen 	= ($_POST['PgGenericaSt']['imagen'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen']:NULL;
 					$contenido->imagen_mobile 	= ($_POST['PgGenericaSt']['imagen_mobile'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen_mobile']:NULL;
 					$contenido->miniatura 		= ($_POST['PgGenericaSt']['miniatura'])?$dirpa . 'thumbnail/' . $_POST['PgGenericaSt']['miniatura']:NULL;
 					$contenido->texto = $_POST['PgGenericaSt']['texto'];
-					$contenido->estado = 1;
-					if($contenido->save())
-						$this->redirect(array('view','id'=>$model->id));
 				}
 				if(isset($_POST['PgDocumental']))
 				{
-					$contenido->pagina_id = $model->getPrimaryKey();
 					$contenido = PgDocumental::model()->findByPk($_POST['PgDocumental']['id']);
 					$contenido->titulo 	 = $_POST['PgDocumental']['titulo'];
 					$contenido->duracion = $_POST['PgDocumental']['duracion'];
 					$contenido->anio 	 = $_POST['PgDocumental']['anio'];
 					$contenido->sinopsis = $_POST['PgDocumental']['sinopsis'];
-					$contenido->estado = 1;
-					if($contenido->save())
-						$this->redirect(array('view', 'id'=>$model->id));
 				}
+				if(isset($_POST['PgFiltro']))
+				{
+					$contenido->imagen 	= ($_POST['PgFiltro']['imagen'] != '')?$dirpa . $_POST['PgFiltro']['imagen']:NULL;
+					$contenido->imagen_mobile = ($_POST['PgFiltro']['imagen_mobile'] != '')?$dirpa . $_POST['PgFiltro']['imagen_mobile']:NULL;
+					$contenido->miniatura 	  = ($_POST['PgFiltro']['miniatura'])?$dirpa . 'thumbnail/' . $_POST['PgFiltro']['miniatura']:NULL;
+					$contenido->descripcion   = $_POST['PgFiltro']['descripcion'];
+				}
+				$contenido->estado = 1;
+				$contenido->pagina_id = $model->getPrimaryKey();
+				if($contenido->save())
+					$this->redirect(array('view','id'=>$model->id));
 			}
 			
 		}
@@ -269,12 +271,13 @@ class PaginaController extends Controller
 
 			if($datos['pagina']->save())
 			{
+				if( isset(Yii::app()->session['dirpa']) ){
+					$dirpa = Yii::app()->session['dirpa'];
+				}
 				if(isset($_POST['PgGenericaSt']))
 				{
 					$contenido = PgGenericaSt::model()->findByPk($_POST['PgGenericaSt']['id']);
-					if( isset(Yii::app()->session['dirpa']) ){
-						$dirpa = Yii::app()->session['dirpa'];
-					}
+					
 					if($_POST['PgGenericaSt']['imagen'] != $contenido->imagen)
 					{
 						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen);
@@ -291,8 +294,6 @@ class PaginaController extends Controller
 						$contenido->miniatura 	= ($_POST['PgGenericaSt']['miniatura'] != '')?$dirpa . $_POST['PgGenericaSt']['miniatura']:NULL;
 					}
 					$contenido->texto = $_POST['PgGenericaSt']['texto'];
-					if($contenido->save())
-						$this->redirect(array('view', 'id'=>$datos['pagina']->id));
 				}
 				if(isset($_POST['PgDocumental']))
 				{
@@ -301,9 +302,29 @@ class PaginaController extends Controller
 					$contenido->duracion = $_POST['PgDocumental']['duracion'];
 					$contenido->anio 	 = $_POST['PgDocumental']['anio'];
 					$contenido->sinopsis = $_POST['PgDocumental']['sinopsis'];
-					if($contenido->save())
-						$this->redirect(array('view', 'id'=>$datos['pagina']->id));
 				}
+				if(isset($_POST['PgFiltro']))
+				{
+					$contenido = PgFiltro::model()->findByPk($_POST['PgFiltro']['id']);
+					if($_POST['PgFiltro']['imagen'] != $contenido->imagen)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen);
+						$contenido->imagen 	= ($_POST['PgFiltro']['imagen'] != '')?$dirpa . $_POST['PgFiltro']['imagen']:NULL;
+					}
+					if($_POST['PgFiltro']['imagen_mobile'] != $contenido->imagen_mobile)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen_mobile);
+						$contenido->imagen_mobile 	= ($_POST['PgFiltro']['imagen_mobile'] != '')?$dirpa . $_POST['PgFiltro']['imagen_mobile']:NULL;
+					}
+					if($_POST['PgFiltro']['miniatura'] != $contenido->miniatura)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->miniatura);
+						$contenido->miniatura 	= ($_POST['PgFiltro']['miniatura'] != '')?$dirpa . $_POST['PgFiltro']['miniatura']:NULL;
+					}
+					$contenido->descripcion = $_POST['PgFiltro']['descripcion'];
+				}
+				if($contenido->save())
+					$this->redirect(array('view', 'id'=>$datos['pagina']->id));
 			}
 		}else
 		{

@@ -8,6 +8,11 @@
 			'value' => l($contenido['contenido']->imagen, bu('images/'.$contenido['contenido']->imagen), array('target' => '_blank')),
 		),
 		array(
+			'name' => 'imagen_mobile', 
+			'type' => 'raw', 
+			'value' => l($contenido['contenido']->imagen_mobile, bu('images/'.$contenido['contenido']->imagen_mobile), array('target' => '_blank')),
+		),
+		array(
 			'name' => 'miniatura', 
 			'type' => 'raw', 
 			'value' => l($contenido['contenido']->miniatura, bu('images/'.$contenido['contenido']->miniatura), array('target' => '_blank')),

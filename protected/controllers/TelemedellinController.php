@@ -4,6 +4,8 @@ class TelemedellinController extends Controller
 {
 	public function actionError()
 	{
+		$url = Yii::app()->request->requestUri;
+		Yii::log(PHP_EOL . 'URL: ' . $url, CLogger::LEVEL_INFO, '404');
 		$this->render('error');
 	}
 

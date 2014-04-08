@@ -54,9 +54,6 @@ class TmUrlRule extends CBaseUrlRule
 
     private function crear_slug($pedazos)
     {
-        /*print_r($pedazos);
-        print_r(count($pedazos));
-        exit();*/
         $raiz = $pedazos[1];
         if($raiz != 'Paginas')
         {
@@ -70,6 +67,7 @@ class TmUrlRule extends CBaseUrlRule
             else if($raiz == 'clima247') Yii::app()->request->redirect(bu('programas/clima-247'), true, 301);
             else if($raiz == 'copatelemedellinrugby') Yii::app()->request->redirect(bu('programas/copa-telemedellin-de-rugby-15-s'), true, 301);
             else if($raiz == 'capicua') Yii::app()->request->redirect(bu('programas/ciudad-escuela'), true, 301);
+            else if($raiz == 'pagina_nueva') Yii::app()->request->redirect(bu('senal-en-vivo'), true, 301);
             else if($this->verificar_slug($p)) Yii::app()->request->redirect(bu($p), true, 301);
             else if($this->verificar_slug($e)) Yii::app()->request->redirect(bu($e), true, 301);
             else if($this->verificar_slug($c)) Yii::app()->request->redirect(bu($c), true, 301);

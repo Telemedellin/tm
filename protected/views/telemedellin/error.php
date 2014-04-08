@@ -5,7 +5,7 @@ $this->breadcrumbs = array(
 if($this->beginCache( '404', array('duration' => 21600) )):
 ?>
 <div id="micrositio">
-	<div class="mCustomScrollBox" style="padding: 20px;">
+	<div class="contenidoScroll">
 		<h1>Error 404</h1>
 		<p>¿No encontraste lo que buscabas?</p>
 		<p>Si querés pegate una pasada por nuestros <?php echo l('programas', bu('programas')) ?> o nuestra <?php echo l('parrilla de programación', bu('programacion')) ?>.</p>

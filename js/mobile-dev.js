@@ -20,6 +20,20 @@ function abrir_multimedia(hash) {
 		micrositio.html(respuesta.responseText);
 	}
 }
+function accentsTidy(s){
+  var r = s.toLowerCase();
+  r = r.replace(new RegExp("[àáâãäå]", 'gi'),"a");
+  r = r.replace(new RegExp("æ", 'gi'),"ae");
+  r = r.replace(new RegExp("ç", 'gi'),"c");
+  r = r.replace(new RegExp("[èéêë]", 'gi'),"e");
+  r = r.replace(new RegExp("[ìíîï]", 'gi'),"i");
+  r = r.replace(new RegExp("ñ", 'gi'),"n");                            
+  r = r.replace(new RegExp("[òóôõö]", 'gi'),"o");
+  r = r.replace(new RegExp("œ", 'gi'),"oe");
+  r = r.replace(new RegExp("[ùúûü]", 'gi'),"u");
+  r = r.replace(new RegExp("[ýÿ]", 'gi'),"y");
+  return r;
+};
 function nav(event)
 {
 	var c 	= $('#container'), 
@@ -193,6 +207,52 @@ jQuery(function($) {
 				window.location = dia;
 			});
 		}
+
+		$('#micrositio #txtFiltro').on('keyup', filtrar_lista);
+		$('#micrositio #txtFiltro').on('change', filtrar_lista);
+	    $('#micrositio .listado .nivel-1 > li > span').on('click', open_close_list);
+	    $('#micrositio .listado .filtrable > span').on('click', open_close_list);
+
+	    function filtrar_lista(){
+			var table = $(".inner"), 
+				value = accentsTidy(this.value),
+				filtrable = table.find('.filtrable');
+			filtrable.parent().parent().removeClass('open');
+			filtrable.parent().parent().addClass('hidden');
+			filtrable.each(function(index, row) {
+			var row = $(row),
+			    allCells = row.children('span'),
+			    regExp = new RegExp(value, "i"), 
+			    text = allCells.text();
+
+			if(text != '' && value != '') {
+				var t = accentsTidy(text);
+				if(regExp.test(t)) {
+					row.addClass('open');
+					row.parent().parent().addClass('open');
+					row.removeClass('hidden');
+					row.parent().parent().removeClass('hidden');
+				}else
+				{
+				row.removeClass('open');
+				row.addClass('hidden');
+				}
+			}else
+			{
+				row.removeClass('open')
+				row.parent().parent().removeClass('open');
+				row.removeClass('hidden');
+				row.parent().parent().removeClass('hidden');
+			}
+			});
+			//micro.mCustomScrollbar("update");
+	    }//filtrar_lista
+
+	    function open_close_list(event)
+	    {
+			$(event.currentTarget).parent().toggleClass('open');
+			micro.mCustomScrollbar("update");
+	    }//open_close_list
 	}//micro
 	
 });

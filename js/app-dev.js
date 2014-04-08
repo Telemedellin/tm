@@ -189,11 +189,13 @@ jQuery(function($) {
   doc.on('click', '.ajax a', click_popup);
   doc.on('click', '#overlay a.close', cerrar_popup);
   doc.on('click', '#overlay', v_cerrar_popup);
-  doc.on('keyup', '#txtFiltro', filtrar);
-  function filtrar(){
+  doc.on('keyup', '#seccion #txtFiltro', filtrar_seccion);
+
+  function filtrar_seccion(){
     var table = $(".inner");
     var value = accentsTidy(this.value);
-    table.find("h2").each(function(index, row) {
+    var filtrable = table.find("h2");
+    filtrable.each(function(index, row) {
       var allCells = $(row).find("a");
       if(allCells.length > 0) {
         var found = false;
@@ -209,7 +211,7 @@ jQuery(function($) {
         else $(row).hide();
       }
     });
-  }//filtrar
+  }//filtrar_seccion
   
   var cf = 0;
   if(micro[0]){
@@ -291,6 +293,53 @@ jQuery(function($) {
       });
     });
     verificar_hash();
+
+    $('#micrositio #txtFiltro').on('keyup', filtrar_lista);
+    $('#micrositio #txtFiltro').on('change', filtrar_lista);
+    $('#micrositio .listado .nivel-1 > li > span').on('click', open_close_list);
+    $('#micrositio .listado .filtrable > span').on('click', open_close_list);
+
+    function filtrar_lista(){
+      var table = $(".inner"), 
+          value = accentsTidy(this.value),
+          filtrable = table.find('.filtrable');
+      filtrable.parent().parent().removeClass('open');
+      filtrable.parent().parent().addClass('hidden');
+      filtrable.each(function(index, row) {
+        var row = $(row),
+            allCells = row.children('span'),
+            regExp = new RegExp(value, "i"), 
+            text = allCells.text();
+        
+        if(text != '' && value != '') {
+          var t = accentsTidy(text);
+          if(regExp.test(t)) {
+            row.addClass('open');
+            row.parent().parent().addClass('open');
+            row.removeClass('hidden');
+            row.parent().parent().removeClass('hidden');
+          }else
+          {
+            row.removeClass('open');
+            row.addClass('hidden');
+          }
+        }else
+        {
+          row.removeClass('open')
+          row.parent().parent().removeClass('open');
+          row.removeClass('hidden');
+          row.parent().parent().removeClass('hidden');
+        }
+      });
+      micro.mCustomScrollbar("update");
+    }//filtrar_lista
+
+    function open_close_list(event)
+    {
+      $(event.currentTarget).parent().toggleClass('open');
+      micro.mCustomScrollbar("update");
+    }//open_close_list
+
   }//if micro[0]
 
   if(body.hasClass('home')){

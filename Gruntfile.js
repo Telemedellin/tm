@@ -34,6 +34,7 @@ module.exports = function(grunt) {
           'js/libs/admin/jquery.fileupload/jquery.fileupload-resize.js',
           'js/libs/admin/jquery.fileupload/jquery.fileupload-validate.js',
           'js/libs/admin/jquery.fileupload/jquery.fileupload-ui.js',
+          'js/libs/admin/chosen.jquery.js',
           ],
         dest: 'js/admin.libs.js'
       },
@@ -47,6 +48,7 @@ module.exports = function(grunt) {
           'js/libs/moment-with-langs.js', 
           'js/libs/jquery.mCustomScrollbar.concat.min.js', 
           'js/libs/mobile/jquery.backstretch.min.js',
+          'js/libs/modernizr.custom.30163.js',
           'js/libs/mobile/bootstrap.min.js', 
           ],
         dest: 'js/mobile.libs.js'

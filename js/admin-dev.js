@@ -8,6 +8,8 @@ jQuery(function($) {
         "plugins" : [ "themes", "html_data" ]
     });
 
+    $('.chosen').chosen();
+
     var PUBLIC_PATH = $("#PUBLIC_PATH").val();
     var numPerfil = $("#miniatura .template-download:not('.ui-state-error')").length;
 
