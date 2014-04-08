@@ -8,6 +8,8 @@ RewriteRule .* – [F,L]
 #Redirecciona para canonizar el dominio
 RewriteCond %{HTTP_HOST} ^72\.52\.231\.90 [OR]
 RewriteCond %{HTTP_HOST} ^www\.telemedellin\.tv$ [OR]
+RewriteCond %{HTTP_HOST} ^m\.telemedellin\.tv$ [OR]
+RewriteCond %{HTTP_HOST} ^movil\.telemedellin\.tv$ [OR]
 RewriteCond %{HTTP_HOST} ^telemedellin\.com$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.telemedellin\.com$ [OR]
 RewriteCond %{HTTP_HOST} ^telemedellin\.com\.co$ [OR]
