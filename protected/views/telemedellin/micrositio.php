@@ -11,9 +11,12 @@ $this->breadcrumbs = $bc;
 $pt = ($pagina->id != $micrositio->pagina_id) ? ucfirst($pagina->nombre) . ' - ': '';
 $this->pageTitle = $pt . $micrositio->nombre;
 
-$bg = bu('/images/' . $fondo_pagina);
-
-cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');
+if($fondo_pagina == 'null')
+	cs()->registerCss('background', 'body{background-image: none}');
+else{
+	$bg = bu('/images/' . $fondo_pagina);
+	cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');
+}
 ?>
 <?php if( isset( $micrositio->redSocials ) && count($micrositio->redSocials) ):  ?>
 <div id="redes_micrositio" class="redes">
