@@ -1,11 +1,22 @@
 <?php
-
 class TelemedellinController extends Controller
 {
 	public function actionError()
 	{
-		$url = Yii::app()->request->requestUri;
-		Yii::log(PHP_EOL . 'URL: ' . $url, CLogger::LEVEL_INFO, '404');
+		$url 			= Yii::app()->request->requestUri;
+		$referer 		= Yii::app()->request->urlReferrer;
+		$userAgent 		= Yii::app()->request->userAgent;
+		$userHost  		= Yii::app()->request->userHost;
+		$userHostAddress= Yii::app()->request->userHostAddress;
+		Yii::log(
+			PHP_EOL . 'URL: ' 				. $url .
+			PHP_EOL . 'Referer: ' 			. $referer.
+			PHP_EOL . 'User Agent: ' 		. $userAgent.
+			PHP_EOL . 'User Host: ' 		. $userHost.
+			PHP_EOL . 'User Host Address: ' . $userHostAddress, 
+			CLogger::LEVEL_INFO, 
+			'404'
+		);
 		$this->render('error');
 	}
 
