@@ -4,20 +4,21 @@
 	<div class="col-sm-6">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">Programación de hoy <?php echo l( '<span class="glyphicon glyphicon-plus"></span>', bu('administrador/programacion/crear'), array('class' => 'pull-right', 'title' => 'Agregar a la parrilla') ); ?></h3>
+				<h3 class="panel-title"><span class="glyphicon glyphicon-calendar"></span> Programación de hoy <?php echo l( '<span class="glyphicon glyphicon-plus"></span>', bu('administrador/programacion/crear'), array('class' => 'pull-right', 'title' => 'Agregar a la parrilla') ); ?></h3>
 			</div>
 			<div class="panel-body">
 				<?php $this->widget('zii.widgets.grid.CGridView', array(
 					'dataProvider'=>$programacion,
-					'enableSorting' => true,
 					'summaryText'=>'',  
 					'columns'=>array(
 				        'micrositio.nombre',
 				         array(
+				            'header' => 'Empieza',
 				            'name'=>'hora_inicio',
 				            'value'=>'date("H:i", $data->hora_inicio)',
 				        ),
 				        array(
+				            'header' => 'Termina',
 				            'name'=>'hora_fin',
 				            'value'=>'date("H:i", $data->hora_fin)',
 				        ),
@@ -40,17 +41,11 @@
 			<div class="panel-body">
 				<?php $this->widget('zii.widgets.grid.CGridView', array(
 				'dataProvider'=>$novedades,
-				'enableSorting' => true,
 				'enablePagination' => false,
 				'summaryText'=>'',  
 			    //'rowCssClassExpression' => '($data->destacado=="1")?"alert-success":(($data->estado=="2")?"alert-primary":(($data->estado=="1")?"alert-warning":"alert-danger"))',
 				'columns'=>array(
-			        array(
-			            'name'=>'nombre',
-			            'header'=>'Nombre',
-			            'type' => 'raw', 
-			            'value'=>'"<strong>".$data->nombre."</strong>"'
-			        ),
+			        'nombre', 
 			        array(
 			            'name'=>'destacado',
 			            'filter'=>array('1'=>'Si','0'=>'No'),
@@ -73,7 +68,6 @@
 			<div class="panel-body">
 				<?php $this->widget('zii.widgets.grid.CGridView', array(
 				'dataProvider'=>$concursos,
-				'enableSorting' => true,
 				'enablePagination' => false,
 				'summaryText'=>'',  
 				'columns'=>array(
