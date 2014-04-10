@@ -14,20 +14,20 @@
 	<div class="container">
 		<nav class="navbar navbar-default" role="navigation">
 			<div class="navbar-header">
-			    <?php echo l( 'Telemedellín', bu('administrador'), array('class' => 'navbar-brand') ); ?>
+			    <?php echo l( '<span class="glyphicon glyphicon-home"></span> Telemedellín', bu('administrador'), array('class' => 'navbar-brand') ); ?>
 			</div>
 			<?php if(!Yii::app()->user->isGuest): ?>
 			<div class="navbar-collapse navbar-ex1-collapse pull-left">
 			    <ul class="nav navbar-nav">
 			    	<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Novedades <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bullhorn"></span> Novedades <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/novedades') ); ?></li>
 							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nueva', bu('administrador/novedades/crear') ); ?></li>
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Concursos <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-gift"></span> Concursos <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/concursos') ); ?></li>
 							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nuevo', bu('administrador/concursos/crear') ); ?></li>
