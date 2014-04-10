@@ -1,5 +1,4 @@
 <?php
-
 class AdminController extends Controller
 {
 	public $layout='//layouts/administrador';
@@ -157,5 +156,4 @@ class AdminController extends Controller
 			)
 		);
 	}
-
 }

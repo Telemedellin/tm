@@ -10,6 +10,7 @@ class UserIdentity extends CUserIdentity
 	private $_id;
 	public $correo;
 	public $password;
+	public $es_admin;
 	const ERROR_STATUS = 4;
 	/**
 	 * Authenticates a user.
@@ -41,6 +42,7 @@ class UserIdentity extends CUserIdentity
         {
             $this->_id 		= $usuario->id;
             $this->correo 	= $usuario->correo;
+            $this->es_admin	= $usuario->es_admin;
             $this->errorCode = self::ERROR_NONE;
         }
         return $this->errorCode == self::ERROR_NONE;
@@ -53,5 +55,9 @@ class UserIdentity extends CUserIdentity
     public function getCorreo()
     {
         return $this->correo;
+    }
+    public function getEsAdmin()
+    {
+        return $this->es_admin;
     }
 }
