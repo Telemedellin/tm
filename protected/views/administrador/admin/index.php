@@ -36,7 +36,7 @@
 	<div class="col-sm-6">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">Novedades en el home <?php echo l( '<span class="glyphicon glyphicon-plus"></span>', bu('administrador/novedades/crear'), array('class' => 'pull-right', 'title' => 'Agregar novedad') ); ?></h3>
+				<h3 class="panel-title"><span class="glyphicon glyphicon-bullhorn"></span> Novedades en el home <?php echo l( '<span class="glyphicon glyphicon-plus"></span>', bu('administrador/novedades/crear'), array('class' => 'pull-right', 'title' => 'Agregar novedad') ); ?></h3>
 			</div>
 			<div class="panel-body">
 				<?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -63,7 +63,7 @@
 		</div>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">Concursos publicados <?php echo l( '<span class="glyphicon glyphicon-plus"></span>', bu('administrador/concursos/crear'), array('class' => 'pull-right', 'title' => 'Agregar concurso') ); ?></h3>
+				<h3 class="panel-title"><span class="glyphicon glyphicon-gift"></span> Concursos publicados <?php echo l( '<span class="glyphicon glyphicon-plus"></span>', bu('administrador/concursos/crear'), array('class' => 'pull-right', 'title' => 'Agregar concurso') ); ?></h3>
 			</div>
 			<div class="panel-body">
 				<?php $this->widget('zii.widgets.grid.CGridView', array(

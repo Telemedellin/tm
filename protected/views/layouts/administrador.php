@@ -72,7 +72,7 @@
 			</div>
 			<p class="navbar-text pull-right">
 				<?php echo l( '<span class="glyphicon glyphicon-user"></span>', bu('administrador/'), array('class' => 'navbar-link', 'title' => Yii::app()->user->getState('correo')) ); ?>
-				<?php echo l( '<span class="glyphicon glyphicon-remove"></span>', bu('administrador/salir'), array('class' => 'navbar-link', 'title' => 'Salir') ); ?>
+				<?php echo l( '<span class="glyphicon glyphicon-off"></span>', bu('administrador/salir'), array('class' => 'navbar-link', 'title' => 'Salir') ); ?>
 			</p>
 			<?php endif ?>
 		</nav>
