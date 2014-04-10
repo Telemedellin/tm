@@ -17,62 +17,62 @@
 			    <?php echo l( 'Telemedellín', bu('administrador'), array('class' => 'navbar-brand') ); ?>
 			</div>
 			<?php if(!Yii::app()->user->isGuest): ?>
-			<div class="navbar-collapse navbar-ex1-collapse">
+			<div class="navbar-collapse navbar-ex1-collapse pull-left">
 			    <ul class="nav navbar-nav">
 			    	<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Novedades <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><?php echo l( 'Listar', bu('administrador/novedades') ); ?></li>
-							<li><?php echo l( 'Crear nueva', bu('administrador/novedades/crear') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/novedades') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nueva', bu('administrador/novedades/crear') ); ?></li>
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Concursos <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><?php echo l( 'Listar', bu('administrador/concursos') ); ?></li>
-							<li><?php echo l( 'Crear nuevo', bu('administrador/concursos/crear') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/concursos') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nuevo', bu('administrador/concursos/crear') ); ?></li>
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Parrilla <b class="caret"></b></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-calendar"></span> Parrilla <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><?php echo l( 'Listar', bu('administrador/programacion') ); ?></li>
-							<li><?php echo l( 'Agregar a la parrilla', bu('administrador/programacion/crear') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/programacion') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Agregar a la parrilla', bu('administrador/programacion/crear') ); ?></li>
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Especiales <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><?php echo l( 'Listar', bu('administrador/especiales') ); ?></li>
-							<li><?php echo l( 'Crear nuevo', bu('administrador/especiales/crear') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/especiales') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nuevo', bu('administrador/especiales/crear') ); ?></li>
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Programas <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><?php echo l( 'Listar', bu('administrador/programas') ); ?></li>
-							<li><?php echo l( 'Crear nuevo', bu('administrador/programas/crear') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/programas') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nuevo', bu('administrador/programas/crear') ); ?></li>
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentales <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><?php echo l( 'Listar', bu('administrador/documentales') ); ?></li>
-							<li><?php echo l( 'Crear nuevo', bu('administrador/documentales/crear') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/documentales') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nuevo', bu('administrador/documentales/crear') ); ?></li>
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Telemedellín <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><?php echo l( 'Listar', bu('administrador/telemedellin') ); ?></li>
-							<li><?php echo l( 'Crear micrositio', bu('administrador/telemedellin/crear') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/telemedellin') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear micrositio', bu('administrador/telemedellin/crear') ); ?></li>
 						</ul>
 					</li>
 			    </ul>
 			</div>
 			<p class="navbar-text pull-right">
-				<small><?php echo Yii::app()->user->getState('correo') ?></small> 
-				<?php echo l( 'Salir', bu('administrador/salir'), array('class' => 'navbar-link') ); ?>
+				<?php echo l( '<span class="glyphicon glyphicon-user"></span>', bu('administrador/'), array('class' => 'navbar-link', 'title' => Yii::app()->user->getState('correo')) ); ?>
+				<?php echo l( '<span class="glyphicon glyphicon-remove"></span>', bu('administrador/salir'), array('class' => 'navbar-link', 'title' => 'Salir') ); ?>
 			</p>
 			<?php endif ?>
 		</nav>

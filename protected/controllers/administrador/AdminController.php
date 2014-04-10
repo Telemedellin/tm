@@ -114,9 +114,48 @@ class AdminController extends Controller
 	 */
 	public function actionIndex()
 	{
-		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$novedades = new CActiveDataProvider(
+							'Pagina', 
+							array(
+							    'criteria'=>array(
+							        'condition'=> 'tipo_pagina_id = 3 AND estado = 2',
+							        'order' => 'destacado DESC, creado DESC',
+							    ),
+							    'pagination'=>false,
+							) 
+						);
+		$concursos = new CActiveDataProvider(
+							'Micrositio', 
+							array(
+							    'criteria'=>array(
+							        'condition'=>'seccion_id = 8 AND estado = 1',
+							        'order'=>'creado DESC',
+							    ), 
+							    'pagination'=>false,
+							) 
+						);
+		$sts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+		$programacion = new CActiveDataProvider(
+							'Programacion', 
+							array(
+							    'criteria'=>array(
+							        'condition' => 'hora_inicio > ' . $sts . 
+							        			   ' AND hora_inicio < ' . ($sts + 86400) .
+							        			   ' AND t.estado <> 0',
+							        'order'=>'hora_inicio ASC',
+							        'with'=>array('micrositio'),
+							    ),
+							    'pagination'=>false,
+							)
+						);
+		$this->render(
+			'index', 
+			array(
+				'novedades' => $novedades,
+				'concursos' => $concursos,
+				'programacion' => $programacion,
+			)
+		);
 	}
 
 }
