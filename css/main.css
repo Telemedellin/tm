@@ -2448,23 +2448,23 @@ nav ul {
 		width: 15%;
 	}
 	#bar nav li a {
-		background-position: 5px 16px;
+		background-position: 5px 12px;
 		background-size: 32px auto;
 		font-size: 1.3em;
 		padding: 10px 0 10px 35px;
 	}
 	#bar nav li.programas a {
-		background-position: 5px -35px;
+		background-position: 5px -39px;
 	}
 	#bar nav li.especiales a {
-		background-position: 5px -80px;
+		background-position: 5px -83px;
 	}
 	#bar nav li.documentales a {
-		background-position: 5px -128px;
+		background-position: 5px -132px;
 	}
 	#bar nav li.noticiastm a
 	{
-		background-position: 5px -957px;
+		background-position: 5px -972px;
 	}
 	#bar nav li.tmradio
 	{
@@ -2472,7 +2472,7 @@ nav ul {
 	}
 	
 	#bar nav li.tmradio a {
-		background-position: 5px -857px;
+		background-position: 5px -870px;
 	}
 	#bar footer .extended-address .title {
 		background-size: 6%;
@@ -2484,25 +2484,25 @@ nav ul {
 		background-size: 6%;
 	}
 	#bar .redes li.facebook a {
-		background-position: 0px -365px;
+		background-position: 0px -362px;
 	}
 	#bar .redes li.twitter a {
-		background-position: 0px -408px;
+		background-position: 0px -405px;
 	}
 	#bar .redes li.flickr a {
-		background-position: 0px -501px;
+		background-position: 0px -496px;
 	}
 	#bar .redes li.youtube a {
-		background-position: 0px -456px;
+		background-position: 0px -452px;
 	}
 	#bar .redes li.foursquare a {
-		background-position: 0px -547px;
+		background-position: 0px -542px;
 	}
 	#bar .redes li.instagram a {
-		background-position: 0px -590px;
+		background-position: 0px -585px;
 	}
 	#bar .redes li.vimeo a {
-		background-position: 0px -886px;
+		background-position: 0px -877px;
 	}
 	#content {
 		left: 15%;
