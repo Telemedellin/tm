@@ -22,6 +22,9 @@ function ga_track(){
     _gaq.push(['_trackPageview', location.pathname + location.hash]);
 }
 jQuery(function($) {
+    $('body').ajaxStart(function(){ $(this).append('<div id="loading"><span class="spinner"></span></div>').fadeIn(); });
+    $('body').ajaxComplete(function(){ $('#loading').fadeOut().remove(); });
+
     window.mobile = $('#icontainer').hasClass('mobile');
     window.cv = 0;
     window.cva = 0;
@@ -149,6 +152,7 @@ jQuery(function($) {
         className: 'galeria',
         template: template('fotoListViewTemplate'),
         initialize:function () {
+            
             this.collection.bind("reset", this.render, this);
             var self = this;
             this.render();

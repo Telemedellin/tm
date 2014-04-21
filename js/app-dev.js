@@ -100,8 +100,6 @@ function abrir_multimedia(tipo) {
       autoSize: false,
       height: $( window ).height() - ($( window ).height() * 0.10),
       padding: [9, 20, 9, 20],
-      openEffect: 'fade', 
-      width: $( window ).width() - ($( window ).width() * 0.10), 
       afterLoad: function(current, previous) {
           var nombre = "Álbumes";
           var pagina = '#'+hash;
@@ -253,8 +251,6 @@ jQuery(function($) {
         autoSize: false,
         height: $( window ).height() - ($( window ).height() * 0.10),
         padding: [9, 20, 9, 20],
-        openEffect: 'fade', 
-        width: $( window ).width() - ($( window ).width() * 0.10), 
         afterLoad: function(current, previous) {
             var nombre = "Álbumes";
             //var pagina = destino_url;

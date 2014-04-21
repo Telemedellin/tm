@@ -787,7 +787,8 @@ nav ul {
 }
 #icontainer .videoalbumes figure
 {
-	min-height: 175px;
+	min-height: 160px;
+	max-height: 160px;
 }
 #icontainer figure img
 {
@@ -839,7 +840,6 @@ nav ul {
 	line-height: 1;
 	padding: 8px 10px;
 	text-align: center;
-	top:-25px;
 	position:relative;
 }
 
