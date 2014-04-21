@@ -19,7 +19,7 @@ function makeTitle(slug) {
 function ga_track(){
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-5650687-11']);
-    _gaq.push(['_trackPageview']);
+    _gaq.push(['_trackPageview', location.pathname + location.hash]);
 }
 jQuery(function($) {
     window.mobile = $('#icontainer').hasClass('mobile');

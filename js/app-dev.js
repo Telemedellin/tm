@@ -85,6 +85,11 @@ function cerrar_popup(e) {
   $('#overlay').remove();
   e.preventDefault();
 }
+function ga_track(){
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-5650687-11']);
+    _gaq.push(['_trackPageview', location.pathname + location.hash]);
+}
 function abrir_multimedia(tipo) {
   if(tipo != ''){
     var hash = window.location.hash.substr(1),
@@ -95,6 +100,8 @@ function abrir_multimedia(tipo) {
       autoSize: false,
       height: $( window ).height() - ($( window ).height() * 0.10),
       padding: [9, 20, 9, 20],
+      openEffect: 'fade', 
+      width: $( window ).width() - ($( window ).width() * 0.10), 
       afterLoad: function(current, previous) {
           var nombre = "Álbumes";
           var pagina = '#'+hash;
@@ -153,6 +160,7 @@ function modificar_url(pagina, nombre) {
       window.location.hash = hashito;
     }
   }
+  ga_track();
 }
 function verificar_hash() {
   if(window.location.hash) {
@@ -245,6 +253,8 @@ jQuery(function($) {
         autoSize: false,
         height: $( window ).height() - ($( window ).height() * 0.10),
         padding: [9, 20, 9, 20],
+        openEffect: 'fade', 
+        width: $( window ).width() - ($( window ).width() * 0.10), 
         afterLoad: function(current, previous) {
             var nombre = "Álbumes";
             //var pagina = destino_url;

@@ -809,6 +809,10 @@ p{
 	display: none;
 	padding-left: 1em;
 }
+#micrositio .listado .nivel-3 span
+{
+	color: #FFD700;
+}
 #micrositio .listado .open > .nivel-2, 
 #micrositio .listado .open > .nivel-3
 {

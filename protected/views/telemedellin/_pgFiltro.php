@@ -19,7 +19,14 @@
 						<ul class="nivel-3">
 							<?php foreach($items as $nieto): ?>
 							<?php if($nieto->padre == $hijo->id): ?>
-							<li><span><?php echo $nieto->elemento ?></span></li>
+							<li><?php 
+								$e = explode(' ', $nieto->elemento);
+								for($i = 0; $i < count($e); $i++){
+									if(($i+1) == count($e)) echo '<span>';
+									echo $e[$i] . ' ';
+									if(($i+1) == count($e)) echo '</span>';
+								}
+								?></li>
 							<?php endif; ?>
 							<? endforeach; ?>
 						</ul>

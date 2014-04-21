@@ -769,8 +769,21 @@ nav ul {
 	display: block;
 	/*height: 125px;*/
 	margin: 0;
+
 	overflow: hidden;
 	width: 100%;
+}
+#icontainer .albumes figure
+{
+	max-height: 150px;
+}
+#icontainer .galeria figure
+{
+	max-height: 100px;
+}
+#icontainer .galeria figure img
+{
+	width: 150px;
 }
 #icontainer .videoalbumes figure
 {
@@ -1164,6 +1177,10 @@ nav ul {
 {
 	display: none;
 	padding-left: 1em;
+}
+#micrositio .listado .nivel-3 span
+{
+	color: #FFD700;
 }
 #micrositio .listado .open > .nivel-2, 
 #micrositio .listado .open > .nivel-3
@@ -2371,7 +2388,7 @@ nav ul {
 	}
 	#bar nav li.noticiastm a
 	{
-		background-position: 5px -913px;
+		background-position: 5px -912px;
 	}
 	#bar nav li.tmradio a {
 		background-position: 5px -814px;
@@ -2445,13 +2462,17 @@ nav ul {
 	#bar nav li.documentales a {
 		background-position: 5px -128px;
 	}
+	#bar nav li.noticiastm a
+	{
+		background-position: 5px -957px;
+	}
 	#bar nav li.tmradio
 	{
 		max-width: 230px;
 	}
 	
 	#bar nav li.tmradio a {
-		background-position: 5px -863px;
+		background-position: 5px -857px;
 	}
 	#bar footer .extended-address .title {
 		background-size: 6%;
@@ -2463,25 +2484,25 @@ nav ul {
 		background-size: 6%;
 	}
 	#bar .redes li.facebook a {
-		background-position: 0px -356px;
+		background-position: 0px -365px;
 	}
 	#bar .redes li.twitter a {
-		background-position: 0px -398px;
+		background-position: 0px -408px;
 	}
 	#bar .redes li.flickr a {
-		background-position: 0px -490px;
+		background-position: 0px -501px;
 	}
 	#bar .redes li.youtube a {
-		background-position: 0px -446px;
+		background-position: 0px -456px;
 	}
 	#bar .redes li.foursquare a {
-		background-position: 0px -536px;
+		background-position: 0px -547px;
 	}
 	#bar .redes li.instagram a {
-		background-position: 0px -580px;
+		background-position: 0px -590px;
 	}
 	#bar .redes li.vimeo a {
-		background-position: 0px -872px;
+		background-position: 0px -886px;
 	}
 	#content {
 		left: 15%;
