@@ -60,9 +60,6 @@ class CarpetaController extends Controller
 			$carpeta->attributes = $_POST['Carpeta'];
 			
 			if($carpeta->validate()){
-				
-
-
 				$url = new Url;
 				$transaccion 	= $url->dbConnection->beginTransaction();
 				$slug = '#archivos/' . $this->slugger($carpeta->carpeta);

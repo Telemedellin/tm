@@ -107,6 +107,11 @@ class ProgramasController extends Controller
 													        'condition'=>'micrositio_id = '.$id,
 													        'with'=>array('videos', 'url'),
 													    )) );
+		$fotos = new CActiveDataProvider( 'AlbumFoto', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$id,
+													        'with'=>array('fotos', 'url'),
+													    )) );
 		$horario = new CActiveDataProvider( 'Horario', array(
 													    'criteria'=>array(
 													        'condition'=>'pg_programa_id = '.$contenido->id,
@@ -139,6 +144,7 @@ class ProgramasController extends Controller
 			'model' => $model,
 			'contenido' => $contenido,
 			'videos' => $videos, 
+			'fotos' => $fotos, 
 			'horario' => $horario,
 			'redes_sociales' => $redes_sociales,
 			'paginas' => $paginas, 

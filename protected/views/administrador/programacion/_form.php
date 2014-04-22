@@ -83,7 +83,7 @@ Yii::app()->clientScript->registerScript('datepicker',
                     'class'=>'form-control',
                 ),
             ));*/
-            echo $form->hiddenField($model, 'micrositio_id');
+            //echo $form->hiddenField($model, 'micrositio_id');
             ?>
         </div>
 		<?php echo $form->error($model,'micrositio_id'); ?>

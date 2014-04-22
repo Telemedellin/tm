@@ -565,6 +565,19 @@ class TelemedellinController extends Controller
 		}
 	}
 
+	public function actionDirectorios(){
+		$fotos = Foto::model()->findAll();
+		foreach($fotos as $foto){
+			$src = $foto->src;
+			$thumb = $foto->thumb;
+			$ps = array_reverse(explode('/', $src));
+			$pt = array_reverse(explode('/', $thumb));
+			
+			$foto->src = $ps[0];
+			$foto->thumb = $pt[0];
+			$foto->save();
+		}
+	}
 	/*public function actionThumbs(){
 		$fotos = Foto::model()->findAll();
 		foreach($fotos as $foto){
