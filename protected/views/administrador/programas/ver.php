@@ -68,6 +68,11 @@
             'view'=>'_video', 
             'data'=> array('videos' => $videos, 'model' => $model)
         ),
+        'fotos'=>array(
+            'title'=>'Álbumes de fotos',
+            'view'=>'_foto', 
+            'data'=> array('fotos' => $fotos, 'model' => $model)
+        ),
         'redes-sociales'=>array(
             'title'=>'Redes sociales',
             'view'=>'_redessociales', 

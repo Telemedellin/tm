@@ -19,20 +19,23 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.vendors.bcrypt.*',
-		'application.vendors.UploadHandler.*'
+		'application.vendors.UploadHandler.*', 
+		'ext.image.Image', 
 	),
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		/*'gii'=>array(
+		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'asdf1234*',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
-		),*/
+		),
 	),
 	'controllerMap'=>array(
-	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController'
+	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController', 
+	    'visor' 		=> 'ext.editMe.widgets.ExtCkfinderController',
+	    'controlGaleria'=> 'ext.galleryManager.GalleryController'
 	),
 	// application components
 	'components'=>array(
@@ -59,6 +62,7 @@ return array(
 	            'administrador/recuperar-contrasena'=>'administrador/admin/recuperarcontrasena',
 	            'administrador/<controller:\w+>'=>'administrador/<controller>',
 	            'administrador/<controller:\w+>/<action:\w+>/<id:\d+>'=>'administrador/<controller>/<action>',
+	            'administrador/<controller:\w+>/<action:\w+>/<id:\d+>/<tipo_pagina_id:\d+>'=>'administrador/<controller>/<action>',
 	            'administrador/<controller:\w+>/<action:\w+>'=>'administrador/<controller>/<action>',
 				array(
 				    'class' => 'application.components.TmUrlRule',
@@ -80,10 +84,10 @@ return array(
 		),
 		*/
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=telemede_tm',
+			'connectionString' => 'mysql:host=localhost;dbname=med2018_tm',
 			'emulatePrepare' => true,
-			'username' => 'telemede_tm',
-			'password' => 'kk_#=2B8I-+V',
+			'username' => 'med2018_tm',
+			'password' => 'asdf1234*',
 			'charset' => 'utf8',
 		),
 		'twitter' => array(
@@ -91,6 +95,13 @@ return array(
             'consumer_key' => 'lvX5ZuwYkNNFwaYaLz0Rw',
             'consumer_secret' => 'tkEfo98Xcpg0rYphooAetOSVjBcYEXhM4pKTGh1Bw',
             'callback' => '',
+        ),
+        'image'=>array(
+            'class'=>'ext.image.CImageComponent',
+            // GD or ImageMagick
+            'driver'=>'GD',
+            // ImageMagick setup path
+            //'params'=>array('directory'=>'D:/Program Files/ImageMagick-6.4.8-Q16'),
         ),
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
@@ -112,11 +123,10 @@ return array(
                     'logFile' => '404'
                 ), 
 				// uncomment the following to show log messages on web pages
-				/*
-				array(
+				/*array(
 					'class'=>'CWebLogRoute',
 				),
-				*/
+				/**/
 			),
 		),
 		'cache'=>array(

@@ -8,6 +8,7 @@
  * @property string $micrositio_id
  * @property string $url_id
  * @property string $nombre
+ * @property string $directorio
  * @property string $creado
  * @property string $modificado
  * @property integer $estado
@@ -53,7 +54,7 @@ class AlbumFoto extends CActiveRecord
 			array('modificado', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, micrositio_id, url_id, nombre, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
+			array('id, micrositio_id, url_id, nombre, directorio, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,12 +82,29 @@ class AlbumFoto extends CActiveRecord
 			'micrositio_id' => 'Micrositio',
 			'url_id' => 'Url',
 			'nombre' => 'Nombre',
+			'directorio' => 'Directorio',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
 			'estado' => 'Estado',
 			'destacado' => 'Destacado',
 		);
 	}
+
+	public function behaviors()
+	{
+		return array(
+			'galleryBehavior' => array(
+	            'class' => 'ext.galleryManager.GalleryBehavior',
+	            'idAttribute' => 'id',
+	            'versions' => array(
+	                'thumb' => array(
+	                    'resize' => array(100, null),
+	                )
+	            )
+	        )
+		);
+	}
+
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
@@ -103,6 +121,7 @@ class AlbumFoto extends CActiveRecord
 		$criteria->compare('micrositio_id',$this->micrositio_id,true);
 		$criteria->compare('url_id',$this->url_id,true);
 		$criteria->compare('nombre',$this->nombre,true);
+		$criteria->compare('directorio',$this->directorio,true);
 		$criteria->compare('creado',$this->creado,true);
 		$criteria->compare('modificado',$this->modificado,true);
 		$criteria->compare('estado',$this->estado);

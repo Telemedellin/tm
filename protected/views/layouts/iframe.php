@@ -29,7 +29,7 @@ cs()->registerScriptFile(bu('/js/iframe.app.min.js'), CClientScript::POS_END);
 </script>
 <script id="fotoListItemViewTemplate" type="text/template">
 	<a href="<%= <?php echo ($this->theme == 'pc')? 'url':'src'?> %>" class="<%= id %> <?php echo ($this->theme == 'pc')? '':'swb'?>" data-id="<%= id %>" data-src="<%= src %>" data-url="<%= url %>" data-nombre="<%= nombre %>" <?php echo ($this->theme == 'pc')? '':'rel="galeria"'?> title="<%= nombre %>">
-		<figure><img src="<%= thumb %>" width="100" height="60" /></figure>
+		<figure><img src="<%= thumb %>" width="150" height="60" /></figure>
 		<?php if($this->theme != 'pc'):?><p><%= nombre %></p><?php endif; ?>
 	</a>
 </script>

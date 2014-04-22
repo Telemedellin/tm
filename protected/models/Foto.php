@@ -12,6 +12,7 @@
  * @property string $descripcion
  * @property string $ancho
  * @property string $alto
+ * @property integer $orden
  * @property string $creado
  * @property string $modificado
  * @property integer $estado
@@ -49,14 +50,14 @@ class Foto extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('album_foto_id, url_id, src, thumb, nombre, ancho, alto, estado, destacado', 'required'),
-			array('album_foto_id, url_id, estado, destacado', 'numerical', 'integerOnly'=>true),
+			array('album_foto_id, url_id, orden, estado, destacado', 'numerical', 'integerOnly'=>true),
 			array('album_foto_id, ancho, alto', 'length', 'max'=>10),
 			array('src, thumb', 'length', 'max'=>255),
 			array('nombre', 'length', 'max'=>100),
 			array('descripcion, creado, modificado', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, album_foto_id, url_id, src, thumb, nombre, descripcion, ancho, alto, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
+			array('id, album_foto_id, url_id, src, thumb, nombre, descripcion, ancho, alto, orden, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -88,6 +89,7 @@ class Foto extends CActiveRecord
 			'descripcion' => 'Descripción',
 			'ancho' => 'Ancho',
 			'alto' => 'Alto',
+			'orden' => 'Orden',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
 			'estado' => 'Publicado',
@@ -115,6 +117,7 @@ class Foto extends CActiveRecord
 		$criteria->compare('descripcion',$this->descripcion,true);
 		$criteria->compare('ancho',$this->ancho,true);
 		$criteria->compare('alto',$this->alto,true);
+		$criteria->compare('orden',$this->orden,true);
 		$criteria->compare('creado',$this->creado,true);
 		$criteria->compare('modificado',$this->modificado,true);
 		$criteria->compare('estado',$this->estado);
@@ -123,5 +126,24 @@ class Foto extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	protected function beforeSave()
+	{
+	    if(parent::beforeSave())
+	    {
+	        
+	        if($this->isNewRecord)
+	        {
+	        	$this->creado 		= date('Y-m-d H:i:s');
+	        }
+	        else
+	        {
+	            $this->modificado	= date('Y-m-d H:i:s');
+	        }
+	        return true;
+	    }
+	    else
+	        return false;
 	}
 }

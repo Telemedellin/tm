@@ -17,7 +17,7 @@ class ApiController extends Controller
 				$json .= '"micrositio":"'.$album->micrositio_id.'",';
 				$json .= '"nombre":"'.$album->nombre.'",';
 				$json .= '"url":"'.$album->url->slug.'",';
-				$json .= '"thumb":"'.bu('images/galeria/' . $album->fotos[0]->src).'"';
+				$json .= '"thumb":"'.bu('images/galeria/' . $album->directorio . $album->fotos[0]->src).'"';
 			$json .= '},';
 			endforeach;
 			$json = substr($json, 0, -1);
@@ -57,8 +57,8 @@ class ApiController extends Controller
 				$json .= '"album_foto":"'.$foto->albumFoto->nombre.'",';
 				$json .= '"url":"'.$foto->url->slug.'",';
 				$json .= '"nombre":"'.$foto->nombre.'",';
-				$json .= '"src":"'.bu('images/galeria/' . $foto->src).'",';
-				$json .= '"thumb":"'.bu('images/galeria/' . $foto->thumb).'",';
+				$json .= '"src":"'.bu('images/galeria/' . $foto->albumFoto->directorio . $foto->src).'",';
+				$json .= '"thumb":"'.bu('images/galeria/' . $foto->albumFoto->directorio . $foto->thumb).'",';
 				$json .= '"ancho":"'.$foto->ancho.'",';
 				$json .= '"alto":"'.$foto->alto.'"';
 			$json .= '},';
@@ -164,7 +164,7 @@ class ApiController extends Controller
 	public function actionMicrositio(){
 		if(!$_GET['id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$micrositio_id = $_GET['id'];
-		$micrositio = Micrositio::model()->findByPk( $micrositio_id, array('order' => 'nombre ASC') );
+		$micrositio = Micrositio::model()->findByPk( $micrositio_id, array('order' => 'nombre ASC', 'condition' => 'estado <> 0') );
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '{';
 		$json .= '"id":"'.CHtml::encode($micrositio->id).'",';
