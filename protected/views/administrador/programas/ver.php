@@ -16,30 +16,46 @@
 		<?php $this->widget('zii.widgets.CDetailView', array(
 			'data' => array('programa' => $model, 'contenido' => $contenido),
 			'attributes'=>array(
-				'programa.nombre',
+				array(
+					'name' => 'programa.nombre',
+					'label' => 'Programa',
+				),
 				array(
 					'name' => 'programa.url.slug',
+					'label' => 'URL',
 					'type' => 'raw', 
 					'value' => l($model->url->slug, bu($model->url->slug), array('target' => '_blank')),
 				),
-				'contenido.resena:html', 
+				array(
+					'name' =>'contenido.resena', 
+					'label' => 'Reseña',
+					'type' => 'html', 
+				),	
+				array(
+					'name' =>'programa.pagina.meta_descripcion', 
+					'label' => 'Meta descripción',
+				),				
 				array(
 		            'name' => 'contenido.horario',
+		            'label' => 'Horario', 
 		            'type' => 'raw', 
 		            'value' => Horarios::horario_parser($contenido->horario),
 		        ),
 				array(
 					'name' => 'programa.background', 
+					'label' => 'Imagen', 
 					'type' => 'raw', 
 					'value' => l($model->background, bu('images/'.$model->background), array('target' => '_blank', 'class' => 'fancybox')),
 				),
 				array(
 					'name' => 'programa.background_mobile', 
+					'label' => 'Imagen (Móviles)', 
 					'type' => 'raw', 
 					'value' => l($model->background_mobile, bu('images/'.$model->background_mobile), array('target' => '_blank', 'class' => 'fancybox')),
 				),
 				array(
-					'name' => 'programa.miniatura', 
+					'name' => 'programa.miniatura',
+					'label' => 'Imagen miniatura',  
 					'type' => 'raw', 
 					'value' => l($model->miniatura, bu('images/'.$model->miniatura), array('target' => '_blank', 'class' => 'fancybox')),
 				),
@@ -47,9 +63,14 @@
 				'programa.modificado',
 				array(
 					'name' => 'contenido.estado',
+					'label' => 'Estado', 
 					'value' => ($contenido->estado==2)?'En emisión':(($contenido->estado==1)?'No se emite':'Desactivado'),
 				),
-				'programa.destacado:boolean',
+				array(
+					'name' =>'programa.destacado', 
+					'label' => 'Destacado',
+					'type' => 'boolean', 
+				),
 			),
 		)); ?>
 	</div>

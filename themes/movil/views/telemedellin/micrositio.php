@@ -10,9 +10,12 @@ $this->breadcrumbs = $bc;
 $pt = ($pagina->id != $micrositio->pagina_id) ? ucfirst($pagina->nombre) . ' - ': '';
 $this->pageTitle = $pt . $micrositio->nombre;
 
-$bg = bu('/images/' . $fondo_pagina);
-
-cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');
+if($fondo_pagina == NULL)
+	cs()->registerCss('background', 'body{background-image: none}');
+else{
+	$bg = bu('/images/' . $fondo_pagina);
+	cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');
+}
 ?>
 <div id="content">
 	<?php if(isset($menu) && $menu): ?>

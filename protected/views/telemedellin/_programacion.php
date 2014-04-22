@@ -1,4 +1,7 @@
-<?php $this->pageTitle = 'Programación' ?>
+<?php 
+$this->pageTitle = 'Programación' ;
+$this->pageDesc;
+?>
 <div class="menu_micrositio">
 <?php echo ProgramacionW::getMenu($menu); ?>
 </div>

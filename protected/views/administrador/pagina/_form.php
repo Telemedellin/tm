@@ -29,6 +29,13 @@
 		<?php echo $form->error($model,'nombre'); ?>
 	</div>
 	<div class="form-group">
+        <?php echo $form->label($model,'meta_descripcion', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-6">
+            <?php echo $form->textArea($model,'meta_descripcion',array('rows'=> 3,'maxlength'=>200, 'class' => 'form-control', 'placeholder' => 'Esta descripción es solo para motores de búsqueda y no debe contener más de 160 carcteres.')); ?>
+        </div>
+        <?php echo $form->error($model,'meta_descripcion'); ?>
+    </div>
+	<div class="form-group">
 		<?php echo $form->label($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-2">
 			<?php echo $form->dropDownList($model,'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control') ); ?>

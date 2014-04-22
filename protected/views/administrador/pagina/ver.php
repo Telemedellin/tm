@@ -13,6 +13,7 @@
 			'attributes'=>array(
 				'id',
 				'nombre',
+				'meta_descripcion',
 				array(
 					'name' => 'micrositio.nombre',
 					'label' => 'Micrositio',

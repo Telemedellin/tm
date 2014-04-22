@@ -1,5 +1,7 @@
-<?php $this->pageDesc = $contenido['contenido']->descripcion;?>
-<?php echo $contenido['contenido']->descripcion ?>
+<?php 
+$this->pageDesc = ($contenido['pagina']->meta_descripcion != '')? $contenido['pagina']->meta_descripcion : $contenido['contenido']->descripcion;
+echo $contenido['contenido']->descripcion 
+?>
 <div class="filtro"> 
     <input type="text" id="txtFiltro" name="txtFiltro" placeholder="Filtrar..." />
 </div>

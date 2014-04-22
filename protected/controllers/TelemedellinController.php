@@ -326,6 +326,7 @@ class TelemedellinController extends Controller
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
 		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
+		
 		if(isset($pagina['contenido']->imagen) && !is_null($pagina['contenido']->imagen))
 		{
 			$fondo_pagina = $pagina['contenido']->imagen;
@@ -335,6 +336,9 @@ class TelemedellinController extends Controller
 		}elseif(!empty($micrositio->background))
 		{
 			$fondo_pagina = $micrositio->background;
+		}elseif(is_null($pagina['contenido']->imagen) && is_null($micrositio->background) )
+		{
+			$fondo_pagina = NULL;
 		}else
 		{
 			$fondo_pagina = 'backgrounds/generica-interna-1.jpg';

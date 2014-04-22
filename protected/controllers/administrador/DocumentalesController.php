@@ -228,13 +228,14 @@ class DocumentalesController extends Controller
 				$purl_id = $purl->getPrimaryKey();
 
 				$pagina = new Pagina;
-				$pagina->micrositio_id 	= $micrositio_id;
-				$pagina->tipo_pagina_id = 1; //Página programa
-				$pagina->url_id 		= $purl_id;
-				$pagina->nombre			= $documentalesForm->nombre;
-				$pagina->clase 			= NULL;
-				$pagina->destacado		= $documentalesForm->destacado;
-				$pagina->estado			= $estado;
+				$pagina->micrositio_id 		= $micrositio_id;
+				$pagina->tipo_pagina_id 	= 1; //Página programa
+				$pagina->url_id 			= $purl_id;
+				$pagina->nombre				= $documentalesForm->nombre;
+				$pagina->meta_descripcion 	= $documentalesForm->meta_descripcion;
+				$pagina->clase 				= NULL;
+				$pagina->destacado			= $documentalesForm->destacado;
+				$pagina->estado				= $estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
@@ -335,9 +336,10 @@ class DocumentalesController extends Controller
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
-				$pagina->nombre			= $documentalesForm->nombre;
-				$pagina->destacado		= $documentalesForm->destacado;
-				$pagina->estado			= $estado;
+				$pagina->nombre				= $documentalesForm->nombre;
+				$pagina->meta_descripcion 	= $documentalesForm->meta_descripcion;
+				$pagina->destacado			= $documentalesForm->destacado;
+				$pagina->estado				= $estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 
 				$pgD = PgDocumental::model()->findByAttributes( array('pagina_id' => $pagina->id) );

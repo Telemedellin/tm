@@ -216,13 +216,14 @@ class ConcursosController extends Controller
 				$purl_id = $purl->getPrimaryKey();
 
 				$pagina = new Pagina;
-				$pagina->micrositio_id 	= $micrositio_id;
-				$pagina->tipo_pagina_id = 2; //Generica
-				$pagina->url_id 		= $purl_id;
-				$pagina->nombre			= $concursosForm->nombre;
-				$pagina->clase 			= NULL;
-				$pagina->destacado		= $concursosForm->destacado;
-				$pagina->estado			= $concursosForm->estado;
+				$pagina->micrositio_id 	  = $micrositio_id;
+				$pagina->tipo_pagina_id   = 2; //Generica
+				$pagina->url_id 		  = $purl_id;
+				$pagina->nombre			  = $concursosForm->nombre;
+				$pagina->meta_descripcion = $concursosForm->meta_descripcion;
+				$pagina->clase 			  = NULL;
+				$pagina->destacado		  = $concursosForm->destacado;
+				$pagina->estado			  = $concursosForm->estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
@@ -318,9 +319,9 @@ class ConcursosController extends Controller
 					$purl->save(false);
 				}
 
-				$micrositio = Micrositio::model()->findByPk($id);
-				$transaccion 	= $micrositio->dbConnection->beginTransaction();
-				$micrositio->nombre			= $concursosForm->nombre;
+				$micrositio 		= Micrositio::model()->findByPk($id);
+				$transaccion 		= $micrositio->dbConnection->beginTransaction();
+				$micrositio->nombre	= $concursosForm->nombre;
 				if($concursosForm->imagen != $micrositio->background)
 				{
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
@@ -337,14 +338,15 @@ class ConcursosController extends Controller
 					$micrositio->miniatura 	= $dirc . $concursosForm->miniatura;
 				}
 
-				$micrositio->destacado		= $concursosForm->destacado;
-				$micrositio->estado			= $concursosForm->estado;
+				$micrositio->destacado 	= $concursosForm->destacado;
+				$micrositio->estado		= $concursosForm->estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
-				$pagina->nombre			= $concursosForm->nombre;
-				$pagina->destacado		= $concursosForm->destacado;
-				$pagina->estado			= $concursosForm->estado;
+				$pagina->nombre			  = $concursosForm->nombre;
+				$pagina->meta_descripcion = $concursosForm->meta_descripcion;
+				$pagina->destacado		  = $concursosForm->destacado;
+				$pagina->estado			  = $concursosForm->estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 
 				if($concursosForm->formulario != $formulario->pgFormularioJfs->formulario_id)

@@ -3,6 +3,7 @@ $bc = array();
 $bc[] = ucfirst($seccion->nombre);
 $this->breadcrumbs = $bc;
 $this->pageTitle = $seccion->nombre;
+if($seccion->meta_descripcion != '') $this->pageDesc = $seccion->meta_descripcion;
 $destacados = '';
 cs()->registerScript( 'scroll', 
 	'$(".listado").mCustomScrollbar({

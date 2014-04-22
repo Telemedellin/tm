@@ -39,13 +39,15 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 	<?php 
 	$this->widget( 'zii.widgets.CBreadcrumbs', 
 	  array(
-	    'homeLink' => CHtml::link( 'Inicio' , CHtml::normalizeUrl(Yii::app()->homeUrl), array('class' => 'home') ),
+	    'homeLink' => CHtml::link( '<span itemprop="title">Inicio</span>', CHtml::normalizeUrl(Yii::app()->homeUrl), array('class' => 'home', 'itemprop' => 'url') ),
 	    'separator'=> '',
 	    'links'    => $this->breadcrumbs,
 	    'inactiveLinkTemplate' => '<h1>{label}</h1>',
+	    'activeLinkTemplate' => '<a href="{url}" itemprop="url"><span itemprop="title">{label}</span></a>',
+	    'htmlOptions' => array('class' => 'breadcrumbs', 'itemscope' => '', 'itemtype' => 'http://data-vocabulary.org/Breadcrumb'),
 	  )
 	); 
-	?><!-- breadcrumbs -->
+	?>
     <?php endif; ?>
 	<?php echo $content; ?>
 	</div>

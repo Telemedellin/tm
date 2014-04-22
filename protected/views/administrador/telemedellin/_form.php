@@ -52,7 +52,7 @@
         </div>
 		<?php echo $form->error($model,'resena'); ?>
 	</div>
-	<div class="form-group">
+    <div class="form-group">
         <?php echo $this->imageField($form, $model, 'imagen', 'archivoImagen', '_programa'); ?>
 	</div>
     <div class="form-group">
@@ -64,7 +64,7 @@
 	<div class="form-group">
 		<?php echo $form->label($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-2">
-		  <?php echo $form->dropDownList($model, 'estado', array(2 => 'En emisión', 1 => 'No se emite', 0 => 'Desactivado' 
+		  <?php echo $form->dropDownList($model, 'estado', array(1 => 'Si', 0 => 'No' 
           ), array('class' => 'form-control')); ?>
           </div>
 		<?php echo $form->error($model,'estado'); ?>

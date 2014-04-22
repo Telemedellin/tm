@@ -12,34 +12,62 @@
 		<?php $this->widget('zii.widgets.CDetailView', array(
 			'data' => array('especial' => $model, 'contenido' => $contenido),
 			'attributes'=>array(
-				'especial.nombre',
+				array(
+					'name' => 'especial.nombre',
+					'label' => 'Especial',
+				),
 				array(
 					'name' => 'especial.url.slug',
 					'type' => 'raw', 
 					'value' => l($model->url->slug, bu($model->url->slug), array('target' => '_blank')),
 				),
-				'contenido.resena:html', 
-				'contenido.lugar', 
-				'contenido.presentadores', 
+				array(
+					'name' => 'contenido.resena',
+					'label' => 'Reseña',
+					'type' => 'html'
+				),
+				array(
+					'name' => 'especial.pagina.meta_descripcion',
+					'label' => 'Meta descripcion',
+				),
+				array(
+					'name' => 'contenido.lugar',
+					'label' => 'Lugar',
+				),
+				array(
+					'name' => 'contenido.presentadores',
+					'label' => 'Presentadores',
+				),
 				array(
 					'name' => 'especial.background', 
+					'label' => 'Imagen', 
 					'type' => 'raw', 
 					'value' => l($model->background, bu('images/'.$model->background), array('target' => '_blank', 'class' => 'fancybox')),
 				),
 				array(
-					'name' => 'especial.background_mobile', 
+					'name' => 'especial.background_mobile',
+					'label' => 'Imagen (Móviles)',  
 					'type' => 'raw', 
 					'value' => l($model->background_mobile, bu('images/'.$model->background_mobile), array('target' => '_blank', 'class' => 'fancybox')),
 				),
 				array(
 					'name' => 'especial.miniatura', 
+					'label' => 'Imagen miniatura', 
 					'type' => 'raw', 
 					'value' => l($model->miniatura, bu('images/'.$model->miniatura), array('target' => '_blank', 'class' => 'fancybox')),
 				),
 				'especial.creado',
 				'especial.modificado',
-				'especial.estado:boolean',
-				'especial.destacado:boolean',
+				array(
+					'name' => 'especial.estado',
+					'label' => 'Estado',
+					'type' => 'boolean'
+				),
+				array(
+					'name' => 'especial.destacado',
+					'label' => 'Destacado',
+					'type' => 'boolean'
+				),
 			),
 		)); ?>
 	</div>

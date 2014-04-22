@@ -12,27 +12,47 @@
 		<?php $this->widget('zii.widgets.CDetailView', array(
 			'data' => array('documental' => $model, 'contenido' => $contenido),
 			'attributes'=>array(
-				'documental.nombre',
+				array(
+					'name' => 'documental.nombre',
+					'label' => 'Documental',
+				),
 				array(
 					'name' => 'documental.url.slug',
 					'type' => 'raw', 
 					'value' => l($model->url->slug, bu($model->url->slug), array('target' => '_blank')),
 				),
-				'contenido.sinopsis:html', 
-				'contenido.duracion', 
-				'contenido.anio', 
+				array(
+					'name' => 'contenido.sinopsis',
+					'label' => 'Sinopsis',
+					'type' => 'html',
+				),
+				array(
+					'name' =>'documental.pagina.meta_descripcion', 
+					'label' => 'Meta descripción',
+				),	
+				array(
+					'name' => 'contenido.duracion',
+					'label' => 'Duración',
+				),
+				array(
+					'name' => 'contenido.anio',
+					'label' => 'Año',
+				),
 				array(
 					'name' => 'documental.background', 
+					'label' => 'Imagen', 
 					'type' => 'raw', 
 					'value' => l($model->background, bu('images/'.$model->background), array('target' => '_blank', 'class' => 'fancybox')),
 				),
 				array(
 					'name' => 'documental.background_mobile', 
+					'label' => 'Imagen (Móviles)', 
 					'type' => 'raw', 
 					'value' => l($model->background_mobile, bu('images/'.$model->background_mobile), array('target' => '_blank', 'class' => 'fancybox')),
 				),
 				array(
 					'name' => 'documental.miniatura', 
+					'label' => 'Imagen miniatura',  
 					'type' => 'raw', 
 					'value' => l($model->miniatura, bu('images/'.$model->miniatura), array('target' => '_blank', 'class' => 'fancybox')),
 				),
@@ -40,10 +60,12 @@
 				'documental.modificado',
 				array(
 					'name' => 'documental.estado',
+					'label' => 'Publicado',  
 					'value' => ($model->estado==1)?'Si':'No',
 				),
 				array(
 					'name' => 'documental.destacado',
+					'label' => 'Destacado',  
 					'value' => ($model->destacado==1)?'Si':'No',
 				),
 			),

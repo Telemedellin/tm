@@ -10,6 +10,7 @@ class ConcursosForm extends CFormModel
 	public $id;
 	public $nombre;
 	public $texto;
+	public $meta_descripcion;
 	public $imagen;
 	public $imagen_mobile;
 	public $miniatura;
@@ -26,6 +27,7 @@ class ConcursosForm extends CFormModel
 			// name, email, subject and body are required
 			array('nombre, texto', 'required'),
 			array('imagen, imagen_mobile, miniatura, formulario', 'length', 'max'=>255),
+			array('meta_descripcion', 'length', 'max'=>200),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
 	}
@@ -39,6 +41,7 @@ class ConcursosForm extends CFormModel
 			'nombre' => 'Título',
 			'destacado' => 'Destacado',
 			'texto' => 'Texto',
+			'meta_descripcion' => 'Meta descripción',
 			'imagen' => 'Imagen',
 			'imagen_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Imagen Miniatura',

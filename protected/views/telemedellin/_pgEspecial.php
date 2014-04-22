@@ -1,5 +1,7 @@
-<?php $this->pageDesc = $contenido['contenido']->resena;?>
-<?php if( count($contenido['contenido']->fechaEspecials) ): ?>
+<?php 
+$this->pageDesc = ($contenido['pagina']->meta_descripcion != '')? $contenido['pagina']->meta_descripcion : $contenido['contenido']->resena;
+if( count($contenido['contenido']->fechaEspecials) ): 
+?>
 <p><b>Fecha:</b> <?php echo Horarios::fecha_especial( $contenido['contenido']->fechaEspecials ); ?></p>
 <?php endif ?>
 <?php echo $contenido['contenido']->resena ?>

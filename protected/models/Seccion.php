@@ -40,6 +40,7 @@ class Seccion extends CActiveRecord
 			array('nombre, url_id, estado', 'required'),
 			array('estado', 'numerical, url_id', 'integerOnly'=>true),
 			array('nombre', 'length', 'max'=>45),
+			array('meta_descripcion', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, nombre, url_id, estado', 'safe', 'on'=>'search'),
@@ -67,6 +68,7 @@ class Seccion extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'nombre' => 'Nombre',
+			'meta_descripcion' => 'Meta descripción',
 			'url_id' => 'Slug',
 			'estado' => 'Estado',
 		);
@@ -85,6 +87,7 @@ class Seccion extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('nombre',$this->nombre,true);
+		$criteria->compare('meta_descripcion',$this->meta_descripcion,true);
 		$criteria->compare('url_id',$this->url_id,true);
 		$criteria->compare('estado',$this->estado);
 

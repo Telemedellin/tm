@@ -35,7 +35,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'url_id'); ?>
-		<?php echo $form->dropDownList($model,'url_id',CHtml::listData(Url::model()->findAllByAttributes( array('tipo'=>2) ), 'id', 'slug')); ?>
+		<?php echo $form->dropDownList($model,'url_id',CHtml::listData(Url::model()->findAllByAttributes( array('tipo_id'=>2) ), 'id', 'slug')); ?>
 		<?php echo $form->error($model,'url_id'); ?>
 	</div>
 

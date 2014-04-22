@@ -11,7 +11,7 @@ $this->breadcrumbs = $bc;
 $pt = ($pagina->id != $micrositio->pagina_id) ? ucfirst($pagina->nombre) . ' - ': '';
 $this->pageTitle = $pt . $micrositio->nombre;
 
-if($fondo_pagina == 'null')
+if($fondo_pagina == NULL)
 	cs()->registerCss('background', 'body{background-image: none}');
 else{
 	$bg = bu('/images/' . $fondo_pagina);

@@ -8,8 +8,6 @@
 	'dataProvider'=>$dataProvider,
 	'enableSorting' => true,
 	'columns'=>array(
-        'id',
-        //'usuario.nombre',
         array(
             'name'=>'Nombre',
             'value'=>'l($data->nombre, bu($data->url->slug) )',

@@ -37,16 +37,16 @@ class Controller extends CController
 	    echo '<meta charset="utf-8">'.PHP_EOL;
 	    //Pilas con el icono para Apple y esos metas
 		echo "\t".'<meta name="viewport" content="width=device-width, initial-scale=1">'.PHP_EOL;
-		//echo "\t".'<link rel="canonical" href="http://telemedellin.tv' . $ru . '" />'.PHP_EOL;
+		echo "\t".'<link rel="canonical" href="http://telemedellin.tv' . $ru . '" />'.PHP_EOL;
 		echo "\t".'<link rel="shortcut icon" href="' . bu('/favicon.ico') . '" />'.PHP_EOL;
 		if ( $this->pageRobotsIndex == false ) {// Option for NoIndex
 	        echo "\t".'<meta name="robots" content="noindex">'.PHP_EOL;
 	    }
 	    echo "\t".'<title>' . $titulo . '</title>'.PHP_EOL;
-	    echo "\t".'<meta name="description" content="', h(substr(strip_tags($this->pageDesc), 0, 155)),'">'.PHP_EOL;
+	    echo "\t".'<meta name="description" content="', h(substr(strip_tags($this->pageDesc), 0, 160)),'">'.PHP_EOL;
 	    echo "\t".'<meta property="og:title" content="' . $titulo . '" />'.PHP_EOL;
 	    echo "\t".'<meta property="og:type" content="website" />'.PHP_EOL;
-	    echo "\t".'<meta property="og:url" content="'. Yii::app()->getBaseUrl(true) . $ru .'" />'.PHP_EOL;
+	    echo "\t".'<meta property="og:url" content="http://telemedellin.tv' . $ru .'" />'.PHP_EOL;
 		//echo '<meta property="og:image" content="'. Yii::app()->request->baseUrl.'/images/static/fb-img.jpg" />'.PHP_EOL;
 	}
 

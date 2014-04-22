@@ -1,5 +1,7 @@
-<?php $this->pageDesc = $contenido['contenido']->sinopsis;?>
-<?php echo $contenido['contenido']->sinopsis ?>
+<?php 
+$this->pageDesc = ($contenido['pagina']->meta_descripcion != '')? $contenido['pagina']->meta_descripcion : $contenido['contenido']->sinopsis;
+echo $contenido['contenido']->sinopsis 
+?>
 <h3>Ficha Técnica</h3>
 <p><b>Título:</b> <?php echo $contenido['contenido']->titulo ?></p>
 <p><b>Año:</b> <?php echo $contenido['contenido']->anio ?></p>

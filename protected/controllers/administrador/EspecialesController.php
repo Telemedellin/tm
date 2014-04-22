@@ -222,13 +222,14 @@ class EspecialesController extends Controller
 				$purl_id = $purl->getPrimaryKey();
 
 				$pagina = new Pagina;
-				$pagina->micrositio_id 	= $micrositio_id;
-				$pagina->tipo_pagina_id = 5; //Página programa
-				$pagina->url_id 		= $purl_id;
-				$pagina->nombre			= $especialesForm->nombre;
-				$pagina->clase 			= NULL;
-				$pagina->destacado		= $especialesForm->destacado;
-				$pagina->estado			= $estado;
+				$pagina->micrositio_id 		= $micrositio_id;
+				$pagina->tipo_pagina_id 	= 5; //Página programa
+				$pagina->url_id 			= $purl_id;
+				$pagina->nombre				= $especialesForm->nombre;
+				$pagina->meta_descripcion 	= $especialesForm->meta_descripcion;
+				$pagina->clase 				= NULL;
+				$pagina->destacado			= $especialesForm->destacado;
+				$pagina->estado				= $estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
@@ -329,6 +330,7 @@ class EspecialesController extends Controller
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
 				$pagina->nombre			= $especialesForm->nombre;
+				$pagina->meta_descripcion 	= $especialesForm->meta_descripcion;
 				$pagina->destacado		= $especialesForm->destacado;
 				$pagina->estado			= $estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();

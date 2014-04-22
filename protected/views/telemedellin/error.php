@@ -1,7 +1,5 @@
 <?php
-$this->breadcrumbs = array(
-	'Error'
-);
+$this->breadcrumbs = array('Error');
 if($this->beginCache( '404', array('duration' => 21600) )):
 ?>
 <div id="micrositio">
