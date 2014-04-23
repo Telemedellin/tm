@@ -336,7 +336,7 @@ class TelemedellinController extends Controller
 		}elseif(!empty($micrositio->background))
 		{
 			$fondo_pagina = $micrositio->background;
-		}elseif(is_null($pagina['contenido']->imagen) && is_null($micrositio->background) )
+		}elseif(isset($pagina['contenido']->imagen) && is_null($pagina['contenido']->imagen) && is_null($micrositio->background) )
 		{
 			$fondo_pagina = NULL;
 		}else
