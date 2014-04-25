@@ -41,7 +41,7 @@ Yii::app()->clientScript->registerScript('menu_item',
 				$opciones = array('class' => 'form-control'); 
 				if(!$model->isNewRecord) $opciones['disabled'] = true;
 			?>
-			<?php echo $form->dropDownList($model,'menu_id', CHtml::listData(Menu::model()->findAll('id = '.$menu->id), 'id', 'nombre'), $opciones ); ?>
+			<?php echo $form->dropDownList($model,'menu_id', CHtml::listData(Menu::model()->findAll('id = '.$model->menu_id), 'id', 'nombre'), $opciones ); ?>
 			<?php  ?>
 		</div>
 		<?php echo $form->error($model,'menu_id'); ?>

@@ -17,16 +17,19 @@
 			'data' => $model,
 			'attributes'=>array(
 				'nombre', 
-				array(
+				/*array(
 		            'label' => 'Micrositios asignados', 
 		            'value' => 
 		            function($model){
 		                $r=''; 
-		                foreach($model->micrositios as $m) 
-		                    $r .= $m->nombre.', '; 
-		                return substr($r, 0, -2);
+		                if($model->micrositios){
+			                foreach($model->micrositios as $m) 
+			                    $r .= $m->nombre.', '; 
+		                	$r = substr($r, 0, -2);
+		                }
+		                return (string) $r;
 		            }
-		        ),
+		        ),*/
 				'creado',
 				'modificado',
 				array(
