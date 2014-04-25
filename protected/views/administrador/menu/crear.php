@@ -1,3 +1,3 @@
-<h1>Modificar Item de menú <?php echo $model->label; ?></h1>
+<h1>Crear Menú <?php echo $model->nombre; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -103,16 +103,13 @@
             'title'=>'Páginas',
             'view'=>'_paginas', 
             'data'=> array('paginas' => $paginas, 'model' => $model)
-        )
-    );
-    if($menu)
-    {
-        $tabs_content['menu'] = array(
+        ), 
+        'menu' => array(
             'title'=>'Menú',
             'view'=>'_menu', 
             'data'=> array('menu' => $menu, 'model' => $model)
-        );
-    }
+        )
+    );
 	$this->widget('CTabView', array('tabs' => $tabs_content));
 	?>
 	</div>
