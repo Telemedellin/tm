@@ -1,22 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "menu".
+ * This is the model class for table "tipo_link".
  *
- * The followings are the available columns in table 'menu':
+ * The followings are the available columns in table 'tipo_link':
  * @property string $id
  * @property string $nombre
  * @property integer $estado
  *
  * The followings are the available model relations:
- * @property MenuItem[] $menuItems
+ *
  */
-class Menu extends CActiveRecord
+class TipoLink extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Menu the static model class
+	 * @return TipoEmision the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,7 +28,7 @@ class Menu extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'menu';
+		return 'tipo_link';
 	}
 
 	/**
@@ -56,8 +56,7 @@ class Menu extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'menuItems' => array(self::HAS_MANY, 'MenuItem', 'menu_id', 'order' => 'menuItems.orden ASC'),
-			'micrositios' => array(self::HAS_MANY, 'Micrositio', 'menu_id'),
+			'menuItems' => array(self::HAS_MANY, 'MenuItem', 'tipo_link_id'),
 		);
 	}
 
@@ -69,7 +68,7 @@ class Menu extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'nombre' => 'Nombre',
-			'estado' => 'Publicado',
+			'estado' => 'Estado',
 		);
 	}
 
@@ -91,23 +90,5 @@ class Menu extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-
-	protected function beforeSave()
-	{
-	    if(parent::beforeSave())
-	    {
-	        if($this->isNewRecord)
-	        {
-	        	$this->creado 		= date('Y-m-d H:i:s');
-	        }
-	        else
-	        {
-	            $this->modificado	= date('Y-m-d H:i:s');
-	        }
-	        return true;
-	    }
-	    else
-	        return false;
 	}
 }

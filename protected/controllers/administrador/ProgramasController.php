@@ -28,7 +28,7 @@ class ProgramasController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete', 'desasignarmenu'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -100,6 +100,11 @@ class ProgramasController extends Controller
 	 */
 	public function actionView($id)
 	{
+		if(isset($_POST['asignar_menu']))
+		{
+			$this->asignar_menu($id, $_POST['Micrositio']['menu_id']);
+		}
+
 		$model = Micrositio::model()->with('url', 'pagina', 'menu')->findByPk($id);
 		$contenido = PgPrograma::model()->with('horario')->findByAttributes(array('pagina_id' => $model->pagina->id));
 		$videos = new CActiveDataProvider( 'AlbumVideo', array(
@@ -469,6 +474,14 @@ class ProgramasController extends Controller
 		));
 	}
 
+	public function actionDesasignarmenu($id)
+	{
+		$m = Micrositio::model()->findByPk($id);
+		$m->menu_id = NULL;
+		$m->save();
+		$this->redirect(bu('/administrador/programas/view/'. $id . '#menu'));
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -483,6 +496,14 @@ class ProgramasController extends Controller
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
+	}
+
+	protected function asignar_menu($id, $menu_id)
+	{
+		$m = Micrositio::model()->findByPk($id);
+		$m->menu_id = $menu_id;
+		if($m->save()) return true;
+		else return false;
 	}
 
 	/**
