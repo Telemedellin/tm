@@ -133,6 +133,8 @@ class AdminController extends Controller
 							    'pagination'=>false,
 							) 
 						);
+		date_default_timezone_set('America/Bogota');
+		setlocale(LC_ALL, 'es_ES.UTF-8');
 		$sts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 		$programacion = new CActiveDataProvider(
 							'Programacion', 
