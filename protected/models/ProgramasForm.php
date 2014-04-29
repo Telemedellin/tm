@@ -28,7 +28,7 @@ class ProgramasForm extends CFormModel
 			array('nombre, resena', 'required'),
 			array('imagen, imagen_mobile, miniatura, formulario', 'length', 'max'=>255),
 			array('meta_descripcion', 'length', 'max'=>200),
-			array('estado, destacado', 'numerical', 'integerOnly'=>true)
+			array('formulario, estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
 	}
 

@@ -198,9 +198,9 @@ class ConcursosController extends Controller
 				$micrositio->usuario_id 	= 1;
 				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $concursosForm->nombre;
-				$micrositio->background 	= $dirc . $concursosForm->imagen;
-				$micrositio->background_mobile 	= $dirc . $concursosForm->imagen_mobile;
-				$micrositio->miniatura 		= $dirc . 'thumbnail/' . $concursosForm->miniatura;
+				$micrositio->background 	= ($concursosForm->imagen != '')?$dirc . $concursosForm->imagen:NULL;
+				$micrositio->background_mobile 	= ($concursosForm->imagen_mobile != '')?$dirc . $concursosForm->imagen_mobile:NULL;
+				$micrositio->miniatura 		= ($concursosForm->miniatura)?$dirv . 'thumbnail/' . $concursosForm->miniatura:NULL;
 				$micrositio->destacado		= $concursosForm->destacado;
 				$micrositio->estado			= $concursosForm->estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
@@ -233,7 +233,7 @@ class ConcursosController extends Controller
 				if($concursosForm->formulario != '')
 				{
 					$furl = new Url;
-					$fslug = $url->slug . '/escribinos';
+					$fslug = $url->slug . '/escribenos';
 					$fslug = $this->verificarSlug($fslug);
 					$furl->slug = $fslug;
 					$furl->tipo_id = 3; //Página
@@ -243,7 +243,7 @@ class ConcursosController extends Controller
 						$formulario->micrositio_id = $micrositio_id;
 						$formulario->tipo_pagina_id = 7;								
 						$formulario->url_id = $furl->getPrimaryKey();
-						$formulario->nombre = 'Escribinos';	
+						$formulario->nombre = 'Escribenos';	
 						$formulario->estado = 1;
 						$formulario->destacado = 0;
 						$formulario->save();
@@ -357,7 +357,7 @@ class ConcursosController extends Controller
 						{
 							
 							$furl = new Url;
-							$fslug = $micrositio->url->slug . '/escribinos';
+							$fslug = $micrositio->url->slug . '/escribenos';
 							$fslug = $this->verificarSlug($fslug);
 							$furl->slug = $fslug;
 							$furl->tipo_id = 3; //Página
@@ -367,7 +367,7 @@ class ConcursosController extends Controller
 								$formulario->micrositio_id = $micrositio->id;
 								$formulario->tipo_pagina_id = 7;								
 								$formulario->url_id = $furl->getPrimaryKey();
-								$formulario->nombre = 'Escribinos';	
+								$formulario->nombre = 'Escribenos';	
 								$formulario->estado = 1;
 								$formulario->destacado = 0;
 								$formulario->save();

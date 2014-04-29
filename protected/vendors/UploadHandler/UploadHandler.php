@@ -539,7 +539,7 @@ class UploadHandler
 
         //Esta parte se encarga de eliminar cualquier caracter extraño
         $string = str_replace(
-            array("\\", "¨", "º", "-", "~",
+            array("\\", "¨", "º", "_", "~",
                  "#", "@", "|", "!", "\"",
                  "·", "$", "%", "&", "/",
                  "?", "'", "¡","¿", "[", 
@@ -547,7 +547,7 @@ class UploadHandler
                  "{", "¨", "´",">", "< ", 
                  ";", ",", ":", "°", "¬", 
                  "=", " "),
-            '_',
+            '-',
             $string
         );
 

@@ -28,7 +28,7 @@ class ConcursosForm extends CFormModel
 			array('nombre, texto', 'required'),
 			array('imagen, imagen_mobile, miniatura, formulario', 'length', 'max'=>255),
 			array('meta_descripcion', 'length', 'max'=>200),
-			array('estado, destacado', 'numerical', 'integerOnly'=>true)
+			array('formulario, estado, destacado', 'numerical', 'integerOnly'=>true)
 		);
 	}
 

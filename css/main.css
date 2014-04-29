@@ -2124,6 +2124,11 @@ nav ul {
 {
 	color: #FFF;
 }
+#seccion.concursos a:before, 
+#seccion.concursos a::before
+{
+	content: "- ";
+}
 #second-nav {
 	background: #242626 url('../images/static/overlays/08.png');
 	border: 2px solid #242626;

@@ -72,7 +72,7 @@
     <div class="form-group">
         <?php echo $form->label($model,'formulario', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-5">
-            <?php echo $form->textField($model, 'formulario', array('class' => 'form-control')); ?>
+            <?php echo $form->textField($model, 'formulario', array('class' => 'form-control', 'placeholder' => '32834466613962')); ?>
             <span class="help-block">Por ejemplo: http://www.jotform.com/?formID=<strong>32834466613962</strong></span>
         </div>
         <?php echo $form->error($model,'formulario'); ?>

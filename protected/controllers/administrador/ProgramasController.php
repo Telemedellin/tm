@@ -247,8 +247,8 @@ class ProgramasController extends Controller
 				$micrositio->usuario_id 	= 1;
 				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $programasForm->nombre;
-				$micrositio->background 	= ($programassForm->imagen != '')?$dirp . $programassForm->imagen:NULL;
-				$micrositio->background_mobile 	= ($programassForm->imagen_mobile != '')?$dirp . $programassForm->imagen_mobile:NULL;
+				$micrositio->background 	= ($programasForm->imagen != '')?$dirp . $programasForm->imagen:NULL;
+				$micrositio->background_mobile 	= ($programasForm->imagen_mobile != '')?$dirp . $programasForm->imagen_mobile:NULL;
 				$micrositio->miniatura 		= ($programasForm->miniatura)?$dirp . 'thumbnail/' . $programasForm->miniatura:NULL;
 				$micrositio->destacado		= $programasForm->destacado;
 				if($programasForm->estado > 0) $estado = 1;
@@ -300,7 +300,7 @@ class ProgramasController extends Controller
 						$formulario->save();
 					}
 					$pgF = new PgFormularioJf;
-					$pgF->pagina_id 	= $pagina_id;
+					$pgF->pagina_id 	= $formulario->getPrimaryKey();
 					$pgF->formulario_id	= $programasForm->formulario;
 					$pgF->estado 		= 1;
 					$pgF->save();
