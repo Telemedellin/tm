@@ -1,5 +1,5 @@
 <?php 
-$this->pageTitle = 'Programación' ;
+$this->pageTitle = 'Programación';
 $this->pageDesc;
 ?>
 <div class="menu_micrositio">

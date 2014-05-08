@@ -105,8 +105,8 @@ class TelemedellinController extends Controller
 		$url_id = $_GET['tm']->id;
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
-		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE seccion_id = $seccion->id AND estado <> 0");
-		$micrositios = Micrositio::model()->cache(3600, $dependencia)->with('paginas')->findAllByAttributes( array('seccion_id' => $seccion->id), array('condition' => 't.estado <> 0', 'order' => 't.creado DESC') );
+		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE estado <> 0");
+		$micrositios = Micrositio::model()->cache(86400, $dependencia)->with('paginas')->findAllByAttributes( array('seccion_id' => $seccion->id), array('condition' => 't.estado <> 0', 'order' => 't.creado DESC') );
 		
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 		
@@ -178,12 +178,12 @@ class TelemedellinController extends Controller
 		$c->limit = 8;
 		$c->order = 'pg_documental.anio DESC';
 
-		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE seccion_id = $seccion->id AND estado <> 0");
+		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE estado <> 0");
 
-		$recientes= Micrositio::model()->cache(3600, $dependencia)->findAll( $c );
+		$recientes= Micrositio::model()->cache(86400, $dependencia)->findAll( $c );
 
 		if( !$recientes ) throw new CHttpException(404, 'Invalid request');
-		$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio WHERE seccion_id = $seccion->id");
+		
 		$micrositios= Micrositio::model()->listarPorSeccion( $seccion->id );
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 
@@ -227,9 +227,9 @@ class TelemedellinController extends Controller
 		$c->limit = 8;
 		$c->order = 'fecha_especial.fecha DESC, t.destacado DESC, t.creado DESC';
 
-		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE seccion_id = $seccion->id AND estado <> 0");
+		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE estado <> 0");
 
-		$recientes = Micrositio::model()->cache(3600, $dependencia)->findAll( $c );
+		$recientes = Micrositio::model()->cache(86400, $dependencia)->findAll( $c );
 
 		if( !$recientes ) throw new CHttpException(404, 'Invalid request');
 		
@@ -373,21 +373,15 @@ class TelemedellinController extends Controller
 		date_default_timezone_set('America/Bogota');
 		setlocale(LC_ALL, 'es_ES.UTF-8');
 		
-		$sts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-		$tts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-
-		if( isset($_GET['dia']) &&  isset($_GET['mes']) )
-		{
-			$dia = $_GET['dia'];
-			$mes = $_GET['mes'];
-			$anio = ( isset( $_GET['anio'] ) ) ? $_GET['anio'] : date('Y');
-			if( checkdate($mes, $dia, $anio) )
-			{
-				$sts = mktime(0, 0, 0, $mes, $dia, $anio);
-			}
-		}
-
+		$sts = $tts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+		
+		$dia = ( isset( $_GET['dia'] ) ) ? $_GET['dia'] : date('d');
+		$mes = ( isset( $_GET['mes'] ) ) ? $_GET['mes'] : date('m');
+		$anio = ( isset( $_GET['anio'] ) ) ? $_GET['anio'] : date('Y');
 		// set current date
+		if( checkdate($mes, $dia, $anio) )
+			$sts = mktime(0, 0, 0, $mes, $dia, $anio);
+		
 		// parse about any English textual datetime description into a Unix timestamp
 		$ts 		= $sts;
 		// calculate the number of days since Monday
@@ -545,7 +539,7 @@ class TelemedellinController extends Controller
 		$cc->addCondition($ccc);
 		
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM url WHERE estado <> 0");
-		$urls = URL::model()->cache(3600, $dependencia)->findAll($cc);
+		$urls = URL::model()->cache(86400, $dependencia)->findAll($cc);
 		header("Content-type: text/xml; charset=utf-8");
 		if($this->beginCache('sitemap', 
 								array('dependency'=>

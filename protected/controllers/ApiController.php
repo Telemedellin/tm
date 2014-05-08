@@ -7,7 +7,7 @@ class ApiController extends Controller
 		if(!$_GET['micrositio_id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$micrositio_id = $_GET['micrositio_id'];
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM album_foto WHERE micrositio_id = $micrositio_id AND estado <> 0");
-		$af = AlbumFoto::model()->cache(3600, $dependencia)->findAllByAttributes( array('micrositio_id' => $micrositio_id), array('order' => 'destacado DESC, modificado DESC, creado DESC') );
+		$af = AlbumFoto::model()->cache(86400, $dependencia)->findAllByAttributes( array('micrositio_id' => $micrositio_id), array('order' => 'destacado DESC, modificado DESC, creado DESC') );
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		$json .= '[';
@@ -47,7 +47,7 @@ class ApiController extends Controller
 		if(!$af) throw new CHttpException(404, 'No se encontró la página solicitada');
 
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM foto WHERE album_foto_id = $af->id AND estado <> 0");
-		$f = Foto::model()->cache(3600, $dependencia)->findAllByAttributes( array('album_foto_id' => $af->id), array('order' => 'destacado DESC, modificado DESC, creado DESC') );
+		$f = Foto::model()->cache(86400, $dependencia)->findAllByAttributes( array('album_foto_id' => $af->id), array('order' => 'destacado DESC, modificado DESC, creado DESC') );
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		$json .= '[';
@@ -74,7 +74,7 @@ class ApiController extends Controller
 		if(!$_GET['micrositio_id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$micrositio_id = $_GET['micrositio_id'];
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM album_video WHERE micrositio_id = $micrositio_id AND estado <> 0");
-		$va = AlbumVideo::model()->cache(3600, $dependencia)->with('url')->findAllByAttributes( array('micrositio_id' => $micrositio_id), array('order' => 't.destacado DESC, t.modificado DESC, t.creado DESC') );
+		$va = AlbumVideo::model()->cache(86400, $dependencia)->with('url')->findAllByAttributes( array('micrositio_id' => $micrositio_id), array('order' => 't.destacado DESC, t.modificado DESC, t.creado DESC') );
 		
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
@@ -114,7 +114,7 @@ class ApiController extends Controller
 
 		if(!$va) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM video WHERE album_video_id = $va->id AND estado <> 0");
-		$v = Video::model()->cache(3600, $dependencia)->findAllByAttributes( array('album_video_id' => $va->id), array('order' => 'destacado DESC, modificado DESC, creado DESC') );
+		$v = Video::model()->cache(86400, $dependencia)->findAllByAttributes( array('album_video_id' => $va->id), array('order' => 'destacado DESC, modificado DESC, creado DESC') );
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		$json .= '[';
@@ -211,8 +211,8 @@ class ApiController extends Controller
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 
-		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM carpeta WHERE " .$w. " estado <> 0");
-		$c = Carpeta::model()->/*cache(3600, $dependencia)->*/findAllByAttributes( $params );	
+		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM carpeta WHERE estado <> 0");
+		$c = Carpeta::model()/*->cache(86400, $dependencia)/**/->findAllByAttributes( $params );	
 		
 		if($c)
 		{
@@ -254,8 +254,8 @@ class ApiController extends Controller
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		
-		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM archivo WHERE " .$w. "estado <> 0");
-		$a = Archivo::model()/*->cache(3600, $dependencia)*/->findAllByAttributes( $params, array('order' => 'nombre ASC') );
+		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM archivo WHERE estado <> 0");
+		$a = Archivo::model()/*->cache(86400, $dependencia)/**/->findAllByAttributes( $params, array('order' => 'nombre ASC') );
 		
 		if($a)
 		{
@@ -285,8 +285,8 @@ class ApiController extends Controller
 
 	public function actionMicrositios($term = '')
 	{
-		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE (seccion_id = 2 OR seccion_id = 3 OR seccion_id = 4) AND nombre LIKE '%".$term."%' AND estado <> 0");
-		$micrositios = Micrositio::model()->cache(3600, $dependencia)->with('seccion')->findAll('(seccion_id = 2 OR seccion_id = 3 OR seccion_id = 4) AND t.nombre LIKE "%'.$term.'%"');
+		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE (seccion_id = 2 OR seccion_id = 3 OR seccion_id = 4) AND estado <> 0");
+		$micrositios = Micrositio::model()->cache(86400, $dependencia)->with('seccion')->findAll('(seccion_id = 2 OR seccion_id = 3 OR seccion_id = 4) AND t.nombre LIKE "%'.$term.'%"');
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '[';
 		foreach($micrositios as $micrositio):

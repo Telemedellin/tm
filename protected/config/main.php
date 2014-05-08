@@ -64,13 +64,11 @@ return array(
 	            'administrador/<controller:\w+>/<action:\w+>/<id:\d+>'=>'administrador/<controller>/<action>',
 	            'administrador/<controller:\w+>/<action:\w+>/<id:\d+>/<tipo_pagina_id:\d+>'=>'administrador/<controller>/<action>',
 	            'administrador/<controller:\w+>/<action:\w+>'=>'administrador/<controller>/<action>',
-				array(
+	            array(
 				    'class' => 'application.components.TmUrlRule',
 				    'connectionID' => 'db',
 			  	),
-			  	'mapa-del-sitio' => 'telemedellin/mapadelsitio', 
-			  	'sitemap.xml' => 'telemedellin/mapadelsitio', 
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
+			  	'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
@@ -123,7 +121,8 @@ return array(
                     'logFile' => '404'
                 ), 
 				// uncomment the following to show log messages on web pages
-				/*array(
+				/*
+				array(
 					'class'=>'CWebLogRoute',
 				),
 				/**/

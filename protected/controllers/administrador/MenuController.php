@@ -165,7 +165,7 @@ class MenuController extends Controller
 			if($menuItem->url_id == '') $menuItem->url_id = NULL;
 			if($menuItem->save()){
 				Yii::app()->user->setFlash('mensaje', 'Item ' . $menuItem->label . ' guardado con éxito');
-				$this->redirect('view/'.$menuItem->getPrimaryKey());
+				$this->redirect('/administrador/menu/view/'.$menuItem->menu_id);
 			}//if($menuItem->save())
 
 		} //if(isset($_POST['MenuItem']))
@@ -174,9 +174,9 @@ class MenuController extends Controller
 		$micrositios = Micrositio::model()->with('paginas')->findAllByAttributes( array('menu_id' => $id) );
 		foreach ($micrositios as $m) {
 			foreach($m->paginas as $p)
-				$paginas[$p->id] = $p->nombre;
+				$paginas[$p->url_id] = $p->nombre;
 		}
-		$menuItem->menu_id = $menu;
+		$menuItem->menu_id = $menu->id;
 		
 		$this->render('crearItem',array(
 			'model'=>$menuItem,
