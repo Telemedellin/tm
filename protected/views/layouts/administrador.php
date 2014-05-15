@@ -68,6 +68,9 @@
 							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear micrositio', bu('administrador/telemedellin/crear') ); ?></li>
 						</ul>
 					</li>
+					<li>
+						<a href="<?php echo Yii::app()->user->ui->userManagementAdminUrl ?>">Usuarios <b class="caret"></b></a>
+					</li>
 			    </ul>
 			</div>
 			<p class="navbar-text pull-right">
@@ -95,5 +98,6 @@ cs()->registerCoreScript('jquery');
 <?php cs()->registerScriptFile('http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js', CClientScript::POS_END) ?>
 <?php cs()->registerScriptFile(bu('/js/admin.libs.min.js'), CClientScript::POS_END); ?>
 <?php cs()->registerScriptFile(bu('/js/admin-dev.js'), CClientScript::POS_END); ?>
+<?php echo Yii::app()->user->ui->displayErrorConsole(); ?>
 </body>
 </html>
