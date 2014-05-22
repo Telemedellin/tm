@@ -68,7 +68,7 @@ class Controller extends CController
 	    {
 	   		$this->theme =  'pc';
 	    }/**/
-	   
+	    
 		Yii::app()->setTheme($this->theme);
 		return true;
 	}

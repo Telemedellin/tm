@@ -43,13 +43,13 @@ class PgArticuloBlog extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('pagina_id, entradilla, texto, imagen, imagen_mobile, miniatura, estado', 'required'),
-			array('posicion, estado', 'numerical', 'integerOnly'=>true),
+			array('pagina_id, texto, miniatura, estado', 'required'),
+			array('posicion, comentarios, estado', 'numerical', 'integerOnly'=>true),
 			array('pagina_id', 'length', 'max'=>10),
 			array('entradilla, enlace, imagen, imagen_mobile, miniatura', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, pagina_id, entradilla, texto, enlace, imagen, imagen_mobile, miniatura, estado', 'safe', 'on'=>'search'),
+			array('id, pagina_id, entradilla, texto, enlace, imagen, imagen_mobile, miniatura, comentarios, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -80,6 +80,7 @@ class PgArticuloBlog extends CActiveRecord
 			'imagen_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Miniatura',
 			'posicion' => 'Posicion',
+			'comentarios' => 'Permitir comentarios',
 			'estado' => 'Estado',
 		);
 	}
@@ -104,6 +105,7 @@ class PgArticuloBlog extends CActiveRecord
 		$criteria->compare('imagen_mobile',$this->imagen_mobile,true);
 		$criteria->compare('miniatura',$this->miniatura,true);
 		$criteria->compare('posicion',$this->posicion);
+		$criteria->compare('comentarios',$this->comentarios);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(

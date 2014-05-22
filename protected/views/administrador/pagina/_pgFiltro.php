@@ -21,7 +21,7 @@
 )); 
 ?>
 <h2>Elementos</h2>
-<p class="pull-right"><?php echo l('Agregar elemento', bu('administrador/filtro/crearelemento/' . $contenido['contenido']->id), array('class' => 'btn btn-default btn-sm'))?></p>
+<p class="pull-right"><?php echo l('Agregar elemento', bu('administrador/filtro/crearelemento/' . $contenido['contenido']->id), array('class' => 'btn btn-default btn-sm', 'target' => '_blank'))?></p>
 <?php if($contenido['contenido']['filtroItems']->getData()): ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$contenido['contenido']['filtroItems'],
@@ -43,6 +43,7 @@
             'template' => '{update}{delete}',
             'updateButtonUrl' => 'Yii::app()->createUrl("/administrador/filtro/modificarelemento", array("id"=>$data->id))',
             'deleteButtonUrl' => 'Yii::app()->createUrl("/administrador/filtro/borrarelemento", array("id"=>$data->id))',
+            'updateButtonOptions' => array('target' => "_blank"),
         ),
     )
 )); ?>

@@ -133,6 +133,13 @@ class Carpeta extends CActiveRecord
 	    return $list;
 	}
 
+	/*public function vaciar_carpeta( $id )
+	{
+		if( !$id ) return false;
+		$c = $this->with('archivos', 'carpetas', 'url')->findByPk( $id );
+
+	}*/
+
 	protected function beforeSave()
 	{
 	    if(parent::beforeSave())

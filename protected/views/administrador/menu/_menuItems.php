@@ -1,5 +1,5 @@
 	<p class="pull-right">
-		<?php echo l('Agregar item de menú', bu('administrador/menu/crearitem/' . $model->id), array('class' => 'btn btn-default btn-sm'))?>
+		<?php echo l('Agregar item de menú', bu('administrador/menu/crearitem/' . $model->id), array('class' => 'btn btn-default btn-sm', 'target' => '_blank'))?>
 	</p>
 	<?php if($menuItems->getData()): ?>
 	<?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -25,6 +25,8 @@
 	            'viewButtonUrl' => 'Yii::app()->createUrl("/administrador/menu/viewitem", array("id"=>$data->id))',
 	            'updateButtonUrl' => 'Yii::app()->createUrl("/administrador/menu/updateitem", array("id"=>$data->id))',
 	            'deleteButtonUrl' => 'Yii::app()->createUrl("/administrador/menu/deleteitem", array("id"=>$data->id))',
+	            'viewButtonOptions' => array('target' => "_blank"),
+            	'updateButtonOptions' => array('target' => "_blank"),
 	        ),
 	    )
 	)); ?>

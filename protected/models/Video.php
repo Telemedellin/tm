@@ -24,6 +24,8 @@
  */
 class Video extends CActiveRecord
 {
+	protected $oldAttributes;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -32,6 +34,15 @@ class Video extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'utilities'=>array(
+                'class'=>'application.components.behaviors.Utilities'
+            )
+		);
 	}
 
 	/**
@@ -125,5 +136,57 @@ class Video extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	protected function afterDelete()
+	{
+		$url = Url::model()->findByPk($this->url_id);
+		$url->delete();
+		return parent::afterDelete();
+	}
+
+	protected function afterFind()
+	{
+	    $this->oldAttributes = $this->attributes;
+	    return parent::afterFind();
+	}
+
+	protected function beforeSave()
+	{
+		if($this->isNewRecord)
+		{
+			$album_video = AlbumVideo::model()->findByPk($this->album_video_id);
+			$url 	   = new Url;
+			$slug 	   = '#videos/'.$this->slugger($album_video->nombre).'/'.$this->slugger($this->nombre);
+			$slug 	   = $this->verificarSlug($slug);
+			$url->slug = $slug;
+			$url->tipo_id 	= 9; //Video
+			$url->estado  	= 1;
+			if( $url->save() )
+				$this->url_id = $url->getPrimaryKey();
+			else
+				return false;
+			$this->creado 		= date('Y-m-d H:i:s');
+		}
+		else
+			$this->modificado	= date('Y-m-d H:i:s');
+		return parent::beforeSave();
+		
+	}
+
+	protected function afterSave()
+	{
+		if(!$this->isNewRecord)
+		{
+			if( isset($this->oldAttributes['nombre']) && $this->nombre != $this->oldAttributes['nombre']){
+				$url = Url::model()->findByPk($this->url_id);
+				$slug = '#videos/' . $this->slugger($this->albumVideo->nombre).'/'.$this->slugger($this->nombre);
+				$slug = $this->verificarSlug($slug);
+				$url->slug 	= $slug;
+				$url->save();
+			}
+
+		}
+		parent::afterSave();
 	}
 }

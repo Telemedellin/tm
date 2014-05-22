@@ -135,21 +135,23 @@ class Url extends CActiveRecord
 		));
 	}
 
+	protected function beforeDelete()
+	{
+		MenuItem::model()->deleteAllByAttributes( array('url_id' => $this->id) );
+		
+		return parent::beforeDelete();
+	}
+
 	protected function beforeSave()
 	{
-	    if(parent::beforeSave())
-	    {
-	        
-	        if($this->isNewRecord)
-	        {
-	        	$this->creado = date('Y-m-d H:i:s');
-	            $this->estado = 1;
-	        }
-	        else
-	            $this->modificado = date('Y-m-d H:i:s');
-	        return true;
-	    }
-	    else
-	        return false;
+        if($this->isNewRecord)
+        {
+        	$this->creado = date('Y-m-d H:i:s');
+            $this->estado = 1;
+        }
+        else
+            $this->modificado = date('Y-m-d H:i:s');
+        return parent::beforeSave();
+    
 	}
 }

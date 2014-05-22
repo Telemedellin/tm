@@ -86,13 +86,9 @@ class AlbumvideoController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$album_video = AlbumVideo::model()->findByPk($id);
-		if(!$album_video->videos)
-		{
-			$ui = $album_video->url_id;
-			$album_video->delete();
-			Url::model()->findByPk($ui)->delete();
-		}
+		$av = AlbumVideo::model()->findByPk($id);
+		$av->delete();
+		
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
@@ -112,18 +108,7 @@ class AlbumvideoController extends Controller
 		if(isset($_POST['AlbumVideo'])){
 			$album_video->attributes = $_POST['AlbumVideo'];
 			$album_video->thumb 	 = 'videos/' . $_POST['AlbumVideo']['thumb'];
-			$album_video->creado 	 = date('Y-m-d H:i:s');
 			
-			$url = new Url;
-			$slug = '#videos/' . $this->slugger($album_video->nombre);
-			$slug = $this->verificarSlug($slug);
-			$url->slug 		= $slug;
-			$url->tipo_id 	= 8; //Álbum de videos
-			$url->estado  	= 1;
-			$url->save();
-			
-			$album_video->url_id = $url->getPrimaryKey();
-
 			if($album_video->save()){
 				Yii::app()->user->setFlash('mensaje', $album_video->nombre . ' guardado con éxito');
 				$this->redirect(bu('administrador/'.$micrositio->seccion->nombre.'/view/' . $micrositio->id));
@@ -154,13 +139,7 @@ class AlbumvideoController extends Controller
 			$t = $album_video->thumb;
 			$nombre = $album_video->nombre;
 			$album_video->attributes = $_POST['AlbumVideo'];
-			if($album_video->nombre != $nombre){
-				$url = Url::model()->findByPk($album_video->url_id);
-				$slug = '#videos/' . $this->slugger($album_video->nombre);
-			$slug = $this->verificarSlug($slug);
-				$url->slug 		= $slug;
-				$url->save(false);
-			}
+			
 			if($_POST['AlbumVideo']['thumb'] != $t)
 			{
 				@unlink( Yii::getPathOfAlias('webroot').'/images/' . $album_video->thumb);

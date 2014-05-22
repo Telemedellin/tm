@@ -28,7 +28,7 @@ class EspecialesController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete', 'desasignarmenu'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -98,25 +98,60 @@ class EspecialesController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model = Micrositio::model()->with('url', 'pagina')->findByPk($id);
-		$contenido = PgEspecial::model()->findByAttributes(array('pagina_id' => $model->pagina->id));
-		$fechas = new CActiveDataProvider( 'FechaEspecial', array(
+		if(isset($_POST['asignar_menu']))
+		{
+			$this->asignar_menu($id, $_POST['Micrositio']['menu_id']);
+		}
+
+		$model = Micrositio::model()->with('url', 'pagina', 'menu')->findByPk($id);
+		$contenido = PgBloques::model()->findByAttributes(array('pagina_id' => $model->pagina->id));
+		/*$fechas = new CActiveDataProvider( 'FechaEspecial', array(
 													    'criteria'=>array(
 													        'condition'=>'pg_especial_id = '.$contenido->id
 													    ),
 													    'pagination'=>array(
 													    	'pageSize'=>25,
-													    )) );
+													    )) );*/
+		/*$bloques = new CActiveDataProvider( 'Bloque', array(
+													    'criteria'=>array(
+													        'condition'=>'pg_bloques_id = '.$contenido->id
+													    )) );/**/
 		$videos = new CActiveDataProvider( 'AlbumVideo', array(
 													    'criteria'=>array(
 													        'condition'=>'micrositio_id = '.$id,
 													        'with'=>array('videos', 'url'),
 													    )) );
+
+		$fotos = new CActiveDataProvider( 'AlbumFoto', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$id,
+													        'with'=>array('fotos', 'url'),
+													    )) );
+
+		$paginas = new CActiveDataProvider( 'Pagina', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id=' . $id,
+													        'with'=>array('url'),
+													    )) );
+
+		if($model->menu):
+			$menu = new CActiveDataProvider( 'MenuItem', array(
+													    'criteria'=>array(
+													        'condition'=>'menu_id=' . $model->menu->id,
+													        'with'=>array('urlx'),
+													    )) );
+		else:
+			$menu = false;
+		endif;
+
 		$this->render('ver', array(
 			'model' => $model,
-			'contenido' => $contenido,
-			'fechas' => $fechas,
-			'videos' => $videos
+			//'bloques' => $bloques,
+			//'fechas' => $fechas,
+			'videos' => $videos, 
+			'fotos' => $fotos, 
+			'paginas' => $paginas, 
+			'menu' => $menu,
 		));
 	}
 
@@ -128,44 +163,8 @@ class EspecialesController extends Controller
 	public function actionDelete($id)
 	{
 		$micrositio = Micrositio::model()->findByPk($id);
-		$imagen = $micrositio->background;
-		$imagen_mobile = $micrositio->background_mobile;
-		$miniatura = $micrositio->miniatura;
-		$url_id = $micrositio->url_id;
-		$micrositio->pagina_id = null;
-		$micrositio->save();
-		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' =>$micrositio->id) );
-		$urlp_id = $pagina->url_id;
-		//Borrar PgErograma
-		$PgE = PgEspecial::model()->findByAttributes(array('pagina_id' => $pagina->id));
-		$transaccion = $PgE->dbConnection->beginTransaction();
-		if( $PgE->delete() )
-		{
-			//Borrar Página
-			if( $pagina->delete() ){
-				//Borrar Url de pagina
-				$urlp = Url::model()->findByPk($urlp_id);
-				//Borrar micrositio
-
-				if($micrositio->delete()){
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen_mobile);
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
-					//Borrar url de micrositio
-					$url = Url::model()->findByPk($url_id);
-					$url->delete();
-					$transaccion->commit();
-				}else{
-					$transaccion->rollback();
-				}
-			}else{
-				$transaccion->rollback();		
-			}
+		$micrositio->delete();
 			
-		}else
-		{
-			$transaccion->rollback();
-		}
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
@@ -187,24 +186,15 @@ class EspecialesController extends Controller
 				$dire = Yii::app()->session['dire'];
 			}
 			if($especialesForm->validate()){
-				$url = new Url;
-				$transaccion 	= $url->dbConnection->beginTransaction();
-				$slug = 'especiales/' . $this->slugger($especialesForm->nombre);
-				$slug = $this->verificarSlug($slug);
-				$url->slug 		= $slug;
-				$url->tipo_id 	= 2; //Micrositio
-				$url->estado  	= 1;
-				if( !$url->save(false) ) $transaccion->rollback();
-				$url_id = $url->getPrimaryKey();
-
-				$micrositio = new Micrositio;
+				
+				$micrositio 				= new Micrositio;
+				$transaccion 				= $micrositio->dbConnection->beginTransaction();
 				$micrositio->seccion_id 	= 3; //Especiales
 				$micrositio->usuario_id 	= 1;
-				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $especialesForm->nombre;
 				$micrositio->background 	= ($especialesForm->imagen)?$dire . $especialesForm->imagen:NULL;
 				$micrositio->background_mobile 	= ($especialesForm->imagen_mobile)?$dire . $especialesForm->imagen_mobile:NULL;
-				$micrositio->miniatura 		= ($especialesForm->miniatura)?$dire . 'thumbnail/' . $especialesForm->miniatura:NULL;
+				$micrositio->miniatura 		= ($especialesForm->miniatura)?$dire . $especialesForm->miniatura:NULL;
 				$micrositio->destacado		= $especialesForm->destacado;
 				if($especialesForm->estado > 0) $estado = 1;
 				else $estado = 0;
@@ -212,19 +202,9 @@ class EspecialesController extends Controller
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 				$micrositio_id = $micrositio->getPrimaryKey();
 
-				$purl = new Url;
-				$pslug = $url->slug .'/inicio';
-				$pslug = $this->verificarSlug($pslug);
-				$purl->slug 	= $pslug;
-				$purl->tipo_id 	= 3; //Pagina
-				$purl->estado  	= 1;
-				if( !$purl->save(false) ) $transaccion->rollback();
-				$purl_id = $purl->getPrimaryKey();
-
 				$pagina = new Pagina;
 				$pagina->micrositio_id 		= $micrositio_id;
-				$pagina->tipo_pagina_id 	= 5; //Página programa
-				$pagina->url_id 			= $purl_id;
+				$pagina->tipo_pagina_id 	= 10; //Página bloques
 				$pagina->nombre				= $especialesForm->nombre;
 				$pagina->meta_descripcion 	= $especialesForm->meta_descripcion;
 				$pagina->clase 				= NULL;
@@ -234,16 +214,14 @@ class EspecialesController extends Controller
 				$pagina_id = $pagina->getPrimaryKey();
 
 				$micrositio->pagina_id = $pagina_id;
-				$micrositio->save(false);
 
-				$PgE = new PgEspecial;
-				$PgE->pagina_id 	= $pagina_id;
-				$PgE->resena 		= $especialesForm->resena;
-				$PgE->lugar 			= $especialesForm->lugar;
-				$PgE->presentadores 		= $especialesForm->presentadores;
-				$PgE->estado 		= $especialesForm->estado;
+				if( !$micrositio->save(false) ) $transaccion->rollback();
+
+				$pgB = new PgBloques;
+				$pgB->pagina_id 	= $pagina_id;
+				$pgB->estado 		= $especialesForm->estado;
 				
-				if( !$PgE->save(false) )
+				if( !$pgB->save(false) )
 					$transaccion->rollback();
 				else
 				{
@@ -276,8 +254,7 @@ class EspecialesController extends Controller
 		if( !isset(Yii::app()->session['dire']) ) Yii::app()->session['dire'] = 'backgrounds/especiales/';
 
 		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
-		$pagina = Pagina::model()->with('url', 'pgEspecials')->findByAttributes(array('micrositio_id' => $micrositio->id));
-		$PgE = PgEspecial::model()->findByAttributes(array('pagina_id' => $pagina->id));
+		$pagina = Pagina::model()->with('url')->findByAttributes(array('micrositio_id' => $micrositio->id));
 
 		$especialesForm = new EspecialesForm;		
 		$especialesForm->id = $id;
@@ -288,20 +265,6 @@ class EspecialesController extends Controller
 				$dire = Yii::app()->session['dire'];
 			}
 			if($especialesForm->validate()){
-				if($especialesForm->nombre != $micrositio->nombre){
-					$url = Url::model()->findByPk($micrositio->url_id);
-					$slug = 'especiales/' . $this->slugger($especialesForm->nombre);
-					$slug = $this->verificarSlug($slug);
-					$url->slug 		= $slug;
-					$url->save(false);
-
-					$purl = Url::model()->findByPk($pagina->url_id);
-					$pslug = $url->slug .'/inicio';
-					$pslug = $this->verificarSlug($pslug);
-					$purl->slug 	= $pslug;
-					$purl->save(false);
-				}
-
 				$micrositio = Micrositio::model()->findByPk($id);
 				$transaccion 	= $micrositio->dbConnection->beginTransaction();
 				$micrositio->nombre			= $especialesForm->nombre;
@@ -333,14 +296,12 @@ class EspecialesController extends Controller
 				$pagina->meta_descripcion 	= $especialesForm->meta_descripcion;
 				$pagina->destacado		= $especialesForm->destacado;
 				$pagina->estado			= $estado;
+
 				if( !$pagina->save(false) ) $transaccion->rollback();
 
-				$PgE = PgEspecial::model()->findByAttributes( array('pagina_id' => $pagina->id) );
-				$PgE->resena 		= $especialesForm->resena;
-				$PgE->lugar 			= $especialesForm->lugar;
-				$PgE->presentadores 		= $especialesForm->presentadores;
-				$PgE->estado 		= $especialesForm->estado;
-				if( !$PgE->save(false) )
+				$pgB = PgBloques::model()->findByAttributes( array('pagina_id' => $pagina->id) );
+				$pgB->estado 		= $especialesForm->estado;
+				if( !$pgB->save(false) )
 					$transaccion->rollback();
 				else
 				{
@@ -357,18 +318,22 @@ class EspecialesController extends Controller
 		// $this->performAjaxValidation($model);
 
 		$especialesForm->nombre = $micrositio->nombre;
-		$especialesForm->resena = $pagina->pgEspecials->resena;
-		$especialesForm->lugar = $pagina->pgEspecials->lugar;
-		$especialesForm->presentadores = $pagina->pgEspecials->presentadores;
 		$especialesForm->imagen = $micrositio->background;
 		$especialesForm->imagen_mobile = $micrositio->background_mobile;
 		$especialesForm->miniatura = $micrositio->miniatura;
-		$especialesForm->estado = $pagina->pgEspecials->estado;
 		$especialesForm->destacado = $micrositio->destacado;
 
 		$this->render('modificar',array(
 			'model'=>$especialesForm,
 		));
+	}
+
+	public function actionDesasignarmenu($id)
+	{
+		$m = Micrositio::model()->findByPk($id);
+		$m->menu_id = NULL;
+		$m->save();
+		$this->redirect(bu('/administrador/especiales/view/'. $id . '#menu'));
 	}
 
 	/**
@@ -385,6 +350,14 @@ class EspecialesController extends Controller
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
+	}
+
+	protected function asignar_menu($id, $menu_id)
+	{
+		$m = Micrositio::model()->findByPk($id);
+		$m->menu_id = $menu_id;
+		if($m->save()) return true;
+		else return false;
 	}
 
 	/**

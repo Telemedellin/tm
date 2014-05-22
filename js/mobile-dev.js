@@ -84,7 +84,7 @@ jQuery(function($) {
 	$('#programacion h3').fitText(1, { minFontSize: '12px'});
 	$('#programacion a').fitText(1, { minFontSize: '10px', maxFontSize: '16px' });
 	mLink.fitText(1, { minFontSize: '18px'});
-	$('body > nav > ul > li > a').fitText(1, { minFontSize: '16px', maxFontSize: '23px' });
+	$('body > nav > ul > li > a').fitText(1.2, { minFontSize: '16px', maxFontSize: '23px' });
 
 	//Nav
 	$(mLink).on('click', nav);
@@ -153,7 +153,7 @@ jQuery(function($) {
 
 	//Micrositio
 	if(micro[0]){
-		var bg = body.css('background-image').substr(4);
+		var bg = $.trim(body.css('background-image')).substr(4);
 		body.css('background-image', 'none');
 		$.backstretch(bg.substr(0, bg.length-1), {
 			centeredY: false, 
@@ -253,6 +253,16 @@ jQuery(function($) {
 			$(event.currentTarget).parent().toggleClass('open');
 			micro.mCustomScrollbar("update");
 	    }//open_close_list
+
+	    var table_programacion = $('#table_programacion tbody tr'), 
+        fecha_programacion = $('#fecha_programacion')
+
+	    table_programacion.hide();
+	    $('#table_programacion tbody tr.'+fecha_programacion.val()).show();
+	    fecha_programacion.on('change', function(){
+	      table_programacion.hide();
+	      $('#table_programacion tbody tr.'+$(this).val()).show();
+	    });
 	}//micro
 	
 });

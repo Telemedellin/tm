@@ -10,7 +10,7 @@
 		<h1>Especial <?php echo $model->nombre; ?></h1>
 
 		<?php $this->widget('zii.widgets.CDetailView', array(
-			'data' => array('especial' => $model, 'contenido' => $contenido),
+			'data' => array('especial' => $model),
 			'attributes'=>array(
 				array(
 					'name' => 'especial.nombre',
@@ -21,23 +21,23 @@
 					'type' => 'raw', 
 					'value' => l($model->url->slug, bu($model->url->slug), array('target' => '_blank')),
 				),
-				array(
+				/*array(
 					'name' => 'contenido.resena',
 					'label' => 'Reseña',
 					'type' => 'html'
-				),
+				),*/
 				array(
 					'name' => 'especial.pagina.meta_descripcion',
 					'label' => 'Meta descripcion',
 				),
-				array(
+				/*array(
 					'name' => 'contenido.lugar',
 					'label' => 'Lugar',
 				),
 				array(
 					'name' => 'contenido.presentadores',
 					'label' => 'Presentadores',
-				),
+				),*/
 				array(
 					'name' => 'especial.background', 
 					'label' => 'Imagen', 
@@ -77,16 +77,26 @@
 	<?php 
 	$this->widget('CTabView', array(
 	    'tabs'=>array(
-	        'tab1'=>array(
-	            'title'=>'Fechas',
-	            'view'=>'_fechas', 
-	            'data'=> array('fechas' => $fechas, 'model' => $model)
+	        'paginas'=>array(
+	            'title'=>'Páginas',
+	            'view'=>'_paginas', 
+	            'data'=> array('paginas' => $paginas, 'model' => $model)
 	        ),
-	        'tab2'=>array(
+	        'videos'=>array(
 	            'title'=>'Álbumes de videos',
 	            'view'=>'_video', 
 	            'data'=> array('videos' => $videos, 'model' => $model)
-	        )
+	        ), 
+	        'fotos'=>array(
+	            'title'=>'Álbumes de fotos',
+	            'view'=>'_foto', 
+	            'data'=> array('fotos' => $fotos, 'model' => $model)
+	        ),
+	        'menu' => array(
+	            'title'=>'Menú',
+	            'view'=>'_menu', 
+	            'data'=> array('menu' => $menu, 'model' => $model)
+	        ), 
 	    ),
 	));
 	?>

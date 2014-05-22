@@ -33,6 +33,39 @@ nav ul {
 	list-style: none;
 	margin: 0;
 }
+select
+{
+	background: #27262b url(../images/static/iconos/down-arrow.png) no-repeat 95% center;
+	background-size: 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border: none;
+	border-radius: 10px;
+	color: #9f9ea3;
+	font-size: 1em;
+	margin-bottom: 1em;
+	padding: .5em 1.2em .5em .5em;
+}
+table
+{
+	border-collapse: separate;
+	border-spacing: 5px 10px;
+	width: 100%;
+}
+td
+{
+	background: #fff;
+	color: #3c3c3c;
+	padding: 10px;
+}
+th
+{
+	background: #fc7812;
+	color: #fff;
+	font-size: 18px;
+	padding: 10px;
+}
+
 .arrow-before {
     width:0px;
     height:0px;
@@ -179,7 +212,7 @@ nav ul {
 	width: auto;
 	margin-right: 25px;
 	overflow: hidden;
-	padding: 5%;
+	padding: 1em;
 }
 .mCSB_container.mCS_no_scrollbar {
 	margin-right: 0;
@@ -558,6 +591,9 @@ nav ul {
 {
 	background: #ef6800;
 	color: #FFF;
+}
+#bar nav li.sintonizanos a {
+	background-position: 5px -801px;
 }
 #bar .escribenos {
 	background: rgb(137, 222, 21);
@@ -991,6 +1027,7 @@ nav ul {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
+	clear: both;
 	float: right;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
@@ -1058,6 +1095,10 @@ nav ul {
 	min-width: 45%;
 	padding: 0 10px;
 }
+#menu_micrositio.especiales
+{
+	min-width: 99%;
+}
 #menu_micrositio ul {
 	list-style: none;
 	margin: 0;
@@ -1099,6 +1140,18 @@ nav ul {
 #micrositio a
 {
 	color: #FFF;
+}
+#micrositio.especiales
+{
+	max-height: 84%;
+	width: 99%;
+}
+#micrositio.especiales iframe {
+	display: block;
+	height: auto;
+	margin: auto;
+	min-height: 340px;
+	width: 80%;
 }
 #micrositio .filtro
 {
@@ -1208,6 +1261,47 @@ nav ul {
 }
 #micrositio.PgArticuloBlog {
 	height:88%;
+}
+#micrositio.PgBlog a
+{
+	display: block;
+	height: 235px;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+#micrositio.PgBlog a div
+{
+	background: rgba(0, 0, 0, .7);
+	bottom: 0px;
+	margin: 0;
+	padding: 10px 8px;
+	position: absolute;
+	width: 100%;
+	z-index: 2;
+}
+#micrositio.PgBlog h2
+{
+	font-size: 1.2em;
+	line-height: 1.2;
+	margin: 0 0 5px;
+}
+#micrositio.PgBlog img
+{
+	display: block;
+	margin-top: -50%;
+	position: relative;
+	top: 50%;
+	z-index: 1;
+}
+#micrositio.PgBlog time
+{
+	color: #ababab;
+	font-size: .8em;
+}
+#micrositio.PgBloques
+{
+	width: 99%;
 }
 #micrositio.PgGenericaST iframe {
 	height: auto;
@@ -2212,6 +2306,9 @@ nav ul {
 	#bar nav li.tmradio a {
 		background-position: 5px -652px;
 	}
+	#bar nav li.sintonizanos a {
+		background-position: 5px -770px;
+	}
 	#bar .redes li a {
 		background-size: 20px auto;
 	}
@@ -2310,6 +2407,9 @@ nav ul {
 	#bar nav li.tmradio a {
 		background-position: 5px -655px;
 	}
+	#bar nav li.sintonizanos a {
+		background-position: 5px -770px;
+	}
 	#bar .escribenos {
 		background-position: 15% -377px;
 	}
@@ -2398,6 +2498,9 @@ nav ul {
 	#bar nav li.tmradio a {
 		background-position: 5px -814px;
 	}
+	#bar nav li.sintonizanos a {
+		background-position: 5px -960px;
+	}
 	#bar footer .extended-address .title {
 		background-size: 7%;
 	}
@@ -2478,6 +2581,9 @@ nav ul {
 	
 	#bar nav li.tmradio a {
 		background-position: 5px -870px;
+	}
+	#bar nav li.sintonizanos a {
+		background-position: 5px -1023px;
 	}
 	#bar footer .extended-address .title {
 		background-size: 6%;

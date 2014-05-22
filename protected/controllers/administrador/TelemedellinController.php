@@ -28,7 +28,7 @@ class TelemedellinController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete', 'desasignarmenu'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -98,16 +98,33 @@ class TelemedellinController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model = Micrositio::model()->with('url')->findByPk($id);
+		if(isset($_POST['asignar_menu']))
+		{
+			$this->asignar_menu($id, $_POST['Micrositio']['menu_id']);
+		}
+		
+		$model = Micrositio::model()->with('url', 'menu')->findByPk($id);
 		$contenido = new CActiveDataProvider('Pagina', array(
 													    'criteria'=>array(
 													        'condition'=>'micrositio_id = ' . $model->id,
 													        'order'=>'t.nombre ASC',
 													        'with'=>array('pgGenericaSts'),
 													    )) );
+
+		if($model->menu):
+			$menu = new CActiveDataProvider( 'MenuItem', array(
+													    'criteria'=>array(
+													        'condition'=>'menu_id=' . $model->menu->id,
+													        'with'=>array('urlx'),
+													    )) );
+		else:
+			$menu = false;
+		endif;
+
 		$this->render('ver', array(
 			'model' => $model,
-			'contenido' => $contenido
+			'contenido' => $contenido,
+			'menu' => $menu, 
 		));
 	}
 
@@ -119,44 +136,8 @@ class TelemedellinController extends Controller
 	public function actionDelete($id)
 	{
 		$micrositio = Micrositio::model()->findByPk($id);
-		$imagen = $micrositio->background;
-		$imagen_mobile = $micrositio->background_mobile;
-		$miniatura = $micrositio->miniatura;
-		$url_id = $micrositio->url_id;
-		$micrositio->pagina_id = null;
-		$micrositio->save();
-		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' =>$micrositio->id) );
-		$urlp_id = $pagina->url_id;
-		//Borrar PgGenericaSt
-		$PgSt = PgGenericaSt::model()->findByAttributes(array('pagina_id' => $pagina->id));
-		$transaccion = $PgSt->dbConnection->beginTransaction();
-		if( $PgSt->delete() )
-		{
-			//Borrar Página
-			if( $pagina->delete() ){
-				//Borrar Url de pagina
-				$urlp = Url::model()->findByPk($urlp_id);
-				//Borrar micrositio
-
-				if($micrositio->delete()){
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen_mobile);
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
-					//Borrar url de micrositio
-					$url = Url::model()->findByPk($url_id);
-					$url->delete();
-					$transaccion->commit();
-				}else{
-					$transaccion->rollback();
-				}
-			}else{
-				$transaccion->rollback();		
-			}
+		$micrositio->delete();
 			
-		}else
-		{
-			$transaccion->rollback();
-		}
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
@@ -178,24 +159,14 @@ class TelemedellinController extends Controller
 				$dirt = Yii::app()->session['dirt'];
 			}
 			if($programasForm->validate()){
-				$url = new Url;
-				$transaccion 	= $url->dbConnection->beginTransaction();
-				$slug = 'telemedellin/' . $this->slugger($programasForm->nombre);
-				$slug = $this->verificarSlug($slug);
-				$url->slug 		= $slug;
-				$url->tipo_id 	= 2; //Micrositio
-				$url->estado  	= 1;
-				if( !$url->save(false) ) $transaccion->rollback();
-				$url_id = $url->getPrimaryKey();
-
-				$micrositio = new Micrositio;
+				$transaccion 				= $micrositio->dbConnection->beginTransaction();
+				$micrositio 				= new Micrositio;
 				$micrositio->seccion_id 	= 1; //Telemedellín
 				$micrositio->usuario_id 	= 1;
-				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $programasForm->nombre;
 				$micrositio->background 	= $dirt . $programasForm->imagen;
 				$micrositio->background_mobile 	= $dirt . $programasForm->imagen_mobile;
-				$micrositio->miniatura 		= $dirt . 'thumbnail/' . $programasForm->miniatura;
+				$micrositio->miniatura 		= $dirt . $programasForm->miniatura;
 				$micrositio->destacado		= $programasForm->destacado;
 				if($programasForm->estado > 0) $estado = 1;
 				else $estado = 0;
@@ -203,19 +174,9 @@ class TelemedellinController extends Controller
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 				$micrositio_id = $micrositio->getPrimaryKey();
 
-				$purl = new Url;
-				$pslug = 'telemedellin/' . $url->slug .'/inicio';
-				$pslug = $this->verificarSlug($pslug);
-				$purl->slug 	= $pslug;
-				$purl->tipo_id 	= 3; //Pagina
-				$purl->estado  	= 1;
-				if( !$purl->save(false) ) $transaccion->rollback();
-				$purl_id = $purl->getPrimaryKey();
-
 				$pagina = new Pagina;
 				$pagina->micrositio_id 	= $micrositio_id;
 				$pagina->tipo_pagina_id = 2; //Página programa
-				$pagina->url_id 		= $purl_id;
 				$pagina->nombre			= $programasForm->nombre;
 				$pagina->clase 			= NULL;
 				$pagina->destacado		= $programasForm->destacado;
@@ -276,20 +237,6 @@ class TelemedellinController extends Controller
 				$dirt = Yii::app()->session['dirt'];
 			}
 			if($programasForm->validate()){
-				if($programasForm->nombre != $micrositio->nombre){
-					$url = Url::model()->findByPk($micrositio->url_id);
-					$slug = 'telemedellin/' . $this->slugger($telemedellinForm->nombre);
-					$slug = $this->verificarSlug($slug);
-					$url->slug 		= $slug;
-					$url->save(false);
-
-					$purl = Url::model()->findByPk($pagina->url_id);
-					$pslug = 'telemedellin/' . $url->slug .'/inicio';
-					$pslug = $this->verificarSlug($pslug);
-					$purl->slug 	= $pslug;
-					$purl->save(false);
-				}
-
 				$micrositio = Micrositio::model()->findByPk($id);
 				$transaccion 	= $micrositio->dbConnection->beginTransaction();
 				$micrositio->nombre			= $programasForm->nombre;
@@ -354,6 +301,14 @@ class TelemedellinController extends Controller
 		));
 	}
 
+	public function actionDesasignarmenu($id)
+	{
+		$m = Micrositio::model()->findByPk($id);
+		$m->menu_id = NULL;
+		$m->save();
+		$this->redirect(bu('/administrador/telemedellin/view/'. $id . '#menu'));
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -368,6 +323,14 @@ class TelemedellinController extends Controller
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
+	}
+
+	protected function asignar_menu($id, $menu_id)
+	{
+		$m = Micrositio::model()->findByPk($id);
+		$m->menu_id = $menu_id;
+		if($m->save()) return true;
+		else return false;
 	}
 
 	/**

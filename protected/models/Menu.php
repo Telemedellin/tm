@@ -93,6 +93,30 @@ class Menu extends CActiveRecord
 		));
 	}
 
+	protected function beforeDelete()
+	{
+		try
+		{
+			foreach($this->menuItems as $menuItem)
+			{
+				$mi = MenuItem::model()->findByPk($menuItem->id);
+				$mi->delete();
+			}
+			foreach($this->micrositios as $micrositio)
+			{
+				$m = $micrositio->findByPk($micrositio->id);
+				$m->menu_id = NULL;
+				$m->save();
+			}
+			return parent::beforeDelete();
+						
+		}//try
+		catch(Exception $e)
+		{
+		   return false;
+		}
+	}
+
 	protected function beforeSave()
 	{
 	    if(parent::beforeSave())

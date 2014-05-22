@@ -32,6 +32,8 @@
  */
 class Micrositio extends CActiveRecord
 {
+	private $transaccion;
+	protected $oldAttributes;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -40,6 +42,15 @@ class Micrositio extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'utilities'=>array(
+                'class'=>'application.components.behaviors.Utilities'
+            )
+		);
 	}
 
 	/**
@@ -58,7 +69,7 @@ class Micrositio extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, seccion_id, usuario_id, url_id, creado, estado, destacado', 'required'),
+			array('nombre, seccion_id, usuario_id, creado, estado, destacado', 'required'),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true),
 			array('nombre, background, background_mobile, miniatura', 'length', 'max'=>255),
 			array('seccion_id, usuario_id, url_id, pagina_id, menu_id', 'length', 'max'=>10),
@@ -172,25 +183,145 @@ class Micrositio extends CActiveRecord
 		return $m->pagina_id;
 	}
 
+	protected function beforeDelete()
+	{
+		$this->transaccion = $this->dbConnection->getCurrentTransaction();
+		if($this->transaccion === null)
+			$this->transaccion = $this->dbConnection->beginTransaction();
+		try
+		{
+			$this->pagina_id = NULL;
+			$this->save(NULL);
+			foreach($this->paginas as $pagina)
+			{
+				$p = Pagina::model()->findByPk($pagina->id);
+				$p->delete();
+			}
+			foreach($this->albumFotos as $albumFoto)
+			{
+				$af = AlbumFoto::model()->findByPk($albumFoto->id);
+				$af->delete();
+			}
+			foreach($this->albumVideos as $albumVideo)
+			{
+				$av = AlbumVideo::model()->findByPk($albumVideo->id);
+				$av->delete();
+			}
+			foreach($this->programacions as $programacion)
+			{
+				$pr = Programacion::model()->findByPk($programacion->id);
+				$pr->delete();
+			}
+			foreach($this->redSocials as $redSocial)
+			{
+				$r = RedSocial::model()->findByPk($redSocial->id);
+				$r->delete();
+			}
+
+			return parent::beforeDelete();
+						
+		}//try
+		catch(Exception $e)
+		{
+		   $this->transaccion->rollback();
+		   return false;
+		}
+	}
+
+	protected function afterDelete()
+	{
+		$this->transaccion = $this->dbConnection->getCurrentTransaction();
+		if($this->transaccion === null)
+			$this->transaccion = $this->dbConnection->beginTransaction();
+		try
+		{
+			if(!is_null($this->menu_id))
+			{
+				$menu = Menu::model()->findByPk($this->menu_id);
+				$menu->delete();
+			}
+			$url = Url::model()->findByPk($this->url_id);
+			$url->delete();
+
+			$imagenes = array();
+			if( !is_null($this->background) && !empty($this->background) ) 
+				$imagenes[] = $this->background;
+			if( !is_null($this->background_mobile) && !empty($this->background_mobile) ) 
+				$imagenes[] = $this->background_mobile;
+			if( !is_null($this->miniatura) && !empty($this->miniatura) ) 
+				$imagenes[] = $this->miniatura;
+			
+			if(isset($imagenes))
+				foreach($imagenes as $imagen)
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
+			$this->transaccion->commit();
+		}//try
+		catch(Exception $e)
+		{
+		   $this->transaccion->rollback();
+		   return false;
+		}
+		return parent::afterDelete();
+	}
+
+	protected function afterFind()
+	{
+	    $this->oldAttributes = $this->attributes;
+	    return parent::afterFind();
+	}	
+
 	protected function beforeSave()
 	{
-	    if(parent::beforeSave())
-	    {
-	        if($this->isNewRecord)
-	        {
-	        	$this->usuario_id	= Yii::app()->user->id;
-	        	$this->pagina_id 	= NULL;
-	        	$this->menu_id 		= NULL;
-	        	$this->creado 		= date('Y-m-d H:i:s');
-	            $this->estado 		= 1;
-	        }
-	        else
-	        {
-	            $this->modificado	= date('Y-m-d H:i:s');
-	        }
-	        return true;
-	    }
-	    else
-	        return false;
+        if($this->isNewRecord)
+        {
+        	$seccion = Seccion::model()->findByPk($this->seccion_id);
+
+        	$url 				= new Url;
+			$slug 				= $this->slugger($seccion->nombre) . '/' . $this->slugger($this->nombre);
+			$slug 				= $this->verificarSlug($slug);
+			$url->slug 			= $slug;
+			$url->tipo_id 		= 2; //Micrositio
+			$url->estado  		= 1;
+			$url->save();
+			
+			$this->url_id 		= $url->getPrimaryKey();
+        	$this->usuario_id	= Yii::app()->user->id;
+        	$this->pagina_id 	= NULL;
+        	$this->menu_id 		= NULL;
+        	$this->creado 		= date('Y-m-d H:i:s');
+            $this->estado 		= 1;
+        }
+        else
+        {
+            $this->modificado	= date('Y-m-d H:i:s');
+        }
+	    return parent::beforeSave();
+	}
+
+	protected function afterSave()
+	{
+		if(!$this->isNewRecord)
+		{
+			if( isset($this->oldAttributes['nombre']) && $this->nombre != $this->oldAttributes['nombre']){
+				$seccion = Seccion::model()->findByPk($this->seccion_id);
+
+				$url 		= Url::model()->findByPk($this->url_id);
+				$slug 		= $this->slugger($seccion->nombre) . '/' . $this->slugger($this->nombre);
+				$slug 		= $this->verificarSlug($slug);
+				$url->slug 	= $slug;
+				$url->save();
+
+				foreach($this->paginas as $pagina)
+				{
+					$uid 	 = $pagina->url_id;
+					$u 		 = Url::model()->findByPk($uid);
+					$nslug 	 = $this->slugger($seccion->nombre).'/'.$this->slugger($this->nombre).'/'.$this->slugger($pagina->nombre);
+					$nslug 	 = $this->verificarSlug($nslug);
+					$u->slug = $nslug;
+					$u->save();
+				}
+			}
+		}
+		return parent::afterSave();
 	}
 }

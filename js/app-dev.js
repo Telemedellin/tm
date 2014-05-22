@@ -22,7 +22,7 @@ function success_popup(data) {
         var plantilla = 'seccion.tmpl.html';
         break;
   }
-  $.get('/js/libs/mustache/views/' + plantilla, function(vista) {
+  $.get('/tm/js/libs/mustache/views/' + plantilla, function(vista) {
     var current_url = window.location.href, 
         output = Mustache.render(vista, data);
     modificar_url(data.url, data.seccion);
@@ -93,7 +93,7 @@ function ga_track(){
 function abrir_multimedia(tipo) {
   if(tipo != ''){
     var hash = window.location.hash.substr(1),
-        destino = '/telemedellin/popup#' + hash;
+        destino = '/tm/telemedellin/popup#' + hash;
     $.fancybox.open({
       type: "ajax",
       href: destino,
@@ -244,7 +244,7 @@ jQuery(function($) {
         hash          = el_url.substr(hash_p).substr(1),
       //Asigno la url del elemento a la nueva
         destino_url   = el_url;
-      var destino     = '/telemedellin/popup#' + hash;
+      var destino     = '/tm/telemedellin/popup#' + hash;
       $(this).fancybox({
         type: "ajax",
         href: destino,
@@ -345,6 +345,16 @@ jQuery(function($) {
       $(event.currentTarget).parent().toggleClass('open');
       micro.mCustomScrollbar("update");
     }//open_close_list
+
+    var table_programacion = $('#table_programacion tbody tr'), 
+        fecha_programacion = $('#fecha_programacion')
+
+    table_programacion.hide();
+    $('#table_programacion tbody tr.'+fecha_programacion.val()).show();
+    fecha_programacion.on('change', function(){
+      table_programacion.hide();
+      $('#table_programacion tbody tr.'+$(this).val()).show();
+    });
 
   }//if micro[0]
 

@@ -63,31 +63,7 @@ class AlbumfotoController extends Controller
 	public function actionDelete($id)
 	{
 		$album_foto = AlbumFoto::model()->with('micrositio')->findByPk($id);
-		$basedir = Yii::getPathOfAlias('webroot') . '/images/galeria/';
-		if($album_foto->fotos)
-		{
-			foreach($album_foto->fotos as $foto)
-			{
-				Foto::model()->findByPk($foto->id)->delete();
-				Url::model()->findByPk($foto->url_id)->delete();
-				if( is_file($basedir . $foto->src) )
-					@unlink($basedir . $foto->src);
-				if( is_file($basedir . $foto->thumb) )
-					@unlink($basedir . $foto->thumb);
-			}
-		}
-		$dir = $basedir . $this->slugger($album_foto->micrositio->nombre) . '/' . $this->slugger($album_foto->nombre);
-		$ui = $album_foto->url_id;
 		$album_foto->delete();
-		$url = Url::model()->findByPk($ui);
-		$url->delete();
-		if( is_dir($album_foto->directorio) )
-			@rmdir( $album_foto->directorio );
-		elseif( is_dir( $dir ) )
-			@rmdir( $dir );
-		else
-			@rmdir( $basedir . '/' . $this->slugger($album_foto->nombre) );
-		
 		
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -109,16 +85,6 @@ class AlbumfotoController extends Controller
 			$album_foto->directorio = $directorio . '/';
 			$album_foto->creado 	= date('Y-m-d H:i:s');
 			
-			$url = new Url;
-			$slug = '#imagenes/' . $this->slugger($album_foto->nombre);
-			$slug = $this->verificarSlug($slug);
-			$url->slug 		= $slug;
-			$url->tipo_id 	= 5; //Álbum de fotos
-			$url->estado  	= 1;
-			$url->save();
-			
-			$album_foto->url_id = $url->getPrimaryKey();
-
 			if($album_foto->save()){
 				$micrositio = Micrositio::model()->findByPk($album_foto->micrositio_id);
 				$dir = Yii::getPathOfAlias('webroot') . '/images/galeria/' . $directorio;
@@ -152,13 +118,6 @@ class AlbumfotoController extends Controller
 		if(isset($_POST['AlbumFoto'])){
 			$nombre = $album_foto->nombre;
 			$album_foto->attributes = $_POST['AlbumFoto'];
-			if($album_foto->nombre != $nombre){
-				$url = Url::model()->findByPk($album_foto->url_id);
-				$slug = '#imagenes/' . $this->slugger($album_foto->nombre);
-			$slug = $this->verificarSlug($slug);
-				$url->slug 		= $slug;
-				$url->save(false);
-			}
 			if($album_foto->save()){
 				Yii::app()->user->setFlash('mensaje', $album_foto->nombre . ' guardado con éxito');
 				$this->redirect(bu('administrador/'.$micrositio->seccion->nombre.'/view/' . $album_foto->micrositio_id));

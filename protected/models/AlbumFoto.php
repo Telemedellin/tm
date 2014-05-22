@@ -21,6 +21,8 @@
  */
 class AlbumFoto extends CActiveRecord
 {
+	protected $oldAttributes;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -31,6 +33,7 @@ class AlbumFoto extends CActiveRecord
 		return parent::model($className);
 	}
 
+	
 	/**
 	 * @return string the associated database table name
 	 */
@@ -101,7 +104,10 @@ class AlbumFoto extends CActiveRecord
 	                    'resize' => array(100, null),
 	                )
 	            )
-	        )
+	        ),
+	        'utilities'=>array(
+                'class'=>'application.components.behaviors.Utilities'
+            )
 		);
 	}
 
@@ -131,4 +137,93 @@ class AlbumFoto extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	protected function beforeDelete()
+	{
+		try
+		{
+			foreach($this->fotos as $foto)
+			{
+				$v = Foto::model()->findByPk($foto->id);
+				$v->delete();
+			}
+
+			return parent::beforeDelete();
+						
+		}//try
+		catch(Exception $e)
+		{
+		   return false;
+		}
+	}
+
+	protected function afterDelete()
+	{
+		
+		$url = Url::model()->findByPk($this->url_id);
+		$url->delete();
+
+		@rmdir( Yii::getPathOfAlias('webroot').'/images/galeria/' . $this->directorio);
+
+		return parent::afterDelete();
+	}
+
+	protected function afterFind()
+	{
+	    $this->oldAttributes = $this->attributes;
+	    return parent::afterFind();
+	}
+
+	protected function beforeSave()
+	{
+	    if(parent::beforeSave())
+	    {
+	        if($this->isNewRecord)
+	        {
+	        	$url 			= new Url;
+				$slug 			= '#imagenes/' . $this->slugger($this->nombre);
+				$slug 			= $this->verificarSlug($slug);
+				$url->slug 		= $slug;
+				$url->tipo_id 	= 5; //Álbum de fotos
+				$url->estado  	= 1;
+				$url->save();
+				
+				$this->url_id = $url->getPrimaryKey();
+	        	$this->creado = date('Y-m-d H:i:s');
+	        }
+	        else
+	        {
+	            $this->modificado	= date('Y-m-d H:i:s');
+	        }
+	        return true;
+	    }
+	    else
+	        return false;
+	}
+
+	protected function afterSave()
+	{
+		if(!$this->isNewRecord)
+		{
+			if( isset($this->oldAttributes['nombre']) && $this->nombre != $this->oldAttributes['nombre']){
+				$url 		= Url::model()->findByPk($this->url_id);
+				$slug 		= '#imagenes/' . $this->slugger($this->nombre);
+				$slug 		= $this->verificarSlug($slug);
+				$url->slug 	= $slug;
+				$url->save();
+
+				foreach($this->fotos as $foto)
+				{
+					$uid 		= $foto->url_id;
+					$u 			= Url::model()->findByPk($uid);
+					$nslug 		= '#imagenes/' . $this->slugger($this->nombre) . '/' . $this->slugger($foto->nombre);
+					$nslug 		= $this->verificarSlug($nslug);
+					$u->slug 		= $nslug;
+					$u->save();
+				}
+			}
+		}
+		parent::afterSave();
+	}
+
 }

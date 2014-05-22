@@ -32,6 +32,8 @@
  */
 class Pagina extends CActiveRecord
 {
+	protected $oldAttributes;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -40,6 +42,15 @@ class Pagina extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'utilities'=>array(
+                'class'=>'application.components.behaviors.Utilities'
+            )
+		);
 	}
 
 	/**
@@ -58,7 +69,7 @@ class Pagina extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('micrositio_id, tipo_pagina_id, nombre, url_id, estado, destacado', 'required'),
+			array('micrositio_id, tipo_pagina_id, nombre, estado, destacado', 'required'),
 			array('estado, usuario_id, url_id, micrositio_id, tipo_pagina_id, destacado', 'numerical', 'integerOnly'=>true),
 			array('nombre, clase', 'length', 'max'=>100),
 			array('meta_descripcion', 'length', 'max'=>200),
@@ -268,28 +279,142 @@ class Pagina extends CActiveRecord
 		return $resultado;
 	}
 
+	protected function beforeDelete()
+	{
+		
+		$transaccion = $this->dbConnection->getCurrentTransaction();
+		if($transaccion === null)
+			$transaccion = $this->dbConnection->beginTransaction();
+		try
+		{
+			// 1. Desasignar de los micrositios que la tengan por defecto.
+			foreach($this->micrositios as $micrositio)
+			{
+				$m = Micrositio::model()->findByPk( $micrositio->id );
+				$m->pagina_id = NULL;
+				$m->save();
+			}
+			
+			// 3.Verifico el tipo de página para ver si tiene una tabla auxiliar
+			$tabla 	= $this->tipoPagina->tabla;
+			$t 		= new $tabla();
+			$contenido = $t->findByAttributes( array('pagina_id' => $this->id) );
+
+			switch($tabla)
+			{
+				case 'PgPrograma':
+					Horario::model()->deleteAllByAttributes( array('pg_programa_id' => $contenido->id) );
+					break;
+				case 'PgDocumental':
+					FichaTecnica::model()->deleteAllByAttributes( array('pg_documental_id' => $contenido->id) );
+					break;
+				/*case 'Carpeta':
+					Carpeta::model()->vaciar_carpeta( $contenido->id );
+					break;/**/
+				case 'PgFiltro':
+					FiltroItem::model()->deleteAllByAttributes( array('pg_filtro_id' => $contenido->id) );
+					break;
+				case 'PgBloques':
+					Bloque::model()->deleteAllByAttributes( array('pg_bloques_id' => $contenido->id) );
+					break;
+				case 'PgEventos':
+					Evento::model()->deleteAllByAttributes( array('pg_eventos_id' => $contenido->id) );
+					break;
+			}
+			// 4. Borro la tabla pg_
+			// 4.1 Verifico si el contenido tiene imagenes para eliminar
+			if(isset($contenido))
+			{
+				$imagenes = array(); //Placeholder para las imagenes
+				if( !is_null($contenido->imagen) && !empty($contenido->imagen) ) 
+					$imagenes[] = $contenido->imagen;
+				if( !is_null($contenido->imagen_mobile) && !empty($contenido->imagen_mobile) ) 
+					$imagenes[] = $contenido->imagen_mobile;
+				if( !is_null($contenido->miniatura) && !empty($contenido->miniatura) ) 
+					$imagenes[] = $contenido->miniatura;
+				$contenido->delete();
+			}
+						
+			if(isset($imagenes))
+				foreach($imagenes as $imagen)
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
+			$transaccion->commit();
+			return parent::beforeDelete();
+		}//try
+		catch(Exception $e)
+		{
+		   $transaccion->rollback();
+		   return false;
+		}
+	}
+
+	protected function afterDelete()
+	{
+		// 6. Elimino la URL asociada
+		$url = Url::model()->findByPk($this->url_id);
+		$url->delete();
+		return parent::afterDelete();
+	}
+
+	protected function afterFind()
+	{
+	    $this->oldAttributes = $this->attributes;
+	    return parent::afterFind();
+	}
+
 	protected function beforeSave()
 	{
-	    if(parent::beforeSave())
-	    {
-	        
-	        if($this->isNewRecord)
-	        {
-	        	$this->usuario_id	= Yii::app()->user->id;
-	        	$this->revision_id 	= NULL;
-	        	$this->creado 		= date('Y-m-d H:i:s');
-	            if(!$this->estado)
-	            	$this->estado 	= 0;
-	        }
-	        else
-	        {
-	            //Crear la revisión
-	            $this->revision_id 	= NULL;
-	            $this->modificado	= date('Y-m-d H:i:s');
-	        }
-	        return true;
-	    }
-	    else
-	        return false;
+ 
+        if($this->isNewRecord)
+        {
+        	$micrositio= Micrositio::model()->findByPk($this->micrositio_id);
+			$url 	   = new Url;
+			if($micrositio->seccion->nombre == 'sin-seccion')
+				$slug  = $this->slugger($micrositio->nombre).'/'.$this->slugger($this->nombre);
+			else
+				$slug  = $this->slugger($micrositio->seccion->nombre).'/'.$this->slugger($micrositio->nombre).'/'.$this->slugger($this->nombre);
+			$slug 	   = $this->verificarSlug($slug);
+			$url->slug = $slug;
+			$url->tipo_id 	= 3; //Página
+			$url->estado  	= 1;
+			if( $url->save() )
+				$this->url_id = $url->getPrimaryKey();
+			else
+				return false;
+
+			$this->usuario_id	= Yii::app()->user->id;
+        	$this->revision_id 	= NULL;
+        	$this->creado 		= date('Y-m-d H:i:s');
+            if(!$this->estado)
+            	$this->estado 	= 0;
+        }
+        else
+        {
+            //Crear la revisión
+            $this->revision_id 	= NULL;
+            $this->modificado	= date('Y-m-d H:i:s');
+        }
+		return parent::beforeSave();
 	}
+
+	protected function afterSave()
+	{
+		if(!$this->isNewRecord)
+		{
+			if( isset($this->oldAttributes['nombre']) && $this->nombre != $this->oldAttributes['nombre']){
+				$micrositio = Micrositio::model()->findByPk($this->micrositio_id);
+				$url = Url::model()->findByPk($this->url_id);
+				if($micrositio->seccion->nombre == 'sin-seccion')
+					$slug = $this->slugger($micrositio->nombre).'/'.$this->slugger($this->nombre);
+				else
+					$slug 	   = $this->slugger($micrositio->seccion->nombre).'/'.$this->slugger($micrositio->nombre).'/'.$this->slugger($this->nombre);
+				$slug = $this->verificarSlug($slug);
+				$url->slug 	= $slug;
+				$url->save();
+			}
+
+		}
+		parent::afterSave();
+	}
+
 }

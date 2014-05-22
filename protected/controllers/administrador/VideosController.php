@@ -81,14 +81,8 @@ class VideosController extends Controller
 	public function actionDelete($id)
 	{
 		$video = Video::model()->findByPk($id);
-		$url_id = $video->url_id;
-		//Borrar video
-
-		if($video->delete()){
-			//Borrar url de micrositio
-			$url = Url::model()->findByPk($url_id);
-			$url->delete();	
-		}		
+		$video->delete();
+		
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
@@ -105,25 +99,12 @@ class VideosController extends Controller
 
 		if(isset($_POST['Video'])){
 			$video->attributes = $_POST['Video'];
-			if($video->validate()){
-				$album_video = AlbumVideo::model()->findByPk($video->album_video_id);
-				$url = new Url;
-				$slug = '#videos/'.$this->slugger($album_video->nombre).'/'.$this->slugger($video->nombre);
-				$slug = $this->verificarSlug($slug);
-				$url->slug 		= $slug;
-				$url->tipo_id 	= 9; //Video
-				$url->estado  	= 1;
-				$url->save();
-				$video->url_id = $url->getPrimaryKey();
-
-				if( $video->save(false) )
-				{
-					Yii::app()->user->setFlash('mensaje', 'Video ' . $video->nombre . ' guardado con éxito');
-					$this->redirect(bu('administrador/albumvideo/view/'. $album_video->id));
-					$this->redirect('index');
-				}
-
-			}//if($novedadesForm->validate())
+			if( $video->save() )
+			{
+				Yii::app()->user->setFlash('mensaje', 'Video ' . $video->nombre . ' guardado con éxito');
+				$this->redirect(bu('administrador/albumvideo/view/'. $album_video->id));
+				$this->redirect('index');
+			}
 
 		} //if(isset($_POST['NovedadesForm']))
 
@@ -151,22 +132,12 @@ class VideosController extends Controller
 		if(isset($_POST['Video'])){
 			$nombre = $video->nombre;
 			$video->attributes = $_POST['Video'];
-			if($video->validate()){
-				if($video->nombre != $nombre){
-					$url = Url::model()->findByPk($video->url_id);
-					$slug = '#videos/' . $this->slugger($video->albumVideo->nombre).'/'.$this->slugger($video->nombre);
-					$slug = $this->verificarSlug($slug);
-					$url->slug 		= $slug;
-					$url->save(false);
-				}
+			if( $video->save() )
+			{
+				Yii::app()->user->setFlash('mensaje', 'Video ' . $video->nombre . ' guardado con éxito');
+				$this->redirect(array('view','id' => $video->id));
+			}
 
-				if( $video->save(false) )
-				{
-					Yii::app()->user->setFlash('mensaje', 'Video ' . $video->nombre . ' guardado con éxito');
-					$this->redirect(array('view','id' => $video->id));
-				}
-
-			}//if($novedadesForm->validate())
 
 		} //if(isset($_POST['NovedadesForm']))
 

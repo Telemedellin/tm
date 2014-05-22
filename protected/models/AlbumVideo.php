@@ -21,6 +21,8 @@
  */
 class AlbumVideo extends CActiveRecord
 {
+	protected $oldAttributes;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -29,6 +31,16 @@ class AlbumVideo extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+
+	public function behaviors()
+	{
+		return array(
+			'utilities'=>array(
+                'class'=>'application.components.behaviors.Utilities'
+            )
+		);
 	}
 
 	/**
@@ -116,4 +128,95 @@ class AlbumVideo extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	protected function beforeDelete()
+	{
+		try
+		{
+			foreach($this->videos as $video)
+			{
+				$v = Video::model()->findByPk($video->id);
+				$v->delete();
+			}
+
+			return parent::beforeDelete();
+						
+		}//try
+		catch(Exception $e)
+		{
+		   return false;
+		}
+	}
+
+	protected function afterDelete()
+	{
+		
+		$url = Url::model()->findByPk($this->url_id);
+		$url->delete();
+
+		if( !is_null($this->thumb) && !empty($this->thumb) ) 
+			@unlink( Yii::getPathOfAlias('webroot').'/images/videos/' . $this->thumb);
+
+		return parent::afterDelete();
+	}
+
+	protected function afterFind()
+	{
+	    $this->oldAttributes = $this->attributes;
+	    return parent::afterFind();
+	}
+
+	protected function beforeSave()
+	{
+	    if(parent::beforeSave())
+	    {
+	        if($this->isNewRecord)
+	        {
+	        	$url 			= new Url;
+				$slug 			= '#videos/' . $this->slugger($this->nombre);
+				$slug 			= $this->verificarSlug($slug);
+				$url->slug 		= $slug;
+				$url->tipo_id 	= 8; //Álbum de videos
+				$url->estado  	= 1;
+				$url->save();
+				
+				$this->url_id 	= $url->getPrimaryKey();
+	        	$this->creado 	= date('Y-m-d H:i:s');
+	        }
+	        else
+	        {
+	            $this->modificado= date('Y-m-d H:i:s');
+	        }
+	        return true;
+	    }
+	    else
+	        return false;
+	}
+
+	protected function afterSave()
+	{
+		if(!$this->isNewRecord)
+		{
+			if( isset($this->oldAttributes['nombre']) && $this->nombre != $this->oldAttributes['nombre']){
+				$url 		= Url::model()->findByPk($this->url_id);
+				$slug 		= '#videos/' . $this->slugger($this->nombre);
+				$slug 		= $this->verificarSlug($slug);
+				$url->slug 	= $slug;
+				$url->save();
+
+				foreach($this->videos as $video)
+				{
+					$uid 		= $video->url_id;
+					$u 			= Url::model()->findByPk($uid);
+					$nslug 		= '#videos/' . $this->slugger($this->nombre) . '/' . $this->slugger($video->nombre);
+					$nslug 		= $this->verificarSlug($nslug);
+					$u->slug 		= $nslug;
+					$u->save();
+				}
+				//Recorrer los videos y cambiarles el slug de la URL
+			}
+		}
+		parent::afterSave();
+	}
+
 }

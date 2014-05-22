@@ -36,18 +36,27 @@ body > nav
 	z-index: 1;
 }
 body > nav li a {
-	background: url('../images/static/iconos/tmicons.png') no-repeat 5px 19px;
+	color: #FFF;
+	display: inline-block;
+	font-size: 1.7em;
+	margin: 0 .5em;
+	padding: .45em 0 .45em;
+	text-transform: uppercase;
+	text-decoration:none;
+}
+body > nav > ul > li > a:before, 
+body > nav > ul > li > a::before
+{
+	background: url('../images/static/iconos/tmicons.png') no-repeat 2px 7px;
 	-o-background-size: 25px auto;
 	-moz-background-size: 25px auto;
 	-webkit-background-size: 25px auto;
 	background-size: 25px auto;
-	color: #FFF;
-	display: block;
-	font-size: 1.7em;
-	margin: 0 .5em;
-	padding: .45em 0 .45em 30px;
-	text-transform: uppercase;
-	text-decoration:none;
+	content: "";
+	display: inline-block;
+	height: 27px;
+	margin-right: 5px;
+	width: 25px;
 }
 body > nav li li a, 
 body > nav li li.parent li a 
@@ -57,7 +66,7 @@ body > nav li li.parent li a
 	color: #FFF;
 	font-size: 0.9em;
 	font-weight: normal;
-	padding: 1.25em 0 1.25em 30px;
+	padding: 1.25em 0 1.25em 0px;
 	text-transform: none;
 }
 body > nav li li:last-child a
@@ -80,17 +89,21 @@ body > nav > ul > li > a
 body > nav > ul > li > ul {
 	display: none;
 }
-body > nav li.programas a {
-	background-position: 5px -21px;
+body > nav li.programas a:before, 
+body > nav li.programas a::before  {
+	background-position: 2px -32px;
 }
-body > nav li.especiales a {
-	background-position: 5px -58px;
+body > nav li.especiales a:before, 
+body > nav li.especiales a::before {
+	background-position: 2px -68px;
 }
-body > nav li.noticiastm a {
-	background-position: 5px -750px;
+body > nav li.noticiastm a:before, 
+body > nav li.noticiastm a::before  {
+	background-position: 2px -762px;
 }
-body > nav li.documentales a {
-	background-position: 5px -94px;
+body > nav li.documentales a:before, 
+body > nav li.documentales a::before {
+	background-position: 2px -105px;
 }
 body > nav li.tmradio
 {
@@ -112,20 +125,14 @@ body > nav li.tmradio a {
 	padding-left: 0;
 	padding-right: 10px;
 }
+body > nav li.sintonizanos a:before, 
+body > nav li.sintonizanos a::before {
+	background-position: 2px -801px;
+}
 body > nav li.tmradio a:before, 
 body > nav li.tmradio a::before
 {
-	background: url('../images/static/iconos/tmicons.png') no-repeat 5px -687px;
-	-o-background-size: 25px auto;
-	-moz-background-size: 25px auto;
-	-webkit-background-size: 25px auto;
-	background-size: 25px auto;
-	content: "";
-	display: block;
-	float: left;
-	height: 30px;
-	margin-right: 5px;
-	width: 30px;
+	background-position: 2px -687px;
 }
 footer
 {
@@ -264,6 +271,37 @@ nav ul {
 p{
 	margin: 0 0 1em 0;
 }
+select
+{
+	background: #27262b url(../images/static/iconos/down-arrow.png) no-repeat 95% center;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border: none;
+	border-radius: 10px;
+	color: #9f9ea3;
+	font-size: 1.7em;
+	margin-bottom: 1em;
+	padding: .5em 1.2em .5em .5em;
+}
+table
+{
+	border-collapse: separate;
+	border-spacing: 5px 10px;
+	width: 100%;
+}
+td
+{
+	background: #fff;
+	color: #3c3c3c;
+	padding: 10px;
+}
+th
+{
+	background: #fc7812;
+	color: #fff;
+	font-size: 18px;
+	padding: 10px;
+}
 
 .back
 {
@@ -298,15 +336,6 @@ p{
 }
 .programacion #dia_programacion
 {
-	background: #27262b url(../images/static/iconos/down-arrow.png) no-repeat 95% center;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border: none;
-	border-radius: 10px;
-	color: #9f9ea3;
-	font-size: 1.7em;
-	margin-bottom: 1em;
-	padding: .5em;
 	width: 100%;
 }
 .programacion .listado_programas a
@@ -745,6 +774,13 @@ p{
 {
 	margin-bottom: 0;
 }
+#micrositio iframe {
+	display: block;
+	height: auto;
+	margin: auto;
+	min-height: 340px;
+	width: 80%;
+}
 #micrositio img
 {
 	height: auto !important;
@@ -856,6 +892,54 @@ p{
 {
 	color: #b8b8b8;
 	padding-left: 3em;
+}
+#micrositio.PgBlog a
+{
+	color: #FFF;
+	display: block;
+	height: 235px;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+#micrositio.PgBlog a div
+{
+	background: rgba(0, 0, 0, .7);
+	bottom: 0px;
+	margin: 0;
+	padding: 10px 8px;
+	position: absolute;
+	width: 100%;
+	z-index: 2;
+}
+#micrositio.PgBlog h1
+{
+	margin-bottom: 15px;
+}
+#micrositio.PgBlog h2
+{
+	font-size: 1.2em;
+	line-height: 1.2;
+	margin: 0 0 5px;
+}
+#micrositio.PgBlog img
+{
+	display: block;
+	/*margin-top: -50%;/**/
+	position: relative;
+	/*top: 50%;/**/
+	z-index: 1;
+}
+#micrositio.PgBlog time
+{
+	color: #ababab;
+	font-size: .8em;
+}
+#micrositio.PgBlog .span3
+{
+	float: left;
+	margin-left: 20px;
+	width: 209px;
 }
 #newsticker
 {
@@ -1081,15 +1165,15 @@ p{
 	z-index: 100;
 }
 #programacion a {
-	background: #ffb119 url('../images/static/iconos/tmicons.png') no-repeat 12% 85.8%;
-	-o-background-size: 25%;
-	-moz-background-size: 25%;
-	-webkit-background-size: 25%;
-	background-size: 25%;
+	background: #ffb119 url('../images/static/iconos/tmicons.png') no-repeat 12px -801px;
+	-o-background-size: 31px auto;
+	-moz-background-size: 31px auto;
+	-webkit-background-size: 31px auto;
+	background-size: 31px auto;
 	color: #FFF;
 	display: inline-block;
 	max-height: 53px;
-	min-height: 37px;
+	min-height: 38px;
 	line-height: 1;
 	float: left;
 	padding: 2% 2% 2% 20%;
@@ -1097,7 +1181,7 @@ p{
 }
 #programacion a.tmradio
 {
-	background-position: 12% 91%;
+	background-position: 12px -851px;
 }
 #programacion a:nth-child(2)
 {
@@ -1165,6 +1249,21 @@ p{
 		-webkit-background-size: 100% auto;
 	}
 }*/
+@media (max-width: 490px){
+	#programacion a
+	{
+		background-position: 3px -644px;
+		-o-background-size: 25px auto;
+		-moz-background-size: 25px auto;
+		-webkit-background-size: 25px auto;
+		background-size: 25px auto;
+		padding: 2% 2% 2% 24%;
+	}
+	#programacion a.tmradio
+	{
+		background-position: 3px -684px;
+	}
+}
 @media screen and (orientation:landscape) and (min-width: 490px) {
 	footer
 	{

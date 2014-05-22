@@ -44,14 +44,7 @@ class GalleryController extends CController
         $photos = Foto::model()->with('albumFoto')->findAllByPk($id);
         foreach ($photos as $photo) {
             if ($photo !== null) {
-                $base = Yii::getPathOfAlias('webroot') . '/' . $this->galleryDir . '/';
-                if (file_exists($base . $photo->albumFoto->directorio . $photo->src))
-                    @unlink($base . $photo->albumFoto->directorio . $photo->src);
-                if (file_exists($base . $photo->albumFoto->directorio . $photo->thumb))
-                    @unlink($base . $photo->albumFoto->directorio . $photo->thumb);
                 $photo->delete();
-                $url = URL::model()->findByPk($photo->url_id);
-                $url->delete();
             }
             else throw new CHttpException(400, 'Photo, not found');
         }

@@ -17,6 +17,7 @@ class NovedadesForm extends CFormModel
 	public $miniatura;
 	public $posicion;
 	public $destacado;
+	public $comentarios;
 	public $estado;
 	
 	/**
@@ -26,10 +27,10 @@ class NovedadesForm extends CFormModel
 	{
 		return array(
 			// name, email, subject and body are required
-			array('nombre, entradilla', 'required'),
+			array('nombre, entradilla, imagen, miniatura', 'required'),
 			array('enlace, imagen, imagen_mobile, miniatura', 'length', 'max'=>255),
 			array('texto', 'safe'),
-			array('posicion, estado, destacado', 'numerical', 'integerOnly'=>true)
+			array('posicion, estado, destacado', 'numerical, comentarios', 'integerOnly'=>true)
 		);
 	}
 
@@ -48,6 +49,7 @@ class NovedadesForm extends CFormModel
 			'imagen_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Imagen Miniatura',
 			'posicion' => 'Posición',
+			'comentarios' => 'Permitir comentarios',
 			'estado' => 'Estado',
 		);
 	}

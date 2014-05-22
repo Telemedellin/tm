@@ -49,11 +49,13 @@
 		</div>
 		<?php echo $form->error($model,'destacado'); ?>
 	</div>
+	<?php if (is_readable( $this->getViewPath().'/_' . lcfirst($partial) . '.php' )): ?>
 	<div id="contenido">
 		<h3>Página <?php echo $model->tipoPagina->nombre ?></h3>
 		<?php $this->renderPartial('_' . lcfirst($partial) . 'Form', array('contenido' => $contenido, 'form' => $form)); 
 		?>
 	</div>
+	<?php endif; ?>
 	<div class="form-group buttons">
 		<?php echo CHtml::submitButton('Guardar', array('class' => 'btn btn-primary')); ?>
 	</div>

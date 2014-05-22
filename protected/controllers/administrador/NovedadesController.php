@@ -113,39 +113,9 @@ class NovedadesController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		//Borrar pgArticuloBlog
-		$pgAB = PgArticuloBlog::model()->findByAttributes(array('pagina_id' => $id));
-		$imagen = $pgAB->imagen;
-		$imagen_mobile = $pgAB->imagen_mobile;
-		$miniatura = $pgAB->miniatura;
-		$transaccion = $pgAB->dbConnection->beginTransaction();
-		if( $pgAB->delete() )
-		{
-			//Borrar Página
-			$pagina = Pagina::model()->findByPk($id);
-			$nombre = $pagina->nombre;
-			$url_id = $pagina->url_id;
-			if( $pagina->delete() ){
-				//Borrar Url
-				$url = Url::model()->findByPk($url_id);
-				if($url->delete()){
-					$transaccion->commit();
-					//Borrar Archivos
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen_mobile);
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
-					Yii::app()->user->setFlash('mensaje', 'Novedad ' . $nombre . ' eliminada');
-				}else{
-					$transaccion->rollback();
-				}
-			}else{
-				$transaccion->rollback();		
-			}
-			
-		}else
-		{
-			$transaccion->rollback();
-		}
+		$pagina = Pagina::model()->findByPk($id);
+		$pagina->delete();
+
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
@@ -167,19 +137,11 @@ class NovedadesController extends Controller
 				$dir = Yii::app()->session['dir'];
 			}
 			if($novedadesForm->validate()){
-				$url = new Url;
-				$transaccion 	= $url->dbConnection->beginTransaction();
-				$slug = 'novedades/' . $this->slugger($novedadesForm->nombre);
-				$slug = $this->verificarSlug($slug);
-				$url->slug 		= $slug;
-				$url->tipo_id 	= 3; //Página
-				$url->estado  	= 1;
-				if( !$url->save(false) ) $transaccion->rollback();
-				$url_id = $url->getPrimaryKey();
-				$pagina = new Pagina;
+				
+				$pagina 				= new Pagina;
+				$transaccion 			= $pagina->dbConnection->beginTransaction();
 				$pagina->micrositio_id 	= 2; //Novedades
 				$pagina->tipo_pagina_id = 3; //Novedad
-				$pagina->url_id 		= $url_id;
 				$pagina->nombre			= $novedadesForm->nombre;
 				$pagina->clase 			= NULL;
 				$pagina->estado 		= $novedadesForm->estado;
@@ -240,14 +202,6 @@ class NovedadesController extends Controller
 				$dir = Yii::app()->session['dir'];
 			}
 			if($novedadesForm->validate()){
-				if($novedadesForm->nombre != $pagina->nombre){
-					$url = Url::model()->findByPk($pagina->url_id);
-					$slug = 'novedades/' . $this->slugger($novedadesForm->nombre);
-					$slug = $this->verificarSlug($slug);
-					$url->slug 		= $slug;
-					$url->save(false);
-				}
-				
 				$pagina = Pagina::model()->findByPk($id);
 				$transaccion 	= $pagina->dbConnection->beginTransaction();
 

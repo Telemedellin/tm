@@ -45,44 +45,20 @@
 </div>
 <div class="row">
 	<div class="col-sm-12">
-		<h2>Páginas</h2>
-		<div class="btn-group pull-right">
-		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		    Agregar página <span class="caret"></span>
-		  </button>
-		  <ul class="dropdown-menu" role="menu">
-		    <li><a href="<?php echo bu('administrador/pagina/crear/' . $model->id . '/2'); ?>">Genérica</a></li>
-		    <li><a href="<?php echo bu('administrador/pagina/crear/' . $model->id . '/8'); ?>">Filtro</a></li>
-		  </ul>
-		</div>
-		<?php $this->widget('zii.widgets.grid.CGridView', array(
-			'dataProvider'=>$contenido,
-			'enableSorting' => true,
-		    'pager' => array('pageSize' => 25),
-		    'htmlOptions' => array('style' => 'clear:both;'), 
-			'columns'=>array(
-		        'id',
-		        'nombre',
-		        'creado',
-		        'modificado',
-		        array(
-		            'name'=>'estado',
-		            'header'=>'Publicado',
-		            'filter'=>array('1'=>'Si','0'=>'No'),
-		            'value'=>'($data->estado=="1")?("Si"):("No")'
-		        ),
-		        array(
-		            'name'=>'destacado',
-		            'filter'=>array('1'=>'Si','0'=>'No'),
-		            'value'=>'($data->destacado=="1")?("Si"):("No")'
-		        ),
-		        array(
-		            'class'=>'CButtonColumn',
-		            'viewButtonUrl' => 'Yii::app()->createUrl("/administrador/pagina/view", array("id"=>$data->id))',
-		            'updateButtonUrl' => 'Yii::app()->createUrl("/administrador/pagina/update", array("id"=>$data->id))',
-		            'deleteButtonUrl' => 'Yii::app()->createUrl("/administrador/pagina/delete", array("id"=>$data->id))',
-		        ),
-		    )
-		)); ?>
+		<?php 
+		$tabs_content = array(
+	        'paginas'=>array(
+	            'title'=>'Páginas',
+	            'view'=>'_paginas', 
+	            'data'=> array('paginas' => $contenido, 'model' => $model)
+	        ), 
+	        'menu' => array(
+	            'title'=>'Menú',
+	            'view'=>'_menu', 
+	            'data'=> array('menu' => $menu, 'model' => $model)
+	        )
+	    );
+		$this->widget('CTabView', array('tabs' => $tabs_content));
+		?>
 	</div>
 </div>

@@ -103,6 +103,13 @@
         </div>
         <?php echo $form->error($model,'posicion'); ?>
     </div>
+    <div class="form-group">
+        <?php echo $form->label($contenido,'comentarios', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-3">
+            <?php echo $form->dropDownList($contenido, 'comentarios', array('0' => 'No', '1' => 'Sí' ), array('class' => 'form-control')); ?>
+        </div>
+        <?php echo $form->error($contenido,'comentarios'); ?>
+    </div>
 	<div class="form-group">
 		<?php echo $form->label($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-3">

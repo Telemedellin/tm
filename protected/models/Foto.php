@@ -23,6 +23,8 @@
  */
 class Foto extends CActiveRecord
 {
+	protected $oldAttributes;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -31,6 +33,15 @@ class Foto extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'utilities'=>array(
+                'class'=>'application.components.behaviors.Utilities'
+            )
+		);
 	}
 
 	/**
@@ -128,22 +139,68 @@ class Foto extends CActiveRecord
 		));
 	}
 
+	protected function afterDelete()
+	{
+		$url = Url::model()->findByPk($this->url_id);
+		$url->delete();
+
+		$imagenes = array();
+		if( !is_null($this->src) && !empty($this->src) ) 
+			$imagenes[] = $this->src;
+		if( !is_null($this->thumb) && !empty($this->thumb) ) 
+			$imagenes[] = $this->thumb;
+		
+		if(isset($imagenes))
+			foreach($imagenes as $imagen)
+				@unlink( Yii::getPathOfAlias('webroot').'/images/galeria/' . $this->albumFoto->directorio . $imagen);
+		
+		return parent::afterDelete();
+	}
+
+	protected function afterFind()
+	{
+	    $this->oldAttributes = $this->attributes;
+	    return parent::afterFind();
+	}
+
 	protected function beforeSave()
 	{
-	    if(parent::beforeSave())
-	    {
-	        
-	        if($this->isNewRecord)
-	        {
-	        	$this->creado 		= date('Y-m-d H:i:s');
-	        }
-	        else
-	        {
-	            $this->modificado	= date('Y-m-d H:i:s');
-	        }
-	        return true;
-	    }
-	    else
-	        return false;
+	    
+        if($this->isNewRecord)
+        {
+        	$album_foto= AlbumFoto::model()->findByPk($this->album_foto_id);
+			$url 	   = new Url;
+			$slug 	   = '#imagenes/'.$this->slugger($album_foto->nombre).'/'.$this->slugger($this->nombre);
+			$slug 	   = $this->verificarSlug($slug);
+			$url->slug = $slug;
+			$url->tipo_id 	= 9; //Video
+			$url->estado  	= 1;
+			if( $url->save() )
+				$this->url_id = $url->getPrimaryKey();
+			else
+				return false;
+        	$this->creado 		= date('Y-m-d H:i:s');
+        }
+        else
+        {
+            $this->modificado	= date('Y-m-d H:i:s');
+        }
+	    return parent::beforeSave();
+	}
+
+	protected function afterSave()
+	{
+		if(!$this->isNewRecord)
+		{
+			if( isset($this->oldAttributes['nombre']) && $this->nombre != $this->oldAttributes['nombre']){
+				$url = Url::model()->findByPk($this->url_id);
+				$slug = '#imagenes/' . $this->slugger($this->albumFoto->nombre).'/'.$this->slugger($this->nombre);
+				$slug = $this->verificarSlug($slug);
+				$url->slug 	= $slug;
+				$url->save();
+			}
+
+		}
+		parent::afterSave();
 	}
 }

@@ -33,7 +33,7 @@
 			),
 		)); ?>
 		<h2>Videos</h2>
-		<p class="pull-right"><?php echo l('Agregar video', bu('administrador/videos/crear/' . $model->id), array('class' => 'btn btn-default btn-sm'))?></p>
+		<p class="pull-right"><?php echo l('Agregar video', bu('administrador/videos/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'target' => '_blank'))?></p>
 		<?php if($videos->getData()): ?>
 		<?php $this->widget('zii.widgets.grid.CGridView', array(
 			'dataProvider'=>$videos,
@@ -70,6 +70,8 @@
 		            'viewButtonUrl' => 'Yii::app()->createUrl("/administrador/videos/view", array("id"=>$data->id))',
 		            'updateButtonUrl' => 'Yii::app()->createUrl("/administrador/videos/update", array("id"=>$data->id))',
 		            'deleteButtonUrl' => 'Yii::app()->createUrl("/administrador/videos/delete", array("id"=>$data->id))',
+		            'viewButtonOptions' => array('target' => "_blank"),
+            		'updateButtonOptions' => array('target' => "_blank"),
 		        ),
 		    )
 		)); ?>

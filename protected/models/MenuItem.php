@@ -117,4 +117,29 @@ class MenuItem extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	protected function afterDelete()
+	{
+		$url = Url::model()->findByPk($this->url_id);
+		$url->delete();
+		return parent::afterDelete();
+	}
+
+	protected function beforeSave()
+	{
+	    if(parent::beforeSave())
+	    {
+	        if($this->isNewRecord)
+	        {
+	        	$this->creado 		= date('Y-m-d H:i:s');
+	        }
+	        else
+	        {
+	            $this->modificado	= date('Y-m-d H:i:s');
+	        }
+	        return true;
+	    }
+	    else
+	        return false;
+	}
 }
