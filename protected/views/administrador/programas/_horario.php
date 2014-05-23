@@ -1,5 +1,5 @@
 <p class="pull-right">
-    <?php echo l('Agregar horario', bu('administrador/horario/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'role' => 'button'))?>
+    <?php echo l('Agregar horario', bu('administrador/horario/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'role' => 'button', 'target' => '_blank'))?>
 </p>
 <?php if($horario->getData()): ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -35,6 +35,7 @@
             'template' => '{update}{delete}',
             'updateButtonUrl' => 'Yii::app()->createUrl("/administrador/horario/update", array("id"=>$data->id))',
             'deleteButtonUrl' => 'Yii::app()->createUrl("/administrador/horario/delete", array("id"=>$data->id))',
+            'updateButtonOptions' => array('target' => "_blank"),
         ),
     )
 )); ?>

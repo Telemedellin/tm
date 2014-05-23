@@ -1,5 +1,5 @@
 	<p class="pull-right">
-		<?php echo l('Agregar álbum de videos', bu('administrador/albumvideo/crear/' . $model->id), array('class' => 'btn btn-default btn-sm'))?>
+		<?php echo l('Agregar álbum de videos', bu('administrador/albumvideo/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'target' => '_blank'))?>
 	</p>
 	<?php if($videos->getData()): ?>
 	<?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -35,6 +35,8 @@
 	            'viewButtonUrl' => 'Yii::app()->createUrl("/administrador/albumvideo/view", array("id"=>$data->id))',
 	            'updateButtonUrl' => 'Yii::app()->createUrl("/administrador/albumvideo/update", array("id"=>$data->id))',
 	            'deleteButtonUrl' => 'Yii::app()->createUrl("/administrador/albumvideo/delete", array("id"=>$data->id))',
+	            'viewButtonOptions' => array('target' => "_blank"),
+            	'updateButtonOptions' => array('target' => "_blank"),
 	        ),
 	    )
 	)); ?>

@@ -77,12 +77,12 @@
 	<?php 
 	$this->widget('CTabView', array(
 	    'tabs'=>array(
-	        'tab1'=>array(
+	        'fichatecnica'=>array(
 	            'title'=>'Ficha técnica',
 	            'view'=>'_ficha_tecnica', 
 	            'data'=> array('ficha_tecnica' => $ficha_tecnica, 'model' => $model, 'contenido' => $contenido)
 	        ),
-	        'tab2'=>array(
+	        'albumesdevideos'=>array(
 	            'title'=>'Álbumes de videos',
 	            'view'=>'_video', 
 	            'data'=> array('videos' => $videos, 'model' => $model, 'contenido' => $contenido)
@@ -91,6 +91,11 @@
 	            'title'=>'Páginas',
 	            'view'=>'_paginas', 
 	            'data'=> array('paginas' => $paginas, 'model' => $model)
+	        ), 
+	        'menu' => array(
+	            'title'=>'Menú',
+	            'view'=>'_menu', 
+	            'data'=> array('menu' => $menu, 'model' => $model)
 	        )
 	    ),
 	));

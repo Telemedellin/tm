@@ -220,12 +220,12 @@ class TelemedellinController extends Controller
 		$c = new CDbCriteria;
 		$c->addCondition('seccion_id = ' . $seccion->id);
 		$c->addCondition(' t.estado <> 0');
-		$c->join  = 'JOIN pagina ON pagina.micrositio_id = t.id';
-		$c->join  .= ' JOIN pg_especial ON pg_especial.pagina_id = pagina.id';
-		$c->join  .= ' LEFT JOIN fecha_especial ON pg_especial.id = fecha_especial.pg_especial_id';
-		$c->group = 'pg_especial.id';
+		//$c->join  = 'JOIN pagina ON pagina.micrositio_id = t.id';
+		//$c->join  .= ' JOIN pg_especial ON pg_especial.pagina_id = pagina.id';
+		//$c->join  .= ' LEFT JOIN fecha_especial ON pg_especial.id = fecha_especial.pg_especial_id';
+		//$c->group = 'pg_especial.id';
 		$c->limit = 8;
-		$c->order = 'fecha_especial.fecha DESC, t.destacado DESC, t.creado DESC';
+		$c->order = /*fecha_especial.fecha DESC, /**/'t.destacado DESC, t.creado DESC';
 
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE estado <> 0");
 
@@ -326,8 +326,23 @@ class TelemedellinController extends Controller
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
 		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
+
+		$fondo_pagina = 'backgrounds/generica-interna-1.jpg';
+
+		if( $this->theme != 'pc' && isset($micrositio->background_mobile) && !is_null($micrositio->background_mobile)  )
+			$fondo_pagina = $micrositio->background_mobile;
+		elseif( !empty($micrositio->background) )
+			$fondo_pagina = $micrositio->background;
 		
-		if(isset($pagina['contenido']->imagen) && !is_null($pagina['contenido']->imagen))
+		if($this->theme != 'pc' && isset($pagina['contenido']->imagen_mobile) && !is_null($pagina['contenido']->imagen_mobile) )
+			$fondo_pagina = $pagina['contenido']->imagen_mobile;
+		elseif( !empty($pagina['contenido']->imagen) )
+			$fondo_pagina = $pagina['contenido']->imagen;
+
+		if( isset($pagina['contenido']->imagen) && is_null($pagina['contenido']->imagen) && is_null($pagina['contenido']->imagen_mobile) && is_null($micrositio->background) && is_null($micrositio->background_mobile) )
+			$fondo_pagina = NULL;
+		
+		/*if(isset($pagina['contenido']->imagen) && !is_null($pagina['contenido']->imagen))
 		{
 			$fondo_pagina = $pagina['contenido']->imagen;
 		}elseif($this->theme != 'pc' && !empty($micrositio->background_mobile))
@@ -342,7 +357,7 @@ class TelemedellinController extends Controller
 		}else
 		{
 			$fondo_pagina = 'backgrounds/generica-interna-1.jpg';
-		}
+		}/**/
 
 		$this->render( 
 			'micrositio', 
@@ -614,18 +629,5 @@ class TelemedellinController extends Controller
 				'propertyName'=>'propertyValue',
 			),
 		);
-	}
-
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'action1'=>'path.to.ActionClass',
-			'action2'=>array(
-				'class'=>'path.to.AnotherActionClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-	*/
+	}/**/
 }

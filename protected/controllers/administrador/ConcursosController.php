@@ -1,5 +1,4 @@
 <?php
-
 class ConcursosController extends Controller
 {
 	/**
@@ -28,7 +27,7 @@ class ConcursosController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete', 'desasignarmenu'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -99,11 +98,40 @@ class ConcursosController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model = Micrositio::model()->with('url', 'pagina')->findByPk($id);
+		if(isset($_POST['asignar_menu']))
+		{
+			$this->asignar_menu($id, $_POST['Micrositio']['menu_id']);
+		}
+
+		$model = Micrositio::model()->with('url', 'pagina', 'menu')->findByPk($id);
 		$contenido = PgGenericaSt::model()->findByAttributes(array('pagina_id' => $model->pagina->id));
+		$fotos = new CActiveDataProvider( 'AlbumFoto', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$id,
+													        'with'=>array('fotos', 'url'),
+													    )) );
+		$paginas = new CActiveDataProvider( 'Pagina', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id=' . $id . ' AND tipo_pagina_id=2',
+													        'with'=>array('pgGenericaSts', 'url'),
+													    )) );
+
+		if($model->menu):
+			$menu = new CActiveDataProvider( 'MenuItem', array(
+													    'criteria'=>array(
+													        'condition'=>'menu_id=' . $model->menu->id,
+													        'with'=>array('urlx'),
+													    )) );
+		else:
+			$menu = false;
+		endif;
+		
 		$this->render('ver', array(
 			'model' => $model,
-			'contenido' => $contenido
+			'contenido' => $contenido, 
+			'fotos' => $fotos, 
+			'paginas' => $paginas, 
+			'menu' => $menu,
 		));
 	}
 
@@ -115,53 +143,8 @@ class ConcursosController extends Controller
 	public function actionDelete($id)
 	{
 		$micrositio = Micrositio::model()->findByPk($id);
-		$imagen = $micrositio->background;
-		$imagen_mobile = $micrositio->background_mobile;
-		$miniatura = $micrositio->miniatura;
-		$url_id = $micrositio->url_id;
-		$nombre = $micrositio->nombre;
-		$micrositio->pagina_id = null;
-		$micrositio->save();
-		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' =>$micrositio->id, 'tipo_pagina_id' => 2) );
-		$urlp_id = $pagina->url_id;
-		//Borrar PgGenericaSt
-		$pgGst = PgGenericaSt::model()->findByAttributes(array('pagina_id' => $pagina->id));
-		$formulario = Pagina::model()->with('url', 'pgFormularioJfs')->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 7));
-		$transaccion = $pgGst->dbConnection->beginTransaction();
-		if( $pgGst->delete() )
-		{
-			$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
-			if($pgF){
-				$pgF->delete();
-				$formulario->delete();
-				$furl = Url::model()->findByPk($formulario->url_id)->delete();
-			} 
-			//Borrar Página
-			if( $pagina->delete() ){
-				//Borrar Url de pagina
-				$urlp = Url::model()->findByPk($urlp_id);
-				//Borrar micrositio
-
-				if($micrositio->delete()){
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
-					@unlink( Yii::getPathOfAlias('webroot').'/images' . $imagen_mobile);
-					Yii::app()->user->setFlash('mensaje', 'Concurso ' . $nombre . ' eliminado');
-					//Borrar url de micrositio
-					$url = Url::model()->findByPk($url_id);
-					$url->delete();
-					$transaccion->commit();
-				}else{
-					$transaccion->rollback();
-				}
-			}else{
-				$transaccion->rollback();		
-			}
+		$micrositio->delete();
 			
-		}else
-		{
-			$transaccion->rollback();
-		}
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
@@ -183,42 +166,22 @@ class ConcursosController extends Controller
 				$dirc = Yii::app()->session['dirc'];
 			}
 			if($concursosForm->validate()){
-				$url = new Url;
-				$transaccion 	= $url->dbConnection->beginTransaction();
-				$slug = 'concursos/' . $this->slugger($concursosForm->nombre);
-				$slug = $this->verificarSlug($slug);
-				$url->slug 		= $slug;
-				$url->tipo_id 	= 2; //Micrositio
-				$url->estado  	= 1;
-				if( !$url->save(false) ) $transaccion->rollback();
-				$url_id = $url->getPrimaryKey();
-
-				$micrositio = new Micrositio;
+				$micrositio 				= new Micrositio;
+				$transaccion 				= $micrositio->dbConnection->beginTransaction();
 				$micrositio->seccion_id 	= 8; //Concursos
 				$micrositio->usuario_id 	= 1;
-				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $concursosForm->nombre;
 				$micrositio->background 	= ($concursosForm->imagen != '')?$dirc . $concursosForm->imagen:NULL;
 				$micrositio->background_mobile 	= ($concursosForm->imagen_mobile != '')?$dirc . $concursosForm->imagen_mobile:NULL;
-				$micrositio->miniatura 		= ($concursosForm->miniatura)?$dirv . 'thumbnail/' . $concursosForm->miniatura:NULL;
+				$micrositio->miniatura 		= ($concursosForm->miniatura)?$dirc . $concursosForm->miniatura:NULL;
 				$micrositio->destacado		= $concursosForm->destacado;
 				$micrositio->estado			= $concursosForm->estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 				$micrositio_id = $micrositio->getPrimaryKey();
 
-				$purl = new Url;
-				$pslug = 'concursos/' . $url->slug .'/inicio';
-				$pslug = $this->verificarSlug($pslug);
-				$purl->slug 	= $pslug;
-				$purl->tipo_id 	= 3; //Pagina
-				$purl->estado  	= 1;
-				if( !$purl->save(false) ) $transaccion->rollback();
-				$purl_id = $purl->getPrimaryKey();
-
 				$pagina = new Pagina;
 				$pagina->micrositio_id 	  = $micrositio_id;
 				$pagina->tipo_pagina_id   = 2; //Generica
-				$pagina->url_id 		  = $purl_id;
 				$pagina->nombre			  = $concursosForm->nombre;
 				$pagina->meta_descripcion = $concursosForm->meta_descripcion;
 				$pagina->clase 			  = NULL;
@@ -232,22 +195,14 @@ class ConcursosController extends Controller
 
 				if($concursosForm->formulario != '')
 				{
-					$furl = new Url;
-					$fslug = $url->slug . '/escribenos';
-					$fslug = $this->verificarSlug($fslug);
-					$furl->slug = $fslug;
-					$furl->tipo_id = 3; //Página
-					$furl->estado = 1;
-					if($furl->save()){
-						$formulario = new Pagina;
-						$formulario->micrositio_id = $micrositio_id;
-						$formulario->tipo_pagina_id = 7;								
-						$formulario->url_id = $furl->getPrimaryKey();
-						$formulario->nombre = 'Escribenos';	
-						$formulario->estado = 1;
-						$formulario->destacado = 0;
-						$formulario->save();
-					}
+					
+					$formulario = new Pagina;
+					$formulario->micrositio_id = $micrositio_id;
+					$formulario->tipo_pagina_id = 7;								
+					$formulario->nombre = 'Escribenos';	
+					$formulario->estado = 1;
+					$formulario->destacado = 0;
+					$formulario->save();
 					$pgF = new PgFormularioJf;
 					$pgF->pagina_id 	= $pagina_id;
 					$pgF->formulario_id	= $concursosForm->formulario;
@@ -305,20 +260,6 @@ class ConcursosController extends Controller
 				$dirc = Yii::app()->session['dirc'];
 			}
 			if($concursosForm->validate()){
-				if($concursosForm->nombre != $micrositio->nombre){
-					$url = Url::model()->findByPk($micrositio->url_id);
-					$slug = 'concursos/' . $this->slugger($concursosForm->nombre);
-					$slug = $this->verificarSlug($slug);
-					$url->slug 		= $slug;
-					$url->save(false);
-
-					$purl = Url::model()->findByPk($pagina->url_id);
-					$pslug = 'concursos/' . $url->slug .'/inicio';
-					$pslug = $this->verificarSlug($pslug);
-					$purl->slug 	= $pslug;
-					$purl->save(false);
-				}
-
 				$micrositio 		= Micrositio::model()->findByPk($id);
 				$transaccion 		= $micrositio->dbConnection->beginTransaction();
 				$micrositio->nombre	= $concursosForm->nombre;
@@ -355,24 +296,13 @@ class ConcursosController extends Controller
 					{
 						if(is_null($formulario))
 						{
-							
-							$furl = new Url;
-							$fslug = $micrositio->url->slug . '/escribenos';
-							$fslug = $this->verificarSlug($fslug);
-							$furl->slug = $fslug;
-							$furl->tipo_id = 3; //Página
-							$furl->estado = 1;
-							if($furl->save()){
-								$formulario = new Pagina;
-								$formulario->micrositio_id = $micrositio->id;
-								$formulario->tipo_pagina_id = 7;								
-								$formulario->url_id = $furl->getPrimaryKey();
-								$formulario->nombre = 'Escribenos';	
-								$formulario->estado = 1;
-								$formulario->destacado = 0;
-								$formulario->save();
-							}
-							
+							$formulario = new Pagina;
+							$formulario->micrositio_id = $micrositio->id;
+							$formulario->tipo_pagina_id = 7;								
+							$formulario->nombre = 'Escribenos';	
+							$formulario->estado = 1;
+							$formulario->destacado = 0;
+							$formulario->save();
 						}
 						$pgF = new PgFormularioJf;
 						$pgF->pagina_id 	= $formulario->id;
@@ -384,7 +314,6 @@ class ConcursosController extends Controller
 						if($pgF){
 							$pgF->delete();
 							$formulario->delete();
-							$furl = Url::model()->findByPk($formulario->url_id)->delete();
 						} 
 					}
 				}
@@ -422,6 +351,14 @@ class ConcursosController extends Controller
 		));
 	}
 
+	public function actionDesasignarmenu($id)
+	{
+		$m = Micrositio::model()->findByPk($id);
+		$m->menu_id = NULL;
+		$m->save();
+		$this->redirect(bu('/administrador/concursos/view/'. $id . '#menu'));
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -436,6 +373,14 @@ class ConcursosController extends Controller
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
+	}
+
+	protected function asignar_menu($id, $menu_id)
+	{
+		$m = Micrositio::model()->findByPk($id);
+		$m->menu_id = $menu_id;
+		if($m->save()) return true;
+		else return false;
 	}
 
 	/**

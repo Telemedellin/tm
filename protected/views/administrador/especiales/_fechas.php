@@ -28,6 +28,8 @@
             'template' => ''/*'{update}{delete}'*/,
             'updateButtonUrl' => 'Yii::app()->createUrl("/administrador/fecha_especial/update", array("id"=>$data->id))',
             'deleteButtonUrl' => 'Yii::app()->createUrl("/administrador/fecha_especial/delete", array("id"=>$data->id))',
+            'viewButtonOptions' => array('target' => "_blank"),
+            'updateButtonOptions' => array('target' => "_blank"),
         ),
     )
 )); ?>

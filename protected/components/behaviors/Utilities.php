@@ -22,13 +22,14 @@ class Utilities extends CBehavior
 	}
 	public function verificarSlug($slug, $baseUrl = '')
 	{
+		$slug = trim($slug);
 		$c = Url::model()->findByAttributes(array('slug' => $baseUrl.$slug));
 		if($c)
         {
         	$lc = substr($slug, -1);
         	if(is_numeric($lc))
         	{
-        		$slug = substr($slug, 0, -1) . ($lc+1);	
+        		$slug = substr($slug, 0, -1) . ( ((int) $lc)+1);	
         	}else
         	{
         		$slug = $slug.'-1';

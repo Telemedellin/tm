@@ -8,6 +8,11 @@
 	</div>
 	<div class="col-sm-10">
 		<h1>Concurso "<?php echo $model->nombre; ?>"</h1>
+		<?php
+		    foreach(Yii::app()->user->getFlashes() as $key => $message) {
+		        echo '<div class="flash-' . $key . ' alert alert-info">' . $message . "</div>\n";
+		    }
+		?>
 
 		<?php $this->widget('zii.widgets.CDetailView', array(
 			'data' => array('concurso' => $model, 'contenido' => $contenido),
@@ -58,5 +63,29 @@
 				),
 			),
 		)); ?>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+	<?php 
+	$tabs_content = array(
+        'fotos'=>array(
+            'title'=>'Álbumes de fotos',
+            'view'=>'_foto', 
+            'data'=> array('fotos' => $fotos, 'model' => $model)
+        ),
+        'paginas'=>array(
+            'title'=>'Páginas',
+            'view'=>'_paginas', 
+            'data'=> array('paginas' => $paginas, 'model' => $model)
+        ), 
+        'menu' => array(
+            'title'=>'Menú',
+            'view'=>'_menu', 
+            'data'=> array('menu' => $menu, 'model' => $model)
+        )
+    );
+	$this->widget('CTabView', array('tabs' => $tabs_content));
+	?>
 	</div>
 </div>

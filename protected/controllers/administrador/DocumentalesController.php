@@ -28,7 +28,7 @@ class DocumentalesController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete', 'desasignarmenu'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -98,7 +98,11 @@ class DocumentalesController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$model = Micrositio::model()->with('url', 'pagina')->findByPk($id);
+		if(isset($_POST['asignar_menu']))
+		{
+			$this->asignar_menu($id, $_POST['Micrositio']['menu_id']);
+		}
+		$model = Micrositio::model()->with('url', 'pagina', 'menu')->findByPk($id);
 		$contenido = PgDocumental::model()->findByAttributes(array('pagina_id' => $model->pagina->id));
 		$ficha_tecnica = new CActiveDataProvider( 'FichaTecnica', array(
 													    'criteria'=>array(
@@ -116,13 +120,23 @@ class DocumentalesController extends Controller
 													        'condition'=>'micrositio_id=' . $id . ' AND tipo_pagina_id=4',
 													        'with'=>array('pgDocumentals', 'url'),
 													    )) );
+		if($model->menu):
+			$menu = new CActiveDataProvider( 'MenuItem', array(
+													    'criteria'=>array(
+													        'condition'=>'menu_id=' . $model->menu->id,
+													        'with'=>array('urlx'),
+													    )) );
+		else:
+			$menu = false;
+		endif;
 
 		$this->render('ver', array(
 			'model' => $model,
 			'contenido' => $contenido,
 			'ficha_tecnica' => $ficha_tecnica,
 			'videos' => $videos, 
-			'paginas' => $paginas
+			'paginas' => $paginas, 
+			'menu' => $menu,
 		));
 	}
 
@@ -134,44 +148,8 @@ class DocumentalesController extends Controller
 	public function actionDelete($id)
 	{
 		$micrositio = Micrositio::model()->findByPk($id);
-		$imagen = $micrositio->background;
-		$imagen_mobile = $micrositio->background_mobile;
-		$miniatura = $micrositio->miniatura;
-		$url_id = $micrositio->url_id;
-		$micrositio->pagina_id = null;
-		$micrositio->save();
-		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' =>$micrositio->id) );
-		$urlp_id = $pagina->url_id;
-		//Borrar PgPrograma
-		$PgP = PgDocumental::model()->findByAttributes(array('pagina_id' => $pagina->id));
-		$transaccion = $PgP->dbConnection->beginTransaction();
-		if( $PgP->delete() )
-		{
-			//Borrar Página
-			if( $pagina->delete() ){
-				//Borrar Url de pagina
-				$urlp = Url::model()->findByPk($urlp_id);
-				//Borrar micrositio
-
-				if($micrositio->delete()){
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen_mobile);
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
-					//Borrar url de micrositio
-					$url = Url::model()->findByPk($url_id);
-					$url->delete();
-					$transaccion->commit();
-				}else{
-					$transaccion->rollback();
-				}
-			}else{
-				$transaccion->rollback();		
-			}
+		$micrositio->delete();
 			
-		}else
-		{
-			$transaccion->rollback();
-		}
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
@@ -193,24 +171,15 @@ class DocumentalesController extends Controller
 				$dird = Yii::app()->session['dird'];
 			}
 			if($documentalesForm->validate()){
-				$url = new Url;
-				$transaccion 	= $url->dbConnection->beginTransaction();
-				$slug = 'documentales/' . $this->slugger($documentalesForm->nombre);
-				$slug = $this->verificarSlug($slug);
-				$url->slug 		= $slug;
-				$url->tipo_id 	= 2; //Micrositio
-				$url->estado  	= 1;
-				if( !$url->save(false) ) $transaccion->rollback();
-				$url_id = $url->getPrimaryKey();
-
-				$micrositio = new Micrositio;
+				
+				$micrositio 				= new Micrositio;
+				$transaccion 				= $micrositio->dbConnection->beginTransaction();
 				$micrositio->seccion_id 	= 4; //Documentales
 				$micrositio->usuario_id 	= 1;
-				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $documentalesForm->nombre;
 				$micrositio->background 	= $dird . $documentalesForm->imagen;
 				$micrositio->background_mobile 	= $dird . $documentalesForm->imagen_mobile;
-				$micrositio->miniatura 		= $dird . 'thumbnail/' . $documentalesForm->miniatura;
+				$micrositio->miniatura 		= $dird . $documentalesForm->miniatura;
 				$micrositio->destacado		= $documentalesForm->destacado;
 				if($documentalesForm->estado > 0) $estado = 1;
 				else $estado = 0;
@@ -218,19 +187,9 @@ class DocumentalesController extends Controller
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 				$micrositio_id = $micrositio->getPrimaryKey();
 
-				$purl = new Url;
-				$pslug = $url->slug .'/inicio';
-				$pslug = $this->verificarSlug($pslug);
-				$purl->slug 	= $pslug;
-				$purl->tipo_id 	= 3; //Pagina
-				$purl->estado  	= 1;
-				if( !$purl->save(false) ) $transaccion->rollback();
-				$purl_id = $purl->getPrimaryKey();
-
 				$pagina = new Pagina;
 				$pagina->micrositio_id 		= $micrositio_id;
 				$pagina->tipo_pagina_id 	= 1; //Página programa
-				$pagina->url_id 			= $purl_id;
 				$pagina->nombre				= $documentalesForm->nombre;
 				$pagina->meta_descripcion 	= $documentalesForm->meta_descripcion;
 				$pagina->clase 				= NULL;
@@ -295,20 +254,6 @@ class DocumentalesController extends Controller
 				$dird = Yii::app()->session['dird'];
 			}
 			if($documentalesForm->validate()){
-				if($documentalesForm->nombre != $micrositio->nombre){
-					$url = Url::model()->findByPk($micrositio->url_id);
-					$slug = 'documentales/' . $this->slugger($documentalesForm->nombre);
-					$slug = $this->verificarSlug($slug);
-					$url->slug 		= $slug;
-					$url->save(false);
-
-					$purl = Url::model()->findByPk($pagina->url_id);
-					$pslug = $url->slug .'/inicio';
-					$pslug = $this->verificarSlug($pslug);
-					$purl->slug 	= $pslug;
-					$purl->save(false);
-				}
-
 				$micrositio = Micrositio::model()->findByPk($id);
 				$transaccion 	= $micrositio->dbConnection->beginTransaction();
 				$micrositio->nombre			= $documentalesForm->nombre;
@@ -379,6 +324,14 @@ class DocumentalesController extends Controller
 		));
 	}
 
+	public function actionDesasignarmenu($id)
+	{
+		$m = Micrositio::model()->findByPk($id);
+		$m->menu_id = NULL;
+		$m->save();
+		$this->redirect(bu('/administrador/documentales/view/'. $id . '#menu'));
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -393,6 +346,14 @@ class DocumentalesController extends Controller
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
+	}
+
+	protected function asignar_menu($id, $menu_id)
+	{
+		$m = Micrositio::model()->findByPk($id);
+		$m->menu_id = $menu_id;
+		if($m->save()) return true;
+		else return false;
 	}
 
 	/**

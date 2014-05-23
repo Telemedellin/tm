@@ -33,12 +33,11 @@ else{
 </div>
 <?php endif; ?>
 <?php if(isset($menu) && $menu): ?>
-<div id="menu_micrositio">
+<div id="menu_micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo strtolower($seccion->nombre) ?>">
 	<?php $this->widget( 'MenuW', array( 'id' => $menu ) ); ?>
 </div>
 <?php endif;?>
-
-<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo (!is_null($pagina->clase)) ? $pagina->clase : '' ?>" data-micrositio-id="<?php echo $micrositio->id; ?>" data-pagina-id="<?php echo $pagina->id; ?>">
+<div id="micrositio" class="<?php echo $pagina->tipoPagina->tabla ?> <?php echo (!is_null($pagina->clase)) ? $pagina->clase : '' ?> <?php echo strtolower($seccion->nombre) ?>" data-micrositio-id="<?php echo $micrositio->id; ?>" data-pagina-id="<?php echo $pagina->id; ?>">
 	<div class="contenidoScroll">
 	<?php echo $contenido; ?>
 	<div class="hidden">
@@ -46,9 +45,7 @@ else{
 	</div>
     </div>
 </div>
-
 <?php if($formulario || $galeria || $video):?>
-<div style="clear:both;"></div>
 <div id="menu_inferior">
 	<?php if($formulario): ?>
 		<a href="<?php echo bu($micrositio->url->slug) ?>/escribenos" class="formulario" title="Ir al formulario de <?php echo $micrositio->nombre ?>"><span class="iconoForm"></span>

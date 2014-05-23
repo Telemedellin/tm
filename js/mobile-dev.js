@@ -253,6 +253,16 @@ jQuery(function($) {
 			$(event.currentTarget).parent().toggleClass('open');
 			micro.mCustomScrollbar("update");
 	    }//open_close_list
+
+	    var table_programacion = $('#table_programacion tbody tr'), 
+        fecha_programacion = $('#fecha_programacion')
+
+	    table_programacion.hide();
+	    $('#table_programacion tbody tr.'+fecha_programacion.val()).show();
+	    fecha_programacion.on('change', function(){
+	      table_programacion.hide();
+	      $('#table_programacion tbody tr.'+$(this).val()).show();
+	    });
 	}//micro
 	
 });

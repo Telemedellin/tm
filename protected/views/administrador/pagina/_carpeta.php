@@ -1,5 +1,5 @@
 <p class="pull-right">
-    <?php echo l('Crear carpeta', bu('administrador/carpeta/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'role' => 'button'))?>
+    <?php echo l('Crear carpeta', bu('administrador/carpeta/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'role' => 'button', 'target' => '_blank'))?>
     <?php //echo l('Añadir archivo', bu('administrador/archivo/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'role' => 'button'))?>
 </p>
 <div id="carpetas">

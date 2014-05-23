@@ -1,5 +1,5 @@
 <p class="pull-right">
-    <?php echo l('Agregar red social', bu('administrador/redsocial/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'role' => 'button'))?>
+    <?php echo l('Agregar red social', bu('administrador/redsocial/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'role' => 'button', 'target' => '_blank'))?>
 </p>
 <?php //print_r($redes_sociales->getData()); ?>
 <?php if($redes_sociales->getData()): ?>
@@ -24,6 +24,7 @@
             'template' => '{update}{delete}',
             'updateButtonUrl' => 'Yii::app()->createUrl("/administrador/redsocial/update", array("id"=>$data->id))',
             'deleteButtonUrl' => 'Yii::app()->createUrl("/administrador/redsocial/delete", array("id"=>$data->id))',
+            'updateButtonOptions' => array('target' => "_blank"),
         ),
     )
 )); ?>

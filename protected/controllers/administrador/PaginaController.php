@@ -135,22 +135,45 @@ class PaginaController extends Controller
 			$ca = Carpeta::model()->with('carpetas', 'archivos', 'url')->findAllByAttributes( array('pagina_id' => $id, 'item_id' => 0) );
 			$contenido = $this->renderPartial('_carpeta', array('contenido' => $pagina, 'carpeta' => $ca, 'model' => $pagina['pagina']), true);
 		}
-		else
+		if($pagina['pagina']->tipo_pagina_id == 8)
 		{
-			if($pagina['pagina']->tipo_pagina_id == 8)
-			{
-				$fi = new CActiveDataProvider('FiltroItem', array(
-				    'criteria'=>array(
-				        'condition'=>'pg_filtro_id='.$pagina['contenido']->id
-				    ),
-				    'pagination'=>array(
-				        'pageSize'=>50,
-				    ),
-				));
-				$pagina['contenido']['filtroItems'] = $fi;
-			}
-			$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
+			$fi = new CActiveDataProvider('FiltroItem', array(
+			    'criteria'=>array(
+			        'condition'=>'pg_filtro_id='.$pagina['contenido']->id
+			    ),
+			    'pagination'=>array(
+			        'pageSize'=>50,
+			    ),
+			));
+			$pagina['contenido']['filtroItems'] = $fi;
 		}
+		if($pagina['pagina']->tipo_pagina_id == 10)
+		{
+			$bloques = new CActiveDataProvider('Bloque', array(
+			    'criteria'=>array(
+			        'condition'=>'pg_bloques_id='.$pagina['contenido']->id
+			    ),
+			    'pagination'=>array(
+			        'pageSize'=>50,
+			    ),
+			));
+			$pagina['contenido']['bloques'] = $bloques;
+		}
+		if($pagina['pagina']->tipo_pagina_id == 12)
+		{
+			$eventos = new CActiveDataProvider('Evento', array(
+			    'criteria'=>array(
+			        'condition'=>'pg_eventos_id='.$pagina['contenido']->id
+			    ),
+			    'pagination'=>array(
+			        'pageSize'=>50,
+			    ),
+			));
+			$pagina['contenido']['eventos'] = $eventos;
+		}
+		if (is_readable( $this->getViewPath().'/_' . lcfirst($pagina['partial']) . '.php' ))
+		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
+		else $contenido = '';
 		
 		$this->render('ver',array(
 			'model'=>$pagina['pagina'],
@@ -165,7 +188,7 @@ class PaginaController extends Controller
 	public function actionCrear($id, $tipo_pagina_id = 2)
 	{
 		if( !isset(Yii::app()->session['dirpa']) ) Yii::app()->session['dirpa'] = 'backgrounds/paginas/';
-		$micrositio = ($id)?Micrositio::model()->with('seccion')->findByPk($id):0;
+		$micrositio = ($id)?Micrositio::model()->with('seccion')->findByPk($id)->id:0;
 		$model = new Pagina;
 		$model->micrositio_id = $micrositio;
 		switch($tipo_pagina_id)
@@ -173,11 +196,23 @@ class PaginaController extends Controller
 			case 2:
 				$ppc = 'PgGenericaSt';
 				break;
+			case 3:
+				$ppc = 'PgArticuloBlog';
+				break;
 			case 4:
 				$ppc = 'PgDocumental';
 				break;
 			case 8:
 				$ppc = 'PgFiltro';
+				break;
+			case 10:
+				$ppc = 'PgBloques';
+				break;
+			case 11:
+				$ppc = 'PgBlog';
+				break;
+			case 12:
+				$ppc = 'PgEventos';
 				break;
 			default: 
 				$ppc = 'PgGenericaSt';
@@ -190,18 +225,16 @@ class PaginaController extends Controller
 		if(isset($_POST['Pagina']))
 		{
 			$model->attributes = $_POST['Pagina'];
-			$m = Micrositio::model()->with('seccion')->findByPk($model->micrositio_id);
+			$m = Micrositio::model()->with('seccion')->findByPk($_POST['Pagina']['micrositio_id']);
 			$model->tipo_pagina_id = $tipo_pagina_id;
-			$url = new Url;
-			$slug = $this->slugger($m->seccion->nombre) . '/' . $this->slugger($m->nombre) . '/' . $this->slugger($model->nombre);
-			$slug = $this->verificarSlug($slug);
-			$url->slug 		= $slug;
-			$url->tipo_id 	= 3; //Pagina
-			$url->estado  	= 1;
-			if( !$url->save(false) ) $transaccion->rollback();
-			$url_id = $url->getPrimaryKey();
-			$model->url_id = $url_id;
+			
 			if($model->save()){
+				if(is_null($m->pagina_id))
+				{
+					$m->pagina_id = $model->getPrimaryKey();
+					$m->save();
+				}
+
 				if( isset(Yii::app()->session['dirpa']) ){
 					$dirpa = Yii::app()->session['dirpa'];
 				}
@@ -209,8 +242,20 @@ class PaginaController extends Controller
 				{
 					$contenido->imagen 	= ($_POST['PgGenericaSt']['imagen'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen']:NULL;
 					$contenido->imagen_mobile 	= ($_POST['PgGenericaSt']['imagen_mobile'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen_mobile']:NULL;
-					$contenido->miniatura 		= ($_POST['PgGenericaSt']['miniatura'])?$dirpa . 'thumbnail/' . $_POST['PgGenericaSt']['miniatura']:NULL;
+					$contenido->miniatura 		= ($_POST['PgGenericaSt']['miniatura'])?$dirpa . $_POST['PgGenericaSt']['miniatura']:NULL;
 					$contenido->texto = $_POST['PgGenericaSt']['texto'];
+				}
+				if(isset($_POST['PgArticuloBlog']))
+				{
+					$contenido->imagen 	= ($_POST['PgArticuloBlog']['imagen'] != '')?$dirpa . $_POST['PgArticuloBlog']['imagen']:NULL;
+					$contenido->imagen_mobile 	= ($_POST['PgArticuloBlog']['imagen_mobile'] != '')?$dirpa . $_POST['PgArticuloBlog']['imagen_mobile']:NULL;
+					$contenido->miniatura 		= ($_POST['PgArticuloBlog']['miniatura'])?$dirpa . $_POST['PgArticuloBlog']['miniatura']:NULL;
+					$contenido->posicion 	= $_POST['PgArticuloBlog']['posicion'];
+					$contenido->entradilla 	= $_POST['PgArticuloBlog']['entradilla'];
+					$contenido->texto 		= $_POST['PgArticuloBlog']['texto'];
+					$contenido->enlace 		= $_POST['PgArticuloBlog']['enlace'];
+					$contenido->comentarios = $_POST['PgArticuloBlog']['comentarios'];
+					$contenido->estado 		= $_POST['PgArticuloBlog']['estado'];
 				}
 				if(isset($_POST['PgDocumental']))
 				{
@@ -224,8 +269,21 @@ class PaginaController extends Controller
 				{
 					$contenido->imagen 	= ($_POST['PgFiltro']['imagen'] != '')?$dirpa . $_POST['PgFiltro']['imagen']:NULL;
 					$contenido->imagen_mobile = ($_POST['PgFiltro']['imagen_mobile'] != '')?$dirpa . $_POST['PgFiltro']['imagen_mobile']:NULL;
-					$contenido->miniatura 	  = ($_POST['PgFiltro']['miniatura'])?$dirpa . 'thumbnail/' . $_POST['PgFiltro']['miniatura']:NULL;
+					$contenido->miniatura 	  = ($_POST['PgFiltro']['miniatura'])?$dirpa . $_POST['PgFiltro']['miniatura']:NULL;
 					$contenido->descripcion   = $_POST['PgFiltro']['descripcion'];
+				}
+				if(isset($_POST['PgBloques']))
+				{
+					$contenido->imagen 	= ($_POST['PgBloques']['imagen'] != '')?$dirpa . $_POST['PgBloques']['imagen']:NULL;
+					$contenido->imagen_mobile = ($_POST['PgBloques']['imagen_mobile'] != '')?$dirpa . $_POST['PgBloques']['imagen_mobile']:NULL;
+					$contenido->miniatura 	  = ($_POST['PgBloques']['miniatura'])?$dirpa . $_POST['PgBloques']['miniatura']:NULL;
+				}
+				if(isset($_POST['PgEventos']))
+				{
+					$contenido->imagen 	= ($_POST['PgEventos']['imagen'] != '')?$dirpa . $_POST['PgEventos']['imagen']:NULL;
+					$contenido->imagen_mobile = ($_POST['PgEventos']['imagen_mobile'] != '')?$dirpa . $_POST['PgEventos']['imagen_mobile']:NULL;
+					$contenido->miniatura 	  = ($_POST['PgEventos']['miniatura'])?$dirpa . $_POST['PgEventos']['miniatura']:NULL;
+					$contenido->descripcion   = $_POST['PgEventos']['descripcion'];
 				}
 				$contenido->estado = 1;
 				$contenido->pagina_id = $model->getPrimaryKey();
@@ -258,15 +316,6 @@ class PaginaController extends Controller
 		{
 			$m = Micrositio::model()->with('seccion')->findByPk($datos['pagina']->micrositio_id);
 
-			if($datos['pagina']->nombre != $_POST['Pagina']['nombre'])
-			{
-				$url = Url::model()->findByPk($datos['pagina']->url_id);;
-				$slug = $this->slugger($m->seccion->nombre) . '/' . $this->slugger($m->nombre) . '/' . $this->slugger($_POST['Pagina']['nombre']);
-				$slug = $this->verificarSlug($slug);
-				$url->slug 	= $slug;
-				$url->save();
-			}			
-
 			$datos['pagina']->attributes = $_POST['Pagina'];
 
 			if($datos['pagina']->save())
@@ -294,6 +343,32 @@ class PaginaController extends Controller
 						$contenido->miniatura 	= ($_POST['PgGenericaSt']['miniatura'] != '')?$dirpa . $_POST['PgGenericaSt']['miniatura']:NULL;
 					}
 					$contenido->texto = $_POST['PgGenericaSt']['texto'];
+				}
+				if(isset($_POST['PgArticuloBlog']))
+				{
+					$contenido = PgArticuloBlog::model()->findByPk($_POST['PgArticuloBlog']['id']);
+					
+					if($_POST['PgArticuloBlog']['imagen'] != $contenido->imagen)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen);
+						$contenido->imagen 	= ($_POST['PgArticuloBlog']['imagen'] != '')?$dirpa . $_POST['PgArticuloBlog']['imagen']:NULL;
+					}
+					if($_POST['PgArticuloBlog']['imagen_mobile'] != $contenido->imagen_mobile)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen_mobile);
+						$contenido->imagen_mobile 	= ($_POST['PgArticuloBlog']['imagen_mobile'] != '')?$dirpa . $_POST['PgArticuloBlog']['imagen_mobile']:NULL;
+					}
+					if($_POST['PgArticuloBlog']['miniatura'] != $contenido->miniatura)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->miniatura);
+						$contenido->miniatura 	= ($_POST['PgArticuloBlog']['miniatura'] != '')?$dirpa . $_POST['PgArticuloBlog']['miniatura']:NULL;
+					}
+					$contenido->posicion 	= $_POST['PgArticuloBlog']['posicion'];
+					$contenido->entradilla 	= $_POST['PgArticuloBlog']['entradilla'];
+					$contenido->texto 		= $_POST['PgArticuloBlog']['texto'];
+					$contenido->enlace 		= $_POST['PgArticuloBlog']['enlace'];
+					$contenido->comentarios = $_POST['PgArticuloBlog']['comentarios'];
+					$contenido->estado 		= $_POST['PgArticuloBlog']['estado'];
 				}
 				if(isset($_POST['PgDocumental']))
 				{
@@ -323,7 +398,46 @@ class PaginaController extends Controller
 					}
 					$contenido->descripcion = $_POST['PgFiltro']['descripcion'];
 				}
-				if($contenido->save())
+				if(isset($_POST['PgBloques']))
+				{
+					$contenido = PgBloques::model()->findByPk($_POST['PgBloques']['id']);
+					if($_POST['PgBloques']['imagen'] != $contenido->imagen)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen);
+						$contenido->imagen 	= ($_POST['PgBloques']['imagen'] != '')?$dirpa . $_POST['PgBloques']['imagen']:NULL;
+					}
+					if($_POST['PgBloques']['imagen_mobile'] != $contenido->imagen_mobile)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen_mobile);
+						$contenido->imagen_mobile 	= ($_POST['PgBloques']['imagen_mobile'] != '')?$dirpa . $_POST['PgBloques']['imagen_mobile']:NULL;
+					}
+					if($_POST['PgBloques']['miniatura'] != $contenido->miniatura)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->miniatura);
+						$contenido->miniatura 	= ($_POST['PgBloques']['miniatura'] != '')?$dirpa . $_POST['PgBloques']['miniatura']:NULL;
+					}
+				}
+				if(isset($_POST['PgEventos']))
+				{
+					$contenido = PgEventos::model()->findByPk($_POST['PgEventos']['id']);
+					if($_POST['PgEventos']['imagen'] != $contenido->imagen)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen);
+						$contenido->imagen 	= ($_POST['PgEventos']['imagen'] != '')?$dirpa . $_POST['PgEventos']['imagen']:NULL;
+					}
+					if($_POST['PgEventos']['imagen_mobile'] != $contenido->imagen_mobile)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen_mobile);
+						$contenido->imagen_mobile 	= ($_POST['PgEventos']['imagen_mobile'] != '')?$dirpa . $_POST['PgEventos']['imagen_mobile']:NULL;
+					}
+					if($_POST['PgEventos']['miniatura'] != $contenido->miniatura)
+					{
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->miniatura);
+						$contenido->miniatura 	= ($_POST['PgEventos']['miniatura'] != '')?$dirpa . $_POST['PgEventos']['miniatura']:NULL;
+					}
+					$contenido->descripcion = $_POST['PgEventos']['descripcion'];
+				}
+				if(isset($contenido) && $contenido->save())
 					$this->redirect(array('view', 'id'=>$datos['pagina']->id));
 			}
 		}else
@@ -346,13 +460,9 @@ class PaginaController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$pagina = $this->loadModel($id);
-		$tabla 	= $pagina->tipoPagina->tabla;
-		$t 		= new $tabla();
-		$contenido = $t->findByAttributes( array('pagina_id' => $id) );
-		$contenido->delete();
+		$pagina = Pagina::model()->with('micrositios', 'url', 'tipoPagina')->findByPk($id);
 		$pagina->delete();
-
+		
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));

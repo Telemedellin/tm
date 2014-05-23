@@ -17,38 +17,6 @@
 		<?php echo $form->error($model,'nombre'); ?>
 	</div>
 	<div class="form-group">
-		<?php echo $form->label($model,'resena', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-10">
-        <?php $this->widget('ext.editMe.widgets.ExtEditMe', array(
-            'model'=>$model,
-            'attribute'=>'resena',
-            'toolbar' => array(
-                            array(
-                                    'Undo', 'Redo', 'Source', '-', 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'
-                            ),
-                            '/',
-                            array(
-                                    'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat',
-                            ),
-                             array(
-                                    'TextColor', 'BGColor',
-                            ),
-                            array(
-                                'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
-                            ),
-                            array(
-                                'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak', 'Iframe'
-                            ),
-                            array(
-                                'Link', 'Unlink', 'Anchor', 'Image'
-                            ),
-                        ),
-            //'optionName'=>'optionValue',
-        ));?>
-        </div>
-		<?php echo $form->error($model,'resena'); ?>
-	</div>
-    <div class="form-group">
         <?php echo $form->label($model,'meta_descripcion', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-6">
             <?php echo $form->textArea($model,'meta_descripcion',array('rows'=> 3,'maxlength'=>200, 'class' => 'form-control', 'placeholder' => 'Esta descripción es solo para motores de búsqueda y no debe contener más de 160 carcteres.')); ?>
@@ -56,20 +24,6 @@
         <?php echo $form->error($model,'meta_descripcion'); ?>
     </div>
     <div class="form-group">
-        <?php echo $form->label($model,'lugar', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->textField($model, 'lugar', array('class' => 'form-control')); ?>
-        </div>
-        <?php echo $form->error($model,'lugar'); ?>
-    </div>
-    <div class="form-group">
-        <?php echo $form->label($model,'presentadores', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-4">
-            <?php echo $form->textField($model, 'presentadores', array('class' => 'form-control')); ?>
-        </div>
-        <?php echo $form->error($model,'presentadores'); ?>
-    </div>
-	<div class="form-group">
         <?php echo $this->imageField($form, $model, 'imagen', 'archivoImagen', '_especial'); ?>
 	</div>
     <div class="form-group">

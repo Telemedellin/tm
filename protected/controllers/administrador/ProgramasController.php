@@ -165,52 +165,8 @@ class ProgramasController extends Controller
 	public function actionDelete($id)
 	{
 		$micrositio = Micrositio::model()->findByPk($id);
-		$imagen = $micrositio->background;
-		$imagen_mobile = $micrositio->background_mobile;
-		$miniatura = $micrositio->miniatura;
-		$url_id = $micrositio->url_id;
-		$micrositio->pagina_id = null;
-		$micrositio->save();
-		$pagina = Pagina::model()->findByAttributes( array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 1) );
-		$urlp_id = $pagina->url_id;
-		//Borrar PgPrograma
-		$PgP = PgPrograma::model()->findByAttributes(array('pagina_id' => $pagina->id));
-		$formulario = Pagina::model()->with('url', 'pgFormularioJfs')->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 7));
-
-		$transaccion = $PgP->dbConnection->beginTransaction();
-		if( $PgP->delete() )
-		{
-			$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
-			if($pgF){
-				$pgF->delete();
-				$formulario->delete();
-				$furl = Url::model()->findByPk($formulario->url_id)->delete();
-			} 
-			//Borrar Página
-			if( $pagina->delete() ){
-				//Borrar Url de pagina
-				$urlp = Url::model()->findByPk($urlp_id);
-				//Borrar micrositio
-
-				if($micrositio->delete()){
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $miniatura);
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen_mobile);
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
-					//Borrar url de micrositio
-					$url = Url::model()->findByPk($url_id);
-					$url->delete();
-					$transaccion->commit();
-				}else{
-					$transaccion->rollback();
-				}
-			}else{
-				$transaccion->rollback();		
-			}
+		$micrositio->delete();
 			
-		}else
-		{
-			$transaccion->rollback();
-		}
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
@@ -232,24 +188,14 @@ class ProgramasController extends Controller
 				$dirp = Yii::app()->session['dirp'];
 			}
 			if($programasForm->validate()){
-				$url = new Url;
-				$transaccion 	= $url->dbConnection->beginTransaction();
-				$slug = 'programas/' . $this->slugger($programasForm->nombre);
-				$slug = $this->verificarSlug($slug);
-				$url->slug 		= $slug;
-				$url->tipo_id 	= 2; //Micrositio
-				$url->estado  	= 1;
-				if( !$url->save(false) ) $transaccion->rollback();
-				$url_id = $url->getPrimaryKey();
-
-				$micrositio = new Micrositio;
+				$micrositio 				= new Micrositio;
+				$transaccion 				= $micrositio->dbConnection->beginTransaction();
 				$micrositio->seccion_id 	= 2; //Programas
 				$micrositio->usuario_id 	= 1;
-				$micrositio->url_id 		= $url_id;
 				$micrositio->nombre			= $programasForm->nombre;
 				$micrositio->background 	= ($programasForm->imagen != '')?$dirp . $programasForm->imagen:NULL;
 				$micrositio->background_mobile 	= ($programasForm->imagen_mobile != '')?$dirp . $programasForm->imagen_mobile:NULL;
-				$micrositio->miniatura 		= ($programasForm->miniatura)?$dirp . 'thumbnail/' . $programasForm->miniatura:NULL;
+				$micrositio->miniatura 		= ($programasForm->miniatura)?$dirp . $programasForm->miniatura:NULL;
 				$micrositio->destacado		= $programasForm->destacado;
 				if($programasForm->estado > 0) $estado = 1;
 				else $estado = 0;
@@ -257,19 +203,9 @@ class ProgramasController extends Controller
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 				$micrositio_id = $micrositio->getPrimaryKey();
 
-				$purl = new Url;
-				$pslug = $url->slug .'/inicio';
-				$pslug = $this->verificarSlug($pslug);
-				$purl->slug 	= $pslug;
-				$purl->tipo_id 	= 3; //Pagina
-				$purl->estado  	= 1;
-				if( !$purl->save(false) ) $transaccion->rollback();
-				$purl_id = $purl->getPrimaryKey();
-
 				$pagina = new Pagina;
 				$pagina->micrositio_id 		= $micrositio_id;
 				$pagina->tipo_pagina_id 	= 1; //Página programa
-				$pagina->url_id 			= $purl_id;
 				$pagina->nombre				= $programasForm->nombre;
 				$pagina->meta_descripcion	= $programasForm->meta_descripcion;
 				$pagina->clase 				= NULL;
@@ -283,22 +219,14 @@ class ProgramasController extends Controller
 
 				if($programasForm->formulario != '')
 				{
-					$furl = new Url;
-					$fslug = $url->slug . '/escribenos';
-					$fslug = $this->verificarSlug($fslug);
-					$furl->slug = $fslug;
-					$furl->tipo_id = 3; //Página
-					$furl->estado = 1;
-					if($furl->save()){
-						$formulario = new Pagina;
-						$formulario->micrositio_id = $micrositio_id;
-						$formulario->tipo_pagina_id = 7;								
-						$formulario->url_id = $furl->getPrimaryKey();
-						$formulario->nombre = 'Escríbenos';	
-						$formulario->estado = 1;
-						$formulario->destacado = 0;
-						$formulario->save();
-					}
+					$formulario = new Pagina;
+					$formulario->micrositio_id = $micrositio_id;
+					$formulario->tipo_pagina_id = 7;								
+					$formulario->nombre = 'Escríbenos';	
+					$formulario->estado = 1;
+					$formulario->destacado = 0;
+					$formulario->save();
+
 					$pgF = new PgFormularioJf;
 					$pgF->pagina_id 	= $formulario->getPrimaryKey();
 					$pgF->formulario_id	= $programasForm->formulario;
@@ -357,20 +285,6 @@ class ProgramasController extends Controller
 				$dirp = Yii::app()->session['dirp'];
 			}
 			if($programasForm->validate()){
-				if($programasForm->nombre != $micrositio->nombre){
-					$url = Url::model()->findByPk($micrositio->url_id);
-					$slug = 'programas/' . $this->slugger($programasForm->nombre);
-					$slug = $this->verificarSlug($slug);
-					$url->slug 		= $slug;
-					$url->save(false);
-
-					$purl = Url::model()->findByPk($pagina->url_id);
-					$pslug = $url->slug .'/inicio';
-					$pslug = $this->verificarSlug($pslug);
-					$purl->slug 	= $pslug;
-					$purl->save(false);
-				}
-
 				$micrositio = Micrositio::model()->findByPk($id);
 				$transaccion 	= $micrositio->dbConnection->beginTransaction();
 				$micrositio->nombre			= $programasForm->nombre;
@@ -412,17 +326,10 @@ class ProgramasController extends Controller
 					{
 						if(is_null($formulario))
 						{
-							$furl = new Url;
-							$fslug = $micrositio->url->slug . '/escribenos';
-							$fslug = $this->verificarSlug($fslug);
-							$furl->slug = $fslug;
-							$furl->tipo_id = 3; //Página
-							$furl->estado = 1;
 							if($furl->save()){
 								$formulario = new Pagina;
 								$formulario->micrositio_id = $micrositio->id;
 								$formulario->tipo_pagina_id = 7;								
-								$formulario->url_id = $furl->getPrimaryKey();
 								$formulario->nombre = 'Escríbenos';	
 								$formulario->estado = 1;
 								$formulario->destacado = 0;
@@ -435,9 +342,7 @@ class ProgramasController extends Controller
 					}else{
 						
 						if($pgF){
-							$pgF->delete();
 							$formulario->delete();
-							$furl = Url::model()->findByPk($formulario->url_id)->delete();
 						} 
 					}
 				}

@@ -1,6 +1,6 @@
 <?php if($menu): ?>
     <p class="pull-right">
-        <?php echo l('Agregar item de menú', bu('administrador/menu/crearitem/' . $model->menu_id), array('class' => 'btn btn-default btn-sm'))?>
+        <?php echo l('Agregar item de menú', bu('administrador/menu/crearitem/' . $model->menu_id), array('class' => 'btn btn-default btn-sm', 'target' => '_blank'))?>
     </p>
     <p>Este micrositio tiene asignado el menú <strong><?php echo $model->menu->nombre; ?></strong> <a href="<?php echo bu('administrador/programas/desasignarmenu/' . $model->id) ?>"><small>Desasignar</small></a></p>
     <?php if($menu->getData()): ?>
@@ -30,14 +30,15 @@
                 'updateButtonUrl' => 'Yii::app()->createUrl("/administrador/menu/updateitem", array("id"=>$data->id))',
                 'updateButtonOptions' => array('target' => "_blank"),
                 'deleteButtonUrl' => 'Yii::app()->createUrl("/administrador/menu/deleteitem", array("id"=>$data->id))',
-                'deleteConfirmation' => '¿Realmente desea eliminar este item?'
+                'deleteConfirmation' => '¿Realmente desea eliminar este item?', 
+                'updateButtonOptions' => array('target' => "_blank"),
             ),
         )
     )); ?>
     <?php endif; ?>
 <?php else: ?>
     <h3>Asignación de menú</h3>
-    <p>Este micrositio no tiene un menú asignado, asigne un menú existente abajo o <?php echo l('Cree un menú', bu('administrador/menu/crear/' . $model->id, array('target' => '_blank')), array('class' => 'btn btn-default btn-sm'))?> para asignarselo.</p>
+    <p>Este micrositio no tiene un menú asignado, asigne un menú existente abajo o <?php echo l('Cree un menú', bu('administrador/menu/crear/' . $model->id), array('class' => 'btn btn-default btn-sm', 'target' => '_blank'))?> para asignarselo.</p>
     <div class="form">
     <?php $form=$this->beginWidget('CActiveForm', array(
         'id'=>'menu-form',
