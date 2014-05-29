@@ -11,28 +11,41 @@
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
+	'htmlOptions' => array(
+		'role' => 'form', 
+		'class' => 'form-horizontal', 
+	),
 )); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
-		<?php echo $form->textField($model,'username'); ?>
-		<?php echo $form->error($model,'username'); ?>
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'username', array('class' => 'col-sm-2 control-label')); ?>
+		<div class="col-sm-4">
+		<?php echo $form->textField($model,'username', array('class' => 'form-control')); ?>
+		</div>
+		<?php echo $form->error($model,'username', array('class' => 'flash-notice')); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->passwordField($model,'password'); ?>
-		<?php echo $form->error($model,'password'); ?>
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'password', array('class' => 'col-sm-2 control-label')); ?>
+		<div class="col-sm-4">
+		<?php echo $form->passwordField($model,'password', array('class' => 'form-control')); ?>
+		</div>
+		<?php echo $form->error($model,'password', array('class' => 'flash-notice')); ?>
 	</div>
 
-	<div class="row rememberMe">
+	<div class="form-group rememberMe">
+		<?php echo $form->label($model,'rememberMe', array('class' => 'col-sm-2 control-label')); ?>
 		<?php echo $form->checkBox($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'rememberMe'); ?>
-		<?php echo $form->error($model,'rememberMe'); ?>
+		<?php echo $form->error($model,'rememberMe', array('class' => 'flash-notice')); ?>
 	</div>
 
-	<div class="row buttons">
+	<div class="form-group buttons">
+		<div class="col-sm-offset-2 col-sm-4">
 		<?php Yii::app()->user->ui->tbutton(CrugeTranslator::t('logon', "Login")); ?>
+		</div>
+		
+	</div>
+	<div class="form-group">
 		<?php echo Yii::app()->user->ui->passwordRecoveryLink; ?>
 		<?php
 			if(Yii::app()->user->um->getDefaultSystem()->getn('registrationonlogin')===1)

@@ -50,7 +50,7 @@ class AlbumFoto extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('micrositio_id, url_id, nombre, creado, estado, destacado', 'required'),
+			array('micrositio_id, nombre, creado, estado, destacado', 'required'),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true),
 			array('micrositio_id, url_id', 'length', 'max'=>10),
 			array('nombre', 'length', 'max'=>45),

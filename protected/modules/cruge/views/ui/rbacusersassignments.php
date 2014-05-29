@@ -67,55 +67,58 @@
 </div>
 </div>
 
-<script>
+
 	<?php /* a cada LI del div de roles le anexa un evento click y le pone un cursor */ ?>
-	
+<?php 
+$script = "	
 	var _setSelectedItemName = function(valor){
 		$('#mostrarSeleccion').html(valor);
-		$('#mostrarSeleccion').data("itemName",valor);
+		$('#mostrarSeleccion').data('itemName',valor);
 	}
 	var _getSelectedItemName = function(){
-		return $('#mostrarSeleccion').data("itemName")+"";
+		return $('#mostrarSeleccion').data('itemName')+'';
 	}
 	var _isSelectedItemName = function(){
 		return _getSelectedItemName() != 'undefined';
 	}
 	$('.user-assignments-role-list ul').find('li').each(function(){
 		var li = $(this);
-		li.css("cursor","pointer");
+		li.css('cursor','pointer');
 		li.click(function(){
 			var itemName = $(this).attr('alt');
-			_setSelectedItemName("");
+			_setSelectedItemName('');
 			$('.user-assignments-role-list ul').find('li').each(function(){
 				$(this).removeClass('selected');
 			});
 			$(this).addClass('selected');
 			_setSelectedItemName(itemName);
 			// actualiza la lista1, que contiene los usuarios que tienen la asignacion	
-			$.fn.yiiGridView.update('_lista1',{ data : "itemName="+itemName+"&mode=select" });
+			$.fn.yiiGridView.update('_lista1',{ data : 'itemName='+itemName+'&mode=select' });
 		});
 	});
 	
-	$('#asignarSeleccion').css("cursor","pointer");
+	$('#asignarSeleccion').css('cursor','pointer');
 	$('#asignarSeleccion').click(function(){
 		if(!_isSelectedItemName())return;
 		var itemName = _getSelectedItemName();
 		var selectedUsers = $.fn.yiiGridView.getSelection('_lista2');
-		if(((selectedUsers == 'undefined') || (selectedUsers==""))==false){
+		if(((selectedUsers == 'undefined') || (selectedUsers==''))==false){
 			$.fn.yiiGridView.update('_lista1',
-				{ data : "itemName="+itemName+"&userid="+selectedUsers+"&mode=assign" });
+				{ data : 'itemName='+itemName+'&userid='+selectedUsers+'&mode=assign' });
 		}
 	});
 
-	$('#revocarSeleccion').css("cursor","pointer");
+	$('#revocarSeleccion').css('cursor','pointer');
 	$('#revocarSeleccion').click(function(){
 		if(!_isSelectedItemName())return;
 		var itemName = _getSelectedItemName();
 		var selectedUsers = $.fn.yiiGridView.getSelection('_lista1');
-		if(((selectedUsers == 'undefined') || (selectedUsers==""))==false){
+		if(((selectedUsers == 'undefined') || (selectedUsers==''))==false){
 			$.fn.yiiGridView.update('_lista1',
-				{ data : "itemName="+itemName+"&userid="+selectedUsers+"&mode=revoke" });
+				{ data : 'itemName='+itemName+'&userid='+selectedUsers+'&mode=revoke' });
 		}
 	});
-</script>
+"; 
+cs()->registerScript( 'crugeUserAssignments', $script );
+?>
 

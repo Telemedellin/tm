@@ -288,9 +288,9 @@ class Pagina extends CActiveRecord
 		try
 		{
 			// 1. Desasignar de los micrositios que la tengan por defecto.
-			foreach($this->micrositios as $micrositio)
+			$micrositios = Micrositio::model()->findAllByAttributes( array('pagina_id' => $this->id) );
+			foreach($micrositios as $m)
 			{
-				$m = Micrositio::model()->findByPk( $micrositio->id );
 				$m->pagina_id = NULL;
 				$m->save();
 			}
@@ -322,10 +322,11 @@ class Pagina extends CActiveRecord
 					break;
 			}
 			// 4. Borro la tabla pg_
-			// 4.1 Verifico si el contenido tiene imagenes para eliminar
+			
 			if(isset($contenido))
 			{
 				$imagenes = array(); //Placeholder para las imagenes
+				// 4.1 Verifico si el contenido tiene imagenes para eliminar
 				if( !is_null($contenido->imagen) && !empty($contenido->imagen) ) 
 					$imagenes[] = $contenido->imagen;
 				if( !is_null($contenido->imagen_mobile) && !empty($contenido->imagen_mobile) ) 
@@ -333,11 +334,12 @@ class Pagina extends CActiveRecord
 				if( !is_null($contenido->miniatura) && !empty($contenido->miniatura) ) 
 					$imagenes[] = $contenido->miniatura;
 				$contenido->delete();
-			}
-						
-			if(isset($imagenes))
+				if(isset($imagenes))
 				foreach($imagenes as $imagen)
 					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
+			}
+						
+			
 			$transaccion->commit();
 			return parent::beforeDelete();
 		}//try

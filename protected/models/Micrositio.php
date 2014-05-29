@@ -72,8 +72,8 @@ class Micrositio extends CActiveRecord
 			array('nombre, seccion_id, usuario_id, creado, estado, destacado', 'required'),
 			array('estado, destacado', 'numerical', 'integerOnly'=>true),
 			array('nombre, background, background_mobile, miniatura', 'length', 'max'=>255),
-			array('seccion_id, usuario_id, url_id, pagina_id, menu_id', 'length', 'max'=>10),
-			array('modificado', 'safe'),
+			array('seccion_id, usuario_id, url_id, menu_id', 'length', 'max'=>10),
+			array('modificado, pagina_id', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, nombre, seccion_id, usuario_id, url_id, pagina_id, menu_id, background, background_mobile, miniatura, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
@@ -289,7 +289,6 @@ class Micrositio extends CActiveRecord
         	$this->pagina_id 	= NULL;
         	$this->menu_id 		= NULL;
         	$this->creado 		= date('Y-m-d H:i:s');
-            $this->estado 		= 1;
         }
         else
         {

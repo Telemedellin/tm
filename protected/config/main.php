@@ -44,12 +44,12 @@ return array(
             // url base para los links de activacion de cuenta de usuario
 			'baseUrl'=>'http://concursomedellin2018.com/tm/',
 			 // NO OLVIDES PONER EN FALSE TRAS INSTALAR
-			 'debug'=>true,
+			 'debug'=>false,
 			 'rbacSetupEnabled'=>true,
-			 'allowUserAlways'=>true,
+			 'allowUserAlways'=>false,
 			// MIENTRAS INSTALAS..PONLO EN: false
 			// lee mas abajo respecto a 'Encriptando las claves'
-			'useEncryptedPassword' => false,
+			'useEncryptedPassword' => true,
 			// Algoritmo de la función hash que deseas usar
 			// Los valores admitidos están en: http://www.php.net/manual/en/function.hash-algos.php
 			'hash' => 'md5',
@@ -63,14 +63,15 @@ return array(
 			//		'afterLogoutUrl'=>array('/site/page','view'=>'about'),
 			//
 			'afterLoginUrl'=>array('/administrador'),
-			'afterLogoutUrl'=>array('/administrador'),
-			'afterSessionExpiredUrl'=>array('/administrador'),
+			'afterLogoutUrl'=>array('/cruge/ui/login'),
+			'afterSessionExpiredUrl'=>array('/cruge/ui/login'),
 			// manejo del layout con cruge.
 			//
 			'loginLayout'=>'//layouts/administrador',
 			'registrationLayout'=>'//layouts/administrador',
 			'activateAccountLayout'=>'//layouts/administrador',
 			'editProfileLayout'=>'//layouts/administrador',
+			'resetPasswordLayout'=>'//layouts/administrador',
 			// en la siguiente puedes especificar el valor "ui" o "column2" para que use el layout
 			// de fabrica, es basico pero funcional.  si pones otro valor considera que cruge
 			// requerirá de un portlet para desplegar un menu con las opciones de administrador.
@@ -81,6 +82,7 @@ return array(
 			// $usuario->getUserDescription(); 
 			'userDescriptionFieldsArray'=>array('email'), 
 		),
+		'administrador' => array(), 
 	),
 	'controllerMap'=>array(
 	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController', 
@@ -103,7 +105,7 @@ return array(
 			'class' 		 => 'application.modules.cruge.components.CrugeWebUser',
 		),
 		'authManager' => array(
-			'class' => 'application.modules.cruge.components.CrugeAuthManager',
+			'class' => 'application.components.MyCrugeAuthManager',
 		),
 		'crugemailer'=>array(
 			'class' 		=> 'application.modules.cruge.components.CrugeMailer',

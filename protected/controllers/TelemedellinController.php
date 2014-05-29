@@ -342,7 +342,6 @@ class TelemedellinController extends Controller
 		if( isset($pagina['contenido']->imagen) && is_null($pagina['contenido']->imagen) && is_null($pagina['contenido']->imagen_mobile) && is_null($micrositio->background) && is_null($micrositio->background_mobile) )
 			$fondo_pagina = NULL;
 		
-<<<<<<< HEAD
 		$fondo_pagina = 'backgrounds/generica-interna-1.jpg';
 
 		if( $this->theme != 'pc' && isset($micrositio->background_mobile) && !is_null($micrositio->background_mobile)  )
@@ -357,25 +356,6 @@ class TelemedellinController extends Controller
 
 		if( isset($pagina['contenido']->imagen) && is_null($pagina['contenido']->imagen) && is_null($pagina['contenido']->imagen_mobile) && is_null($micrositio->background) && is_null($micrositio->background_mobile) )
 			$fondo_pagina = NULL;
-
-=======
->>>>>>> usuarios
-		/*if(isset($pagina['contenido']->imagen) && !is_null($pagina['contenido']->imagen))
-		{
-			$fondo_pagina = $pagina['contenido']->imagen;
-		}elseif($this->theme != 'pc' && !empty($micrositio->background_mobile))
-		{
-			$fondo_pagina = $micrositio->background_mobile;
-		}elseif(!empty($micrositio->background))
-		{
-			$fondo_pagina = $micrositio->background;
-		}elseif(isset($pagina['contenido']->imagen) && is_null($pagina['contenido']->imagen) && is_null($micrositio->background) )
-		{
-			$fondo_pagina = NULL;
-		}else
-		{
-			$fondo_pagina = 'backgrounds/generica-interna-1.jpg';
-		}/**/
 
 		$this->render( 
 			'micrositio', 

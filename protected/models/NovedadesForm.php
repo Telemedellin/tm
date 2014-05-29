@@ -30,7 +30,7 @@ class NovedadesForm extends CFormModel
 			array('nombre, entradilla, imagen, miniatura', 'required'),
 			array('enlace, imagen, imagen_mobile, miniatura', 'length', 'max'=>255),
 			array('texto', 'safe'),
-			array('posicion, estado, destacado', 'numerical, comentarios', 'integerOnly'=>true)
+			array('posicion, estado, destacado, comentarios', 'numerical', 'integerOnly'=>true)
 		);
 	}
 

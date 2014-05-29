@@ -61,6 +61,7 @@ class Horarios{
 
 	public static function horario_parser( $horarios )	
 	{
+		if( is_null($horarios) ) return false;
 		//$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
 		$datos = array();
 		$html = '';

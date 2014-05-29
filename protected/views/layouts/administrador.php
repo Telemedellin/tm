@@ -19,62 +19,92 @@
 			<?php if(!Yii::app()->user->isGuest): ?>
 			<div class="navbar-collapse navbar-ex1-collapse pull-left">
 			    <ul class="nav navbar-nav">
+			    	<?php if(Yii::app()->user->checkAccess('ver_novedades')): ?>
 			    	<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-bullhorn"></span> Novedades <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/novedades') ); ?></li>
+							<?php if(Yii::app()->user->checkAccess('crear_novedades')): ?>
 							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nueva', bu('administrador/novedades/crear') ); ?></li>
+							<?php endif ?>		
 						</ul>
 					</li>
+					<?php endif ?>
+					<?php if(Yii::app()->user->checkAccess('ver_concursos')): ?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-gift"></span> Concursos <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/concursos') ); ?></li>
+							<?php if(Yii::app()->user->checkAccess('crear_concursos')): ?>
 							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nuevo', bu('administrador/concursos/crear') ); ?></li>
+							<?php endif ?>
 						</ul>
 					</li>
+					<?php endif ?>
+					<?php if(Yii::app()->user->checkAccess('ver_programacion')): ?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-calendar"></span> Parrilla <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/programacion') ); ?></li>
+							<?php if(Yii::app()->user->checkAccess('crear_programacion')): ?>
 							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Agregar a la parrilla', bu('administrador/programacion/crear') ); ?></li>
+							<?php endif ?>
 						</ul>
 					</li>
+					<?php endif ?>
+					<?php if(Yii::app()->user->checkAccess('ver_especiales')): ?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Especiales <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/especiales') ); ?></li>
+							<?php if(Yii::app()->user->checkAccess('crear_programacion')): ?>
 							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nuevo', bu('administrador/especiales/crear') ); ?></li>
+							<?php endif ?>
 						</ul>
 					</li>
+					<?php endif ?>
+					<?php if(Yii::app()->user->checkAccess('ver_programas')): ?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Programas <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/programas') ); ?></li>
+							<?php if(Yii::app()->user->checkAccess('crear_programas')): ?>
 							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nuevo', bu('administrador/programas/crear') ); ?></li>
+							<?php endif ?>
 						</ul>
 					</li>
+					<?php endif ?>
+					<?php if(Yii::app()->user->checkAccess('ver_documentales')): ?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentales <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/documentales') ); ?></li>
+							<?php if(Yii::app()->user->checkAccess('crear_documentales')): ?>
 							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nuevo', bu('administrador/documentales/crear') ); ?></li>
+							<?php endif ?>
 						</ul>
 					</li>
+					<?php endif ?>
+					<?php if(Yii::app()->user->checkAccess('ver_telemedellin')): ?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Telemedellín <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/telemedellin') ); ?></li>
+							<?php if(Yii::app()->user->checkAccess('crear_telemedellin')): ?>
 							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear micrositio', bu('administrador/telemedellin/crear') ); ?></li>
+							<?php endif ?>
 						</ul>
 					</li>
+					<?php endif ?>
+					<?php if( Yii::app()->user->isSuperAdmin ): ?>
 					<li>
 						<a href="<?php echo Yii::app()->user->ui->userManagementAdminUrl ?>">Usuarios <b class="caret"></b></a>
 					</li>
+					<?php endif ?>
 			    </ul>
 			</div>
 			<p class="navbar-text pull-right">
-				<?php echo l( '<span class="glyphicon glyphicon-user"></span>', bu('administrador/'), array('class' => 'navbar-link', 'title' => Yii::app()->user->getState('correo')) ); ?>
+				<?php echo l( '<span class="glyphicon glyphicon-user"></span>', bu('cruge/ui/editprofile'), array('class' => 'navbar-link', 'title' => Yii::app()->user->getState('correo')) ); ?>
 				<?php echo l( '<span class="glyphicon glyphicon-off"></span>', bu('administrador/salir'), array('class' => 'navbar-link', 'title' => 'Salir') ); ?>
 			</p>
 			<?php endif ?>

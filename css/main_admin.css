@@ -13,3 +13,5 @@
 
 .hoy{font-weight: bold;}
 .yiiTab div.view{min-height: 200px;overflow: hidden;}
+
+.paneles > div {margin: .6em;}
