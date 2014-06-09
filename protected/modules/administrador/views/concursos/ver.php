@@ -62,8 +62,8 @@
 				'concurso.modificado',
 				array(
 					'name' => 'contenido.estado',
-					'label' => 'Publicado',
-					'type' => 'boolean',
+					'label' => 'Estado', 
+					'value' => ($contenido->estado==2)?'Publicado (Se ve en listados)':(($contenido->estado==1)?'Archivado':'Desactivado'),
 				),
 			),
 		)); ?>

@@ -8,7 +8,6 @@ class ApiController extends Controller
 		$micrositio_id = $_GET['micrositio_id'];
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM album_foto WHERE micrositio_id = $micrositio_id AND estado <> 0");
 		$af = AlbumFoto::model()->cache(86400, $dependencia)->findAllByAttributes( array('micrositio_id' => $micrositio_id), array('order' => 'destacado DESC, modificado DESC, creado DESC') );
-		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		$json .= '[';
 			foreach($af as $album):
@@ -22,7 +21,8 @@ class ApiController extends Controller
 			endforeach;
 			$json = substr($json, 0, -1);
 		$json .= ']';
-		echo $json;
+		
+		$this->_sendResponse(200, $json, 'application/json');
 		Yii::app()->end();
 	}
 
@@ -48,7 +48,6 @@ class ApiController extends Controller
 
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM foto WHERE album_foto_id = $af->id AND estado <> 0");
 		$f = Foto::model()->cache(86400, $dependencia)->findAllByAttributes( array('album_foto_id' => $af->id), array('order' => 'destacado DESC, modificado DESC, creado DESC') );
-		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		$json .= '[';
 			foreach($f as $foto):
@@ -65,7 +64,8 @@ class ApiController extends Controller
 			endforeach;
 			$json = substr($json, 0, -1);
 		$json .= ']';
-		echo $json;
+		
+		$this->_sendResponse(200, $json, 'application/json');
 		Yii::app()->end();
 	}
 
@@ -76,7 +76,6 @@ class ApiController extends Controller
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM album_video WHERE micrositio_id = $micrositio_id AND estado <> 0");
 		$va = AlbumVideo::model()->cache(86400, $dependencia)->with('url')->findAllByAttributes( array('micrositio_id' => $micrositio_id), array('order' => 't.destacado DESC, t.modificado DESC, t.creado DESC') );
 		
-		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		$json .= '[';
 			foreach($va as $videoalbum):
@@ -90,7 +89,8 @@ class ApiController extends Controller
 			endforeach;
 			$json = substr($json, 0, -1);
 		$json .= ']';
-		echo $json;
+		
+		$this->_sendResponse(200, $json, 'application/json');
 		Yii::app()->end();
 	}
 	
@@ -115,7 +115,6 @@ class ApiController extends Controller
 		if(!$va) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM video WHERE album_video_id = $va->id AND estado <> 0");
 		$v = Video::model()->cache(86400, $dependencia)->findAllByAttributes( array('album_video_id' => $va->id), array('order' => 'destacado DESC, modificado DESC, creado DESC') );
-		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		$json .= '[';
 			foreach($v as $video):
@@ -157,7 +156,8 @@ class ApiController extends Controller
 			endforeach;
 			$json = substr($json, 0, -1);
 		$json .= ']';
-		echo $json;
+		
+		$this->_sendResponse(200, $json, 'application/json');
 		Yii::app()->end();
 	}
 
@@ -165,12 +165,12 @@ class ApiController extends Controller
 		if(!$_GET['id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$micrositio_id = $_GET['id'];
 		$micrositio = Micrositio::model()->findByPk( $micrositio_id, array('order' => 'nombre ASC') );
-		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '{';
 		$json .= '"id":"'.CHtml::encode($micrositio->id).'",';
 		$json .= '"nombre":"'.CHtml::encode($micrositio->nombre).'"';
 		$json .= '}';
-		echo $json;
+		
+		$this->_sendResponse(200, $json, 'application/json');
 		Yii::app()->end();
 	}
 
@@ -178,12 +178,12 @@ class ApiController extends Controller
 		if(!$_GET['id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$pagina_id = $_GET['id'];
 		$pagina = Pagina::model()->findByPk( $pagina_id, array('order' => 'nombre ASC') );
-		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '{';
 		$json .= '"id":"'.CHtml::encode($pagina->id).'",';
 		$json .= '"nombre":"'.CHtml::encode($pagina->nombre).'"';
 		$json .= '}';
-		echo $json;
+		
+		$this->_sendResponse(200, $json, 'application/json');
 		Yii::app()->end();
 	}
 
@@ -208,7 +208,6 @@ class ApiController extends Controller
 			}
 		}
 
-		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM carpeta WHERE estado <> 0");
@@ -231,7 +230,8 @@ class ApiController extends Controller
 			$json .= ']';
 		}
 		
-		echo $json;
+		
+		$this->_sendResponse(200, $json, 'application/json');
 		Yii::app()->end();
 	}
 
@@ -251,7 +251,6 @@ class ApiController extends Controller
 			$params['url_id'] = $url->id;
 			$w = ' url_id = ' . $url->id . ' AND ';
 		}
-		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '';
 		
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM archivo WHERE estado <> 0");
@@ -279,7 +278,8 @@ class ApiController extends Controller
 			$json .= ']';
 		}
 		
-		echo $json;
+		
+		$this->_sendResponse(200, $json, 'application/json');
 		Yii::app()->end();
 	}
 
@@ -287,7 +287,6 @@ class ApiController extends Controller
 	{
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE (seccion_id = 2 OR seccion_id = 3 OR seccion_id = 4) AND estado <> 0");
 		$micrositios = Micrositio::model()->cache(86400, $dependencia)->with('seccion')->findAll('(seccion_id = 2 OR seccion_id = 3 OR seccion_id = 4) AND t.nombre LIKE "%'.$term.'%"');
-		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '[';
 		foreach($micrositios as $micrositio):
 			$json .= '{';
@@ -298,8 +297,91 @@ class ApiController extends Controller
 		endforeach;
 		$json = substr($json, 0, -1);
 		$json .= ']';
-		echo $json;
+		
+		$this->_sendResponse(200, $json, 'application/json');
 		Yii::app()->end();
 	}
+
+	private function _sendResponse($status = 200, $body = '', $content_type = 'text/html')
+	{
+	    // set the status
+	    $status_header = 'HTTP/1.1 ' . $status . ' ' . $this->_getStatusCodeMessage($status);
+	    header($status_header);
+	    // and the content type
+	    header('Content-type: ' . $content_type .'; charset=UTF-8');
+	 
+	    // pages with body are easy
+	    if($body != '')
+	    {
+	        // send the body
+	        echo $body;
+	    }
+	    // we need to create the body if none is passed
+	    else
+	    {
+	        // create some body messages
+	        $message = '';
+	 
+	        // this is purely optional, but makes the pages a little nicer to read
+	        // for your users.  Since you won't likely send a lot of different status codes,
+	        // this also shouldn't be too ponderous to maintain
+	        switch($status)
+	        {
+	            case 401:
+	                $message = 'You must be authorized to view this page.';
+	                break;
+	            case 404:
+	                $message = 'The requested URL ' . $_SERVER['REQUEST_URI'] . ' was not found.';
+	                break;
+	            case 500:
+	                $message = 'The server encountered an error processing your request.';
+	                break;
+	            case 501:
+	                $message = 'The requested method is not implemented.';
+	                break;
+	        }
+	 
+	        // servers don't always have a signature turned on 
+	        // (this is an apache directive "ServerSignature On")
+	        $signature = ($_SERVER['SERVER_SIGNATURE'] == '') ? $_SERVER['SERVER_SOFTWARE'] . ' Server at ' . $_SERVER['SERVER_NAME'] . ' Port ' . $_SERVER['SERVER_PORT'] : $_SERVER['SERVER_SIGNATURE'];
+	 
+	        // this should be templated in a real-world solution
+	        $body = '
+				<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+				<html>
+				<head>
+				    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+				    <title>' . $status . ' ' . $this->_getStatusCodeMessage($status) . '</title>
+				</head>
+				<body>
+				    <h1>' . $this->_getStatusCodeMessage($status) . '</h1>
+				    <p>' . $message . '</p>
+				    <hr />
+				    <address>' . $signature . '</address>
+				</body>
+				</html>';
+	 
+	        echo $body;
+	    }
+	    Yii::app()->end();
+	}//_sendResponse
+
+	private function _getStatusCodeMessage($status)
+	{
+	    // these could be stored in a .ini file and loaded
+	    // via parse_ini_file()... however, this will suffice
+	    // for an example
+	    $codes = Array(
+	        200 => 'OK',
+	        400 => 'Bad Request',
+	        401 => 'Unauthorized',
+	        402 => 'Payment Required',
+	        403 => 'Forbidden',
+	        404 => 'Not Found',
+	        500 => 'Internal Server Error',
+	        501 => 'Not Implemented',
+	    );
+	    return (isset($codes[$status])) ? $codes[$status] : '';
+	}//_getStatusCodeMessage
 
 }

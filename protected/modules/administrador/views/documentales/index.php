@@ -18,7 +18,7 @@
             'name'=>'estado',
             'header'=>'Publicado',
             'filter'=>array('1'=>'Si','0'=>'No'),
-            'value'=>'($data->estado=="1")?("Si"):("No")'
+            'value'=>'($data->estado=="2")?("Publicado"):(($data->estado=="1")?("Archivado"):("Desactivado"))'
         ),
         array(
             'name'=>'destacado',

@@ -169,9 +169,7 @@ class TelemedellinController extends Controller
 				$micrositio->background_mobile 	= $dirt . $programasForm->imagen_mobile;
 				$micrositio->miniatura 		= $dirt . $programasForm->miniatura;
 				$micrositio->destacado		= $programasForm->destacado;
-				if($programasForm->estado > 0) $estado = 1;
-				else $estado = 0;
-				$micrositio->estado			= $estado;
+				$micrositio->estado			= $programasForm->estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 				$micrositio_id = $micrositio->getPrimaryKey();
 
@@ -181,7 +179,7 @@ class TelemedellinController extends Controller
 				$pagina->nombre			= $programasForm->nombre;
 				$pagina->clase 			= NULL;
 				$pagina->destacado		= $programasForm->destacado;
-				$pagina->estado			= $estado;
+				$pagina->estado			= $programasForm->estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
@@ -258,16 +256,14 @@ class TelemedellinController extends Controller
 				}
 
 				$micrositio->destacado		= $programasForm->destacado;
-				if($programasForm->estado > 0) $estado = 1;
-				else $estado = 0;
 				
-				$micrositio->estado			= $estado;
+				$micrositio->estado			= $programasForm->estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
 				$pagina->nombre			= $programasForm->nombre;
 				$pagina->destacado		= $programasForm->destacado;
-				$pagina->estado			= $estado;
+				$pagina->estado			= $programasForm->estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 
 				$pgGst = PgGenericaSt::model()->findByAttributes( array('pagina_id' => $pagina->id) );
@@ -294,7 +290,7 @@ class TelemedellinController extends Controller
 		$programasForm->imagen = $micrositio->background;
 		$programasForm->imagen_mobile = $micrositio->background_mobile;
 		$programasForm->miniatura = $micrositio->miniatura;
-		$programasForm->estado = $pagina->pgGenericaSts->estado;
+		$programasForm->estado = $micrositio->estado;
 		$programasForm->destacado = $micrositio->destacado;
 
 		$this->render('modificar',array(

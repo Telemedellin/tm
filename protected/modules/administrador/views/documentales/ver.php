@@ -69,8 +69,8 @@
 				'documental.modificado',
 				array(
 					'name' => 'documental.estado',
-					'label' => 'Publicado',  
-					'value' => ($model->estado==1)?'Si':'No',
+					'label' => 'Estado', 
+					'value' => ($model->estado==2)?'Publicado (Se ve en listados)':(($model->estado==1)?'Archivado':'Desactivado'),
 				),
 				array(
 					'name' => 'documental.destacado',

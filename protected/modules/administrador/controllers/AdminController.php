@@ -128,7 +128,7 @@ class AdminController extends Controller
 							'Micrositio', 
 							array(
 							    'criteria'=>array(
-							        'condition'=>'seccion_id = 8 AND estado = 1',
+							        'condition'=>'seccion_id = 8 AND estado = 2',
 							        'order'=>'creado DESC',
 							    ), 
 							    'pagination'=>false,

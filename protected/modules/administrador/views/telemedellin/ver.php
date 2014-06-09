@@ -41,7 +41,8 @@
 				'modificado',
 				array(
 					'name' => 'estado',
-					'value' => (($model->estado==1)?'Si':'No'),
+					'label' => 'Estado', 
+					'value' => ($model->estado==2)?'Publicado (Se ve en listados)':(($model->estado==1)?'Archivado':'Desactivado'),
 				),
 				'destacado:boolean',
 			),

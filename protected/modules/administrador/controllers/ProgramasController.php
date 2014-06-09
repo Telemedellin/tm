@@ -200,9 +200,7 @@ class ProgramasController extends Controller
 				$micrositio->background_mobile 	= ($programasForm->imagen_mobile != '')?$dirp . $programasForm->imagen_mobile:NULL;
 				$micrositio->miniatura 		= ($programasForm->miniatura)?$dirp . $programasForm->miniatura:NULL;
 				$micrositio->destacado		= $programasForm->destacado;
-				if($programasForm->estado > 0) $estado = 1;
-				else $estado = 0;
-				$micrositio->estado			= $estado;
+				$micrositio->estado			= $programasForm->estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 				$micrositio_id = $micrositio->getPrimaryKey();
 
@@ -307,11 +305,8 @@ class ProgramasController extends Controller
 					$micrositio->miniatura 	= ($programasForm->miniatura != '')?$dirp . $programasForm->miniatura:NULL;
 				}
 
+				$micrositio->estado			= $programasForm->estado;
 				$micrositio->destacado		= $programasForm->destacado;
-				if($programasForm->estado > 0) $estado = 1;
-				else $estado = 0;
-				
-				$micrositio->estado			= $estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 1));

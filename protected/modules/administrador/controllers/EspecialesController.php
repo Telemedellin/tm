@@ -197,9 +197,7 @@ class EspecialesController extends Controller
 				$micrositio->background_mobile 	= ($especialesForm->imagen_mobile)?$dire . $especialesForm->imagen_mobile:NULL;
 				$micrositio->miniatura 		= ($especialesForm->miniatura)?$dire . $especialesForm->miniatura:NULL;
 				$micrositio->destacado		= $especialesForm->destacado;
-				if($especialesForm->estado > 0) $estado = 1;
-				else $estado = 0;
-				$micrositio->estado			= $estado;
+				$micrositio->estado			= $especialesForm->estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 				$micrositio_id = $micrositio->getPrimaryKey();
 
@@ -210,7 +208,7 @@ class EspecialesController extends Controller
 				$pagina->meta_descripcion 	= $especialesForm->meta_descripcion;
 				$pagina->clase 				= NULL;
 				$pagina->destacado			= $especialesForm->destacado;
-				$pagina->estado				= $estado;
+				$pagina->estado				= $especialesForm->estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
@@ -286,17 +284,15 @@ class EspecialesController extends Controller
 				}
 
 				$micrositio->destacado		= $especialesForm->destacado;
-				if($especialesForm->estado > 0) $estado = 1;
-				else $estado = 0;
 				
-				$micrositio->estado			= $estado;
+				$micrositio->estado			= $especialesForm->estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
 				$pagina->nombre			= $especialesForm->nombre;
 				$pagina->meta_descripcion 	= $especialesForm->meta_descripcion;
 				$pagina->destacado		= $especialesForm->destacado;
-				$pagina->estado			= $estado;
+				$pagina->estado			= $especialesForm->estado;
 
 				if( !$pagina->save(false) ) $transaccion->rollback();
 
@@ -324,6 +320,7 @@ class EspecialesController extends Controller
 		$especialesForm->imagen_mobile = $micrositio->background_mobile;
 		$especialesForm->miniatura = $micrositio->miniatura;
 		$especialesForm->meta_descripcion = $pagina->meta_descripcion;
+		$especialesForm->estado = $micrositio->estado;
 		$especialesForm->destacado = $micrositio->destacado;
 
 		$this->render('modificar',array(

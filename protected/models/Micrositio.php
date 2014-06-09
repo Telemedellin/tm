@@ -158,20 +158,20 @@ class Micrositio extends CActiveRecord
 	{
 		if( !$seccion_id ) return false;
 
-		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE seccion_id = $seccion_id");
-		return $this->cache(3600, $dependencia)->with('pagina')->findAllByAttributes( array('seccion_id' => $seccion_id), array('condition' => 't.estado <> 0', 'order' => 't.nombre ASC') );
+		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE seccion_id = $seccion_id AND estado <> 0");
+		return $this->cache(3600, $dependencia)->with('pagina')->findAllByAttributes( array('seccion_id' => $seccion_id), array('condition' => 't.estado = 2', 'order' => 't.nombre ASC') );
 	}
 
 	public function cargarPorUrl($url_id)
 	{
 		if( !$url_id ) return false;
-		return $this->with('url', 'seccion', 'redSocials', 'albumVideos', 'paginas')->findByAttributes( array('url_id' => $url_id)/*, 't.estado <> 0'*/ );
+		return $this->with('url', 'seccion', 'redSocials', 'albumVideos', 'paginas')->findByAttributes( array('url_id' => $url_id), 't.estado <> 0' );
 	}
 
 	public function cargarMicrositio($micrositio_id)
 	{
 		if( !$micrositio_id ) return false;
-		return $this->with('url', 'seccion', 'redSocials', 'albumVideos', 'paginas')->findByPk( $micrositio_id/*, 't.estado <> 0'*/ );
+		return $this->with('url', 'seccion', 'redSocials', 'albumVideos', 'paginas')->findByPk( $micrositio_id, 't.estado <> 0' );
 	}
 
 	public function getDefaultPage( $micrositio_id )

@@ -190,9 +190,8 @@ class DocumentalesController extends Controller
 				$micrositio->background_mobile 	= $dird . $documentalesForm->imagen_mobile;
 				$micrositio->miniatura 		= $dird . $documentalesForm->miniatura;
 				$micrositio->destacado		= $documentalesForm->destacado;
-				if($documentalesForm->estado > 0) $estado = 1;
-				else $estado = 0;
-				$micrositio->estado			= $estado;
+				
+				$micrositio->estado			= $documentalesForm->estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 				$micrositio_id = $micrositio->getPrimaryKey();
 
@@ -203,7 +202,7 @@ class DocumentalesController extends Controller
 				$pagina->meta_descripcion 	= $documentalesForm->meta_descripcion;
 				$pagina->clase 				= NULL;
 				$pagina->destacado			= $documentalesForm->destacado;
-				$pagina->estado				= $estado;
+				$pagina->estado				= $documentalesForm->estado
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
@@ -283,17 +282,15 @@ class DocumentalesController extends Controller
 				}
 
 				$micrositio->destacado		= $documentalesForm->destacado;
-				if($documentalesForm->estado > 0) $estado = 1;
-				else $estado = 0;
 				
-				$micrositio->estado			= $estado;
+				$micrositio->estado			= $documentalesForm->estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
 				$pagina->nombre				= $documentalesForm->nombre;
 				$pagina->meta_descripcion 	= $documentalesForm->meta_descripcion;
 				$pagina->destacado			= $documentalesForm->destacado;
-				$pagina->estado				= $estado;
+				$pagina->estado				= $documentalesForm->estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 
 				$pgD = PgDocumental::model()->findByAttributes( array('pagina_id' => $pagina->id) );

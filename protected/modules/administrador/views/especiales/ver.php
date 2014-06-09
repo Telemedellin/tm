@@ -69,8 +69,8 @@
 				'especial.modificado',
 				array(
 					'name' => 'especial.estado',
-					'label' => 'Estado',
-					'type' => 'boolean'
+					'label' => 'Estado', 
+					'value' => ($model->estado==2)?'Publicado (Se ve en listados)':(($model->estado==1)?'Archivado':'Desactivado'),
 				),
 				array(
 					'name' => 'especial.destacado',

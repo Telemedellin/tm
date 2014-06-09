@@ -106,7 +106,7 @@ class TelemedellinController extends Controller
 		$seccion = Seccion::model()->cargarPorUrl( $url_id );
 		if( !$seccion ) throw new CHttpException(404, 'Invalid request');
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE estado <> 0");
-		$micrositios = Micrositio::model()->cache(86400, $dependencia)->with('paginas')->findAllByAttributes( array('seccion_id' => $seccion->id), array('condition' => 't.estado <> 0', 'order' => 't.creado DESC') );
+		$micrositios = Micrositio::model()->cache(86400, $dependencia)->with('paginas')->findAllByAttributes( array('seccion_id' => $seccion->id), array('condition' => 't.estado = 2', 'order' => 't.creado DESC') );
 		
 		if( !$micrositios ) throw new CHttpException(404, 'Invalid request');
 		
@@ -172,7 +172,7 @@ class TelemedellinController extends Controller
 
 		$c = new CDbCriteria;
 		$c->addCondition('seccion_id = ' . $seccion->id);
-		$c->addCondition(' t.estado <> 0');
+		$c->addCondition(' t.estado = 2');
 		$c->join  = 'JOIN pagina ON pagina.micrositio_id = t.id';
 		$c->join  .= ' JOIN pg_documental ON pg_documental.pagina_id = pagina.id';
 		$c->limit = 8;
@@ -180,7 +180,7 @@ class TelemedellinController extends Controller
 
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE estado <> 0");
 
-		$recientes= Micrositio::model()->cache(86400, $dependencia)->findAll( $c );
+		$recientes = Micrositio::model()->cache(86400, $dependencia)->findAll( $c );
 
 		if( !$recientes ) throw new CHttpException(404, 'Invalid request');
 		
@@ -219,7 +219,7 @@ class TelemedellinController extends Controller
 
 		$c = new CDbCriteria;
 		$c->addCondition('seccion_id = ' . $seccion->id);
-		$c->addCondition(' t.estado <> 0');
+		$c->addCondition(' t.estado = 2');
 		//$c->join  = 'JOIN pagina ON pagina.micrositio_id = t.id';
 		//$c->join  .= ' JOIN pg_especial ON pg_especial.pagina_id = pagina.id';
 		//$c->join  .= ' LEFT JOIN fecha_especial ON pg_especial.id = fecha_especial.pg_especial_id';
