@@ -25,8 +25,14 @@
 						<ul class="dropdown-menu">
 							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Listar', bu('administrador/novedades') ); ?></li>
 							<?php if(Yii::app()->user->checkAccess('crear_novedades')): ?>
-							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear nueva', bu('administrador/novedades/crear') ); ?></li>
+							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear novedad', bu('administrador/novedades/crear') ); ?></li>
 							<?php endif ?>		
+							<?php if(Yii::app()->user->checkAccess('ver_banners')): ?>
+							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Banners', bu('administrador/novedades/banners') ); ?></li>
+							<?php endif ?>
+							<?php if(Yii::app()->user->checkAccess('crear_banners')): ?>
+							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear banner', bu('administrador/novedades/crearbanner') ); ?></li>
+							<?php endif ?>	
 						</ul>
 					</li>
 					<?php endif ?>

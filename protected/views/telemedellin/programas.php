@@ -27,12 +27,12 @@ cs()->registerScript( 'scroll',
 			<?php if($micrositio->destacado): ?>
 				<?php 
 					$destacados .= '<p><a href="' . bu($micrositio->url->slug) . '">';
-					$destacados .= '<img src="' . bu('images/'.$micrositio->miniatura) . '" alt="' . $micrositio->nombre . '"/>';
+					$destacados .= '<img src="' . bu('images/'.$micrositio->miniatura) . '" alt="' . str_replace('"', "'", $micrositio->nombre) . '"/>';
 					$destacados .= '</a></p>' . "\n\r";
 				?>
 			<?php else: ?>
 			<p>
-				<a href="<?php echo bu($micrositio->url->slug); ?>"><?php echo $micrositio->nombre; ?></a>
+				<a href="<?php echo bu($micrositio->url->slug); ?>"><?php echo str_replace('"', "'", $micrositio->nombre); ?></a>
 			</p>
 			<?php endif; ?>
 		<?php endforeach; ?>

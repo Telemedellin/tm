@@ -61,6 +61,9 @@
                             ),
                             
                         ),
+            'ckeConfig' => array(
+                'extraAllowedContent' => 'script; a [*]',
+            ),
             //'optionName'=>'optionValue',
         ));?>
         </div>

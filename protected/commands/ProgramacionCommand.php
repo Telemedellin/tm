@@ -16,6 +16,17 @@ class ProgramacionCommand extends CConsoleCommand {
 			$hora_fin = $horario->hora_fin;
 			$estado = 1;
 
+			/* PILAS AQUÍ, FESTIVO /**/
+			if( $sts == mktime(0, 0, 0, 6, 23, date('Y')) ) continue;
+			if( $sts == mktime(0, 0, 0, 6, 30, date('Y')) ) continue;
+			if( $sts == mktime(0, 0, 0, 8, 7, date('Y')) ) continue;
+			if( $sts == mktime(0, 0, 0, 8, 18, date('Y')) ) continue;
+			if( $sts == mktime(0, 0, 0, 10, 13, date('Y')) ) continue;
+			if( $sts == mktime(0, 0, 0, 11, 3, date('Y')) ) continue;
+			if( $sts == mktime(0, 0, 0, 11, 17, date('Y')) ) continue;
+			if( $sts == mktime(0, 0, 0, 12, 8, date('Y')) ) continue;
+			if( $sts == mktime(0, 0, 0, 12, 25, date('Y')) ) continue;
+			
 			date_default_timezone_set('America/Bogota');
 			setlocale(LC_ALL, 'es_ES.UTF-8');
 

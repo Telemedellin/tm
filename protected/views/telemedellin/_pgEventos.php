@@ -21,7 +21,7 @@ $fechas = $contenido['contenido']->fechas;
 		<?php foreach( $eventos as $evento ):?>
 			<tr class="<?php echo $evento->fecha ?>">
 				<td><?php echo date('H:i', $evento->hora) ?></td>
-				<td><?php echo $evento->nombre ?></td>
+				<td><?php echo str_replace('"', "'", $evento->nombre) ?></td>
 			</tr>
 		<?php endforeach ?>
 		</tbody>

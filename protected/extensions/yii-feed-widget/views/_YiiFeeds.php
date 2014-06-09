@@ -23,6 +23,7 @@ foreach ($items as $item):
         $img = substr($img, 0, $second);  
         $src = substr($img, strpos($img, "src=") + 5 ) ;                
         $params = preg_split('[\"|\']', $src, 2);                  
+
         if($params[0] == "" || $params[0] == "/" || $params[0] == " "){
           $src = "/images/default.jpg";
         }

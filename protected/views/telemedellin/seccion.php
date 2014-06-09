@@ -23,7 +23,7 @@ cs()->registerScript( 'scroll',
 	<div class="listado">
 	<?php foreach($micrositios as $micrositio):?>
 		<h2>
-			<a href="<?php echo bu($micrositio->url->slug); ?>" title="Ir al micrositio <?php echo $micrositio->nombre; ?>"><?php echo $micrositio->nombre; ?></a>
+			<a href="<?php echo bu($micrositio->url->slug); ?>" title="Ir al micrositio <?php echo str_replace('"', "'", $micrositio->nombre); ?>"><?php echo $micrositio->nombre; ?></a>
 		</h2>
 	<?php endforeach; ?>
 	</div>

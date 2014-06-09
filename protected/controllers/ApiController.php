@@ -164,7 +164,7 @@ class ApiController extends Controller
 	public function actionMicrositio(){
 		if(!$_GET['id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$micrositio_id = $_GET['id'];
-		$micrositio = Micrositio::model()->findByPk( $micrositio_id, array('order' => 'nombre ASC', 'condition' => 'estado <> 0') );
+		$micrositio = Micrositio::model()->findByPk( $micrositio_id, array('order' => 'nombre ASC') );
 		header('Content-Type: application/json; charset="UTF-8"');
 		$json = '{';
 		$json .= '"id":"'.CHtml::encode($micrositio->id).'",';

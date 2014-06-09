@@ -1,2 +1,0 @@
-[21-Feb-2014 10:11:48 America/Chicago] PHP Fatal error:  Call to undefined method CKFinder_Connector_Core_ResourceTypeConfig::getHash() in /home4/med2018/public_html/tm/ckfinder/core/connector/php/php5/CommandHandler/Init.php on line 153
-[21-Feb-2014 10:11:52 America/Chicago] PHP Fatal error:  Call to undefined method CKFinder_Connector_Core_ResourceTypeConfig::getHash() in /home4/med2018/public_html/tm/ckfinder/core/connector/php/php5/CommandHandler/Init.php on line 153

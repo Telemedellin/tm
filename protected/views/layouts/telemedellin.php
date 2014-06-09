@@ -58,6 +58,10 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 	if( count($this->breadcrumbs) )
 		$this->widget('Compartir'); 
 	?>
+	<?php 
+	if( !count($this->breadcrumbs) )
+		$this->widget('BannerW');
+	?>
 </div>
 <div class="dots"></div>
 <?php cs()->registerCoreScript('jquery'); ?>

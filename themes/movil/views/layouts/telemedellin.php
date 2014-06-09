@@ -9,6 +9,10 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 	<?php $this->display_seo($this->pageTitle); //SEO ?>
 </head>
 <body <?php if( !count($this->breadcrumbs) ) echo 'class="home"' ?>>
+<?php 
+//if( !count($this->breadcrumbs) )
+	$this->widget('BannerW', array('layout' => 'mobile'));
+?>
 <div id="container">
 	<header>
 		<h1>

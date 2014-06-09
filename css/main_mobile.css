@@ -27,6 +27,7 @@ body > nav
 	background: #000;
 	height: 100%;
 	overflow: auto;
+	padding-top: 40px;
 	position: fixed;
 	right: -50%;
 	right: -50vw;
@@ -43,6 +44,7 @@ body > nav li a {
 	padding: .45em 0 .45em;
 	text-transform: uppercase;
 	text-decoration:none;
+	width: 92%;
 }
 body > nav > ul > li > a:before, 
 body > nav > ul > li > a::before
@@ -66,7 +68,7 @@ body > nav li li.parent li a
 	color: #FFF;
 	font-size: 0.9em;
 	font-weight: normal;
-	padding: 1.25em 0 1.25em 0px;
+	padding: 1.2em 0 1.2em 0px;
 	text-transform: none;
 }
 body > nav li li:last-child a
@@ -423,6 +425,65 @@ th
 .redes li.instagram a
 {
 	background-position: 0px 101%;
+}
+
+#banner
+{
+	margin: -51% auto 0;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    z-index: 3;
+    transition: margin-top .5s ease-in;
+	-webkit-transition: margin-top .5s ease-in;
+	-moz-transition: margin-top .5s ease-in;
+	-o-transition: margin-top .5s ease-in;
+	-ms-transition: margin-top .5s ease-in;
+}
+#banner.desplegado
+{
+	margin-top: 0;
+}
+#banner a
+{
+	display: block;
+	position: relative;
+}
+#banner img
+{
+	width: 100%;
+}
+#banner .close
+{
+	background: url(../images/static/iconos/cerrar-banner-movil.png) no-repeat;
+	background-size: 100%;
+	height: 18%;
+	left: 20px;
+	opacity: .8;
+	overflow: hidden;
+	position: absolute;
+	text-indent: 100%; 
+	top: 12px;
+	width: 10%;
+	white-space: nowrap;
+	z-index: 4;
+}
+#banner .close:hover
+{
+	opacity: 1;
+}
+#banner #contador
+{
+	bottom: 3px;
+	color: #000000;
+    font-size: 2em;
+    font-weight: bold;
+    height: 14%;
+    left: 51%;
+    letter-spacing: .6em;
+    line-height: 1;
+    position: absolute;
+    width: 14%;
 }
 #compartir {
 	clear: both;
@@ -1182,7 +1243,9 @@ th
 #programacion a.tmradio
 {
 	background-position: 12px -851px;
+	padding: 2% 2% 2% 16%;
 }
+
 #programacion a:nth-child(2)
 {
 	border-right: thin solid #FFF;
@@ -1194,7 +1257,7 @@ th
 	display: inline-block;
 	/*height: 100%;*/
 	min-height: 30px;
-	padding:1.2em 0 0;
+	padding: 10px 0 0;
 	/*padding: 10px 0 0;*/
 	text-align: center;
 }

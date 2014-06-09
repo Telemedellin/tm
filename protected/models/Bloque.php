@@ -44,6 +44,7 @@ class Bloque extends CActiveRecord
 			array('pg_bloques_id, columnas, contenido, orden, estado', 'required'),
 			array('columnas, orden, estado', 'numerical', 'integerOnly'=>true),
 			array('pg_bloques_id', 'length', 'max'=>10),
+			array('titulo', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, pg_bloques_id, titulo, columnas, contenido, orden, estado', 'safe', 'on'=>'search'),

@@ -28,6 +28,11 @@ html {
 h1, h2, h3, h4, h5, h6
 {
 	font-weight: normal;
+	line-height: 1.2;
+}
+h2
+{
+	font-size: 24.5px;
 }
 nav ul {
 	list-style: none;
@@ -123,7 +128,6 @@ th
 	color: #FFF;
 	display: inline-block;
 	font-size: 20px;
-	line-height: 1.2;
 	margin: 0;
 	padding: 5px;
 }
@@ -456,6 +460,229 @@ th
 	min-height: 380px;
 	max-height: 720px;
 }
+#micrositio .span3 iframe
+{
+	min-height: 140px;
+}
+#micrositio .span4 iframe
+{
+	min-height: 180px;
+}
+#micrositio .span5 iframe
+{
+	min-height: 220px;
+}
+#micrositio .span6 iframe
+{
+	min-height: 260px;
+}
+#banner
+{
+	bottom: 135px;
+	position: absolute;
+	right: -300px;
+	width: 390px;
+	/*transition: right .5s ease-in;
+	-webkit-transition: right .5s ease-in;
+	-moz-transition: right .5s ease-in;
+	-o-transition: right .5s ease-in;
+	-ms-transition: right .5s ease-in;*/
+	animation: entrada ease .5s, banner ease 3s;
+	animation-iteration-count: 1, infinite;
+	animation-delay: 0s, .5s;
+	-webkit-animation: entrada ease .5s, banner ease 3s;
+	-webkit-animation-iteration-count: 1, infinite;
+	-webkit-animation-delay: 0s, .5s;
+	-moz-animation: entrada ease .5s, banner ease 3s;
+	-moz-animation-iteration-count: 1, infinite;
+	-moz-animation-delay: 0s, .5s;
+	-o-animation: entrada ease .5s, banner ease 3s;
+	-o-animation-iteration-count: 1, infinite;
+	-o-animation-delay: 0s, .5s;
+	-ms-animation: entrada ease .5s, banner ease 3s;
+	-ms-animation-iteration-count: 1, infinite;
+	-ms-animation-delay: 0s, .5s;
+}
+#banner:hover
+{
+	animation: none;
+	-webkit-animation: none;
+	-moz-animation: none;
+	-o-animation: none;
+	-ms-animation: none;
+	right: 0;
+	animation: salida ease .5s;
+	animation-iteration-count: 1;
+	-webkit-animation: salida ease .5s;
+	-webkit-animation-iteration-count: 1;
+	-moz-animation: salida ease .5s;
+	-moz-animation-iteration-count: 1;
+	-o-animation: salida ease .5s;
+	-o-animation-iteration-count: 1;
+	-ms-animation: salida ease .5s;
+	-ms-animation-iteration-count: 1;
+}
+#banner #contador
+{
+	color: #000000;
+    font-size: 2em;
+    font-weight: bold;
+    left: 22px;
+    letter-spacing: 17px;
+    line-height: 1;
+    position: absolute;
+    top: 60px;
+}
+
+@keyframes banner{
+  0% {
+    right: -290px;
+  }
+  50% {
+    right: -310px;
+  }
+  100% {
+    right: -290px;
+  }
+}
+
+@-moz-keyframes banner{
+  0% {
+    right: -290px;
+  }
+  50% {
+    right: -310px;
+  }
+  100% {
+    right: -290px;
+  }
+}
+
+@-webkit-keyframes banner {
+  0% {
+    right: -290px;
+  }
+  50% {
+    right: -310px;
+  }
+  100% {
+    right: -290px;
+  }
+}
+
+@-o-keyframes banner {
+  0% {
+    right: -290px;
+  }
+  50% {
+    right: -310px;
+  }
+  100% {
+    right: -290px;
+  }
+}
+
+@-ms-keyframes banner {
+  0% {
+    right: -290px;
+  }
+  50% {
+    right: -310px;
+  }
+  100% {
+    right: -290px;
+  }
+}
+
+@keyframes salida{
+  0% {
+    right: -290px;
+  }
+  100% {
+    right: 0px;
+  }
+}
+
+@-moz-keyframes salida{
+  0% {
+    right: -290px;
+  }
+  100% {
+    right: 0px;
+  }
+}
+
+@-webkit-keyframes salida {
+  0% {
+    right: -290px;
+  }
+  100% {
+    right: 0px;
+  }
+}
+
+@-o-keyframes salida {
+  0% {
+    right: -290px;
+  }
+  100% {
+    right: 0px;
+  }
+}
+
+@-ms-keyframes salida {
+  0% {
+    right: -290px;
+  }
+  100% {
+    right: 0px;
+  }
+}
+
+@keyframes entrada{
+  0% {
+    right: 0px;
+  }
+  100% {
+    right: -290px;
+  }
+}
+
+@-moz-keyframes entrada{
+  0% {
+    right: 0px;
+  }
+  100% {
+    right: -290px;
+  }
+}
+
+@-webkit-keyframes entrada {
+  0% {
+    right: 0px;
+  }
+  100% {
+    right: -290px;
+  }
+}
+
+@-o-keyframes entrada {
+  0% {
+    right: 0px;
+  }
+  100% {
+    right: -290px;
+  }
+}
+
+@-ms-keyframes entrada {
+  0% {
+    right: 0px;
+  }
+  100% {
+    right: -290px;
+  }
+}
 #bar {
 	color: #FFF;
 	height: 100%;
@@ -733,6 +960,7 @@ th
 }
 #container {
 	height: 100%;
+	overflow: hidden;
 	position: relative;
 	z-index: 1;
 }
@@ -748,6 +976,14 @@ th
 	top: 43px;
 	width: 80%;
 	z-index: 0;
+}
+#content iframe
+{
+	display: block;
+	/*height: auto;/**/
+	margin: 5px auto 1em;
+	min-height: 340px;
+	width: 90%;
 }
 .home #content {
 	height: 100%;
@@ -795,6 +1031,7 @@ th
 {
 	z-index: -1;
 }
+
 #icontainer
 {
 	min-height: 500px;
@@ -866,7 +1103,7 @@ th
 	text-align: center;
 }
 
- #icontainer .videoalbum h2
+#icontainer .videoalbum h2
 {
 	background: #0f0e13;
 	border-radius: 5px;
@@ -1143,15 +1380,7 @@ th
 }
 #micrositio.especiales
 {
-	max-height: 81%;
 	width: 99%;
-}
-#micrositio.especiales iframe {
-	display: block;
-	height: auto;
-	margin: auto;
-	min-height: 340px;
-	width: 80%;
 }
 #micrositio .filtro
 {
@@ -1283,7 +1512,6 @@ th
 #micrositio.PgBlog h2
 {
 	font-size: 1.2em;
-	line-height: 1.2;
 	margin: 0 0 5px;
 }
 #micrositio.PgBlog img
@@ -1302,11 +1530,6 @@ th
 #micrositio.PgBloques
 {
 	width: 99%;
-}
-#micrositio.PgGenericaST iframe {
-	height: auto;
-	min-height: 340px;
-	width: 100%;
 }
 #micrositio.senal-en-vivo {
 	height: 85%;
@@ -1414,7 +1637,6 @@ th
 	border-bottom: thin solid rgba(255, 255, 255, 0.2);
 	float: left;
 	font-size: 12px;
-	line-height: 1.2;
 	margin-left: 20px;
 	padding-bottom: 5px;
 	text-transform: uppercase;
@@ -1486,7 +1708,6 @@ th
 	font-size: 14px;
 	font-weight: normal;
 	height: 50px;
-	line-height: 1.2;
 	margin: 0;
 }
 #newsticker .noticia h3 a:hover
@@ -1549,8 +1770,6 @@ th
 	color: #FFF;
 }
 #novedades .novedad h2 {
-	font-size: 24.5px;
-	line-height: 1.2;
 	margin-top: 0;
 }
 #novedades .novedad .container {
@@ -1903,7 +2122,8 @@ th
 	float: right;
 	height: 25px;
 	margin-bottom: 1%;
-	width: 50%;
+	margin-right: 2%;
+	width: 48%;
 }
 #overlay #seccion .destacados
 {
@@ -1962,7 +2182,6 @@ th
 #overlay #seccion .listado h2
 {
 	font-size: 1.1em;
-	line-height: 1.2;
 }
 #overlay #seccion .listado .inner, 
 #overlay #seccion .historial .inner
@@ -2221,7 +2440,11 @@ th
 #seccion.concursos a:before, 
 #seccion.concursos a::before
 {
-	content: "- ";
+	content: "\2022  ";
+}
+#seccion.concursos a:hover
+{
+	color: #CCC;
 }
 #second-nav {
 	background: #242626 url('../images/static/overlays/08.png');
@@ -2349,11 +2572,6 @@ th
 	#newsticker .noticia h3 {
 		font-size: 13px;
 	}
-	#programacion .programacion {
-		font-size: 10px;
-		padding: 5px 5px 5px 10px;
-		width: 18%;
-	}
 	#programacion a
 	{
 		font-size: 10px;
@@ -2367,22 +2585,102 @@ th
 	{
 		font-size: 11px;
 	}
-	#programacion .a-continuacion
-	{
-		width: 27%;
-	}
+	
 	#programacion .a-continuacion .estado
 	{
 		background-position: 90px center;
 	}
-	#programacion .senal-en-vivo
-	{
-		padding: 5px;
-	}
+	
 	#programacion .senal-en-vivo span
 	{
 		font-size: 13px;
 		padding: 5px 5px 5px 40px;
+	}
+}
+@media (max-width: 979px){
+	.programa .hora
+	{
+		padding: 5px 5px 5px 10px;
+	}
+	.programa .tit_programa
+	{
+		margin-left: 5px;
+    	padding: 5px 10px 5px 15px;
+	}
+	.programacion .menu_micrositio a
+	{
+		font-size: 12px;
+	}
+	#menu_inferior
+	{
+		width: 60%;
+	}
+	#micrositio
+	{
+		width: 60%;
+	}
+	#micrositio.senal-en-vivo
+	{
+		width: 98%;
+	}
+	#novedades .novedad .container
+	{
+		margin: 0 19% 0 40%;
+		width: 54%;
+	}
+	#overlay #seccion .destacados
+	{
+		display: none;
+	}
+	#overlay #seccion .listado
+	{
+		width: 100%;
+	}
+	#overlay #seccion .recientes
+	{
+		display: none;
+	}
+	#overlay #seccion .historial
+	{
+		width: 100%;
+	}
+	#overlay #seccion .paginas > div
+	{
+		word-wrap: break-word;
+	}
+	#programacion
+	{
+		width: 60%;
+	}
+	#programacion .a-continuacion
+	{
+		display: none;
+	}
+	#programacion .al-aire
+	{
+		background-position: 5px center;
+		border-right: none; 
+		padding-left: 35px;
+		width: 41%;
+	}
+	#programacion .al-aire:hover
+	{
+		background-position: 5px center;
+	}
+	#programacion .programacion
+	{
+		font-size: 11px;
+		padding: 5px 5px 5px 10px;
+		width: 26%;
+	}
+	#programacion .senal-en-vivo
+	{
+		padding: 5px;
+		width: 32%;
+	}
+	#seccion.concursos
+	{
+		width: 60%;
 	}
 }
 @media (min-width: 768px) and (max-width: 979px) {

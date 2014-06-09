@@ -47,6 +47,7 @@ function nav(event)
 		n.animate( {right: -(n.width())}, 300, function(){n.css('right', '-=300')} );
 		c.animate( {left: '0px'}, 300);
 	}
+	event.preventDefault();
 }
 function set_moment()
 {
@@ -81,10 +82,11 @@ jQuery(function($) {
 		alto	= vh - pro.height() - mLink.height();
 	
 	//FitText
-	$('#programacion h3').fitText(1, { minFontSize: '12px'});
-	$('#programacion a').fitText(1, { minFontSize: '10px', maxFontSize: '16px' });
-	mLink.fitText(1, { minFontSize: '18px'});
-	$('body > nav > ul > li > a').fitText(1.2, { minFontSize: '16px', maxFontSize: '23px' });
+	$('#programacion h3').fitText(1, { minFontSize: '12px', maxFontSize: '20px'});
+	$('#programacion a').fitText(.3);
+	$('#programacion a.tmradio').fitText(.37);
+	mLink.fitText(.6, { minFontSize: '18px'});
+	$('body > nav > ul > li > a').fitText(1.2);
 
 	//Nav
 	$(mLink).on('click', nav);
@@ -107,7 +109,7 @@ jQuery(function($) {
 			animation: "slide",
 			//play: 15000,
 			play: 0,
-			hashchange: true,
+			hashchange: false,
 			pagination: false, 
 			animation_speed: 200
 		});
@@ -149,13 +151,41 @@ jQuery(function($) {
 				onSliderLoad: set_moment
 			});
 		});
+
+		
+
 	}//home
+
+	$('#banner').on('click', function(event){
+			if( !$(this).hasClass('desplegado') )
+			{
+				$(this).addClass('desplegado');
+				event.preventDefault();
+			}
+		});
+		$('#banner .close').on('click', function(event){
+			$('#banner').removeClass('desplegado');
+			event.preventDefault();
+			event.stopPropagation();
+		});
+
+	var Today = new Date(), 
+	      TYear   = Today.getFullYear(),
+	      TDay    = new Date(2014, 5, 11),
+	      dias    = $('#contador');
+	    var DayCount  = (TDay-Today)/(1000*60*60*24);
+	    DayCount      = Math.ceil(DayCount); 
+	    if(DayCount.toString().length == 1) DayCount = '0'+DayCount;
+	    dias.text(DayCount);
+	    dias.fitText(.18, { minFontSize: '13px', maxFontSize: '140px' });
 
 	//Micrositio
 	if(micro[0]){
-		var bg = $.trim(body.css('background-image')).substr(4);
+		var bg = $.trim(body.css('background-image')).substr(4).replace('"', '', 'g'), 
+			bg = bg.substr(0, bg.length-1);
 		body.css('background-image', 'none');
-		$.backstretch(bg.substr(0, bg.length-1), {
+
+		$.backstretch(bg, {
 			centeredY: false, 
 			fade: 'fast'
 		});
@@ -264,5 +294,4 @@ jQuery(function($) {
 	      $('#table_programacion tbody tr.'+$(this).val()).show();
 	    });
 	}//micro
-	
 });

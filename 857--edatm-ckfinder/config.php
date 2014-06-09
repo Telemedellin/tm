@@ -30,7 +30,7 @@ function CheckAuthentication()
 	// user logs in your system. To be able to use session variables don't
 	// forget to add session_start() at the top of this file.
 	//print_r($_SESSION);exit();
-	if(isset($_SESSION['auth']) && $_SESSION['auth'] == 'True')
+	if( !empty($_SESSION) )
 		return true;
 	else
 		return false;

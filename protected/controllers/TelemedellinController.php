@@ -329,20 +329,8 @@ class TelemedellinController extends Controller
 
 		$fondo_pagina = 'backgrounds/generica-interna-1.jpg';
 
-		if( $this->theme != 'pc' && isset($micrositio->background_mobile) && !is_null($micrositio->background_mobile)  )
-			$fondo_pagina = $micrositio->background_mobile;
-		elseif( !empty($micrositio->background) )
-			$fondo_pagina = $micrositio->background;
-		
-		if($this->theme != 'pc' && isset($pagina['contenido']->imagen_mobile) && !is_null($pagina['contenido']->imagen_mobile) )
-			$fondo_pagina = $pagina['contenido']->imagen_mobile;
-		elseif( !empty($pagina['contenido']->imagen) )
-			$fondo_pagina = $pagina['contenido']->imagen;
-
 		if( isset($pagina['contenido']->imagen) && is_null($pagina['contenido']->imagen) && is_null($pagina['contenido']->imagen_mobile) && is_null($micrositio->background) && is_null($micrositio->background_mobile) )
 			$fondo_pagina = NULL;
-		
-		$fondo_pagina = 'backgrounds/generica-interna-1.jpg';
 
 		if( $this->theme != 'pc' && isset($micrositio->background_mobile) && !is_null($micrositio->background_mobile)  )
 			$fondo_pagina = $micrositio->background_mobile;
@@ -354,9 +342,7 @@ class TelemedellinController extends Controller
 		elseif( !empty($pagina['contenido']->imagen) )
 			$fondo_pagina = $pagina['contenido']->imagen;
 
-		if( isset($pagina['contenido']->imagen) && is_null($pagina['contenido']->imagen) && is_null($pagina['contenido']->imagen_mobile) && is_null($micrositio->background) && is_null($micrositio->background_mobile) )
-			$fondo_pagina = NULL;
-
+		
 		$this->render( 
 			'micrositio', 
 			array(	'seccion' 	=> $micrositio->seccion, 
@@ -462,8 +448,7 @@ class TelemedellinController extends Controller
 
 			$sts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 			$tts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-			if( $sts == mktime(0, 0, 0, 3, 24, date('Y')) ) continue;
-
+			
 			// set current date
 			// parse about any English textual datetime description into a Unix timestamp
 			$ts 		= $sts;

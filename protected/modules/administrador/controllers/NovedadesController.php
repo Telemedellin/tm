@@ -29,7 +29,7 @@ class NovedadesController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete', 'banners', 'crearbanner', 'viewbanner', 'deletebanner', 'imagen_banner', 'imagen_mobile_banner'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -59,7 +59,25 @@ class NovedadesController extends Controller
 					array(
 						'' => array('max_width' => 90, 'max_height' => 60, 'jpeg_quality' => 100)
 					)
-            )
+            ),
+            'imagen_banner'=>array(
+                'class'=>'application.components.actions.SubirArchivo',
+                'directorio' => 'images/novedades/banners/' . date('Y') . '/' . date('m') . '/',
+                'param_name' => 'archivoImagen', 
+                'image_versions' => 
+					array(
+						'' => array('max_width' => 390, 'max_height' => 150, 'jpeg_quality' => 100)
+					)
+            ),
+            'imagen_mobile_banner'=>array(
+                'class'=>'application.components.actions.SubirArchivo',
+                'directorio' => 'images/novedades/banners/' . date('Y') . '/' . date('m') . '/',
+                'param_name' => 'archivoImagenMobile', 
+                'image_versions' => 
+					array(
+						'' => array('max_width' => 650, 'max_height' => 400, 'jpeg_quality' => 100)
+					)
+            ),
 		);
 	}
 
@@ -269,6 +287,120 @@ class NovedadesController extends Controller
 		$this->render('modificar',array(
 			'model'=>$novedadesForm,
 		));
+	}
+
+	public function actionBanners()
+	{
+		Yii::app()->session->remove('bn');
+		$dataProvider = new CActiveDataProvider('Banner', 
+													array(
+													    'criteria'=>array(
+													        'order'=>'estado DESC, creado DESC',
+													    ),
+													    'pagination'=>array(
+													    	'pageSize'=>25,
+													    ),
+													) 
+												);
+		$this->render('banners', array(
+			'dataProvider'=>$dataProvider,
+		));
+	}
+
+	public function actionCrearbanner()
+	{
+		if( !isset(Yii::app()->session['bn']) ) Yii::app()->session['bn'] = 'novedades/banners/' . date('Y') . '/' . date('m') . '/';
+
+		$banner = new Banner;
+
+		if(isset($_POST['Banner'])){
+			$banner->attributes = $_POST['Banner'];
+			if( isset(Yii::app()->session['bn']) ){
+				$bn = Yii::app()->session['bn'];
+			}
+			$banner->imagen 		= ($_POST['Banner']['imagen'] != '')?$bn . $_POST['Banner']['imagen']:NULL;
+			$banner->imagen_mobile 	= ($_POST['Banner']['imagen_mobile'] != '')?$bn . $_POST['Banner']['imagen_mobile']:NULL;
+			if($_POST['Banner']['inicio_publicacion'] == '0000-00-00 00:00:00') $banner->inicio_publicacion = NULL;
+			if($_POST['Banner']['fin_publicacion'] == '0000-00-00 00:00:00') $banner->fin_publicacion = NULL;
+			if($banner->save()){
+				Yii::app()->user->setFlash('mensaje', 'Banner ' . $banner->nombre . ' guardado con éxito');
+				$this->redirect( bu('administrador/novedades/viewbanner/'.$banner->getPrimaryKey()) );
+			}//if($banner->save())
+
+		} //if(isset($_POST['Banner']))
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		$this->render('crearBanner',array(
+			'model'=>$banner,
+		));
+	}
+
+	public function actionUpdatebanner($id)
+	{
+		if( !isset(Yii::app()->session['bn']) ) Yii::app()->session['bn'] = 'novedades/banners/' . date('Y') . '/' . date('m') . '/';
+
+		$banner = Banner::model()->findByPk($id);
+
+		if(isset($_POST['Banner'])){
+			if( isset(Yii::app()->session['bn']) ){
+				$bn = Yii::app()->session['bn'];
+			}
+			if($banner->imagen != $_POST['Banner']['imagen'])
+			{
+				@unlink( Yii::getPathOfAlias('webroot').'/images/' . $banner->imagen);
+				$imagen = ($_POST['Banner']['imagen'] != '')?$bn . $_POST['Banner']['imagen']:NULL;
+			}
+			if($_POST['Banner']['imagen_mobile'] != $banner->imagen_mobile)
+			{
+				@unlink( Yii::getPathOfAlias('webroot').'/images/' . $banner->imagen_mobile);
+				$imagen_mobile 	= ($_POST['Banner']['imagen_mobile'] != '')?$bn . $_POST['Banner']['imagen_mobile']:NULL;
+			}
+			$banner->attributes = $_POST['Banner'];
+			if(isset($imagen)) $banner->imagen 		= $imagen;
+			if(isset($imagen_mobile)) $banner->imagen_mobile 	= $imagen_mobile;
+			if($_POST['Banner']['inicio_publicacion'] == '0000-00-00 00:00:00') $banner->inicio_publicacion = NULL;
+			if($_POST['Banner']['fin_publicacion'] == '0000-00-00 00:00:00') $banner->fin_publicacion = NULL;
+			if($banner->save()){
+				Yii::app()->user->setFlash('mensaje', 'Banner ' . $banner->nombre . ' guardado con éxito');
+				$this->redirect( bu('administrador/novedades/viewbanner/'.$banner->getPrimaryKey()) );
+			}//if($banner->save())
+
+		} //if(isset($_POST['Banner']))
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		$this->render('updateBanner',array(
+			'model'=>$banner,
+		));
+	}
+
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionViewbanner($id)
+	{
+		$model = Banner::model()->findByPk($id);
+		
+		$this->render('verBanner', array('model' => $model));
+	}
+
+	/**
+	 * Deletes a particular model.
+	 * If deletion is successful, the browser will be redirected to the 'admin' page.
+	 * @param integer $id the ID of the model to be deleted
+	 */
+	public function actionDeletebanner($id)
+	{
+		$banner = Banner::model()->findByPk($id);
+		$banner->delete();
+
+		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		if(!isset($_GET['ajax']))
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
 	}
 
 	/**

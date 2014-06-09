@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-sm-2">
 		<ul class="nav nav-pills nav-stacked">
-		  <li><?php echo l('<span class="glyphicon glyphicon-chevron-left"></span> Volver', bu('administrador/pagina'))?></li>
+		  <li><?php echo l('<span class="glyphicon glyphicon-chevron-left"></span> Volver', Yii::app()->request->urlReferrer)?></li>
 		  <?php if(Yii::app()->user->checkAccess('editar_paginas')): ?>
 		  <li><?php echo l('<span class="glyphicon glyphicon-pencil"></span> Editar', bu('administrador/pagina/update/' . $model->id))?></li>
 		  <?php endif ?>
