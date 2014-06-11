@@ -14,8 +14,8 @@ class ProgramasController extends Controller
 	public function filters()
 	{
 		return array(
+			'accessControl', // perform access control for CRUD operations
 			array('CrugeAccessControlFilter'), 
-			//'accessControl', // perform access control for CRUD operations
 			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
@@ -211,7 +211,7 @@ class ProgramasController extends Controller
 				$pagina->meta_descripcion	= $programasForm->meta_descripcion;
 				$pagina->clase 				= NULL;
 				$pagina->destacado			= $programasForm->destacado;
-				$pagina->estado				= $estado;
+				$pagina->estado				= ($programasForm->estado == 2)?1:$programasForm->estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
@@ -287,7 +287,6 @@ class ProgramasController extends Controller
 			}
 			if($programasForm->validate()){
 				$micrositio = Micrositio::model()->findByPk($id);
-				$transaccion 	= $micrositio->dbConnection->beginTransaction();
 				$micrositio->nombre			= $programasForm->nombre;
 				if($programasForm->imagen != $micrositio->background)
 				{
@@ -307,14 +306,14 @@ class ProgramasController extends Controller
 
 				$micrositio->estado			= $programasForm->estado;
 				$micrositio->destacado		= $programasForm->destacado;
-				if( !$micrositio->save(false) ) $transaccion->rollback();
+				$micrositio->save();
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 1));
 				$pagina->nombre				= $programasForm->nombre;
 				$pagina->meta_descripcion	= $programasForm->meta_descripcion;
 				$pagina->destacado			= $programasForm->destacado;
-				$pagina->estado				= $estado;
-				if( !$pagina->save(false) ) $transaccion->rollback();
+				$pagina->estado				= ($programasForm->estado == 2)?1:$programasForm->estado;
+				$pagina->save();
 
 				$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
 
@@ -348,13 +347,13 @@ class ProgramasController extends Controller
 				$pgP = PgPrograma::model()->findByAttributes( array('pagina_id' => $pagina->id) );
 				$pgP->resena 		= $programasForm->resena;
 				$pgP->estado 		= $programasForm->estado;
-				if( !$pgP->save(false) )
-					$transaccion->rollback();
-				else
+				if( $pgP->save() )
 				{
-					$transaccion->commit();
 					Yii::app()->user->setFlash('mensaje', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
 					$this->redirect(array('view','id' => $programasForm->id));
+				}else
+				{
+					Yii::app()->user->setFlash('mensaje', 'Programa ' . $programasForm->nombre . ' no se pudo guardar');
 				}
 
 			}//if($novedadesForm->validate())

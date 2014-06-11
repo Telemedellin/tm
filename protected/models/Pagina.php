@@ -281,7 +281,6 @@ class Pagina extends CActiveRecord
 
 	protected function beforeDelete()
 	{
-		
 		$transaccion = $this->dbConnection->getCurrentTransaction();
 		if($transaccion === null)
 			$transaccion = $this->dbConnection->beginTransaction();
@@ -323,22 +322,21 @@ class Pagina extends CActiveRecord
 			}
 			// 4. Borro la tabla pg_
 			
-			if(isset($contenido))
+			if( isset($contenido) )
 			{
 				$imagenes = array(); //Placeholder para las imagenes
 				// 4.1 Verifico si el contenido tiene imagenes para eliminar
-				if( !is_null($contenido->imagen) && !empty($contenido->imagen) ) 
+				if( isset($contenido->imagen) && !is_null($contenido->imagen) && !empty($contenido->imagen) ) 
 					$imagenes[] = $contenido->imagen;
-				if( !is_null($contenido->imagen_mobile) && !empty($contenido->imagen_mobile) ) 
+				if( isset($contenido->imagen_mobile) && !is_null($contenido->imagen_mobile) && !empty($contenido->imagen_mobile) ) 
 					$imagenes[] = $contenido->imagen_mobile;
-				if( !is_null($contenido->miniatura) && !empty($contenido->miniatura) ) 
+				if( isset($contenido->miniatura) && !is_null($contenido->miniatura) && !empty($contenido->miniatura) ) 
 					$imagenes[] = $contenido->miniatura;
 				$contenido->delete();
-				if(isset($imagenes))
-				foreach($imagenes as $imagen)
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
+				if( isset($imagenes) )
+					foreach($imagenes as $imagen)
+						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
 			}
-						
 			
 			$transaccion->commit();
 			return parent::beforeDelete();

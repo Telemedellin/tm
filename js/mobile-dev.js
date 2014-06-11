@@ -157,27 +157,35 @@ jQuery(function($) {
 	}//home
 
 	$('#banner').on('click', function(event){
-			if( !$(this).hasClass('desplegado') )
-			{
-				$(this).addClass('desplegado');
-				event.preventDefault();
-			}
-		});
-		$('#banner .close').on('click', function(event){
-			$('#banner').removeClass('desplegado');
+		if( !$(this).hasClass('desplegado') )
+		{
+			$(this).addClass('desplegado');
 			event.preventDefault();
-			event.stopPropagation();
-		});
+		}
+	});
+	$('#banner .close').on('click', function(event){
+		$('#banner').removeClass('desplegado');
+		event.preventDefault();
+		event.stopPropagation();
+	});
 
 	var Today = new Date(), 
-	      TYear   = Today.getFullYear(),
-	      TDay    = new Date(2014, 5, 11),
-	      dias    = $('#contador');
-	    var DayCount  = (TDay-Today)/(1000*60*60*24);
-	    DayCount      = Math.ceil(DayCount); 
-	    if(DayCount.toString().length == 1) DayCount = '0'+DayCount;
-	    dias.text(DayCount);
-	    dias.fitText(.18, { minFontSize: '13px', maxFontSize: '140px' });
+        TDay  = new Date(2014, 5, 11, 21, 30),
+        contador  = $('#contador');
+    if(contador.hasClass('dias'))
+    {
+      var DayCount  = (TDay-Today)/(1000*60*60*24);
+      DayCount      = Math.ceil(DayCount); 
+      if(DayCount.toString().length == 1) DayCount = '0'+DayCount;
+      contador.text(DayCount);
+    }else if(contador.hasClass('horas'))
+    {
+      var HourCount  = (TDay-Today)/(1000*60*60);
+      HourCount      = Math.ceil(HourCount); 
+      if(HourCount.toString().length == 1) HourCount = '0'+HourCount;
+      contador.text(HourCount);
+    }
+	dias.fitText(.18, { minFontSize: '13px', maxFontSize: '140px' });
 
 	//Micrositio
 	if(micro[0]){

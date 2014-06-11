@@ -14,8 +14,8 @@ class DocumentalesController extends Controller
 	public function filters()
 	{
 		return array(
-			array('CrugeAccessControlFilter')
-			//'accessControl', // perform access control for CRUD operations
+			'accessControl', // perform access control for CRUD operations
+			array('CrugeAccessControlFilter'),
 			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
@@ -202,7 +202,7 @@ class DocumentalesController extends Controller
 				$pagina->meta_descripcion 	= $documentalesForm->meta_descripcion;
 				$pagina->clase 				= NULL;
 				$pagina->destacado			= $documentalesForm->destacado;
-				$pagina->estado				= $documentalesForm->estado
+				$pagina->estado			  	= ($documentalesForm->estado == 2)?1:$documentalesForm->estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
@@ -263,7 +263,6 @@ class DocumentalesController extends Controller
 			}
 			if($documentalesForm->validate()){
 				$micrositio = Micrositio::model()->findByPk($id);
-				$transaccion 	= $micrositio->dbConnection->beginTransaction();
 				$micrositio->nombre			= $documentalesForm->nombre;
 				if($documentalesForm->imagen != $micrositio->background)
 				{
@@ -284,14 +283,14 @@ class DocumentalesController extends Controller
 				$micrositio->destacado		= $documentalesForm->destacado;
 				
 				$micrositio->estado			= $documentalesForm->estado;
-				if( !$micrositio->save(false) ) $transaccion->rollback();
+				$micrositio->save();
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
 				$pagina->nombre				= $documentalesForm->nombre;
 				$pagina->meta_descripcion 	= $documentalesForm->meta_descripcion;
 				$pagina->destacado			= $documentalesForm->destacado;
-				$pagina->estado				= $documentalesForm->estado;
-				if( !$pagina->save(false) ) $transaccion->rollback();
+				$pagina->estado			  	= ($documentalesForm->estado == 2)?1:$documentalesForm->estado;
+				$pagina->save();
 
 				$pgD = PgDocumental::model()->findByAttributes( array('pagina_id' => $pagina->id) );
 				$pgD->titulo 		= $documentalesForm->nombre;
@@ -299,13 +298,13 @@ class DocumentalesController extends Controller
 				$pgD->anio 			= $documentalesForm->anio;
 				$pgD->sinopsis 		= $documentalesForm->sinopsis;
 				$pgD->estado 		= $documentalesForm->estado;
-				if( !$pgD->save(false) )
-					$transaccion->rollback();
-				else
+				if( $pgD->save() )
 				{
-					$transaccion->commit();
 					Yii::app()->user->setFlash('mensaje', 'Documental ' . $documentalesForm->nombre . ' guardado con éxito');
 					$this->redirect(array('view','id' => $documentalesForm->id));
+				}else
+				{
+					Yii::app()->user->setFlash('mensaje', 'Documental ' . $documentalesForm->nombre . ' no se pudo guardar');
 				}
 
 			}//if($novedadesForm->validate())

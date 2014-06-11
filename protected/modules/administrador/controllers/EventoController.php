@@ -13,8 +13,8 @@ class EventoController extends Controller
 	public function filters()
 	{
 		return array(
-			array('CrugeAccessControlFilter')
-			//'accessControl', // perform access control for CRUD operations
+			'accessControl', // perform access control for CRUD operations
+			array('CrugeAccessControlFilter'),
 			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}

@@ -14,8 +14,8 @@ class PaginaController extends Controller
 	public function filters()
 	{
 		return array(
-			array('CrugeAccessControlFilter')
-			//'accessControl', // perform access control for CRUD operations
+			'accessControl', // perform access control for CRUD operations
+			array('CrugeAccessControlFilter'),
 		);
 	}
 
@@ -286,6 +286,11 @@ class PaginaController extends Controller
 					$contenido->miniatura 	  = ($_POST['PgEventos']['miniatura'])?$dirpa . $_POST['PgEventos']['miniatura']:NULL;
 					$contenido->descripcion   = $_POST['PgEventos']['descripcion'];
 				}
+				if(isset($_POST['PgBlog']))
+				{
+					$contenido->nombre 	= $_POST['Pagina']['nombre'];
+					
+				}
 				$contenido->estado = 1;
 				$contenido->pagina_id = $model->getPrimaryKey();
 				if($contenido->save())
@@ -312,6 +317,7 @@ class PaginaController extends Controller
 		$datos = Pagina::model()->cargarPagina($id);
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+		$contenido = $datos['contenido'];
 
 		if(isset($_POST['Pagina']))
 		{
@@ -438,13 +444,10 @@ class PaginaController extends Controller
 					}
 					$contenido->descripcion = $_POST['PgEventos']['descripcion'];
 				}
+
 				if(isset($contenido) && $contenido->save())
-					$this->redirect(array('view', 'id'=>$datos['pagina']->id));
+					$this->redirect(array('view', 'id'=>$datos['pagina']->getPrimaryKey()));
 			}
-		}else
-		{
-			$contenido = new $datos['partial']();
-			$contenido = $datos['contenido'];
 		}
 
 		$this->render('update',array(

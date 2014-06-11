@@ -61,9 +61,9 @@
 				'concurso.creado',
 				'concurso.modificado',
 				array(
-					'name' => 'contenido.estado',
+					'name' => 'concurso.estado',
 					'label' => 'Estado', 
-					'value' => ($contenido->estado==2)?'Publicado (Se ve en listados)':(($contenido->estado==1)?'Archivado':'Desactivado'),
+					'value' => ($model->estado==2)?'Publicado (Se ve en listados)':(($model->estado==1)?'Archivado':'Desactivado'),
 				),
 			),
 		)); ?>

@@ -13,8 +13,8 @@ class ConcursosController extends Controller
 	public function filters()
 	{
 		return array(
-			array('CrugeAccessControlFilter')
-			//'accessControl', // perform access control for CRUD operations
+			'accessControl', // perform access control for CRUD operations
+			array('CrugeAccessControlFilter'),
 			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
@@ -197,7 +197,7 @@ class ConcursosController extends Controller
 				$pagina->meta_descripcion = $concursosForm->meta_descripcion;
 				$pagina->clase 			  = NULL;
 				$pagina->destacado		  = $concursosForm->destacado;
-				$pagina->estado			  = $concursosForm->estado;
+				$pagina->estado			  = ($concursosForm->estado == 2)?1:$concursosForm->estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
@@ -272,7 +272,6 @@ class ConcursosController extends Controller
 			}
 			if($concursosForm->validate()){
 				$micrositio 		= Micrositio::model()->findByPk($id);
-				$transaccion 		= $micrositio->dbConnection->beginTransaction();
 				$micrositio->nombre	= $concursosForm->nombre;
 				if($concursosForm->imagen != $micrositio->background)
 				{
@@ -292,16 +291,14 @@ class ConcursosController extends Controller
 
 				$micrositio->destacado 	= $concursosForm->destacado;
 				$micrositio->estado		= $concursosForm->estado;
-				if( !$micrositio->save(false) ) $transaccion->rollback();
+				$micrositio->save();
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
 				$pagina->nombre			  = $concursosForm->nombre;
 				$pagina->meta_descripcion = $concursosForm->meta_descripcion;
 				$pagina->destacado		  = $concursosForm->destacado;
-				$pagina->estado			  = $concursosForm->estado;
-				if( !$pagina->save(false) ) $transaccion->rollback();
-
-				$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
+				$pagina->estado			  = ($concursosForm->estado == 2)?1:$concursosForm->estado;
+				$pagina->save();
 
 				//Verifico si el formulario trae un valor diferente al que tiene la base de datos.
 				if($concursosForm->formulario != $formulario->pgFormularioJfs->formulario_id)
@@ -310,9 +307,9 @@ class ConcursosController extends Controller
 					if($concursosForm->formulario != '')
 					{
 						//Verifico si en la base de datos ya está creada la página de formulario
-						if(is_null($formulario))
+						if( is_null($formulario) )
 						{
-							//Creao la página
+							//Creo la página
 							$formulario = new Pagina;
 							$formulario->micrositio_id = $micrositio->id;
 							$formulario->tipo_pagina_id = 7;								
@@ -320,30 +317,28 @@ class ConcursosController extends Controller
 							$formulario->estado = 1;
 							$formulario->destacado = 0;
 							$formulario->save();
-						}
+							$pgF = new PgFormularioJf;
+						}else
+							$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
 						//Asigno el id del formulario
 						$pgF->pagina_id 	= $formulario->getPrimaryKey();
 						$pgF->formulario_id	= $concursosForm->formulario;
 						$pgF->estado 		= 1;
 						$pgF->save();
-					}else{
-						if( !is_null($formulario) )
-						{
-							$formulario->delete();
-						} 
-					}
+					}else
+						if( !is_null($formulario) ) $formulario->delete();
 				}
 
 				$pgGst = PgGenericaSt::model()->findByAttributes( array('pagina_id' => $pagina->id) );
 				$pgGst->texto 		= $concursosForm->texto;
 				
-				if( !$pgGst->save(false) )
-					$transaccion->rollback();
-				else
+				if( $pgGst->save() )
 				{
-					$transaccion->commit();
 					Yii::app()->user->setFlash('mensaje', 'Concurso ' . $concursosForm->nombre . ' guardado con éxito');
 					$this->redirect(array('view','id' => $concursosForm->id));
+				}else
+				{
+					Yii::app()->user->setFlash('mensaje', 'Concurso ' . $concursosForm->nombre . ' no se pudo guardar');
 				}
 				
 

@@ -1,14 +1,14 @@
 <?php
-$bc = array();
+$bc = array(); //Breadcrumbs.
 if($seccion->url->slug != 'sin-seccion')
-{
-	$bc[ucfirst($seccion->nombre)] =  bu( $seccion->url->slug ) ;
-}
+	$bc[ucfirst($seccion->nombre)] = bu( $seccion->url->slug ) ;
 
 ($pagina->id != $micrositio->pagina_id) ? $bc[ucfirst($micrositio->nombre)] = bu( $micrositio->url->slug ) : $bc[] = ucfirst($micrositio->nombre);
+
 ($pagina->id != $micrositio->pagina_id) ? $bc[] = ucfirst($pagina->nombre) : false;
+
 $this->breadcrumbs = $bc;
-$pt = ($pagina->id != $micrositio->pagina_id) ? ucfirst($pagina->nombre) . ' - ': '';
+$pt = ($pagina->id != $micrositio->pagina_id) ? ucfirst(str_replace('"', "'", $pagina->nombre)) . ' - ': '';
 $this->pageTitle = $pt . str_replace('"', "'", $micrositio->nombre);
 
 if($fondo_pagina == NULL)

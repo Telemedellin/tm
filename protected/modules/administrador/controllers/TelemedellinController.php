@@ -14,8 +14,8 @@ class TelemedellinController extends Controller
 	public function filters()
 	{
 		return array(
+			'accessControl', // perform access control for CRUD operations
 			array('CrugeAccessControlFilter'),
-			//'accessControl', // perform access control for CRUD operations
 			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
@@ -179,7 +179,7 @@ class TelemedellinController extends Controller
 				$pagina->nombre			= $programasForm->nombre;
 				$pagina->clase 			= NULL;
 				$pagina->destacado		= $programasForm->destacado;
-				$pagina->estado			= $programasForm->estado;
+				$pagina->estado				= ($programasForm->estado == 2)?1:$programasForm->estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
@@ -237,7 +237,6 @@ class TelemedellinController extends Controller
 			}
 			if($programasForm->validate()){
 				$micrositio = Micrositio::model()->findByPk($id);
-				$transaccion 	= $micrositio->dbConnection->beginTransaction();
 				$micrositio->nombre			= $programasForm->nombre;
 				if($programasForm->imagen != $micrositio->background)
 				{
@@ -258,24 +257,24 @@ class TelemedellinController extends Controller
 				$micrositio->destacado		= $programasForm->destacado;
 				
 				$micrositio->estado			= $programasForm->estado;
-				if( !$micrositio->save(false) ) $transaccion->rollback();
+				$micrositio->save();
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
 				$pagina->nombre			= $programasForm->nombre;
 				$pagina->destacado		= $programasForm->destacado;
-				$pagina->estado			= $programasForm->estado;
-				if( !$pagina->save(false) ) $transaccion->rollback();
+				$pagina->estado				= ($programasForm->estado == 2)?1:$programasForm->estado;
+				$pagina->save();
 
 				$pgGst = PgGenericaSt::model()->findByAttributes( array('pagina_id' => $pagina->id) );
 				$pgGst->texto 		= $programasForm->resena;
 				$pgGst->estado 		= $programasForm->estado;
-				if( !$pgGst->save(false) )
-					$transaccion->rollback();
-				else
+				if( $pgGst->save() )
 				{
-					$transaccion->commit();
 					Yii::app()->user->setFlash('mensaje', 'Micrositio ' . $programasForm->nombre . ' guardado con éxito');
 					$this->redirect(array('view','id' => $programasForm->id));
+				}else
+				{
+					Yii::app()->user->setFlash('mensaje', 'Micrositio ' . $programasForm->nombre . ' no se pudo guardar');
 				}
 
 			}//if($novedadesForm->validate())

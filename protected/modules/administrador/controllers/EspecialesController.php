@@ -14,8 +14,8 @@ class EspecialesController extends Controller
 	public function filters()
 	{
 		return array(
-			array('CrugeAccessControlFilter'), 
 			'accessControl', // perform access control for CRUD operations
+			array('CrugeAccessControlFilter'), 
 			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
@@ -208,7 +208,7 @@ class EspecialesController extends Controller
 				$pagina->meta_descripcion 	= $especialesForm->meta_descripcion;
 				$pagina->clase 				= NULL;
 				$pagina->destacado			= $especialesForm->destacado;
-				$pagina->estado				= $especialesForm->estado;
+				$pagina->estado			  	= ($especialesForm->estado == 2)?1:$especialesForm->estado;
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
@@ -265,7 +265,6 @@ class EspecialesController extends Controller
 			}
 			if($especialesForm->validate()){
 				$micrositio = Micrositio::model()->findByPk($id);
-				$transaccion 	= $micrositio->dbConnection->beginTransaction();
 				$micrositio->nombre			= $especialesForm->nombre;
 				if($especialesForm->imagen != $micrositio->background)
 				{
@@ -286,26 +285,26 @@ class EspecialesController extends Controller
 				$micrositio->destacado		= $especialesForm->destacado;
 				
 				$micrositio->estado			= $especialesForm->estado;
-				if( !$micrositio->save(false) ) $transaccion->rollback();
+				$micrositio->save();
 
 				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
-				$pagina->nombre			= $especialesForm->nombre;
+				$pagina->nombre				= $especialesForm->nombre;
 				$pagina->meta_descripcion 	= $especialesForm->meta_descripcion;
-				$pagina->destacado		= $especialesForm->destacado;
-				$pagina->estado			= $especialesForm->estado;
+				$pagina->destacado			= $especialesForm->destacado;
+				$pagina->estado			  	= ($especialesForm->estado == 2)?1:$especialesForm->estado;
 
-				if( !$pagina->save(false) ) $transaccion->rollback();
+				$pagina->save();
 
 				$pgB = PgBloques::model()->findByAttributes( array('pagina_id' => $pagina->id) );
 				if(!$pgB) $pgB = PgGenericaSt::model()->findByAttributes( array('pagina_id' => $pagina->id) );
 				$pgB->estado 		= $especialesForm->estado;
-				if( !$pgB->save(false) )
-					$transaccion->rollback();
-				else
+				if( $pgB->save() )
 				{
-					$transaccion->commit();
 					Yii::app()->user->setFlash('mensaje', 'Especial ' . $especialesForm->nombre . ' guardado con éxito');
 					$this->redirect(array('view','id' => $especialesForm->id));
+				}else
+				{
+					Yii::app()->user->setFlash('mensaje', 'Especial ' . $especialesForm->nombre . ' no se pudo guardar');
 				}
 
 			}//if($novedadesForm->validate())
