@@ -107,13 +107,13 @@ th
 	min-width: 26px;
 	max-width: 26px;
 	-moz-transition: max-width .5s ease, letter-spacing .2s ease .2s;
+	-o-transition: max-width .5s ease, letter-spacing .2s ease .2s;
 	-webkit-transition: max-width .5s ease, letter-spacing .2s ease .2s;
 	transition: max-width .5s ease, letter-spacing .2s ease .2s;
 }
 .breadcrumbs a:hover {
 	letter-spacing: .5px;
 	text-decoration: none;
-	/*max-width: 225px;*/
 	max-width: 655px;
 }
 .breadcrumbs a.home {
@@ -416,6 +416,10 @@ th
 	-moz-opacity: 0.6;
 	-khtml-opacity: 0.6;
 	opacity: 0.6;
+	-moz-transition: opacity .5s ease;
+	-o-transition: opacity .5s ease;
+	-webkit-transition: opacity .5s ease;
+	transition: opacity .5s ease;
 }
 .redes li a:hover
 {
@@ -482,11 +486,6 @@ th
 	position: absolute;
 	right: -300px;
 	width: 390px;
-	/*transition: right .5s ease-in;
-	-webkit-transition: right .5s ease-in;
-	-moz-transition: right .5s ease-in;
-	-o-transition: right .5s ease-in;
-	-ms-transition: right .5s ease-in;*/
 	animation: entrada ease .5s, banner ease 3s;
 	animation-iteration-count: 1, infinite;
 	animation-delay: 0s, .5s;
@@ -758,6 +757,10 @@ th
 	padding: 6px 0 6px 30px;
 	text-transform: uppercase;
 	text-decoration:none;
+	-moz-transition: color .5s ease;
+	-o-transition: color .5s ease;
+	-webkit-transition: color .5s ease;
+	transition: color .5s ease;
 }
 #bar nav li li a 
 {
@@ -807,17 +810,21 @@ th
 			border-top-right-radius: 10px;
 			border-bottom-right-radius: 10px;
 	margin-top: 50px;
+	-moz-transition: background .5s ease;
+	-o-transition: background .5s ease;
+	-webkit-transition: background .5s ease;
+	transition: background .5s ease;
 	width: 85%;
-}
-#bar nav li.tmradio a {
-	background-position: 5px -675px;
-	line-height: 1.2;
-	padding-right: 10px;
 }
 #bar nav li.tmradio:hover
 {
 	background: #ef6800;
 	color: #FFF;
+}
+#bar nav li.tmradio a {
+	background-position: 5px -675px;
+	line-height: 1.2;
+	padding-right: 10px;
 }
 #bar nav li.sintonizanos a {
 	background-position: 5px -801px;
@@ -833,15 +840,19 @@ th
 	padding: 6px 4px;
 	text-align: center;
 	text-transform: uppercase;
+	-moz-transition: background .5s ease;
+	-o-transition: background .5s ease;
+	-webkit-transition: background .5s ease;
+	transition: background .5s ease;
+}
+#bar .escribenos:hover
+{
+	background-color: rgb(137, 222, 21);
 }
 #bar .escribenos span
 {
 	background: url('../images/static/iconos/tmicons.png') no-repeat 0 -386px;
 	padding-left: 30px;
-}
-#bar .escribenos:hover
-{
-	background-color: rgb(137, 222, 21);
 }
 #bar .redes {
 	margin-bottom: 5px;
@@ -1288,6 +1299,10 @@ th
 	padding: 5px 5px 5px;
 	text-align: center;
 	text-transform: uppercase;
+	-moz-transition: background .5s ease;
+	-o-transition: background .5s ease;
+	-webkit-transition: background .5s ease;
+	transition: background .5s ease;
 	width: 31%;
 }
 #menu_inferior a:hover
@@ -1350,6 +1365,10 @@ th
 	font-size: 11px;
 	padding: 10px;
 	text-transform: uppercase;
+	-moz-transition: background .5s ease;
+	-o-transition: background .5s ease;
+	-webkit-transition: background .5s ease;
+	transition: background .5s ease;
 }
 
 #menu_micrositio .active a, #menu_micrositio a:hover {
@@ -1625,6 +1644,10 @@ th
 }
 #newsticker a {
 	color: #FFF;
+	-moz-transition: color .5s ease;
+	-o-transition: color .5s ease;
+	-webkit-transition: color .5s ease;
+	transition: color .5s ease;
 }
 #newsticker footer {
 	float: left;
@@ -1674,6 +1697,10 @@ th
 	-khtml-opacity: 0.6;
 	opacity: 0.6;
 	text-indent: -9999px;
+	-moz-transition: opacity .5s ease;
+	-o-transition: opacity .5s ease;
+	-webkit-transition: opacity .5s ease;
+	transition: opacity .5s ease;
 	vertical-align:middle;
 	width: 20px;
 }
@@ -1709,6 +1736,10 @@ th
 	font-weight: normal;
 	height: 50px;
 	margin: 0;
+	-moz-transition: color .5s ease;
+	-o-transition: color .5s ease;
+	-webkit-transition: color .5s ease;
+	transition: color .5s ease;
 }
 #newsticker .noticia h3 a:hover
 {
@@ -1739,6 +1770,10 @@ th
 	-moz-opacity: 0.6;
 	-khtml-opacity: 0.6;
 	opacity: 0.6;
+	-moz-transition: opacity .5s ease;
+	-o-transition: opacity .5s ease;
+	-webkit-transition: opacity .5s ease;
+	transition: opacity .5s ease;
 	width: 95%;
 }
 #newsticker .todas-las-noticias:hover
@@ -1763,6 +1798,10 @@ th
 	padding-left: 13px;
 	position: absolute;
 	right: 0;
+	-moz-transition: color .5s ease;
+	-o-transition: color .5s ease;
+	-webkit-transition: color .5s ease;
+	transition: color .5s ease;
 	width: 79px;
 }
 #novedades .novedad a.ver-mas:hover
@@ -1932,6 +1971,10 @@ th
 	color:#FFF;
 	font-size: 14px;
 	text-transform: none;
+	-moz-transition: color .5s ease;
+	-o-transition: color .5s ease;
+	-webkit-transition: color .5s ease;
+	transition: color .5s ease;
 }
 .programa a:hover
 {
@@ -2044,6 +2087,10 @@ th
 	color: #fff;
 	font-size: 14px;
 	font-weight: normal;
+	-moz-transition: color .5s ease;
+	-o-transition: color .5s ease;
+	-webkit-transition: color .5s ease;
+	transition: color .5s ease;
 }
 
 #overlay #seccion a:hover {
@@ -2146,6 +2193,10 @@ th
 
 #overlay #seccion .destacados a {
 	padding-bottom:30px;
+	-moz-transition: opacity .5s ease;
+	-o-transition: opacity .5s ease;
+	-webkit-transition: opacity .5s ease;
+	transition: opacity .5s ease;
 }
 	
 #overlay #seccion .destacados a:hover {
@@ -2297,9 +2348,17 @@ th
 	background: url(../images/static/iconos/envivo_programacion.png) no-repeat left center;
 	border-right: 2px groove #FE9930;
 	padding-left: 30px;
+	-moz-transition: background-color .5s ease;
+	-o-transition: background-color .5s ease;
+	-webkit-transition: background-color .5s ease;
+	transition: background-color .5s ease;
 	width: 32%;
 }
 #programacion .a-continuacion {
+	-moz-transition: background-color .5s ease;
+	-o-transition: background-color .5s ease;
+	-webkit-transition: background-color .5s ease;
+	transition: background-color .5s ease;
 	width: 28%;
 }
 #programacion .a-continuacion .estado
@@ -2329,6 +2388,10 @@ th
 	font-size: 14px;
 	padding: 5px 15px;
 	text-align: center;
+	-moz-transition: background .5s ease;
+	-o-transition: background .5s ease;
+	-webkit-transition: background .5s ease;
+	transition: background .5s ease;
 	width: 17%;
 }
 #programacion .programacion:hover, 
@@ -2436,6 +2499,10 @@ th
 #seccion.concursos a
 {
 	color: #FFF;
+	-moz-transition: color .5s ease;
+	-o-transition: color .5s ease;
+	-webkit-transition: color .5s ease;
+	transition: color .5s ease;
 }
 #seccion.concursos a:before, 
 #seccion.concursos a::before
