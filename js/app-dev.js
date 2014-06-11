@@ -22,7 +22,7 @@ function success_popup(data) {
         var plantilla = 'seccion.tmpl.html';
         break;
   }
-  $.get('/tm/js/libs/mustache/views/' + plantilla, function(vista) {
+  $.get('/js/libs/mustache/views/' + plantilla, function(vista) {
     var current_url = window.location.href, 
         output = Mustache.render(vista, data);
     modificar_url(data.url, data.seccion);
@@ -93,7 +93,7 @@ function ga_track(){
 function abrir_multimedia(tipo) {
   if(tipo != ''){
     var hash = window.location.hash.substr(1),
-        destino = '/tm/telemedellin/popup#' + hash;
+        destino = '/telemedellin/popup#' + hash;
     $.fancybox.open({
       type: "ajax",
       href: destino,
@@ -244,7 +244,7 @@ jQuery(function($) {
         hash          = el_url.substr(hash_p).substr(1),
       //Asigno la url del elemento a la nueva
         destino_url   = el_url;
-      var destino     = '/tm/telemedellin/popup#' + hash;
+      var destino     = '/telemedellin/popup#' + hash;
       $(this).fancybox({
         type: "ajax",
         href: destino,
@@ -397,30 +397,28 @@ jQuery(function($) {
       });
     });
 
-    var TimeO, 
-        Count, 
-        Today = new Date(), 
-        TDay  = new Date(2014, 5, 11, 21, 30),
-        contador  = $('#contador');
-    if(contador.hasClass('dias'))
-    {
-      Count  = (TDay-Today)/(1000*60*60*24);
-      
-    }else if(contador.hasClass('horas'))
-    {
-      Count  = (TDay-Today)/(1000*60*60);
-    }
-    Count      = Math.ceil(Count); 
-    if(Count.toString().length == 1) Count = '0'+Count;
-    contador.text(Count);
+    var Count, 
+        Today     = new Date(), 
+        contador  = $('#contador'),
+        EDate     = (contador.data('fin')*1000),
+        TDay      = new Date(EDate);
+        //TDay  = new Date(2014, 5, 11, 21, 30);
+    
 
-    TimeO = setTimeout(change, ph, e, i);
-    function change(e, i)
+    Count  = (TDay-Today)/(1000*60*60*24);//días
+    if(Count <= 1)
+      Count  = (TDay-Today)/(1000*60*60);//horas
+    if(Count <= 1)
+      Count  = (TDay-Today)/(1000*60);//minutos
+    
+    Count      = Math.round(Count); 
+    if(Count > 0)
     {
-      var pr = document.getElementById('programacion');
-      pr.innerHTML = e.name;
-      console.log('Change ' + e.name);
-      clearTimeOut(TimeO[i]);
+      if(Count.toString().length == 1) Count = '0'+Count;
+      contador.text(Count);
+    }else
+    {
+      contador.hide();
     }
     
   }//if body.hasClass('home')

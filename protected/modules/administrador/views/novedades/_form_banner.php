@@ -6,6 +6,7 @@ cs()->registerScriptFile(bu('js/libs/admin/i18n/jquery.ui.datepicker-es.js'), CC
 cs()->registerScriptFile(bu('js/libs/admin/jquery-ui-timepicker-addon.js'), CClientScript::POS_END);
 Yii::app()->clientScript->registerScript('datepicker', 
     'var startDateTextBox = $(".inicio_publicacion"),
+         endContadorTextBox = $(".fin_contador"),
          endDateTextBox = $(".fin_publicacion");
     startDateTextBox.datetimepicker(
         {
@@ -30,25 +31,44 @@ Yii::app()->clientScript->registerScript('datepicker',
         $.datepicker.regional[ "es" ]
     );
     endDateTextBox.datetimepicker(
-    { 
-       dateFormat: "yy-mm-dd",
-       timeFormat: "H:mm:ss",
-        minuteGrid: 10,
-        onClose: function(dateText, inst) {
-            if (startDateTextBox.val() != "") {
-                var testStartDate = startDateTextBox.datetimepicker("getDate");
-                var testEndDate = endDateTextBox.datetimepicker("getDate");
-                console.log("s " + testStartDate + " e " + testEndDate);
-                if (testStartDate > testEndDate)
-                    startDateTextBox.datetimepicker("setDate", testEndDate);
+        { 
+           dateFormat: "yy-mm-dd",
+           timeFormat: "H:mm:ss",
+            minuteGrid: 10,
+            onClose: function(dateText, inst) {
+                if (startDateTextBox.val() != "") {
+                    var testStartDate = startDateTextBox.datetimepicker("getDate");
+                    var testEndDate = endDateTextBox.datetimepicker("getDate");
+                    if (testStartDate > testEndDate)
+                        startDateTextBox.datetimepicker("setDate", testEndDate);
+                }
+                else {
+                    startDateTextBox.val(dateText);
+                }
             }
-            else {
-                startDateTextBox.val(dateText);
-            }
-        }
-    },
-    $.datepicker.regional[ "es" ]
-    );', 
+        },
+        $.datepicker.regional[ "es" ]
+    );
+    endContadorTextBox.datetimepicker(
+        {
+            dateFormat: "yy-mm-dd",
+            timeFormat: "H:mm:ss",
+            minuteGrid: 10,
+        }, 
+        $.datepicker.regional[ "es" ]
+    );
+    $("#Banner_contador").change(function(){
+        check_contador();
+    });
+    check_contador();
+    function check_contador()
+    {
+        if($("#Banner_contador").val() == 1)
+            endContadorTextBox.attr("required", true);
+        else
+            endContadorTextBox.removeAttr("required");
+    }
+    ', 
     CClientScript::POS_READY);
 ?>
 <div class="form">
@@ -82,6 +102,20 @@ Yii::app()->clientScript->registerScript('datepicker',
     <div class="form-group">
         <?php echo $this->imageField($form, $model, 'imagen_mobile', 'archivoImagenMobile', '_banner'); ?>
         <span class="help-block"> Alto máximo: 400 px, Ancho máximo: 650px</span>
+    </div>
+    <div class="form-group">
+        <?php echo $form->label($model,'contador', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-2">
+            <?php echo $form->dropDownList($model,'contador', array('1' => 'Activado', '0' => 'Desactivado' ), array('class' => 'form-control') ); ?>
+        </div>
+        <?php echo $form->error($model,'contador'); ?>
+    </div>
+    <div class="form-group">
+        <?php echo $form->label($model,'fin_contador', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-2">
+            <input name="Banner[fin_contador]" type="text" value="<?php echo $model->fin_contador ?>" class="fin_contador form-control" />
+        </div>
+        <?php echo $form->error($model,'fin_contador'); ?>
     </div>
     <div class="form-group">
 		<?php echo $form->label($model,'inicio_publicacion', array('class' => 'col-sm-2 control-label')); ?>

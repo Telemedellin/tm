@@ -169,23 +169,31 @@ jQuery(function($) {
 		event.stopPropagation();
 	});
 
-	var Today = new Date(), 
-        TDay  = new Date(2014, 5, 11, 21, 30),
-        contador  = $('#contador');
-    if(contador.hasClass('dias'))
+	var Count, 
+        Today     = new Date(), 
+        contador  = $('#contador'),
+        EDate     = (contador.data('fin')*1000),
+        TDay      = new Date(EDate);
+        //TDay  = new Date(2014, 5, 11, 21, 30);
+    
+
+    Count  = (TDay-Today)/(1000*60*60*24);//días
+    if(Count <= 1)
+      Count  = (TDay-Today)/(1000*60*60);//horas
+    if(Count <= 1)
+      Count  = (TDay-Today)/(1000*60);//minutos
+    
+    Count      = Math.round(Count); 
+    if(Count > 0)
     {
-      var DayCount  = (TDay-Today)/(1000*60*60*24);
-      DayCount      = Math.ceil(DayCount); 
-      if(DayCount.toString().length == 1) DayCount = '0'+DayCount;
-      contador.text(DayCount);
-    }else if(contador.hasClass('horas'))
+      if(Count.toString().length == 1) Count = '0'+Count;
+      contador.text(Count);
+    }else
     {
-      var HourCount  = (TDay-Today)/(1000*60*60);
-      HourCount      = Math.ceil(HourCount); 
-      if(HourCount.toString().length == 1) HourCount = '0'+HourCount;
-      contador.text(HourCount);
+      contador.hide();
     }
-	dias.fitText(.18, { minFontSize: '13px', maxFontSize: '140px' });
+
+	contador.fitText(.18, { minFontSize: '13px', maxFontSize: '140px' });
 
 	//Micrositio
 	if(micro[0]){

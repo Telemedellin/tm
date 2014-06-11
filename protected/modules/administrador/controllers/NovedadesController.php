@@ -29,7 +29,7 @@ class NovedadesController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete', 'banners', 'crearbanner', 'viewbanner', 'deletebanner', 'imagen_banner', 'imagen_mobile_banner'),
+				'actions'=>array('index','view', 'imagen', 'imagen_mobile', 'miniatura', 'crear','update', 'delete', 'banners', 'crearbanner', 'viewbanner', 'updatebanner', 'deletebanner', 'imagen_banner', 'imagen_mobile_banner'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -320,8 +320,9 @@ class NovedadesController extends Controller
 			}
 			$banner->imagen 		= ($_POST['Banner']['imagen'] != '')?$bn . $_POST['Banner']['imagen']:NULL;
 			$banner->imagen_mobile 	= ($_POST['Banner']['imagen_mobile'] != '')?$bn . $_POST['Banner']['imagen_mobile']:NULL;
-			if($_POST['Banner']['inicio_publicacion'] == '0000-00-00 00:00:00') $banner->inicio_publicacion = NULL;
-			if($_POST['Banner']['fin_publicacion'] == '0000-00-00 00:00:00') $banner->fin_publicacion = NULL;
+			if(empty($_POST['Banner']['fin_contador']) || $_POST['Banner']['fin_contador'] == '0000-00-00 00:00:00') $banner->fin_contador = NULL;
+			if(empty($_POST['Banner']['inicio_publicacion']) || $_POST['Banner']['inicio_publicacion'] == '0000-00-00 00:00:00') $banner->inicio_publicacion = NULL;
+			if(empty($_POST['Banner']['fin_publicacion']) || $_POST['Banner']['fin_publicacion'] == '0000-00-00 00:00:00') $banner->fin_publicacion = NULL;
 			if($banner->save()){
 				Yii::app()->user->setFlash('mensaje', 'Banner ' . $banner->nombre . ' guardado con éxito');
 				$this->redirect( bu('administrador/novedades/viewbanner/'.$banner->getPrimaryKey()) );
@@ -360,8 +361,9 @@ class NovedadesController extends Controller
 			$banner->attributes = $_POST['Banner'];
 			if(isset($imagen)) $banner->imagen 		= $imagen;
 			if(isset($imagen_mobile)) $banner->imagen_mobile 	= $imagen_mobile;
-			if($_POST['Banner']['inicio_publicacion'] == '0000-00-00 00:00:00') $banner->inicio_publicacion = NULL;
-			if($_POST['Banner']['fin_publicacion'] == '0000-00-00 00:00:00') $banner->fin_publicacion = NULL;
+			if(empty($_POST['Banner']['fin_contador']) || $_POST['Banner']['fin_contador'] == '0000-00-00 00:00:00') $banner->fin_contador = NULL;
+			if(empty($_POST['Banner']['inicio_publicacion']) || $_POST['Banner']['inicio_publicacion'] == '0000-00-00 00:00:00') $banner->inicio_publicacion = NULL;
+			if(empty($_POST['Banner']['fin_publicacion']) || $_POST['Banner']['fin_publicacion'] == '0000-00-00 00:00:00') $banner->fin_publicacion = NULL;
 			if($banner->save()){
 				Yii::app()->user->setFlash('mensaje', 'Banner ' . $banner->nombre . ' guardado con éxito');
 				$this->redirect( bu('administrador/novedades/viewbanner/'.$banner->getPrimaryKey()) );

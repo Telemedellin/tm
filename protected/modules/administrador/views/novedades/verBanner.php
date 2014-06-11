@@ -41,6 +41,11 @@
 				),
 		        'creado',
 				'modificado',
+				array(
+					'name' => 'contador',
+					'value' => ($model->contador==1)?'Activado':'Desactivado',
+				),
+				'fin_contador',
 				'inicio_publicacion',
 				'fin_publicacion',
 				array(

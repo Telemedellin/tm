@@ -45,13 +45,13 @@ class Banner extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nombre, imagen, imagen_mobile, estado', 'required'),
-			array('estado', 'numerical', 'integerOnly'=>true),
+			array('nombre, imagen, imagen_mobile, contador, estado', 'required'),
+			array('contador, estado', 'numerical', 'integerOnly'=>true),
 			array('nombre, imagen, imagen_mobile, url', 'length', 'max'=>255),
-			array('inicio_publicacion, fin_publicacion', 'length', 'max'=>19),
+			array('fin_contador, inicio_publicacion, fin_publicacion', 'length', 'max'=>19),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nombre, imagen, imagen_mobile, url, creado, modificado, inicio_publicacion, fin_publicacion, estado', 'safe', 'on'=>'search'),
+			array('id, nombre, imagen, imagen_mobile, url, creado, modificado, contador, fin_contador, inicio_publicacion, fin_publicacion, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,6 +77,8 @@ class Banner extends CActiveRecord
 			'imagen' => 'Imagen',
 			'imagen_mobile' => 'Imagen (Móvil)',
 			'url' => 'Url',
+			'contador' => 'Contador',
+			'fin_contador' => 'Fin contador',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
 			'inicio_publicacion' => 'Inicio de publicación',
@@ -101,6 +103,8 @@ class Banner extends CActiveRecord
 		$criteria->compare('imagen',$this->imagen,true);
 		$criteria->compare('imagen_mobile',$this->imagen_mobile,true);
 		$criteria->compare('url',$this->url);
+		$criteria->compare('contador',$this->contador);
+		$criteria->compare('fin_contador',$this->fin_contador);
 		$criteria->compare('creado',$this->creado);
 		$criteria->compare('modificado',$this->modificado);
 		$criteria->compare('inicio_publicacion',$this->inicio_publicacion);
