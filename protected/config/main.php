@@ -11,6 +11,7 @@ return array(
 	'defaultController'=>'telemedellin',
 	'language'=>'es',
 	'layout' => 'administrador', 
+	'timeZone' => 'America/Bogota',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
