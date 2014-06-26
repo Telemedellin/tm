@@ -20,6 +20,9 @@
  */
 class Carpeta extends CActiveRecord
 {
+	
+	protected $oldAttributes;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -36,6 +39,15 @@ class Carpeta extends CActiveRecord
 	public function tableName()
 	{
 		return 'carpeta';
+	}
+
+	public function behaviors()
+	{
+		return array(
+			'utilities'=>array(
+                'class'=>'application.components.behaviors.Utilities'
+            )
+		);
 	}
 
 	/**
@@ -140,22 +152,101 @@ class Carpeta extends CActiveRecord
 
 	}*/
 
+	protected function beforeDelete()
+	{
+		try
+		{
+			foreach($this->archivos as $archivo)
+			{
+				$a = Archivo::model()->findByPk($archivo->id);
+				$a->delete();
+			}
+
+			return parent::beforeDelete();
+						
+		}//try
+		catch(Exception $e)
+		{
+		   return false;
+		}
+	}
+
+	protected function afterDelete()
+	{
+		
+		$url = Url::model()->findByPk($this->url_id);
+		$url->delete();
+
+		@rmdir( Yii::getPathOfAlias('webroot').'/archivos/' . $this->ruta);
+
+		return parent::afterDelete();
+	}
+
+	protected function afterFind()
+	{
+	    $this->oldAttributes = $this->attributes;
+	    return parent::afterFind();
+	}
+
 	protected function beforeSave()
 	{
-	    if(parent::beforeSave())
-	    {
-	        
-	        if($this->isNewRecord)
-	        {
-	        	$this->creado 		= date('Y-m-d H:i:s');
-	        }
-	        else
-	        {
-	            $this->modificado	= date('Y-m-d H:i:s');
-	        }
-	        return true;
-	    }
-	    else
-	        return false;
+	    if($this->isNewRecord)
+        {
+        	$parent 	 	= Carpeta::model()->findByPk( $this->item_id );
+
+        	$url 		 	= new Url;
+			$nombre_slug	= $this->slugger($this->carpeta);
+			$slug 		 	= $parent->url->slug . '/' . $nombre_slug;
+			$slug 		 	= $this->verificarSlug($slug);
+			$url->slug 	 	= $slug;
+			$url->tipo_id 	= 10; //Carpeta
+			$url->estado  	= 1;
+			
+			if( $url->save() )
+				$this->url_id = $url->getPrimaryKey();
+			else
+				return false;
+
+        	$this->creado 		= date('Y-m-d H:i:s');
+        }
+        else
+        {
+            $this->modificado	= date('Y-m-d H:i:s');
+        }
+        return parent::beforeSave();
 	}
+
+	protected function afterSave()
+	{
+		$parent = Carpeta::model()->findByPk($this->item_id);
+
+		if(!$this->isNewRecord)
+		{
+			if( (isset($this->oldAttributes['carpeta']) && $this->carpeta != $this->oldAttributes['carpeta']) ||
+				(isset($this->oldAttributes['ruta']) && $this->ruta != $this->oldAttributes['ruta']) ){
+				$url = Url::model()->findByPk($this->url_id);
+				$slug = $parent->url->slug.'/'.$this->slugger($this->carpeta);
+				$slug = $this->verificarSlug($slug);
+				$url->slug 	= $slug;
+				$url->save();
+
+				if( $this->oldAttributes['hijos'] === 1 )
+				{
+					$hijos = Carpeta::model()->findAllByAttributes( array( 'item_id' => $this->id ) );
+					foreach( $hijos as $h )
+					{
+						$h->ruta = $this->ruta . '/' . $this->slugger($h->carpeta);
+						$h->save();
+					}
+				}
+			}
+
+		}else
+		{
+			$parent->hijos = 1;
+			$parent->save();
+		}
+		parent::afterSave();
+	}
+
 }

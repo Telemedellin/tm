@@ -45,8 +45,8 @@ $config['LicenseKey'] = '';
  Uncomment lines below to enable PHP error reporting and displaying PHP errors.
  Do not do this on a production server. Might be helpful when debugging why CKFinder does not work as expected.
 */
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 /*
 To make it easy to configure CKFinder, the $baseUrl and $baseDir can be used.
@@ -63,7 +63,8 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = 'http://telemedellin.tv/';
+//$baseUrl = 'http://telemedellin.tv/';
+$baseUrl = 'http://concursomedellin2018.com/tm/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the
@@ -83,7 +84,8 @@ Examples:
 ATTENTION: The trailing slash is required.
 */
 //$baseDir = resolveUrl($baseUrl);
-$baseDir = '/home/telemede/public_html/';
+//$baseDir = '/home/telemede/public_html/';
+$baseDir = '/home4/med2018/public_html/tm/';
 
 /*
  * ### Advanced Settings
@@ -200,9 +202,12 @@ $config['ResourceType'][] = array(
 		'url' => $baseUrl . 'archivos/',
 		'directory' => $baseDir . 'archivos/',
 		'maxSize' => 0,
-		'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip',
+		'allowedExtensions' => '7z,doc,docx,gz,gzip,jpeg,jpg,pdf,png,ppt,pptx,rar,tar,tgz,xls,xlsx,zip',
 		'deniedExtensions' => '');
 
+/*
+'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip',
+/**/
 $config['ResourceType'][] = array(
 		'name' => 'Images',
 		'url' => $baseUrl . 'images/contenido/',
@@ -300,7 +305,7 @@ If possible, it is recommended to set more restrictive permissions, like 0755.
 Set to 0 to disable this feature.
 Note: not needed on Windows-based servers.
 */
-$config['ChmodFiles'] = 0777 ;
+$config['ChmodFiles'] = 0644 ;
 
 /*
 See comments above.
@@ -332,6 +337,7 @@ $config['XSendfile'] = false;
 include_once "plugins/imageresize/plugin.php";
 include_once "plugins/fileeditor/plugin.php";
 include_once "plugins/zip/plugin.php";
+include_once "plugins/admintm/plugin.php";
 
 $config['plugin_imageresize']['smallThumb'] = '90x90';
 $config['plugin_imageresize']['mediumThumb'] = '120x120';

@@ -14,8 +14,8 @@ class CarpetaController extends Controller
 	public function filters()
 	{
 		return array(
+			'accessControl', // perform access control for CRUD operations
 			array('CrugeAccessControlFilter')
-			//'accessControl', // perform access control for CRUD operations
 			//'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
@@ -29,7 +29,7 @@ class CarpetaController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('crear'),
+				'actions'=>array('crear', 'rename', 'renamearchivo', 'delete'),
 				'users'=>array('@')
 			),
 			array('deny',  // deny all users
@@ -52,113 +52,205 @@ class CarpetaController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCrear($id)
+	/*
+	public function actionCrear()
 	{
-		$p = Pagina::model()->findByPk($id);
-		$carpeta = new Carpeta;		
+		if( !Yii::app()->request->isAjaxRequest || !isset($_POST['name']) || !isset($_POST['parent_id']) )
+			 throw new CHttpException(404, 'No se encontró la página solicitada');
+		
+		$parent 	 	= Carpeta::model()->findByPk($_POST['parent_id']);
+		
+		$url 		 	= new Url;
+		$transaccion 	= $url->dbConnection->beginTransaction();
+		$nombre_slug	= $this->slugger($_POST['name']);
+		$slug 		 	= $parent->url->slug . '/' . $nombre_slug;
+		$slug 		 	= $this->verificarSlug($slug);
+		$url->slug 	 	= $slug;
+		$url->tipo_id 	= 10; //Carpeta
+		$url->estado  	= 1;
+		$url->save();
+		//if( !$url->save(false) ) $transaccion->rollback();
+		$url_id = $url->getPrimaryKey();
 
-		if(isset($_POST['Carpeta'])){
-			$carpeta->attributes = $_POST['Carpeta'];
+		$carpeta 			= new Carpeta();
+		$carpeta->url_id 	= $url_id;
+		$carpeta->pagina_id = $parent->pagina_id;
+		$carpeta->item_id	= $_POST['parent_id'];
+		$carpeta->carpeta 	= $_POST['name'];
+		$carpeta->ruta 		= $parent->ruta . '/' . $nombre_slug;
+		$carpeta->estado 	= 1;
+		$carpeta->save();
+		//if( !$carpeta->save() ) $transaccion->rollback();
+		$src = Yii::getPathOfAlias('webroot').'/archivos/' . $parent->ruta . '/' . $nombre_slug;
+		//print_r($src);exit;
+		header('Content-type: application/json; charset=UTF-8');
+		header('HTTP/1.1 200 OK');
+		if( !file_exists( $src ) )
+		{
+			if( mkdir( $src ) )
+			{
+				$transaccion->commit();
+			    // and the content type
+			    $json = '';
+				$json .= '{';
+				$json .= '"id":"'.$carpeta->getPrimaryKey().'"';
+				$json .= '}';
+				$json .= '';
+				echo $json;
+				Yii::app()->end();
+			}
+		}
+		$transaccion->rollback();
+		$json = array('error' => '1');
+		echo json_encode($json);
+		Yii::app()->end();
+
+	}
+	/**/
+
+	public function actionCrear()
+	{
+		if( /*!Yii::app()->request->isAjaxRequest ||/**/ !isset($_POST['name']) || !isset($_POST['parent_name']) )
+			 throw new CHttpException(404, 'No se encontró la página solicitada');
+		
+		header('Content-type: application/json; charset=UTF-8');
+		header('HTTP/1.1 200 OK');
+
+		try
+		{
+			$parent 	 	= Carpeta::model()->find( 't.ruta LIKE "%'.$_POST['parent_name'].'"' );
 			
-			if($carpeta->validate()){
-				$url = new Url;
-				$transaccion 	= $url->dbConnection->beginTransaction();
-				$slug = '#archivos/' . $this->slugger($carpeta->carpeta);
-				$slug = $this->verificarSlug($slug);
-				$url->slug 		= $slug;
-				$url->tipo_id 	= 10; //Carpeta
-				$url->estado  	= 1;
-				if( !$url->save(false) ) $transaccion->rollback();
-				$url_id = $url->getPrimaryKey();
+			$carpeta 			= new Carpeta();
+			$carpeta->pagina_id = $parent->pagina_id;
+			$carpeta->item_id	= $parent->id;
+			$carpeta->carpeta 	= $_POST['name'];
+			$carpeta->ruta 		= $parent->ruta . '/' . $_POST['name'];
+			$carpeta->estado 	= 1;
+			$carpeta->save();
+			//$transaccion->commit();
+		}catch(Exception $e)
+		{
+			//$transaccion->rollback();
+			$json = array('error' => '1');
+			echo json_encode($json);
+		}
+		//if( !$carpeta->save() ) $transaccion->rollback();
+		Yii::app()->end();
 
-				$micrositio = new Micrositio;
-				$micrositio->seccion_id 	= 2; //Programas
-				$micrositio->usuario_id 	= 1;
-				$micrositio->url_id 		= $url_id;
-				$micrositio->nombre			= $programasForm->nombre;
-				$micrositio->background 	= ($programassForm->imagen != '')?$dirp . $programassForm->imagen:NULL;
-				$micrositio->miniatura 		= ($programasForm->miniatura)?$dirp . 'thumbnail/' . $programasForm->miniatura:NULL;
-				$micrositio->destacado		= $programasForm->destacado;
-				if($programasForm->estado > 0) $estado = 1;
-				else $estado = 0;
-				$micrositio->estado			= $estado;
-				if( !$micrositio->save(false) ) $transaccion->rollback();
-				$micrositio_id = $micrositio->getPrimaryKey();
+	}
 
-				$purl = new Url;
-				$pslug = $url->slug .'/inicio';
-				$pslug = $this->verificarSlug($pslug);
-				$purl->slug 	= $pslug;
-				$purl->tipo_id 	= 3; //Pagina
-				$purl->estado  	= 1;
-				if( !$purl->save(false) ) $transaccion->rollback();
-				$purl_id = $purl->getPrimaryKey();
+	/*
+	public function actionRename()
+	{
+		if( !Yii::app()->request->isAjaxRequest || !isset($_POST['id']) || !isset($_POST['new_name']) )
+			 throw new CHttpException(404, 'No se encontró la página solicitada');
 
-				$pagina = new Pagina;
-				$pagina->micrositio_id 	= $micrositio_id;
-				$pagina->tipo_pagina_id = 1; //Página programa
-				$pagina->url_id 		= $purl_id;
-				$pagina->nombre			= $programasForm->nombre;
-				$pagina->clase 			= NULL;
-				$pagina->destacado		= $programasForm->destacado;
-				$pagina->estado			= $estado;
-				if( !$pagina->save(false) ) $transaccion->rollback();
-				$pagina_id = $pagina->getPrimaryKey();
+		$new_name = $_POST['new_name'];
+		$carpeta = Carpeta::model()->with('carpetas')->findByPk($_POST['id']);
+		$parent  = Carpeta::model()->findByPk($carpeta->item_id);
+		$nueva_ruta 		= $parent->ruta . '/' . $this->slugger($new_name);
 
-				$micrositio->pagina_id = $pagina_id;
-				$micrositio->save(false);
+		$url = Url::model()->findByPk($carpeta->url_id);
+		$nombre_slug	= $this->slugger($_POST['new_name']);
+		$slug 		 	= $parent->url->slug . '/' . $nombre_slug;
+		$slug 		 	= $this->verificarSlug($slug);
+		$url->slug 	 	= $slug;
+		$url->save();
+		
+		$base = Yii::getPathOfAlias('webroot').'/archivos/';
+		
+		header('HTTP/1.1 200 OK');
 
-				if($programasForm->formulario != '')
-				{
-					$furl = new Url;
-					$fslug = $url->slug . '/escribenos';
-					$fslug = $this->verificarSlug($fslug);
-					$furl->slug = $fslug;
-					$furl->tipo_id = 3; //Página
-					$furl->estado = 1;
-					if($furl->save()){
-						$formulario = new Pagina;
-						$formulario->micrositio_id = $micrositio_id;
-						$formulario->tipo_pagina_id = 7;								
-						$formulario->url_id = $furl->getPrimaryKey();
-						$formulario->nombre = 'Escribenos';	
-						$formulario->estado = 1;
-						$formulario->destacado = 0;
-						$formulario->save();
-					}
-					$pgF = new PgFormularioJf;
-					$pgF->pagina_id 	= $pagina_id;
-					$pgF->formulario_id	= $programasForm->formulario;
-					$pgF->estado 		= 1;
-					$pgF->save();
-				}
+		if( rename( $base . $carpeta->ruta, $base . $nueva_ruta ) )
+		{
+			header('HTTP/1.1 200 OK');
+			$carpeta->carpeta 	= $new_name;
+			$carpeta->ruta 		= $nueva_ruta;
+			if( $carpeta->save() )
+			{
+				Yii::app()->end();
+			}
+		}
+		$json = array('error' => '1');
+		echo json_encode($json);
+		Yii::app()->end();
+		
+	}
+	/**/
 
-				$pgP = new PgPrograma;
-				$pgP->pagina_id 	= $pagina_id;
-				$pgP->resena 		= $programasForm->resena;
-				$pgP->estado 		= $programasForm->estado;
-				
-				if( !$pgP->save(false) )
-					$transaccion->rollback();
-				else
-				{
-					$transaccion->commit();
-					Yii::app()->user->setFlash('mensaje', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
-					$this->redirect('index');
-				}
+	public function actionRename()
+	{
+		if( !Yii::app()->request->isAjaxRequest || !isset($_POST['name']) || !isset($_POST['new_name']) )
+			 throw new CHttpException(404, 'No se encontró la página solicitada');
 
-			}//if($novedadesForm->validate())
+		$new_name 	= $_POST['new_name'];
+		$carpeta 	= Carpeta::model()->with('carpetas')->find( 't.ruta LIKE "%'.$_POST['name'].'"' );
+		$parent  	= Carpeta::model()->findByPk($carpeta->item_id);
+		$nombre_slug= $this->slugger($new_name);
+		$nueva_ruta = $parent->ruta . '/' . $nombre_slug;
 
-		} //if(isset($_POST['NovedadesForm']))
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$base = Yii::getPathOfAlias('webroot').'/archivos/';
+		
+		header('HTTP/1.1 200 OK');
 
 		
-		$this->render('crear',array(
-			'model'=>$carpeta,
-			'pagina' => $p,
-		));
+		header('HTTP/1.1 200 OK');
+		$carpeta->carpeta 	= $new_name;
+		$carpeta->ruta 		= $nueva_ruta;
+		if( !$carpeta->save() )
+		{
+			$json = array('error' => '1');
+			echo json_encode($json);
+		}
+		Yii::app()->end();
+		
+	}
+
+	public function actionRenamearchivo()
+	{
+		if( !Yii::app()->request->isAjaxRequest || !isset($_POST['name']) || !isset($_POST['new_name']) )
+			 throw new CHttpException(404, 'No se encontró la página solicitada');
+
+		$new_name		= $_POST['new_name'];
+		$archivo 		= Archivo::model()->with('carpeta')->findByAttributes( array('archivo' => $_POST['name']) );
+		$parent  		= Carpeta::model()->findByPk($archivo->carpeta_id);
+		$nombre_slug	= $this->slugger($new_name);
+		$nueva_ruta 	= $parent->ruta . '/' . $nombre_slug;
+
+		$url = Url::model()->findByPk($archivo->url_id);
+		$slug 		 	= $parent->url->slug . '/' . $nombre_slug;
+		$slug 		 	= $this->verificarSlug($slug);
+		$url->slug 	 	= $slug;
+		$url->save();
+		
+		$base = Yii::getPathOfAlias('webroot').'/archivos/';
+		
+		header('HTTP/1.1 200 OK');
+
+		$archivo->archivo 	= $new_name;
+		$archivo->nombre 	= $new_name;
+		if( !$archivo->save() )
+		{
+			$json = array('error' => '1');
+			echo json_encode($json);
+		}
+		Yii::app()->end();
+		
+	}
+
+	public function actionDelete()
+	{
+		if( !Yii::app()->request->isAjaxRequest || !isset($_POST['id']) )
+			 throw new CHttpException(404, 'No se encontró la página solicitada');
+
+		$carpeta = Carpeta::model()->findByPk( $_POST['id'] );
+		
+		if( !$carpeta->delete() )
+		{
+			$json = array('error' => '1');
+			echo json_encode($json);
+			Yii::app()->end();
+		}
 	}
 
 	/**

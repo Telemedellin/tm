@@ -56,9 +56,9 @@ class PaginaController extends Controller
                 'param_name' => 'archivoMiniatura',
                 'image_versions' => 
 					array(
-						'' => array('max_width' => 250, 'max_height' => 150)
+						'' => array('max_width' => 360, 'max_height' => 360)
 					)
-            )
+            ),
 		);
 	}
 
@@ -136,45 +136,48 @@ class PaginaController extends Controller
 			$ca = Carpeta::model()->with('carpetas', 'archivos', 'url')->findAllByAttributes( array('pagina_id' => $id, 'item_id' => 0) );
 			$contenido = $this->renderPartial('_carpeta', array('contenido' => $pagina, 'carpeta' => $ca, 'model' => $pagina['pagina']), true);
 		}
-		if($pagina['pagina']->tipo_pagina_id == 8)
+		else
 		{
-			$fi = new CActiveDataProvider('FiltroItem', array(
-			    'criteria'=>array(
-			        'condition'=>'pg_filtro_id='.$pagina['contenido']->id
-			    ),
-			    'pagination'=>array(
-			        'pageSize'=>50,
-			    ),
-			));
-			$pagina['contenido']['filtroItems'] = $fi;
+			if($pagina['pagina']->tipo_pagina_id == 8)
+			{
+				$fi = new CActiveDataProvider('FiltroItem', array(
+				    'criteria'=>array(
+				        'condition'=>'pg_filtro_id='.$pagina['contenido']->id
+				    ),
+				    'pagination'=>array(
+				        'pageSize'=>50,
+				    ),
+				));
+				$pagina['contenido']['filtroItems'] = $fi;
+			}
+			if($pagina['pagina']->tipo_pagina_id == 10)
+			{
+				$bloques = new CActiveDataProvider('Bloque', array(
+				    'criteria'=>array(
+				        'condition'=>'pg_bloques_id='.$pagina['contenido']->id
+				    ),
+				    'pagination'=>array(
+				        'pageSize'=>50,
+				    ),
+				));
+				$pagina['contenido']['bloques'] = $bloques;
+			}
+			if($pagina['pagina']->tipo_pagina_id == 12)
+			{
+				$eventos = new CActiveDataProvider('Evento', array(
+				    'criteria'=>array(
+				        'condition'=>'pg_eventos_id='.$pagina['contenido']->id
+				    ),
+				    'pagination'=>array(
+				        'pageSize'=>50,
+				    ),
+				));
+				$pagina['contenido']['eventos'] = $eventos;
+			}
+			if (is_readable( $this->getViewPath().'/_' . lcfirst($pagina['partial']) . '.php' ))
+			$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
+			else $contenido = '';
 		}
-		if($pagina['pagina']->tipo_pagina_id == 10)
-		{
-			$bloques = new CActiveDataProvider('Bloque', array(
-			    'criteria'=>array(
-			        'condition'=>'pg_bloques_id='.$pagina['contenido']->id
-			    ),
-			    'pagination'=>array(
-			        'pageSize'=>50,
-			    ),
-			));
-			$pagina['contenido']['bloques'] = $bloques;
-		}
-		if($pagina['pagina']->tipo_pagina_id == 12)
-		{
-			$eventos = new CActiveDataProvider('Evento', array(
-			    'criteria'=>array(
-			        'condition'=>'pg_eventos_id='.$pagina['contenido']->id
-			    ),
-			    'pagination'=>array(
-			        'pageSize'=>50,
-			    ),
-			));
-			$pagina['contenido']['eventos'] = $eventos;
-		}
-		if (is_readable( $this->getViewPath().'/_' . lcfirst($pagina['partial']) . '.php' ))
-		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
-		else $contenido = '';
 		
 		$this->render('ver',array(
 			'model'=>$pagina['pagina'],
@@ -230,11 +233,11 @@ class PaginaController extends Controller
 			$model->tipo_pagina_id = $tipo_pagina_id;
 			
 			if($model->save()){
-				if(is_null($m->pagina_id))
+				/*if( is_null($m->pagina_id) || empty($m->pagina_id) )
 				{
 					$m->pagina_id = $model->getPrimaryKey();
 					$m->save();
-				}
+				}*/
 
 				if( isset(Yii::app()->session['dirpa']) ){
 					$dirpa = Yii::app()->session['dirpa'];
@@ -256,7 +259,6 @@ class PaginaController extends Controller
 					$contenido->texto 		= $_POST['PgArticuloBlog']['texto'];
 					$contenido->enlace 		= $_POST['PgArticuloBlog']['enlace'];
 					$contenido->comentarios = $_POST['PgArticuloBlog']['comentarios'];
-					$contenido->estado 		= $_POST['PgArticuloBlog']['estado'];
 				}
 				if(isset($_POST['PgDocumental']))
 				{
@@ -288,10 +290,10 @@ class PaginaController extends Controller
 				}
 				if(isset($_POST['PgBlog']))
 				{
-					$contenido->nombre 	= $_POST['Pagina']['nombre'];
+					$contenido->ver_fechas 	= $_POST['PgBlog']['ver_fechas'];
 					
 				}
-				$contenido->estado = 1;
+				$contenido->estado = $_POST['Pagina']['estado'];
 				$contenido->pagina_id = $model->getPrimaryKey();
 				if($contenido->save())
 					$this->redirect(array('view','id'=>$model->id));
@@ -375,7 +377,6 @@ class PaginaController extends Controller
 					$contenido->texto 		= $_POST['PgArticuloBlog']['texto'];
 					$contenido->enlace 		= $_POST['PgArticuloBlog']['enlace'];
 					$contenido->comentarios = $_POST['PgArticuloBlog']['comentarios'];
-					$contenido->estado 		= $_POST['PgArticuloBlog']['estado'];
 				}
 				if(isset($_POST['PgDocumental']))
 				{
@@ -444,6 +445,13 @@ class PaginaController extends Controller
 					}
 					$contenido->descripcion = $_POST['PgEventos']['descripcion'];
 				}
+				if(isset($_POST['PgBlog']))
+				{
+					$contenido = PgBlog::model()->findByPk($_POST['PgBlog']['id']);
+					$contenido->ver_fechas 	= $_POST['PgBlog']['ver_fechas'];
+				}
+
+				$contenido->estado = $_POST['Pagina']['estado'];
 
 				if(isset($contenido) && $contenido->save())
 					$this->redirect(array('view', 'id'=>$datos['pagina']->getPrimaryKey()));

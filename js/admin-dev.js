@@ -1,11 +1,92 @@
-jQuery(function($) {    
+jQuery(function($) {   
     $('#carpetas').jstree({
         "themes" : {
             "theme" : "default",
             "dots"  : true,
-            "icons" : false
+            "icons" : false, 
+            "check_callback" : function(operation, node, node_parent, node_position, more) {
+                // operation can be 'create_node', 'rename_node', 'delete_node', 'move_node' or 'copy_node'
+                /*alert(' Callback ');
+                if( operation === 'create_node' ){
+                    alert( 'Se crea el nodo ' + node + ' en ' + node_parent);
+                    return true;
+                }/**/
+                return 
+                    operation === 'create_node' || 
+                    operation === 'rename_node' || 
+                    operation === 'delete_node' 
+                    ? true : false;
+            }, 
         },
-        "plugins" : [ "themes", "html_data" ]
+        "plugins" : [ "themes", "html_data", "contextmenu", "types" ],
+        "contextmenu" : {
+            items: function($node) {
+                var tree = $("#carpetas").jstree(true);
+                return {
+                    "Create": {
+                        "label": "Create",
+                        "action": function (obj) {
+                            console.log($node.element);
+                            console.log(tree);
+                            $node = tree.create_node($node);
+                            tree.edit($node);
+                            //$(node.element).jstree("create", node.element, 'inside');
+                            //$('#carpetas').jstree("create_node", $(node.element), 'inside', {data: "New node"});
+                        }
+                    },
+                    "Rename": {
+                        "label": "Rename",
+                        "action": function (node) {
+                            //$(node).rename(node);
+                            console.log(node);
+                        }
+                    },
+                    "Delete": {
+                        "label": "Delete",
+                        "action": function (node) {
+                            //$(node).remove(node);
+                            console.log(node);
+                        }
+                    }
+                };
+            }
+        }
+    });
+
+    $('#carpetas').on('create_node.jstree', function(event, info){
+        /*console.log(info);
+        console.log(info.node[0].innerText);
+        console.log(info.parent[0].attributes['data-id']);
+        /**/
+        var name        = info.node[0].innerText.toString(),
+            parent_id   = info.parent[0].attributes['data-id'].value;
+        $.post( "/administrador/carpeta/crear", { name: name, parent_id: parent_id }).done(function( data ) {
+            console.log( "Data Loaded: " + data );
+            if( data.error ) console.log('error');
+            else
+            {
+                $(info.node).attr('data-id', data.id);
+                console.log(data.id);
+            }
+        });
+    });
+    $('#carpetas').on('rename_node.jstree', function(event, info){
+        console.log(info);
+        console.log(info.title);
+        var id = info.node[0].attributes['data-id'].value;
+        $.post( "/administrador/carpeta/rename", { id: id, new_name: info.title }).done(function( data ) {
+            console.log( "Data Loaded: " + data );
+            if( data.error ) console.log('error');
+            else console.log('bien');
+        });
+    });
+    $('#carpetas').on('delete_node.jstree', function(event, info){
+        var id        = info.node[0].attributes['data-id'].value;
+        $.post( "/administrador/carpeta/delete", { id: id }).done(function( data ) {
+            console.log( "Data Loaded: " + data );
+            if( data.error ) console.log('error');
+            else console.log('bien');
+        });
     });
 
     $('.chosen').chosen();

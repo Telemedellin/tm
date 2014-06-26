@@ -407,7 +407,7 @@ class Pagina extends CActiveRecord
 				if($micrositio->seccion->nombre == 'sin-seccion')
 					$slug = $this->slugger($micrositio->nombre).'/'.$this->slugger($this->nombre);
 				else
-					$slug 	   = $this->slugger($micrositio->seccion->nombre).'/'.$this->slugger($micrositio->nombre).'/'.$this->slugger($this->nombre);
+					$slug = $this->slugger($micrositio->seccion->nombre).'/'.$this->slugger($micrositio->nombre).'/'.$this->slugger($this->nombre);
 				$slug = $this->verificarSlug($slug);
 				$url->slug 	= $slug;
 				$url->save();

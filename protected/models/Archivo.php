@@ -112,6 +112,17 @@ class Archivo extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	protected function afterDelete()
+	{
+		$url = Url::model()->findByPk($this->url_id);
+		$url->delete();
+
+		@unlink( Yii::getPathOfAlias('webroot').'/archivos/' . $this->carpeta->ruta . '/' . $this->archivo);
+		
+		return parent::afterDelete();
+	}
+
 	protected function beforeSave()
 	{
 	    if(parent::beforeSave())
