@@ -22,10 +22,11 @@
     'columns'       => array(
         'nombre',
         array(
-                'name' => 'url_id',
-                'type' => 'raw', 
-                'value' => 'l($data->url->slug, bu($data->url->slug), array("target" => "_blank"))'
-            ),
+            'name' => 'url_id',
+            'type' => 'raw', 
+            'value' => 'l($data->url->slug, bu($data->url->slug), array("target" => "_blank"))'
+        ),
+        'tipoPagina.nombre',
         array(
             'name' => 'pgGenericaSt.imagen',
             'visible' => isset($data->pgGenericaSts), 
@@ -52,8 +53,8 @@
         ),
         array(
             'name'=>'estado',
-            'filter'=>array('1'=>'Si','0'=>'No'),
-            'value'=>'($data->estado=="1")?("Si"):("No")'
+            //'filter'=>array('2'=>'Si','1'=>'Archivado', '0'=>'No'),
+            'value'=>'($data->estado==2)?"Sí":( ($data->estado==1)?"Archivado":"No" )'
         ),
         array(
             'class'=>'CButtonColumn',

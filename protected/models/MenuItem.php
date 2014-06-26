@@ -118,13 +118,6 @@ class MenuItem extends CActiveRecord
 		));
 	}
 
-	protected function afterDelete()
-	{
-		$url = Url::model()->findByPk($this->url_id);
-		$url->delete();
-		return parent::afterDelete();
-	}
-
 	protected function beforeSave()
 	{
 	    if(parent::beforeSave())

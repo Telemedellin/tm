@@ -1,20 +1,27 @@
 <?php 
 $this->pageDesc = ($contenido['pagina']->meta_descripcion != '')? $contenido['pagina']->meta_descripcion : '';
+setlocale(LC_ALL, 'es_ES.UTF-8');
 ?>
 <?php if($articulos = $contenido['contenido']->articulos): ?>
-<div class="row">
-	<?php foreach( $articulos as $articulo ): $fecha = strtotime($articulo->creado);?>
+	<?php $columnas = 0; ?>
+	<?php foreach( $articulos as $articulo ): ?>
+	<?php if($columnas == 0): ?><div class="row-fluid"><?php endif; $columnas += 3; ?>
 	<div class="span3">
 		<a href="<?php echo bu($articulo->url->slug) ?>">
 			<div>
 				<h2><?php echo $articulo->nombre ?></h2>
-				<time><?php echo ucfirst(strftime('%B %e, %Y %l:%M %P', $fecha)); ?></time>
+				<?php if($contenido['contenido']->ver_fechas):?>
+					<time><?php echo ucfirst( strftime( '%B %e, %Y %l:%M %P', strtotime($articulo->creado) ) ); ?></time>
+				<?php endif ?>
 			</div>
-			<img src="<?php echo bu('images/'.$articulo->pgArticuloBlogs->miniatura) ?>" />
+			<figure>
+				<img src="<?php echo bu('images/'.$articulo->pgArticuloBlogs->miniatura) ?>" />
+			</figure>
 		</a>
 	</div>
+	<?php if($columnas >= 12):?></div><?php $columnas = 0;endif ?>
 	<?php endforeach ?>
-</div>
+	<?php if($columnas != 0):?></div><?php endif ?>
 <?php else: ?>
 <p>Aún no hay artículos</p>
 <?php endif; ?>

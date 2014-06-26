@@ -42,11 +42,11 @@ class PgBlog extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('pagina_id, estado', 'required'),
-			array('estado', 'numerical', 'integerOnly'=>true),
+			array('ver_fechas, estado', 'numerical', 'integerOnly'=>true),
 			array('pagina_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, pagina_id, estado', 'safe', 'on'=>'search'),
+			array('id, pagina_id, ver_fechas, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,6 +71,7 @@ class PgBlog extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'pagina_id' => 'Pagina',
+			'ver_fechas' => 'Mostrar fechas',
 			'estado' => 'Estado',
 		);
 	}
@@ -88,6 +89,7 @@ class PgBlog extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('pagina_id',$this->pagina_id,true);
+		$criteria->compare('ver_fechas',$this->ver_fechas,true);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(
@@ -97,7 +99,7 @@ class PgBlog extends CActiveRecord
 
 	protected function afterFind()
 	{
-		$this->articulos = Pagina::model()->findAllByAttributes( array('micrositio_id' => $this->pagina->micrositio_id, 'tipo_pagina_id' => 3) );
+		$this->articulos = Pagina::model()->findAllByAttributes( array('micrositio_id' => $this->pagina->micrositio_id, 'tipo_pagina_id' => 3), 'estado = 2' );
 		return parent::afterFind();
 	}
 }

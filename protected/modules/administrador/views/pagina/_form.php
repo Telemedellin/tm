@@ -38,7 +38,7 @@
 	<div class="form-group">
 		<?php echo $form->label($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-2">
-			<?php echo $form->dropDownList($model,'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control') ); ?>
+			<?php echo $form->dropDownList($model,'estado', array('2' => 'Sí', '1' => 'Archivado', '0' => 'No' ), array('class' => 'form-control') ); ?>
 		</div>
 		<?php echo $form->error($model,'estado'); ?>
 	</div>
@@ -49,7 +49,7 @@
 		</div>
 		<?php echo $form->error($model,'destacado'); ?>
 	</div>
-	<?php if (is_readable( $this->getViewPath().'/_' . lcfirst($partial) . '.php' )): ?>
+	<?php if (is_readable( $this->getViewPath().'/_' . lcfirst($partial) . 'Form' . '.php' )): ?>
 	<div id="contenido">
 		<h3>Página <?php echo $model->tipoPagina->nombre ?></h3>
 		<?php $this->renderPartial('_' . lcfirst($partial) . 'Form', array('contenido' => $contenido, 'form' => $form)); 

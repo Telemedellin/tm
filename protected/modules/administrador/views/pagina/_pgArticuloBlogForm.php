@@ -45,12 +45,5 @@
         </div>
         <?php echo $form->error($contenido,'comentarios'); ?>
     </div>
-    <div class="form-group">
-        <?php echo $form->label($contenido,'estado', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-3">
-            <?php echo $form->dropDownList($contenido, 'estado', array('1' => 'Publicado', '0' => 'Desactivado' ), array('class' => 'form-control')); ?>
-        </div>
-        <?php echo $form->error($contenido,'estado'); ?>
-    </div>
 	<input type="hidden" value="<?php echo Yii::app()->request->baseUrl ?>" id="PUBLIC_PATH"/>
 	<?php echo $this->renderPartial('../_file_upload_tmpl') ?>

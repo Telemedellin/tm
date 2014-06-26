@@ -1,3 +1,4 @@
+<?php /* @var $this Controller */ ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

@@ -17,7 +17,7 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 	<header>
 		<h1>
 			<a href="<?php echo bu('/'); ?>">
-				<img src="<?php echo bu('images/static'); ?>/logo-mobile.png" alt="Telemedellín, aquí te ves" title="Ir a la página de inicio de Telemedellín" width="100%" />
+				<img src="<?php echo bu('images/static'); ?>/logo-mobile.png" alt="Telemedellín, aquí te ves" title="Ir a la página de inicio de Telemedellín" />
 			</a>
 		</h1>
 	</header>

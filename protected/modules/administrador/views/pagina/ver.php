@@ -36,7 +36,7 @@
 				'modificado',
 				array(
 					'name' => 'estado',
-					'value' => (($model->estado==1)?'Si':'No'),
+					'value' => ($model->estado==2)?'Sí':( ($model->estado==1)?'Archivado':'No' ),
 				),
 				array(
 					'name' => 'destacado',

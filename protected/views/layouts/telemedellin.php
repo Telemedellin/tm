@@ -1,7 +1,4 @@
-<?php /* @var $this Controller */ 
-cs()->coreScriptPosition 		= CClientScript::POS_END;
-cs()->defaultScriptFilePosition = CClientScript::POS_END;
-?>
+<?php /* @var $this Controller */ ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,7 +19,7 @@ cs()->defaultScriptFilePosition = CClientScript::POS_END;
 			<header>
 				<h1>
 					<a href="<?php echo bu('/'); ?>">
-						<img src="<?php echo bu('images/static'); ?>/logo.png" alt="Telemedellín, aquí te ves" title="Ir a la página de inicio de Telemedellín" width="80%" />
+						<img src="<?php echo bu('images/static'); ?>/logo.png" alt="Telemedellín, aquí te ves" title="Ir a la página de inicio de Telemedellín" />
 					</a>
 				</h1>
 			</header>

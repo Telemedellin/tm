@@ -9,11 +9,15 @@ Yii::app()->clientScript->registerScript('menu_item',
     	if(el.val() == 1)
 		{
 			miu.parent().parent().hide();
+			miu.removeAttr('required');
 			miui.parent().parent().show();
+			miui.attr('required', true);
 		}else
 		{
 			miu.parent().parent().show();
+			miu.attr('required', true);
 			miui.parent().parent().hide();
+			miui.removeAttr('required');
 		}
 		miu.val('');
 		miui.val('');

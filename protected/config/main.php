@@ -171,7 +171,7 @@ return array(
             // ImageMagick setup path
             //'params'=>array('directory'=>'D:/Program Files/ImageMagick-6.4.8-Q16'),
         ),
-		/*'db'=>array(
+        /*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),*/
 		'errorHandler'=>array(

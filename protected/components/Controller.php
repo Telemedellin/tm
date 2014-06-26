@@ -53,6 +53,10 @@ class Controller extends CController
 	public function init() 
 	{
 		parent::init();
+
+		cs()->coreScriptPosition 		= CClientScript::POS_END;
+		cs()->defaultScriptFilePosition = CClientScript::POS_END;
+		
 		$this->theme = 'movil';
 
 		$useragent = $_SERVER['HTTP_USER_AGENT'];
