@@ -19,6 +19,7 @@ function abrir_multimedia(hash) {
 		old_content = micrositio.html();
 		micrositio.html(respuesta.responseText);
 	}
+	ga_track();
 }
 function accentsTidy(s){
   var r = s.toLowerCase();
@@ -69,6 +70,9 @@ function verificar_hash() {
 		if( hash_value.indexOf('imagenes') >= 0 || hash_value.indexOf('videos') >= 0)
 			abrir_multimedia(hash_value);
 	}
+}
+function ga_track(){
+    _gaq.push(['_trackEvent', 'Popup móvil', 'Click', location.pathname + '/' + location.hash]);
 }
 jQuery(function($) {
 	var w 		= $(window), 
