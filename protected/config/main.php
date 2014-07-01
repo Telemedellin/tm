@@ -25,6 +25,8 @@ return array(
 		'ext.image.Image', 
 		'application.modules.cruge.components.*',
 		'application.modules.cruge.extensions.crugemailer.*',
+		'application.extensions.yiifilemanager.*',
+		'application.extensions.yiifilemanagerfilepicker.*',
 	),
 
 	'modules'=>array(
@@ -40,8 +42,9 @@ return array(
 			// para que utilice a protected.modules.cruge.models.auth.CrugeAuthDefault.php
 			// en vez de 'default' pon 'authdemo' para que utilice el demo de autenticacion alterna
 			// para saber mas lee documentacion de la clase modules/cruge/models/auth/AlternateAuthDemo.php
-			'availableAuthMethods'=>array('default'),
-			'availableAuthModes'=>array('username','email'),
+			//'availableAuthMethods'=>array('default'),
+			'availableAuthMethods'=>array('authtm'),
+			'availableAuthModes'=>array(/*'username',/**/'email'),
             // url base para los links de activacion de cuenta de usuario
 			'baseUrl'=>'http://concursomedellin2018.com/tm/',
 			 // NO OLVIDES PONER EN FALSE TRAS INSTALAR
@@ -53,7 +56,7 @@ return array(
 			'useEncryptedPassword' => true,
 			// Algoritmo de la función hash que deseas usar
 			// Los valores admitidos están en: http://www.php.net/manual/en/function.hash-algos.php
-			'hash' => 'md5',
+			'hash' => 'bcrypt',
 			// Estos tres atributos controlan la redirección del usuario. Solo serán son usados si no
 			// hay un filtro de sesion definido (el componente MiSesionCruge), es mejor usar un filtro.
 			//  lee en la wiki acerca de:
@@ -64,8 +67,10 @@ return array(
 			//		'afterLogoutUrl'=>array('/site/page','view'=>'about'),
 			//
 			'afterLoginUrl'=>array('/administrador'),
-			'afterLogoutUrl'=>array('/cruge/ui/login'),
-			'afterSessionExpiredUrl'=>array('/cruge/ui/login'),
+			//'afterLogoutUrl'=>array('/cruge/ui/login'),
+			'afterLogoutUrl'=>array('/administrador/ingresar'),
+			//'afterSessionExpiredUrl'=>array('/cruge/ui/login'),
+			'afterSessionExpiredUrl'=>array('/administrador/ingresar'),
 			// manejo del layout con cruge.
 			//
 			'loginLayout'=>'//layouts/administrador',
@@ -102,7 +107,8 @@ return array(
 		),/**/
 		'user'=>array(
 			'allowAutoLogin' => true,
-			'loginUrl' 		 => array('/cruge/ui/login'),
+			//'loginUrl' 		 => array('/cruge/ui/login'),
+			'loginUrl' 		 => array('/administrador/ingresar'),
 			'class' 		 => 'application.modules.cruge.components.CrugeWebUser',
 		),
 		'authManager' => array(
@@ -171,7 +177,11 @@ return array(
             // ImageMagick setup path
             //'params'=>array('directory'=>'D:/Program Files/ImageMagick-6.4.8-Q16'),
         ),
-        /*'db'=>array(
+        'fileman' => array(
+	        'class'=>'application.extensions.yiifilemanager.YiiDiskFileManager',
+	        'storage_path' => realpath(dirname(__FILE__))."/../../archivos",
+		),
+		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),*/
 		'errorHandler'=>array(

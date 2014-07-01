@@ -32,6 +32,7 @@ class AdminController extends Controller
 		);
 	}
 
+	/*
 	public function actionIngresar()
 	{
 		$model = new LoginForm;
@@ -56,6 +57,46 @@ class AdminController extends Controller
 		// display the login form
 		$this->render('ingresar', array('model'=>$model));
 	}
+	/**/
+
+	public function actionIngresar()
+	{
+		$model = Yii::app()->user->um->getNewCrugeLogon('login');
+
+        // por ahora solo un metodo de autenticacion por vez es usado, aunque sea un array en config/main
+        //
+        $model->authMode = CrugeFactory::get()->getConfiguredAuthMethodName();
+
+        Yii::app()->user->setFlash('loginflash', null);
+
+        Yii::log(__CLASS__ . "\nactionLogin\n", "info");
+
+        if (isset($_POST[CrugeUtil::config()->postNameMappings['CrugeLogon']])) {
+            $model->attributes = $_POST[CrugeUtil::config()->postNameMappings['CrugeLogon']];
+            if ($model->validate()) {
+                if ($model->login(false) == true) {
+
+                    Yii::log(__CLASS__ . "\nCrugeLogon->login() returns true\n", "info");
+
+                    // a modo de conocimiento, Yii::app()->user->returnUrl es
+                    // establecida automaticamente por CAccessControlFilter cuando
+                    // preFilter llama a accessDenied quien a su vez llama a
+                    // CWebUser::loginRequired que es donde finalmente se llama a setReturnUrl
+                    $this->redirect(Yii::app()->user->returnUrl);
+                } else {
+                    Yii::app()->user->setFlash('loginflash', Yii::app()->user->getLastError());
+                }
+            } else {
+                Yii::log(
+                    __CLASS__ . "\nCrugeUser->validate es false\n" . CHtml::errorSummary($model)
+                    ,
+                    "error"
+                );
+            }
+        }
+        $this->render('ingresar', array('model' => $model));
+	}
+
 	/**
 	 * Logs out the current user and redirect to homepage.
 	 */

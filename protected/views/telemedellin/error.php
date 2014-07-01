@@ -1,5 +1,10 @@
 <?php
-$this->breadcrumbs = array('Error');
+$this->pageTitle = 'Página no encontrada (Error 404)';
+$this->breadcrumbs = array('Página no encontrada (Error 404)');
+cs()->registerScript('trackEvent', 
+	'
+	_gaq.push(["_trackEvent", "Error", "404", location.pathname]);
+	');
 if($this->beginCache( '404', array('duration' => 21600) )):
 ?>
 <div id="micrositio">

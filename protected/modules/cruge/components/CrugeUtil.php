@@ -127,7 +127,24 @@ class CrugeUtil extends CComponent
     public static function hash($value)
     {
         $algo = self::config()->hash;
-        return hash($algo, $value);
+        if($algo == 'bcrypt')
+            return Bcrypt::hash($value);
+        else
+            return hash($algo, $value);
+    }
+
+    public static function checkhash($current, $stored)
+    {
+        $algo = self::config()->hash;
+        if($algo == 'bcrypt')
+            return Bcrypt::check($current, $stored);
+        else
+        {
+            if (self::config()->useEncryptedPassword == true) {
+                $current = self::hash($current);
+            }
+            return $current == $stored;
+        }
     }
 
 }
