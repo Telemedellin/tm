@@ -61,6 +61,7 @@
 	?>
 </div>
 <div class="dots"></div>
+<?php $this->renderPartial('/layouts/_analytics'); ?>
 <?php cs()->registerCoreScript('jquery'); ?>
 <?php cs()->registerScriptFile(bu('/js/libs.min.js'), CClientScript::POS_END);?>
 <?php cs()->registerScriptFile(bu('/js/app.min.js'), CClientScript::POS_END);?>
@@ -68,6 +69,5 @@
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/ie.js"></script>
 <script>$('.marquesina').marquee('marquesina');</script>
 <![endif]-->
-<?php $this->renderPartial('/layouts/_analytics'); ?>
 </body>
 </html>
