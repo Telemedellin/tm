@@ -71,7 +71,7 @@ class AlbumFoto extends CActiveRecord
 		return array(
 			'url' => array(self::BELONGS_TO, 'Url', 'url_id'),
 			'micrositio' => array(self::BELONGS_TO, 'Micrositio', 'micrositio_id'),
-			'fotos' => array(self::HAS_MANY, 'Foto', 'album_foto_id'),
+			'fotos' => array(self::HAS_MANY, 'Foto', 'album_foto_id', 'order' => 'fotos.orden ASC, fotos.destacado DESC'),
 		);
 	}
 

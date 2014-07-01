@@ -47,7 +47,7 @@ class ApiController extends Controller
 		if(!$af) throw new CHttpException(404, 'No se encontró la página solicitada');
 
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM foto WHERE album_foto_id = $af->id AND estado <> 0");
-		$f = Foto::model()->cache(86400, $dependencia)->findAllByAttributes( array('album_foto_id' => $af->id), array('order' => 'destacado DESC, modificado DESC, creado DESC') );
+		$f = Foto::model()->cache(86400, $dependencia)->findAllByAttributes( array('album_foto_id' => $af->id), array('order' => 'orden ASC, destacado DESC') );
 		$json = '';
 		$json .= '[';
 			foreach($f as $foto):
