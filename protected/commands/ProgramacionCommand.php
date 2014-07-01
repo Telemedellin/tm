@@ -16,6 +16,12 @@ class ProgramacionCommand extends CConsoleCommand {
 			$hora_fin = $horario->hora_fin;
 			$estado = 1;
 
+			date_default_timezone_set('America/Bogota');
+			setlocale(LC_ALL, 'es_ES.UTF-8');
+
+			$sts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+			$tts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+
 			/* PILAS AQUÍ, FESTIVO /**/
 			if( $sts == mktime(0, 0, 0, 6, 23, date('Y')) ) continue;
 			if( $sts == mktime(0, 0, 0, 6, 30, date('Y')) ) continue;
@@ -27,12 +33,6 @@ class ProgramacionCommand extends CConsoleCommand {
 			if( $sts == mktime(0, 0, 0, 12, 8, date('Y')) ) continue;
 			if( $sts == mktime(0, 0, 0, 12, 25, date('Y')) ) continue;
 			
-			date_default_timezone_set('America/Bogota');
-			setlocale(LC_ALL, 'es_ES.UTF-8');
-
-			$sts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-			$tts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-
 			// set current date
 			// parse about any English textual datetime description into a Unix timestamp
 			$ts 		= $sts;
