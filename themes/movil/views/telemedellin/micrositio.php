@@ -28,6 +28,7 @@ else{
 		<?php echo $contenido; ?>
 	</div>
 	<?php if($formulario || $galeria || $video):?>
+	<div style="clear:both;"></div>
 	<div id="menu_inferior">
 		<?php if($formulario): ?>
 			<a href="<?php echo bu($micrositio->url->slug) ?>/escribenos" class="formulario" title="Ir al formulario de <?php echo $micrositio->nombre ?>"><span class="iconoForm"></span>

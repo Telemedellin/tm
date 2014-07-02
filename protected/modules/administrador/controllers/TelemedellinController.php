@@ -165,9 +165,9 @@ class TelemedellinController extends Controller
 				$micrositio->seccion_id 	= 1; //Telemedellín
 				$micrositio->usuario_id 	= 1;
 				$micrositio->nombre			= $programasForm->nombre;
-				$micrositio->background 	= $dirt . $programasForm->imagen;
-				$micrositio->background_mobile 	= $dirt . $programasForm->imagen_mobile;
-				$micrositio->miniatura 		= $dirt . $programasForm->miniatura;
+				$micrositio->background 	= ($programasForm->imagen != '')?$dirt . $programasForm->imagen:NULL;
+				$micrositio->background_mobile 	= ($programasForm->imagen_mobile != '')?$dirt . $programasForm->imagen_mobile:NULL;
+				$micrositio->miniatura 		= ($programasForm->miniatura != '')?$dirt . $programasForm->miniatura:NULL;
 				$micrositio->destacado		= $programasForm->destacado;
 				$micrositio->estado			= $programasForm->estado;
 				if( !$micrositio->save(false) ) $transaccion->rollback();

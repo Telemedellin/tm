@@ -63,8 +63,8 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-//$baseUrl = 'http://telemedellin.tv/';
-$baseUrl = 'http://concursomedellin2018.com/tm/';
+$baseUrl = 'http://telemedellin.tv/';
+//$baseUrl = 'http://concursomedellin2018.com/tm/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the
@@ -84,8 +84,8 @@ Examples:
 ATTENTION: The trailing slash is required.
 */
 //$baseDir = resolveUrl($baseUrl);
-//$baseDir = '/home/telemede/public_html/';
-$baseDir = '/home4/med2018/public_html/tm/';
+$baseDir = '/home/telemede/public_html/';
+//$baseDir = '/home4/med2018/public_html/tm/';
 
 /*
  * ### Advanced Settings
