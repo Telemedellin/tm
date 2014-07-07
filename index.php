@@ -7,7 +7,7 @@ if($track)
 	require_once( '/home/telemede/public_html' . "/ClickTale/ClickTaleTop.php" );
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/../framework/yii.php';
-$config=dirname(__FILE__).'/protected/config/main.php';
+$config=dirname(__FILE__).'/../protected-tm/config/main.php';
 
 // remove the following lines when in production mode
 defined('YII_DEBUG') or define('YII_DEBUG',false);
@@ -15,7 +15,7 @@ defined('YII_DEBUG') or define('YII_DEBUG',false);
 defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 
 require_once($yii);
-require_once('globals.php'); // Llamo las funciones globales
+require_once('../protected-tm/globals.php'); // Llamo las funciones globales
 Yii::createWebApplication($config)->run();
 if($track)
 	require_once( '/home/telemede/public_html' . "/ClickTale/ClickTaleBottom.php");
