@@ -1381,7 +1381,8 @@ th
 	min-width: 45%;
 	padding: 0 10px;
 }
-#menu_micrositio.especiales
+#menu_micrositio.especiales, 
+#menu_micrositio.PgBloques
 {
 	min-width: 99%;
 }
