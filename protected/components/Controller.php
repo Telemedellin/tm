@@ -43,7 +43,7 @@ class Controller extends CController
 	        echo "\t".'<meta name="robots" content="noindex">'.PHP_EOL;
 	    }
 	    echo "\t".'<title>' . $titulo . '</title>'.PHP_EOL;
-	    echo "\t".'<meta name="description" content="', h(substr(strip_tags($this->pageDesc), 0, 160)),'">'.PHP_EOL;
+	    echo "\t".'<meta name="description" content="', h(trim(substr(strip_tags($this->pageDesc), 0, 160))),'">'.PHP_EOL;
 	    echo "\t".'<meta property="og:title" content="' . $titulo . '" />'.PHP_EOL;
 	    echo "\t".'<meta property="og:type" content="website" />'.PHP_EOL;
 	    echo "\t".'<meta property="og:url" content="http://telemedellin.tv' . $ru .'" />'.PHP_EOL;
@@ -76,4 +76,25 @@ class Controller extends CController
 		Yii::app()->setTheme($this->theme);
 		return true;
 	}
+
+	public function actionError()
+	{
+		$url 			= Yii::app()->request->requestUri;
+		$referer 		= Yii::app()->request->urlReferrer;
+		$userAgent 		= Yii::app()->request->userAgent;
+		$userHost  		= Yii::app()->request->userHost;
+		$userHostAddress= Yii::app()->request->userHostAddress;
+		Yii::log(
+			PHP_EOL . '<--->'				.
+			PHP_EOL . 'URL: ' 				. $url .
+			PHP_EOL . 'Referer: ' 			. $referer.
+			PHP_EOL . 'User Agent: ' 		. $userAgent.
+			PHP_EOL . 'User Host: ' 		. $userHost.
+			PHP_EOL . 'User Host Address: ' . $userHostAddress, 
+			CLogger::LEVEL_INFO, 
+			'404'
+		);
+		$this->render('error');
+	}
+
 }
