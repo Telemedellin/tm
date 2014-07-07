@@ -31,12 +31,12 @@ return array(
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
-		'gii'=>array(
+		/*'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'asdf1234*',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
-		),
+		),/**/
 		'cruge'=>array(
 			'tableprefix'=>'cruge_',
 			// para que utilice a protected.modules.cruge.models.auth.CrugeAuthDefault.php
@@ -61,6 +61,7 @@ return array(
 			// hay un filtro de sesion definido (el componente MiSesionCruge), es mejor usar un filtro.
 			//  lee en la wiki acerca de:
             //   "CONTROL AVANZADO DE SESIONES Y EVENTOS DE AUTENTICACION Y SESION"
+            'defaultSessionFilter'=>'application.components.MiSesionCruge',
             //
 			// ejemplo:
 			//		'afterLoginUrl'=>array('/site/welcome'),  ( !!! no olvidar el slash inicial / )
@@ -70,7 +71,7 @@ return array(
 			//'afterLogoutUrl'=>array('/cruge/ui/login'),
 			'afterLogoutUrl'=>array('/administrador/ingresar'),
 			//'afterSessionExpiredUrl'=>array('/cruge/ui/login'),
-			'afterSessionExpiredUrl'=>array('/administrador/ingresar'),
+			'afterSessionExpiredUrl'=>null,/*array('/administrador/ingresar'),/**/
 			// manejo del layout con cruge.
 			//
 			'loginLayout'=>'//layouts/administrador',
@@ -89,6 +90,7 @@ return array(
 			'userDescriptionFieldsArray'=>array('email'), 
 		),
 		'administrador' => array(), 
+		'usuario' => array(), 
 	),
 	'controllerMap'=>array(
 	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController', 
@@ -128,9 +130,9 @@ return array(
 			'urlFormat'=>'path',
 			'showScriptName' => false,
 			'rules'=>array(
-				'gii'=>'gii',
+				/*'gii'=>'gii',
 	            'gii/<controller:\w+>'=>'gii/<controller>',
-	            'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',
+	            'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',/**/
 	            'administrador'=>'administrador/admin',
 	            'administrador/ingresar'=>'administrador/admin/ingresar',
 	            'administrador/registro'=>'administrador/admin/registro',

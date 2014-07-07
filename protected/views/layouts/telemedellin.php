@@ -29,7 +29,7 @@
 		    ?>
 			</nav>
 		</div>
-		<?php $this->renderPartial('/layouts/_footer'); ?>
+		<?php $this->renderPartial('//layouts/_footer'); ?>
 	</div>
 	<div id="content">
 	<?php if( count($this->breadcrumbs) ): ?>
@@ -61,7 +61,7 @@
 	?>
 </div>
 <div class="dots"></div>
-<?php $this->renderPartial('/layouts/_analytics'); ?>
+<?php $this->renderPartial('//layouts/_analytics'); ?>
 <?php cs()->registerCoreScript('jquery'); ?>
 <?php cs()->registerScriptFile(bu('/js/libs.min.js'), CClientScript::POS_END);?>
 <?php cs()->registerScriptFile(bu('/js/app.min.js'), CClientScript::POS_END);?>
