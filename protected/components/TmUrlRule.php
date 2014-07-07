@@ -22,8 +22,9 @@ class TmUrlRule extends CBaseUrlRule
             $slug = $this->verificar_slug($pathInfo);
             if( !$slug )
             {
-                if( !$this->completar_slug($pathInfo) ) return false;
-                if( !$this->crear_slug($pedazos) ) return false;
+                if( !$this->completar_slug($pathInfo) ) 
+                    if( !$this->crear_slug($pedazos) ) 
+                        return false;
             }
             $_GET['tm'] = $slug;
             switch ( $slug->tipo_id ) {
@@ -74,7 +75,7 @@ class TmUrlRule extends CBaseUrlRule
         {
             $s = $pedazos[3];
             //Si la página es el home antiguo /Paginas/default.aspx
-            if($s == 'default') Yii::app()->request->redirect(bu('telemedellin'), true, 301);
+            if($s == 'default') Yii::app()->request->redirect(bu(''), true, 301);
             else if($s == 'senalenvivo') Yii::app()->request->redirect(bu('senal-en-vivo'), true, 301);
             else if($s == 'programacion') Yii::app()->request->redirect(bu('programacion'), true, 301);
             else if($s == 'nuestros-programas') Yii::app()->request->redirect(bu('programas'), true, 301);
