@@ -8,6 +8,10 @@
  * @property string $nombre
  * @property string $imagen
  * @property string $imagen_mobile
+ * @property string $contador
+ * @property string $fuente
+ * @property integer $tamano
+ * @property string $color
  * @property string $creado
  * @property string $modificado
  * @property string $inicio_publicacion
@@ -46,12 +50,14 @@ class Banner extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nombre, imagen, imagen_mobile, contador, estado', 'required'),
-			array('contador, estado', 'numerical', 'integerOnly'=>true),
+			array('contador, tamano, estado', 'numerical', 'integerOnly'=>true),
 			array('nombre, imagen, imagen_mobile, url', 'length', 'max'=>255),
+			array('fuente', 'length', 'max'=>100),
+			array('color', 'length', 'max'=>7),
 			array('fin_contador, inicio_publicacion, fin_publicacion', 'length', 'max'=>19),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nombre, imagen, imagen_mobile, url, creado, modificado, contador, fin_contador, inicio_publicacion, fin_publicacion, estado', 'safe', 'on'=>'search'),
+			array('id, nombre, imagen, imagen_mobile, url, creado, modificado, contador, fuente, tamano, color, fin_contador, inicio_publicacion, fin_publicacion, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,6 +84,9 @@ class Banner extends CActiveRecord
 			'imagen_mobile' => 'Imagen (Móvil)',
 			'url' => 'Url',
 			'contador' => 'Contador',
+			'fuente' => 'Fuente',
+			'tamano' => 'Tamaño (Fuente)',
+			'color' => 'Color (Fuente)',
 			'fin_contador' => 'Fin contador',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
@@ -104,6 +113,9 @@ class Banner extends CActiveRecord
 		$criteria->compare('imagen_mobile',$this->imagen_mobile,true);
 		$criteria->compare('url',$this->url);
 		$criteria->compare('contador',$this->contador);
+		$criteria->compare('fuente',$this->fuente);
+		$criteria->compare('tamano',$this->tamano);
+		$criteria->compare('color',$this->color);
 		$criteria->compare('fin_contador',$this->fin_contador);
 		$criteria->compare('creado',$this->creado);
 		$criteria->compare('modificado',$this->modificado);

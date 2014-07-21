@@ -49,7 +49,7 @@ select
 	color: #9f9ea3;
 	font-size: 1em;
 	margin-bottom: 1em;
-	padding: .5em 1.2em .5em .5em;
+	padding: .4em 1.2em .4em .5em;
 }
 table
 {
@@ -562,7 +562,19 @@ th
     letter-spacing: 17px;
     line-height: 1;
     position: absolute;
-    top: 60px;
+    top: 55px;
+}
+#banner .txt_conta
+{
+	font-weight: bold;
+    left: 15px;
+    letter-spacing: normal;
+    line-height: 1;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    top: 95px;
+    width: 62px;
 }
 
 @keyframes banner{
@@ -1382,7 +1394,8 @@ th
 	padding: 0 10px;
 }
 #menu_micrositio.especiales, 
-#menu_micrositio.PgBloques
+#menu_micrositio.PgBloques, 
+#menu_micrositio.PgBlog
 {
 	min-width: 99%;
 }
@@ -1593,7 +1606,8 @@ th
 	color: #ababab;
 	font-size: .8em;
 }
-#micrositio.PgBloques
+#micrositio.PgBloques, 
+#micrositio.PgBlog
 {
 	width: 99%;
 }

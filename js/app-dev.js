@@ -400,22 +400,31 @@ jQuery(function($) {
     var Count, 
         Today     = new Date(), 
         contador  = $('#contador'),
+        txt_conta = $('.txt_conta'), 
         EDate     = (contador.data('fin')*1000),
-        TDay      = new Date(EDate);
+        TDay      = new Date(EDate),
+        txt       = 'días';
         //TDay  = new Date(2014, 5, 11, 21, 30);
     
 
     Count  = (TDay-Today)/(1000*60*60*24);//días
     if(Count <= 1)
+    {
       Count  = (TDay-Today)/(1000*60*60);//horas
+      txt = 'horas';
+    }
     if(Count <= 1)
+    {
       Count  = (TDay-Today)/(1000*60);//minutos
+      txt = 'minutos';
+    }
     
     Count      = Math.round(Count); 
     if(Count > 0)
     {
       if(Count.toString().length == 1) Count = '0'+Count;
       contador.text(Count);
+      txt_conta.text(txt);
     }else
     {
       contador.hide();

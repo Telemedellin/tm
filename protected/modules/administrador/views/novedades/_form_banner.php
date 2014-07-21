@@ -118,6 +118,41 @@ Yii::app()->clientScript->registerScript('datepicker',
         <?php echo $form->error($model,'fin_contador'); ?>
     </div>
     <div class="form-group">
+        <?php echo $form->label($model,'fuente', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-6">
+            <?php echo $form->dropDownList($model,'fuente', 
+            array(
+                'Arial, Helvetica, sans-serif' => 'Arial, Helvetica, sans-serif', 
+                "Comic Sans MS', cursive" => "Comic Sans MS', cursive",
+                "'Courier New', Courier, monospace" => "'Courier New', Courier, monospace",
+                "Garamond, serif" => "Garamond, serif",
+                "Georgia, serif" => "Georgia, serif",
+                "Impact, Charcoal, sans-serif" => "Impact, Charcoal, sans-serif",
+                "Consolas, 'Lucida Console', Monaco, monospace",
+                "'Lucida Sans Unicode', 'Lucida Grande', sans-serif" => "'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+                "Tahoma, Geneva, sans-serif" => "Tahoma, Geneva, sans-serif",
+                "'Times New Roman', Times, serif" => "'Times New Roman', Times, serif",
+                "'Trebuchet MS', Helvetica, sans-serif" => "'Trebuchet MS', Helvetica, sans-serif",
+                ), 
+            array('class' => 'form-control', 'placeholder' => 'Arial, Helvetica, sans-serif')); ?>
+        </div>
+        <?php echo $form->error($model,'fuente'); ?>
+    </div>
+    <div class="form-group">
+        <?php echo $form->label($model,'tamano', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-6">
+            <?php echo $form->numberField($model,'tamano',array('size'=>60, 'min'=>9, 'max' => 30, 'class' => 'form-control')); ?>
+        </div>
+        <?php echo $form->error($model,'tamano'); ?>
+    </div>
+    <div class="form-group">
+        <?php echo $form->label($model,'color', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-6">
+            <?php echo $form->textField($model,'color',array('size'=>60,'maxlength'=>7, 'class' => 'form-control', 'placeholder' => '#000000')); ?>
+        </div>
+        <?php echo $form->error($model,'color'); ?>
+    </div>
+    <div class="form-group">
 		<?php echo $form->label($model,'inicio_publicacion', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-2">
             <input name="Banner[inicio_publicacion]" type="text" value="<?php echo $model->inicio_publicacion ?>" class="inicio_publicacion form-control" />
