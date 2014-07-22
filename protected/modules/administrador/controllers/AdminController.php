@@ -23,7 +23,7 @@ class AdminController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow',
-				'actions'=>array('index'),
+				'actions'=>array('index', 'borrarcache'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -200,4 +200,12 @@ class AdminController extends Controller
 			)
 		);
 	}
+
+
+	function actionBorrarcache()
+	{
+		Yii::app()->cache->flush();
+		$this->redirect('/administrador');
+	}
+
 }

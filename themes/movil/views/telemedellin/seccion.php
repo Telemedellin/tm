@@ -6,7 +6,9 @@ $this->pageTitle = $seccion->nombre;
 if($seccion->meta_descripcion != '') $this->pageDesc = $seccion->meta_descripcion;
 $destacados = '';
 if($seccion->url->slug == 'concursos')
-	cs()->registerCss('background', 'body{background-image: url("' . bu('/images/backgrounds/concursos/general-de-concurso.jpg') . '");}');
+	$bg = bu('/images/backgrounds/concursos/general-de-concurso.jpg');
+	cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');
+	$this->pageTitle = $bg;
 ?>
 <div id="seccion" class="<?php echo $seccion->url->slug; ?>">
 	<div class="listado">

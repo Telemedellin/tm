@@ -19,6 +19,8 @@ if($this->beginCache(
     $i         = 0;
     if($this->getNovedades()):
     foreach($this->getNovedades() as $novedad): 
+      $img = bu('/images/' . $novedad->pgArticuloBlogs->imagen);
+      if($i == 0) $this->controller->pageImg = $img;
       $ee = $novedad->pgArticuloBlogs->enlace;
       if( $ee == '' ){
         $enlace = array('tipo' => 'interno', 'enlace' => bu($novedad->url->slug));
@@ -31,7 +33,7 @@ if($this->beginCache(
       }
   ?>
     <li class="novedad">
-      <img src="<?php echo bu('/images/' . $novedad->pgArticuloBlogs->imagen); ?>" alt="<?php echo str_replace('"', "'", $novedad->nombre); ?>" />
+      <img src="<?php echo $img; ?>" alt="<?php echo str_replace('"', "'", $novedad->nombre); ?>" />
       <div class="dots"></div>
       <div class="container <?php echo ($novedad->pgArticuloBlogs->posicion==1)?'ntop':'nbottom'; ?>">
         <h2><?php echo $novedad->nombre; ?></h2>

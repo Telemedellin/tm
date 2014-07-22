@@ -15,6 +15,7 @@ if($fondo_pagina == NULL)
 else{
 	$bg = bu('/images/' . $fondo_pagina);
 	cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');
+	$this->pageImg = $bg;
 }
 ?>
 <div id="content">

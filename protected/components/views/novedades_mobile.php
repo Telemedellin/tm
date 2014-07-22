@@ -28,9 +28,11 @@ if($this->beginCache(
           $enlace = array('tipo' => 'externo', 'enlace' => $ee);
       }
       $background = ($novedad->pgArticuloBlogs->imagen_mobile != '')?$novedad->pgArticuloBlogs->imagen_mobile:$novedad->pgArticuloBlogs->imagen;
+      $background = bu('/images/' . $background);
+      $this->controller->pageImg = $background;
     ?>
     <li class="novedad">
-      <img src="<?php echo bu('/images/' . $background) ?>" alt="<?php echo str_replace('"', "'", $novedad->nombre); ?>" />
+      <img src="<?php echo $background ?>" alt="<?php echo str_replace('"', "'", $novedad->nombre); ?>" />
       <div class="container <?php echo ($novedad->pgArticuloBlogs->posicion==1)?'ntop':'nbottom'; ?>">
         <h2><?php echo $novedad->nombre; ?></h2>
         <?php echo $novedad->pgArticuloBlogs->entradilla; ?>

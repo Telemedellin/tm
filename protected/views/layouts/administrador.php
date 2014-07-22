@@ -112,6 +112,9 @@
 			</div>
 			<p class="navbar-text pull-right">
 				<?php echo l( '<span class="glyphicon glyphicon-user"></span>', bu('cruge/ui/editprofile'), array('class' => 'navbar-link', 'title' => Yii::app()->user->getState('correo')) ); ?>
+				<?php if( Yii::app()->user->isSuperAdmin ): ?>
+				<?php echo l( '<span class="glyphicon glyphicon-refresh"></span>', bu('administrador/borrarcache'), array('class' => 'navbar-link') ); ?>
+				<?php endif ?>
 				<?php echo l( '<span class="glyphicon glyphicon-off"></span>', bu('administrador/salir'), array('class' => 'navbar-link', 'title' => 'Salir') ); ?>
 			</p>
 			<?php endif ?>

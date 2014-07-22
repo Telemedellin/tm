@@ -25,6 +25,7 @@ return array(
 		'ext.image.Image', 
 		'application.modules.cruge.components.*',
 		'application.modules.cruge.extensions.crugemailer.*',
+		'application.modules.usuario.models.*',
 		'application.extensions.yiifilemanager.*',
 		'application.extensions.yiifilemanagerfilepicker.*',
 	),
@@ -117,9 +118,9 @@ return array(
 			'class' => 'application.components.MyCrugeAuthManager',
 		),
 		'crugemailer'=>array(
-			'class' 		=> 'application.modules.cruge.components.CrugeMailer',
-			'mailfrom' 		=> 'no-reply@telemedellin.tv',
-			'subjectprefix' => 'TM - ',
+			'class' 		=> 'application.components.MiCrugeMailer',
+			'mailfrom' 		=> 'registro@telemedellin.tv',
+			'subjectprefix' => '',
 			'debug' 		=> true,
 		),
 		'format' => array(
@@ -134,6 +135,7 @@ return array(
 	            'gii/<controller:\w+>'=>'gii/<controller>',
 	            'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',/**/
 	            'administrador'=>'administrador/admin',
+	            'administrador/borrarcache'=>'administrador/admin/borrarcache',
 	            'administrador/ingresar'=>'administrador/admin/ingresar',
 	            'administrador/registro'=>'administrador/admin/registro',
 	            'administrador/salir'=>'administrador/admin/salir',
