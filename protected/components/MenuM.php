@@ -20,6 +20,8 @@ class MenuM extends CWidget
         array_unshift($this->menu, $programacion);
         array_unshift($this->menu, $dos);
         array_unshift($this->menu, $uno);
+        //array_unshift($this->menu, $ini);
+        //array_push($this->menu, $programacion);
         $this->widget('zii.widgets.CMenu', array('items' => $this->menu) );
     }
 
@@ -52,7 +54,7 @@ class MenuM extends CWidget
 
         $c = new CDbCriteria;
         $c->addCondition('t.estado <> 0');
-        $c->addCondition('micrositios.estado <> 0');
+        $c->addCondition('micrositios.estado > 1');
         if($url_id == 1) $c->order  = 'micrositios.creado DESC';
         else $c->order  = 't.nombre ASC';
         
@@ -64,7 +66,7 @@ class MenuM extends CWidget
         else
         {
             $c = new CDbCriteria;
-            $c->addCondition('t.estado <> 0');
+            $c->addCondition('t.estado > 1');
             $c->addCondition('paginas.estado <> 0');
             $c->order  = 't.nombre DESC';
             $micrositio = Micrositio::model()->cache(21600, $dependencia)->with('paginas')->findByAttributes( array('url_id' => $url_id), $c );
