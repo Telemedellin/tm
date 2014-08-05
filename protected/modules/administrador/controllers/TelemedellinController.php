@@ -112,6 +112,17 @@ class TelemedellinController extends Controller
 													        'with'=>array('pgGenericaSts'),
 													    )) );
 
+		$videos = new CActiveDataProvider( 'AlbumVideo', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$model->id,
+													        'with'=>array('videos', 'url'),
+													    )) );
+		$fotos = new CActiveDataProvider( 'AlbumFoto', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$model->id,
+													        'with'=>array('fotos', 'url'),
+													    )) );
+
 		if($model->menu):
 			$menu = new CActiveDataProvider( 'MenuItem', array(
 													    'criteria'=>array(
@@ -124,6 +135,8 @@ class TelemedellinController extends Controller
 
 		$this->render('ver', array(
 			'model' => $model,
+			'videos' => $videos, 
+			'fotos' => $fotos, 
 			'contenido' => $contenido,
 			'menu' => $menu, 
 		));
