@@ -2,19 +2,38 @@
 class TmUrlRule extends CBaseUrlRule
 {
     public $connectionID = 'db';
- 
+    public $redirecciones = 
+        array(
+            'default'               => '',
+            'inicio'                => '',
+            'emisora'               => 'radio', 
+            'senalenvivo'           => 'senal-en-vivo', 
+            'programacion'          => 'programacion', 
+            'nuestros-programas'    => 'programas', 
+            'especial'              => 'especiales', 
+            'concurso'              => 'concursos', 
+            'pagina_nueva'          => 'senal-en-vivo', 
+            'mapa-sitio'            => 'mapa-del-sitio', 
+            'suso-show'             => 'programas/the-suso-s-show',
+            'laviejoteca'           => 'programas/la-viejoteca',
+            'taxi'                  => 'programas/taxi-historias-sin-fronteras',
+            'clima247'              => 'programas/clima-247', 
+            'copatelemedellinrugby' => 'programas/copa-telemedellin-de-rugby-15-s', 
+            'capicua'               => 'programas/ciudad-escuela', 
+            'institucional'         => 'telemedellin/institucional',
+            'canal-parque'          => 'telemedellin/quienes-somos/canal-parque',
+            'contactenos'           => 'telemedellin/utilidades/escribenos', 
+            'terminos-condiciones'  => 'telemedellin/utilidades/terminos-y-condiciones-de-uso', 
+            'valiente'              => 'documentales/valiente-valentina', 
+            'elhacedor'             => 'documentales/el-hacedor-de-imanes', 
+            'sistemainformativotelemedellin' => 'programas/noticias-telemedellin', 
+        );
+
     public function createUrl($manager, $route, $params, $ampersand)
     {
-        /*if ($route==='car/index')
-        {
-            if (isset($params['manufacturer'], $params['model']))
-                return $params['manufacturer'] . '/' . $params['model'];
-            else if (isset($params['manufacturer']))
-                return $params['manufacturer'];
-        }*/
         return false;  // this rule does not apply
     }
-
+ 
     public function parseUrl($manager, $request, $pathInfo, $rawPathInfo)
     {
         if ( preg_match('%^([\w-]+)(/([\w-]+))?(/([\w-]+))?%', $pathInfo, $pedazos) )
@@ -59,50 +78,39 @@ class TmUrlRule extends CBaseUrlRule
         $raiz = $pedazos[1];
         if($raiz != 'Paginas')
         {
-            if($raiz == 'institucional') Yii::app()->request->redirect(bu('telemedellin/institucional'), true, 301);
-            else if($raiz == 'canal-parque') Yii::app()->request->redirect(bu('telemedellin/quienes-somos/canal-parque'), true, 301);
-            else if($raiz == 'suso-show') Yii::app()->request->redirect(bu('programas/the-suso-s-show'), true, 301);
-            else if($raiz == 'laviejoteca') Yii::app()->request->redirect(bu('programas/la-viejoteca'), true, 301);
-            else if($raiz == 'taxi') Yii::app()->request->redirect(bu('programas/taxi-historias-sin-fronteras'), true, 301);
-            else if($raiz == 'clima247') Yii::app()->request->redirect(bu('programas/clima-247'), true, 301);
-            else if($raiz == 'copatelemedellinrugby') Yii::app()->request->redirect(bu('programas/copa-telemedellin-de-rugby-15-s'), true, 301);
-            else if($raiz == 'capicua') Yii::app()->request->redirect(bu('programas/ciudad-escuela'), true, 301);
-            else if($raiz == 'pagina_nueva') Yii::app()->request->redirect(bu('senal-en-vivo'), true, 301);
+            $this->corregir_url($raiz);
             return $this->completar_slug($raiz);
         }
         //Detecto si viene para alguna página suelta
         else if($raiz == 'Paginas' && count($pedazos > 3))
         {
             $s = $pedazos[3];
-            //Si la página es el home antiguo /Paginas/default.aspx
-            if($s == 'default') Yii::app()->request->redirect(bu(''), true, 301);
-            else if($s == 'senalenvivo') Yii::app()->request->redirect(bu('senal-en-vivo'), true, 301);
-            else if($s == 'programacion') Yii::app()->request->redirect(bu('programacion'), true, 301);
-            else if($s == 'nuestros-programas') Yii::app()->request->redirect(bu('programas'), true, 301);
-            else if($s == 'contactenos') Yii::app()->request->redirect(bu('telemedellin/utilidades/escribenos'), true, 301);
-            else if($s == 'terminos-condiciones') Yii::app()->request->redirect(bu('telemedellin/utilidades/terminos-y-condiciones-de-uso'), true, 301);
-            else if($s == 'mapa-sitio') Yii::app()->request->redirect(bu('mapa-del-sitio'), true, 301);
-            else if(strpos($s, "concurso") !== false) Yii::app()->request->redirect(bu('concursos'), true, 301);
-            else if($s == 'sistemainformativotelemedellin') Yii::app()->request->redirect(bu('programas/noticias-telemedellin'), true, 301);
-            else if(strpos($s, "valiente") !== false) Yii::app()->request->redirect(bu('documentales/valiente-valentina'), true, 301);
-            else if(strpos($s, "elhacedor") !== false) Yii::app()->request->redirect(bu('documentales/el-hacedor-de-imanes'), true, 301);
-            else if(strpos($s, "especial") !== false) Yii::app()->request->redirect(bu('especiales'), true, 301);
+            $this->corregir_url($s);
+            $this->corregir_url($s, true);
             return $this->completar_slug($s);
         }//if($pedazos[1]...
     }
 
+    private function corregir_url( $old_url, $fragment = false)
+    {
+        foreach($this->redirecciones as $old => $new)
+        {
+            $condicion = ( $fragment )? ( strpos($old_url, $old) !== false ): $old_url == $old;
+            if( $condicion ) Yii::app()->request->redirect(bu($new), true, 301);
+        }
+        return false;
+    }
+
     private function completar_slug($pathInfo)
     {
-        $p = 'programas/' . $pathInfo;
-        $e = 'especiales/' . $pathInfo;
-        $c = 'concursos/' . $pathInfo;
-        $d = 'documentales/' . $pathInfo;
-        $t = 'telemedellin/' . $pathInfo;
-        if($this->verificar_slug($p)) Yii::app()->request->redirect(bu($p), true, 301);
-        else if($this->verificar_slug($e)) Yii::app()->request->redirect(bu($e), true, 301);
-        else if($this->verificar_slug($c)) Yii::app()->request->redirect(bu($c), true, 301);
-        else if($this->verificar_slug($d)) Yii::app()->request->redirect(bu($d), true, 301);
-        else if($this->verificar_slug($t)) Yii::app()->request->redirect(bu($t), true, 301);
-        else return false;
+        $slugs = array( 'programas/' . $pathInfo,
+                        'especiales/' . $pathInfo,
+                        'concursos/' . $pathInfo,
+                        'documentales/' . $pathInfo,
+                        'telemedellin/' . $pathInfo,
+                    );
+        foreach($slugs as $slug)
+            if($this->verificar_slug($slug)) Yii::app()->request->redirect(bu($slug), true, 301);
+        return false;
     }
 }
