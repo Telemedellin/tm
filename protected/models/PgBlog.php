@@ -99,7 +99,7 @@ class PgBlog extends CActiveRecord
 
 	protected function afterFind()
 	{
-		$this->articulos = Pagina::model()->findAllByAttributes( array('micrositio_id' => $this->pagina->micrositio_id, 'tipo_pagina_id' => 3), 'estado = 2' );
+		$this->articulos = Pagina::model()->findAllByAttributes( array('micrositio_id' => $this->pagina->micrositio_id, 'tipo_pagina_id' => 3, 'estado' => 2), array('order' => 'creado DESC') );
 		return parent::afterFind();
 	}
 }
