@@ -361,7 +361,8 @@ class ApiController extends Controller
 				</body>
 				</html>';
 	 
-	        echo $body;
+	        //echo $body;
+			echo'';
 	    }
 	    Yii::app()->end();
 	}//_sendResponse
