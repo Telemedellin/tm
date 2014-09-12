@@ -54,8 +54,8 @@
 	</div>
     <div class="form-group">
         <?php echo $form->label($model,'meta_descripcion', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-6">
-            <?php echo $form->textArea($model,'meta_descripcion',array('rows'=> 3,'maxlength'=>200, 'class' => 'form-control', 'placeholder' => 'Esta descripción es solo para motores de búsqueda y no debe contener más de 160 carcteres.')); ?>
+        <div class="col-sm-8">
+            <?php echo $form->textArea($model,'meta_descripcion',array('rows'=> 3,'maxlength'=>200, 'class' => 'form-control texto-limitado', 'data-limite' => '180', 'placeholder' => 'Esta descripción es solo para motores de búsqueda y no debe contener más de 160 carcteres.')); ?>
         </div>
         <?php echo $form->error($model,'meta_descripcion'); ?>
     </div>
