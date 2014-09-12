@@ -1,4 +1,41 @@
 jQuery(function($) {   
+
+    var limitado = $('.texto-limitado');
+    if(limitado[0])
+    {
+        limitado.after('<div class="counter"><span>0</span> caracteres</div>');
+        var limitnum = 200; // set your int limit for max number of characters
+        if(limitado.data('limite'))
+            limitnum = limitado.data('limite');
+        function limiting(obj, limit) {
+            var cnt = $(".counter > span"),
+                txt = $(obj).val(),
+                len = txt.length;
+
+            // check if the current length is over the limit
+            if(len > limit){
+                $(obj).val(txt.substr(0,limit));
+                $(cnt).html(len-1);
+            } 
+            else { 
+                $(cnt).html(len);
+            }
+
+            // check if user has less than 20 chars left
+            if(limit-len <= 20) {
+                $(cnt).addClass("warning");
+            }else
+            {
+                $(cnt).removeClass("warning");
+            }
+
+        }
+        limitado.keyup(function(){
+            limiting($(this), limitnum);
+        });
+        limiting(limitado, limitnum);
+    }//if(limitado[0])
+
     $('#carpetas').jstree({
         "themes" : {
             "theme" : "default",

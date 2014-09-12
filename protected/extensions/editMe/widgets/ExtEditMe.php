@@ -349,8 +349,8 @@ class ExtEditMe extends CInputWidget {
 		// Generate "autoUpdateElement" config value
 		$ckeConfig['autoUpdateElement'] = true;
 
-		$ckeConfig['extraPlugins'] = 'charcount';
-		$ckeConfig['maxLength'] = 0;
+		//$ckeConfig['extraPlugins'] = 'charcount';
+		//$ckeConfig['maxLength'] = 0;
 		// Generate config values which are defined in ExtEditMe::$ckeConfig
 		foreach ($this -> ckeConfig as $ckeConfigName => $ckeConfigValue) {
 			$ckeConfig[$ckeConfigName] = $ckeConfigValue;
