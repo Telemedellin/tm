@@ -167,7 +167,7 @@ class GalleryController extends CController
             $resp[] = array(
                 'id' => $model->id,
                 'rank' => $model->orden,
-                'name' => (string)$model->nombre,
+                'nombre' => (string)$model->nombre,
                 'description' => (string)$model->descripcion,
                 'preview' => $this->galleryDir . '/' . $af->directorio . $model->thumb,
             );
