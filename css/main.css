@@ -22,6 +22,49 @@ body.home {
 footer img {
 	max-width: 90%;
 }
+form .controls.success::after, 
+form .controls.success:after
+{
+	content: " \2714";
+}
+form .controls.error::after, 
+form .controls.error:after
+{
+	content: " X";
+}
+form .controls.validating::after, 
+form .controls.validating:after
+{
+	content: " \27F3";
+	-webkit-animation-name: spin;
+    -webkit-animation-duration: 1000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 1000ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 1000ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@-moz-keyframes spin {
+    from {-moz-transform: rotate(0deg); }
+    to {-moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from {-webkit-transform: rotate(0deg); }
+    to {-webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}/**/
 html {
 	height: 100%;
 }
@@ -226,7 +269,7 @@ th
 }
 .mCustomScrollBox>.mCSB_scrollTools {
 	height: 96%;
-	margin: 2% 1%;
+	margin: 1% 1%;
 	right: 0;
 	top: 0;
 	width: 16px;
@@ -254,9 +297,10 @@ th
 	cursor: pointer;
 	width: 100%;
 	height: 30px;
+	z-index: 3;
 }
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
-	width: 4px;
+	width: 8px;
 	height: 100%;
 	margin: 0 auto;
 	-webkit-border-radius: 10px;
@@ -1570,6 +1614,9 @@ th
 {
 	background: rgba(0, 0, 0, .7);
 	bottom: 0px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	margin: 0;
 	padding: 10px 8px;
 	position: absolute;
