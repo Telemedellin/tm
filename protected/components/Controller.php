@@ -49,8 +49,8 @@ class Controller extends CController
 	    echo "\t".'<meta name="description" content="', h(trim(substr(strip_tags($this->pageDesc), 0, 160))),'">'.PHP_EOL;
 	    echo "\t".'<meta property="og:title" content="' . $titulo . '">'.PHP_EOL;
 	    echo "\t".'<meta property="og:type" content="website">'.PHP_EOL;
-	    echo "\t".'<meta property="og:url" content="http://telemedellin.tv' . $ru .'">'.PHP_EOL;
-		echo "\t".'<meta property="og:image" content="'. $base.$this->pageImg .'">'.PHP_EOL;
+	    echo "\t".'<meta property="og:url" content="'. $base . $ru .'">'.PHP_EOL;
+		echo "\t".'<meta property="og:image" content="'. $base . $this->pageImg .'">'.PHP_EOL;
 		
 		echo "\t".'<meta name="twitter:card" content="summary_large_image">'.PHP_EOL;
 		echo "\t".'<meta name="twitter:site" content="@telemedellin">'.PHP_EOL;
