@@ -22,7 +22,7 @@ function success_popup(data) {
         var plantilla = 'seccion.tmpl.html';
         break;
   }
-  $.get('/js/libs/mustache/views/' + plantilla, function(vista) {
+  $.get('/tm/js/libs/mustache/views/' + plantilla, function(vista) {
     var current_url = window.location.href, 
         output = Mustache.render(vista, data);
     modificar_url(data.url, data.seccion);
@@ -86,14 +86,12 @@ function cerrar_popup(e) {
   e.preventDefault();
 }
 function ga_track(){
-    //_gaq.push(['_setAccount', 'UA-5650687-11']);
-    //_gaq.push(['_trackPageview', location.pathname + '/' + location.hash]);
     _gaq.push(['_trackEvent', 'Popup', 'Click', location.pathname + '/' + location.hash]);
 }
 function abrir_multimedia(tipo) {
   if(tipo != ''){
     var hash = window.location.hash.substr(1),
-        destino = '/telemedellin/popup#' + hash;
+        destino = '/tm/telemedellin/popup#' + hash;
     $.fancybox.open({
       type: "ajax",
       href: destino,
@@ -244,7 +242,7 @@ jQuery(function($) {
         hash          = el_url.substr(hash_p).substr(1),
       //Asigno la url del elemento a la nueva
         destino_url   = el_url;
-      var destino     = '/telemedellin/popup#' + hash;
+      var destino     = '/tm/telemedellin/popup#' + hash;
       $(this).fancybox({
         type: "ajax",
         href: destino,
@@ -355,6 +353,12 @@ jQuery(function($) {
       table_programacion.hide();
       $('#table_programacion tbody tr.'+$(this).val()).show();
     });
+
+    if(window.location.hash == '#correo')
+    {
+      $('#correo').show();
+      micro.mCustomScrollbar("update");
+    }
 
   }//if micro[0]
 
