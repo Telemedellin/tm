@@ -133,14 +133,14 @@ class Pagina extends CActiveRecord
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('revision_id',$this->revision_id,true);
-		$criteria->compare('usuario_id',$this->usuario_id,true);
-		$criteria->compare('micrositio_id',$this->micrositio_id,true);
-		$criteria->compare('tipo_pagina_id',$this->tipo_pagina_id,true);
-		$criteria->compare('url_id',$this->url_id,true);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('revision_id',$this->revision_id);
+		$criteria->compare('usuario_id',$this->usuario_id);
+		$criteria->compare('micrositio_id',$this->micrositio_id);
+		$criteria->compare('tipo_pagina_id',$this->tipo_pagina_id);
+		$criteria->compare('url_id',$this->url_id);
 		$criteria->compare('nombre',$this->nombre,true);
 		$criteria->compare('meta_descripcion',$this->meta_descripcion,true);
 		$criteria->compare('clase',$this->clase,true);
@@ -151,6 +151,7 @@ class Pagina extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>array('pageSize'=>25,),
 		));
 	}
 

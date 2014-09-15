@@ -5,9 +5,12 @@
         echo '<div class="flash-' . $key . ' alert-success">' . $message . "</div>\n";
     }
 ?>
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider'=>$dataProvider,
-	'enableSorting' => true,
+<?php 
+//$model = Pagina::model()->findAllByAttributes( array('tipo_pagina_id' => 3, 'micrositio_id' => 2) );
+$this->widget('zii.widgets.grid.CGridView', array(
+	'dataProvider'=>$model->search(),
+    'filter' => $model, 
+    'enableSorting' => true,
     //'rowCssClassExpression' => '($data->destacado=="1")?"alert-success":(($data->estado=="2")?"alert-info":(($data->estado=="1")?"alert-warning":"alert-danger"))',
 	'columns'=>array(
         'id',
@@ -22,7 +25,8 @@
         array(
             'name'=>'estado',
             'header'=>'Estado',
-            'value'=>'($data->estado=="2")?("En home"):(($data->estado=="1")?("Archivado"):("Desactivado"))'
+            'value'=>'($data->estado=="2")?("En home"):(($data->estado=="1")?("Archivado"):("Desactivado"))',
+            'filter' => array('2' => 'En home', '1'=>'Archivado', '0'=>'Desactivado'),
         ),
         array(
             'name'=>'destacado',

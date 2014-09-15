@@ -97,20 +97,16 @@ class NovedadesController extends Controller
 	{
 		Yii::app()->session->remove('dir');
 		Yii::app()->session->remove('dirc');
-		$dataProvider = new CActiveDataProvider('Pagina', 
-													array(
-													    'criteria'=>array(
-													        'condition'=>'tipo_pagina_id = 3 AND micrositio_id = 2',
-													        'order'=>'creado DESC',
-													        /*'with'=>array('author'),*/
-													    ),
-													    'pagination'=>array(
-													    	'pageSize'=>25,
-													    ),
-													) 
-												);
+		
+		$model = new Pagina('search');
+		$model->tipo_pagina_id = 3;
+		$model->micrositio_id = 2;
+		
+		if(isset($_GET['Pagina']))
+			$model->attributes = $_GET['Pagina'];
+
 		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
+			'model' => $model, 
 		));
 	}
 
