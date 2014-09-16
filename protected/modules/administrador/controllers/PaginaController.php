@@ -233,12 +233,7 @@ class PaginaController extends Controller
 			$model->tipo_pagina_id = $tipo_pagina_id;
 			
 			if($model->save()){
-				/*if( is_null($m->pagina_id) || empty($m->pagina_id) )
-				{
-					$m->pagina_id = $model->getPrimaryKey();
-					$m->save();
-				}*/
-
+				
 				if( isset(Yii::app()->session['dirpa']) ){
 					$dirpa = Yii::app()->session['dirpa'];
 				}
@@ -297,6 +292,8 @@ class PaginaController extends Controller
 				$contenido->pagina_id = $model->getPrimaryKey();
 				if($contenido->save())
 					$this->redirect(array('view','id'=>$model->id));
+				else
+					$model->delete();
 			}
 			
 		}
