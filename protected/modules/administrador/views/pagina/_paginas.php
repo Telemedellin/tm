@@ -6,7 +6,7 @@
   <ul class="dropdown-menu" role="menu">
     <li><?php echo l('Genérica', bu('administrador/pagina/crear/' . $model->id), array('target' => '_blank'))?></li>
     <li><?php echo l('Bloques', bu('administrador/pagina/crear/' . $model->id . '/10'), array('target' => '_blank'))?></li>
-    <li><?php echo l('Página de blog', bu('administrador/pagina/crear/' . $model->id . '/3'), array('target' => '_blank'))?></li>
+    <li><?php echo l('Novedad en blog', bu('administrador/pagina/crear/' . $model->id . '/3'), array('target' => '_blank'))?></li>
     <li><?php echo l('Eventos', bu('administrador/pagina/crear/' . $model->id . '/12'), array('target' => '_blank'))?></li>
     <li><?php echo l('Blog', bu('administrador/pagina/crear/' . $model->id . '/11'), array('target' => '_blank'))?></li>
     <li><?php echo l('Filtro', bu('administrador/pagina/crear/' . $model->id . '/8'), array('target' => '_blank'))?></li>
