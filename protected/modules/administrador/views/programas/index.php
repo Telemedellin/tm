@@ -17,7 +17,7 @@
         array(
             'name'=>'estado',
             'header'=>'Publicado',
-            'filter'=>array('2'=>'En emisión', '1'=>'No se emite','0'=>'Desactivadox'),
+            'filter'=>array('2'=>'En emisión', '1'=>'No se emite','0'=>'Desactivado'),
             'value'=>'($data->estado=="2")?("En emisión"):(($data->estado=="1")?("No se emite"):("Desactivado"))'
         ),
         array(
