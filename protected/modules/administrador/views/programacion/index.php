@@ -7,19 +7,26 @@
     }
 ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider'=>$dataProvider,
+	'dataProvider'=>$model->search(),
+    'filter' => $model,
 	'enableSorting' => true,
     'pager' => array('pageSize' => 25),
 	'columns'=>array(
-        'id',
-        'micrositio.nombre',
-         array(
+        array(
+            'name' => 'id',
+            'filter'=> false,
+        ),
+        //'micrositio.nombre',
+        array( 'name'=>'nombre_micrositio', 'value'=>'$data->micrositio->nombre' ),
+        array(
             'name'=>'hora_inicio',
             'value'=>'date("H:i", $data->hora_inicio)',
+            'filter'=> false,
         ),
         array(
             'name'=>'hora_fin',
             'value'=>'date("H:i", $data->hora_fin)',
+            'filter'=> false,
         ),
         array(
             'name'=>'estado',

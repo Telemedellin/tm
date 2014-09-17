@@ -78,18 +78,15 @@ class DocumentalesController extends Controller
 	public function actionIndex()
 	{
 		Yii::app()->session->remove('dird');
-		$dataProvider = new CActiveDataProvider('Micrositio', array(
-													    'criteria'=>array(
-													        'condition'=>'seccion_id = 4',
-													        'order'=>'t.nombre ASC',
-													        'with'=>array('url'),
-													    ),
-													    'pagination'=>array(
-													    	'pageSize'=>25,
-													    )
-													) );
+		
+		$model = new Micrositio('search');
+		$model->seccion_id = 4;
+		
+		if(isset($_GET['Micrositio']))
+			$model->attributes = $_GET['Micrositio'];
+
 		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
 	}
 
@@ -128,6 +125,13 @@ class DocumentalesController extends Controller
 													        'condition'=>'micrositio_id=' . $id . ' AND tipo_pagina_id=4',
 													        'with'=>array('pgDocumentals', 'url'),
 													    )) );
+
+		$paginas = new Pagina('search');
+		$paginas->micrositio_id = $id;
+		$paginas->tipo_pagina_id = 4;
+		if(isset($_GET['Pagina']))
+			$paginas->attributes = $_GET['Pagina'];
+
 		if($model->menu):
 			$menu = new CActiveDataProvider( 'MenuItem', array(
 													    'criteria'=>array(

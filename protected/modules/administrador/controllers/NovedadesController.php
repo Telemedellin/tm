@@ -288,18 +288,14 @@ class NovedadesController extends Controller
 	public function actionBanners()
 	{
 		Yii::app()->session->remove('bn');
-		$dataProvider = new CActiveDataProvider('Banner', 
-													array(
-													    'criteria'=>array(
-													        'order'=>'estado DESC, creado DESC',
-													    ),
-													    'pagination'=>array(
-													    	'pageSize'=>25,
-													    ),
-													) 
-												);
+		
+		$model = new Banner('search');
+				
+		if(isset($_GET['Banner']))
+			$model->attributes = $_GET['Banner'];
+
 		$this->render('banners', array(
-			'dataProvider'=>$dataProvider,
+			'model' => $model, 
 		));
 	}
 

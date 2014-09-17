@@ -6,7 +6,8 @@
     }
 ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider'=>$dataProvider,
+	'dataProvider'=>$model->search(),
+    'filter' => $model,
 	'enableSorting' => true,
 	'columns'=>array(
         'id',
@@ -16,7 +17,7 @@
         array(
             'name'=>'estado',
             'header'=>'Publicado',
-            'filter'=>array('1'=>'Si','0'=>'No'),
+            'filter'=>array('2'=>'En emisión', '1'=>'No se emite','0'=>'Desactivadox'),
             'value'=>'($data->estado=="2")?("En emisión"):(($data->estado=="1")?("No se emite"):("Desactivado"))'
         ),
         array(

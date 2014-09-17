@@ -152,14 +152,13 @@ class PaginaController extends Controller
 			}
 			if($pagina['pagina']->tipo_pagina_id == 10)
 			{
-				$bloques = new CActiveDataProvider('Bloque', array(
-				    'criteria'=>array(
-				        'condition'=>'pg_bloques_id='.$pagina['contenido']->id
-				    ),
-				    'pagination'=>array(
-				        'pageSize'=>50,
-				    ),
-				));
+				
+				$bloques = new Bloque('search');
+				$bloques->pg_bloques_id = $pagina['contenido']->id;
+				
+				if(isset($_GET['Bloque']))
+					$bloques->attributes = $_GET['Bloque'];
+
 				$pagina['contenido']['bloques'] = $bloques;
 			}
 			if($pagina['pagina']->tipo_pagina_id == 12)

@@ -6,7 +6,8 @@
     }
 ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider'=>$dataProvider,
+	'dataProvider'=>$model->search(),
+    'filter' => $model, 
 	'enableSorting' => true,
     'columns'=>array(
         'id',
@@ -23,7 +24,8 @@
         array(
             'name'=>'estado',
             'header'=>'Publicado',
-            'value'=>'($data->estado=="1")?("Sí"):("No")'
+            'value'=>'($data->estado=="1")?("Sí"):("No")',
+            'filter' => array('1' => 'Sí', '2' => 'No'),
         ),
         array(
             'class'=>'CButtonColumn',

@@ -37,10 +37,7 @@
                             ),
                             array(
                                 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'
-                            ),
-                            array(
-                                'CharCount'
-                            ),
+                            )
                         ),
             //'optionName'=>'optionValue',
         ));?>

@@ -78,20 +78,15 @@ class ProgramasController extends Controller
 	public function actionIndex()
 	{
 		Yii::app()->session->remove('dirp');
-		$dataProvider = new CActiveDataProvider('Micrositio', 
-													array(
-													    'criteria'=>array(
-													        'condition'=>'seccion_id = 2',
-													        'order'=>'t.nombre ASC',
-													        'with'=>array('url'),
-													    ),
-													    'pagination'=>array(
-													    	'pageSize'=>25,
-													    ),
-													)
-												);
+		
+		$model = new Micrositio('search');
+		$model->seccion_id = 2;
+		
+		if(isset($_GET['Micrositio']))
+			$model->attributes = $_GET['Micrositio'];
+
 		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
 	}
 
@@ -133,11 +128,11 @@ class ProgramasController extends Controller
 													        'condition'=>'micrositio_id = '.$id,
 													        'with'=>array('tipoRedSocial', 'micrositio'),
 													    )) );
-		$paginas = new CActiveDataProvider( 'Pagina', array(
-													    'criteria'=>array(
-													        'condition'=>'micrositio_id=' . $id . ' AND tipo_pagina_id=2',
-													        'with'=>array('pgGenericaSts', 'url'),
-													    )) );
+		$paginas = new Pagina('search');
+		$paginas->micrositio_id = $id;
+		$paginas->tipo_pagina_id = 2;
+		if(isset($_GET['Pagina']))
+			$paginas->attributes = $_GET['Pagina'];
 
 		if($model->menu):
 			$menu = new CActiveDataProvider( 'MenuItem', array(

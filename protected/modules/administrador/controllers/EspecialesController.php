@@ -78,18 +78,15 @@ class EspecialesController extends Controller
 	public function actionIndex()
 	{
 		Yii::app()->session->remove('dire');
-		$dataProvider = new CActiveDataProvider('Micrositio', array(
-													    'criteria'=>array(
-													        'condition'=>'seccion_id = 3',
-													        'order'=>'t.nombre ASC',
-													        'with'=>array('url'),
-													    ),
-													    'pagination'=>array(
-													    	'pageSize'=>25,
-													    )
-													) );
+		
+		$model = new Micrositio('search');
+		$model->seccion_id = 3;
+		
+		if(isset($_GET['Micrositio']))
+			$model->attributes = $_GET['Micrositio'];
+
 		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
 	}
 
@@ -129,11 +126,10 @@ class EspecialesController extends Controller
 													        'with'=>array('fotos', 'url'),
 													    )) );
 
-		$paginas = new CActiveDataProvider( 'Pagina', array(
-													    'criteria'=>array(
-													        'condition'=>'micrositio_id=' . $id,
-													        'with'=>array('url'),
-													    )) );
+		$paginas = new Pagina('search');
+		$paginas->micrositio_id = $id;
+		if(isset($_GET['Pagina']))
+			$paginas->attributes = $_GET['Pagina'];
 
 		if($model->menu):
 			$menu = new CActiveDataProvider( 'MenuItem', array(

@@ -70,6 +70,24 @@
 		            'data'=> array('menu' => $menu, 'model' => $model)
 		        );
 		}
+		if( Yii::app()->user->checkAccess('ver_album_fotos') )
+		{
+		    $tabs_content['fotos'] =    
+		        array(
+		            'title'=>'Álbumes de fotos',
+		            'view'=>'/albumfoto/_foto', 
+		            'data'=> array('fotos' => $fotos, 'model' => $model)
+		        );
+		}
+		if( Yii::app()->user->checkAccess('ver_album_videos') )
+		{
+			$tabs_content['videos'] = 
+				array(
+		            'title'=>'Álbumes de videos',
+		            'view'=>'/albumvideo/_video', 
+		            'data'=> array('videos' => $videos, 'model' => $model)
+		        );
+		}
 	    if( isset($tabs_content) ) $this->widget('CTabView', array('tabs' => $tabs_content));
 		?>
 	</div>

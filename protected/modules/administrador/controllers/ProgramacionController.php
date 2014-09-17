@@ -78,20 +78,20 @@ class ProgramacionController extends Controller
 		}
 		$menu = ProgramacionW::getMenu($semana, true);
 
-		$dataProvider = new CActiveDataProvider('Programacion', 
-													array(
-													    'criteria'=>array(
-													        'condition' => 'hora_inicio > ' . $sts . 
-													        			   ' AND hora_inicio < ' . ($sts + 86400) .
-													        			   ' AND t.estado <> 0',
-													        'order'=>'hora_inicio ASC',
-													        'with'=>array('micrositio'),
-													    ),
-													    'pagination'=>array('pageSize'=>40),
-													    ) );
+		$model = new Programacion('search');
+		$model->hora_inicio = '> ' . $sts;
+		$model->hora_fin = '< ' . ($sts + 86400);
+		//date("H:i", $data->hora_inicio)
+		$model->estado 		= '<> 0';
+
+		if(isset($_GET['Programacion']))
+		{
+			$model->attributes = $_GET['Programacion'];
+		}
+
 
 		$this->render('index', array(
-			'dataProvider' => $dataProvider,
+			'model' => $model,
 			'menu' => $menu
 		));
 	}

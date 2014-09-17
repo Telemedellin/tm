@@ -13,20 +13,25 @@
   </ul>
 </div>
 <?php endif ?>
-<?php if($paginas->getData()): ?>
+<?php if($paginas): ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider'  => $paginas,
+	'dataProvider'  => $paginas->search(),
+    'filter'        => $paginas, 
     'enableSorting' => true,
     'pager'         => array('pageSize' => 25),
     'htmlOptions'   => array('style' => 'clear:both;'), 
     'columns'       => array(
         'nombre',
         array(
-            'name' => 'url_id',
+            'name' => 'url_slug',
             'type' => 'raw', 
             'value' => 'l($data->url->slug, bu($data->url->slug), array("target" => "_blank"))'
         ),
-        'tipoPagina.nombre',
+        array(
+            'name'   => 'tipo_pagina',
+            'value'  => '$data->tipoPagina->nombre', 
+            'filter' => CHtml::listData(TipoPagina::model()->findAll(), 'id', 'nombre'),
+        ),
         array(
             'name' => 'pgGenericaSt.imagen',
             'visible' => isset($data->pgGenericaSts), 
@@ -53,7 +58,7 @@
         ),
         array(
             'name'=>'estado',
-            //'filter'=>array('2'=>'Si','1'=>'Archivado', '0'=>'No'),
+            'filter'=>array('2'=>'Sí','1'=>'Archivado', '0'=>'No'),
             'value'=>'($data->estado==2)?"Sí":( ($data->estado==1)?"Archivado":"No" )'
         ),
         array(

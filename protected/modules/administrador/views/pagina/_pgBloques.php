@@ -21,9 +21,10 @@
 ?>
 <h2>Bloques</h2>
 <p class="pull-right"><?php echo l('Agregar bloque', bu('administrador/bloque/crear/' . $contenido['contenido']->id), array('class' => 'btn btn-default btn-sm', 'target' => '_blank'))?></p>
-<?php if($contenido['contenido']['bloques']->getData()): ?>
+<?php if($contenido['contenido']['bloques']): ?>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider'=>$contenido['contenido']['bloques'],
+	'dataProvider'=>$contenido['contenido']['bloques']->search(),
+	'filter'=>$contenido['contenido']['bloques'], 
 	'enableSorting' => true,
     'pager' => array('pageSize' => 25),
     'htmlOptions' => array('style' => 'clear:both;'), 
@@ -31,7 +32,11 @@
         'id',
         'titulo',
         'columnas',
-        'contenido',
+        array(
+        	'name' => 'contenido',
+        	'type' => 'raw',
+        	'value'=> 'substr( strip_tags($data->contenido), )',
+        ),
         'orden',
         array(
             'name'=>'estado',

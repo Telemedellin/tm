@@ -70,7 +70,9 @@ class MicrositioController extends Controller
 
 		if(isset($_POST['Micrositio']))
 		{
-			$model->attributes=$_POST['Micrositio'];
+			$model->attributes = $_POST['Micrositio'];
+			$model->usuario_id = 1;
+			$model->creado = date();
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

@@ -136,7 +136,7 @@ class Micrositio extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('nombre',$this->nombre,true);
+		$criteria->compare('t.nombre',$this->nombre,true);
 		$criteria->compare('seccion_id',$this->seccion_id,true);
 		$criteria->compare('usuario_id',$this->usuario_id,true);
 		$criteria->compare('url_id',$this->url_id,true);
@@ -145,13 +145,21 @@ class Micrositio extends CActiveRecord
 		$criteria->compare('background',$this->background,true);
 		$criteria->compare('background_mobile',$this->background_mobile,true);
 		$criteria->compare('miniatura',$this->miniatura,true);
-		$criteria->compare('creado',$this->creado,true);
-		$criteria->compare('modificado',$this->modificado,true);
-		$criteria->compare('estado',$this->estado);
-		$criteria->compare('destacado',$this->destacado);
+		$criteria->compare('t.creado',$this->creado,true);
+		$criteria->compare('t.modificado',$this->modificado,true);
+		$criteria->compare('t.estado',$this->estado);
+		$criteria->compare('t.destacado',$this->destacado);
+
+		$criteria->with = array('url');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+	            'defaultOrder'=>'t.estado DESC, t.creado DESC',
+        	),
+			'pagination'=>array(
+				'pageSize'=>25,
+			),
 		));
 	}
 	public function listarPorSeccion( $seccion_id )

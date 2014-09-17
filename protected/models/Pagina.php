@@ -33,6 +33,8 @@
 class Pagina extends CActiveRecord
 {
 	protected $oldAttributes;
+	public $tipo_pagina;
+	public $url_slug;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -75,7 +77,7 @@ class Pagina extends CActiveRecord
 			array('meta_descripcion', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, revision_id, usuario_id, micrositio_id, tipo_pagina_id, nombre, meta_descripcion, clase, url_id, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
+			array('id, revision_id, usuario_id, micrositio_id, tipo_pagina_id, tipo_pagina, nombre, meta_descripcion, clase, url_id, url_slug, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -134,24 +136,29 @@ class Pagina extends CActiveRecord
 		// should not be searched.
 
 		$criteria = new CDbCriteria;
+		$criteria->with = array( 'url', 'tipoPagina' );
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('revision_id',$this->revision_id);
 		$criteria->compare('usuario_id',$this->usuario_id);
 		$criteria->compare('micrositio_id',$this->micrositio_id);
 		$criteria->compare('tipo_pagina_id',$this->tipo_pagina_id);
+		$criteria->compare('tipoPagina.id',$this->tipo_pagina);
 		$criteria->compare('url_id',$this->url_id);
-		$criteria->compare('nombre',$this->nombre,true);
+		$criteria->compare('url.slug',$this->url_slug, true);
+		$criteria->compare('t.nombre',$this->nombre,true);
 		$criteria->compare('meta_descripcion',$this->meta_descripcion,true);
 		$criteria->compare('clase',$this->clase,true);
-		$criteria->compare('creado',$this->creado,true);
-		$criteria->compare('modificado',$this->modificado,true);
-		$criteria->compare('estado',$this->estado);
-		$criteria->compare('destacado',$this->destacado);
+		$criteria->compare('t.creado',$this->creado,true);
+		$criteria->compare('t.modificado',$this->modificado,true);
+		$criteria->compare('t.estado',$this->estado);
+		$criteria->compare('t.destacado',$this->destacado);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'pagination'=>array('pageSize'=>25,),
+			'pagination'=>array(
+				'pageSize'=>25,
+			),
 		));
 	}
 

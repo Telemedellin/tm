@@ -125,6 +125,12 @@ class Banner extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+	            'defaultOrder'=>'estado DESC, creado DESC',
+        	),
+			'pagination'=>array(
+				'pageSize'=>25,
+			),
 		));
 	}
 

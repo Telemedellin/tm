@@ -105,12 +105,11 @@ class TelemedellinController extends Controller
 		}
 		
 		$model = Micrositio::model()->with('url', 'menu')->findByPk($id);
-		$contenido = new CActiveDataProvider('Pagina', array(
-													    'criteria'=>array(
-													        'condition'=>'micrositio_id = ' . $model->id,
-													        'order'=>'t.nombre ASC',
-													        'with'=>array('pgGenericaSts'),
-													    )) );
+		
+		$contenido = new Pagina('search');
+		$contenido->micrositio_id = $model->id;
+		if(isset($_GET['Pagina']))
+			$contenido->attributes = $_GET['Pagina'];
 
 		$videos = new CActiveDataProvider( 'AlbumVideo', array(
 													    'criteria'=>array(

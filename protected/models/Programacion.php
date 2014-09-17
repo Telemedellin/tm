@@ -16,6 +16,8 @@
  */
 class Programacion extends CActiveRecord
 {
+	
+	public $nombre_micrositio; //Nombre del micrositio
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -48,7 +50,7 @@ class Programacion extends CActiveRecord
 			array('hora_inicio, hora_fin', 'length', 'max'=>19),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, micrositio_id, hora_inicio, hora_fin, tipo_emision_id, creado, modificado, estado', 'safe', 'on'=>'search'),
+			array('id, micrositio_id, nombre_micrositio, hora_inicio, hora_fin, tipo_emision_id, creado, modificado, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,15 +97,24 @@ class Programacion extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('micrositio_id',$this->micrositio_id,true);
+		$criteria->compare('micrositio.nombre',$this->nombre_micrositio,true);
 		$criteria->compare('hora_inicio',$this->hora_inicio,true);
 		$criteria->compare('hora_fin',$this->hora_fin,true);
 		$criteria->compare('tipo_emision_id',$this->tipo_emision_id,true);
 		$criteria->compare('creado',$this->creado,true);
 		$criteria->compare('modificado',$this->modificado,true);
-		$criteria->compare('estado',$this->estado);
+		$criteria->compare('t.estado',$this->estado);
+
+		$criteria->with = array('micrositio');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+	            'defaultOrder'=>'hora_inicio ASC',
+        	),
+        	'pagination'=>array(
+        		'pageSize'=>40
+        	),
 		));
 	}
 
