@@ -85,7 +85,7 @@ class MenuItem extends CActiveRecord
 			'orden' => 'Orden',
 			'item_id' => 'Item',
 			'hijos' => 'Hijos',
-			'label' => 'Label',
+			'label' => 'Título',
 			'url' => 'Url externa',
 			'estado' => 'Publicado',
 		);
