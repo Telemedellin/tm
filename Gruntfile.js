@@ -38,6 +38,24 @@ module.exports = function(grunt) {
           ],
         dest: 'js/admin.libs.js'
       },
+      adminlte: {
+        src: [
+          'js/libs/jquery.fancybox.pack.js', 
+          'js/libs/admin/jstree.min.js',
+          'js/libs/admin/jquery.fileupload/vendor/*.js', 
+          'js/libs/admin/jquery.fileupload/tmpl.min.js',
+          'js/libs/admin/jquery.fileupload/load-image.min.js',
+          'js/libs/admin/jquery.fileupload/canvas-to-blob.min.js',
+          'js/libs/admin/jquery.fileupload/jquery.iframe-transport.js',
+          'js/libs/admin/jquery.fileupload/jquery.fileupload.js',
+          'js/libs/admin/jquery.fileupload/jquery.fileupload-process.js',
+          'js/libs/admin/jquery.fileupload/jquery.fileupload-resize.js',
+          'js/libs/admin/jquery.fileupload/jquery.fileupload-validate.js',
+          'js/libs/admin/jquery.fileupload/jquery.fileupload-ui.js',
+          'js/libs/admin/chosen.jquery.js',
+          ],
+        dest: 'themes/adminlte/assets/js/admin.libs.js'
+      },
       mobile: {
         src: [
           'js/libs/modernizr.custom.30163.js',
@@ -60,6 +78,10 @@ module.exports = function(grunt) {
       admin_css: {
         src: ['css/libs/admin/*.css', 'css/libs/jquery.fancybox.css', 'css/main_admin.css'],
         dest: 'css/styles.admin.css'
+      },
+      adminlte_css: {
+        src: ['css/libs/admin/*.css', 'css/libs/jquery.fancybox.css', 'themes/adminlte/assets/css/AdminLTE.css', 'css/main_admin.css'],
+        dest: 'themes/adminlte/assets/css/styles.admin.css'
       },
       mobile_css: {
         src: ['css/libs/mobile/*.css', 'css/main_mobile.css'],
@@ -99,6 +121,10 @@ module.exports = function(grunt) {
         src: "js/admin.libs.js",
         dest: "js/admin.libs.js",
       },
+      adminlte: {
+        src: "themes/adminlte/assets/js/admin.libs.js",
+        dest: "themes/adminlte/assets/js/admin.libs.js",
+      },
       mobile: {
         src: "js/mobile.libs.js",
         dest: "js/mobile.libs.js",
@@ -137,6 +163,10 @@ module.exports = function(grunt) {
         src: 'js/admin.libs.js',
         dest: 'js/admin.libs.min.js'
       },
+      adminlte: {
+        src: 'themes/adminlte/assets/js/admin.libs.js',
+        dest: 'themes/adminlte/assets/js/admin.libs.min.js'
+      },
       mobile: {
         src: 'js/mobile.libs.js',
         dest: 'js/mobile.libs.min.js'
@@ -157,6 +187,13 @@ module.exports = function(grunt) {
         dest: 'css/',
         ext: '.admin.min.css'
       },
+      alteminify: {
+        expand: true,
+        cwd: 'themes/adminlte/assets/css/',
+        src: ['styles.admin.css'],
+        dest: 'themes/adminlte/assets/css/',
+        ext: '.admin.min.css'
+      },
       mminify: {
         expand: true,
         cwd: 'css/',
@@ -165,7 +202,7 @@ module.exports = function(grunt) {
         ext: '.min.css'
       }
     },
-    clean: ['js/libs.js', 'css/styles.css', 'css/styles.admin.css', 'css/mobile.css', 'js/iframe.libs.js', 'js/admin.libs.js', 'js/mobile.libs.js'],
+    clean: ['js/libs.js', 'css/styles.css', 'css/styles.admin.css', 'css/mobile.css', 'js/iframe.libs.js', 'js/admin.libs.js', 'js/mobile.libs.js', 'themes/adminlte/assets/css/styles.admin.css', 'themes/adminlte/assets/js/admin.libs.js'],
     watch : {
       scripts: {
         files: ['js/app-dev.js'],
@@ -216,6 +253,13 @@ module.exports = function(grunt) {
           spawn: false
         },
       },
+      styles_adminlte: {
+        files: ['css/main_admin.css', 'css/libs/admin/*.css', 'themes/adminlte/assets/css/AdminLTE.css' ] ,
+        tasks: ['css_adminlte'],
+        options: {
+          spawn: false
+        },
+      },
       styles_mobile: {
         files: ['css/main_mobile.css', 'css/libs/mobile/*.css'] ,
         tasks: ['css_mobile'],
@@ -237,6 +281,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['concat:js', 'removelogging:libs', 'uglify:libs', 'clean']);
   grunt.registerTask('iframe', ['concat:iframe', 'removelogging:iframe', 'uglify:iframe', 'clean']);
   grunt.registerTask('admin', ['concat:admin', 'removelogging:admin', 'uglify:admin', 'clean']);
+  grunt.registerTask('adminlte', ['concat:adminlte', 'removelogging:adminlte', 'uglify:adminlte', 'clean']);
   grunt.registerTask('mobile', ['concat:mobile', 'removelogging:mobile', 'uglify:mobile', 'clean']);
   grunt.registerTask('app', ['removelogging:app', 'uglify:app']); 
   grunt.registerTask('admin-app', ['removelogging:admin_app', 'uglify:admin_app']); 
@@ -245,5 +290,6 @@ module.exports = function(grunt) {
   grunt.registerTask('file-app', ['removelogging:file_app', 'uglify:file_app']); 
   grunt.registerTask('css', ['concat:css', 'cssmin:minify', 'clean']);
   grunt.registerTask('css_admin', ['concat:admin_css', 'cssmin:aminify', 'clean']);
+  grunt.registerTask('css_adminlte', ['concat:adminlte_css', 'cssmin:alteminify', 'clean']);
   grunt.registerTask('css_mobile', ['concat:mobile_css', 'cssmin:mminify', 'clean']);
 };

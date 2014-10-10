@@ -173,13 +173,13 @@ class Micrositio extends CActiveRecord
 	public function cargarPorUrl($url_id)
 	{
 		if( !$url_id ) return false;
-		return $this->with('url', 'seccion', 'redSocials', 'albumVideos', 'paginas')->findByAttributes( array('url_id' => $url_id), 't.estado <> 0' );
+		return $this->findByAttributes( array('url_id' => $url_id), 't.estado <> 0' );
 	}
 
 	public function cargarMicrositio($micrositio_id)
 	{
 		if( !$micrositio_id ) return false;
-		return $this->with('url', 'seccion', 'redSocials', 'albumVideos', 'paginas')->findByPk( $micrositio_id, 't.estado <> 0' );
+		return $this->findByPk( $micrositio_id, 't.estado <> 0' );
 	}
 
 	public function getDefaultPage( $micrositio_id )
