@@ -190,6 +190,7 @@ class CrugeModule extends CWebModule
 	{
 		if(parent::beforeControllerAction($controller, $action))
 		{
+			Yii::app()->theme = 'adminlte';
 			return true;
 		}
 		else

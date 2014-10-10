@@ -13,20 +13,35 @@ foreach($c as $ciudad)
 }
 
 cs()->registerScript( 
-	'correo', 
+	'perfil', 
 	'
 	$(":input[title]").tooltip();
 	$(".alert").alert();
-	var regiones 		= '.json_encode($regiones).',
-		ciudades 		= '.json_encode($ciudades).', 
-		paises_select = $("#RegistroForm_pais_id"),
-		regiones_select = $("#RegistroForm_region_id"),
-		ciudades_select = $("#RegistroForm_ciudad_id"), 
-		barrios_select  = $("#RegistroForm_barrio_id");
+	var regiones 				 = '.json_encode($regiones).', 
+		ciudades 				 = '.json_encode($ciudades).', 
+		paises_select 			 = $("#RegistroForm_pais_id"),
+		regiones_select  		 = $("#RegistroForm_region_id"),
+		ciudades_select 		 = $("#RegistroForm_ciudad_id"), 
+		barrios_select  		 = $("#RegistroForm_barrio_id"),
+		editar_correo_l			 = $("#editar-correo"),
+		editar_contrasena_l		 = $("#editar-contrasena"), 
+		correo_input 			 = $("#RegistroForm_correo"), 
+		repetir_correo_input 	 = $("#RegistroForm_repetir_correo"),
+		contrasena_input 		 = $("#RegistroForm_contrasena"), 
+		repetir_contrasena_input = $("#RegistroForm_repetir_contrasena"),
+		btn_guardar_correo		 = $("#btn-guardar-correo"), 
+		btn_guardar_contrasena	 = $("#btn-guardar-contrasena"),
+		btn_cancelar_correo		 = $("#btn-cancelar-correo"), 
+		btn_cancelar_contrasena	 = $("#btn-cancelar-contrasena"),
+		mensaje_correo			 = $("#mensaje-correo");
 	
 	paises_select.on("change", cargar_regiones);
 	regiones_select.on("change", cargar_ciudades);
 	ciudades_select.on("change", cargar_barrios);
+	editar_correo_l.on("click", editar_correo);
+	editar_contrasena_l.on("click", editar_contrasena);
+	btn_cancelar_correo.on("click", cancelar_correo);
+	btn_cancelar_contrasena.on("click", cancelar_contrasena);
 
 	function cargar_regiones(event)
 	{
@@ -55,6 +70,72 @@ cs()->registerScript(
 		else
 			barrios_select.attr("disabled", true);
 	}
+	function editar_correo(event)
+	{
+		event.preventDefault();
+		editar_correo_l.hide();
+		correo_input.attr("readonly", false);
+		repetir_correo_input.attr("disabled", false).parents(".control-group").show();
+		btn_guardar_correo.parent().show();
+	}
+	function editar_contrasena(event)
+	{
+		event.preventDefault();
+		editar_contrasena_l.hide();
+		contrasena_input.attr("readonly", false);
+		repetir_contrasena_input.attr("disabled", false).parents(".control-group").show();
+		btn_guardar_contrasena.parent().show();
+	}
+
+	function cambio_correo(response)
+	{
+		editar_correo_l.show();
+		repetir_correo_input.attr("disabled", true).parents(".control-group").hide();
+		btn_guardar_correo.parent().hide();
+		console.log(response);
+		if( response.error )
+		{
+			mensaje_correo.html("<p>Ocurrió un error.</p>");
+		}else
+		{
+			correo_input.val(response.email);
+			mensaje_correo.html("<p>Hemos enviado un enlace de verificación a tu nuevo correo.</p><p>Accede a él para terminar el proceso.</p>");
+		}
+		correo_input.attr("readonly", true);
+		mensaje_correo.show();
+	}
+
+	function cambio_clave(response)
+	{
+		if( response.error )
+		{
+			
+		}else
+		{
+			editar_contrasena_l.show();
+			contrasena_input.attr("readonly", true);
+			repetir_contrasena_input.attr("disabled", true).parents(".control-group").hide();
+			btn_guardar_contrasena.parent().hide();
+		}
+	}
+
+	function cancelar_correo(event)
+	{
+		event.preventDefault();
+		editar_correo_l.show();
+		correo_input.attr("readonly", true);
+		repetir_correo_input.attr("disabled", true).parents(".control-group").hide();
+		btn_guardar_correo.parent().hide();
+	}
+
+	function cancelar_contrasena(event)
+	{
+		event.preventDefault();
+		editar_contrasena_l.show();
+		contrasena_input.attr("readonly", true);
+		repetir_contrasena_input.attr("disabled", true).parents(".control-group").hide();
+		btn_guardar_contrasena.parent().hide();
+	}
 	'
 );
 ?>
@@ -63,13 +144,11 @@ cs()->registerScript(
 <?php endforeach ?>
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-    'id'=>'correo',
-    'action' => '#correo', 
+    'id'=>'perfil',
     'enableAjaxValidation'=>true,
     'enableClientValidation'=>true,
     'errorMessageCssClass' => 'alert alert-error', 
     'htmlOptions' => array(
-    	'style' => 'display:none;',
     	'class' => 'form-horizontal',
     ),
 )); ?>
@@ -78,23 +157,53 @@ $form = $this->beginWidget('CActiveForm', array(
 	<div class="control-group">
 		<?php echo $form->label( $model, 'correo', array('class' => 'control-label') ); ?>
 		<div class="controls">
-			<?php echo $form->emailField($model, 'correo'); ?>
+			<?php echo $form->emailField($model, 'correo', array('readonly' => true)); ?> <?php echo l('Editar', '#', array('id' => 'editar-correo')) ?>
 			<?php $form->error($model, 'correo'); ?>
 		</div>
 	</div>
+	<div class="control-group" style="display:none;">
+		<?php echo $form->label( $model, 'repetir_correo', array('class' => 'control-label') ); ?>
+		<div class="controls">
+			<?php echo $form->emailField($model, 'repetir_correo', array('disabled' => true)); ?>
+			<?php $form->error($model, 'repetir_correo'); ?>
+		</div>
+	</div>
+	<div class="row buttons" style="display:none;">
+		<?php 
+			echo CHtml::ajaxSubmitButton(
+					"Guardar nuevo correo", 
+					array('/usuario/perfil/cambiarcorreo'), 
+					array('success' => 'cambio_correo'), 
+					array('id' => 'btn-guardar-correo')
+				); 
+			echo CHtml::htmlButton('Cancelar', array('id' => 'btn-cancelar-correo'));
+		?>
+	</div>
+	<div id="mensaje-correo" style="display:none;"></div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'contrasena', array('class' => 'control-label') ); ?>
 		<div class="controls">
-			<?php echo $form->passwordField($model, 'contrasena'); ?>
+			<?php echo $form->passwordField($model, 'contrasena', array('placeholder' => '••••••••', 'readonly' => true)); ?> <?php echo l('Editar', '#', array('id' => 'editar-contrasena')) ?>
 			<?php $form->error($model, 'contrasena'); ?>
 		</div>
 	</div>
-	<div class="control-group">
+	<div class="control-group" style="display:none;">
 		<?php echo $form->label( $model, 'repetir_contrasena', array('class' => 'control-label') ); ?>
 		<div class="controls">
-			<?php echo $form->passwordField($model, 'repetir_contrasena'); ?>
+			<?php echo $form->passwordField($model, 'repetir_contrasena', array('placeholder' => '••••••••', 'disabled' => true)); ?>
 			<?php $form->error($model, 'repetir_contrasena'); ?>
 		</div>
+	</div>
+	<div class="row buttons" style="display:none;">
+		<?php 
+			echo CHtml::ajaxSubmitButton(
+					"Guardar nueva contraseña", 
+					array('/usuario/perfil/cambiarclave'), 
+					array('success' => 'cambio_clave'),
+					array('id' => 'btn-guardar-contrasena')
+			); 
+			echo CHtml::htmlButton('Cancelar', array('id' => 'btn-cancelar-contrasena'));
+		?>
 	</div>
 </fieldset>
 <fieldset>
@@ -135,7 +244,7 @@ $form = $this->beginWidget('CActiveForm', array(
 						Meta::model()->findAllByAttributes( array('parent_id' => 1) ), 
 						'id', 
 						'nombre'
-					),
+					), 
 					array('prompt'=>'Seleccione el tipo de documento')
 				); 
 			?>
@@ -159,7 +268,6 @@ $form = $this->beginWidget('CActiveForm', array(
 					array('prompt'=>'Mes')
 				); 
 			?> 
-			<?php $form->error($model, 'mes'); ?>
 			<?php echo $form->dropDownList( 
 					$model, 
 					'dia', 
@@ -167,7 +275,6 @@ $form = $this->beginWidget('CActiveForm', array(
 					array('prompt'=>'Día')
 				); 
 			?> 
-			<?php $form->error($model, 'dia'); ?>
 			<?php echo $form->dropDownList( 
 					$model, 
 					'anio', 
@@ -175,7 +282,6 @@ $form = $this->beginWidget('CActiveForm', array(
 					array('prompt'=>'Año')
 				); 
 			?> 
-			<?php $form->error($model, 'anio'); ?>
 		</div>
 	</div>
 	<div class="control-group">
@@ -263,7 +369,7 @@ $form = $this->beginWidget('CActiveForm', array(
 		<div class="controls">
 			<?php echo $form->dropDownList( 
 					$model, 
-					'ciudad_id', 
+					'ciudad_id',
 					CHtml::listData(Ciudad::model()->findAllByAttributes(array('region_id' => $model->region_id), array('order'=>'nombre ASC')), 'id', 'nombre'),  
 					array(
 						'prompt'=>'Selecciona una ciudad', 
@@ -296,22 +402,9 @@ $form = $this->beginWidget('CActiveForm', array(
 	</div>
 </fieldset>
 
-<div class="control-group">
-	<?php echo $form->checkBox($model, 'terminos'); ?> 
-	<?php echo l('Reconozco que he leído y acepto los términos y condiciones', bu('telemedellin/utilidades/politicas-de-tratamiento-de-datos-personales'), array('target' => '_blank')); ?>
-	<?php $form->error($model,'terminos'); ?>
-</div>
-
-<div class="control-group">
-	<?php echo $form->label($model, 'verifyCode', array('class' => 'control-label')); ?>
-	<div class="controls">
-		<?php echo $form->textField($model,'verifyCode'); ?>
-		<?php $this->widget('CCaptcha'); ?>
-		<?php $form->error($model,'verifyCode'); ?>
-	</div>
-</div>
-
 <div class="row buttons">
-	<?php echo CHtml::submitButton("Registrarse"); ?>
+	<?php echo CHtml::submitButton("Actualizar información"); ?>
 </div>
 <?php $this->endWidget(); ?>
+
+<?php echo l('Quiero cerrar mi cuenta y dejar de obtener los beneficios de Telemedellín', array('/usuario/perfil/borrarcuenta')) ?>

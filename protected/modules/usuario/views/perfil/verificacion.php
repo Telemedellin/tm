@@ -1,7 +1,7 @@
 <?php
 $bc = array();
 $bc['Usuario'] = bu('usuario');
-$bc['Registro'] = bu('usuario/registro#correo');
+$bc['Registro'] = bu('usuario/perfil');
 $bc[] = 'Verificación';
 $this->breadcrumbs = $bc;
 if($fondo_pagina == NULL)
@@ -15,9 +15,9 @@ $this->pageDesc = 'Canal público cultural de la ciudad de Medellín. Programaci
 ?>
 <div id="micrositio" class="especiales">
 	<div class="contenidoScroll">
-	<h2>¡Ya casi terminamos!</h2>
-	<p>Para verificar la propiedad de tu correo, te hemos enviado un e-mail al correo que escribiste en el formulario. Te llegará un enlace en el que debes hacer clic y listo, estarás registrado para comenzar a disfrutar de los beneficios de Telemedellín,</p>
-	
+	<?php if( Yii::app()->user->getFlash('verificacion')): ?>
+		<h2>¡Listo!</h2>
+	<?php endif; ?>
 	<div class="hidden">
 		<img src="<?php echo $bg ?>" width="1500" />
 	</div>

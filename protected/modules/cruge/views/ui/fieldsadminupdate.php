@@ -81,6 +81,14 @@
 );?></p>
 		</div>
 	</div>
+	<div class='row field-group'>
+		<div class='col'>
+			<?php echo $form->labelEx($model,'tip'); ?>
+			<?php echo $form->textArea($model,'tip',array('rows'=>5,'cols'=>40)); ?>
+			<?php echo $form->error($model,'tip'); ?>
+			<p class='hint'><?php echo CrugeTranslator::t("Ayuda emergente para el usuario");?></p>
+		</div>
+	</div>
 </div>
 
 <div class="row form-group">

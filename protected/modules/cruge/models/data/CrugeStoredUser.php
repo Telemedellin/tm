@@ -32,40 +32,40 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
     // ver acerca de: cruge\components\CrugeUserManager.php::createBlankUser
     public $bypassCaptcha;
 
-	public function getCustomFieldValue($fieldname, $defValue=""){
-		$field = $this->getCustomField($fieldname);
-		if($field != null)
-			return $field->getFieldValue();
-		return $defValue;
-	}
+    public function getCustomFieldValue($fieldname, $defValue=""){
+        $field = $this->getCustomField($fieldname);
+        if($field != null)
+            return $field->getFieldValue();
+        return $defValue;
+    }
 
-	public function getCustomField($fieldname){
-		foreach($this->getFields() as $obj)
-			if($fieldname == $obj->fieldname)
-				return $obj;
-		return null;
-	}
+    public function getCustomField($fieldname){
+        foreach($this->getFields() as $obj)
+            if($fieldname == $obj->fieldname)
+                return $obj;
+        return null;
+    }
 
-	public function getUserDescription($boolLoadUserFields=false, $sep=','){
-		$fieldNames = CrugeUtil::config()->userDescriptionFieldsArray;
-		$tmp = "";
-		if(in_array("username",$fieldNames))
-			$tmp .= $sep.$this->username;
-		if(in_array("email",$fieldNames))
-			$tmp .= $sep.$this->email;
-		if($fieldNames != null){
-			if($boolLoadUserFields == true)
-				$this->setFields(
-					CrugeFactory::get()->getICrugeFieldListModels($this));
-			foreach($fieldNames as $fname)
-			if(($fname != "username") && ($fname != "email")){
-				$tmp .= $sep.$this->getCustomFieldValue($fname,$fname);
-			}
-		}
-		if($tmp == "")
-			$tmp = $this->getUsername();
-		return ltrim($tmp,$sep." ");
-	}
+    public function getUserDescription($boolLoadUserFields=false, $sep=','){
+        $fieldNames = CrugeUtil::config()->userDescriptionFieldsArray;
+        $tmp = "";
+        if(in_array("username",$fieldNames))
+            $tmp .= $sep.$this->username;
+        if(in_array("email",$fieldNames))
+            $tmp .= $sep.$this->email;
+        if($fieldNames != null){
+            if($boolLoadUserFields == true)
+                $this->setFields(
+                    CrugeFactory::get()->getICrugeFieldListModels($this));
+            foreach($fieldNames as $fname)
+            if(($fname != "username") && ($fname != "email")){
+                $tmp .= $sep.$this->getCustomFieldValue($fname,$fname);
+            }
+        }
+        if($tmp == "")
+            $tmp = $this->getUsername();
+        return ltrim($tmp,$sep." ");
+    }
 
     /* es un loadModel de uso multiple. $modo puede ser: 'iduser','username' o 'email' para
         indicar por cual campo se quiere cargar el modelo.
@@ -136,19 +136,19 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
 
     public function validate($attributes = null, $clearErrors = true)
     {
-		// si el metodo de autenticacion es solo email, y, username es blanco
-		// se genera uno automaticamente:
-		if($this->scenario == 'insert'){
-		$declared_authmodes = CrugeUtil::config()->availableAuthModes;
-		if(count($declared_authmodes == 1)){
-			if(($declared_authmodes[0] == 'email') && ($this->username=='')){
-				$um = new CrugeUserManager();
-				$this->username = $um->generateNewUserName($this->email);
-			}else
-			if(($declared_authmodes[0] == 'username') && ($this->email=='')){
-				$this->email = $this->username.'@noemail.local';
-			}
-		}}
+        // si el metodo de autenticacion es solo email, y, username es blanco
+        // se genera uno automaticamente:
+        if($this->scenario == 'insert'){
+        $declared_authmodes = CrugeUtil::config()->availableAuthModes;
+        if(count($declared_authmodes == 1)){
+            if(($declared_authmodes[0] == 'email') && ($this->username=='')){
+                $um = new CrugeUserManager();
+                $this->username = $um->generateNewUserName($this->email);
+            }else
+            if(($declared_authmodes[0] == 'username') && ($this->email=='')){
+                $this->email = $this->username.'@noemail.local';
+            }
+        }}
 
         // realiza la validacion normal sobre los atributos de este modelo
         $validateResult = parent::validate();
@@ -174,7 +174,7 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
             return false;
         }
         $ok = parent::save($runValidation,$attributes);
-		$this->saveFields();
+        $this->saveFields();
         Yii::log(__METHOD__ . " returns: [" . $ok . "]", "info");
         return $ok;
     }
@@ -261,17 +261,17 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
             array('username,email', 'required'),
             array('newPassword', 'safe', 'on' => 'update'),
             array('newPassword', 'required', 'on' => 'insert, manualcreate'),
-            array('newPassword', 'length', 'min' => 6, 'max' => 20),
+            array('newPassword', 'length', 'min' => 6, 'max' => 70),
             array(
                 'newPassword',
                 'match'
             ,
-                'pattern' => '/^[a-zA-Z0-9@#$%\*\_\-\.]{6,20}$/'
+                'pattern' => '/^[a-zA-Z0-9@#$%!\*\_\-\.]{6,70}$/'
             ,
                 'message' => CrugeTranslator::t(
                     'logon',
                     'Password may contain numbers or symbols ({symbols}) and between {min} and {max} characters',
-                    array('{symbols}' => '@#$%*', '{min}' => 6, '{max}' => 20)
+                    array('{symbols}' => '@#$%!*_-.', '{min}' => 6, '{max}' => 70)
                 )
             ),
             array('username, password', 'length', 'max' => 64),
@@ -327,7 +327,7 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
     {
         if (Yii::app()->user->um->getDefaultSystem()->getn('registerusingcaptcha') == 1) {
             // el administrador decidio pedir captcha para registrar los usuarios,
-            // 	pero quiza el flag bypassCaptcha este activo.
+            //  pero quiza el flag bypassCaptcha este activo.
             if ($this->bypassCaptcha == true) {
                 // captcha es requerido, pero sera no sera tomado en cuenta.
                 $this->verifyCode = null;
@@ -420,27 +420,27 @@ class CrugeStoredUser extends CActiveRecord implements ICrugeStoredUser
     }
 
 
-	public function searchByAuthItem($authItemName, $pageSize=20, $defaultOrder=null){
+    public function searchByAuthItem($authItemName, $pageSize=20, $defaultOrder=null){
         $criteria = new CDbCriteria;
-		$criteria->distinct = true;
-		$authMan = new CrugeAuthManager();
-		$table_assign = $authMan->getTableName("authassignment");
-		$criteria->join = "left join ".$table_assign." ASG "
-			."on ASG.userid = t.iduser";
-		$criteria->compare("ASG.itemname",$authItemName);
-		// extra optionals, for filtering:
+        $criteria->distinct = true;
+        $authMan = new CrugeAuthManager();
+        $table_assign = $authMan->getTableName("authassignment");
+        $criteria->join = "left join ".$table_assign." ASG "
+            ."on ASG.userid = t.iduser";
+        $criteria->compare("ASG.itemname",$authItemName);
+        // extra optionals, for filtering:
         $criteria->compare('username', $this->username, true);
         $criteria->compare('email', $this->email, true);
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-			'pagination' => array(
-				'pageSize' => $pageSize,
-			),
+            'pagination' => array(
+                'pageSize' => $pageSize,
+            ),
             'sort' => array(
                 'defaultOrder' => (($defaultOrder==null) ? 
-					array('username' => false) : $defaultOrder),
+                    array('username' => false) : $defaultOrder),
             ),
         ));
-	}
+    }
 
 }

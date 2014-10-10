@@ -5,6 +5,7 @@
  * @property integer $idfield
  * @property string $fieldname
  * @property string $longname
+ * @property string $tip
  * @property integer $position
  * @property integer $required
  * @property integer $fieldtype
@@ -181,6 +182,7 @@ class CrugeField extends CActiveRecord
 
             array('fieldname', 'length', 'max' => 20),
             array('longname', 'length', 'max' => 50),
+            array('tip', 'length', 'max' => 512),
             array('useregexp', 'length', 'max' => 512),
             array('useregexpmsg', 'length', 'max' => 512),
             array('predetvalue', 'length', 'max' => 4096),
@@ -207,8 +209,8 @@ class CrugeField extends CActiveRecord
             array('position', 'numerical', 'min' => 0, 'max' => 99),
             array('fieldsize', 'numerical', 'min' => 1, 'max' => 100),
             array('maxlength', 'numerical', 'min' => -1, /*'max' => 512*/),
-            array('predetvalue', 'safe'),
-            array('idfield, fieldname, longname, position, required, fieldtype', 'safe', 'on' => 'search'),
+            array('tip, predetvalue', 'safe'),
+            array('idfield, fieldname, longname, tip, position, required, fieldtype', 'safe', 'on' => 'search'),
         );
     }
 
@@ -231,6 +233,7 @@ class CrugeField extends CActiveRecord
             'idfield' => 'Idfield',
             'fieldname' => ucwords(CrugeTranslator::t('Nombre Interno')),
             'longname' => ucwords(CrugeTranslator::t('Nombre Publico')),
+            'tip' => ucwords(CrugeTranslator::t('Ayuda flotante')),
             'position' => ucwords(CrugeTranslator::t('Posicion')),
             'required' => ucwords(CrugeTranslator::t('Requerido')),
             'fieldtype' => ucwords(CrugeTranslator::t('Tipo')),
@@ -257,6 +260,7 @@ class CrugeField extends CActiveRecord
         $criteria->compare('idfield', $this->idfield);
         $criteria->compare('fieldname', $this->fieldname, true);
         $criteria->compare('longname', $this->longname, true);
+        $criteria->compare('tip', $this->tip, true);
         $criteria->compare('position', $this->position);
         $criteria->compare('required', $this->required);
         $criteria->compare('fieldtype', $this->fieldtype);

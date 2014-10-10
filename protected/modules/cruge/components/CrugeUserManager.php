@@ -25,6 +25,7 @@ define("CRUGEFIELDTYPE_TEXTBOX", 0);
 define("CRUGEFIELDTYPE_TEXTAREA", 1);
 define("CRUGEFIELDTYPE_BOOLEAN", 2);
 define("CRUGEFIELDTYPE_LISTBOX", 3);
+define("CRUGEFIELDTYPE_LISTBOX_DB", 4);
 
 define("CRUGE_ACTIVATION_OPTION_INMEDIATE", 0);
 define("CRUGE_ACTIVATION_OPTION_EMAIL", 1);
@@ -63,7 +64,7 @@ class CrugeUserManager
     public function getFieldTypeOptions()
     {
         $stAr = array();
-        for ($i = CRUGEFIELDTYPE_TEXTBOX; $i <= CRUGEFIELDTYPE_LISTBOX; $i++) {
+        for ($i = CRUGEFIELDTYPE_TEXTBOX; $i <= CRUGEFIELDTYPE_LISTBOX_DB; $i++) {
             $stAr[$i] = $this->getFieldTypeName($i);
         }
         return $stAr;
@@ -80,6 +81,8 @@ class CrugeUserManager
                 return CrugeTranslator::t("CheckBox");
             case CRUGEFIELDTYPE_LISTBOX:
                 return CrugeTranslator::t("ListBox");
+            case CRUGEFIELDTYPE_LISTBOX_DB:
+                return CrugeTranslator::t("ListBox Database");
         }
         return $fieldType;
     }
@@ -694,6 +697,8 @@ class CrugeUserManager
             'rows' => 5
         ,
             'cols' => $field->fieldsize
+        ,
+            'title' => $field->tip
         );
 
         // caso listas: Listbox
@@ -701,12 +706,16 @@ class CrugeUserManager
         // venga en la forma "VALUE, TEXT"
         //
         $arOpt = array();
-        if ($field->fieldtype == CRUGEFIELDTYPE_LISTBOX) {
+        if ($field->fieldtype == CRUGEFIELDTYPE_LISTBOX || $field->fieldtype == CRUGEFIELDTYPE_LISTBOX_DB) {
             $arOpt = CrugeUtil::explodeOptions($field->predetvalue);
             $htmlOpt['rows'] = null;
             $htmlOpt['cols'] = null;
             $htmlOpt['size'] = null;
             $htmlOpt['maxlength'] = null;
+        }
+        if ($field->fieldtype == CRUGEFIELDTYPE_LISTBOX_DB) {
+            $table = ucfirst($field->predetvalue);
+            $arOpt = CHtml::listData( $table::model()->findAll(), 'id', 'nombre' );
         }
 
         // estos tipos definidos estan en CrugeUserManager
@@ -719,6 +728,13 @@ class CrugeUserManager
             case CRUGEFIELDTYPE_BOOLEAN:
                 return CHtml::checkBox($name, $field->getFieldValue(), $htmlOpt) . "\n";
             case CRUGEFIELDTYPE_LISTBOX:
+                return CHtml::dropDownList(
+                    $name,
+                    $field->getFieldValue(),
+                    $arOpt,
+                    $htmlOpt
+                ) . "\n";
+            case CRUGEFIELDTYPE_LISTBOX_DB:
                 return CHtml::dropDownList(
                     $name,
                     $field->getFieldValue(),
