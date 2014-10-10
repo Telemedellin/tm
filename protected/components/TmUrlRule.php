@@ -108,6 +108,8 @@ class TmUrlRule extends CBaseUrlRule
                         'concursos/' . $pathInfo,
                         'documentales/' . $pathInfo,
                         'telemedellin/' . $pathInfo,
+                        'recorrido-canal-parque/' . $pathInfo, 
+                        '15-años-con-vos/' . $pathInfo,
                     );
         foreach($slugs as $slug)
             if($this->verificar_slug($slug)) Yii::app()->request->redirect(bu($slug), true, 301);
