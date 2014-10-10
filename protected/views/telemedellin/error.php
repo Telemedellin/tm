@@ -1,15 +1,16 @@
 <?php
-$this->pageTitle = 'Página no encontrada (Error 404)';
-$this->breadcrumbs = array('Página no encontrada (Error 404)');
+$code = Yii::app()->errorHandler->error["code"];
+$this->pageTitle = 'Página no encontrada (Error '.$code.')';
+$this->breadcrumbs = array('Página no encontrada (Error '.$code.')');
 cs()->registerScript('trackEvent', 
 	'
-	_gaq.push(["_trackEvent", "Error", "404", location.pathname]);
+	_gaq.push(["_trackEvent", "Error", "'.$code.'", location.pathname]);
 	');
-if($this->beginCache( '404', array('duration' => 21600) )):
+if($this->beginCache( $code, array('duration' => 21600) )):
 ?>
 <div id="micrositio">
 	<div class="contenidoScroll">
-		<h1>Error 404</h1>
+		<h2>Error <?php echo $code ?></h2>
 		<p>¿No encontraste lo que buscabas?</p>
 		<p>Si querés pegate una pasada por nuestros <?php echo l('programas', bu('programas')) ?> o nuestra <?php echo l('parrilla de programación', bu('programacion')) ?>.</p>
 		<p>Si todavía no encontrás lo que buscas, podés preguntarnos en nuestras redes sociales:</p>
@@ -17,7 +18,7 @@ if($this->beginCache( '404', array('duration' => 21600) )):
 			<li><?php echo l('Twitter', CHtml::normalizeUrl('http://twitter.com/telemedellin'), array('target' => '_blank', 'rel' => 'nofollow') ) ?></li>
 			<li><?php echo l('Facebook', CHtml::normalizeUrl('http://facebook.com/telemedellintv'), array('target' => '_blank', 'rel' => 'nofollow')) ?></li>
 		</ul>
-		<p>O también podés <?php echo l('escribirnos', bu('escribenos')) ?></p>
+		<p>O también podés <?php echo l('escribirnos', bu('telemedellin/utilidades/escribenos')) ?></p>
 	</div>
 </div>
 <?php $this->endCache(); endif; ?>
