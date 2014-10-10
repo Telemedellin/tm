@@ -3,6 +3,11 @@ class TelemedellinController extends Controller
 {
 	public function actionIndex()
 	{
+		/*
+		$ya = date('Y-m-d H:i:s');
+		if( $ya >= '2014-10-08 08:00:00' && $ya <= '2014-10-08 14:30:00')
+			$this->redirect( bu('especiales/dialogos-telemedellin-2014/en-vivo', false, 307) );
+		/**/
 		$this->render('index');
 	}
 
