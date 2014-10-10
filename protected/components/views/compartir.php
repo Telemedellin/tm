@@ -14,7 +14,8 @@
 	  var js, fjs = d.getElementsByTagName(s)[0];
 	  if (d.getElementById(id)) return;
 	  js = d.createElement(s); js.id = id;
-	  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=118796586430";
+	  //js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=118796586430";
+	  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=274957429359215";
 	  fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));</script>
 	<script type="text/javascript">
