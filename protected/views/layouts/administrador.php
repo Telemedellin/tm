@@ -34,6 +34,12 @@
 							<?php if(Yii::app()->user->checkAccess('crear_banners')): ?>
 							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear banner', bu('administrador/novedades/crearbanner') ); ?></li>
 							<?php endif ?>	
+							<?php if(Yii::app()->user->checkAccess('ver_guinos')): ?>
+							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Guiños', bu('administrador/guino') ); ?></li>
+							<?php endif ?>
+							<?php if(Yii::app()->user->checkAccess('crear_guinos')): ?>
+							<li><?php echo l( '<span class="glyphicon glyphicon-plus"></span> Crear guiño', bu('administrador/guino/crear') ); ?></li>
+							<?php endif ?>
 						</ul>
 					</li>
 					<?php endif ?>
@@ -103,11 +109,17 @@
 						</ul>
 					</li>
 					<?php endif ?>
-					<?php if( Yii::app()->user->isSuperAdmin ): ?>
-					<li>
-						<a href="<?php echo Yii::app()->user->ui->userManagementAdminUrl ?>">Usuarios <b class="caret"></b></a>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<?php if( Yii::app()->user->isSuperAdmin ): ?>
+							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Cruge', Yii::app()->user->ui->userManagementAdminUrl ); ?></li>
+							<?php endif ?>
+							<?php //if(Yii::app()->user->checkAccess('ver_trivia')): ?>
+							<li><?php echo l( '<span class="glyphicon glyphicon-list"></span> Trivia', bu('trivia/administracion') ); ?></li>
+							<?php //endif ?>
+						</ul>
 					</li>
-					<?php endif ?>
 			    </ul>
 			</div>
 			<p class="navbar-text pull-right">
