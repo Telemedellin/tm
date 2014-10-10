@@ -19,7 +19,7 @@
 			<header>
 				<h1>
 					<a href="<?php echo bu('/'); ?>">
-						<img src="<?php echo bu('images/static'); ?>/logo.png" alt="Telemedellín, aquí te ves" title="Ir a la página de inicio de Telemedellín" />
+						<?php $this->widget('Guinos'); ?>
 					</a>
 				</h1>
 			</header>
