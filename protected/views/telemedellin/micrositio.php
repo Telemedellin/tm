@@ -1,10 +1,9 @@
 <?php
 $bc = array();
-if($seccion->url->slug != 'sin-seccion')
+if($seccion->id != 9)
 {
-	$bc[ucfirst($seccion->nombre)] =  bu( $seccion->url->slug ) ;
+	$bc[ucfirst($seccion->nombre)] =  bu( $seccion->url->slug );
 }
-
 ($pagina->id != $micrositio->pagina_id) ? $bc[ucfirst($micrositio->nombre)] = bu( $micrositio->url->slug ) : $bc[] = ucfirst($micrositio->nombre);
 ($pagina->id != $micrositio->pagina_id) ? $bc[] = ucfirst($pagina->nombre) : false;
 $this->breadcrumbs = $bc;

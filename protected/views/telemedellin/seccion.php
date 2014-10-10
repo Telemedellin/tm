@@ -9,7 +9,7 @@ if($seccion->url->slug == 'concursos')
 {
 	$bg = bu('/images/backgrounds/concursos/general-de-concurso.jpg');
 	cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');
-	$this->pageTitle = $bg;
+	$this->pageImg = $bg;
 }
 	
 cs()->registerScript( 'scroll', 
