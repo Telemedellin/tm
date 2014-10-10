@@ -25,25 +25,26 @@ $this->pageTitle= 'Ingresar - ' . Yii::app()->name;
 				'class' => 'form-horizontal', 
 			)
 	)); ?>
-		<?php echo $form->errorSummary($model, '', '', array('class' => 'flash-notice') ); ?>
+		<?php if( $model->hasErrors() ) : ?>
+			<div class="flash-notice error">
+				<p>No se pudo iniciar sesión, por favor verifique los datos.</p>
+			</div>
+		<?php endif; ?>
 		<div class="form-group">
 			<?php echo $form->label($model,'username', array('class' => 'col-sm-2 control-label')); ?>
 			<div class="col-sm-4">
 			<?php echo $form->emailField($model,'username', array('class' => 'form-control')); ?>
 			</div>
-			<?php echo $form->error($model,'username', array('class' => 'flash-notice')); ?>
 		</div>
 		<div class="form-group">
 			<?php echo $form->label($model,'password', array('class' => 'col-sm-2 control-label')); ?>
 			<div class="col-sm-4">
 			<?php echo $form->passwordField($model,'password', array('class' => 'form-control')); ?>
 			</div>
-			<?php echo $form->error($model,'password', array('class' => 'flash-notice')); ?>
 		</div>
 		<div class="form-group rememberMe">
 			<?php echo $form->label($model,'rememberMe', array('class' => 'col-sm-2 control-label')); ?>
 			<?php echo $form->checkBox($model,'rememberMe'); ?>
-			<?php echo $form->error($model,'rememberMe', array('class' => 'flash-notice')); ?>
 		</div>
 		<div class="form-group buttons">
 			<div class="col-sm-offset-2 col-sm-4">
@@ -53,10 +54,6 @@ $this->pageTitle= 'Ingresar - ' . Yii::app()->name;
 		</div>
 		<div class="form-group">
 			<?php echo Yii::app()->user->ui->passwordRecoveryLink; ?>
-			<?php
-				if(Yii::app()->user->um->getDefaultSystem()->getn('registrationonlogin')===1)
-					echo Yii::app()->user->ui->registrationLink;
-			?>
 		</div>
 	<?php $this->endWidget(); ?>
 <?php endif; ?>

@@ -69,7 +69,7 @@ class EventoController extends Controller
 		$evento->delete();
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	/**
@@ -90,7 +90,7 @@ class EventoController extends Controller
 			$evento->hora = strtotime($evento->hora);
 			if($evento->save())
 			{
-				Yii::app()->user->setFlash('mensaje', 'Evento ' . $evento->nombre . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', 'Evento ' . $evento->nombre . ' guardado con éxito');
 				$this->redirect(($_POST['returnUrl'])?$_POST['returnUrl']:bu('administrador/pagina/view/' . $evento->pgEventos->pagina_id) );
 			}
 
@@ -118,7 +118,7 @@ class EventoController extends Controller
 			$evento->hora = strtotime($evento->hora);
 			if($evento->save())
 			{
-				Yii::app()->user->setFlash('mensaje', 'Evento ' . $evento->nombre . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', 'Evento ' . $evento->nombre . ' guardado con éxito');
 				$this->redirect(($_POST['returnUrl'])?$_POST['returnUrl']:bu('administrador/pagina/view/' . $evento->pgEventos->pagina_id) );
 			}
 

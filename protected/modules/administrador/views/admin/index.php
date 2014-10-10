@@ -52,7 +52,7 @@
 			</div>
 			<div class="panel-body">
 				<?php $this->widget('zii.widgets.grid.CGridView', array(
-				'dataProvider'=>$novedades,
+				'dataProvider'=>$novedades->search(),
 				'enablePagination' => false,
 				'summaryText'=>'',  
 			    //'rowCssClassExpression' => '($data->destacado=="1")?"alert-success":(($data->estado=="2")?"alert-primary":(($data->estado=="1")?"alert-warning":"alert-danger"))',
@@ -88,7 +88,7 @@
 			</div>
 			<div class="panel-body">
 				<?php $this->widget('zii.widgets.grid.CGridView', array(
-				'dataProvider'=>$concursos,
+				'dataProvider'=>$concursos->search(),
 				'enablePagination' => false,
 				'summaryText'=>'',  
 				'columns'=>array(

@@ -7,7 +7,7 @@
 		  <li><?php echo l('<span class="glyphicon glyphicon-pencil"></span> Editar', bu('administrador/novedades/update/' . $model->id))?></li>
 		  <?php endif ?>
 		  <?php if(Yii::app()->user->checkAccess('eliminar_novedades')): ?>
-		  <li><?php echo l('<small><span class="glyphicon glyphicon-remove"></span> Eliminar</small>', bu('administrador/novedades/delete/' . $model->id), array('onclick' => 'if( !confirm(¿"Seguro que desea borrar la novedad "<?php echo $model->nombre; ?>") ) {return false;}'))?></li>
+		  <li><?php echo l('<small><span class="glyphicon glyphicon-remove"></span> Eliminar</small>', bu('administrador/novedades/delete/' . $model->id), array('onclick' => 'if( !confirm(¿Seguro que desea borrar la novedad \"'.$model->nombre.'\") ) {return false;}'))?></li>
 		  <?php endif ?>
 		</ul>
 	</div>

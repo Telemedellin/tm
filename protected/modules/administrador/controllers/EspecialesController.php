@@ -164,7 +164,7 @@ class EspecialesController extends Controller
 			
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	/**
@@ -221,8 +221,8 @@ class EspecialesController extends Controller
 				else
 				{
 					$transaccion->commit();
-					Yii::app()->user->setFlash('mensaje', 'Especial ' . $especialesForm->nombre . ' guardado con éxito');
-					$this->redirect('index');
+					Yii::app()->user->setFlash('success', 'Especial ' . $especialesForm->nombre . ' guardado con éxito');
+					$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 				}
 
 			}//if($novedadesForm->validate())
@@ -296,11 +296,11 @@ class EspecialesController extends Controller
 				$pgB->estado 		= $especialesForm->estado;
 				if( $pgB->save() )
 				{
-					Yii::app()->user->setFlash('mensaje', 'Especial ' . $especialesForm->nombre . ' guardado con éxito');
+					Yii::app()->user->setFlash('success', 'Especial ' . $especialesForm->nombre . ' guardado con éxito');
 					$this->redirect(array('view','id' => $especialesForm->id));
 				}else
 				{
-					Yii::app()->user->setFlash('mensaje', 'Especial ' . $especialesForm->nombre . ' no se pudo guardar');
+					Yii::app()->user->setFlash('warning', 'Especial ' . $especialesForm->nombre . ' no se pudo guardar');
 				}
 
 			}//if($novedadesForm->validate())

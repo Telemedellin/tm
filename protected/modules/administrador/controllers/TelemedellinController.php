@@ -78,16 +78,13 @@ class TelemedellinController extends Controller
 	public function actionIndex()
 	{
 		Yii::app()->session->remove('dirt');
-		$dataProvider = new CActiveDataProvider('Micrositio', array(
-													    'criteria'=>array(
-													        'condition'=>'seccion_id = 1',
-													        'order'=>'t.nombre ASC',
-													        'with'=>array('url'),
-													    ),
-													    'pagination'=>array(
-													    	'pageSize'=>25,
-													    )
-												    ) );
+		
+		$dataProvider = new Micrositio('search');
+		$dataProvider->seccion_id = 1;
+		
+		if(isset($_GET['Micrositio']))
+			$dataProvider->attributes = $_GET['Micrositio'];
+
 		$this->render('index', array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -153,7 +150,7 @@ class TelemedellinController extends Controller
 			
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	/**
@@ -208,7 +205,7 @@ class TelemedellinController extends Controller
 				else
 				{
 					$transaccion->commit();
-					Yii::app()->user->setFlash('mensaje', 'Micrositio ' . $programasForm->nombre . ' guardado con éxito');
+					Yii::app()->user->setFlash('success', 'Micrositio ' . $programasForm->nombre . ' guardado con éxito');
 					$this->redirect('index');
 				}
 
@@ -282,11 +279,11 @@ class TelemedellinController extends Controller
 				$pgGst->estado 		= $programasForm->estado;
 				if( $pgGst->save() )
 				{
-					Yii::app()->user->setFlash('mensaje', 'Micrositio ' . $programasForm->nombre . ' guardado con éxito');
+					Yii::app()->user->setFlash('success', 'Micrositio ' . $programasForm->nombre . ' guardado con éxito');
 					$this->redirect(array('view','id' => $programasForm->id));
 				}else
 				{
-					Yii::app()->user->setFlash('mensaje', 'Micrositio ' . $programasForm->nombre . ' no se pudo guardar');
+					Yii::app()->user->setFlash('warning', 'Micrositio ' . $programasForm->nombre . ' no se pudo guardar');
 				}
 
 			}//if($novedadesForm->validate())

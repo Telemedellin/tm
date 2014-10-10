@@ -130,7 +130,7 @@ class ProgramasController extends Controller
 													    )) );
 		$paginas = new Pagina('search');
 		$paginas->micrositio_id = $id;
-		$paginas->tipo_pagina_id = 2;
+		//$paginas->tipo_pagina_id = 2;
 		if(isset($_GET['Pagina']))
 			$paginas->attributes = $_GET['Pagina'];
 
@@ -167,7 +167,7 @@ class ProgramasController extends Controller
 			
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	/**
@@ -240,7 +240,7 @@ class ProgramasController extends Controller
 				else
 				{
 					$transaccion->commit();
-					Yii::app()->user->setFlash('mensaje', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
+					Yii::app()->user->setFlash('success', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
 					$this->redirect('index');
 				}
 
@@ -344,11 +344,11 @@ class ProgramasController extends Controller
 				$pgP->estado 		= $programasForm->estado;
 				if( $pgP->save() )
 				{
-					Yii::app()->user->setFlash('mensaje', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
+					Yii::app()->user->setFlash('success', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
 					$this->redirect(array('view','id' => $programasForm->id));
 				}else
 				{
-					Yii::app()->user->setFlash('mensaje', 'Programa ' . $programasForm->nombre . ' no se pudo guardar');
+					Yii::app()->user->setFlash('warning', 'Programa ' . $programasForm->nombre . ' no se pudo guardar');
 				}
 
 			}//if($novedadesForm->validate())

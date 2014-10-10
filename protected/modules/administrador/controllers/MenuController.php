@@ -100,7 +100,7 @@ class MenuController extends Controller
 		if(isset($_POST['Menu'])){
 			$menu->attributes = $_POST['Menu'];
 			if($menu->save()){
-				Yii::app()->user->setFlash('mensaje', 'Menú ' . $menu->nombre . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', 'Menú ' . $menu->nombre . ' guardado con éxito');
 				$this->redirect(bu('administrador/menu/view/'. $menu->getPrimaryKey()));
 			}//if($menu->save())
 
@@ -174,8 +174,8 @@ class MenuController extends Controller
 			$menuItem->attributes = $_POST['MenuItem'];
 			if($menuItem->url_id == '') $menuItem->url_id = NULL;
 			if($menuItem->save()){
-				Yii::app()->user->setFlash('mensaje', 'Item ' . $menuItem->label . ' guardado con éxito');
-				$this->redirect('/administrador/menu/view/'.$menuItem->menu_id);
+				Yii::app()->user->setFlash('success', 'Item ' . $menuItem->label . ' guardado con éxito');
+				$this->redirect(bu('administrador/menu/view/'.$menuItem->menu_id));
 			}//if($menuItem->save())
 
 		} //if(isset($_POST['MenuItem']))

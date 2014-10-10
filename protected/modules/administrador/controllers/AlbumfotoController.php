@@ -68,7 +68,7 @@ class AlbumfotoController extends Controller
 		
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	
@@ -91,12 +91,12 @@ class AlbumfotoController extends Controller
 				$dir = Yii::getPathOfAlias('webroot') . '/images/galeria/' . $directorio;
 				if( @mkdir($dir, 0755, true) ){
 					$transaction->commit();
-					Yii::app()->user->setFlash('mensaje', $album_foto->nombre . ' guardado con éxito');
+					Yii::app()->user->setFlash('success', $album_foto->nombre . ' guardado con éxito');
 				}else{
 					$transaction->rollBack();
-					Yii::app()->user->setFlash('error', $album_foto->nombre . ' no se pudo guardar');
+					Yii::app()->user->setFlash('warning', $album_foto->nombre . ' no se pudo guardar');
 				}
-				$this->redirect(bu('administrador/'.$micrositio->seccion->nombre.'/view/' . $micrositio->id));
+				$this->redirect(bu('administrador/'.$this->slugger($micrositio->seccion->nombre).'/view/' . $micrositio->id));
 			}//if($album_foto->save())
 
 		} //if(isset($_POST['AlbumFoto']))
@@ -120,7 +120,7 @@ class AlbumfotoController extends Controller
 			$nombre = $album_foto->nombre;
 			$album_foto->attributes = $_POST['AlbumFoto'];
 			if($album_foto->save()){
-				Yii::app()->user->setFlash('mensaje', $album_foto->nombre . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', $album_foto->nombre . ' guardado con éxito');
 				$this->redirect(bu('administrador/'.$micrositio->seccion->nombre.'/view/' . $album_foto->micrositio_id));
 			}//if($album_foto->save())
 

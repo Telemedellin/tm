@@ -86,7 +86,7 @@ class VideosController extends Controller
 		
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	/**
@@ -102,7 +102,7 @@ class VideosController extends Controller
 			$video->attributes = $_POST['Video'];
 			if( $video->save() )
 			{
-				Yii::app()->user->setFlash('mensaje', 'Video ' . $video->nombre . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', 'Video ' . $video->nombre . ' guardado con éxito');
 				$this->redirect(bu('administrador/albumvideo/view/'. $video->album_video_id));
 				$this->redirect('index');
 			}
@@ -135,7 +135,7 @@ class VideosController extends Controller
 			$video->attributes = $_POST['Video'];
 			if( $video->save() )
 			{
-				Yii::app()->user->setFlash('mensaje', 'Video ' . $video->nombre . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', 'Video ' . $video->nombre . ' guardado con éxito');
 				$this->redirect(array('view','id' => $video->id));
 			}
 

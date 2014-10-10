@@ -69,7 +69,7 @@ class BloqueController extends Controller
 		$bloque->delete();
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	/**
@@ -86,7 +86,7 @@ class BloqueController extends Controller
 			$bloque->attributes = $_POST['Bloque'];
 			if($bloque->save())
 			{
-				Yii::app()->user->setFlash('mensaje', 'Bloque ' . $bloque->titulo . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', 'Bloque ' . $bloque->titulo . ' guardado con éxito');
 				$this->redirect(($_POST['returnUrl'])?$_POST['returnUrl']:bu('administrador/pagina/view/' . $bloque->pgBloques->pagina_id) );
 			}
 
@@ -110,7 +110,7 @@ class BloqueController extends Controller
 			$bloque->attributes = $_POST['Bloque'];
 			if($bloque->save())
 			{
-				Yii::app()->user->setFlash('mensaje', 'Bloque ' . $bloque->titulo . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', 'Bloque ' . $bloque->titulo . ' guardado con éxito');
 				$this->redirect(($_POST['returnUrl'])?$_POST['returnUrl']:bu('administrador/pagina/view/' . $bloque->pgBloques->pagina_id) );
 			}
 

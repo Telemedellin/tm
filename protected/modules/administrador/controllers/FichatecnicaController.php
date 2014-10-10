@@ -49,7 +49,7 @@ class FichatecnicaController extends Controller
 		$ficha_tecnica->delete();
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	/**
@@ -64,7 +64,7 @@ class FichatecnicaController extends Controller
 			$ficha_tecnica->attributes = $_POST['FichaTecnica'];
 			$pgDocumental = PgDocumental::model()->with('pagina')->findByPk($ficha_tecnica->pg_documental_id);
 			if($ficha_tecnica->save()){
-				Yii::app()->user->setFlash('mensaje', $ficha_tecnica->campo . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', $ficha_tecnica->campo . ' guardado con éxito');
 					$this->redirect(bu('administrador/documentales/view/' . $pgDocumental->pagina->micrositio_id));
 			}//if($ficha_tecnica->save())
 
@@ -92,7 +92,7 @@ class FichatecnicaController extends Controller
 		if(isset($_POST['FichaTecnica'])){
 			$ficha_tecnica->attributes = $_POST['FichaTecnica'];
 			if($ficha_tecnica->save()){
-				Yii::app()->user->setFlash('mensaje', $ficha_tecnica->campo . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', $ficha_tecnica->campo . ' guardado con éxito');
 				$pgDocumental = PgDocumental::model()->with('pagina')->findByPk($ficha_tecnica->pg_documental_id);
 				$this->redirect(bu('administrador/documentales/view/' . $pgDocumental->pagina->micrositio_id));
 			}//if($ficha_tecnica->save())

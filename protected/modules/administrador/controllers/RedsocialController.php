@@ -49,7 +49,7 @@ class RedsocialController extends Controller
 		$red_social->delete();
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	/**
@@ -64,7 +64,7 @@ class RedsocialController extends Controller
 			$red_social->attributes = $_POST['RedSocial'];
 			$micrositio = Micrositio::model()->with('pagina')->findByPk($red_social->micrositio_id);
 			if($red_social->save()){
-				Yii::app()->user->setFlash('mensaje', $red_social->tipoRedSocial->nombre . ' ' . $red_social->usuario . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', $red_social->tipoRedSocial->nombre . ' ' . $red_social->usuario . ' guardado con éxito');
 					$this->redirect(bu('administrador/programas/view/' . $micrositio->id));
 			}//if($red_social->save())
 
@@ -92,7 +92,7 @@ class RedsocialController extends Controller
 		if(isset($_POST['RedSocial'])){
 			$red_social->attributes = $_POST['RedSocial'];
 			if($red_social->save()){
-				Yii::app()->user->setFlash('mensaje', $red_social->tipoRedSocial->nombre . ' ' . $red_social->usuario . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', $red_social->tipoRedSocial->nombre . ' ' . $red_social->usuario . ' guardado con éxito');
 				$pgDocumental = PgDocumental::model()->with('pagina')->findByPk($red_social->micrositio_id);
 				$this->redirect(bu('administrador/programas/view/' . $red_social->micrositio_id));
 			}//if($red_social->save())

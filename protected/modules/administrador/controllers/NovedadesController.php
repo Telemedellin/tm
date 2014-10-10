@@ -133,7 +133,7 @@ class NovedadesController extends Controller
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	/**
@@ -181,7 +181,7 @@ class NovedadesController extends Controller
 				else
 				{
 					$transaccion->commit();
-					Yii::app()->user->setFlash('mensaje', 'Novedad ' . $novedadesForm->nombre . ' guardada con éxito');
+					Yii::app()->user->setFlash('success', 'Novedad ' . $novedadesForm->nombre . ' guardada con éxito');
 					$this->redirect('index');
 				}
 				
@@ -257,7 +257,7 @@ class NovedadesController extends Controller
 				else
 				{
 					$transaccion->commit();
-					Yii::app()->user->setFlash('mensaje', 'Novedad ' . $novedadesForm->nombre . ' modificada con éxito');
+					Yii::app()->user->setFlash('success', 'Novedad ' . $novedadesForm->nombre . ' modificada con éxito');
 					$this->redirect(array('view','id' => $novedadesForm->id));
 				}
 				
@@ -316,7 +316,7 @@ class NovedadesController extends Controller
 			if(empty($_POST['Banner']['inicio_publicacion']) || $_POST['Banner']['inicio_publicacion'] == '0000-00-00 00:00:00') $banner->inicio_publicacion = NULL;
 			if(empty($_POST['Banner']['fin_publicacion']) || $_POST['Banner']['fin_publicacion'] == '0000-00-00 00:00:00') $banner->fin_publicacion = NULL;
 			if($banner->save()){
-				Yii::app()->user->setFlash('mensaje', 'Banner ' . $banner->nombre . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', 'Banner ' . $banner->nombre . ' guardado con éxito');
 				$this->redirect( bu('administrador/novedades/viewbanner/'.$banner->getPrimaryKey()) );
 			}//if($banner->save())
 
@@ -357,7 +357,7 @@ class NovedadesController extends Controller
 			if(empty($_POST['Banner']['inicio_publicacion']) || $_POST['Banner']['inicio_publicacion'] == '0000-00-00 00:00:00') $banner->inicio_publicacion = NULL;
 			if(empty($_POST['Banner']['fin_publicacion']) || $_POST['Banner']['fin_publicacion'] == '0000-00-00 00:00:00') $banner->fin_publicacion = NULL;
 			if($banner->save()){
-				Yii::app()->user->setFlash('mensaje', 'Banner ' . $banner->nombre . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', 'Banner ' . $banner->nombre . ' guardado con éxito');
 				$this->redirect( bu('administrador/novedades/viewbanner/'.$banner->getPrimaryKey()) );
 			}//if($banner->save())
 
@@ -394,7 +394,7 @@ class NovedadesController extends Controller
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	/**

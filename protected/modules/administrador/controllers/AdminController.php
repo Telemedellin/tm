@@ -19,7 +19,7 @@ class AdminController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('ingresar', 'registro', 'salir'),
+				'actions'=>array('ingresar', 'salir'),
 				'users'=>array('*'),
 			),
 			array('allow',
@@ -155,26 +155,21 @@ class AdminController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$novedades = new CActiveDataProvider(
-							'Pagina', 
-							array(
-							    'criteria'=>array(
-							        'condition'=> 'tipo_pagina_id = 3 AND estado = 2',
-							        'order' => 'destacado DESC, creado DESC',
-							    ),
-							    'pagination'=>false,
-							) 
-						);
-		$concursos = new CActiveDataProvider(
-							'Micrositio', 
-							array(
-							    'criteria'=>array(
-							        'condition'=>'seccion_id = 8 AND estado = 2',
-							        'order'=>'creado DESC',
-							    ), 
-							    'pagination'=>false,
-							) 
-						);
+		$novedades = new Pagina('search');
+		$novedades->micrositio_id = 2;
+		$novedades->tipo_pagina_id = 3;
+		$novedades->estado = 2;
+		
+		if(isset($_GET['Pagina']))
+			$novedades->attributes = $_GET['Pagina'];
+
+		$concursos = new Micrositio('search');
+		$concursos->seccion_id = 8;
+		$concursos->estado = 2;
+		
+		if(isset($_GET['Micrositio']))
+			$concursos->attributes = $_GET['Micrositio'];
+
 		date_default_timezone_set('America/Bogota');
 		setlocale(LC_ALL, 'es_ES.UTF-8');
 		$sts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));

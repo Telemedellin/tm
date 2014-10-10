@@ -92,7 +92,7 @@ class AlbumvideoController extends Controller
 		
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	/**
@@ -111,7 +111,7 @@ class AlbumvideoController extends Controller
 			$album_video->thumb 	 = 'videos/' . $_POST['AlbumVideo']['thumb'];
 			
 			if($album_video->save()){
-				Yii::app()->user->setFlash('mensaje', $album_video->nombre . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', $album_video->nombre . ' guardado con éxito');
 				$this->redirect( bu( 'administrador/albumvideo/view/' . $album_video->getPrimayKey() ) );
 			}//if($album_video->save())
 
@@ -147,7 +147,7 @@ class AlbumvideoController extends Controller
 				$album_video->thumb 	= 'videos/' . $_POST['AlbumVideo']['thumb'];
 			}
 			if($album_video->save()){
-				Yii::app()->user->setFlash('mensaje', $album_video->nombre . ' guardado con éxito');
+				Yii::app()->user->setFlash('success', $album_video->nombre . ' guardado con éxito');
 				$this->redirect(bu('administrador/'.strtolower($micrositio->seccion->nombre).'/view/' . $album_video->micrositio_id));
 			}//if($album_video->save())
 

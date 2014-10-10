@@ -118,12 +118,12 @@ class ProgramacionController extends Controller
 	{
 		//Borrar pgArticuloBlog
 		$programacion = Programacion::model()->findByPk($id);
-		Yii::app()->user->setFlash('mensaje', 'Programación ' . $programacion->micrositio->nombre . ' eliminada con éxito');
+		Yii::app()->user->setFlash('success', 'Programación ' . $programacion->micrositio->nombre . ' eliminada con éxito');
 		$programacion->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('index'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
 	}
 
 	/**
@@ -145,7 +145,7 @@ class ProgramacionController extends Controller
 
 			if( $programacion->save() )
 			{
-				Yii::app()->user->setFlash('mensaje', 'Programación ' . $programacion->micrositio->nombre . ' guardada con éxito');
+				Yii::app()->user->setFlash('success', 'Programación ' . $programacion->micrositio->nombre . ' guardada con éxito');
 				$this->redirect('index');
 			}
 				
@@ -179,7 +179,7 @@ class ProgramacionController extends Controller
 			
 			if( $programacion->save() )
 			{
-				Yii::app()->user->setFlash('mensaje', 'Programacion ' . $programacion->micrositio->nombre . ' modificada con éxito');
+				Yii::app()->user->setFlash('success', 'Programacion ' . $programacion->micrositio->nombre . ' modificada con éxito');
 				$this->redirect(array('view','id' => $programacion->id));
 			}
 			

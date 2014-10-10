@@ -8,14 +8,27 @@
  */
 class AdministradorModule extends CWebModule
 {
-	public function init()
-	{
-		
-	}
+	public $urlRules	= array(
+							'administrador'=>'administrador/admin',
+				            'administrador/borrarcache'=>'administrador/admin/borrarcache',
+				            'administrador/ingresar'=>'administrador/admin/ingresar',
+				            'administrador/registro'=>'administrador/admin/registro',
+				            'administrador/salir'=>'administrador/admin/salir',
+				            'administrador/recuperar-contrasena'=>'administrador/admin/recuperarcontrasena',
+				            'administrador/<controller:\w+>'=>'administrador/<controller>',
+				            'administrador/<controller:\w+>/<action:\w+>/<id:\d+>'=>'administrador/<controller>/<action>',
+				            'administrador/<controller:\w+>/<action:\w+>/<id:\d+>/<tipo_pagina_id:\d+>'=>'administrador/<controller>/<action>',
+				            'administrador/<controller:\w+>/<action:\w+>'=>'administrador/<controller>/<action>',
+							);
+	
 	public function beforeControllerAction($controller, $action)
 	{
 		if(parent::beforeControllerAction($controller, $action))
 		{
+			Yii::app()->getModule('cruge')->defaultSessionFilter = 'application.components.MiSesionCruge';
+			Yii::app()->getModule('cruge')->afterLogoutUrl = array('/administrador');
+			Yii::app()->user->loginUrl = array('/administrador/ingresar');
+			Yii::app()->theme = 'adminlte';
 			return true;
 		}
 		else
