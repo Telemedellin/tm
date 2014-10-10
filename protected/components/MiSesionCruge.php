@@ -17,14 +17,7 @@ class MiSesionCruge extends DefaultSessionFilter {
 	public function onLogin(/*ICrugeSession*/ $model){
 		parent::onLogin($model);
 		Yii::log("PASANDO POR ONLOGIN","info");
-		if( Yii::app()->user->checkAccess('Administrador') || Yii::app()->user->checkAccess('Gestor') )
-		{
-			Yii::app()->getController()->redirect(array("/administrador"));
-		}
-		else
-		{
-			Yii::app()->getController()->redirect(array("/"));
-		}
+		Yii::app()->getController()->redirect(array("/administrador"));
 	}
 
 	/**
@@ -36,15 +29,6 @@ class MiSesionCruge extends DefaultSessionFilter {
 		// por ejemplo, podrias determinar el tipo de usuario (segun su rol) y redirigir al usuario
 		// a esa pagina en onLogin() tras el cierre de sesion (NO AQUI !!)
 		//
-		if( Yii::app()->user->checkAccess('Administrador') || Yii::app()->user->checkAccess('Gestor') )
-		{
-			$this->tipo_rol = 'backend';
-		}
-		else
-		{
-			$this->tipo_rol = 'frontend';
-		}		
-
 		return true; // o false para que la sesion no se cierre y vuelvas al action de donde vino.
 	}
 
@@ -55,10 +39,7 @@ class MiSesionCruge extends DefaultSessionFilter {
 	public function onLogout(/*ICrugeSession*/ $model) {
 		parent::onLogout($model);
 		Yii::log("PASANDO POR ONLOGOUT","info");
-		if( $this->tipo_rol == 'backend' )
-			Yii::app()->getController()->redirect(array("/administrador"));
-		else
-			Yii::app()->getController()->redirect(array("/"));
+		Yii::app()->getController()->redirect(array("/administrador"));
 	}
 
 	/**
