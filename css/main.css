@@ -888,7 +888,13 @@ th
 {
 	background-position: 5px -762px;
 }
-#bar nav li.tmradio
+#bar nav li.tmradio a
+{
+	background-position: 5px -688px;
+	line-height: 1.2;
+}
+
+#bar nav li.destacado
 {
 	background: #fc7812;
 	-webkit-border-top-right-radius: 10px;
@@ -904,13 +910,14 @@ th
 	transition: background .5s ease;
 	width: 85%;
 }
-#bar nav li.tmradio:hover
+#bar nav li.destacado:hover
 {
 	background: #ef6800;
 	color: #FFF;
 }
-#bar nav li.tmradio a {
-	background-position: 5px -675px;
+#bar nav li.destacado a {
+	background: url('../images/static/iconos/_destacado-menu.png') no-repeat 5px center;
+	background-size: auto auto;
 	line-height: 1.2;
 	padding-right: 10px;
 }
@@ -2702,7 +2709,7 @@ th
 		padding: 4px 0 4px 30px;
 	}
 	#bar nav li.tmradio a {
-		background-position: 5px -652px;
+		background-position: 5px -665px;
 	}
 	#bar nav li.sintonizanos a {
 		background-position: 5px -770px;
@@ -2896,7 +2903,7 @@ th
 		background-position: 5px -732px;
 	}
 	#bar nav li.tmradio a {
-		background-position: 5px -655px;
+		background-position: 5px -664px;
 	}
 	#bar nav li.sintonizanos a {
 		background-position: 5px -770px;
@@ -2987,7 +2994,7 @@ th
 		background-position: 5px -912px;
 	}
 	#bar nav li.tmradio a {
-		background-position: 5px -814px;
+		background-position: 5px -826px;
 	}
 	#bar nav li.sintonizanos a {
 		background-position: 5px -960px;
@@ -3065,13 +3072,12 @@ th
 	{
 		background-position: 5px -972px;
 	}
-	#bar nav li.tmradio
+	#bar nav li.destacado
 	{
 		max-width: 230px;
 	}
-	
 	#bar nav li.tmradio a {
-		background-position: 5px -870px;
+		background-position: 5px -881px;
 	}
 	#bar nav li.sintonizanos a {
 		background-position: 5px -1023px;

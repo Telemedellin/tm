@@ -21,3 +21,6 @@
 .counter span { font-style: italic; font-size: 1.5em; line-height: 1.55em; color: #a99bb1; }
 
 .counter span.warning { color: #b66875; }
+
+.button-column{ max-width: 90px; min-width: 80px; }
+.filters input{width: 100% !important;}
