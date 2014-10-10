@@ -42,8 +42,8 @@ class Utilities extends CBehavior
 	public function imageField($form, $model, $name, $id, $uname = '', $size = 150)
 	{
 		$html  = '';
-		$html .= $form->label($model, $name, array('class' => 'col-sm-2 control-label'));
-        $html .= '<div class="col-sm-10">'.PHP_EOL;
+		$html .= $form->label($model, $name/*, array('class' => 'col-sm-2 control-label')/**/);
+        //$html .= '<div class="col-sm-10">'.PHP_EOL;
 		$html .= $form->hiddenField($model, $name, array('id' => $id.'H') );
 		$html .= '	<div class="controls">'.PHP_EOL;
 		$html .= '		<div id="'.$name.$uname.'">'.PHP_EOL;
@@ -51,20 +51,20 @@ class Utilities extends CBehavior
 		$html .= '		<noscript>Debes tener habilitado Javascript en tu navegador</noscript>'.PHP_EOL;
 		$html .= '		<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->'.PHP_EOL;
 		$html .= '		<div class="row fileupload-buttonbar">'.PHP_EOL;
-		$html .= '			<div class="col-sm-3">'.PHP_EOL;
+		$html .= '			<div class="col-sm-4">'.PHP_EOL;
 		$html .= '			<!-- The fileinput-button span is used to style the file input field as button -->'.PHP_EOL;
-		$html .= '				<span class="btn btn-default fileinput-button">'.PHP_EOL;
-		$html .= '					<span>Añadir archivo</span>'.PHP_EOL;
-		$html .= '					<i class="icon-plus icon-white"></i>'.PHP_EOL;
+		$html .= '				<span class="btn btn-success fileinput-button">'.PHP_EOL;
+		$html .= '					<span>Añadir archivo</span> '.PHP_EOL;
+		$html .= '					<i class="fa fa-plus"></i>'.PHP_EOL;
 		$html .= '					<input id="'.$id.'" type="file" name="'.$id.'[]">'.PHP_EOL;
 		$html .= '				</span>              '.PHP_EOL;
 		$html .= '				<span class="fileupload-loading"></span>'.PHP_EOL;
 		$html .= '			</div>'.PHP_EOL;
 		if($model->$name != '')
 		{
-			$html .= '			<div class="col-sm-3 actual">'.PHP_EOL;
-			$html .= '				<span>Actual</span>'.PHP_EOL;
-			$html .= '				<span><img src="'.bu('images/'.$model->$name).'" width="'.$size.'" /></span>'.PHP_EOL;
+			$html .= '			<div class="col-sm-8 actual">'.PHP_EOL;
+			$html .= '				<blockquote><span>Actual</span>'.PHP_EOL;
+			$html .= '				<span><img src="'.bu('images/'.$model->$name).'" width="'.$size.'" /></span></blockquote>'.PHP_EOL;
 			$html .= '			</div>'.PHP_EOL;
 		}
 		$html .= '			<!-- The global progress information -->'.PHP_EOL;
@@ -82,7 +82,7 @@ class Utilities extends CBehavior
 		$html .= '		<tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>'.PHP_EOL;
 		$html .= '	</table>'.PHP_EOL;
 		$html .= '	</div>'.PHP_EOL;
-		$html .= '	</div>'.PHP_EOL;
+		//$html .= '	</div>'.PHP_EOL;
 		$html .= '</div>'.PHP_EOL;
 		return $html;
 	}
