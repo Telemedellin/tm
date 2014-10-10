@@ -72,7 +72,8 @@ function verificar_hash() {
 	}
 }
 function ga_track(){
-    _gaq.push(['_trackEvent', 'Popup móvil', 'Click', location.pathname + '/' + location.hash]);
+    //_gaq.push(['_trackEvent', 'Popup móvil', 'Click', location.pathname + '/' + location.hash]);
+    ga('send', 'event', 'Popup móvil', 'Click', location.pathname + '/' + location.hash);
 }
 jQuery(function($) {
 	var w 		= $(window), 
