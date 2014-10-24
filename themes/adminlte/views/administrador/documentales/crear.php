@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Crear documental'; 
 $bc = array();
-$bc['Documentales'] = bu('/administrador/documentales');
+$bc['Documentales'] = $this->createUrl('index');
 $bc[] = 'Crear';
 $this->breadcrumbs = $bc;
 ?>

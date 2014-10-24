@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Crear trivia'; 
 $bc = array();
-$bc['Trivias'] = bu('/trivia/administracion');
+$bc['Trivias'] = $this->createUrl('index');
 $bc[] = 'Crear';
 $this->breadcrumbs = $bc;
 ?>

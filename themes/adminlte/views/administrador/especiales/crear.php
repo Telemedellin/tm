@@ -2,7 +2,7 @@
 <?php 
 $this->pageTitle = 'Crear especial'; 
 $bc = array();
-$bc['Especiales'] = bu('/administrador/especiales');
+$bc['Especiales'] = $this->createUrl('index');
 $bc[] = 'Crear';
 $this->breadcrumbs = $bc;
 ?>

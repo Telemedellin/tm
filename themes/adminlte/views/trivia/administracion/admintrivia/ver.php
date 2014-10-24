@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Trivia del ' . $model->fecha_inicio . ' al ' . $model->fecha_fin; 
 $bc = array();
-$bc['Trivias'] = bu('/trivia/administracion');
+$bc['Trivias'] = $this->createUrl('index');
 $bc[] = 'Trivia';
 $this->breadcrumbs = $bc;
 ?>
@@ -12,10 +12,10 @@ $this->breadcrumbs = $bc;
             <h3 class="box-title">Detalles</h3>
             <div class="box-tools pull-right">
 			  <?php if(Yii::app()->user->checkAccess('editar_trivia')): ?>
-			  <?php echo l('<i class="fa fa-pencil"></i> Editar', bu('trivia/administracion/update/' . $model->id), array('class' => 'btn btn-primary'))?>
+			  <?php echo l('<i class="fa fa-pencil"></i> Editar', $this->createUrl('update', array('id' => $model->id) ), array('class' => 'btn btn-primary'))?>
 			  <?php endif ?>
 			  <?php if(Yii::app()->user->checkAccess('eliminar_trivia')): ?>
-			  <?php echo l('<small><i class="fa fa-trash-o"></i> Eliminar</small>', bu('trivia/administracion/delete/' . $model->id), array('onclick' => "if( !window.confirm('¿Seguro que desea borrar la trivia \'".$model->id."\'?')) {return false;}", 'class' => 'btn btn-danger btn-xs'))?>
+			  <?php echo l('<small><i class="fa fa-trash-o"></i> Eliminar</small>', $this->createUrl('delete', array('id' => $model->id) ), array('onclick' => "if( !window.confirm('¿Seguro que desea borrar la trivia \'".$model->id."\'?')) {return false;}", 'class' => 'btn btn-danger btn-xs'))?>
 			  <?php endif ?>
 			</div>
         </div>

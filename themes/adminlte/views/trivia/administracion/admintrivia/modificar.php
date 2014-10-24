@@ -1,8 +1,8 @@
 <?php 
 $this->pageTitle = 'Modificar trivia ' . $model->fecha_inicio . ' - ' . $model->fecha_fin; 
 $bc = array();
-$bc['Trivias'] = bu('/trivia/administracion');
-$bc['Trivia'] = bu('/trivia/administracion/view/'.$model->id);
+$bc['Trivias'] = $this->createUrl('index');
+$bc['Trivia'] = $this->createUrl('view', array('id', $model->id) );
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

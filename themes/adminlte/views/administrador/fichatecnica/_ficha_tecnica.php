@@ -2,7 +2,7 @@
 	<?php if(Yii::app()->user->checkAccess('crear_ficha_tecnica')): ?>
 	<div class="col-sm-12">
         <div class="nav navbar-right btn-group">
-            <?php echo l('<i class="fa fa-plus"></i> Agregar elemento a la ficha', bu('administrador/fichatecnica/crear/' . $contenido->id), array('class' => 'btn btn-primary'))?>
+            <?php echo l('<i class="fa fa-plus"></i> Agregar elemento a la ficha', $this->createUrl('fichatecnica/crear', array('id' => $contenido->id)), array('class' => 'btn btn-primary'))?>
         </div>
     </div>
 	<?php endif ?>
@@ -28,14 +28,14 @@
 		            'template' => '{update} | {delete}',
 		            'buttons'   => array(
 		            	'update' => array(
-	                        'url'       => 'Yii::app()->createUrl("/administrador/fichatecnica/update", array("id"=>$data->id))',
+	                        'url'       => 'Yii::app()->createUrl("fichatecnica/update", array("id"=>$data->id))',
 	                        'visible'   => '(Yii::app()->user->checkAccess("editar_ficha_tecnica"))?true:false', 
 	                        'imageUrl' => false,
                         	'label'    => '<i class="fa fa-pencil"></i>', 
                         	'options'  => array('title' => 'Editar'),  
 	                    ),
 	                    'delete' => array(
-	                        'url'       => 'Yii::app()->createUrl("/administrador/fichatecnica/delete", array("id"=>$data->id))',
+	                        'url'       => 'Yii::app()->createUrl("fichatecnica/delete", array("id"=>$data->id))',
 	                        'visible'   => '(Yii::app()->user->checkAccess("eliminar_ficha_tecnica"))?true:false', 
 	                        'imageUrl' => false,
 	                        'label' => '<i class="fa fa-trash-o"></i>', 

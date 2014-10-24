@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Videos "' . $model->nombre . '"'; 
 $bc = array();
-$bc['Video'] = bu('/administrador/video');
+$bc['Video'] = $this->createUrl('index');
 $bc[] = 'Video';
 $this->breadcrumbs = $bc;
 ?>
@@ -12,10 +12,10 @@ $this->breadcrumbs = $bc;
             <h3 class="box-title">Detalles</h3>
             <div class="box-tools pull-right">
 			  <?php if(Yii::app()->user->checkAccess('editar_video')): ?>
-			  <?php echo l('<i class="fa fa-pencil"></i> Editar', bu('administrador/video/update/' . $model->id), array('class' => 'btn btn-primary'))?>
+			  <?php echo l('<i class="fa fa-pencil"></i> Editar', $this->createUrl('update', array('id' => $model->id)), array('class' => 'btn btn-primary'))?>
 			  <?php endif ?>
 			  <?php if(Yii::app()->user->checkAccess('eliminar_video')): ?>
-			  <?php echo l('<small><i class="fa fa-trash-o"></i> Eliminar</small>', bu('administrador/video/delete/' . $model->id), array('onclick' => "if( !window.confirm('¿Seguro que desea borrar el video \'".$model->nombre."\'?')) {return false;}", 'class' => 'btn btn-danger btn-xs'))?>
+			  <?php echo l('<small><i class="fa fa-trash-o"></i> Eliminar</small>', $this->createUrl('delete', array('id' => $model->id)), array('onclick' => "if( !window.confirm('¿Seguro que desea borrar el video \'".$model->nombre."\'?')) {return false;}", 'class' => 'btn btn-danger btn-xs'))?>
 			  <?php endif ?>
 			</div>
         </div>

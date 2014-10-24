@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Crear concurso'; 
 $bc = array();
-$bc['Concursos'] = bu('/administrador/concursos');
+$bc['Concursos'] = $this->createUrl('index');
 $bc[] = 'Crear';
 $this->breadcrumbs = $bc;
 ?>

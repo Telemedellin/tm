@@ -1,8 +1,8 @@
 <?php 
 $this->pageTitle = 'Modificar página "' . $model->nombre. '"'; 
 $bc = array();
-$bc['Padre'] = bu('/administrador/'.lcfirst($model->micrositio->seccion->nombre).'/view/'.$model->micrositio->id);
-$bc['Página'] = bu('/administrador/pagina/view/'.$model->id);
+$bc['Padre'] = $this->createUrl(lcfirst($model->micrositio->seccion->nombre).'/view', array('id' => $model->micrositio->id));
+$bc['Página'] = $this->createUrl('view', array('id' => $model->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

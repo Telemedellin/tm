@@ -1,8 +1,8 @@
 <?php 
 $this->pageTitle = 'Modificar novedad "' . $model->nombre. '"'; 
 $bc = array();
-$bc['Novedades'] = bu('/administrador/novedades');
-$bc['Novedad'] = bu('/administrador/novedades/view/'.$model->id);
+$bc['Novedades'] = $this->createUrl('index');
+$bc['Novedad'] = $this->createUrl('view', array('id' => $model->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

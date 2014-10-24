@@ -1,8 +1,8 @@
 <?php 
 $this->pageTitle = 'Modificar guiño "' . $model->nombre. '"'; 
 $bc = array();
-$bc['Guiños'] = bu('/administrador/guino');
-$bc['Guiño'] = bu('/administrador/guino/view/'.$model->id);
+$bc['Guiños'] = $this->createUrl('index');
+$bc['Guiño'] = $this->createUrl('view', array('id' => $model->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

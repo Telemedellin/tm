@@ -5,13 +5,13 @@
             <?php echo CHtml::htmlButton('<i class="fa fa-plus"></i> Agregar página', array('class' => 'btn btn-primary')) ?>
             <?php echo CHtml::htmlButton('<span class="caret"></span> <span class="sr-only">Activar submenú</span>', array('class' => 'btn btn-primary dropdown-toggle', 'data-toggle' => 'dropdown')) ?>
             <ul class="dropdown-menu" role="menu">
-                <li><?php echo l('Genérica', bu('administrador/pagina/crear/' . $model->id))?></li>
-                <li><?php echo l('Novedad en blog', bu('administrador/pagina/crear/' . $model->id . '/3'))?></li>
+                <li><?php echo l('Genérica', $this->createUrl('crear', array('id' => $model->id)))?></li>
+                <li><?php echo l('Novedad en blog', $this->createUrl('crear', array('id' => $model->id, 3)))?></li>
                 <li class="divider"></li>
-                <li><?php echo l('Bloques', bu('administrador/pagina/crear/' . $model->id . '/10'))?></li>
-                <li><?php echo l('Blog', bu('administrador/pagina/crear/' . $model->id . '/11'))?></li>
-                <li><?php echo l('Eventos', bu('administrador/pagina/crear/' . $model->id . '/12'))?></li>
-                <li><?php echo l('Filtro', bu('administrador/pagina/crear/' . $model->id . '/8'))?></li>
+                <li><?php echo l('Bloques', $this->createUrl('crear', array('id' => $model->id, 10)))?></li>
+                <li><?php echo l('Blog', $this->createUrl('crear', array('id' => $model->id, 11)))?></li>
+                <li><?php echo l('Eventos', $this->createUrl('crear', array('id' => $model->id, 12)))?></li>
+                <li><?php echo l('Filtro', $this->createUrl('crear', array('id' => $model->id, 8)))?></li>
             </ul>
         </div>
     </div>
@@ -73,21 +73,21 @@
                 'template'  => '{view} | {update} | {delete}',
                 'buttons'   => array(
                     'view' => array(
-                        'url'       => 'Yii::app()->createUrl("/administrador/pagina/view", array("id"=>$data->id))',
+                        'url'       => 'Yii::app()->createUrl("pagina/view", array("id"=>$data->id))',
                         'visible'   => '(Yii::app()->user->checkAccess("ver_paginas"))?true:false', 
                         'imageUrl' => false,
                         'label'    => '<i class="fa fa-search"></i>', 
                         'options'  => array('title' => 'Ver detalles', 'target' => "_blank"),
                     ),
                     'update' => array(
-                        'url'       => 'Yii::app()->createUrl("/administrador/pagina/update", array("id"=>$data->id))', 
+                        'url'       => 'Yii::app()->createUrl("pagina/update", array("id"=>$data->id))', 
                         'visible'   => '(Yii::app()->user->checkAccess("editar_paginas"))?true:false',
                         'imageUrl' => false,
                         'label'    => '<i class="fa fa-pencil"></i>', 
                         'options'  => array('title' => 'Editar', 'target' => "_blank"), 
                     ),
                     'delete' => array(
-                        'url'       => 'Yii::app()->createUrl("/administrador/pagina/delete", array("id"=>$data->id))',
+                        'url'       => 'Yii::app()->createUrl("pagina/delete", array("id"=>$data->id))',
                         'visible'   => '(Yii::app()->user->checkAccess("eliminar_paginas"))?true:false', 
                         'imageUrl' => false,
                         'label' => '<i class="fa fa-trash-o"></i>', 

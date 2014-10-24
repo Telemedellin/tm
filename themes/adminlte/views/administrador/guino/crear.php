@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Crear guiño'; 
 $bc = array();
-$bc['Guiños'] = bu('/administrador/guino');
+$bc['Guiños'] = $this->createUrl('index');
 $bc[] = 'Crear';
 $this->breadcrumbs = $bc;
 ?>

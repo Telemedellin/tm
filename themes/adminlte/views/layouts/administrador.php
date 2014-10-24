@@ -24,7 +24,7 @@
 <body class="skin-tm">
 	<!-- header logo -->
 	<header class="header">
-        <a href="<?php echo bu('administrador') ?>" class="logo">
+        <a href="<?php echo $this->createUrl('/administrador/admin/index') ?>" class="logo">
            <span class="glyphicon glyphicon-home"></span> Telemedellín
         </a>
         <!-- Header Navbar -->
@@ -150,10 +150,10 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="<?php echo bu('cruge/ui/editprofile') ?>" class="btn btn-default btn-flat">Perfil</a>
+                                    <a href="<?php echo $this->createUrl('/cruge/ui/editprofile') ?>" class="btn btn-default btn-flat">Perfil</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="<?php echo bu('administrador/salir')?>" class="btn btn-default btn-flat">Salir</a>
+                                    <a href="<?php echo $this->createUrl('/administrador/admin/salir')?>" class="btn btn-default btn-flat">Salir</a>
                                 </div>
                             </li>
                         </ul>
@@ -209,7 +209,7 @@
                 <?php 
 				$this->widget( 'zii.widgets.CBreadcrumbs', 
 				  array(
-				    'homeLink' => CHtml::link( '<i class="fa fa-dashboard"></i> Panel de control', bu('/administrador'), array('class' => 'home') ),
+				    'homeLink' => CHtml::link( '<i class="fa fa-dashboard"></i> Panel de control', $this->createUrl('/administrador/admin/index'), array('class' => 'home') ),
 				    'separator'=> ' > ',
 				    'links'    => $this->breadcrumbs,
 				    'inactiveLinkTemplate' => '{label}',
@@ -221,7 +221,7 @@
 				?>
 				<?php endif ?>
                 <!--<ol class="breadcrumb">
-                    <li><a href="<?php echo bu('administrador') ?>"><i class="fa fa-dashboard"></i> Panel de control</a></li>
+                    <li><a href="<?php echo $this->createUrl('administrador') ?>"><i class="fa fa-dashboard"></i> Panel de control</a></li>
                     <li class="active">Escritorio</li>
                 </ol>-->
             </section>

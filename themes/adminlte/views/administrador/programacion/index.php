@@ -9,7 +9,7 @@ echo $menu;
 <div class="col-sm-12">
     <div class="nav navbar-right">
       <?php if(Yii::app()->user->checkAccess('crear_programacion')): ?>
-            <?php echo l('<i class="fa fa-plus"></i> Nueva', bu('administrador/programacion/crear/'), array('class' => 'btn btn-primary')) ?>
+            <?php echo l('<i class="fa fa-plus"></i> Nueva', $this->createUrl('crear'), array('class' => 'btn btn-primary')) ?>
       <?php endif ?>
     </div>
 </div>

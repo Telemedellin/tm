@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Crear video'; 
 $bc = array();
-$bc['Videos'] = bu('/administrador/videos');
+$bc['Videos'] = $this->createUrl('index');
 $bc[] = 'Crear';
 $this->breadcrumbs = $bc;
 ?>

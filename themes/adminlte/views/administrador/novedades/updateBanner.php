@@ -1,8 +1,8 @@
 <?php 
 $this->pageTitle = 'Modificar banner "' . $model->nombre. '"'; 
 $bc = array();
-$bc['Banners'] = bu('/administrador/novedades/banners');
-$bc['Banner'] = bu('/administrador/novedades/banners/view/'.$model->id);
+$bc['Banners'] = $this->createUrl('banners');
+$bc['Banner'] = $this->createUrl('viewbanner', array('id' => $model->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

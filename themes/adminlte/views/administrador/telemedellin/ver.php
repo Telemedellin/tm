@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'telemedellín "' . $model->nombre . '"'; 
 $bc = array();
-$bc['Telemedellín'] = bu('/administrador/telemedellin');
+$bc['Telemedellín'] = $this->createUrl('index');
 $bc[] = 'Micrositio';
 $this->breadcrumbs = $bc;
 cs()->registerScript(
@@ -31,10 +31,10 @@ cs()->registerScript(
             <h3 class="box-title">Detalles</h3>
             <div class="box-tools pull-right">
 			  <?php if(Yii::app()->user->checkAccess('editar_telemedellin')): ?>
-			  <?php echo l('<i class="fa fa-pencil"></i> Editar', bu('administrador/telemedellin/update/' . $model->id), array('class' => 'btn btn-primary'))?>
+			  <?php echo l('<i class="fa fa-pencil"></i> Editar', $this->createUrl('update', array('id' => $model->id)), array('class' => 'btn btn-primary'))?>
 			  <?php endif ?>
 			  <?php if(Yii::app()->user->checkAccess('eliminar_telemedellin')): ?>
-			  <?php echo l('<small><i class="fa fa-trash-o"></i> Eliminar</small>', bu('administrador/telemedellin/delete/' . $model->id), array('onclick' => "if( !window.confirm('¿Seguro que desea borrar  \'".$model->nombre."\'?')) {return false;}", 'class' => 'btn btn-danger btn-xs'))?>
+			  <?php echo l('<small><i class="fa fa-trash-o"></i> Eliminar</small>', $this->createUrl('delete', array('id' => $model->id)), array('onclick' => "if( !window.confirm('¿Seguro que desea borrar  \'".$model->nombre."\'?')) {return false;}", 'class' => 'btn btn-danger btn-xs'))?>
 			  <?php endif ?>
 			</div>
         </div>

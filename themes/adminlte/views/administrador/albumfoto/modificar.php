@@ -2,7 +2,7 @@
 $this->pageTitle = 'Modificar álbum de fotos  "' . $model->nombre. '"'; 
 $bc = array();
 $bc['Padre'] = Yii::app()->request->urlReferrer;
-$bc['Álbum de fotos'] = bu('/administrador/albumfoto/view/'.$model->id);
+$bc['Álbum de fotos'] = $this->createUrl('albumfoto/view', array('id' => $model->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

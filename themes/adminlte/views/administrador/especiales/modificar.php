@@ -1,8 +1,8 @@
 <?php 
 $this->pageTitle = 'Modificar especial "' . $model->nombre. '"'; 
 $bc = array();
-$bc['Especiales'] = bu('/administrador/especiales');
-$bc['Especial'] = bu('/administrador/especiales/view/'.$model->id);
+$bc['Especiales'] = $this->createUrl('index');
+$bc['Especial'] = $this->createUrl('view', array('id' => $model->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

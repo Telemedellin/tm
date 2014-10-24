@@ -1,8 +1,8 @@
 <?php 
 $this->pageTitle = 'Modificar menú "' . $model->nombre. '"'; 
 $bc = array();
-$bc['Padre'] = bu('/administrador/'.lcfirst($model->micrositios[0]->seccion->nombre).'/view/'.$model->micrositios[0]->id);
-$bc['Página'] = bu('/administrador/pagina/view/'.$model->id);
+$bc['Padre'] = $this->createUrl(lcfirst($model->micrositios[0]->seccion->nombre).'/view', array('id' => $model->micrositios[0]->id));
+$bc['Página'] = $this->createUrl('pagina/view', array('id' => $model->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

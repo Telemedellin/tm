@@ -1,8 +1,8 @@
 <?php 
 $this->pageTitle = 'Modificar pregunta ' . $model->pregunta; 
 $bc = array();
-$bc['Trivias'] = bu('/trivia/administracion');
-$bc['Trivia'] = bu('/trivia/administracion/view/'. $model->id);
+$bc['Trivias'] = $this->createUrl('index');
+$bc['Trivia'] = $this->createUrl('view', array('id' => $model->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

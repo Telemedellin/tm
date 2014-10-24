@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Novedad "' . $model->nombre . '"'; 
 $bc = array();
-$bc['Novedades'] = bu('/administrador/novedades');
+$bc['Novedades'] = $this->createUrl('index');
 $bc[] = 'Novedad';
 $this->breadcrumbs = $bc;
 cs()->registerScript(
@@ -31,10 +31,10 @@ cs()->registerScript(
             <h3 class="box-title">Detalles</h3>
             <div class="box-tools pull-right">
 			  <?php if(Yii::app()->user->checkAccess('editar_novedades')): ?>
-			  <?php echo l('<i class="fa fa-pencil"></i> Editar', bu('administrador/novedades/update/' . $model->id), array('class' => 'btn btn-primary'))?>
+			  <?php echo l('<i class="fa fa-pencil"></i> Editar', $this->createUrl('update', array('id' => $model->id)), array('class' => 'btn btn-primary'))?>
 			  <?php endif ?>
 			  <?php if(Yii::app()->user->checkAccess('eliminar_novedades')): ?>
-			  <?php echo l('<small><i class="fa fa-trash-o"></i> Eliminar</small>', bu('administrador/novedades/delete/' . $model->id), array('onclick' => "if( !window.confirm('¿Seguro que desea borrar la novedad \'".$model->nombre."\'?')) {return false;}", 'class' => 'btn btn-danger btn-xs'))?>
+			  <?php echo l('<small><i class="fa fa-trash-o"></i> Eliminar</small>', $this->createUrl('delete', array('id' => $model->id)), array('onclick' => "if( !window.confirm('¿Seguro que desea borrar la novedad \'".$model->nombre."\'?')) {return false;}", 'class' => 'btn btn-danger btn-xs'))?>
 			  <?php endif ?>
 			</div>
         </div>

@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Modificar bloque "' . $model->titulo. '"'; 
 $bc = array();
-$bc['Padre'] = bu('/administrador/pagina/view/'.$model->pgBloques->pagina->id);
+$bc['Padre'] = $this->createUrl('pagina/view', array('id' => $model->pgBloques->pagina->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

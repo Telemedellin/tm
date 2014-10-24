@@ -8,7 +8,7 @@ $this->renderPartial('//layouts/commons/_flashes');
 <div class="col-sm-12">
     <div class="nav navbar-right">
       <?php if(Yii::app()->user->checkAccess('crear_guinos')): ?>
-            <?php echo l('<i class="fa fa-plus"></i> Nuevo', bu('administrador/guino/crear/'), array('class' => 'btn btn-primary')) ?>
+            <?php echo l('<i class="fa fa-plus"></i> Nuevo', $this->createUrl('crear'), array('class' => 'btn btn-primary')) ?>
       <?php endif ?>
     </div>
 </div>
@@ -40,21 +40,21 @@ $this->renderPartial('//layouts/commons/_flashes');
             'template' => '{view} | {update} | {delete}',
             'buttons' => array(
                 'view' => array(
-                    'url' => 'Yii::app()->createUrl("/administrador/guino/view", array("id"=>$data->id))', 
+                    'url' => 'Yii::app()->createUrl("guino/view", array("id"=>$data->id))', 
                     'imageUrl' => false,
                     'label'    => '<i class="fa fa-search"></i>', 
                     'options'  => array('title' => 'Ver detalles'),
                 ),
                 'update' => array(
                     'visible' => '(Yii::app()->user->checkAccess("editar_guinos"))?true:false', 
-                    'url' => 'Yii::app()->createUrl("/administrador/guino/update", array("id"=>$data->id))', 
+                    'url' => 'Yii::app()->createUrl("guino/update", array("id"=>$data->id))', 
                     'imageUrl' => false,
                     'label'    => '<i class="fa fa-pencil"></i>', 
                     'options'  => array('title' => 'Editar'),
                 ),
                 'delete' => array(
                     'visible' => '(Yii::app()->user->checkAccess("eliminar_guinos"))?true:false',
-                    'url' => 'Yii::app()->createUrl("/administrador/guino/delete", array("id"=>$data->id))',
+                    'url' => 'Yii::app()->createUrl("guino/delete", array("id"=>$data->id))',
                     'imageUrl' => false,
                     'label' => '<i class="fa fa-trash-o"></i>', 
                     'options'  => array('title' => 'Eliminar'),

@@ -1,8 +1,8 @@
 <?php 
 $this->pageTitle = 'Modificar documental "' . $model->nombre. '"'; 
 $bc = array();
-$bc['Documentales'] = bu('/administrador/documentales');
-$bc['Documental'] = bu('/administrador/documentales/view/'.$model->id);
+$bc['Documentales'] = $this->createUrl('index');
+$bc['Documental'] = $this->createUrl('view', array('id' => $model->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

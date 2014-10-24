@@ -13,7 +13,7 @@ $this->breadcrumbs = $bc;
         <i class="fa fa-bullhorn"></i>
         <h3 class="box-title">Novedades en el home</h3>
         <div class="box-tools pull-right">
-        <?php echo (Yii::app()->user->checkAccess('crear_novedades')) ? l( '<i class="fa fa-plus"></i>', bu('administrador/novedades/crear'), array('class' => 'btn btn-default pull-right', 'title' => 'Agregar novedad') ):''; ?>
+        <?php echo (Yii::app()->user->checkAccess('crear_novedades')) ? l( '<i class="fa fa-plus"></i>', $this->createUrl('novedades/crear'), array('class' => 'btn btn-default pull-right', 'title' => 'Agregar novedad') ):''; ?>
         </div>
     </div><!-- /.box-header -->
 	<!-- START CUSTOM TABS -->
@@ -52,12 +52,12 @@ $this->breadcrumbs = $bc;
 	                            	<small><?php echo ($nn['destacado'])?'<i class="fa fa-star"></i>':''?></small>
 	                            </p>
                             	<p>
-                            		<a href="<?php echo Yii::app()->createUrl("/administrador/novedades/view", array("id"=>$nn['id']))?>">
+                            		<a href="<?php echo $this->createUrl("novedades/view", array("id"=>$nn['id']))?>">
                             		<i class="fa fa-search"></i> Ver
                             		</a>
                             		 - 
                             		<?php if(Yii::app()->user->checkAccess("editar_novedades")):?>
-                            		<a href="<?php echo Yii::app()->createUrl("/administrador/novedades/update", array("id"=>$nn['id'])) ?>"><i class="fa fa-pencil"></i> Editar</a>
+                            		<a href="<?php echo $this->createUrl("novedades/update", array("id"=>$nn['id'])) ?>"><i class="fa fa-pencil"></i> Editar</a>
                             		<?php endif ?>
                             	</p>
 	                        </div>
@@ -88,7 +88,7 @@ $this->breadcrumbs = $bc;
 				        array(
 				            'class'=>'CButtonColumn',
 				            'template' => '{view} | {update}',
-				            'viewButtonUrl' => 'Yii::app()->createUrl("/administrador/novedades/view", array("id"=>$data->id))',
+				            'viewButtonUrl' => 'Yii::app()->createUrl("novedades/view", array("id"=>$data->id))',
 				            'buttons' => array(
 				            	'view' => array(
 				                    'imageUrl' => false,
@@ -96,7 +96,7 @@ $this->breadcrumbs = $bc;
                         			'options'  => array('title' => 'Ver detalles'),
 				                ),
 				                'update' => array(
-				                    'url' => 'Yii::app()->createUrl("/administrador/novedades/update", array("id"=>$data->id))', 
+				                    'url' => 'Yii::app()->createUrl("novedades/update", array("id"=>$data->id))', 
 				            		'visible' => '(Yii::app()->user->checkAccess("editar_novedades"))?true:false', 
 				                    'imageUrl' => false,
 				                    'label'    => '<i class="fa fa-pencil"></i>', 
@@ -119,7 +119,7 @@ $this->breadcrumbs = $bc;
             <i class="fa fa-trophy"></i>
             <h3 class="box-title">Concursos</h3>
             <div class="box-tools pull-right">
-            <?php echo (Yii::app()->user->checkAccess('crear_concursos')) ? l( '<i class="fa fa-plus"></i>', bu('administrador/concursos/crear'), array('class' => 'btn btn-default pull-right', 'title' => 'Agregar novedad') ):''; ?>
+            <?php echo (Yii::app()->user->checkAccess('crear_concursos')) ? l( '<i class="fa fa-plus"></i>', $this->createUrl('concursos/crear'), array('class' => 'btn btn-default pull-right', 'title' => 'Agregar novedad') ):''; ?>
             </div>
         </div><!-- /.box-header -->
         <div class="box-body">
@@ -132,7 +132,7 @@ $this->breadcrumbs = $bc;
 		        array(
 		            'class'=>'CButtonColumn',
 		            'template' => '{view} | {update}',
-		            'viewButtonUrl' => 'Yii::app()->createUrl("/administrador/concursos/view", array("id"=>$data->id))',
+		            'viewButtonUrl' => 'Yii::app()->createUrl("concursos/view", array("id"=>$data->id))',
 		            'buttons' => array(
 		            	'view' => array(
 		                    'imageUrl' => false,
@@ -140,7 +140,7 @@ $this->breadcrumbs = $bc;
                         	'options'  => array('title' => 'Ver detalles'),
 		                ),
 		                'update' => array(
-		                    'url' => 'Yii::app()->createUrl("/administrador/concursos/update", array("id"=>$data->id))', 
+		                    'url' => 'Yii::app()->createUrl("concursos/update", array("id"=>$data->id))', 
 		            		'visible' => '(Yii::app()->user->checkAccess("editar_concursos"))?true:false', 
 		                    'imageUrl' => false,
 		                    'label'    => '<i class="fa fa-pencil"></i>', 
@@ -163,7 +163,7 @@ $this->breadcrumbs = $bc;
             <i class="fa fa-calendar"></i>
             <h3 class="box-title">Parrilla</h3>
             <div class="box-tools pull-right">
-                <?php echo (Yii::app()->user->checkAccess('crear_programacion')) ? l( '<i class="fa fa-plus"></i>', bu('administrador/programacion/crear'), array('class' => 'btn btn-default pull-right', 'title' => 'Agregar a la parrilla') ):''; ?>
+                <?php echo (Yii::app()->user->checkAccess('crear_programacion')) ? l( '<i class="fa fa-plus"></i>', $this->createUrl('programacion/crear'), array('class' => 'btn btn-default pull-right', 'title' => 'Agregar a la parrilla') ):''; ?>
             </div>
         </div><!-- /.box-header -->
         <div class="box-body">
@@ -185,7 +185,7 @@ $this->breadcrumbs = $bc;
 			        array(
 			            'class'=>'CButtonColumn',
 			            'template' => '{view} | {update}',
-			            'viewButtonUrl' => 'Yii::app()->createUrl("/administrador/programacion/view", array("id"=>$data->id))',
+			            'viewButtonUrl' => 'Yii::app()->createUrl("programacion/view", array("id"=>$data->id))',
 			            'buttons' => array(
 			            	'view' => array(
 			                    'imageUrl' => false,
@@ -193,7 +193,7 @@ $this->breadcrumbs = $bc;
                         		'options'  => array('title' => 'Ver detalles'),
 			                ),
 			            	'update' => array(
-			            		'url' => 'Yii::app()->createUrl("/administrador/programacion/update", array("id"=>$data->id))', 
+			            		'url' => 'Yii::app()->createUrl("programacion/update", array("id"=>$data->id))', 
 			            		'visible' => '(Yii::app()->user->checkAccess("editar_programacion"))?true:false', 
 			            		'imageUrl' => false,
 		                    	'label'    => '<i class="fa fa-pencil"></i>', 

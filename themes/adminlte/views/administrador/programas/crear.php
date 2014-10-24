@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Crear programa'; 
 $bc = array();
-$bc['Programa'] = bu('/administrador/programas');
+$bc['Programa'] = $this->createUrl('index');
 $bc[] = 'Crear';
 $this->breadcrumbs = $bc;
 ?>

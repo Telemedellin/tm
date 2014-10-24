@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Modificar elemento "' . $model->campo. '"'; 
 $bc = array();
-$bc['Padre'] = bu('/administrador/documentales/view/'.$model->pgDocumental->pagina->micrositio->id);
+$bc['Padre'] = $this->createUrl('documentales/view', array('id' => $model->pgDocumental->pagina->micrositio->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

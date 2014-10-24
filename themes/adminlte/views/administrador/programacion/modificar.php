@@ -1,8 +1,8 @@
 <?php 
 $this->pageTitle = 'Modificar programación "' . $model->micrositio->nombre. '"'; 
 $bc = array();
-$bc['Programación'] = bu('/administrador/programacion');
-$bc['Programa'] = bu('/administrador/programacion/view/'.$model->id);
+$bc['Programación'] = $this->createUrl('index');
+$bc['Programa'] = $this->createUrl('view', array('id' => $model->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

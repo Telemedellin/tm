@@ -8,7 +8,7 @@ $this->renderPartial('//layouts/commons/_flashes');
 <div class="col-sm-12">
     <div class="nav navbar-right">
       <?php if(Yii::app()->user->checkAccess('crear_bloques')): ?>
-            <?php echo l('<i class="fa fa-plus"></i> Nueva', bu('administrador/bloques/crear/'), array('class' => 'btn btn-primary')) ?>
+            <?php echo l('<i class="fa fa-plus"></i> Nueva', $this->createUrl('bloques/crear', array('id' => $model->id)), array('class' => 'btn btn-primary')) ?>
       <?php endif ?>
     </div>
 </div>

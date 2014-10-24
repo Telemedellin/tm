@@ -2,7 +2,7 @@
 <?php 
 $this->pageTitle = 'Crear novedad'; 
 $bc = array();
-$bc['Novedades'] = bu('/administrador/novedades');
+$bc['Novedades'] = $this->createUrl('index');
 $bc[] = 'Crear';
 $this->breadcrumbs = $bc;
 ?>

@@ -2,7 +2,7 @@
 	<?php if(Yii::app()->user->checkAccess('crear_album_fotos')): ?>
 	<div class="col-sm-12">
         <div class="nav navbar-right btn-group">
-            <?php echo l('<i class="fa fa-plus"></i> Agregar álbum de fotos', bu('administrador/albumfoto/crear/' . $model->id), array('class' => 'btn btn-primary'))?>
+            <?php echo l('<i class="fa fa-plus"></i> Agregar álbum de fotos', $this->createUrl('albumfoto/crear', array('id' => $model->id)), array('class' => 'btn btn-primary'))?>
         </div>
     </div>
 	<?php endif ?>
@@ -39,21 +39,21 @@
 	            'template' => '{view} | {update} | {delete}',
 	            'buttons'   => array(
 	            	'view' => array(
-                        'url'       => 'Yii::app()->createUrl("/administrador/albumfoto/view", array("id"=>$data->id))',
+                        'url'       => 'Yii::app()->createUrl("albumfoto/view", array("id"=>$data->id))',
                         'visible'   => '(Yii::app()->user->checkAccess("ver_album_fotos"))?true:false', 
                         'imageUrl' => false,
                         'label'    => '<i class="fa fa-search"></i>', 
                         'options'  => array('title' => 'Ver detalles'),
                     ),
                     'update' => array(
-                        'url'       => 'Yii::app()->createUrl("/administrador/albumfoto/update", array("id"=>$data->id))',
+                        'url'       => 'Yii::app()->createUrl("albumfoto/update", array("id"=>$data->id))',
                         'visible'   => '(Yii::app()->user->checkAccess("editar_album_fotos"))?true:false', 
                         'imageUrl' => false,
                         'label'    => '<i class="fa fa-pencil"></i>', 
                         'options'  => array('title' => 'Editar'), 
                     ),
                     'delete' => array(
-                        'url'       => 'Yii::app()->createUrl("/administrador/albumfoto/delete", array("id"=>$data->id))',
+                        'url'       => 'Yii::app()->createUrl("albumfoto/delete", array("id"=>$data->id))',
                         'visible'   => '(Yii::app()->user->checkAccess("eliminar_album_fotos"))?true:false',
                         'imageUrl' => false,
                         'label' => '<i class="fa fa-trash-o"></i>', 

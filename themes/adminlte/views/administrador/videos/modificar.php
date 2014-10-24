@@ -1,8 +1,8 @@
 <?php 
 $this->pageTitle = 'Modificar video "' . $model->nombre. '"'; 
 $bc = array();
-$bc['Videos'] = bu('/administrador/videos');
-$bc['Video'] = bu('/administrador/videos/view/'.$model->id);
+$bc['Videos'] = $this->createUrl('index');
+$bc['Video'] = $this->createUrl('view', array('id' => $model->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;
 ?>

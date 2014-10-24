@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Página "' . $model->nombre . '"'; 
 $bc = array();
-$bc['Padre'] = bu('/administrador/'.lcfirst($model->micrositio->seccion->nombre).'/view/'.$model->micrositio->id);
+$bc['Padre'] = $this->createUrl(lcfirst($model->micrositio->seccion->nombre).'/view', array('id' => $model->micrositio->id));
 $bc[] = 'Página';
 $this->breadcrumbs = $bc;
 ?>
@@ -12,10 +12,10 @@ $this->breadcrumbs = $bc;
             <h3 class="box-title">Detalles</h3>
             <div class="box-tools pull-right">
 			  <?php if(Yii::app()->user->checkAccess('editar_pagina')): ?>
-			  <?php echo l('<i class="fa fa-pencil"></i> Editar', bu('administrador/pagina/update/' . $model->id), array('class' => 'btn btn-primary'))?>
+			  <?php echo l('<i class="fa fa-pencil"></i> Editar', $this->createUrl('update', array('id' => $model->id)), array('class' => 'btn btn-primary'))?>
 			  <?php endif ?>
 			  <?php if(Yii::app()->user->checkAccess('eliminar_pagina')): ?>
-			  <?php echo l('<small><i class="fa fa-trash-o"></i> Eliminar</small>', bu('administrador/pagina/delete/' . $model->id), array('onclick' => "if( !window.confirm('¿Seguro que desea borrar la página \'".$model->nombre."\'?')) {return false;}", 'class' => 'btn btn-danger btn-xs'))?>
+			  <?php echo l('<small><i class="fa fa-trash-o"></i> Eliminar</small>', $this->createUrl('delete', array('id' => $model->id)), array('onclick' => "if( !window.confirm('¿Seguro que desea borrar la página \'".$model->nombre."\'?')) {return false;}", 'class' => 'btn btn-danger btn-xs'))?>
 			  <?php endif ?>
 			</div>
         </div>

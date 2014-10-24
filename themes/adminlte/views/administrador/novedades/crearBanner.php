@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Crear banner'; 
 $bc = array();
-$bc['Banners'] = bu('/administrador/novedades/banners');
+$bc['Banners'] = $this->createUrl('banners');
 $bc[] = 'Crear';
 $this->breadcrumbs = $bc;
 ?>
