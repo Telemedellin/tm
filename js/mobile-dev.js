@@ -205,11 +205,11 @@ jQuery(function($) {
 		var bg = $.trim(body.css('background-image')).substr(4).replace('"', '', 'g'), 
 			bg = bg.substr(0, bg.length-1);
 		body.css('background-image', 'none');
-
-		$.backstretch(bg, {
-			centeredY: false, 
-			fade: 'fast'
-		});
+		if( bg != '')
+			$.backstretch(bg, {
+				centeredY: false, 
+				fade: 'fast'
+			});
 		//Espacio para la imagen
 		if(!micro.hasClass('senal-en-vivo'))
 			content.css('margin-top', (vh/3) + 'px');
