@@ -112,7 +112,7 @@ class AlbumvideoController extends Controller
 			
 			if($album_video->save()){
 				Yii::app()->user->setFlash('success', $album_video->nombre . ' guardado con éxito');
-				$this->redirect( bu( 'administrador/albumvideo/view/' . $album_video->getPrimayKey() ) );
+				$this->redirect( array('view', 'id' => $album_video->getPrimayKey()));
 			}//if($album_video->save())
 
 		} //if(isset($_POST['AlbumVideo']))
@@ -148,7 +148,7 @@ class AlbumvideoController extends Controller
 			}
 			if($album_video->save()){
 				Yii::app()->user->setFlash('success', $album_video->nombre . ' guardado con éxito');
-				$this->redirect(bu('administrador/'.strtolower($micrositio->seccion->nombre).'/view/' . $album_video->micrositio_id));
+				$this->redirect( array(strtolower($micrositio->seccion->nombre).'/view', 'id' => $album_video->micrositio_id));
 			}//if($album_video->save())
 
 		}//if(isset($_POST['AlbumVideo']))

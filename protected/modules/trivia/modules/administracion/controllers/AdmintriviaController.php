@@ -78,7 +78,7 @@ class AdmintriviaController extends Controller
 				}else
 				{
 					Yii::app()->user->setFlash('mensaje', 'La ronda del ' . $ronda->fecha_inicio . ' al ' . $ronda->fecha_fin . ' se guardó exitosamente');
-					$this->redirect( bu('/trivia/administracion/view/' . $ronda->getPrimaryKey() ));
+					$this->redirect( $this->createUrl('view', array('id' => $ronda->getPrimaryKey()) ));
 				}
 			}//if($preguntaForm->validate())
 
@@ -108,7 +108,7 @@ class AdmintriviaController extends Controller
 				}else
 				{
 					Yii::app()->user->setFlash('mensaje', 'La ronda del ' . $ronda->fecha_inicio . ' al ' . $ronda->fecha_fin . ' se guardó exitosamente');
-					$this->redirect( bu('/trivia/administracion/view/' . $id));
+					$this->redirect( $this->createUrl('view', array('id' => $id)) );
 				}
 			}//if($preguntaForm->validate())
 

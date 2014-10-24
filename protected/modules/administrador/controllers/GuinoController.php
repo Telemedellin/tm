@@ -91,7 +91,7 @@ class GuinoController extends Controller
 			if(empty($_POST['Guino']['fin_publicacion']) || $_POST['Guino']['fin_publicacion'] == '0000-00-00 00:00:00') $guino->fin_publicacion = NULL;
 			if($guino->save()){
 				Yii::app()->user->setFlash('success', 'Guiño ' . $guino->nombre . ' guardado con éxito');
-				$this->redirect( bu('administrador/guino/view/'.$guino->getPrimaryKey()) );
+				$this->redirect( array('view', 'id' => $guino->getPrimaryKey()));
 			}//if($guino->save())
 
 		} //if(isset($_POST['Guino']))
@@ -132,7 +132,7 @@ class GuinoController extends Controller
 			if(empty($_POST['Guino']['fin_publicacion']) || $_POST['Guino']['fin_publicacion'] == '0000-00-00 00:00:00') $guino->fin_publicacion = NULL;
 			if($guino->save()){
 				Yii::app()->user->setFlash('success', 'Guiño ' . $guino->nombre . ' guardado con éxito');
-				$this->redirect( bu('administrador/guino/view/'.$guino->getPrimaryKey()) );
+				$this->redirect( array('view', 'id' => $guino->getPrimaryKey()));
 			}//if($guino->save())
 
 		} //if(isset($_POST['Guino']))

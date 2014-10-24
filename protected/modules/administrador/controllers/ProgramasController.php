@@ -378,7 +378,7 @@ class ProgramasController extends Controller
 		$m = Micrositio::model()->findByPk($id);
 		$m->menu_id = NULL;
 		$m->save();
-		$this->redirect(bu('/administrador/programas/view/'. $id . '#menu'));
+		$this->redirect( array('view', 'id' => $id . '#menu'));
 	}
 
 	/**

@@ -105,7 +105,7 @@ class AdminController extends Controller
 		Yii::app()->user->logout();
 		Yii::app()->session->clear();
 		Yii::app()->session->destroy();
-		$this->redirect(bu('/administrador'));
+		$this->redirect($this->createUrl('administrador'));
 	}
 
 	public function actionRegistro()
@@ -119,7 +119,7 @@ class AdminController extends Controller
         	if($usuario->validate())
         	{
 	            if($usuario->save())
-	            	$this->redirect('admin');
+	            	$this->redirect(array('admin'));
 	            
 	        }
 		}
@@ -200,7 +200,7 @@ class AdminController extends Controller
 	function actionBorrarcache()
 	{
 		Yii::app()->cache->flush();
-		$this->redirect('/administrador');
+		$this->redirect($this->createUrl('administrador'));
 	}
 
 }

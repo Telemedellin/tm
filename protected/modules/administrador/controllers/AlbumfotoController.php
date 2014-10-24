@@ -96,7 +96,7 @@ class AlbumfotoController extends Controller
 					$transaction->rollBack();
 					Yii::app()->user->setFlash('warning', $album_foto->nombre . ' no se pudo guardar');
 				}
-				$this->redirect(bu('administrador/'.$this->slugger($micrositio->seccion->nombre).'/view/' . $micrositio->id));
+				$this->redirect( array($this->slugger($micrositio->seccion->nombre).'/view', 'id' => $micrositio->id));
 			}//if($album_foto->save())
 
 		} //if(isset($_POST['AlbumFoto']))
@@ -121,7 +121,7 @@ class AlbumfotoController extends Controller
 			$album_foto->attributes = $_POST['AlbumFoto'];
 			if($album_foto->save()){
 				Yii::app()->user->setFlash('success', $album_foto->nombre . ' guardado con éxito');
-				$this->redirect(bu('administrador/'.$micrositio->seccion->nombre.'/view/' . $album_foto->micrositio_id));
+				$this->redirect( array($this->slugger($micrositio->seccion->nombre).'/view', 'id' => $album_foto->micrositio_id));
 			}//if($album_foto->save())
 
 		}//if(isset($_POST['AlbumFoto']))

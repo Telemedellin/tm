@@ -59,7 +59,7 @@ class FiltroController extends Controller
 			$pgFiltro = PgFiltro::model()->with('pagina')->findByPk($filtro_item->pg_filtro_id);
 			if($filtro_item->save()){
 				Yii::app()->user->setFlash('success', $filtro_item->elemento . ' guardado con éxito');
-				$this->redirect(bu('administrador/pagina/view/' . $pgFiltro->pagina->id));
+				$this->redirect( array('pagina/view', 'id' => $pgFiltro->pagina->id));
 			}//if($filtro_item->save())
 
 		} //if(isset($_POST['FiltroItem']))
@@ -99,7 +99,7 @@ class FiltroController extends Controller
 			$pgFiltro = PgFiltro::model()->with('pagina')->findByPk($filtro_item->pg_filtro_id);
 			if($filtro_item->save()){
 				Yii::app()->user->setFlash('success', $filtro_item->elemento . ' guardado con éxito');
-				$this->redirect(bu('administrador/pagina/view/' . $pgFiltro->pagina->id));
+				$this->redirect( array('pagina/view', 'id' => $pgFiltro->pagina->id));
 			}//if($filtro_item->save())
 
 		}//if(isset($_POST['FiltroItem']))
@@ -148,7 +148,7 @@ class FiltroController extends Controller
 			$pgDocumental = PgDocumental::model()->with('pagina')->findByPk($ficha_tecnica->pg_documental_id);
 			if($ficha_tecnica->save()){
 				Yii::app()->user->setFlash('success', $ficha_tecnica->campo . ' guardado con éxito');
-					$this->redirect(bu('administrador/documentales/view/' . $pgDocumental->pagina->micrositio_id));
+					$this->redirect( array('documentales/view', 'id' => $pgDocumental->pagina->micrositio_id));
 			}//if($ficha_tecnica->save())
 
 		} //if(isset($_POST['FichaTecnica']))
@@ -177,7 +177,7 @@ class FiltroController extends Controller
 			if($ficha_tecnica->save()){
 				Yii::app()->user->setFlash('success', $ficha_tecnica->campo . ' guardado con éxito');
 				$pgDocumental = PgDocumental::model()->with('pagina')->findByPk($ficha_tecnica->pg_documental_id);
-				$this->redirect(bu('administrador/documentales/view/' . $pgDocumental->pagina->micrositio_id));
+				$this->redirect( array('documentales/view', 'id' => $pgDocumental->pagina->micrositio_id));
 			}//if($ficha_tecnica->save())
 
 		}//if(isset($_POST['FichaTecnica']))

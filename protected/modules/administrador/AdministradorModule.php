@@ -26,8 +26,8 @@ class AdministradorModule extends CWebModule
 		if(parent::beforeControllerAction($controller, $action))
 		{
 			Yii::app()->getModule('cruge')->defaultSessionFilter = 'application.components.MiSesionCruge';
-			Yii::app()->getModule('cruge')->afterLogoutUrl = array('/administrador');
-			Yii::app()->user->loginUrl = array('/administrador/ingresar');
+			Yii::app()->getModule('cruge')->afterLogoutUrl = Yii::app()->createUrl('administrador');
+			Yii::app()->user->loginUrl = Yii::app()->createUrl('administrador/ingresar');
 			Yii::app()->theme = 'adminlte';
 			return true;
 		}

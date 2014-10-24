@@ -328,7 +328,7 @@ class EspecialesController extends Controller
 		$m = Micrositio::model()->findByPk($id);
 		$m->menu_id = NULL;
 		$m->save();
-		$this->redirect(bu('/administrador/especiales/view/'. $id . '#menu'));
+		$this->redirect(array('view', 'id' => $id . '#menu'));
 	}
 
 	/**

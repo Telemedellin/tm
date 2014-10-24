@@ -17,7 +17,7 @@ class MiSesionCruge extends DefaultSessionFilter {
 	public function onLogin(/*ICrugeSession*/ $model){
 		parent::onLogin($model);
 		Yii::log("PASANDO POR ONLOGIN","info");
-		Yii::app()->getController()->redirect(array("/administrador"));
+		Yii::app()->getController()->redirect(bu("/administrador"));
 	}
 
 	/**
@@ -39,7 +39,7 @@ class MiSesionCruge extends DefaultSessionFilter {
 	public function onLogout(/*ICrugeSession*/ $model) {
 		parent::onLogout($model);
 		Yii::log("PASANDO POR ONLOGOUT","info");
-		Yii::app()->getController()->redirect(array("/administrador"));
+		Yii::app()->getController()->redirect(bu("/administrador"));
 	}
 
 	/**

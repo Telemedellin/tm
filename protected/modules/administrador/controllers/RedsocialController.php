@@ -65,7 +65,7 @@ class RedsocialController extends Controller
 			$micrositio = Micrositio::model()->with('pagina')->findByPk($red_social->micrositio_id);
 			if($red_social->save()){
 				Yii::app()->user->setFlash('success', $red_social->tipoRedSocial->nombre . ' ' . $red_social->usuario . ' guardado con éxito');
-					$this->redirect(bu('administrador/programas/view/' . $micrositio->id));
+					$this->redirect( array('view', 'id' => $micrositio->id));
 			}//if($red_social->save())
 
 		} //if(isset($_POST['RedSocial']))
@@ -94,7 +94,7 @@ class RedsocialController extends Controller
 			if($red_social->save()){
 				Yii::app()->user->setFlash('success', $red_social->tipoRedSocial->nombre . ' ' . $red_social->usuario . ' guardado con éxito');
 				$pgDocumental = PgDocumental::model()->with('pagina')->findByPk($red_social->micrositio_id);
-				$this->redirect(bu('administrador/programas/view/' . $red_social->micrositio_id));
+				$this->redirect( array('view', 'id' => $red_social->micrositio_id));
 			}//if($red_social->save())
 
 		}//if(isset($_POST['RedSocial']))

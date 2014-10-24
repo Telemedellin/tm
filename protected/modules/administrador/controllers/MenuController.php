@@ -101,7 +101,7 @@ class MenuController extends Controller
 			$menu->attributes = $_POST['Menu'];
 			if($menu->save()){
 				Yii::app()->user->setFlash('success', 'Menú ' . $menu->nombre . ' guardado con éxito');
-				$this->redirect(bu('administrador/menu/view/'. $menu->getPrimaryKey()));
+				$this->redirect( array('view', 'id' => $menu->getPrimaryKey()));
 			}//if($menu->save())
 
 		} //if(isset($_POST['MenuItem']))
@@ -132,7 +132,7 @@ class MenuController extends Controller
 
 			if($menu->save())
 			{
-				$this->redirect(bu('administrador/menu/view/'. $menu->id));
+				$this->redirect( array('view', 'id' => $menu->id));
 			}
 		}
 
@@ -175,7 +175,7 @@ class MenuController extends Controller
 			if($menuItem->url_id == '') $menuItem->url_id = NULL;
 			if($menuItem->save()){
 				Yii::app()->user->setFlash('success', 'Item ' . $menuItem->label . ' guardado con éxito');
-				$this->redirect(bu('administrador/menu/view/'.$menuItem->menu_id));
+				$this->redirect( array('view', 'id' => $menuItem->menu_id));
 			}//if($menuItem->save())
 
 		} //if(isset($_POST['MenuItem']))
@@ -214,7 +214,7 @@ class MenuController extends Controller
 
 			if($menuItem->save())
 			{
-				$this->redirect(bu('administrador/menu/view/'. $m->id));
+				$this->redirect( array('view', 'id' => $m->id));
 			}
 		}
 

@@ -73,7 +73,7 @@ class HorarioController extends Controller
 			$horario->hora_fin = date('Gi', strtotime($horario->hora_fin));
 			if($horario->save()){
 				Yii::app()->user->setFlash('success', Horarios::getDiaSemana($horario->dia_semana) . ' ' . Horarios::hora($horario->hora_inicio) . ' guardado con éxito');
-					$this->redirect(bu('administrador/programas/view/' . $pgPrograma->pagina->micrositio_id));
+					$this->redirect( array('programas/view', 'id' => $pgPrograma->pagina->micrositio_id));
 			}//if($horario->save())
 
 		} //if(isset($_POST['Horario']))
@@ -105,7 +105,7 @@ class HorarioController extends Controller
 			if($horario->save()){
 				Yii::app()->user->setFlash('success', Horarios::getDiaSemana($horario->dia_semana) . ' ' . Horarios::hora($horario->hora_inicio) . ' guardado con éxito');
 				$pgPrograma = PgPrograma::model()->with('pagina')->findByPk($horario->pg_programa_id);
-				$this->redirect(bu('administrador/programas/view/' . $pgPrograma->pagina->micrositio_id));
+				$this->redirect( array('programas/view', 'id' => $pgPrograma->pagina->micrositio_id));
 			}//if($horario->save())
 
 		}//if(isset($_POST['Horario']))

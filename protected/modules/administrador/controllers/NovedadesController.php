@@ -317,7 +317,7 @@ class NovedadesController extends Controller
 			if(empty($_POST['Banner']['fin_publicacion']) || $_POST['Banner']['fin_publicacion'] == '0000-00-00 00:00:00') $banner->fin_publicacion = NULL;
 			if($banner->save()){
 				Yii::app()->user->setFlash('success', 'Banner ' . $banner->nombre . ' guardado con éxito');
-				$this->redirect( bu('administrador/novedades/viewbanner/'.$banner->getPrimaryKey()) );
+				$this->redirect( array('viewbanner', 'id' => $banner->getPrimaryKey()));
 			}//if($banner->save())
 
 		} //if(isset($_POST['Banner']))
@@ -358,7 +358,7 @@ class NovedadesController extends Controller
 			if(empty($_POST['Banner']['fin_publicacion']) || $_POST['Banner']['fin_publicacion'] == '0000-00-00 00:00:00') $banner->fin_publicacion = NULL;
 			if($banner->save()){
 				Yii::app()->user->setFlash('success', 'Banner ' . $banner->nombre . ' guardado con éxito');
-				$this->redirect( bu('administrador/novedades/viewbanner/'.$banner->getPrimaryKey()) );
+				$this->redirect( array('viewbanner', 'id' => $banner->getPrimaryKey()));
 			}//if($banner->save())
 
 		} //if(isset($_POST['Banner']))

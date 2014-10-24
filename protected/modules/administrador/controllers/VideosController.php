@@ -103,8 +103,7 @@ class VideosController extends Controller
 			if( $video->save() )
 			{
 				Yii::app()->user->setFlash('success', 'Video ' . $video->nombre . ' guardado con éxito');
-				$this->redirect(bu('administrador/albumvideo/view/'. $video->album_video_id));
-				$this->redirect('index');
+				$this->redirect( array('albumvideo/view', 'id' => $video->album_video_id) );				
 			}
 
 		} //if(isset($_POST['NovedadesForm']))
