@@ -24,7 +24,9 @@ Yii::app()->clientScript->registerScript('datepicker',
                 }
             },
             onSelect: function (selectedDateTime){
-                endDateTextBox.datetimepicker("option", "minDate", startDateTextBox.datetimepicker("getDate") );
+                endDateTextBox.datetimepicker("option", "minDate", selectedDateTime );
+                var newdate = new Date(selectedDateTime);
+                endDateTextBox.datetimepicker("option", "maxDate", selectedDateTime );
             }
         }, 
         $.datepicker.regional[ "es" ]
@@ -38,7 +40,6 @@ Yii::app()->clientScript->registerScript('datepicker',
                 if (startDateTextBox.val() != "") {
                     var testStartDate = startDateTextBox.datetimepicker("getDate");
                     var testEndDate = endDateTextBox.datetimepicker("getDate");
-                    console.log("s " + testStartDate + " e " + testEndDate);
                     if (testStartDate > testEndDate)
                         startDateTextBox.datetimepicker("setDate", testEndDate);
                 }
