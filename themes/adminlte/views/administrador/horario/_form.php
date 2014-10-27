@@ -72,7 +72,7 @@ Yii::app()->clientScript->registerScript('timepicker',
             <div class="box-body">
 				<div class="form-group">
 			        <?php echo $form->label($model,'pg_programa_id'); ?>
-			        <?php echo $form->dropDownList($model, 'pg_programa_id', CHtml::listData(PgPrograma::model()->with('pagina')->findAll(), 'id', 'pagina.nombre'), array('class' => 'form-control') ); ?>
+			        <?php echo $form->dropDownList($model, 'pg_programa_id', CHtml::listData(PgPrograma::model()->with('pagina')->findAll(), 'id', 'pagina.nombre'), array('class' => 'form-control', 'required' => true) ); ?>
 			        <?php echo $form->error($model,'pg_programa_id'); ?>
 			    </div>
 			    <div class="form-group">
@@ -87,7 +87,7 @@ Yii::app()->clientScript->registerScript('timepicker',
 			                                                            '6' => 'Sábado', 
 			                                                            '7' => 'Domingo', 
 			                                                            ), 
-			                                                        array('class' => 'form-control')
+			                                                        array('class' => 'form-control', 'required' => true)
 			                                                    ); ?>
 			        <?php echo $form->error($model,'dia_semana'); ?>
 			    </div>
@@ -95,7 +95,7 @@ Yii::app()->clientScript->registerScript('timepicker',
 					<?php echo $form->label($model,'hora_inicio'); ?>
 			        <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-			            <input name="Horario[hora_inicio]" type="text" value="<?php echo ($model->hora_inicio)?Horarios::hora($model->hora_inicio, true):'' ?>" class="hora_inicio form-control" />
+			            <input name="Horario[hora_inicio]" type="text" value="<?php echo ($model->hora_inicio)?Horarios::hora($model->hora_inicio, true):'' ?>" class="hora_inicio form-control" required />
 			        </div>
 					<?php echo $form->error($model,'hora_inicio'); ?>
 				</div>
@@ -103,7 +103,7 @@ Yii::app()->clientScript->registerScript('timepicker',
 					<?php echo $form->label($model,'hora_fin'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-			            <input name="Horario[hora_fin]" type="text" value="<?php echo ($model->hora_fin)?Horarios::hora($model->hora_fin, true):'' ?>" class="hora_fin form-control" />
+			            <input name="Horario[hora_fin]" type="text" value="<?php echo ($model->hora_fin)?Horarios::hora($model->hora_fin, true):'' ?>" class="hora_fin form-control" required />
 			        </div>
 					<?php echo $form->error($model,'hora_fin'); ?>
 				</div>
@@ -111,7 +111,7 @@ Yii::app()->clientScript->registerScript('timepicker',
 			        <?php echo $form->label($model,'tipo_emision_id'); ?>
 			        <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-rss"></i></span>
-			            <?php echo $form->dropDownList($model,'tipo_emision_id', CHtml::listData(TipoEmision::model()->findAll(), 'id', 'nombre'), array( 'class' => 'form-control') ); ?>
+			            <?php echo $form->dropDownList($model,'tipo_emision_id', CHtml::listData(TipoEmision::model()->findAll(), 'id', 'nombre'), array( 'class' => 'form-control', 'required' => true) ); ?>
 			        </div>
 			        <?php echo $form->error($model,'tipo_emision_id'); ?>
 			    </div>
@@ -128,7 +128,7 @@ Yii::app()->clientScript->registerScript('timepicker',
 					<?php echo $form->label($model,'estado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>
-			            <?php echo $form->dropDownList($model, 'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control')); ?>
+			            <?php echo $form->dropDownList($model, 'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control', 'required' => true)); ?>
 			        </div>
 					<?php echo $form->error($model,'estado'); ?>
 				</div>

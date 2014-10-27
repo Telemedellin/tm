@@ -15,7 +15,7 @@
             <div class="box-body">
 				<div class="form-group">
 					<?php echo $form->label($model,'nombre'); ?>
-					<?php echo $form->textField($model,'nombre',array('size'=>60,'maxlength'=>100, 'class' => 'form-control')); ?>
+					<?php echo $form->textField($model,'nombre',array('size'=>60,'maxlength'=>100, 'class' => 'form-control', 'required' => true)); ?>
 					<?php echo $form->error($model,'nombre'); ?>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 					<?php echo $form->label($model,'estado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>
-						<?php echo $form->dropDownList($model,'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control') ); ?>
+						<?php echo $form->dropDownList($model,'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control', 'required' => true) ); ?>
 					</div>
 					<?php echo $form->error($model,'estado'); ?>
 				</div>

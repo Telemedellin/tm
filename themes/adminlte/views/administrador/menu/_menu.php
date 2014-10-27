@@ -3,7 +3,7 @@
     <?php if(Yii::app()->user->checkAccess('crear_menu_item')): ?>
     <div class="col-sm-12">
         <div class="nav navbar-right btn-group">
-            <?php echo l('<i class="fa fa-plus"></i> Agregar item de menú', $this->createUrl('crearitem', array('id' => $model->menu_id)), array('class' => 'btn btn-primary'))?>
+            <?php echo l('<i class="fa fa-plus"></i> Agregar item de menú', $this->createUrl('menu/crearitem', array('id' => $model->menu_id)), array('class' => 'btn btn-primary'))?>
         </div>
     </div>
     <?php endif ?>
@@ -51,14 +51,14 @@
                             'deleteConfirmation' => '¿Realmente desea eliminar este item?', 
                             'buttons'   => array(
                                 'update' => array(
-                                    'url'       => 'Yii::app()->createUrl("menu/updateitem", array("id"=>$data->id))',
+                                    'url'       => 'Yii::app()->createUrl("administrador/menu/updateitem", array("id"=>$data->id))',
                                     'visible'   => '(Yii::app()->user->checkAccess("editar_menu_item"))?true:false', 
                                     'imageUrl' => false,
                                     'label'    => '<i class="fa fa-pencil"></i>', 
                                     'options'  => array('title' => 'Editar'), 
                                 ),
                                 'delete' => array(
-                                    'url'       => 'Yii::app()->createUrl("menu/deleteitem", array("id"=>$data->id))',
+                                    'url'       => 'Yii::app()->createUrl("administrador/menu/deleteitem", array("id"=>$data->id))',
                                     'visible'   => '(Yii::app()->user->checkAccess("eliminar_menu_item"))?true:false', 
                                     'imageUrl' => false,
                                     'label' => '<i class="fa fa-trash-o"></i>', 

@@ -46,7 +46,7 @@ class ConcursosForm extends CFormModel
 			'imagen_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Imagen Miniatura',
 			'formulario' => 'Formulario (ID de JotForm)',
-			'estado' => 'Publicado',
+			'estado' => 'Estado',
 		);
 	}
 

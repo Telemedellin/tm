@@ -68,7 +68,7 @@ Yii::app()->clientScript->registerScript('datepicker',
             <div class="box-body">
 				<div class="form-group">
 					<?php echo $form->label($model,'micrositio_id'); ?>
-		            <?php echo $form->dropDownList($model,'micrositio_id', CHtml::listData(Micrositio::model()->findAll('seccion_id = 2 OR seccion_id = 3 OR seccion_id = 4'), 'id', 'nombre'), array('class' => 'form-control chosen') ); ?>
+		            <?php echo $form->dropDownList($model,'micrositio_id', CHtml::listData(Micrositio::model()->findAll('seccion_id = 2 OR seccion_id = 3 OR seccion_id = 4'), 'id', 'nombre'), array('class' => 'form-control chosen', 'required' => true) ); ?>
 		            <?php /*$this->widget('zii.widgets.jui.CJuiAutoComplete',array(
 		                'name'=>'micrositio',
 		                'sourceUrl' => bu('api/micrositios'), 
@@ -95,7 +95,7 @@ Yii::app()->clientScript->registerScript('datepicker',
 					<?php echo $form->label($model,'hora_inicio'); ?>
 			        <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-			            <input name="Programacion[hora_inicio]" type="text" value="<?php echo ($model->hora_inicio)?date('Y-m-d G:i:s', $model->hora_inicio):'' ?>" class="hora_inicio form-control" />
+			            <input name="Programacion[hora_inicio]" type="text" value="<?php echo ($model->hora_inicio)?date('Y-m-d G:i:s', $model->hora_inicio):'' ?>" class="hora_inicio form-control" required />
 			        </div>
 					<?php echo $form->error($model,'hora_inicio'); ?>
 				</div>
@@ -103,7 +103,7 @@ Yii::app()->clientScript->registerScript('datepicker',
 					<?php echo $form->label($model,'hora_fin'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-			            <input name="Programacion[hora_fin]" type="text" value="<?php echo ($model->hora_fin)?date('Y-m-d G:i:s', $model->hora_fin):'' ?>" class="hora_fin form-control" />
+			            <input name="Programacion[hora_fin]" type="text" value="<?php echo ($model->hora_fin)?date('Y-m-d G:i:s', $model->hora_fin):'' ?>" class="hora_fin form-control" required />
 			        </div>
 					<?php echo $form->error($model,'hora_fin'); ?>
 				</div>
@@ -111,7 +111,7 @@ Yii::app()->clientScript->registerScript('datepicker',
 			        <?php echo $form->label($model,'tipo_emision_id'); ?>
 			        <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-rss"></i></span>
-			            <?php echo $form->dropDownList($model,'tipo_emision_id', CHtml::listData(TipoEmision::model()->findAll(), 'id', 'nombre'), array('options' => array( '5' =>array('selected'=>true)), 'class' => 'form-control') ); ?>
+			            <?php echo $form->dropDownList($model,'tipo_emision_id', CHtml::listData(TipoEmision::model()->findAll(), 'id', 'nombre'), array('options' => array( '5' =>array('selected'=>true)), 'class' => 'form-control', 'required' => true) ); ?>
 			        </div>
 			        <?php echo $form->error($model,'tipo_emision_id'); ?>
 			    </div>
@@ -128,7 +128,7 @@ Yii::app()->clientScript->registerScript('datepicker',
 					<?php echo $form->label($model,'estado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>
-			            <?php echo $form->dropDownList($model, 'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control')); ?>
+			            <?php echo $form->dropDownList($model, 'estado', array('1' => 'Publicado', '0' => 'Desactivado' ), array('class' => 'form-control', 'required' => true)); ?>
 			        </div>
 					<?php echo $form->error($model,'estado'); ?>
 				</div>

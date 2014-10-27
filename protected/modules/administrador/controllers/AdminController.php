@@ -87,6 +87,7 @@ class AdminController extends Controller
                     Yii::app()->user->setFlash('loginflash', Yii::app()->user->getLastError());
                 }
             } else {
+            	Yii::app()->user->setFlash('loginflash', CHtml::errorSummary($model));
                 Yii::log(
                     __CLASS__ . "\nCrugeUser->validate es false\n" . CHtml::errorSummary($model)
                     ,

@@ -48,7 +48,7 @@ class NovedadesForm extends CFormModel
 			'imagen' => 'Imagen',
 			'imagen_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Imagen Miniatura',
-			'posicion' => 'Posición',
+			'posicion' => 'Posición entradilla',
 			'comentarios' => 'Permitir comentarios',
 			'estado' => 'Estado',
 		);

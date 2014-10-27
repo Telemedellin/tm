@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Crear programa'; 
 $bc = array();
-$bc['Programa'] = $this->createUrl('index');
+$bc['Programas'] = $this->createUrl('index');
 $bc[] = 'Crear';
 $this->breadcrumbs = $bc;
 ?>

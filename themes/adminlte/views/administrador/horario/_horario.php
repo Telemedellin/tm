@@ -2,7 +2,7 @@
     <?php if(Yii::app()->user->checkAccess('crear_horarios')): ?>
     <div class="col-sm-12">
         <div class="nav navbar-right btn-group">
-            <?php echo l('<i class="fa fa-plus"></i> Agregar horario', $this->createUrl('crear', array('id' => $model->id)), array('class' => 'btn btn-primary'))?>
+            <?php echo l('<i class="fa fa-plus"></i> Agregar horario', $this->createUrl('horario/crear', array('id' => $model->id)), array('class' => 'btn btn-primary'))?>
         </div>
     </div>
     <?php endif ?>
@@ -43,14 +43,14 @@
                 'template' => '{update} | {delete}',
                 'buttons'   => array(
                     'update' => array(
-                        'url'       => 'Yii::app()->createUrl("horario/update", array("id"=>$data->id))', 
+                        'url'       => 'Yii::app()->createUrl("administrador/horario/update", array("id"=>$data->id))', 
                         'visible'   => '(Yii::app()->user->checkAccess("editar_horarios"))?true:false', 
                         'imageUrl' => false,
                         'label'    => '<i class="fa fa-pencil"></i>', 
                         'options'  => array('title' => 'Editar'), 
                     ),
                     'delete' => array(
-                        'url'       => 'Yii::app()->createUrl("horario/delete", array("id"=>$data->id))',
+                        'url'       => 'Yii::app()->createUrl("administrador/horario/delete", array("id"=>$data->id))',
                         'visible'   => '(Yii::app()->user->checkAccess("eliminar_horarios"))?true:false', 
                         'imageUrl' => false,
                         'label' => '<i class="fa fa-trash-o"></i>', 

@@ -8,7 +8,7 @@ $this->renderPartial('//layouts/commons/_flashes');
 <div class="col-sm-12">
     <div class="nav navbar-right">
       <?php if(Yii::app()->user->checkAccess('crear_banners')): ?>
-            <?php echo l('<i class="fa fa-plus"></i> Nueva', $this->createUrl('crearbanner', array('id' => $model->id)), array('class' => 'btn btn-primary')) ?>
+            <?php echo l('<i class="fa fa-plus"></i> Nuevo', $this->createUrl('crearbanner', array('id' => $model->id)), array('class' => 'btn btn-primary')) ?>
       <?php endif ?>
     </div>
 </div>
@@ -40,21 +40,21 @@ $this->renderPartial('//layouts/commons/_flashes');
                 'template' => '{view} | {update} | {delete}',
                 'buttons' => array(
                     'view' => array(
-                        'url' => 'Yii::app()->createUrl("novedades/viewbanner", array("id"=>$data->id))', 
+                        'url' => 'Yii::app()->createUrl("administrador/novedades/viewbanner", array("id"=>$data->id))', 
                         'imageUrl' => false,
                         'label'    => '<i class="fa fa-search"></i>', 
                         'options'  => array('title' => 'Ver detalles'),
                     ),
                     'update' => array(
                         'visible' => '(Yii::app()->user->checkAccess("editar_banners"))?true:false', 
-                        'url' => 'Yii::app()->createUrl("novedades/updatebanner", array("id"=>$data->id))', 
+                        'url' => 'Yii::app()->createUrl("administrador/novedades/updatebanner", array("id"=>$data->id))', 
                         'imageUrl' => false,
                         'label'    => '<i class="fa fa-pencil"></i>', 
                         'options'  => array('title' => 'Editar'),
                     ),
                     'delete' => array(
                         'visible' => '(Yii::app()->user->checkAccess("eliminar_banners"))?true:false',
-                        'url' => 'Yii::app()->createUrl("novedades/deletebanner", array("id"=>$data->id))',
+                        'url' => 'Yii::app()->createUrl("administrador/novedades/deletebanner", array("id"=>$data->id))',
                         'imageUrl' => false,
                         'label' => '<i class="fa fa-trash-o"></i>', 
                         'options'  => array('title' => 'Eliminar'),

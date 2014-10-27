@@ -45,7 +45,7 @@ class Utilities extends CBehavior
 		$html .= $form->label($model, $name/*, array('class' => 'col-sm-2 control-label')/**/);
         //$html .= '<div class="col-sm-10">'.PHP_EOL;
 		$html .= $form->hiddenField($model, $name, array('id' => $id.'H') );
-		$html .= '	<div class="controls">'.PHP_EOL;
+		$html .= '	<div class="controls imagen">'.PHP_EOL;
 		$html .= '		<div id="'.$name.$uname.'">'.PHP_EOL;
 		$html .= '		<!-- Mensaje cuando el Javascript se encuentra deshabilitado -->'.PHP_EOL;
 		$html .= '		<noscript>Debes tener habilitado Javascript en tu navegador</noscript>'.PHP_EOL;

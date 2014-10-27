@@ -15,17 +15,17 @@
             <div class="box-body">
 				<div class="form-group">
 			        <?php echo $form->label($model,'pg_documental_id'); ?>
-			        <?php echo $form->dropDownList($model, 'pg_documental_id', CHtml::listData(PgDocumental::model()->findAll(), 'id', 'titulo'), array('class' => 'form-control') ); ?>
+			        <?php echo $form->dropDownList($model, 'pg_documental_id', CHtml::listData(PgDocumental::model()->findAll(), 'id', 'titulo'), array('class' => 'form-control', 'required' => true) ); ?>
 			        <?php echo $form->error($model,'pg_documental_id'); ?>
 			    </div>
 			    <div class="form-group">
 					<?php echo $form->label($model,'campo'); ?>
-					<?php echo $form->textField($model, 'campo', array('class' => 'form-control')); ?>
+					<?php echo $form->textField($model, 'campo', array('class' => 'form-control', 'required' => true)); ?>
 					<?php echo $form->error($model,'campo'); ?>
 				</div>
 				<div class="form-group">
 			        <?php echo $form->label($model,'valor'); ?>
-			        <?php echo $form->textField($model, 'valor', array('class' => 'form-control')); ?>
+			        <?php echo $form->textField($model, 'valor', array('class' => 'form-control', 'required' => true)); ?>
 			        <?php echo $form->error($model,'valor'); ?>
 			    </div>
 			</div>
@@ -41,7 +41,7 @@
 			        <?php echo $form->label($model,'orden'); ?>
 			        <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-sort-amount-asc"></i></span>
-			        	<?php echo $form->numberField($model, 'orden', array('class' => 'form-control')); ?>
+			        	<?php echo $form->numberField($model, 'orden', array('class' => 'form-control', 'required' => true)); ?>
 			        </div>
 			        <?php echo $form->error($model,'orden'); ?>
 			    </div>
@@ -49,7 +49,7 @@
 					<?php echo $form->label($model,'estado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>
-						<?php echo $form->dropDownList($model, 'estado', array(1 => 'Si', 0 => 'No' ), array('class' => 'form-control')); ?>
+						<?php echo $form->dropDownList($model, 'estado', array(1 => 'Si', 0 => 'No' ), array('class' => 'form-control', 'required' => true)); ?>
 					</div>
 					<?php echo $form->error($model,'estado'); ?>
 				</div>

@@ -48,7 +48,7 @@ class DocumentalesForm extends CFormModel
 			'imagen' => 'Imagen',
 			'imagen_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Imagen Miniatura',
-			'estado' => 'Publicado',
+			'estado' => 'Estado',
 		);
 	}
 

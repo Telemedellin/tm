@@ -80,7 +80,7 @@ class Programacion extends CActiveRecord
 			'tipo_emision_id' => 'Tipo de emisión',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
-			'estado' => 'Publicado',
+			'estado' => 'Estado',
 		);
 	}
 

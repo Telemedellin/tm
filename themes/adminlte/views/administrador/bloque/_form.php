@@ -15,7 +15,7 @@
             <div class="box-body">
 			    <div class="form-group">
 					<?php echo $form->label($model,'titulo'); ?>
-					<?php echo $form->textField($model, 'titulo', array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
+					<?php echo $form->textField($model, 'titulo', array('size'=>60,'maxlength'=>255, 'class' => 'form-control', 'required' => true)); ?>
 			        <?php echo $form->error($model,'titulo'); ?>
 				</div>
 				<div class="form-group">
@@ -66,14 +66,14 @@
             <div class="box-body">
 				<div class="form-group">
 			        <?php echo $form->label($model,'pg_bloques_id'); ?>
-			        <?php echo $form->dropDownList($model, 'pg_bloques_id', CHtml::listData(PgBloques::model()->findAll('id = '.$model->pg_bloques_id), 'id', 'pagina.nombre'), array('class' => 'form-control') ); ?>
+			        <?php echo $form->dropDownList($model, 'pg_bloques_id', CHtml::listData(PgBloques::model()->findAll('id = '.$model->pg_bloques_id), 'id', 'pagina.nombre'), array('class' => 'form-control', 'required' => true) ); ?>
 			        <?php echo $form->error($model,'pg_bloques_id'); ?>
 			    </div>
 			    <div class="form-group">
 			        <?php echo $form->label($model,'columnas'); ?>
 			        <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-columns"></i></span>
-			            <?php echo $form->numberField($model, 'columnas', array('min' => 1, 'max' => 12, 'step' => 1, 'class' => 'form-control')); ?>
+			            <?php echo $form->numberField($model, 'columnas', array('min' => 1, 'max' => 12, 'step' => 1, 'class' => 'form-control', 'required' => true)); ?>
 			        </div>
 			        <?php echo $form->error($model,'columnas'); ?>
 			    </div>
@@ -81,13 +81,13 @@
 			        <?php echo $form->label($model,'orden'); ?>
 			        <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-sort-amount-asc"></i></span>
-			            <?php echo $form->numberField($model, 'orden', array('class' => 'form-control')); ?>
+			            <?php echo $form->numberField($model, 'orden', array('class' => 'form-control', 'required' => true)); ?>
 			        </div>
 			        <?php echo $form->error($model,'orden'); ?>
 			    </div>
 			    <div class="form-group">
 					<?php echo $form->label($model,'estado'); ?>
-					<?php echo $form->dropDownList($model, 'estado', array('1' => 'Sí', '0' => 'No' ), array('class' => 'form-control')); ?>
+					<?php echo $form->dropDownList($model, 'estado', array('1' => 'Sí', '0' => 'No' ), array('class' => 'form-control', 'required' => true)); ?>
 					<?php echo $form->error($model,'estado'); ?>
 				</div>
 				<div class="form-group buttons">

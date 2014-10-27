@@ -54,13 +54,13 @@ Yii::app()->clientScript->registerScript('menu_item',
 				</div>
 				<div class="form-group">
 					<?php echo $form->label($model,'label'); ?>
-					<?php echo $form->textField($model,'label',array('size'=>60,'maxlength'=>100, 'class' => 'form-control')); ?>
+					<?php echo $form->textField($model,'label',array('size'=>60,'maxlength'=>100, 'class' => 'form-control', 'required' => true)); ?>
 					<?php echo $form->error($model,'label'); ?>
 				</div>
 				<?php if($model->isNewRecord): ?>
 				<div class="form-group">
 					<?php echo $form->label($model,'tipo_link_id'); ?>
-					<?php echo $form->dropDownList($model,'tipo_link_id', CHtml::listData(TipoLink::model()->findAll(), 'id', 'nombre'), array('class' => 'form-control') ); ?>
+					<?php echo $form->dropDownList($model,'tipo_link_id', CHtml::listData(TipoLink::model()->findAll(), 'id', 'nombre'), array('class' => 'form-control', 'required' => true) ); ?>
 					<?php echo $form->error($model,'tipo_link_id'); ?>
 				</div>
 				<div class="form-group">
@@ -101,7 +101,7 @@ Yii::app()->clientScript->registerScript('menu_item',
 					<?php echo $form->label($model,'estado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>
-						<?php echo $form->dropDownList($model,'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control') ); ?>
+						<?php echo $form->dropDownList($model,'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control', 'required' => true) ); ?>
 					</div>
 					<?php echo $form->error($model,'estado'); ?>
 				</div>

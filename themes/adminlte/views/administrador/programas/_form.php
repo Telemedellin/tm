@@ -16,7 +16,7 @@
             <div class="box-body">
 				<div class="form-group">
 					<?php echo $form->label($model,'nombre'); ?>
-					<?php echo $form->textField($model, 'nombre', array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
+					<?php echo $form->textField($model, 'nombre', array('size'=>60,'maxlength'=>255, 'class' => 'form-control', 'required' => true)); ?>
 					<?php echo $form->error($model,'nombre'); ?>
 				</div>
 				<div class="form-group">
@@ -98,7 +98,7 @@
 					<?php echo $form->label($model,'estado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>
-			            <?php echo $form->dropDownList($model, 'estado', array(2 => 'En emisión', 1 => 'No se emite', 0 => 'Desactivado' ), array('class' => 'form-control')); ?>
+			            <?php echo $form->dropDownList($model, 'estado', array(2 => 'En emisión', 1 => 'No se emite', 0 => 'Desactivado' ), array('class' => 'form-control', 'required' => true)); ?>
 					</div>
 			        <?php echo $form->error($model,'estado'); ?>
 				</div>
@@ -106,7 +106,7 @@
 					<?php echo $form->label($model,'destacado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-star"></i></span>
-			            <?php echo $form->dropDownList($model, 'destacado', array(0 => 'No', 1 => 'Si' ), array('class' => 'form-control')); ?>
+			            <?php echo $form->dropDownList($model, 'destacado', array(0 => 'No', 1 => 'Si' ), array('class' => 'form-control', 'required' => true)); ?>
 					</div>
 			        <?php echo $form->error($model,'destacado'); ?>
 				</div>

@@ -15,19 +15,19 @@
             <div class="box-body">
 				<div class="form-group">
 			        <?php echo $form->label($model,'micrositio_id'); ?>
-			        <?php echo $form->dropDownList($model, 'micrositio_id', CHtml::listData(Micrositio::model()->findAll(), 'id', 'nombre'), array('class' => 'form-control') ); ?>
+			        <?php echo $form->dropDownList($model, 'micrositio_id', CHtml::listData(Micrositio::model()->findAll(), 'id', 'nombre'), array('class' => 'form-control', 'required' => true) ); ?>
 			        <?php echo $form->error($model,'micrositio_id'); ?>
 			    </div>
 			    <div class="form-group">
 			        <?php echo $form->label($model,'tipo_red_social_id'); ?>
-			        <?php echo $form->dropDownList($model, 'tipo_red_social_id', CHtml::listData(TipoRedSocial::model()->findAll(), 'id', 'nombre'), array('class' => 'form-control') ); ?>
+			        <?php echo $form->dropDownList($model, 'tipo_red_social_id', CHtml::listData(TipoRedSocial::model()->findAll(), 'id', 'nombre'), array('class' => 'form-control', 'required' => true) ); ?>
 			        <?php echo $form->error($model,'tipo_red_social_id'); ?>
 			    </div>
 			    <div class="form-group">
 					<?php echo $form->label($model,'usuario'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<?php echo $form->textField($model, 'usuario', array('class' => 'form-control')); ?>
+						<?php echo $form->textField($model, 'usuario', array('class' => 'form-control', 'required' => true)); ?>
 					</div>
 					<?php echo $form->error($model,'usuario'); ?>
 				</div>
@@ -44,7 +44,7 @@
 					<?php echo $form->label($model,'estado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>
-						<?php echo $form->dropDownList($model, 'estado', array(1 => 'Si', 0 => 'No' ), array('class' => 'form-control')); ?>
+						<?php echo $form->dropDownList($model, 'estado', array(1 => 'Si', 0 => 'No' ), array('class' => 'form-control', 'required' => true)); ?>
 					</div>
 					<?php echo $form->error($model,'estado'); ?>
 				</div>

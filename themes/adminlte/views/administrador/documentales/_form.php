@@ -16,7 +16,7 @@
             <div class="box-body">
 				<div class="form-group">
 					<?php echo $form->label($model,'nombre'); ?>
-			        <?php echo $form->textField($model, 'nombre', array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
+			        <?php echo $form->textField($model, 'nombre', array('size'=>60,'maxlength'=>255, 'class' => 'form-control', 'required' => true)); ?>
 					<?php echo $form->error($model,'nombre'); ?>
 				</div>
 				<div class="form-group">
@@ -89,7 +89,7 @@
 			        <?php echo $form->label($model,'duracion'); ?>
 			        <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-			        	<?php echo $form->numberField($model, 'duracion', array('class' => 'form-control')); ?>
+			        	<?php echo $form->numberField($model, 'duracion', array('class' => 'form-control', 'required' => true)); ?>
 			        </div>
 			        <small class="help-block">Minutos, por ejemplo: 90</small>
 			        <?php echo $form->error($model,'duracion'); ?>
@@ -98,7 +98,7 @@
 			        <?php echo $form->label($model,'anio'); ?>
 			        <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-			        	<?php echo $form->numberField($model, 'anio', array('class' => 'form-control')); ?>
+			        	<?php echo $form->numberField($model, 'anio', array('class' => 'form-control', 'required' => true)); ?>
 			        </div>
 			        <?php echo $form->error($model,'anio'); ?>
 			    </div>
@@ -106,7 +106,7 @@
 					<?php echo $form->label($model,'estado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>
-			        	<?php echo $form->dropDownList($model, 'estado', array(2 => 'Publicado (Se ve en listados)', 1 => 'Archivado', 0 => 'No' ), array('class' => 'form-control')); ?>
+			        	<?php echo $form->dropDownList($model, 'estado', array(2 => 'Publicado (Se ve en listados)', 1 => 'Archivado', 0 => 'No' ), array('class' => 'form-control', 'required' => true)); ?>
 			        </div>
 					<?php echo $form->error($model,'estado'); ?>
 				</div>
@@ -114,7 +114,7 @@
 					<?php echo $form->label($model,'destacado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-star"></i></span>
-			        	<?php echo $form->dropDownList($model, 'destacado', array(0 => 'No', 1 => 'Si' ), array('class' => 'form-control')); ?>
+			        	<?php echo $form->dropDownList($model, 'destacado', array(0 => 'No', 1 => 'Si' ), array('class' => 'form-control', 'required' => true)); ?>
 					</div>
 			        <?php echo $form->error($model,'destacado'); ?>
 				</div>

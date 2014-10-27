@@ -2,7 +2,7 @@
     <?php if(Yii::app()->user->checkAccess('crear_redes_socialess')): ?>
     <div class="col-sm-12">
         <div class="nav navbar-right btn-group">
-            <?php echo l('<i class="fa fa-plus"></i> Agregar red social', $this->createUrl('crear', array('id' => $model->id)), array('class' => 'btn btn-primary'))?>
+            <?php echo l('<i class="fa fa-plus"></i> Agregar red social', $this->createUrl('redsocial/crear', array('id' => $model->id)), array('class' => 'btn btn-primary'))?>
         </div>
     </div>
     <?php endif ?>
@@ -29,14 +29,14 @@
                 'buttons'   => array(
                     'update' => array(
                         'options'   => array('target' => "_blank"),
-                        'url'       => 'Yii::app()->createUrl("redsocial/update", array("id"=>$data->id))', 
+                        'url'       => 'Yii::app()->createUrl("administrador/redsocial/update", array("id"=>$data->id))', 
                         'visible'   => '(Yii::app()->user->checkAccess("editar_redes_sociales"))?true:false',
                         'imageUrl' => false,
                         'label'    => '<i class="fa fa-pencil"></i>', 
                         'options'  => array('title' => 'Editar'),  
                     ),
                     'delete' => array(
-                        'url'       => 'Yii::app()->createUrl("redsocial/delete", array("id"=>$data->id))',
+                        'url'       => 'Yii::app()->createUrl("administrador/redsocial/delete", array("id"=>$data->id))',
                         'visible'   => '(Yii::app()->user->checkAccess("eliminar_redes_sociales"))?true:false', 
                         'imageUrl' => false,
                         'label' => '<i class="fa fa-trash-o"></i>', 

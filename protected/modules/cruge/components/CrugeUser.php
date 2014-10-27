@@ -94,13 +94,13 @@ class CrugeUser extends CBaseUserIdentity implements IUserIdentity
 
             switch ($this->errorCode) {
                 case self::ERROR_USERNAME_INVALID:
-                    $this->_lastErrorDescr = "usuario o correo invalido";
+                    $this->_lastErrorDescr = "El correo o contraseña que has ingresado no coinciden. Por favor inténtalo nuevamente";
                     break;
                 case self::ERROR_PASSWORD_INVALID:
-                    $this->_lastErrorDescr = "clave invalida";
+                    $this->_lastErrorDescr = "El correo o contraseña que has ingresado no coinciden. Por favor inténtalo nuevamente";
                     break;
                 default:
-                    $this->_lastErrorDescr = "error desconocido";
+                    $this->_lastErrorDescr = "Error desconocido";
             }
             Yii::log(__METHOD__ . "\n_performAuth es false.\n" . $this->_lastErrorDescr, "info");
         }

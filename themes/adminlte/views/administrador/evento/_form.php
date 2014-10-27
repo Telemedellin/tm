@@ -41,12 +41,12 @@ Yii::app()->clientScript->registerScript('datepicker',
             <div class="box-body">
 			    <div class="form-group">
 			        <?php echo $form->label($model,'pg_eventos_id'); ?>
-			        <?php echo $form->dropDownList($model, 'pg_eventos_id', CHtml::listData(PgEventos::model()->findAll('id = '.$model->pg_eventos_id), 'id', 'pagina.nombre'), array('class' => 'form-control') ); ?>
+			        <?php echo $form->dropDownList($model, 'pg_eventos_id', CHtml::listData(PgEventos::model()->findAll('id = '.$model->pg_eventos_id), 'id', 'pagina.nombre'), array('class' => 'form-control', 'required' => true) ); ?>
 			        <?php echo $form->error($model,'pg_eventos_id'); ?>
 			    </div>
 				<div class="form-group">
 					<?php echo $form->label($model,'nombre'); ?>
-					<?php echo $form->textField($model, 'nombre', array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
+					<?php echo $form->textField($model, 'nombre', array('size'=>60,'maxlength'=>255, 'class' => 'form-control', 'required' => true)); ?>
 			        <?php echo $form->error($model,'nombre'); ?>
 				</div>
 			</div>
@@ -62,7 +62,7 @@ Yii::app()->clientScript->registerScript('datepicker',
 			        <?php echo $form->label($model,'fecha'); ?>
 			        <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-			            <input name="Evento[fecha]" type="text" value="<?php echo ($model->fecha)?date('Y-m-d', $model->fecha):'' ?>" class="fecha form-control" />
+			            <input name="Evento[fecha]" type="text" value="<?php echo ($model->fecha)?date('Y-m-d', $model->fecha):'' ?>" class="fecha form-control" required />
 			        </div>
 			        <?php echo $form->error($model,'fecha'); ?>
 			    </div>
@@ -70,7 +70,7 @@ Yii::app()->clientScript->registerScript('datepicker',
 			        <?php echo $form->label($model,'hora'); ?>
 			        <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-			            <input name="Evento[hora]" type="text" value="<?php echo ($model->hora)?date('G:i', $model->hora):'' ?>" class="hora form-control" />
+			            <input name="Evento[hora]" type="text" value="<?php echo ($model->hora)?date('G:i', $model->hora):'' ?>" class="hora form-control" required />
 			        </div>
 			        <?php echo $form->error($model,'hora'); ?>
 			    </div>
@@ -78,7 +78,7 @@ Yii::app()->clientScript->registerScript('datepicker',
 					<?php echo $form->label($model,'estado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>
-			            <?php echo $form->dropDownList($model, 'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control')); ?>
+			            <?php echo $form->dropDownList($model, 'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control', 'required' => true)); ?>
 			        </div>
 					<?php echo $form->error($model,'estado'); ?>
 				</div>

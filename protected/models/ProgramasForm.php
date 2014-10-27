@@ -45,8 +45,8 @@ class ProgramasForm extends CFormModel
 			'imagen' => 'Imagen',
 			'imagen_mobile' => 'Imagen (Móvil)',
 			'miniatura' => 'Imagen Miniatura',
-			'formulario' => 'Formulario (ID de JotForm)',
-			'estado' => 'Publicado',
+			'formulario' => 'Formulario, ID de JotForm (Opcional)',
+			'estado' => 'Estado',
 		);
 	}
 

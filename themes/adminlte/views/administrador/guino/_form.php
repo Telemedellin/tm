@@ -68,7 +68,7 @@ Yii::app()->clientScript->registerScript('datepicker',
             <div class="box-body">
                 <div class="form-group">
             		<?php echo $form->label($model,'nombre'); ?>
-            		<?php echo $form->textField($model,'nombre',array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
+            		<?php echo $form->textField($model,'nombre',array('size'=>60,'maxlength'=>255, 'class' => 'form-control', 'required' => true)); ?>
             		<?php echo $form->error($model,'nombre'); ?>
             	</div>
             </div>
@@ -99,7 +99,7 @@ Yii::app()->clientScript->registerScript('datepicker',
             		<?php echo $form->label($model,'inicio_publicacion'); ?>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input name="Guino[inicio_publicacion]" type="text" value="<?php echo $model->inicio_publicacion ?>" class="inicio_publicacion form-control" />
+                        <input name="Guino[inicio_publicacion]" type="text" value="<?php echo $model->inicio_publicacion ?>" class="inicio_publicacion form-control" required />
                     </div>
             		<?php echo $form->error($model,'inicio_publicacion'); ?>
             	</div>
@@ -107,7 +107,7 @@ Yii::app()->clientScript->registerScript('datepicker',
             		<?php echo $form->label($model,'fin_publicacion'); ?>
             		<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input name="Guino[fin_publicacion]" type="text" value="<?php echo $model->fin_publicacion ?>" class="fin_publicacion form-control" />
+                        <input name="Guino[fin_publicacion]" type="text" value="<?php echo $model->fin_publicacion ?>" class="fin_publicacion form-control" required />
                     </div>
             		<?php echo $form->error($model,'fin_publicacion'); ?>
             	</div>
@@ -115,7 +115,7 @@ Yii::app()->clientScript->registerScript('datepicker',
             		<?php echo $form->label($model,'estado'); ?>
             		<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>
-            			<?php echo $form->dropDownList($model,'estado', array('1' => 'Sí', '0' => 'No' ), array('class' => 'form-control') ); ?>
+            			<?php echo $form->dropDownList($model,'estado', array('1' => 'Publicado', '0' => 'Desactivado' ), array('class' => 'form-control', 'required' => true) ); ?>
             		</div>
             		<?php echo $form->error($model,'estado'); ?>
             	</div>

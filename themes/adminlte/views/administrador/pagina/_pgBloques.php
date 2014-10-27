@@ -67,14 +67,14 @@
 			            'template' => '{update} | {delete}',
 			            'buttons' => array(
 			            	'update' => array(
-			            		'url' => 'Yii::app()->createUrl("bloque/update", array("id"=>$data->id))', 
+			            		'url' => 'Yii::app()->createUrl("administrador/bloque/update", array("id"=>$data->id))', 
 			                    'visible' => '(Yii::app()->user->checkAccess("editar_novedades"))?true:false', 
 			                    'imageUrl' => false,
 			                    'label'    => '<i class="fa fa-pencil"></i>', 
 			                    'options'  => array('title' => 'Editar'),
 			                ),
 			                'delete' => array(
-			                	'url' => 'Yii::app()->createUrl("bloque/delete", array("id"=>$data->id))', 
+			                	'url' => 'Yii::app()->createUrl("administrador/bloque/delete", array("id"=>$data->id))', 
 			                    'visible' => '(Yii::app()->user->checkAccess("eliminar_novedades"))?true:false', 
 			                    'imageUrl' => false,
 			                    'label' => '<i class="fa fa-trash-o"></i>', 

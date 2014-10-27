@@ -88,7 +88,7 @@ $this->breadcrumbs = $bc;
 				        array(
 				            'class'=>'CButtonColumn',
 				            'template' => '{view} | {update}',
-				            'viewButtonUrl' => 'Yii::app()->createUrl("novedades/view", array("id"=>$data->id))',
+				            'viewButtonUrl' => 'Yii::app()->createUrl("administrador/novedades/view", array("id"=>$data->id))',
 				            'buttons' => array(
 				            	'view' => array(
 				                    'imageUrl' => false,
@@ -96,7 +96,7 @@ $this->breadcrumbs = $bc;
                         			'options'  => array('title' => 'Ver detalles'),
 				                ),
 				                'update' => array(
-				                    'url' => 'Yii::app()->createUrl("novedades/update", array("id"=>$data->id))', 
+				                    'url' => 'Yii::app()->createUrl("administrador/novedades/update", array("id"=>$data->id))', 
 				            		'visible' => '(Yii::app()->user->checkAccess("editar_novedades"))?true:false', 
 				                    'imageUrl' => false,
 				                    'label'    => '<i class="fa fa-pencil"></i>', 
@@ -132,7 +132,7 @@ $this->breadcrumbs = $bc;
 		        array(
 		            'class'=>'CButtonColumn',
 		            'template' => '{view} | {update}',
-		            'viewButtonUrl' => 'Yii::app()->createUrl("concursos/view", array("id"=>$data->id))',
+		            'viewButtonUrl' => 'Yii::app()->createUrl("administrador/concursos/view", array("id"=>$data->id))',
 		            'buttons' => array(
 		            	'view' => array(
 		                    'imageUrl' => false,
@@ -140,7 +140,7 @@ $this->breadcrumbs = $bc;
                         	'options'  => array('title' => 'Ver detalles'),
 		                ),
 		                'update' => array(
-		                    'url' => 'Yii::app()->createUrl("concursos/update", array("id"=>$data->id))', 
+		                    'url' => 'Yii::app()->createUrl("administrador/concursos/update", array("id"=>$data->id))', 
 		            		'visible' => '(Yii::app()->user->checkAccess("editar_concursos"))?true:false', 
 		                    'imageUrl' => false,
 		                    'label'    => '<i class="fa fa-pencil"></i>', 
@@ -185,7 +185,7 @@ $this->breadcrumbs = $bc;
 			        array(
 			            'class'=>'CButtonColumn',
 			            'template' => '{view} | {update}',
-			            'viewButtonUrl' => 'Yii::app()->createUrl("programacion/view", array("id"=>$data->id))',
+			            'viewButtonUrl' => 'Yii::app()->createUrl("administrador/programacion/view", array("id"=>$data->id))',
 			            'buttons' => array(
 			            	'view' => array(
 			                    'imageUrl' => false,
@@ -193,7 +193,7 @@ $this->breadcrumbs = $bc;
                         		'options'  => array('title' => 'Ver detalles'),
 			                ),
 			            	'update' => array(
-			            		'url' => 'Yii::app()->createUrl("programacion/update", array("id"=>$data->id))', 
+			            		'url' => 'Yii::app()->createUrl("administrador/programacion/update", array("id"=>$data->id))', 
 			            		'visible' => '(Yii::app()->user->checkAccess("editar_programacion"))?true:false', 
 			            		'imageUrl' => false,
 		                    	'label'    => '<i class="fa fa-pencil"></i>', 

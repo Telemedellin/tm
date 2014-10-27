@@ -5,21 +5,21 @@
 
 $this->pageTitle= 'Ingresar - ' . Yii::app()->name;
 ?>
+<?php if(Yii::app()->user->hasFlash('loginflash')): ?>
+<div class="col-md-4 col-lg-offset-4">
+	<div class="alert alert-warning alert-dismissable">
+		<i class="fa fa-warning"></i>
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		<?php echo Yii::app()->user->getFlash('loginflash'); ?>
+	</div>
+</div><!-- /.box-body -->
+<?php endif; ?>
 <div class="form login col-md-4 col-lg-offset-4">
     <div class="box box-primary">
         <div class="box-header">
             <h3 class="box-title">Iniciar sesión</h3>
         </div><!-- /.box-header -->
         <!-- form start -->
-        <?php if(Yii::app()->user->hasFlash('loginflash')): ?>
-        <div class="box-body">
-			<div class="alert alert-warning alert-dismissable">
-				<i class="fa fa-warning"></i>
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<?php echo Yii::app()->user->getFlash('loginflash'); ?>
-			</div>
-		</div><!-- /.box-body -->
-		<?php else: ?>
         <?php $form=$this->beginWidget('CActiveForm', array(
 			'id'=>'login-form',
 			//'enableAjaxValidation'=>true,
@@ -63,6 +63,5 @@ $this->pageTitle= 'Ingresar - ' . Yii::app()->name;
 				</div>
             </div>
         <?php $this->endWidget(); ?>
-    	<?php endif; ?>
     </div><!-- /.box -->
 </div>
