@@ -7,129 +7,41 @@ jQuery(function($) {
         var limitnum = 200; // set your int limit for max number of characters
         if(limitado.data('limite'))
             limitnum = limitado.data('limite');
-        function limiting(obj, limit) {
-            var cnt = $(".counter > span"),
-                txt = $(obj).val(),
-                len = txt.length;
-
-            // check if the current length is over the limit
-            if(len > limit){
-                $(obj).val(txt.substr(0,limit));
-                $(cnt).html(len-1);
-            } 
-            else { 
-                $(cnt).html(len);
-            }
-
-            // check if user has less than 20 chars left
-            if(limit-len <= 20) {
-                $(cnt).addClass("warning");
-            }else
-            {
-                $(cnt).removeClass("warning");
-            }
-
-        }
         limitado.keyup(function(){
             limiting($(this), limitnum);
         });
         limiting(limitado, limitnum);
     }//if(limitado[0])
 
-    $('#carpetas').jstree({
-        "themes" : {
-            "theme" : "default",
-            "dots"  : true,
-            "icons" : false, 
-            "check_callback" : function(operation, node, node_parent, node_position, more) {
-                // operation can be 'create_node', 'rename_node', 'delete_node', 'move_node' or 'copy_node'
-                /*alert(' Callback ');
-                if( operation === 'create_node' ){
-                    alert( 'Se crea el nodo ' + node + ' en ' + node_parent);
-                    return true;
-                }/**/
-                return 
-                    operation === 'create_node' || 
-                    operation === 'rename_node' || 
-                    operation === 'delete_node' 
-                    ? true : false;
-            }, 
-        },
-        "plugins" : [ "themes", "html_data", "contextmenu", "types" ],
-        "contextmenu" : {
-            items: function($node) {
-                var tree = $("#carpetas").jstree(true);
-                return {
-                    "Create": {
-                        "label": "Create",
-                        "action": function (obj) {
-                            console.log($node.element);
-                            console.log(tree);
-                            $node = tree.create_node($node);
-                            tree.edit($node);
-                            //$(node.element).jstree("create", node.element, 'inside');
-                            //$('#carpetas').jstree("create_node", $(node.element), 'inside', {data: "New node"});
-                        }
-                    },
-                    "Rename": {
-                        "label": "Rename",
-                        "action": function (node) {
-                            //$(node).rename(node);
-                            console.log(node);
-                        }
-                    },
-                    "Delete": {
-                        "label": "Delete",
-                        "action": function (node) {
-                            //$(node).remove(node);
-                            console.log(node);
-                        }
-                    }
-                };
-            }
-        }
-    });
-
-    $('#carpetas').on('create_node.jstree', function(event, info){
-        /*console.log(info);
-        console.log(info.node[0].innerText);
-        console.log(info.parent[0].attributes['data-id']);
-        /**/
-        var name        = info.node[0].innerText.toString(),
-            parent_id   = info.parent[0].attributes['data-id'].value;
-        $.post( "/administrador/carpeta/crear", { name: name, parent_id: parent_id }).done(function( data ) {
-            console.log( "Data Loaded: " + data );
-            if( data.error ) console.log('error');
-            else
+    //Detección de cambios en formulario para confirmar salida
+    var form = $('form');
+    if(form.length > 0 && form.id != 'login-form')
+    {
+        var isEdit  = false;  
+        $('input').change(function() {  
+            isEdit = true;  
+        });
+        $('select').change(function() {  
+            isEdit = true;  
+        });
+        form.submit(function(){isEdit = false;});
+        
+        window.onbeforeunload = function (e) 
+        {
+            if(isEdit)
             {
-                $(info.node).attr('data-id', data.id);
-                console.log(data.id);
+                var message = "¿Seguro que deseas salir sin guardar los cambios?",
+                    e       = e || window.event;
+                if (e) 
+                    e.returnValue = message; // For IE and Firefox
+                return message; // For Safari
             }
-        });
-    });
-    $('#carpetas').on('rename_node.jstree', function(event, info){
-        console.log(info);
-        console.log(info.title);
-        var id = info.node[0].attributes['data-id'].value;
-        $.post( "/administrador/carpeta/rename", { id: id, new_name: info.title }).done(function( data ) {
-            console.log( "Data Loaded: " + data );
-            if( data.error ) console.log('error');
-            else console.log('bien');
-        });
-    });
-    $('#carpetas').on('delete_node.jstree', function(event, info){
-        var id        = info.node[0].attributes['data-id'].value;
-        $.post( "/administrador/carpeta/delete", { id: id }).done(function( data ) {
-            console.log( "Data Loaded: " + data );
-            if( data.error ) console.log('error');
-            else console.log('bien');
-        });
-    });
-
+        };
+    }
+    
     $('.chosen').chosen();
 
     var PUBLIC_PATH = $("#PUBLIC_PATH").val();
-    var numPerfil = $("#miniatura .template-download:not('.ui-state-error')").length;
 
     // Initialize the jQuery File Upload widget:
     $('#imagen').fileupload({        
@@ -891,3 +803,26 @@ jQuery(function($) {
     // Load existing files:
     $('#guino_mobile_guino').addClass('fileupload-processing');
 });
+function limiting(obj, limit) {
+    var cnt = $(".counter > span"),
+        txt = $(obj).val(),
+        len = txt.length;
+
+    // check if the current length is over the limit
+    if(len > limit){
+        $(obj).val(txt.substr(0,limit));
+        $(cnt).html(len-1);
+    } 
+    else { 
+        $(cnt).html(len);
+    }
+
+    // check if user has less than 20 chars left
+    if(limit-len <= 20) {
+        $(cnt).addClass("warning");
+    }else
+    {
+        $(cnt).removeClass("warning");
+    }
+
+}
