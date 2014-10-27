@@ -31,7 +31,7 @@
 					<?php echo $form->label($model,'estado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>
-						<?php echo $form->dropDownList($model,'estado', array('1' => 'Si', '0' => 'No' ), array('class' => 'form-control', 'required' => true) ); ?>
+						<?php echo $form->dropDownList($model,'estado', array('1' => 'Sí', '0' => 'No' ), array('class' => 'form-control', 'required' => true) ); ?>
 					</div>
 					<?php echo $form->error($model,'estado'); ?>
 				</div>

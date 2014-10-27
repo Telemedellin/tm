@@ -99,7 +99,7 @@ cs()->registerScript(
 					array(
 						'name' => 'documental.destacado',
 						'label' => 'Destacado',  
-						'value' => ($model->destacado==1)?'Si':'No',
+						'value' => ($model->destacado==1)?'Sí':'No',
 					),
 				),
 			)); ?>

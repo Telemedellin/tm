@@ -31,12 +31,12 @@ $this->renderPartial('//layouts/commons/_flashes');
                 'name'=>'estado',
                 'header'=>'Estado',
                 'value'=>'($data->estado=="2")?("En home"):(($data->estado=="1")?("Archivado"):("Desactivado"))',
-                'filter' => array('2' => 'En home', '1'=>'Archivado', '0'=>'Desactivado'),
+                'filter' => array('' => 'Todos', '2' => 'En home', '1'=>'Archivado', '0'=>'Desactivado'),
             ),
             array(
                 'name'=>'destacado',
-                'filter'=>array('1'=>'Si','0'=>'No'),
-                'value'=>'($data->destacado=="1")?("Si"):("No")'
+                'filter'=>array('' => 'Todos', '1'=>'Sí','0'=>'No'),
+                'value'=>'($data->destacado=="1")?("Sí"):("No")'
             ),
             array(
                 'class'=>'CButtonColumn',

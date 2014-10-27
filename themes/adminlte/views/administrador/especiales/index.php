@@ -29,14 +29,13 @@ $this->renderPartial('//layouts/commons/_flashes');
             'modificado',
             array(
                 'name'=>'estado',
-                'header'=>'Publicado',
-                'filter'=>array('2'=>'Publicado', '1'=>'Archivado','0'=>'Desactivado'),
+                'filter'=>array('' => 'Todos', '2'=>'Publicado', '1'=>'Archivado','0'=>'Desactivado'),
                 'value'=>'($data->estado=="2")?("Publicado"):(($data->estado=="1")?("Archivado"):("Desactivado"))'
             ),
             array(
                 'name'=>'destacado',
-                'filter'=>array('1'=>'Si','0'=>'No'),
-                'value'=>'($data->destacado=="1")?("Si"):("No")'
+                'filter'=>array('' => 'Todos', '1'=>'Sí','0'=>'No'),
+                'value'=>'($data->destacado=="1")?("Sí"):("No")'
             ),
             array(
                 'class'=>'CButtonColumn',

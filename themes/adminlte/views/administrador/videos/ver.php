@@ -45,7 +45,7 @@ $this->breadcrumbs = $bc;
 					'modificado',
 					array(
 						'name' => 'estado',
-						'value' => ($model->estado==1)?'Si':'No',
+						'value' => ($model->estado==1)?'Sí':'No',
 					),
 					'destacado:boolean',
 				),

@@ -48,7 +48,7 @@ $this->breadcrumbs = $bc;
 					),
 					array(
 						'name' => 'destacado',
-						'value' => (($model->destacado==1)?'Si':'No'),
+						'value' => (($model->destacado==1)?'Sí':'No'),
 					),
 				),
 			)); ?>

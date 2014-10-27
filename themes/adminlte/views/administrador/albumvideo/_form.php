@@ -60,7 +60,7 @@
 			        <?php echo $form->label($model,'destacado'); ?>
 			        <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-star"></i></span>
-			            <?php echo $form->dropDownList($model, 'destacado', array(1 => 'Si', 0 => 'No' ), array('class' => 'form-control', 'required' => true)); ?>
+			            <?php echo $form->dropDownList($model, 'destacado', array(1 => 'Sí', 0 => 'No' ), array('class' => 'form-control', 'required' => true)); ?>
 			        </div>
 			        <?php echo $form->error($model,'destacado'); ?>
 			    </div>

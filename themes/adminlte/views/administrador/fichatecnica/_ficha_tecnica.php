@@ -19,9 +19,8 @@
 		        'orden',
 		        array(
 		            'name'=>'estado',
-		            'header'=>'Publicado',
-		            'filter'=>array('1'=>'Si','0'=>'No'),
-		            'value'=>'($data->estado=="1")?("Si"):("No")'
+		            'filter'=>array('' => 'Todos', '1'=>'Publicado','0'=>'Desactivado'),
+		            'value'=>'($data->estado=="1")?("Publicado"):("Desactivado")'
 		        ),
 		        array(
 		            'class'=>'CButtonColumn',

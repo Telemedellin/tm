@@ -30,8 +30,8 @@ $this->renderPartial('//layouts/commons/_flashes');
              array(
                 'name'=>'estado',
                 'header'=>'Publicado',
-                'filter'=>array('1'=>'Si','0'=>'No'),
-                'value'=>'($data->estado=="1")?("Si"):("No")'
+                'filter'=>array('' => 'Todos', '1'=>'Publicado','Desactivado'=>'No'),
+                'value'=>'($data->estado=="1")?("Publicado"):("Desactivado")'
             ),
             array(
                 'class'=>'CButtonColumn',

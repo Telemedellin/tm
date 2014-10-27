@@ -31,9 +31,8 @@ $this->renderPartial('//layouts/commons/_flashes');
             'fin_publicacion',
              array(
                 'name'=>'estado',
-                'header'=>'Publicado',
-                'value'=>'($data->estado=="1")?("Sí"):("No")',
-                'filter' => array('1' => 'Sí', '2' => 'No'),
+                'value'=>'($data->estado=="1")?("Publicado"):("Desactivado")',
+                'filter' => array('' => 'Todos', '1' => 'Publicado', '2' => 'Desactivado'),
              ),
             array(
                 'class'=>'CButtonColumn',

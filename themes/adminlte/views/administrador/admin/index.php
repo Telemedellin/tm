@@ -82,8 +82,8 @@ $this->breadcrumbs = $bc;
 				        'nombre', 
 				        array(
 				            'name'=>'destacado',
-				            'filter'=>array('1'=>'Si','0'=>'No'),
-				            'value'=>'($data->destacado=="1")?("Si"):("No")'
+				            'filter'=>array('' => 'Todos', '1'=>'Sí','0'=>'No'),
+				            'value'=>'($data->destacado=="1")?("Sí"):("No")'
 				        ),
 				        array(
 				            'class'=>'CButtonColumn',

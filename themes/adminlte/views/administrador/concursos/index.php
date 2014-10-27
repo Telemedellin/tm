@@ -30,7 +30,7 @@ $this->renderPartial('//layouts/commons/_flashes');
             array(
                 'name'=>'estado',
                 'header'=>'Publicado',
-                'filter'=>array('2'=>'Publicado', '1'=>'Archivado','0'=>'Desactivado'),   
+                'filter'=>array('' => 'Todos', '2'=>'Publicado', '1'=>'Archivado','0'=>'Desactivado'),   
                 'value'=>'($data->estado=="2")?("Publicado"):(($data->estado=="1")?("Archivado"):("Desactivado"))'
             ),
             array(

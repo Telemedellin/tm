@@ -65,8 +65,8 @@
             ),
             array(
                 'name'=>'estado',
-                'filter'=>array('2'=>'Sí','1'=>'Archivado', '0'=>'No'),
-                'value'=>'($data->estado==2)?"Sí":( ($data->estado==1)?"Archivado":"No" )'
+                'filter'=>array('' => 'Todos', '2'=>'Publicado (Destacado)','1'=>'Archivado', '0'=>'Desactivado'),
+                'value'=>'($data->estado==2)?"Publicado (Destacado)":( ($data->estado==1)?"Archivado":"Desactivado" )'
             ),
             array(
                 'class'=>'CButtonColumn',
