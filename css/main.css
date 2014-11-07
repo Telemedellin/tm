@@ -1461,18 +1461,25 @@ th
 #menu_micrositio a {
 	color: #FFF;
 	display: block;
-	font-size: 11px;
+	font-size: 15px;
 	padding: 10px;
 	text-transform: uppercase;
 	-moz-transition: background .5s ease;
 	-o-transition: background .5s ease;
 	-webkit-transition: background .5s ease;
 	transition: background .5s ease;
+	-moz-transition: color .2s ease;
+	-o-transition: color .2s ease;
+	-webkit-transition: color .2s ease;
+	transition: color .2s ease;
 }
 
-#menu_micrositio .active a, #menu_micrositio a:hover {
-	background: rgb(0, 0, 0);
-	background: rgba(0, 0, 0, .7);
+#menu_micrositio .active a{
+	background: #fc7812;
+}
+#menu_micrositio a:hover {
+	background: #ffb119;
+	color: #000;
 }
 #micrositio {
 	background: rgb(0, 0, 0);

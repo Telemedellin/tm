@@ -66,12 +66,13 @@ class MenuW extends CWidget
     protected function build($item)
     {
         $url = $this->getUrl($item);
+        $ru = Yii::app()->request->requestUri;
 
         $actual = array(
                 'label' => (isset($item->label))?$item->label:$item->nombre,
                 'url'   => $url,
                 'itemOptions' => array('class' => (isset($item->clase))?$item->clase:'' ),
-                'active'=> strpos($ru, $url)
+                'active'=> (strpos($ru, $url) !== false)?true:false
             );
         if(isset($item->tipo_link_id) && $item->tipo_link_id == 2)
             $actual['linkOptions'] = array('target' => '_blank');
