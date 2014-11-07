@@ -184,7 +184,10 @@ class MenuController extends Controller
 		$micrositios = Micrositio::model()->with('paginas')->findAllByAttributes( array('menu_id' => $id) );
 		foreach ($micrositios as $m) {
 			foreach($m->paginas as $p)
-				$paginas[$p->url_id] = $p->nombre;
+			{
+				if( $p->id != $m->pagina_id)
+					$paginas[$p->url_id] = $p->nombre;
+			}
 		}
 		$menuItem->menu_id = $menu->id;
 		
