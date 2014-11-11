@@ -27,6 +27,11 @@ echo $menu;
                 'value'=>'$data->micrositio->nombre'
                 ),
             array(
+                'name'=>'hora_inicio',
+                'value'=>'date("H:i", $data->hora_inicio)',
+                'filter'=> false,
+                ),
+            array(
                 'name'=>'hora_fin',
                 'value'=>'date("H:i", $data->hora_fin)',
                 'filter'=> false,
