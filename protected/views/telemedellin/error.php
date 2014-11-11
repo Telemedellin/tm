@@ -4,7 +4,7 @@ $this->pageTitle = 'Página no encontrada (Error '.$code.')';
 $this->breadcrumbs = array('Página no encontrada (Error '.$code.')');
 cs()->registerScript('trackEvent', 
 	'
-	_gaq.push(["_trackEvent", "Error", "'.$code.'", location.pathname]);
+	ga("send", "event", "Error", "'.$code.'", location.pathname);
 	');
 if($this->beginCache( $code, array('duration' => 21600) )):
 ?>
