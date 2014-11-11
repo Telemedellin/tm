@@ -35,7 +35,7 @@
         array(
         	'name' => 'contenido',
         	'type' => 'raw',
-        	'value'=> 'substr( strip_tags($data->contenido), )',
+        	'value'=> 'substr( strip_tags($data->contenido), 0)',
         ),
         'orden',
         array(
