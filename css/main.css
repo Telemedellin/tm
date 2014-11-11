@@ -2715,6 +2715,9 @@ th
 		font-size: 12px;
 		padding: 4px 0 4px 30px;
 	}
+	#bar nav li.noticiastm a {
+		background-position: 5px -733px;
+	}
 	#bar nav li.tmradio a {
 		background-position: 5px -665px;
 	}
