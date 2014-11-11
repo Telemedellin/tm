@@ -22,7 +22,7 @@ class ModuleUrlManager
 				}
 				if(!empty($urlRules))
 				{
-					$m->getUrlManager()->addRules($urlRules, false);
+					Yii::app()->getUrlManager()->addRules($urlRules, false);
 				}
 				if(!empty($module->modules)) $this->collectRules($module);
 			}
