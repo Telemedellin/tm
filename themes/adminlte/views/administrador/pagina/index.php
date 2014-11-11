@@ -7,7 +7,7 @@ $this->renderPartial('//layouts/commons/_flashes');
 ?>
 <div class="col-sm-12">
     <div class="nav navbar-right">
-      <?php if(Yii::app()->user->checkAccess('crear_pagina')): ?>
+      <?php if(Yii::app()->user->checkAccess('crear_paginas')): ?>
             <?php echo l('<i class="fa fa-plus"></i> Nueva', $this->createUrl('crear'), array('class' => 'btn btn-primary')) ?>
       <?php endif ?>
     </div>
