@@ -29,9 +29,10 @@ $this->breadcrumbs = $bc;
 	                <ol class="carousel-indicators">
 	                	<?php 
 	                	$n = array();
-	                	foreach($novedades->search()->getData() as $novedad): 
+	                	$datos = $novedades->search()->getData();
+	                	foreach($datos as $novedad): 
 	                	?>
-	                	<li data-target="#carousel-example-generic" data-slide-to="<?php echo count($n)?>" <?php echo ($novedad === reset($novedades->search()->getData()))?'class="active"':'' ?>></li>
+	                	<li data-target="#carousel-example-generic" data-slide-to="<?php echo count($n)?>" <?php echo ($novedad === reset($datos))?'class="active"':'' ?>></li>
 	                	<?php 
 	                	$n[] = array(
 	                			'id' => $novedad->id,
