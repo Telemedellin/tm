@@ -42,7 +42,7 @@
                 <h3 class="box-title">Página <?php echo $partial ?></h3>
             </div>
             <div class="box-body">
-            	<?php if (is_readable( $this->getViewPath().'/_' . lcfirst($partial) . 'Form' . '.php' )): ?>
+            	<?php if (is_readable( $this->getViewFile('_' . lcfirst($partial) . 'Form') )): ?>
 				<div id="contenido">
 					<?php $this->renderPartial('_' . lcfirst($partial) . 'Form', array('contenido' => $contenido, 'form' => $form)); 
 					?>
