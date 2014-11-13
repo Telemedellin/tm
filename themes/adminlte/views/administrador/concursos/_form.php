@@ -86,15 +86,6 @@
             </div>
             <div class="box-body">
 			    <div class="form-group">
-			        <?php echo $form->label($model,'formulario'); ?>
-			        <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-list-alt"></i></span>
-			            <?php echo $form->textField($model, 'formulario', array('class' => 'form-control', 'placeholder' => '32834466613962')); ?>
-			        </div>
-			         <small class="help-block">Por ejemplo: http://www.jotform.com/?formID=<strong>32834466613962</strong></small>
-			        <?php echo $form->error($model,'formulario'); ?>
-			    </div>
-				<div class="form-group">
 					<?php echo $form->label($model,'estado'); ?>
 					<?php echo $form->dropDownList($model, 'estado', array(2 => 'Publicado (Se ve en listados)', 1 => 'Archivado', 0 => 'No' ), array('class' => 'form-control', 'required' => true)); ?>
 			        <?php echo $form->error($model,'estado'); ?>

@@ -230,7 +230,7 @@ jQuery(function($) {
     window.updateScrollbar = function() {
       micro.mCustomScrollbar("update");
     }
-    $("a.fancybox").each(function() {
+    $(".fancybox a").each(function() {
       //Capturo el elemento al que se hizo clic
       var element     = this,
         //Capturo la url que está en la barra del navegador
@@ -360,6 +360,9 @@ jQuery(function($) {
       $('#correo').show();
       micro.mCustomScrollbar("update");
     }
+
+    //Elimina el target _blank de los enlaces con ajax
+    $('.fancybox a[target="_blank"]').removeAttr('target');
 
   }//if micro[0]
 

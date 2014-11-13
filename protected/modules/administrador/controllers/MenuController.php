@@ -28,7 +28,7 @@ class MenuController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index', 'crear', 'update', 'view', 'updateitem', 'viewitem', 'crearitem', 'delete', 'deleteitem'),
+				'actions'=>array('index', 'crear', 'update', 'view', 'updateitem', 'viewitem', 'crearitem', 'crearitemajax', 'delete', 'deleteitem'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -185,8 +185,9 @@ class MenuController extends Controller
 		foreach ($micrositios as $m) {
 			foreach($m->paginas as $p)
 			{
-				if( $p->id != $m->pagina_id)
-					$paginas[$p->url_id] = $p->nombre;
+				//if( $p->id != $m->pagina_id)
+				$paginas[$p->url_id] = $p->nombre;
+
 			}
 		}
 		$menuItem->menu_id = $menu->id;
@@ -194,6 +195,38 @@ class MenuController extends Controller
 		$this->render('crearItem',array(
 			'model'=>$menuItem,
 			'menu' => $menu,
+			'paginas' => $paginas
+		));
+	}
+
+	public function actionCrearitemajax($id)
+	{
+		if(!$id) throw new CHttpException(404, 'Invalid request');
+		$menuItem 	= new MenuItem;
+		$menu 		= Menu::model()->findByPk($id);
+		$menuItem->menu_id = $menu->id;
+		if(isset($_POST['MenuItem'])){
+			$menuItem->attributes = $_POST['MenuItem'];
+			$menuItem->tipo_link_id = 2;
+			$menuItem->url_id = NULL;
+			$menuItem->clase = 'fancybox fancybox.ajax';
+			if($menuItem->save()){
+				Yii::app()->user->setFlash('success', 'Item ' . $menuItem->label . ' guardado con éxito');
+				$this->redirect( array('view', 'id' => $menuItem->menu_id));
+			}//if($menuItem->save())
+
+		} //if(isset($_POST['MenuItem']))
+
+		$micrositios = Micrositio::model()->with('url')->findAllByAttributes( array('menu_id' => $id) );
+		$u = $this->createAbsoluteUrl('/'.$micrositios[0]->url->slug);
+		$paginas = array(
+			$u.'#imagenes' => 'Imágenes', 
+			$u.'#videos' => 'Videos', 
+		);		
+		
+		$this->render('crearItemajax',array(
+			'model'=>$menuItem,
+			'menu' => $menu, 
 			'paginas' => $paginas
 		));
 	}

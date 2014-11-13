@@ -307,7 +307,17 @@ class Micrositio extends CActiveRecord
 
 	protected function afterSave()
 	{
-		if(!$this->isNewRecord)
+		if($this->isNewRecord)
+		{
+			$menu = new Menu;
+			$menu->nombre = $this->nombre;
+			$menu->estado = 1;
+			$menu->save();
+
+			$this->menu_id = $menu->getPrimaryKey();
+
+		}
+		else
 		{
 			if( isset($this->oldAttributes['nombre']) && $this->nombre != $this->oldAttributes['nombre']){
 				$seccion = Seccion::model()->findByPk($this->seccion_id);

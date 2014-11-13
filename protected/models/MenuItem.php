@@ -118,6 +118,21 @@ class MenuItem extends CActiveRecord
 		));
 	}
 
+	public function crear_item_inicio($pagina, $label = 'Inicio')
+	{
+		$mi = new MenuItem;
+		$mi->menu_id = $pagina->micrositio->menu_id;
+		$mi->tipo_link_id = 1;
+		$mi->url_id = $pagina->url_id;
+		$mi->orden = 0;
+		$mi->label = $label;
+		$mi->estado = 0;
+		if( $mi->save() )
+			return true;
+		else
+			return false;
+	}
+
 	protected function beforeSave()
 	{
 	    if(parent::beforeSave())

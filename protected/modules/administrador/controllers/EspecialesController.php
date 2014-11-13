@@ -212,6 +212,9 @@ class EspecialesController extends Controller
 
 				if( !$micrositio->save(false) ) $transaccion->rollback();
 
+				if( !MenuItem::model()->crear_item_inicio($pagina) )
+					$transaccion->rollback();
+
 				$pgB = new PgBloques;
 				$pgB->pagina_id 	= $pagina_id;
 				$pgB->estado 		= $especialesForm->estado;

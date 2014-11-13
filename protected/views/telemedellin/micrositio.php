@@ -45,20 +45,3 @@ else{
 	</div>
     </div>
 </div>
-<?php if($formulario || $galeria || $video):?>
-<div id="menu_inferior">
-	<?php if($formulario): ?>
-		<a href="<?php echo bu($micrositio->url->slug) ?>/escribenos" class="formulario" title="Ir al formulario de <?php echo str_replace('"', "'", $micrositio->nombre) ?>"><span class="iconoForm"></span>
-			<span><?php echo ($seccion->nombre == 'Concursos')? 'Formulario' : 'Escríbenos'; ?></span>
-		</a>
-	<?php endif;?>
-	<?php if($galeria): ?>
-		<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes" title="Ver las imágenes de <?php echo str_replace('"', "'", $micrositio->nombre) ?>">
-			<span class="iconoImagen"></span><span>Imágenes</span>
-		</a>
-	<?php endif;?>
-	<?php if($video): ?>
-		<a href="<?php echo bu($micrositio->url->slug) ?>#videos" class="fancybox fancybox.ajax videos" title="Ver los videos de <?php echo str_replace('"', "'", $micrositio->nombre) ?>"><span class="iconoVideo"></span><span>Videos</span></a>
-	<?php endif;?>
-</div>
-<?php endif; ?>

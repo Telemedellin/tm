@@ -69,14 +69,6 @@
         <?php echo $this->imageField($form, $model, 'miniatura', 'archivoMiniatura', '_concurso'); ?>
 	</div>
     <div class="form-group">
-        <?php echo $form->label($model,'formulario', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-5">
-            <?php echo $form->textField($model, 'formulario', array('class' => 'form-control', 'placeholder' => '32834466613962')); ?>
-            <span class="help-block">Por ejemplo: http://www.jotform.com/?formID=<strong>32834466613962</strong></span>
-        </div>
-        <?php echo $form->error($model,'formulario'); ?>
-    </div>
-	<div class="form-group">
 		<?php echo $form->label($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-2">
             <?php echo $form->dropDownList($model, 'estado', array(2 => 'Publicado (Se ve en listados)', 1 => 'Archivado', 0 => 'No' ), array('class' => 'form-control')); ?>

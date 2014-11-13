@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Menú "' . $model->nombre . '"'; 
 $bc = array();
-$bc['menu'] = $this->createUrl('index');
+$bc['Padre'] = $bc['Padre'] = $this->createUrl(lcfirst($model->micrositios[0]->seccion->nombre).'/view', array('id' => $model->micrositios[0]->id));
 $bc[] = 'Menú';
 $this->breadcrumbs = $bc;
 ?>

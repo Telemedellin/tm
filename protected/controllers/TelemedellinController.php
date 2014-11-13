@@ -286,29 +286,6 @@ class TelemedellinController extends Controller
 			$menu = false;
 		}
 
-		$formulario = false;
-
-		if( !empty($micrositio->paginas) )
-		{
-			foreach($micrositio->paginas as $p)
-				if($p->tipo_pagina_id == 7){
-					$formulario = true;
-					break;
-				}
-		}
-		
-		if(!empty($micrositio->albumFotos) )
-			$galeria = true;
-		else
-			$galeria = false;
-
-		if( !empty($micrositio->albumVideos) )
-		{
-			$videos = true;
-		}
-		else
-			$videos = false;
-
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
 		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
@@ -334,9 +311,6 @@ class TelemedellinController extends Controller
 			array(	'seccion' 	=> $micrositio->seccion, 
 					'micrositio'=> $micrositio, 
 					'menu'		=> $menu,
-					'formulario'=> $formulario,
-					'galeria'	=> $galeria,
-					'video'		=> $videos,
 					'pagina' 	=> $pagina['pagina'], 
 					'contenido' => $contenido, 
 					'fondo_pagina' => $fondo_pagina
@@ -398,9 +372,6 @@ class TelemedellinController extends Controller
 					'micrositio'=> $micrositio, 
 					'pagina' 	=> $pagina, 
 					'hoy' 		=> $tts,
-					'formulario'=> false,
-					'galeria'	=> false,
-					'video'		=> false, 
 					'contenido' => $contenido, 
 				) 
 		);

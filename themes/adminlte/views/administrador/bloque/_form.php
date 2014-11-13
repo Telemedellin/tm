@@ -15,7 +15,7 @@
             <div class="box-body">
 			    <div class="form-group">
 					<?php echo $form->label($model,'titulo'); ?>
-					<?php echo $form->textField($model, 'titulo', array('size'=>60,'maxlength'=>255, 'class' => 'form-control', 'required' => true)); ?>
+					<?php echo $form->textField($model, 'titulo', array('size'=>60,'maxlength'=>255, 'class' => 'form-control')); ?>
 			        <?php echo $form->error($model,'titulo'); ?>
 				</div>
 				<div class="form-group">

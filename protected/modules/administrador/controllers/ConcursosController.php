@@ -202,22 +202,8 @@ class ConcursosController extends Controller
 				$micrositio->pagina_id = $pagina_id;
 				$micrositio->save(false);
 
-				if($concursosForm->formulario != '')
-				{
-					
-					$formulario = new Pagina;
-					$formulario->micrositio_id = $micrositio_id;
-					$formulario->tipo_pagina_id = 7;								
-					$formulario->nombre = 'Escribenos';	
-					$formulario->estado = 1;
-					$formulario->destacado = 0;
-					$formulario->save();
-					$pgF = new PgFormularioJf;
-					$pgF->pagina_id 	= $formulario->getPrimaryKey();
-					$pgF->formulario_id	= $concursosForm->formulario;
-					$pgF->estado 		= 1;
-					$pgF->save();
-				}
+				if( !MenuItem::model()->crear_item_inicio($pagina) )
+					$transaccion->rollback();
 
 				$pgGst = new PgGenericaSt;
 				$pgGst->pagina_id 	= $pagina_id;
@@ -258,7 +244,6 @@ class ConcursosController extends Controller
 
 		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
 		$pagina = Pagina::model()->with('url', 'pgGenericaSts')->findByAttributes(array('micrositio_id' => $micrositio->id));
-		$formulario = Pagina::model()->with('url', 'pgFormularioJfs')->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 7));
 		
 		$concursosForm = new ConcursosForm;
 		$concursosForm->id = $id;
@@ -298,35 +283,6 @@ class ConcursosController extends Controller
 				$pagina->estado			  = ($concursosForm->estado == 2)?1:$concursosForm->estado;
 				$pagina->save();
 
-				//Verifico si el formulario trae un valor diferente al que tiene la base de datos.
-				if($concursosForm->formulario != $formulario->pgFormularioJfs->formulario_id)
-				{
-					//Verifico si el formulario trae contenido
-					if($concursosForm->formulario != '')
-					{
-						//Verifico si en la base de datos ya está creada la página de formulario
-						if( is_null($formulario) )
-						{
-							//Creo la página
-							$formulario = new Pagina;
-							$formulario->micrositio_id = $micrositio->id;
-							$formulario->tipo_pagina_id = 7;								
-							$formulario->nombre = 'Escribenos';	
-							$formulario->estado = 1;
-							$formulario->destacado = 0;
-							$formulario->save();
-							$pgF = new PgFormularioJf;
-						}else
-							$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
-						//Asigno el id del formulario
-						$pgF->pagina_id 	= $formulario->getPrimaryKey();
-						$pgF->formulario_id	= $concursosForm->formulario;
-						$pgF->estado 		= 1;
-						$pgF->save();
-					}else
-						if( !is_null($formulario) ) $formulario->delete();
-				}
-
 				$pgGst = PgGenericaSt::model()->findByAttributes( array('pagina_id' => $pagina->id) );
 				$pgGst->texto 		= $concursosForm->texto;
 				
@@ -352,7 +308,6 @@ class ConcursosController extends Controller
 		$concursosForm->imagen = $micrositio->background;
 		$concursosForm->imagen_mobile = $micrositio->background_mobile;
 		$concursosForm->miniatura = $micrositio->miniatura;
-		$concursosForm->formulario = $formulario->pgFormularioJfs->formulario_id;
 		$concursosForm->estado = $micrositio->estado;
 		$concursosForm->destacado = $micrositio->destacado;
 

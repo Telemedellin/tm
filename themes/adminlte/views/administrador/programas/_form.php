@@ -86,15 +86,6 @@
             </div>
             <div class="box-body">
 			    <div class="form-group">
-			        <?php echo $form->label($model,'formulario'); ?>
-			        <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-list-alt"></i></span>
-			            <?php echo $form->textField($model, 'formulario', array('class' => 'form-control')); ?>
-			        </div>
-			        <small class="help-block">Por ejemplo: http://www.jotform.com/?formID=<strong>32834466613962</strong></small>
-			        <?php echo $form->error($model,'formulario'); ?>
-			    </div>
-				<div class="form-group">
 					<?php echo $form->label($model,'estado'); ?>
 					<div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>

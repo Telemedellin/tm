@@ -213,6 +213,9 @@ class DocumentalesController extends Controller
 				$micrositio->pagina_id = $pagina_id;
 				$micrositio->save(false);
 
+				if( !MenuItem::model()->crear_item_inicio($pagina) )
+					$transaccion->rollback();
+
 				$pgD = new PgDocumental;
 				$pgD->pagina_id 	= $pagina_id;
 				$pgD->titulo 		= $documentalesForm->nombre;

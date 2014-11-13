@@ -167,7 +167,7 @@ class ProgramasController extends Controller
 			
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../../');
 	}
 
 	/**
@@ -212,23 +212,9 @@ class ProgramasController extends Controller
 
 				$micrositio->pagina_id = $pagina_id;
 				$micrositio->save(false);
-
-				if($programasForm->formulario != '')
-				{
-					$formulario = new Pagina;
-					$formulario->micrositio_id = $micrositio_id;
-					$formulario->tipo_pagina_id = 7;								
-					$formulario->nombre = 'Escríbenos';	
-					$formulario->estado = 1;
-					$formulario->destacado = 0;
-					$formulario->save();
-
-					$pgF = new PgFormularioJf;
-					$pgF->pagina_id 	= $formulario->getPrimaryKey();
-					$pgF->formulario_id	= $programasForm->formulario;
-					$pgF->estado 		= 1;
-					$pgF->save();
-				}
+				
+				if( !MenuItem::model()->crear_item_inicio($pagina) )
+					$transaccion->rollback();
 
 				$pgP = new PgPrograma;
 				$pgP->pagina_id 	= $pagina_id;
@@ -270,8 +256,7 @@ class ProgramasController extends Controller
 		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
 		$pagina = Pagina::model()->with('url', 'pgProgramas')->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 1));
 		$pgP = PgPrograma::model()->with('horario')->findByAttributes(array('pagina_id' => $pagina->id));
-		$formulario = Pagina::model()->with('url', 'pgFormularioJfs')->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 7));
-
+		
 		$programasForm = new ProgramasForm;		
 		$programasForm->id = $id;
 
@@ -310,35 +295,6 @@ class ProgramasController extends Controller
 				$pagina->estado				= ($programasForm->estado == 2)?1:$programasForm->estado;
 				$pagina->save();
 
-				$pgF = PgFormularioJf::model()->findByAttributes(array('pagina_id' => $formulario->id));
-
-				if($programasForm->formulario != $formulario->pgFormularioJfs->formulario_id)
-				{
-					if($programasForm->formulario != '')
-					{
-						if(is_null($formulario))
-						{
-							if($furl->save()){
-								$formulario = new Pagina;
-								$formulario->micrositio_id = $micrositio->id;
-								$formulario->tipo_pagina_id = 7;								
-								$formulario->nombre = 'Escríbenos';	
-								$formulario->estado = 1;
-								$formulario->destacado = 0;
-								$formulario->save();
-							}
-						}
-						$pgF->pagina_id 	= $formulario->getPrimaryKey();
-						$pgF->formulario_id	= $programasForm->formulario;
-						$pgF->estado 		= 1;
-						$pgF->save();
-					}else{
-						
-						if($pgF){
-							$formulario->delete();
-						} 
-					}
-				}
 				$pgP = PgPrograma::model()->findByAttributes( array('pagina_id' => $pagina->id) );
 				$pgP->resena 		= $programasForm->resena;
 				$pgP->estado 		= $programasForm->estado;
@@ -364,7 +320,6 @@ class ProgramasController extends Controller
 		$programasForm->imagen_mobile = $micrositio->background_mobile;
 		$programasForm->miniatura = $micrositio->miniatura;
 		$programasForm->meta_descripcion = $pagina->meta_descripcion;
-		$programasForm->formulario = $formulario->pgFormularioJfs->formulario_id;
 		$programasForm->estado = $pagina->pgProgramas->estado;
 		$programasForm->destacado = $micrositio->destacado;
 
