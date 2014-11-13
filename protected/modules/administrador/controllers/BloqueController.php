@@ -87,7 +87,7 @@ class BloqueController extends Controller
 			if($bloque->save())
 			{
 				Yii::app()->user->setFlash('success', 'Bloque ' . $bloque->titulo . ' guardado con éxito');
-				$this->redirect(($_POST['returnUrl'])?$_POST['returnUrl']:bu('administrador/pagina/view/' . $bloque->pgBloques->pagina_id) );
+				$this->redirect(($_POST['returnUrl'])?$_POST['returnUrl']:$this->createUrl('pagina/view', array('id' => $bloque->pgBloques->pagina_id)));
 			}
 
 		} //if(isset($_POST['Bloque']))
@@ -111,7 +111,7 @@ class BloqueController extends Controller
 			if($bloque->save())
 			{
 				Yii::app()->user->setFlash('success', 'Bloque ' . $bloque->titulo . ' guardado con éxito');
-				$this->redirect(($_POST['returnUrl'])?$_POST['returnUrl']:bu('administrador/pagina/view/' . $bloque->pgBloques->pagina_id) );
+				$this->redirect(($_POST['returnUrl'])?$_POST['returnUrl']:$this->createUrl('pagina/view', array('id' => $bloque->pgBloques->pagina_id)) );
 			}
 
 		} //if(isset($_POST['Bloque']))
