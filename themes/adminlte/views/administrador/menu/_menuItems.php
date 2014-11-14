@@ -16,10 +16,13 @@
 		'columns'=>array(
 	        'label', 
 	        array(
-	        	'name' => 'url_id',
-	        	'type' => 'html', 
-	        	'value' => 'l("<i class=\"fa fa-external-link\"></i> '.$data->urlx->slug.'", "'.bu($data->urlx->slug).'", array("target" => "_blank"))'
-	        ),
+                'header' => 'URL',
+                'type' => 'raw', 
+                'value' => function($data){
+                    if($data->urlx)return l("<i class=\"fa fa-external-link\"></i> ".$data->urlx->slug, bu($data->urlx->slug), array("target" => "_blank"));
+                    else return l("<i class=\"fa fa-external-link\"></i> ".$data->url, $data->url, array("target" => "_blank"));
+                }
+            ),
 	        array(
 	            'name'=>'estado',
 	            'filter'=>array('' => 'Todos', '1'=>'Publicado','0'=>'Desactivado'),
