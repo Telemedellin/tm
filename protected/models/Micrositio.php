@@ -191,6 +191,26 @@ class Micrositio extends CActiveRecord
 		return $m->pagina_id;
 	}
 
+	public function asignar_pagina($pagina)
+	{
+		$this->pagina_id = $pagina->getPrimaryKey();
+		if( !$this->save(false) )
+			return false;
+
+		//Eliminar URL de página por defecto y asignar la url del micrositio
+		$old_purl = $pagina->url_id;
+		$pagina->url_id = $this->url_id;
+		if( !$pagina->save(false) )
+			return false;
+		
+		if( !Url::model()->deleteByPk($old_purl) )
+			return false;
+		
+		if( !MenuItem::model()->crear_item_inicio($pagina) )
+			return false;
+		return true;
+	}
+
 	protected function beforeDelete()
 	{
 		$this->transaccion = $this->dbConnection->getCurrentTransaction();

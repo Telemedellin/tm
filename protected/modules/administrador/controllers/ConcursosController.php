@@ -199,10 +199,7 @@ class ConcursosController extends Controller
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
-				$micrositio->pagina_id = $pagina_id;
-				$micrositio->save(false);
-
-				if( !MenuItem::model()->crear_item_inicio($pagina) )
+				if( !$micrositio->asignar_pagina($pagina) )
 					$transaccion->rollback();
 
 				$pgGst = new PgGenericaSt;

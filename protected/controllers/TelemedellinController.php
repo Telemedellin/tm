@@ -445,6 +445,27 @@ class TelemedellinController extends Controller
 		}
 	}
 
+	public function actionAsignarpaginas()
+	{
+		$micrositios = Micrositio::model()->findAll();
+
+		foreach($micrositios as $micrositio)
+		{
+			$p = Pagina::model()->findByPk($micrositio->pagina_id);
+			if($p)
+			{
+				$p->url_id = $micrositio->url_id;
+				if( $p->save(false) )
+					echo 'OK '. $p->id;
+				else
+					echo 'Error '.$p->id;
+				echo PHP_EOL;
+				MenuItem::model()->crear_item_inicio($p);
+			}
+		}
+		
+	}
+
 	public function actionUrlsHuerfanas()
 	{
 		$urls = URL::model()->with('albumFotos', 'albumVideos', 'fotos', 'videos', 'archivos', 'carpetas', 'seccions', 'micrositios', 'menuItems', 'paginas')->findAll();

@@ -192,8 +192,8 @@ class TelemedellinController extends Controller
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->getPrimaryKey();
 
-				$micrositio->pagina_id = $pagina_id;
-				$micrositio->save(false);
+				if( !$micrositio->asignar_pagina($pagina) )
+					$transaccion->rollback();
 
 				$pgGst = new PgGenericaSt;
 				$pgGst->pagina_id 	= $pagina_id;
