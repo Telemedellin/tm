@@ -101,7 +101,7 @@ class MenuM extends CWidget
         $actual = array(
                 'label' => (isset($item->label))?$item->label:$item->nombre,
                 'url'   => $url,
-                'active'=> strpos($ru, $url)
+                'active'=> $this->compararUrl($ru, $url)
             );
         if(isset($item->tipo_link_id) && $item->tipo_link_id == 2)
             $actual['linkOptions'] = array('target' => '_blank');
@@ -121,6 +121,14 @@ class MenuM extends CWidget
             $actual['itemOptions'] = array('class' => $clase);
 
         return $actual;
+    }
+
+    protected function compararUrl($ru, $url)
+    {
+        $ru  = strtolower(rtrim(trim($ru), '/'));
+        $url = strtolower(rtrim(trim($ru), '/'));
+        if($ru === $url) return true;
+        else return false;
     }
 
     protected function parseUrl($url)
