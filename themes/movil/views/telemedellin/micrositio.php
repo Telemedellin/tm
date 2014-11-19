@@ -28,24 +28,6 @@ else{
 		<h1><?php echo $micrositio->nombre?><?php echo ($pagina->id != $micrositio->pagina_id)?', ' . lcfirst($pagina->nombre):''?></h1>
 		<?php echo $contenido; ?>
 	</div>
-	<?php if($formulario || $galeria || $video):?>
-	<div style="clear:both;"></div>
-	<div id="menu_inferior">
-		<?php if($formulario): ?>
-			<a href="<?php echo bu($micrositio->url->slug) ?>/escribenos" class="formulario" title="Ir al formulario de <?php echo $micrositio->nombre ?>"><span class="iconoForm"></span>
-				<span><?php echo ($seccion->nombre == 'Concursos')? 'Formulario' : 'Escríbenos'; ?></span>
-			</a>
-		<?php endif;?>
-		<?php if($galeria): ?>
-			<a href="<?php echo bu($micrositio->url->slug) ?>#imagenes" class="fancybox fancybox.ajax imagenes" title="Ver las imágenes de <?php echo $micrositio->nombre ?>">
-				<span class="iconoImagen"></span><span>Imágenes</span>
-			</a>
-		<?php endif;?>
-		<?php if($video): ?>
-			<a href="<?php echo bu($micrositio->url->slug) ?>#videos" class="fancybox fancybox.ajax videos" title="Ver los videos de <?php echo $micrositio->nombre ?>"><span class="iconoVideo"></span><span>Videos</span></a>
-		<?php endif;?>
-	</div>
-	<?php endif; ?>
 	<?php if( isset( $micrositio->redSocials ) && count($micrositio->redSocials) ):  ?>
 	<div id="redes_micrositio" class="redes">
 		<p>Visitá este programa en:</p>
