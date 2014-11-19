@@ -40,7 +40,7 @@ class PgFormularioJf extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('pagina_id, formulario_id, estado', 'required'),
+			array('formulario_id', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
 			array('pagina_id', 'length', 'max'=>10),
 			array('formulario_id', 'length', 'max'=>45),
