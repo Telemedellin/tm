@@ -65,6 +65,10 @@ cs()->registerScript(
 					'destacado:boolean',
 				),
 			)); ?>
+			<?php if(Yii::app()->user->checkAccess('ver_album_videos')): ?>
+   			<h2>Videos</h2>
+   			<?php $this->renderPartial('/videos/_video', array('model' => $model, 'videos' => $videos)); ?>
+   			<?php endif ?>
 		</div>
 	</div>	
 </div>
