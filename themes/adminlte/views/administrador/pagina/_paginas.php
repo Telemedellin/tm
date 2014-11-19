@@ -6,12 +6,13 @@
             <?php echo CHtml::htmlButton('<span class="caret"></span> <span class="sr-only">Activar submenú</span>', array('class' => 'btn btn-primary dropdown-toggle', 'data-toggle' => 'dropdown')) ?>
             <ul class="dropdown-menu" role="menu">
                 <li><?php echo l('Genérica', $this->createUrl('pagina/crear', array('id' => $model->id)))?></li>
-                <li><?php echo l('Novedad en blog', $this->createUrl('pagina/crear', array('id' => $model->id, 3)))?></li>
+                <li><?php echo l('Novedad en blog', $this->createUrl('pagina/crear', array('id' => $model->id, 'tipo_pagina_id' => 3)))?></li>
+                <li><?php echo l('Formulario JotForm', $this->createUrl('pagina/crear', array('id' => $model->id, 'tipo_pagina_id' => 7)))?></li>
                 <li class="divider"></li>
-                <li><?php echo l('Bloques', $this->createUrl('pagina/crear', array('id' => $model->id, 10)))?></li>
-                <li><?php echo l('Blog', $this->createUrl('pagina/crear', array('id' => $model->id, 11)))?></li>
-                <li><?php echo l('Eventos', $this->createUrl('pagina/crear', array('id' => $model->id, 12)))?></li>
-                <li><?php echo l('Filtro', $this->createUrl('pagina/crear', array('id' => $model->id, 8)))?></li>
+                <li><?php echo l('Bloques', $this->createUrl('pagina/crear', array('id' => $model->id, 'tipo_pagina_id' => 10)))?></li>
+                <li><?php echo l('Blog', $this->createUrl('pagina/crear', array('id' => $model->id, 'tipo_pagina_id' => 11)))?></li>
+                <li><?php echo l('Eventos', $this->createUrl('pagina/crear', array('id' => $model->id, 'tipo_pagina_id' => 12)))?></li>
+                <li><?php echo l('Filtro', $this->createUrl('pagina/crear', array('id' => $model->id, 'tipo_pagina_id' => 8)))?></li>
             </ul>
         </div>
     </div>

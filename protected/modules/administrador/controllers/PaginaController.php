@@ -205,6 +205,9 @@ class PaginaController extends Controller
 			case 4:
 				$ppc = 'PgDocumental';
 				break;
+			case 7:
+				$ppc = 'PgFormularioJf';
+				break;
 			case 8:
 				$ppc = 'PgFiltro';
 				break;
@@ -286,6 +289,10 @@ class PaginaController extends Controller
 				{
 					$contenido->ver_fechas 	= $_POST['PgBlog']['ver_fechas'];
 					
+				}
+				if(isset($_POST['PgFormularioJf']))
+				{
+					$contenido->formulario_id 	= $_POST['PgFormularioJf']['formulario_id'];
 				}
 				$contenido->estado = $_POST['Pagina']['estado'];
 				$contenido->pagina_id = $model->getPrimaryKey();
