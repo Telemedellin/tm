@@ -828,6 +828,13 @@ th
 	display: block;
 	padding: 1em;
 }
+#menu_micrositio .active a{
+	background: #fc7812;
+}
+#menu_micrositio a:hover {
+	background: #ffb119;
+	color: #000;
+}
 #micrositio
 {
 	padding: 1em;

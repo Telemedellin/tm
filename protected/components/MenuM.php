@@ -8,6 +8,7 @@ class MenuM extends CWidget
 
     public function run()
     {
+        $ru = Yii::app()->request->requestUri;
         $this->getItems();
         $programacion = array(
                 'label' => 'Programación',
@@ -42,7 +43,7 @@ class MenuM extends CWidget
         	{
         		if($item->item_id != 0) continue;
                 $actual = $this->build($item);
-                
+               
                 $this->menu[] = $actual;
         	}
         }//if($items)
@@ -69,7 +70,7 @@ class MenuM extends CWidget
             $c->addCondition('t.estado > 1');
             $c->addCondition('paginas.estado <> 0');
             $c->order  = 't.nombre DESC';
-            $micrositio = Micrositio::model()->cache(21600, $dependencia)->with('paginas')->findByAttributes( array('url_id' => $url_id), $c );
+            //$micrositio = Micrositio::model()->cache(21600, $dependencia)->with('paginas')->findByAttributes( array('url_id' => $url_id), $c );
             if($micrositio->seccion_id == 1)
                 return $micrositio->paginas;
         }
@@ -94,6 +95,7 @@ class MenuM extends CWidget
     protected function build($item)
     {
         $url = $this->getUrl($item);
+        $ru = Yii::app()->request->requestUri;
         $clase = '';
         if(isset($item->clase))
             $clase .= $item->clase;
@@ -108,7 +110,7 @@ class MenuM extends CWidget
 
         $hijos = $this->getHijos($item->url_id);
         if($hijos){
-             $clase .= ' parent';
+            $clase .= ' parent';
             $subitems = array();
             foreach($hijos as $hijo)
             {

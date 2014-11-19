@@ -232,7 +232,7 @@ jQuery(function($) {
 		}
 
 		//Multimedia
-		$("a.fancybox").each(function() {
+		$(".fancybox a").each(function() {
 			$(this).on('click', function(event){
 				event.preventDefault();
 				//Capturo el elemento al que se hizo clic
@@ -249,6 +249,9 @@ jQuery(function($) {
 			})
 			
 		});
+
+		//Elimina el target _blank de los enlaces con ajax
+    	$('.fancybox a[target="_blank"]').removeAttr('target');
 		verificar_hash();
 		var dp = $('#dia_programacion');
 		if(dp[0])
