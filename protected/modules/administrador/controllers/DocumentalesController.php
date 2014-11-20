@@ -126,6 +126,12 @@ class DocumentalesController extends Controller
 													        'with'=>array('pgDocumentals', 'url'),
 													    )) );
 
+		$generos = new CActiveDataProvider( 'MicrositioXGenero', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$id,
+													        'with'=>array('genero'),
+													    )) );
+
 		$paginas = new Pagina('search');
 		$paginas->micrositio_id = $id;
 		//$paginas->tipo_pagina_id = 4;
@@ -148,6 +154,7 @@ class DocumentalesController extends Controller
 			'ficha_tecnica' => $ficha_tecnica,
 			'videos' => $videos, 
 			'fotos' => $fotos, 
+			'generos' => $generos, 
 			'paginas' => $paginas, 
 			'menu' => $menu,
 		));

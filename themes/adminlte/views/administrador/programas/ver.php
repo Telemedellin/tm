@@ -24,8 +24,8 @@ cs()->registerScript(
 	CClientScript::POS_READY
 );
 ?>
-<div class="col-sm-12">
-	<?php $this->renderPartial('//layouts/commons/_flashes'); ?>
+<?php $this->renderPartial('//layouts/commons/_flashes'); ?>
+<div class="col-sm-8">
 	<div class="box box-primary">
         <div class="box-header">
             <h3 class="box-title">Detalles</h3>
@@ -42,7 +42,7 @@ cs()->registerScript(
 			<?php $this->widget('zii.widgets.CDetailView', array(
 				'data' => array('programa' => $model, 'contenido' => $contenido),
 				'attributes'=>array(
-					'id',
+					'programa.id',
 					array(
 						'name' => 'programa.nombre',
 						'label' => 'Programa',
@@ -59,7 +59,7 @@ cs()->registerScript(
 						'type' => 'html', 
 					),	
 					array(
-						'name' =>'programa.pagina.meta_descripcion', 
+						'name' =>'programa.meta_descripcion', 
 						'label' => 'Meta descripción',
 					),				
 					array(
@@ -103,7 +103,19 @@ cs()->registerScript(
 		</div>
 	</div>
 </div>
-<?php 
+<?php if( Yii::app()->user->checkAccess('ver_generos') ): ?>
+<div class="col-sm-4">
+	<div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">Géneros</h3>
+        </div>
+    	<div class="box-body">
+    		<?php $this->renderPartial('/genero/_genero', array('generos' => $generos, 'model' => $model));?>
+    	</div>
+    </div>
+</div>
+<?php endif ?>
+<?php
 if( Yii::app()->user->checkAccess('ver_paginas') )
 {
 	$tabs_content['paginas'] = 
@@ -113,11 +125,11 @@ if( Yii::app()->user->checkAccess('ver_paginas') )
             'data'=> array('paginas' => $paginas, 'model' => $model)
         );
 }
-if( Yii::app()->user->checkAccess('ver_menus') || Yii::app()->user->checkAccess('ver_menu_item') )
+if( Yii::app()->user->checkAccess('ver_menu') )
 {
-    $tabs_content['menu'] =    
-        array(
-            'title'=>'Menú',
+	$tabs_content['menu'] = 
+		array(
+            'title'=>'Menús',
             'view'=>'/menu/_menu', 
             'data'=> array('menu' => $menu, 'model' => $model)
         );

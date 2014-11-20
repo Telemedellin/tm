@@ -24,7 +24,7 @@ cs()->registerScript(
 	CClientScript::POS_READY
 );
 ?>
-<div class="col-sm-12">
+<div class="col-sm-8">
 	<?php $this->renderPartial('//layouts/commons/_flashes'); ?>
 	<div class="box box-primary">
         <div class="box-header">
@@ -106,6 +106,18 @@ cs()->registerScript(
 		</div>
 	</div>
 </div>
+<?php if( Yii::app()->user->checkAccess('ver_generos') ): ?>
+<div class="col-sm-4">
+	<div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">Géneros</h3>
+        </div>
+    	<div class="box-body">
+    		<?php $this->renderPartial('/genero/_genero', array('generos' => $generos, 'model' => $model));?>
+    	</div>
+    </div>
+</div>
+<?php endif ?>
 <?php 
 if( Yii::app()->user->checkAccess('ver_paginas') )
 {

@@ -126,6 +126,12 @@ class EspecialesController extends Controller
 													        'with'=>array('fotos', 'url'),
 													    )) );
 
+		$generos = new CActiveDataProvider( 'MicrositioXGenero', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$id,
+													        'with'=>array('genero'),
+													    )) );
+
 		$paginas = new Pagina('search');
 		$paginas->micrositio_id = $id;
 		if(isset($_GET['Pagina']))
@@ -147,6 +153,7 @@ class EspecialesController extends Controller
 			//'fechas' => $fechas,
 			'videos' => $videos, 
 			'fotos' => $fotos, 
+			'generos' => $generos, 
 			'paginas' => $paginas, 
 			'menu' => $menu,
 		));
