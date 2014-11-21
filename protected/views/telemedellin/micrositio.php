@@ -45,3 +45,14 @@ else{
 	</div>
     </div>
 </div>
+<?php if($relacionados):?>
+<div id="relacionados">
+	<h4>También te puede interesar...</h4>
+	<?php foreach($relacionados as $relacionado): ?>
+	<a href="<?php echo bu($relacionado->url->slug) ?>" class="relacionado" title="Ir al micrositio <?php echo str_replace('"', "'", $relacionado->nombre) ?>">
+		<img src="<?php echo bu('images/'.$relacionado->miniatura) ?>" />
+		<p><?php echo $relacionado->nombre ?></p>
+	</a>
+	<?php endforeach ?>
+</div>
+<?php endif; ?>

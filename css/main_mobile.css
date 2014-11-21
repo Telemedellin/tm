@@ -761,7 +761,8 @@ th
 #menu_inferior, 
 #menu_micrositio, 
 #micrositio,
-#redes_micrositio
+#redes_micrositio, 
+#relacionados
 {
 	background: #000;
 	background: rgba(0,0,0,.8);
@@ -771,9 +772,51 @@ th
 	margin-bottom: 1em;
 	overflow: hidden;
 }
-#menu_inferior
+#menu_inferior, 
+#relacionados
 {
 	padding: 1.2% 2%;
+}
+#relacionados a
+{
+	-webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+			border-radius: 5px;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+			box-sizing: border-box;
+	color: #fff;
+	display: block;
+	float: left;
+	height: 80px;
+	margin-right: 2%;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	width: 31%;
+}
+#relacionados a:last-child
+{
+	margin: 0;
+}
+#relacionados img
+{
+	height: 80px;
+	width: 107px;
+}
+#relacionados p
+{
+	background: rgba(0, 0, 0, 0.7);
+	bottom: 0;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	height: 40px;
+	line-height: 1;
+	margin: 0;
+	padding: 5px;
+	position: absolute;
+	width: 100%;
 }
 #menu_inferior a
 {
@@ -826,7 +869,7 @@ th
 {
 	color: #FFF;
 	display: block;
-	padding: 1em;
+	padding: 10px;
 }
 #menu_micrositio .active a{
 	background: #fc7812;

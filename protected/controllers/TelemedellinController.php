@@ -286,6 +286,9 @@ class TelemedellinController extends Controller
 			$menu = false;
 		}
 
+		//Contenido relacionado
+		$relacionados = Relacionados::obtener($micrositio->id);
+		
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
 		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
@@ -313,6 +316,7 @@ class TelemedellinController extends Controller
 					'menu'		=> $menu,
 					'pagina' 	=> $pagina['pagina'], 
 					'contenido' => $contenido, 
+					'relacionados' => $relacionados, 
 					'fondo_pagina' => $fondo_pagina
 				) 
 		);
