@@ -103,6 +103,18 @@ cs()->registerScript(
     </div>
 </div>
 <?php endif ?>
+<?php if( Yii::app()->user->checkAccess('ver_relacionados') ): ?>
+<div class="col-sm-4">
+	<div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">Relacionados (Fijos)</h3>
+        </div>
+    	<div class="box-body">
+    		<?php $this->renderPartial('/genero/_relacionado', array('relacionados' => $relacionados, 'model' => $model));?>
+    	</div>
+    </div>
+</div>
+<?php endif ?>
 <?php 
 if( Yii::app()->user->checkAccess('ver_paginas') )
 {

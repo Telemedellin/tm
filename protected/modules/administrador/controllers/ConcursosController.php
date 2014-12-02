@@ -123,6 +123,13 @@ class ConcursosController extends Controller
 													        'condition'=>'micrositio_id = '.$id,
 													        'with'=>array('genero'),
 													    )) );
+
+		$relacionados = new CActiveDataProvider( 'MicrositioXRelacionado', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$id,
+													        'order' => 'orden ASC', 
+													        'with'=>array('micrositio'),
+													    )) );
 		
 		$paginas = new Pagina('search');
 		$paginas->micrositio_id = $id;
@@ -145,7 +152,8 @@ class ConcursosController extends Controller
 			'contenido' => $contenido, 
 			'fotos' => $fotos, 
 			'videos' => $videos, 
-			'generos' => $generos,  
+			'generos' => $generos, 
+			'relacionados' => $relacionados,  
 			'paginas' => $paginas,
 			'menu' => $menu,
 		));

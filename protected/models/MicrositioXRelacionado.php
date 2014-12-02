@@ -1,24 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "micrositio_x_genero".
+ * This is the model class for table "micrositio_x_relacionado".
  *
- * The followings are the available columns in table 'micrositio_x_genero':
+ * The followings are the available columns in table 'micrositio_x_relacionado':
  * @property integer $id
  * @property integer $micrositio_id
- * @property integer $genero_id
+ * @property integer $relacionado_id
  * @property integer $estado
  *
  * The followings are the available model relations:
  * @property Micrositio $micrositio
- * @property Genero $genero
+ * @property Relacionado $relacionado
  */
-class MicrositioXGenero extends CActiveRecord
+class MicrositioXRelacionado extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return MicrositioXGenero the static model class
+	 * @return MicrositioXRelacionado the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -30,7 +30,7 @@ class MicrositioXGenero extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'micrositio_x_genero';
+		return 'micrositio_x_relacionado';
 	}
 
 	/**
@@ -41,11 +41,11 @@ class MicrositioXGenero extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('micrositio_id, genero_id', 'required'),
-			array('micrositio_id, genero_id', 'numerical', 'integerOnly'=>true),
+			array('micrositio_id, relacionado_id', 'required'),
+			array('micrositio_id, relacionado_id, orden', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, micrositio_id, genero_id, creado', 'safe', 'on'=>'search'),
+			array('id, micrositio_id, relacionado_id, creado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,7 +58,7 @@ class MicrositioXGenero extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'micrositio' => array(self::BELONGS_TO, 'Micrositio', 'micrositio_id'),
-			'genero' => array(self::BELONGS_TO, 'Genero', 'genero_id'),
+			'relacionado' => array(self::BELONGS_TO, 'Micrositio', 'relacionado_id'),
 		);
 	}
 
@@ -69,8 +69,9 @@ class MicrositioXGenero extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'genero_id' => 'Género',
+			'relacionado_id' => 'Relacionado',
 			'micrositio_id' => 'Micrositio',
+			'orden'	=> 'Orden', 
 			'creado' => 'Creado', 
 			'estado' => 'Estado',
 		);
@@ -88,10 +89,12 @@ class MicrositioXGenero extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('genero_id',$this->genero_id);
+		$criteria->compare('relacionado_id',$this->relacionado_id);
 		$criteria->compare('micrositio_id',$this->micrositio_id);
+		$criteria->compare('orden',$this->orden);
 		$criteria->compare('creado',$this->creado);
 		$criteria->compare('estado',$this->estado);
+		$criteria->order = 'orden ASC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

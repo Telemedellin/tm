@@ -132,6 +132,13 @@ class DocumentalesController extends Controller
 													        'with'=>array('genero'),
 													    )) );
 
+		$relacionados = new CActiveDataProvider( 'MicrositioXRelacionado', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$id,
+													        'order' => 'orden ASC', 
+													        'with'=>array('micrositio'),
+													    )) );
+
 		$paginas = new Pagina('search');
 		$paginas->micrositio_id = $id;
 		//$paginas->tipo_pagina_id = 4;
@@ -155,6 +162,7 @@ class DocumentalesController extends Controller
 			'videos' => $videos, 
 			'fotos' => $fotos, 
 			'generos' => $generos, 
+			'relacionados' => $relacionados, 
 			'paginas' => $paginas, 
 			'menu' => $menu,
 		));

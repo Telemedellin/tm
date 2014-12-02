@@ -135,6 +135,13 @@ class ProgramasController extends Controller
 													        'with'=>array('genero'),
 													    )) );
 
+		$relacionados = new CActiveDataProvider( 'MicrositioXRelacionado', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$id,
+													        'order' => 'orden ASC', 
+													        'with'=>array('micrositio'),
+													    )) );
+
 		$paginas = new Pagina('search');
 		$paginas->micrositio_id = $id;
 		//$paginas->tipo_pagina_id = 2;
@@ -158,6 +165,7 @@ class ProgramasController extends Controller
 			'horario' => $horario,
 			'redes_sociales' => $redes_sociales,
 			'generos' => $generos, 
+			'relacionados' => $relacionados, 
 			'paginas' => $paginas, 
 			'menu' => $menu
 		));

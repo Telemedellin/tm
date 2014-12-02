@@ -132,6 +132,13 @@ class EspecialesController extends Controller
 													        'with'=>array('genero'),
 													    )) );
 
+		$relacionados = new CActiveDataProvider( 'MicrositioXRelacionado', array(
+													    'criteria'=>array(
+													        'condition'=>'micrositio_id = '.$id,
+													        'order' => 'orden ASC', 
+													        'with'=>array('micrositio'),
+													    )) );
+
 		$paginas = new Pagina('search');
 		$paginas->micrositio_id = $id;
 		if(isset($_GET['Pagina']))
@@ -154,6 +161,7 @@ class EspecialesController extends Controller
 			'videos' => $videos, 
 			'fotos' => $fotos, 
 			'generos' => $generos, 
+			'relacionados' => $relacionados,
 			'paginas' => $paginas, 
 			'menu' => $menu,
 		));
@@ -228,7 +236,7 @@ class EspecialesController extends Controller
 				{
 					$transaccion->commit();
 					Yii::app()->user->setFlash('success', 'Especial ' . $especialesForm->nombre . ' guardado con éxito');
-					$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : '../');
+					$this->redirect( array('view', 'id' => $micrositio->getPrimaryKey()) );
 				}
 
 			}//if($novedadesForm->validate())
