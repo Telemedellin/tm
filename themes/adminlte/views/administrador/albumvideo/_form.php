@@ -37,7 +37,7 @@
             <div class="box-body">
         		<div class="form-group">
 			        <?php echo $form->label($model,'thumb'); ?>
-			        <?php echo $this->imageField($form, $model, 'thumb', 'archivoMiniaturaH'); ?>
+			        <?php echo $this->imageField($form, $model, 'thumb', 'archivoMiniatura', '_albumvideo'); ?>
 			    </div>
 			</div>
 		</div>
