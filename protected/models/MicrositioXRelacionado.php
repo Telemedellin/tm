@@ -58,7 +58,7 @@ class MicrositioXRelacionado extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'micrositio' => array(self::BELONGS_TO, 'Micrositio', 'micrositio_id'),
-			'relacionado' => array(self::BELONGS_TO, 'Micrositio', 'relacionado_id'),
+			'relacionado' => array(self::BELONGS_TO, 'Micrositio', 'relacionado_id', 'condition' => 'relacionado.estado <> 0'),
 		);
 	}
 

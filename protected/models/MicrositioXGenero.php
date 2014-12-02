@@ -57,7 +57,7 @@ class MicrositioXGenero extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'micrositio' => array(self::BELONGS_TO, 'Micrositio', 'micrositio_id'),
+			'micrositio' => array(self::BELONGS_TO, 'Micrositio', 'micrositio_id', 'condition' => 'micrositio.estado <> 0'),
 			'genero' => array(self::BELONGS_TO, 'Genero', 'genero_id'),
 		);
 	}
