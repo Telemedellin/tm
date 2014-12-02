@@ -12,6 +12,6 @@
 			<li class="vimeo"><a href="http://vimeo.com/telemedellintv" target="_blank" title="Vimeo de Telemedellín" rel="nofollow">Vimeo</a></li>
 		</ul>
 	</div>
-	<?php echo l( '<span>Contacto</span>' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/utilidades/escribenos'), array('class' => 'escribenos') ); ?>
+	<?php echo l( '<span>Contacto</span>' , CHtml::normalizeUrl(Yii::app()->homeUrl . 'telemedellin/de-interes-general/servicio-al-televidente'), array('class' => 'escribenos') ); ?>
 </footer>
 <?php $this->endCache(); endif; ?>
