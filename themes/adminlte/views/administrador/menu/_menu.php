@@ -59,9 +59,10 @@
     </div>
 <?php else: ?>
     <div class="col-sm-12">
-        <div class="nav navbar-right btn-group">
+        <!--<div class="nav navbar-right btn-group">
             <?php echo (Yii::app()->user->checkAccess('crear_menus')) ? l('<i class="fa fa-plus"></i> Cree un menú', $this->createUrl('menu/crear', array('id' => $model->id)), array('class' => 'btn btn-primary')): ''?>
-        </div>
+        </div>-->
+        <p>No hay menú asignado</p>
     </div>
 <?php endif; ?>
 </div>
