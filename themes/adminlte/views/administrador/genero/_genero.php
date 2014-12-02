@@ -23,6 +23,7 @@
     <?php if($generos->getData()): ?>
     <div class="col-sm-12">
     <?php $this->widget('zii.widgets.grid.CGridView', array(
+        'id'            => 'genero-grid', 
     	'dataProvider'  => $generos,
         'enableSorting' => true,
         'pager'         => array('pageSize' => 25),

@@ -46,7 +46,7 @@ $str_js = "
         $mxr = new MicrositioXRelacionado;?>
         <div class="nav navbar-right input-group col-sm-12">
             <?php echo $form->hiddenField($mxr, 'micrositio_id', array('value' => $model->id) ); ?>
-            <?php echo $form->dropDownList($mxr, 'relacionado_id', CHtml::listData(Micrositio::model()->findAll(), 'id', 'nombre'), array('class' => 'form-control') ); ?>
+            <?php echo $form->dropDownList($mxr,'relacionado_id', CHtml::listData(Micrositio::model()->findAll(array('order' => 'nombre ASC')), 'id', 'nombre'), array('class' => 'form-control chosen', 'required' => true) ); ?>
             <span class="input-group-btn">
                 <?php echo CHtml::submitButton('Asignar +', array('class' => 'btn btn-primary btn-block')); ?>
             </span>

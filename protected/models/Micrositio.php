@@ -98,7 +98,8 @@ class Micrositio extends CActiveRecord
 			'paginas' => array(self::HAS_MANY, 'Pagina', 'micrositio_id', 'order' => 'paginas.nombre ASC', 'having' => 'paginas.tipo_pagina_id <> 3'),
 			'programacions' => array(self::HAS_MANY, 'Programacion', 'micrositio_id'),
 			'redSocials' => array(self::HAS_MANY, 'RedSocial', 'micrositio_id'),
-			'micrositio_x_genero' => array(self::HAS_MANY, 'MicrositioXGenero', 'micrositio_id')
+			'micrositio_x_genero' => array(self::HAS_MANY, 'MicrositioXGenero', 'micrositio_id'), 
+			'micrositio_x_relacionado' => array(self::HAS_MANY, 'MicrositioXRelacionado', 'micrositio_id')
 		);
 	}
 
