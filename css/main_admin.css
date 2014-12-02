@@ -26,3 +26,5 @@
 .filters input{width: 100% !important;}
 
 .controls.imagen{border-bottom: thin dashed #AAA;padding-bottom: 10px;}
+
+.ui-sortable .sort{cursor: pointer;}

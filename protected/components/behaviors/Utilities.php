@@ -58,7 +58,7 @@ class Utilities extends CBehavior
 		$html .= '					<i class="fa fa-plus"></i>'.PHP_EOL;
 		$html .= '					<input id="'.$id.'" type="file" name="'.$id.'[]">'.PHP_EOL;
 		$html .= '				</span>              '.PHP_EOL;
-		$html .= '				<span class="fileupload-loading"></span>'.PHP_EOL;
+		//$html .= '				<span class="fileupload-loading"></span>'.PHP_EOL;
 		$html .= '			</div>'.PHP_EOL;
 		if($model->$name != '')
 		{

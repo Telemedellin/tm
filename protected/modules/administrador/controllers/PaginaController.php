@@ -458,6 +458,11 @@ class PaginaController extends Controller
 					$contenido = PgFormularioJf::model()->findByPk($_POST['PgFormularioJf']['id']);
 					$contenido->formulario_id 	= $_POST['PgFormularioJf']['formulario_id'];
 				}
+				if(isset($_POST['PgFormulario']))
+				{
+					$contenido = PgFormulario::model()->findByPk($_POST['PgFormulario']['id']);
+					$contenido->texto 	= $_POST['PgFormulario']['texto'];
+				}
 
 				$contenido->estado = $_POST['Pagina']['estado'];
 

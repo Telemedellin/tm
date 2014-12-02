@@ -22,6 +22,35 @@ body.home {
 footer img {
 	max-width: 90%;
 }
+form label
+{
+	font-size: 1.1em;
+	font-weight: bold;
+}
+form .btn
+{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+form .btn-default
+{
+	background: #676767;
+	border: 0;
+	-moz-box-shadow: 0;
+	-webkit-box-shadow: 0;
+	box-shadow: 0;
+	color: #FFF;
+	text-shadow: 0;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled]
+{
+	background: gray;
+}
+#video .span6:nth-child(even)
+{
+	border-left: thin solid #FFF;
+}
 form .controls.success::after, 
 form .controls.success:after
 {
@@ -136,7 +165,7 @@ th
 }
 .breadcrumbs a {
 	background: rgb(0, 0, 0);
-	background: rgba(0, 0, 0, .6);
+	background: rgba(0, 0, 0, .7);
 	border-radius: 10px;
 	color: #FFF;
 	display: inline-block;
@@ -161,12 +190,12 @@ th
 }
 .breadcrumbs a.home {
 	background: rgb(0,0,0) url('../images/static/iconos/tmicons.png') no-repeat 4px -758px; 
-	background: rgba(0,0,0,.6) url('../images/static/iconos/tmicons.png') no-repeat 4px -758px;
+	background: rgba(0,0,0,.7) url('../images/static/iconos/tmicons.png') no-repeat 4px -758px;
 	text-indent: 30px;
 }
 .breadcrumbs h1 {
 	background: rgb(0, 0, 0);
-	background: rgba(0, 0, 0, .6);
+	background: rgba(0, 0, 0, .7);
 	border-radius: 10px;
 	color: #FFF;
 	display: inline-block;
@@ -436,7 +465,7 @@ th
 }
 .programacion .menu_micrositio {
 	background: rgb(0, 0, 0);
-	background: rgba(0, 0, 0, 0.6);
+	background: rgba(0, 0, 0, 0.7);
 	-webkit-border-radius: 10px;
 	   -moz-border-radius: 10px;
 			border-radius: 10px;
@@ -484,10 +513,10 @@ th
 	background-size: 85%;
 	height: 24px;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
-	filter: alpha(opacity=60);
-	-moz-opacity: 0.6;
-	-khtml-opacity: 0.6;
-	opacity: 0.6;
+	filter: alpha(opacity=70);
+	-moz-opacity: 0.7;
+	-khtml-opacity: 0.7;
+	opacity: 0.7;
 	-moz-transition: opacity .5s ease;
 	-o-transition: opacity .5s ease;
 	-webkit-transition: opacity .5s ease;
@@ -1367,7 +1396,7 @@ th
 #relacionados
 {
 	background: rgb(0, 0, 0);
-	background: rgba(0, 0, 0, .8);
+	background: rgba(0, 0, 0, .7);
 	-webkit-border-radius: 10px;
 	   -moz-border-radius: 10px;
 			border-radius: 10px;
@@ -1488,7 +1517,7 @@ th
 }
 #menu_micrositio {
 	background: rgb(0, 0, 0);
-	background: rgba(0, 0, 0, .6);
+	background: rgba(0, 0, 0, .7);
 	-webkit-border-radius: 10px;
 	   -moz-border-radius: 10px;
 	   		border-radius: 10px;
@@ -1540,7 +1569,7 @@ th
 }
 #micrositio {
 	background: rgb(0, 0, 0);
-	background: rgba(0, 0, 0, .8);
+	background: rgba(0, 0, 0, .7);
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 			box-sizing: border-box;
@@ -1550,7 +1579,8 @@ th
 			border-radius: 10px;
 	clear: both;
 	float: right;
-	max-height: 70%;
+	/*max-height: 70%;/**/
+	max-height: 60%;
 	margin: 5px 10px 5px 0;
 	overflow: auto;
 	padding: 0px 10px 15px 5px;
@@ -1866,9 +1896,9 @@ th
 	margin-top:7px;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 	filter: alpha(opacity=60);
-	-moz-opacity: 0.6;
-	-khtml-opacity: 0.6;
-	opacity: 0.6;
+	-moz-opacity: 0.7;
+	-khtml-opacity: 0.7;
+	opacity: 0.7;
 	text-indent: -9999px;
 	-moz-transition: opacity .5s ease;
 	-o-transition: opacity .5s ease;
@@ -1938,11 +1968,11 @@ th
 	display: block;
 	height: 63px;
 	text-indent: -9999px;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
-	filter: alpha(opacity=60);
-	-moz-opacity: 0.6;
-	-khtml-opacity: 0.6;
-	opacity: 0.6;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+	filter: alpha(opacity=70);
+	-moz-opacity: 0.7;
+	-khtml-opacity: 0.7;
+	opacity: 0.7;
 	-moz-transition: opacity .5s ease;
 	-o-transition: opacity .5s ease;
 	-webkit-transition: opacity .5s ease;
@@ -2359,7 +2389,7 @@ th
 #overlay #seccion .destacados .nombrePrograma
 {
 	background: rgb(0, 0, 0);
-	background: rgba(0, 0, 0, 0.6);
+	background: rgba(0, 0, 0, 0.7);
 	height:40px;
 	margin-top:-40px;
 	position:relative;
@@ -2399,12 +2429,12 @@ th
 	background: rgb(30, 30, 30);
 	background: rgba(255, 255, 255, 0.1);
 	border: thin solid rgb(50, 50, 50);
-	border: thin solid rgba(255, 255, 255, .6);
+	border: thin solid rgba(255, 255, 255, .7);
 	-webkit-border-radius: 10px;
 	   -moz-border-radius: 10px;
 			border-radius: 10px;
 	color: rgb(255, 255, 255);
-	color: rgba(255, 255, 255, 0.6);
+	color: rgba(255, 255, 255, 0.7);
 	font-size: .9em;
 	height: 15px;
 	margin: 0;
@@ -2624,7 +2654,7 @@ th
 #redes_micrositio p, #redes_micrositio li
 {
 	background: rgb(0, 0, 0);
-	background: rgba(0, 0, 0, .6);
+	background: rgba(0, 0, 0, .7);
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
@@ -2776,6 +2806,24 @@ th
 }
 .yii-feed-widget-clear{
     clear: both;
+}
+.btn-primary{
+	background: #fc7812;
+}
+.btn-primary:hover{
+	background: #ffb119;
+}
+.table-striped tbody>tr.template-upload td, 
+.table-striped tbody>tr.template-download td
+{
+	background: transparent;
+	border-top: 0;
+	color: #FFF;
+}
+.template-upload .preview video
+{
+	max-width: 300px;
+	width: 100%;
 }
 
 @media (max-width: 767px) {

@@ -24,8 +24,8 @@ function ga_track(){
     ga('send', 'pageview', location.pathname + '/' + location.hash);
 }
 jQuery(function($) {
-    $('body').ajaxStart(function(){ $(this).append('<div id="loading"><span class="spinner"></span></div>').fadeIn(); });
-    $('body').ajaxComplete(function(){ $('#loading').fadeOut().remove(); });
+    $(document).ajaxStart(function(){ $(this).append('<div id="loading"><span class="spinner"></span></div>').fadeIn(); });
+    $(document).ajaxComplete(function(){ $('#loading').fadeOut().remove(); });
 
     window.mobile = $('#icontainer').hasClass('mobile');
     window.cv = 0;

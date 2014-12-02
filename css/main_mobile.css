@@ -228,6 +228,21 @@ footer .redes li.vimeo a,
 {
 	background-position: 0px -900px;	
 }
+form label
+{
+	font-size: 1.1em;
+	font-weight: bold;
+}
+form .btn
+{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled]
+{
+	background: gray;
+}
 header
 {
 	float: left;
@@ -1351,6 +1366,42 @@ th
 	color: #FFF;
 	margin-bottom: 1em;
 	padding: 1em;
+}
+.table-striped tbody>tr.template-upload td,
+.table-striped tbody>tr.template-download td, 
+.table-striped tbody>tr.template-upload tr,
+.table-striped tbody>tr.template-download tr,  
+.table-striped tbody>tr.template-upload, 
+.table-striped tbody>tr.template-download
+{
+	background: transparent;
+	border-top: 0;
+	color: #FFF;
+}
+.table-striped tbody>tr.template-upload td, 
+.table-striped tbody>tr.template-download td
+{
+	display: block;
+}
+.table-striped tbody>tr.template-upload td p
+.table-striped tbody>tr.template-download td p
+{
+	width: 100%;
+}
+.template-upload .preview video, 
+.template-download .preview video
+{
+	max-width: 300px;
+	width: 100%;
+}
+.fileupload-buttonbar .toggle, 
+.files .toggle, 
+.files .btn span {
+	display: inline-block;
+}
+.files .name
+{
+	width: auto;
 }
 /* Portrait */
 /*@media screen and (orientation:portrait) {
