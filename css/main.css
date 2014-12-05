@@ -135,6 +135,15 @@ td
 	color: #3c3c3c;
 	padding: 10px;
 }
+.inverted td
+{
+	background: transparent;
+	color: #fff;
+}
+#content .inverted iframe
+{
+	min-height: 200px;
+}
 th
 {
 	background: #fc7812;
@@ -2547,6 +2556,10 @@ th
 	-moz-border-radius-bottomleft: 10px;
 	border-bottom-left-radius: 10px;
 }
+#programacion.short
+{
+	width: 45%;
+}
 #programacion a {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -2581,6 +2594,10 @@ th
 	transition: background-color .5s ease;
 	width: 28%;
 }
+#programacion.short .a-continuacion
+{
+	width: 40%;
+}
 #programacion .a-continuacion .estado
 {
 	background: url(../images/static/iconos/siguiente_programacion.png) no-repeat 115px center;
@@ -2614,6 +2631,10 @@ th
 	transition: background .5s ease;
 	width: 17%;
 }
+#programacion.short .programacion
+{
+	width: 25%;
+}
 #programacion .programacion:hover, 
 #programacion .al-aire:hover, 
 #programacion .a-continuacion:hover
@@ -2628,6 +2649,10 @@ th
 	float: right;
 	font-weight: normal;
 	width: 23%;
+}
+#programacion.short .senal-en-vivo
+{
+	width: 35%;
 }
 #programacion .senal-en-vivo:hover {
 	background-position: left bottom;
@@ -2939,6 +2964,10 @@ th
 	{
 		font-size: 12px;
 	}
+	#bar h1 img
+	{
+		max-width: 100%;
+	}
 	#content iframe
 	{
 		max-height: 280px;
@@ -3034,7 +3063,7 @@ th
 	#bar nav li a {
 		background-size: 24px auto;
 		background-position: 5px 7px;
-		font-size: 14px;
+		font-size: 16px;
 		padding: 4px 0 4px 30px;
 	}
 	#bar nav li.programas a {
