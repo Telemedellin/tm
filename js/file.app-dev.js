@@ -245,6 +245,8 @@ function back(e){
 }
 function ga_track(){
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-5650687-11']);
-    _gaq.push(['_trackPageview']);
+    //_gaq.push(['_setAccount', 'UA-5650687-11']);
+    //_gaq.push(['_trackPageview']);
+    ga('create', 'UA-5650687-11', 'auto');
+    ga('send', 'pageview');
 }
