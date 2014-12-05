@@ -13,4 +13,4 @@ if($guino = $this->getGuino()):
 	$title = $guino->nombre;
 endif; 
 ?>
-<img src="<?php echo $logo_url ?>" alt="<?php echo $nombre ?>" title="<?php echo $title ?>" />
+<img src="<?php echo $logo_url ?>" alt="Telemedellín, aquí te ves (<?php echo $nombre ?>)" title="Telemedellín, aquí te ves (<?php echo $title ?>)" />
