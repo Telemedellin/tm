@@ -7,14 +7,14 @@ class ApiController extends Controller
 		if(!$_GET['micrositio_id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$micrositio_id = $_GET['micrositio_id'];
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM album_foto WHERE micrositio_id = $micrositio_id AND estado <> 0");
-		$af = AlbumFoto::model()->cache(86400, $dependencia)->findAllByAttributes( array('micrositio_id' => $micrositio_id), array('order' => 'destacado DESC, modificado DESC, creado DESC') );
+		$af = AlbumFoto::model()->cache(86400, $dependencia)->findAllByAttributes( array('micrositio_id' => $micrositio_id), array('condition' => 't.estado <> 0', 'order' => 'destacado DESC, modificado DESC, creado DESC') );
 		$json = '';
 		$json .= '[';
 			foreach($af as $album):
 			$json .= '{';
 				$json .= '"id":"'.$album->id.'",';
 				$json .= '"micrositio":"'.$album->micrositio_id.'",';
-				$json .= '"nombre":"'.$album->nombre.'",';
+				$json .= '"nombre":"'.CHtml::encode($album->nombre).'",';
 				$json .= '"url":"'.$album->url->slug.'",';
 				$json .= '"thumb":"'.bu('images/galeria/' . $album->directorio . $album->fotos[0]->src).'"';
 			$json .= '},';
@@ -47,15 +47,15 @@ class ApiController extends Controller
 		if(!$af) throw new CHttpException(404, 'No se encontró la página solicitada');
 
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM foto WHERE album_foto_id = $af->id AND estado <> 0");
-		$f = Foto::model()->cache(86400, $dependencia)->findAllByAttributes( array('album_foto_id' => $af->id), array('order' => 'orden ASC, destacado DESC') );
+		$f = Foto::model()->cache(86400, $dependencia)->findAllByAttributes( array('album_foto_id' => $af->id), array('condition' => 't.estado <> 0', 'order' => 'orden ASC, destacado DESC') );
 		$json = '';
 		$json .= '[';
 			foreach($f as $foto):
 			$json .= '{';
 				$json .= '"id":"'.$foto->id.'",';
-				$json .= '"album_foto":"'.$foto->albumFoto->nombre.'",';
+				$json .= '"album_foto":"'.CHtml::encode($foto->albumFoto->nombre).'",';
 				$json .= '"url":"'.$foto->url->slug.'",';
-				$json .= '"nombre":"'.$foto->nombre.'",';
+				$json .= '"nombre":"'.CHtml::encode($foto->nombre).'",';
 				$json .= '"src":"'.bu('images/galeria/' . $foto->albumFoto->directorio . $foto->src).'",';
 				$json .= '"thumb":"'.bu('images/galeria/' . $foto->albumFoto->directorio . $foto->thumb).'",';
 				$json .= '"ancho":"'.$foto->ancho.'",';
@@ -74,7 +74,7 @@ class ApiController extends Controller
 		if(!$_GET['micrositio_id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$micrositio_id = $_GET['micrositio_id'];
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM album_video WHERE micrositio_id = $micrositio_id AND estado <> 0");
-		$va = AlbumVideo::model()->cache(86400, $dependencia)->with('url')->findAllByAttributes( array('micrositio_id' => $micrositio_id), array('order' => 't.destacado DESC, t.modificado DESC, t.creado DESC') );
+		$va = AlbumVideo::model()->cache(86400, $dependencia)->with('url')->findAllByAttributes( array('micrositio_id' => $micrositio_id), array('condition' => 't.estado <> 0', 'order' => 't.destacado DESC, t.modificado DESC, t.creado DESC') );
 		
 		$json = '';
 		$json .= '[';
@@ -104,17 +104,17 @@ class ApiController extends Controller
 		$url = Url::model()->findByAttributes( array('slug' => $hash) );
 		if($url->tipo_id == 8){
 			$url_id = $url->id;
-			$va = AlbumVideo::model()->findByAttributes( array('url_id' => $url_id, 'micrositio_id' => $micrositio)  );
+			$va = AlbumVideo::model()->findByAttributes( array('url_id' => $url_id, 'micrositio_id' => $micrositio), array('condition' => 't.estado <> 0')  );
 		}
 		else if($url->tipo_id == 9)
 		{
 			$video = Video::model()->findByAttributes( array('url_id' => $url->id) );
-			$va = AlbumVideo::model()->findByPk( $video->album_video_id );
+			$va = AlbumVideo::model()->findByPk( $video->album_video_id, array('condition' => 't.estado <> 0') );
 		}
 
 		if(!$va) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$dependencia = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM video WHERE album_video_id = $va->id AND estado <> 0");
-		$v = Video::model()->cache(86400, $dependencia)->findAllByAttributes( array('album_video_id' => $va->id), array('order' => 'destacado DESC, modificado DESC, creado DESC') );
+		$v = Video::model()->cache(86400, $dependencia)->findAllByAttributes( array('album_video_id' => $va->id), array('condition' => 't.estado <> 0', 'order' => 'destacado DESC, modificado DESC, creado DESC') );
 		$json = '';
 		$json .= '[';
 			foreach($v as $video):
@@ -164,7 +164,7 @@ class ApiController extends Controller
 	public function actionMicrositio(){
 		if(!$_GET['id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$micrositio_id = $_GET['id'];
-		$micrositio = Micrositio::model()->findByPk( $micrositio_id, array('order' => 'nombre ASC') );
+		$micrositio = Micrositio::model()->findByPk( $micrositio_id, array('condition' => 't.estado <> 0', 'order' => 'nombre ASC') );
 		$json = '{';
 		$json .= '"id":"'.CHtml::encode($micrositio->id).'",';
 		$json .= '"nombre":"'.CHtml::encode($micrositio->nombre).'"';
@@ -177,7 +177,7 @@ class ApiController extends Controller
 	public function actionPagina(){
 		if(!$_GET['id']) throw new CHttpException(404, 'No se encontró la página solicitada');
 		$pagina_id = $_GET['id'];
-		$pagina = Pagina::model()->findByPk( $pagina_id, array('order' => 'nombre ASC') );
+		$pagina = Pagina::model()->findByPk( $pagina_id, array('condition' => 't.estado <> 0', 'order' => 'nombre ASC') );
 		$json = '{';
 		$json .= '"id":"'.CHtml::encode($pagina->id).'",';
 		$json .= '"nombre":"'.CHtml::encode($pagina->nombre).'"';
@@ -290,8 +290,8 @@ class ApiController extends Controller
 		$json = '[';
 		foreach($micrositios as $micrositio):
 			$json .= '{';
-			$json .= '"label":"'.$micrositio->nombre.'",';
-			$json .= '"value":"'.$micrositio->nombre.'",';
+			$json .= '"label":"'.CHtml::encode($micrositio->nombre).'",';
+			$json .= '"value":"'.CHtml::encode($micrositio->nombre).'",';
 			$json .= '"id":"'.$micrositio->id.'"';
 			$json .= '},';
 		endforeach;
