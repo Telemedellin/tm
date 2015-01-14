@@ -137,7 +137,7 @@ if( Yii::app()->user->checkAccess('ver_paginas') )
             'data'=> array('paginas' => $paginas, 'model' => $model)
         );
 }
-if( Yii::app()->user->checkAccess('ver_menu') )
+if( Yii::app()->user->checkAccess('ver_menus') )
 {
 	$tabs_content['menu'] = 
 		array(
