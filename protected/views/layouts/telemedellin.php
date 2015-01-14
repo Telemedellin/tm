@@ -28,6 +28,7 @@
 				$this->widget( 'MenuW', array( 'id' => 1 ) ); // Menú principal
 		    ?>
 			</nav>
+			<?php $this->widget('application.modules.usuario.components.LoginW'); ?>
 		</div>
 		<?php $this->renderPartial('//layouts/_footer'); ?>
 	</div>
