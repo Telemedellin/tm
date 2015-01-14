@@ -283,6 +283,17 @@ h4
 {
 	font-size: 1.6em;
 }
+input[type="submit"]
+{
+	background: #f7720d;
+	border: none;
+	border-radius: 10px;
+	color: #FFF;
+	display: block;
+	margin: 0 0 10px;
+	padding: 10px 15px;
+	text-transform: uppercase;
+}
 li{
 	font-size: 1em;
 }
@@ -1402,6 +1413,13 @@ th
 .files .name
 {
 	width: auto;
+}
+.inverted td
+{
+	background: transparent;
+	color: #fff;
+	display: block;
+	width: 100% !important;
 }
 /* Portrait */
 /*@media screen and (orientation:portrait) {
