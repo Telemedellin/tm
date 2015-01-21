@@ -3,10 +3,9 @@ class TelemedellinController extends Controller
 {
 	public function actionIndex()
 	{
-		/*
 		$ya = date('Y-m-d H:i:s');
-		if( $ya >= '2014-10-08 08:00:00' && $ya <= '2014-10-08 14:30:00')
-			$this->redirect( bu('especiales/dialogos-telemedellin-2014/en-vivo', false, 307) );
+		if( $ya >= '2014-11-13 08:00:00' && $ya <= '2014-11-13 20:00:00')
+			$this->redirect( bu('especiales/100-dias-de-vida-en-medellin', false, 307) );
 		/**/
 		$this->render('index');
 	}
@@ -286,9 +285,29 @@ class TelemedellinController extends Controller
 			$menu = false;
 		}
 
-		//Contenido relacionado
-		$relacionados = Relacionados::obtener($micrositio->id);
+		$formulario = false;
+
+		if( !empty($micrositio->paginas) )
+		{
+			foreach($micrositio->paginas as $p)
+				if($p->tipo_pagina_id == 7){
+					$formulario = true;
+					break;
+				}
+		}
 		
+		if(!empty($micrositio->albumFotos) )
+			$galeria = true;
+		else
+			$galeria = false;
+
+		if( !empty($micrositio->albumVideos) )
+		{
+			$videos = true;
+		}
+		else
+			$videos = false;
+
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
 		$contenido = $this->renderPartial('_' . lcfirst($pagina['partial']), array('contenido' => $pagina), true);
@@ -314,9 +333,11 @@ class TelemedellinController extends Controller
 			array(	'seccion' 	=> $micrositio->seccion, 
 					'micrositio'=> $micrositio, 
 					'menu'		=> $menu,
+					'formulario'=> $formulario,
+					'galeria'	=> $galeria,
+					'video'		=> $videos,
 					'pagina' 	=> $pagina['pagina'], 
 					'contenido' => $contenido, 
-					'relacionados' => $relacionados, 
 					'fondo_pagina' => $fondo_pagina
 				) 
 		);
@@ -376,6 +397,9 @@ class TelemedellinController extends Controller
 					'micrositio'=> $micrositio, 
 					'pagina' 	=> $pagina, 
 					'hoy' 		=> $tts,
+					'formulario'=> false,
+					'galeria'	=> false,
+					'video'		=> false, 
 					'contenido' => $contenido, 
 				) 
 		);
@@ -389,7 +413,6 @@ class TelemedellinController extends Controller
 
 	public function actionProgramar()
 	{
-		$dias_semana = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
 		$horarios = Horario::model()->with('pgPrograma')->findAll( 
 			array('order' => 'dia_semana ASC, hora_inicio ASC', 'condition' => 'pgPrograma.estado = 2') 
 		);
@@ -408,7 +431,6 @@ class TelemedellinController extends Controller
 			setlocale(LC_ALL, 'es_ES.UTF-8');
 
 			$sts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-			$tts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
 			
 			// set current date
 			// parse about any English textual datetime description into a Unix timestamp
@@ -426,11 +448,28 @@ class TelemedellinController extends Controller
 			    $semana[] = $ts;
 			}
 
-			//echo 'Hora --- ' . $hora_inicio . ' --- ' . Horarios::hora_a_timestamp($hora_inicio);
-			//echo '<br /><br />';
-
 			$hora_inicio = $semana[$dia_semana - 1] + (Horarios::hora_a_timestamp($hora_inicio));
 			$hora_fin = $semana[$dia_semana - 1] + (Horarios::hora_a_timestamp($hora_fin));
+
+			/* PILAS AQUÍ, FESTIVO /**/
+			$tts = mktime(0, 0, 0, date('m', $hora_inicio), date('d', $hora_inicio), date('Y', $hora_inicio));
+			if( $tts == mktime(0, 0, 0, 3, 23, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 4, 2, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 4, 3, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 5, 1, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 5, 18, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 6, 8, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 6, 15, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 6, 29, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 7, 20, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 8, 7, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 8, 17, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 10, 12, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 11, 2, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 11, 16, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 12, 8, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 12, 25, date('Y')) ) continue;
+			
 			$p = new Programacion;
 			if( !$p->exists(array('condition' => 'hora_inicio='.$hora_inicio.' AND hora_fin='.$hora_fin.' AND estado=1')) )
 			{
@@ -447,27 +486,6 @@ class TelemedellinController extends Controller
 			}
 			
 		}
-	}
-
-	public function actionAsignarpaginas()
-	{
-		$micrositios = Micrositio::model()->findAll();
-
-		foreach($micrositios as $micrositio)
-		{
-			$p = Pagina::model()->findByPk($micrositio->pagina_id);
-			if($p)
-			{
-				$p->url_id = $micrositio->url_id;
-				if( $p->save(false) )
-					echo 'OK '. $p->id;
-				else
-					echo 'Error '.$p->id;
-				echo PHP_EOL;
-				MenuItem::model()->crear_item_inicio($p);
-			}
-		}
-		
 	}
 
 	public function actionUrlsHuerfanas()

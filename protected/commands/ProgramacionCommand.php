@@ -20,18 +20,6 @@ class ProgramacionCommand extends CConsoleCommand {
 			setlocale(LC_ALL, 'es_ES.UTF-8');
 
 			$sts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-			$tts = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
-
-			/* PILAS AQUÍ, FESTIVO /**/
-			if( $sts == mktime(0, 0, 0, 6, 23, date('Y')) ) continue;
-			if( $sts == mktime(0, 0, 0, 6, 30, date('Y')) ) continue;
-			if( $sts == mktime(0, 0, 0, 8, 7, date('Y')) ) continue;
-			if( $sts == mktime(0, 0, 0, 8, 18, date('Y')) ) continue;
-			if( $sts == mktime(0, 0, 0, 10, 13, date('Y')) ) continue;
-			if( $sts == mktime(0, 0, 0, 11, 3, date('Y')) ) continue;
-			if( $sts == mktime(0, 0, 0, 11, 17, date('Y')) ) continue;
-			if( $sts == mktime(0, 0, 0, 12, 8, date('Y')) ) continue;
-			if( $sts == mktime(0, 0, 0, 12, 25, date('Y')) ) continue;
 			
 			// set current date
 			// parse about any English textual datetime description into a Unix timestamp
@@ -51,6 +39,26 @@ class ProgramacionCommand extends CConsoleCommand {
 
 			$hora_inicio = $semana[$dia_semana - 1] + (Horarios::hora_a_timestamp($hora_inicio));
 			$hora_fin = $semana[$dia_semana - 1] + (Horarios::hora_a_timestamp($hora_fin));
+
+			/* PILAS AQUÍ, FESTIVO /**/
+			$tts = mktime(0, 0, 0, date('m', $hora_inicio), date('d', $hora_inicio), date('Y', $hora_inicio));
+			if( $tts == mktime(0, 0, 0, 3, 23, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 4, 2, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 4, 3, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 5, 1, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 5, 18, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 6, 8, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 6, 15, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 6, 29, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 7, 20, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 8, 7, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 8, 17, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 10, 12, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 11, 2, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 11, 16, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 12, 8, date('Y')) ) continue;
+			if( $tts == mktime(0, 0, 0, 12, 25, date('Y')) ) continue;
+
 			$p = new Programacion;
 			if( !$p->exists(array('condition' => 'hora_inicio='.$hora_inicio.' AND hora_fin='.$hora_fin.' AND estado=1')) )
 			{
