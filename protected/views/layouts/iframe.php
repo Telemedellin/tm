@@ -1,13 +1,3 @@
-<?php cs()->registerScriptFile(bu('/js/libs/iframe/underscore-min.js'), CClientScript::POS_END);?>
-<?php cs()->registerScriptFile(bu('/js/libs/iframe/backbone-min.js'), CClientScript::POS_END);?>
-<?php 
-if($this->theme != 'pc')
-	cs()->registerScriptFile(bu('/js/libs/mobile/jquery.swipebox.js'), CClientScript::POS_END);
-else
-	cs()->registerScriptFile(bu('/js/libs/iframe/screenfull.js'), CClientScript::POS_END);
-
-cs()->registerScriptFile(bu('/js/iframe.app.min.js'), CClientScript::POS_END);
-?>
 <script id="albumListViewTemplate" type="text/template">
 	<?php if($this->theme != 'pc'): ?>
 		<a href="" class="back">Volver</a>
@@ -64,3 +54,11 @@ cs()->registerScriptFile(bu('/js/iframe.app.min.js'), CClientScript::POS_END);
 <div id="icontainer"<?php echo ($this->theme != 'pc')?' class="mobile"':'' ?>>
 	<?php echo $content; ?>
 </div>
+<script src="<?php echo bu('/js/libs/iframe/underscore-min.js') ?>"></script>
+<script src="<?php echo bu('/js/libs/iframe/backbone-min.js') ?>"></script>
+<?php if($this->theme != 'pc'): ?>
+<script src="<?php echo bu('/js/libs/mobile/jquery.swipebox.js') ?>"></script>
+<?php else: ?>
+<script src="<?php echo bu('/js/libs/iframe/screenfull.js') ?>"></script>
+<?php endif; ?>
+<script src="<?php echo bu('/js/iframe.app.min.js') ?>"></script>
