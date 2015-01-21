@@ -97,7 +97,7 @@ class Horarios{
 		}	
 		//Por último verifico las reemisiones y genero el html
 		if(isset($reemision)){
-			if( strlen($html) ) $html .= ' y ';
+			if( strlen($html) ) $html .= ', ';
 			$html .= "Reemisión ";
 			$html .= Horarios::html_emision($reemision);
 		}
