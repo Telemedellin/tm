@@ -201,7 +201,7 @@ class AdminController extends Controller
 	function actionBorrarcache()
 	{
 		Yii::app()->cache->flush();
-		$this->redirect($this->createUrl('administrador'));
+		$this->redirect($this->createUrl('/administrador'));
 	}
 
 }
