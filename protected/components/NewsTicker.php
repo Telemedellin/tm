@@ -39,7 +39,7 @@ class NewsTicker extends CWidget
 
     	$nuevos_tweets = array();
 
-    	if(!empty($tweets))
+    	if(!empty($tweets) && !empty($tweets->statuses))
     	{
 	    	foreach ($tweets->statuses as $tweet) {
 				if(substr($tweet->text, 0, 2) == 'RT') continue;
