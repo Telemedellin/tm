@@ -13,9 +13,19 @@ class UsuarioModule extends CWebModule
 							'usuario/salir' => 'usuario/usuario/salir', 
 						  	'usuario/recuperarclave' => 'usuario/usuario/recuperarclave', 
 						  	'usuario/hastalaproxima' => 'usuario/usuario/hastalaproxima', 
-						  	'usuario/gracias' => 'usuario/usuario/gracias', 
+						  	'usuario/gracias' => 'usuario/usuario/gracias',
+						  	'usuario/<action:\w+>'=>'usuario/usuario/<action>',
 						  	'usuario/<controller:\w+>/<action:\w+>/<id:[\w\d]+>' => 'usuario/<controller>/<action>', 
 							);
+
+	private $_assetsUrl;
+
+	public function getAssetsUrl()
+	{
+		if ($this->_assetsUrl === null)
+			$this->_assetsUrl = Yii::app()->getAssetManager()->publish( Yii::getPathOfAlias('usuario.assets'), false, -1, /*YII_DEBUG/**/true ); /**QUITAR EL RESTO DE PARÁMETROS QUE SON PARA DESARROLLO NADA MÁS /**/
+		return $this->_assetsUrl;
+	}
 	
 	public function init()
 	{
