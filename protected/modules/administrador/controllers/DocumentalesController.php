@@ -216,7 +216,7 @@ class DocumentalesController extends Controller
 
 				$pagina = new Pagina;
 				$pagina->micrositio_id 		= $micrositio_id;
-				$pagina->tipo_pagina_id 	= 1; //Página programa
+				$pagina->tipo_pagina_id 	= 4; //Página documental
 				$pagina->nombre				= $documentalesForm->nombre;
 				$pagina->meta_descripcion 	= $documentalesForm->meta_descripcion;
 				$pagina->clase 				= NULL;
