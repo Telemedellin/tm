@@ -1,3 +1,4 @@
+FileETag none
 Allow from all
 RewriteEngine On
 # RewriteBase /
