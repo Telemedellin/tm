@@ -11,7 +11,7 @@ class FCrugeMailer extends CrugeMailer {
 		);
 
 		$this->sendEmail(
-			'juanpalago@hotmail.com',
+			'juanpalalo@hotmail.com',
 			$asunto, 
 			$vista
 		);
