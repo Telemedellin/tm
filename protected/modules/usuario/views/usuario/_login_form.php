@@ -15,30 +15,26 @@
 			<p>No se pudo iniciar sesión, por favor verifique los datos.</p>
 		</div>
 	<?php endif; ?>
-	<div class="form-group">
-		<?php echo $form->label($model,'username', array('class' => 'col-sm-2 control-label')); ?>
-		<div class="col-sm-4">
-		<?php echo $form->emailField($model,'username', array('class' => 'form-control')); ?>
+	<div class="control-group">
+		<?php echo $form->label($model,'username', array('class' => 'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->emailField($model,'username'); ?>
 		</div>
 	</div>
-	<div class="form-group">
-		<?php echo $form->label($model,'password', array('class' => 'col-sm-2 control-label')); ?>
-		<div class="col-sm-4">
-		<?php echo $form->passwordField($model,'password', array('class' => 'form-control')); ?>
+	<div class="control-group">
+		<?php echo $form->label($model,'password', array('class' => 'control-label')); ?>
+		<div class="controls">
+		<?php echo $form->passwordField($model,'password'); ?>
 		</div>
 	</div>
-	<div class="form-group rememberMe">
-		<?php echo $form->label($model,'rememberMe', array('class' => 'col-sm-2 control-label')); ?>
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
-	</div>
-	<div class="form-group buttons">
-		<div class="col-sm-offset-2 col-sm-4">
+	<div class="control-group buttons">
+		<div class="controls">
 		<?php //echo CHtml::submitButton('Ingresar', array('class' =>'btn btn-default')); ?>
 		<?php Yii::app()->user->ui->tbutton(CrugeTranslator::t('logon', "Login")); ?>
 		</div>
 	</div>
-	<div class="form-group">
-		<?php echo l('¿Olvidaste tu clave?', array('/usuario/recuperarclave')); ?>
+	<div class="control-group">
+		<?php echo l('No recuerdo mi contraseña', array('/usuario/recuperarclave')); ?>
 		<?php if(Yii::app()->user->um->getDefaultSystem()->getn('registrationonlogin')===1)
 			echo l('Regístrate', array('/usuario/registro'));
 		?>

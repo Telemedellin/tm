@@ -19,42 +19,43 @@ $this->pageTitle= 'Recuperar clave - ' . Yii::app()->name;
 			<?php echo Yii::app()->user->getFlash('pwdrecflash'); ?>
 		</div>
 		<?php else: ?>
-		<?php 
-		$form=$this->beginWidget('CActiveForm', array(
-			'id'=>'recuperar-form',
-			'clientOptions'=>array(
-				'validateOnSubmit'=>true,
-			),
-			'htmlOptions' => array(
-				'role' => 'form', 
-				'class' => 'form-horizontal', 
-			)
-		)); 
-		?>
-		<div class="form-group">
-			<?php echo $form->label($model,'username', array('class' => 'col-sm-2 control-label')); ?>
-			<div class="col-sm-4">
-			<?php echo $form->emailField($model,'username', array('class' => 'form-control')); ?>
+			<?php 
+			$form=$this->beginWidget('CActiveForm', array(
+				'id'=>'recuperar-form',
+				'clientOptions'=>array(
+					'validateOnSubmit'=>true,
+				),
+				'htmlOptions' => array(
+					'role' => 'form', 
+					'class' => 'form-horizontal', 
+				)
+			));
+			?>
+			<div class="control-group">
+				<?php echo $form->label($model, 'username', array('class' => 'control-label')); ?>
+				<div class="controls">
+				<?php echo $form->emailField($model, 'username'); ?>
+				</div>
 			</div>
-		</div>
-
-		<?php if(CCaptcha::checkRequirements()): ?>
-		<div class="row">
-			<?php echo $form->labelEx($model,'verifyCode'); ?>
-			<div>
-			<?php $this->widget('CCaptcha'); ?>
-			<?php echo $form->textField($model,'verifyCode'); ?>
+			<?php if(CCaptcha::checkRequirements()): ?>
+			<div class="row">
+				<?php echo $form->labelEx($model, 'verifyCode', array('class' => 'control-label')); ?>
+				<div class="controls">
+					<?php $this->widget('CCaptcha'); ?>
+					<p><?php echo $form->textField($model, 'verifyCode'); ?></p>
+					<div class="hint">
+						<?php echo CrugeTranslator::t("Por favor ingrese los caracteres que vea en la imagen");?>
+					</div>
+				</div>
+				<?php echo $form->error($model, 'verifyCode'); ?>
 			</div>
-			<div class="hint"><?php echo CrugeTranslator::t("por favor ingrese los caracteres o digitos que vea en la imagen");?></div>
-			<?php echo $form->error($model,'verifyCode'); ?>
-		</div>
-		<?php endif; ?>
-
-		<div class="form-group buttons">
-			<?php echo CHtml::submitButton('Recuperar', array('class' =>'btn btn-default')); ?>
-		</div>
-
-		<?php $this->endWidget(); ?>
+			<?php endif; ?>
+			<div class="control-group buttons">
+				<div class="controls">
+				<?php echo CHtml::submitButton('Recuperar', array('class' =>'btn btn-default')); ?>
+				</div>
+			</div>
+			<?php $this->endWidget(); ?>
 		<?php endif; ?>
 		<div class="hidden">
 			<img src="<?php echo $bg ?>" width="1500" />

@@ -20,6 +20,8 @@ cs()->registerScript(
 		$( "form[id ^= correo]" ).hide();
 		$( $(this).attr("href") ).show();
 		$("#micrositio").mCustomScrollbar("update");
+		$(".btn-registro").addClass("disabled");
+		$(this).removeClass("disabled");
 	}
 	');
 ?>
@@ -35,10 +37,10 @@ cs()->registerScript(
 		</ul>
 		<p>Ingresar a Telemedellín es muy fácil, sólo debes seleccionar si quieres acceder con tu correo electrónico o con una red social:</p>
 		<div id="status"></div>
-		<ul>
-			<li><a href="#correo" class="btn-registro registro-correo">Correo</a></li>
-			<li><a href="<?php echo bu('usuario/registro/facebook') ?>" class="btn-registro registro-facebook">Facebook</a></li>
-			<li><a href="<?php echo bu('usuario/registro/google') ?>" class="btn-registro registro-google">Google</a></li>
+		<ul class="btns-registro">
+			<li><a href="#correo" class="btn-registro registro-correo">Tu correo electrónico</a></li>
+			<li><a href="<?php echo bu('usuario/registro/facebook') ?>" class="btn-registro registro-facebook">Tu cuenta de Facebook</a></li>
+			<li><a href="<?php echo bu('usuario/registro/google') ?>" class="btn-registro registro-google">Tu correo de Google</a></li>
 		</ul>
 	<?php $this->renderPartial('_registro_form', array('model' => $model)); ?>
 	<div class="hidden">
