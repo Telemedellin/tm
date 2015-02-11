@@ -5,6 +5,7 @@ function modificar_url(pagina, nombre){
         var stateObj = { pagina: nombre };
         window.history.pushState( stateObj, null, pagina );
     }
+    ga_track();
 }
 function makeTitle(slug) {
     var words = slug.split('-');
@@ -17,14 +18,10 @@ function makeTitle(slug) {
     return words.join(' ');
 }
 function ga_track(){
-    //var _gaq = _gaq || [];
-    //_gaq.push(['_setAccount', 'UA-5650687-11']);
-    //_gaq.push(['_trackPageview', location.pathname + '/' + location.hash]);
-    ga('create', 'UA-5650687-11', 'auto');
-    ga('send', 'pageview', location.pathname + '/' + location.hash);
+    ga('send', 'event', 'Popup', 'Click', location.pathname + '/' + location.hash);
 }
 jQuery(function($) {
-    $(document).ajaxStart(function(){ $(this).append('<div id="loading"><span class="spinner"></span></div>').fadeIn(); });
+    $(document).ajaxStart(function(){ $('#icontainer').append('<div id="loading"><span class="spinner"></span></div>').fadeIn(); });
     $(document).ajaxComplete(function(){ $('#loading').fadeOut().remove(); });
 
     window.mobile = $('#icontainer').hasClass('mobile');
@@ -295,6 +292,7 @@ jQuery(function($) {
         className:'video',
         template: template('videoListItemViewTemplate'),
         render:function (eventName) {
+            if(this.model.toJSON().descripcion) $(this.el).addClass('completo');
             $(this.el).html(this.template(this.model.toJSON())).fadeIn('fast');
             return this;
         },

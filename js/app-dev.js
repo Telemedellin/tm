@@ -67,7 +67,8 @@ function click_popup(e) {
 }
 function v_cerrar_popup(e) {
   if(e.target == $('#overlay')[0])
-    $('#overlay a.close').trigger('click');    
+    $('#overlay a.close').trigger('click');  
+  ga('send', 'event', 'Popup', 'Cerrar', location.pathname + '/' + location.hash);  
 }
 
 function cerrar_popup(e) {
@@ -83,6 +84,7 @@ function cerrar_popup(e) {
   }
   $(document).attr('title', old_title);
   $('#overlay').remove();
+  ga('send', 'event', 'Popup', 'Cerrar', location.pathname + '/' + location.hash);
   e.preventDefault();
 }
 function ga_track(){
@@ -195,6 +197,22 @@ jQuery(function($) {
   doc.on('click', '#overlay a.close', cerrar_popup);
   doc.on('click', '#overlay', v_cerrar_popup);
   doc.on('keyup', '#seccion #txtFiltro', filtrar_seccion);
+  doc.on('click', '#banner a', function(){
+    ga('send', 'event', 'Banner', 'Click', location.pathname + '/' + location.hash);
+  });
+  doc.on('click', '.slides-pagination a', function(){
+    ga('send', 'event', 'Slider home', 'Navegar', location.pathname + '/' + location.hash, {'nonInteraction': 1});
+  });
+  doc.on('click', '.bx-controls-direction a', function(){
+    ga( 'send', 'event', 'Slider noticias', 'Navegar', $(this).attr('class'), {'nonInteraction': 1} );
+  });
+  doc.on('click', '.noticia a', function(){
+    ga( 'send', 'event', 'Noticia', 'Click', $(this).attr('href') );
+  });
+  doc.on('click', '.marquesina a', function(){
+    ga( 'send', 'event', 'Twitter ticker', 'Click', $(this).attr('href') );
+  });
+  //{'page': '/my-new-page'}  
 
   function filtrar_seccion(){
     var table = $(".inner");

@@ -44,11 +44,15 @@
 </script>
 <script id="videoListItemViewTemplate" type="text/template">
 	<a style="display:block;" href="<%= url %>" class="<%= id %>" data-id="<%= id %>" data-id_video="<%= id_video %>" data-nombre="<%= nombre %>" data-pv="<%= proveedor_video %>">
-		<figure><img src="<%= thumbnail %>" /></figure>
-		<div class="infoVideo">
+		<figure>
+			<img src="<%= thumbnail %>" />
 			<h2><%= nombre %></h2>
-			<div class="descripcion"><%= descripcion %></div>
+		</figure>
+		<% if (descripcion) { %>
+		<div class="infoVideo">
+			<%= descripcion %>
 		</div>
+		<% }  %>
 	</a>
 </script>
 <div id="icontainer"<?php echo ($this->theme != 'pc')?' class="mobile"':'' ?>>

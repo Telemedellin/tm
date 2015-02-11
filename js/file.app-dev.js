@@ -214,6 +214,7 @@ jQuery(function($) {
     Backbone.history.start();
 
     $(document).on('click', '.back', back);
+    $('.archivo a').on('click', track_file);
 });
 function modificar_url(pagina, nombre){
 	if(!nombre) nombre = null;
@@ -242,11 +243,12 @@ function back(e){
     window.location.hash = newhash;
     //modificar_url(window.location.href + '#' + newhash);
     e.preventDefault();
+    ga_track();
 }
 function ga_track(){
-    var _gaq = _gaq || [];
-    //_gaq.push(['_setAccount', 'UA-5650687-11']);
-    //_gaq.push(['_trackPageview']);
-    ga('create', 'UA-5650687-11', 'auto');
-    ga('send', 'pageview');
+    ga('send', 'event', 'Archivos', 'Click', location.pathname + '/' + location.hash);
+}
+function track_file(event)
+{
+    ga_track('send', 'event', 'Archivos', 'Click', event.currentTarget.href);
 }

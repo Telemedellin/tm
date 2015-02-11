@@ -1452,13 +1452,20 @@ th
 }
 #icontainer .mCSB_container
 {
-	padding: 1em;
+	padding: 0;
 }
 
 .ivideos li  {
-	clear:both;
+	border-bottom: thin dashed #999;
+	float: left;
 	margin-bottom: 10px;
+	margin-right: 2%;
 	overflow: hidden;
+	width: 48%;
+}
+.ivideos li.completo {
+	clear:both;
+	width: 98%;
 }
 
 #icontainer ul li a {
@@ -1471,24 +1478,39 @@ th
 	height: 125px;
 	margin-right: 2%;
 	overflow: hidden;
+	position: relative;
+	width: 100%;	
+}
+#icontainer .ivideos li.completo figure
+{
 	width: 48%;
 }
 #icontainer .ivideos h2
 {
-	background: transparent;
+	background: rgba(0, 0, 0,.5);
+	border-radius: 0;
+	bottom: 0;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	color: #fff;
 	font-size: 1.14em;
 	font-weight: bold;
-	padding: 0;
+	margin: 0;
+	padding: 8px;
+	position: absolute;
 	text-align: left;
+	width: 100%;
 }
 #icontainer .ivideos .descripcion
 {
-	color: #fff;
+	
 }
 .infoVideo {
-	float:left;
-	width:48%;
+	/*float:left;
+	width:48%;/**/
+	display: inline;
+	color: #fff;
 }
 
 .infoVideo p {
