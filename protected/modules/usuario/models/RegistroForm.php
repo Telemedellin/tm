@@ -27,6 +27,7 @@ class RegistroForm extends CFormModel
 	public $region_id;
 	public $ciudad_id;
 	public $barrio_id;
+	public $cableoperador_id;
 	public $verifyCode;
 	public $terminos;
 
@@ -47,11 +48,11 @@ class RegistroForm extends CFormModel
             array('repetir_contrasena', 'compare', 'compareAttribute' => 'contrasena'),
             array('repetir_correo', 'compare', 'compareAttribute' => 'correo', 'on' => 'update'),
 			array('correo', 'email'),
-			array('tipo_documento, documento, mes, dia, anio, nivel_educacion_id, ocupacion_id, celular, pais_id, region_id, ciudad_id, barrio_id', 'numerical', 'integerOnly'=>true),
+			array('tipo_documento, documento, mes, dia, anio, nivel_educacion_id, ocupacion_id, celular, pais_id, region_id, ciudad_id, barrio_id, cableoperador_id', 'numerical', 'integerOnly'=>true),
 			array('verifyCode', 'ext.validators.AjaxCaptchaValidator', 'allowEmpty' => !Yii::app()->user->isGuest || !CCaptcha::checkRequirements(), 'on' => 'insert', 'message' => 'Código equivocado'), 
 			array('terminos', 'boolean'), 
 			/*array('correo', 'unique', 'className' => 'CrugeStoredUser', 'attributeName' => 'email', 'message'=>"El {attribute} \"{value}\" Ya se encuentra registrado"),/**/
-			array('correo, repetir_correo, contrasena, repetir_contrasena, nombres, apellidos, sexo, tipo_documento, documento, mes, dia, anio, nacimiento, nivel_educacion_id, ocupacion_id, telefono_fijo, celular, pais_id, region_id, ciudad_id, barrio_id, verifyCode, terminos', 'safe'),
+			array('correo, repetir_correo, contrasena, repetir_contrasena, nombres, apellidos, sexo, tipo_documento, documento, mes, dia, anio, nacimiento, nivel_educacion_id, ocupacion_id, telefono_fijo, celular, pais_id, region_id, ciudad_id, barrio_id, cableoperador_id, verifyCode, terminos', 'safe'),
 		); 
 	}
 
@@ -112,6 +113,7 @@ class RegistroForm extends CFormModel
 			'region_id'=>'Region',
 			'ciudad_id'=>'Ciudad',
 			'barrio_id'=>'Barrio',
+			'cableoperador_id' => 'Cableoperador', 
 			'verifyCode'=>'Por favor ingrese los caracteres o digitos que vea en la imagen', 
 			'terminos'=>'Reconozco que he leído y acepto los términos y condiciones', 
 		);

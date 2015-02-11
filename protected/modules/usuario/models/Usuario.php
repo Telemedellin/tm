@@ -41,7 +41,7 @@ class Usuario extends CActiveRecord
 			//array('nombres, correo, password', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('nombres, apellidos, sexo, tipo_documento, documento, nacimiento, nivel_educacion_id, ocupacion_id, telefono_fijo, celular, pais_id, region_id, ciudad_id, barrio_id', 'safe'/*, 'on'=>'search'/**/),
+			array('nombres, apellidos, sexo, tipo_documento, documento, nacimiento, nivel_educacion_id, ocupacion_id, telefono_fijo, celular, pais_id, region_id, ciudad_id, barrio_id, cableoperador_id', 'safe'/*, 'on'=>'search'/**/),
 		);
 	}
 
@@ -60,6 +60,7 @@ class Usuario extends CActiveRecord
 			'region' => array(self::BELONGS_TO, 'Region', 'region_id'),
 			'ciudad' => array(self::BELONGS_TO, 'Ciudad', 'ciudad_id'),
 			'barrio' => array(self::BELONGS_TO, 'Barrio', 'barrio_id'),
+			'cableoperador' => array(self::BELONGS_TO, 'Cableoperador', 'cableoperador_id'),
 		);
 	}
 
@@ -186,6 +187,8 @@ class Usuario extends CActiveRecord
 	        	$this->ciudad_id         = $datos_usuario->ciudad_id;
 	        if( isset($datos_usuario->barrio_id) )
 	        	$this->barrio_id         = $datos_usuario->barrio_id;
+	        if( isset($datos->cableoperador_id) )
+	        	$this->cableoperador_id  = $datos_usuario->cableoperador_id;
 	        
 	        if( $this->save(false) )
 	        {

@@ -73,25 +73,26 @@ $form = $this->beginWidget('CActiveForm', array(
     	'class' => 'form-horizontal',
     ),
 )); ?>
+<p>Todos los campos marcados con este símbolo, son obligatorios: <img src="/images/static/iconos/form-required.png" alt="Símbolo obligatorio" /></p>
 <fieldset>
 	<legend>Información para inicio de sesión</legend>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'correo', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('correo'))?'required':''?>">
 			<?php echo $form->emailField($model, 'correo'); ?>
 			<?php $form->error($model, 'correo'); ?>
 		</div>
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'contrasena', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('contrasena'))?'required':''?>">
 			<?php echo $form->passwordField($model, 'contrasena'); ?>
 			<?php $form->error($model, 'contrasena'); ?>
 		</div>
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'repetir_contrasena', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('repetir_contrasena'))?'required':''?>">
 			<?php echo $form->passwordField($model, 'repetir_contrasena'); ?>
 			<?php $form->error($model, 'repetir_contrasena'); ?>
 		</div>
@@ -101,14 +102,14 @@ $form = $this->beginWidget('CActiveForm', array(
 	<legend>Datos personales</legend>
 	<div class="control-group">
 		<?php echo CHtml::label('Nombre completo', 'nombres', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('nombres'))?'required':''?>">
 			<?php echo $form->textField($model, 'nombres', array('placeholder' => 'Nombres')); ?> <?php echo $form->textField($model, 'apellidos', array('placeholder' => 'Apellidos') ); ?>
 			<?php $form->error($model, 'nombres'); ?> <?php $form->error($model, 'apellidos'); ?>
 		</div>
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'sexo', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('sexo'))?'required':''?>">
 			<?php echo $form->radioButtonList(
 					$model, 
 					'sexo', 
@@ -127,7 +128,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'tipo_documento', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('tipo_documento'))?'required':''?>">
 			<?php echo $form->dropDownList( 
 					$model, 
 					'tipo_documento', 
@@ -144,14 +145,14 @@ $form = $this->beginWidget('CActiveForm', array(
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'documento', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('documento'))?'required':''?>">
 			<?php echo $form->textField($model, 'documento', array('title' => $model->getTooltip('documento'))); ?>
 			<?php $form->error($model, 'documento'); ?>
 		</div>
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'nacimiento', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('nacimiento'))?'required':''?>">
 			<?php echo $form->dropDownList( 
 					$model, 
 					'mes', 
@@ -180,7 +181,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'nivel_educacion_id', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('nivel_educacion_id'))?'required':''?>">
 			<?php echo $form->dropDownList( 
 					$model, 
 					'nivel_educacion_id', 
@@ -197,7 +198,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'ocupacion_id', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('ocupacion_id'))?'required':''?>">
 			<?php echo $form->dropDownList( 
 					$model, 
 					'ocupacion_id', 
@@ -217,21 +218,21 @@ $form = $this->beginWidget('CActiveForm', array(
 	<legend>Información de contacto</legend>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'telefono_fijo', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('telefono_fijo'))?'required':''?>">
 			<?php echo $form->textField($model, 'telefono_fijo'); ?>
 			<?php $form->error($model, 'telefono_fijo'); ?>
 		</div>
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'celular', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('celular'))?'required':''?>">
 			<?php echo $form->textField($model, 'celular'); ?>
 			<?php $form->error($model, 'celular'); ?>
 		</div>
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'pais_id', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('pais_id'))?'required':''?>">
 			<?php echo $form->dropDownList( 
 					$model, 
 					'pais_id', 
@@ -244,7 +245,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'region_id', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('region_id'))?'required':''?>">
 			<?php echo $form->dropDownList( 
 					$model, 
 					'region_id', 
@@ -260,7 +261,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'ciudad_id', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('ciudad_id'))?'required':''?>">
 			<?php echo $form->dropDownList( 
 					$model, 
 					'ciudad_id', 
@@ -276,7 +277,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'barrio_id', array('class' => 'control-label') ); ?>
-		<div class="controls">
+		<div class="controls <?php echo ($model->isAttributeRequired('barrio_id'))?'required':''?>">
 			<?php echo $form->dropDownList( 
 					$model, 
 					'barrio_id', 
@@ -292,6 +293,19 @@ $form = $this->beginWidget('CActiveForm', array(
 				); 
 			?> 
 			<?php $form->error($model, 'barrio_id'); ?>
+		</div>
+	</div>
+	<div class="control-group">
+		<?php echo $form->label( $model, 'cableoperador_id', array('class' => 'control-label') ); ?>
+		<div class="controls <?php echo ($model->isAttributeRequired('cableoperador_id'))?'required':''?>">
+			<?php echo $form->dropDownList( 
+					$model, 
+					'cableoperador_id', 
+					CHtml::listData(Cableoperador::model()->findAll(array('order'=>'nombre ASC')), 'id', 'nombre'), 
+					array('prompt'=>'Selecciona un cableoperador')
+				); 
+			?> 
+			<?php $form->error($model, 'cableoperador_id'); ?>
 		</div>
 	</div>
 </fieldset>
@@ -311,7 +325,9 @@ $form = $this->beginWidget('CActiveForm', array(
 	</div>
 </div>
 
-<div class="row buttons">
+<div class="control-group buttons">
+	<div class="controls">
 	<?php echo CHtml::submitButton("Registrarse"); ?>
+	</div>
 </div>
 <?php $this->endWidget(); ?>
