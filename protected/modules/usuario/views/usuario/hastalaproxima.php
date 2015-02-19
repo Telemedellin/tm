@@ -14,9 +14,9 @@ $this->pageDesc = 'Canal público cultural de la ciudad de Medellín. Programaci
 ?>
 <div id="micrositio" class="especiales">
 	<div class="contenidoScroll">
-	<h2>¡Hasta la próxima!</h2>
-	<p>Tu cuenta con toda tu información ha sido borrada asfnajksfnhasdhfñasdf asdbfl bsdvb hjdvblasdbvl.</p>
-	<p>asdasfasd fasdf asdf asdf asdf sdfsdfef af e copien los #$"%&%&/$%#" textos que me da pereza transcribir de las imágenes.</p>
+	<h2>¡Esperamos que vuelvas!</h2>
+	<p>La cuenta con toda tu información fue borrada exitosamente de nuestra base de datos.</p>
+	<p>Lamentamos que ya no quieras estar en contacto con nosotros por este medio, sin embargo nos gustaría saber cuál fue tu motivo para tenerlo presente en futuras oportunidades:</p>
 	<?php foreach(Yii::app()->user->getFlashes() as $key => $message): ?>
 		<div class="alert alert-block alert-<?php echo $key ?>"><?php echo $message ?></div>
 	<?php endforeach ?>
@@ -32,10 +32,13 @@ $this->pageDesc = 'Canal público cultural de la ciudad de Medellín. Programaci
 		<div class="controls">
 			<?php echo CHtml::radioButtonList('motivo', '', 
 					array(
-						'Beneficios' => 'No me interesan los beneficios de Telemedellín',
-						'Correos' => 'No quería seguir recibiendo correos electrónicos de Telemedellín', 
-						'Términos' => 'No estoy de acuerdo con los términos y condiciones', 
+						'Novedades' => 'No me interesaban las novedades de Telemedellín',
+						'Correos' => 'No quería seguir recibiendo correos electrónicos de Telemedellín',
+						'Molestia' => 'Recibía con mucha frecuencia información de Telemedellín y eso me molestaba.',
+						'Intereses' => 'La información, contenidos, novedades, concursos no van acordes a mis intereses.',
+						'Términos' => 'No estoy de acuerdo con los términos y condiciones',
 						'Expectativas' => 'El servicio no llenó mis expectativas',
+						'Todas' => 'Todas las anteriores',
 						'Otro' => 'Otro'
 						)
 				); ?>

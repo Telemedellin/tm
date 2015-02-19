@@ -15,12 +15,13 @@ $this->pageDesc = 'Canal público cultural de la ciudad de Medellín. Programaci
 <div id="menu_micrositio" class="usuario perfil especiales">
 	<ul>
 		<li><?php echo l( 'Información personal', array('/usuario/perfil') ) ?></li>
-		<li><?php echo l( 'Trivia semanal', array('/trivia') ) ?></li>
+		<li><?php //echo l( 'Trivia semanal', array('/trivia') ) ?></li>
 		<li><?php echo l( 'Salir', array('/usuario/salir') ) ?></li>
 	</ul>
 </div>
 <div id="micrositio" class="especiales">
 	<div class="contenidoScroll">
+		
 		<?php $this->renderPartial('_perfil_form', array('model' => $model)); ?>
 		<div class="hidden">
 			<img src="<?php echo $bg ?>" width="1500" />

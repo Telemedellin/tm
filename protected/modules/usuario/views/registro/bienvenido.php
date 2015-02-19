@@ -19,15 +19,15 @@ $this->pageDesc = 'Canal público cultural de la ciudad de Medellín. Programaci
 			<h2>¡Eso es todo, bienvenido!</h2>
 		<?php endif ?>
 		<?php if($mensaje == 'red_social'): ?>
-			<h2>¡Bienvenido, <?php echo $nombre ?>!</h2>
-			<p>Ya haces parte de la comunidad de Telemedellín</p>
-			<p>Recuerda que para comenzar a disfrutar de los beneficios de Telemedellín, debemos conocerte un poco mejor para saber qué es lo que te gusta, así que te invitamos a que nos regales 2 minutos para llenar una información básica sobre ti.</p>
+			<h2>¡Bienvenido, "<?php echo $nombre ?>"!</h2>
+			<p>Ya haces parte de Telemedellín ¡Aquí te ves!</p>
+			<p>Tu nos has visto muchas veces y nos conoces, pero nosotros aún no tenemos el privilegio de conocerte. Por eso te invitamos a que nos regales 2 minutos para llenar una información básica sobre ti.</p>
 			<p>Si deseas puedes hacerlo en otro momento,</p>
 			<p><a href="<?php echo bu('usuario/perfil')?>">Quiero hacerlo ya</a></p>
-			<p><a href="<?php echo bu()?>">Lo haré en otro</a></p>
+			<p><a href="<?php echo bu()?>">Si deseas puedes hacerlo en otro momento.</a></p>
 		<?php endif ?>
 		<?php if($mensaje == 'correo' || $mensaje == 'login'): ?>
-		<p>Ya eres parte de Telemedellín. Inicia sesión y comienza a disfrutar de los beneficios</p>
+		<p>Ya eres parte de Telemedellín ¡Aquí te ves! Inicia sesión y comienza a disfrutar de todas las sorpresas e información que tenemos para ti. </p>
 		<?php endif ?>
 		<?php if( Yii::app()->user->isGuest ): ?>
 		<?php $this->renderPartial('../usuario/_login_form', array('model' => $model)) ?>

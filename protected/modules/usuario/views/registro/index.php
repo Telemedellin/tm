@@ -27,13 +27,15 @@ cs()->registerScript(
 ?>
 <div id="micrositio" class="especiales">
 	<div class="contenidoScroll">
-		<h2>¡Regístrate y disfruta de nuestros beneficios!</h2>
-		<p>En este contenido se debe dar los argumentos al usuario sobre los beneficios...</p>
+		<p>Porque somos el canal público de la cuidad; la ventana de Medellín al mundo y el canal del ¡Aquí te ves!</p>
+		<p>¡Regístrate para que estemos más cerca, conectados e informados!</p>
 		<ul>
-			<li>Beneficio</li>
-			<li>Beneficio 2</li>
-			<li>Beneficio 3</li>
-			<li>Beneficio 4</li>
+			<li>Nos sintonizas y ganas con nuestro programa Puntos ™. </li>
+			<li>Te mantienes informado de nuestra programación, novedades y eventos de ciudad.</li>
+			<li>Participas con un sólo click en nuestros concursos.</li>
+			<li>Asistes a la grabación de nuestros programas.</li>
+			<li>Recibes invitaciones exclusivas a los eventos realizados por Telemedellín y nuestros aliados.</li>
+			<li>Tienes un contacto directo con nosotros para resolver tus inquietudes y atender tus reclamos o </li>solicitudes. 
 		</ul>
 		<p>Ingresar a Telemedellín es muy fácil, sólo debes seleccionar si quieres acceder con tu correo electrónico o con una red social:</p>
 		<div id="status"></div>

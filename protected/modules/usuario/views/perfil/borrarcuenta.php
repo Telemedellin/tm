@@ -15,9 +15,9 @@ $this->pageDesc = 'Canal público cultural de la ciudad de Medellín. Programaci
 ?>
 <div id="micrositio" class="especiales">
 	<div class="contenidoScroll">
-	<h2>Borrar cuenta de Telemedellín</h2>
-	<p>Al borrar tu cuenta dejarás de recibir beneficios e invitaciones exclusivas de Telemedellín, además perderás los puntos que tengas acumulados hasta el momento y no podrás recuperarlos.</p>
-	<p>Para confirmar el borrado de tu cuenta, ingresa tu contraseña en el siguiente campo</p>
+	<h2>Borrar información personal de Telemedellín.</h2>
+	<p>Al borrar tu información no recibirás más correos con novedades, concursos o invitaciones exclusivas de Telemedellín.</p>
+	<p>Si estás seguro que quieres borrar tus datos, haz click en el siguiente botón:</p>
 	<?php foreach(Yii::app()->user->getFlashes() as $key => $message): ?>
 		<div class="alert alert-block alert-<?php echo $key ?>"><?php echo $message ?></div>
 	<?php endforeach ?>

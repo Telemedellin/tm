@@ -15,7 +15,7 @@ $this->pageDesc = 'Canal público cultural de la ciudad de Medellín. Programaci
 ?>
 <div id="micrositio" class="especiales">
 	<div class="contenidoScroll">
-		<h2>¡Ya casi, solo debes crear una contraseña!</h2>
+		<h2>¡Crea tu contraseña… ya casi finalizamos!</h2>
 		<?php foreach(Yii::app()->user->getFlashes() as $key => $message): ?>
 			<div class="alert alert-block alert-<?php echo $key ?>"><?php echo $message ?></div>
 		<?php endforeach ?>
@@ -29,7 +29,7 @@ $this->pageDesc = 'Canal público cultural de la ciudad de Medellín. Programaci
 		    	'class' => 'form-horizontal',
 		    ),
 		)); ?>
-		<p>Tu inicio de sesión se hará con el siguiente correo</p>
+		<p>Tu inicio de sesión se hará con el siguiente correo.</p>
 		<div class="control-group">
 			<?php echo $form->labelEx( $model, 'correo', array('class' => 'control-label') ); ?>
 			<div class="controls">
@@ -37,7 +37,7 @@ $this->pageDesc = 'Canal público cultural de la ciudad de Medellín. Programaci
 				<?php echo $form->error($model, 'correo'); ?>
 			</div>
 		</div>
-		<p>Debes crear una contraseña para poder iniciar sesión y disfrutar los beneficios</p>
+		<p>Debes crear una contraseña para poder iniciar sesión.</p>
 		<div class="control-group">
 			<?php echo $form->labelEx( $model, 'contrasena', array('class' => 'control-label') ); ?>
 			<div class="controls">

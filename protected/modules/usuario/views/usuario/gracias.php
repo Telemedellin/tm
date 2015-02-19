@@ -15,7 +15,8 @@ $this->pageDesc = 'Canal público cultural de la ciudad de Medellín. Programaci
 <div id="micrositio" class="especiales">
 	<div class="contenidoScroll">
 	<h2>¡Hemos recibido tu información!</h2>
-	<p>Muchas gracias por compartir tu opinión con nosotros.</p>
+	<p>Muchas gracias por compartir tu opìnión con nosotros.</p>
+	<p>Te invitamos a seguir navegando por nuestro sitio web y redes sociales.</p>
 	<div class="hidden">
 		<img src="<?php echo $bg ?>" width="1500" />
 	</div>
