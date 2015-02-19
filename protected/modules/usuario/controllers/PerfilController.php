@@ -48,27 +48,36 @@ class PerfilController extends Controller
 		$registroForm->scenario = 'update';
 
         if( isset($_POST['RegistroForm']) ){
-
+        	
             $registroForm->attributes = $_POST['RegistroForm'];
-            
+
             if( $registroForm->validate() ){ 
 
-                $usuario->attributes = $registroForm->getAttributes();
-
-                if( $usuario->save() )
+                if( $usuario->guardar_datos_usuario( $usuario_cruge, $registroForm ) )
                 {
                     Yii::app()->user->setFlash('success', "Los cambios se guardaron exitosamente");
                     $this->redirect( array('/usuario/perfil') );
                 }else
                 {
 					Yii::app()->user->setFlash('error', "No se pudieron guardar los cambios");
+					Yii::log('No se pudieron guardar los cambios', 'error');
                 }
             }//if($registroForm->validate())
+            else
+            {
+            	Yii::log('No se validaron los datos enviados', 'error');
+            }
         }else
         {
 			$registroForm->correo = $usuario_cruge->email;
 			$registroForm->attributes = $usuario->getAttributes();
         }//if(isset($_POST['RegistroForm']))
+        if($usuario->nacimiento)
+		{
+			$registroForm->anio = date('Y', strtotime($usuario->nacimiento));
+			$registroForm->mes = date('m', strtotime($usuario->nacimiento));
+			$registroForm->dia = date('d', strtotime($usuario->nacimiento));
+		}
 
 		$fondo_pagina = 'backgrounds/generica-interna-1.jpg';
 
@@ -184,7 +193,7 @@ class PerfilController extends Controller
 					$baja->motivo = 'Desconocido';
 					$baja->save();
 					Yii::app()->user->setFlash( 'baja', $baja->getPrimaryKey() );
-					$this->redirect( array('/usuario/hastalaproxima') );
+					$this->redirect( array('usuario/hastalaproxima') );
 				}	
     		}
     	}
