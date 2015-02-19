@@ -199,11 +199,14 @@ class RegistroController extends Controller
     	
     }
 
-    public function actionCrearclave()
+    public function actionCrearclave( $id = '' )
     {
 		if( !isset(Yii::app()->session['key']) || empty(Yii::app()->session['key']) )
 		{
-			$this->redirect( array('/usuario') );
+			if( $id == '' )
+				$this->redirect( array('/usuario') );
+			else
+				Yii::app()->session['key'] = $id;
 		}
 
 		$claveForm = new ClaveForm;
@@ -242,8 +245,9 @@ class RegistroController extends Controller
 		}
 
 		$authkey = Yii::app()->session['key'];
+		if(!$authkey) $this->redirect(array('/usuario'));
 		$model = Yii::app()->user->um->loadUserByKey($authkey);
-		
+		if(!$model->email) $this->redirect(array('/usuario'));
 		$claveForm->correo = $model->email;
 		$this->render('crear_clave', array('model' => $claveForm));
 		

@@ -128,7 +128,7 @@ class UsuarioController extends Controller
             $baja = Baja::model()->findByPk( $baja_id );
             $baja->motivo = ($_POST['motivo'] != 'Otro') ? $_POST['motivo'] : $_POST['otro_motivo'];
             if( $baja->save() )
-                $this->redirect( array('/usuario/gracias') );
+                $this->redirect( array('usuario/gracias') );
         }
         $this->render( 'hastalaproxima', array('baja_id' => $baja_id) );
     }//public function actionHastalaproxima()

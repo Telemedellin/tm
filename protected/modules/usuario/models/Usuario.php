@@ -139,20 +139,15 @@ class Usuario extends CActiveRecord
 	{
 		if( $usuario_cruge == null || $usuario_cruge == false) return false;
 		$u = Usuario::model()->findByAttributes( array('cruge_user_id' => $usuario_cruge->iduser) );
-		if( $u ) return $u;
+		//if( $u ) return $u;
 		try
 		{
 			if( isset($datos_usuario->anio) )
 			{
 				$nacimiento = $datos_usuario->anio . '-' . $datos_usuario->mes . '-' . $datos_usuario->dia;
-			}
-			if( isset($datos_usuario->nacimiento) )
+			}elseif( isset($datos_usuario->nacimiento) )
 			{
-				//$nacimiento = new DateTime($datos_usuario->nacimiento);
-				//$nacimiento = date_format($nacimiento, 'Y-m-d'); 
-				Yii::log('Nacimiento: ' . $datos_usuario->nacimiento, 'info');
 				$nacimiento = date('Y-m-d', strtotime($datos_usuario->nacimiento));
-				Yii::log('Nacimiento Convertido: ' . $nacimiento, 'info');
 			}
 			
 			if( strlen($datos_usuario->sexo) > 1)
@@ -169,7 +164,7 @@ class Usuario extends CActiveRecord
 	        	$this->tipo_documento    = $datos_usuario->tipo_documento;
 	        if( isset($datos_usuario->documento) )
 	        	$this->documento         = $datos_usuario->documento;
-	        if( isset($datos_usuario->anio) )
+	        if( isset($nacimiento) )
 	        	$this->nacimiento        = $nacimiento;
 	        if( isset($datos_usuario->nivel_educacion_id) ) 
 	        	$this->nivel_educacion_id= $datos_usuario->nivel_educacion_id;
@@ -193,17 +188,27 @@ class Usuario extends CActiveRecord
 	        if( $this->save(false) )
 	        {
 	            $datosMC = array(
-	            			'FNAME' => $datos_usuario->nombres,
-	            			'LNAME' => $datos_usuario->apellidos
+	            			'MERGE1' 	=> $datos_usuario->nombres,
+	            			'MERGE2' 	=> $datos_usuario->apellidos, 
+	            			'MERGE3'  	=> $datos_usuario->sexo, 
+	            			'MERGE4' 	=> Meta::model()->findByPk( $datos_usuario->tipo_documento )->nombre, 
+	            			'MERGE5' 	=> $datos_usuario->documento,
+					        'MERGE6'    => date('m/d', strtotime($nacimiento)), 
+					        'MERGE10'	=> Meta::model()->findByPk( $datos_usuario->nivel_educacion_id )->nombre, 
+					        'MERGE11'   => Meta::model()->findByPk( $datos_usuario->ocupacion_id )->nombre, 
+					        'MERGE7'    => $datos_usuario->telefono_fijo, 
+					        'MERGE8'    => $datos_usuario->celular, 
+					        'MERGE9'    => Meta::model()->findByPk( $datos_usuario->barrio_id )->nombre
 	            		);
+
 	            if( Yii::app()->mailchimp->emailExists($usuario_cruge->email) )
 	            {
-	            	Yii::app()->mailchimp->listUpdateMember($usuario_cruge->email, $datosMC);
-	            	Yii::log('mailchimp->listUpdateMember', 'info');
+	            	$mc_response = Yii::app()->mailchimp->listUpdateMember($usuario_cruge->email, $datosMC);
+	            	Yii::log('mailchimp->listUpdateMember: ' . serialize($mc_response), 'info');
 	            }else
 	            {
-	            	Yii::app()->mailchimp->listSubscribe($usuario_cruge->email, $datosMC, false);
-	            	Yii::log('mailchimp->listSubscribe', 'info');
+	            	$mc_response = Yii::app()->mailchimp->listSubscribe($usuario_cruge->email, $datosMC, false);
+	            	Yii::log('mailchimp->listSubscribe: ' . serialize($mc_response), 'info');
 	            }
 	            return $this->getPrimaryKey();
 	        }else
