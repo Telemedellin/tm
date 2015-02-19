@@ -53,13 +53,13 @@
 		<?php echo $form->error($model,'resena'); ?>
 	</div>
     <div class="form-group">
-        <?php echo $this->imageField($form, $model, 'imagen', 'archivoImagen', '_programa'); ?>
+        <?php echo $this->imageField($form, $model, 'imagen', 'archivoImagen', '_telemedellin'); ?>
 	</div>
     <div class="form-group">
-        <?php echo $this->imageField($form, $model, 'imagen_mobile', 'archivoImagenMobile', '_programa'); ?>
+        <?php echo $this->imageField($form, $model, 'imagen_mobile', 'archivoImagenMobile', '_telemedellin'); ?>
     </div>
 	<div class="form-group">
-        <?php echo $this->imageField($form, $model, 'miniatura', 'archivoMiniatura', '_programa'); ?>
+        <?php echo $this->imageField($form, $model, 'miniatura', 'archivoMiniatura', '_telemedellin'); ?>
 	</div>
 	<div class="form-group">
 		<?php echo $form->label($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
