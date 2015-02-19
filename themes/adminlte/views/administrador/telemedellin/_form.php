@@ -61,13 +61,13 @@
             </div>
             <div class="box-body">	
 			    <div class="form-group">
-			        <?php echo $this->imageField($form, $model, 'imagen', 'archivoImagen', '_programa'); ?>
+			        <?php echo $this->imageField($form, $model, 'imagen', 'archivoImagen', '_telemedellin'); ?>
 				</div>
 			    <div class="form-group">
-			        <?php echo $this->imageField($form, $model, 'imagen_mobile', 'archivoImagenMobile', '_programa'); ?>
+			        <?php echo $this->imageField($form, $model, 'imagen_mobile', 'archivoImagenMobile', '_telemedellin'); ?>
 			    </div>
 				<div class="form-group">
-			        <?php echo $this->imageField($form, $model, 'miniatura', 'archivoMiniatura', '_programa'); ?>
+			        <?php echo $this->imageField($form, $model, 'miniatura', 'archivoMiniatura', '_telemedellin'); ?>
 				</div>
 			</div>
 		</div>

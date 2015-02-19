@@ -540,6 +540,104 @@ jQuery(function($) {
     // Load existing files:
     $('#miniatura_especial').addClass('fileupload-processing');
 
+    // Initialize the jQuery File Upload widget:
+    $('#imagen_telemedellin').fileupload({        
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: PUBLIC_PATH + '/administrador/telemedellin/imagen',
+        maxNumberOfFiles: 0,
+        previewMaxWidth: 200,
+        previewMaxHeight: 200,
+        imageCrop: true,     
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        paramName: 'archivoImagen', 
+        messages: {
+            maxNumberOfFiles: 'Solo se permite una imagen',
+            acceptFileTypes: 'No se acepta este tipo de archivo',
+            maxFileSize: 'El archivo es muy pesado',
+            minFileSize: 'El archivo no tiene peso suficiente'
+        },
+    }).bind('fileuploaddone', function(e, data){
+        $('#archivoImagenH').attr('value', data.result.archivoImagen[0].name);
+    });
+    // Enable iframe cross-domain access via redirect option:
+    $('#imagen_telemedellin').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+
+    // Load existing files:
+    $('#imagen_telemedellin').addClass('fileupload-processing');
+
+    // Initialize the jQuery File Upload widget:
+    $('#imagen_mobile_telemedellin').fileupload({        
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: PUBLIC_PATH + '/administrador/telemedellin/imagen_mobile',
+        maxNumberOfFiles: 0,
+        previewMaxWidth: 200,
+        previewMaxHeight: 200,
+        imageCrop: true,     
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        paramName: 'archivoImagenMobile', 
+        messages: {
+            maxNumberOfFiles: 'Solo se permite una imagen',
+            acceptFileTypes: 'No se acepta este tipo de archivo',
+            maxFileSize: 'El archivo es muy pesado',
+            minFileSize: 'El archivo no tiene peso suficiente'
+        },
+    }).bind('fileuploaddone', function(e, data){
+        $('#archivoImagenMobileH').attr('value', data.result.archivoImagenMobile[0].name);
+    });
+    // Enable iframe cross-domain access via redirect option:
+    $('#imagen_mobile_telemedellin').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+
+    // Load existing files:
+    $('#imagen_mobile_telemedellin').addClass('fileupload-processing');
+
+    // Initialize the jQuery File Upload widget:
+    $('#miniatura_telemedellin').fileupload({        
+        // Uncomment the following to send cross-domain cookies:
+        //xhrFields: {withCredentials: true},
+        url: PUBLIC_PATH + '/administrador/telemedellin/miniatura',
+        maxNumberOfFiles: 0,
+        previewMaxWidth: 200,
+        previewMaxHeight: 200,
+        imageCrop: true,     
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        paramName: 'archivoMiniatura', 
+        messages: {
+            maxNumberOfFiles: 'Solo se permite una imagen',
+            acceptFileTypes: 'No se acepta este tipo de archivo',
+            maxFileSize: 'El archivo es muy pesado',
+            minFileSize: 'El archivo no tiene peso suficiente'
+        }
+    }).bind('fileuploaddone', function(e, data){
+        $('#archivoMiniaturaH').attr('value', 'thumbnail/'+data.result.archivoMiniatura[0].name);
+    });
+    // Enable iframe cross-domain access via redirect option:
+    $('#miniatura_telemedellin').fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+            /\/[^\/]*$/,
+            '/cors/result.html?%s'
+        )
+    );
+
+    // Load existing files:
+    $('#miniatura_telemedellin').addClass('fileupload-processing');
 
     // Initialize the jQuery File Upload widget:
     $('#thumb_albumvideo').fileupload({        
