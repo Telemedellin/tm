@@ -6,9 +6,6 @@
  * The followings are the available columns in table 'pg_bloques':
  * @property string $id
  * @property string $pagina_id
- * @property string $imagen
- * @property string $imagen_mobile
- * @property string $miniatura
  * @property integer $estado
  *
  * The followings are the available model relations:
@@ -45,10 +42,9 @@ class PgBloques extends CActiveRecord
 			array('pagina_id, estado', 'required'),
 			array('estado', 'numerical', 'integerOnly'=>true),
 			array('pagina_id', 'length', 'max'=>10),
-			array('imagen, imagen_mobile, miniatura', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, pagina_id, imagen, imagen_mobile, miniatura, estado', 'safe', 'on'=>'search'),
+			array('id, pagina_id, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,9 +69,6 @@ class PgBloques extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'pagina_id' => 'Pagina',
-			'imagen' => 'Imagen',
-			'imagen_mobile' => 'Imagen (Móvil)',
-			'miniatura' => 'Miniatura',
 			'estado' => 'Estado',
 		);
 	}
@@ -93,9 +86,6 @@ class PgBloques extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('pagina_id',$this->pagina_id,true);
-		$criteria->compare('imagen',$this->imagen,true);
-		$criteria->compare('imagen_mobile',$this->imagen_mobile,true);
-		$criteria->compare('miniatura',$this->miniatura,true);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(

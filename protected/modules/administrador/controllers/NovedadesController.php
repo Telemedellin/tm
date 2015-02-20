@@ -158,6 +158,9 @@ class NovedadesController extends Controller
 				$pagina->micrositio_id 	= 2; //Novedades
 				$pagina->tipo_pagina_id = 3; //Novedad
 				$pagina->nombre			= $novedadesForm->nombre;
+				$pagina->background 		= $dir . $novedadesForm->imagen;
+				$pagina->background_mobile 	= $dir . $novedadesForm->imagen_mobile;
+				$pagina->miniatura 		= $dir . $novedadesForm->miniatura;
 				$pagina->clase 			= NULL;
 				$pagina->estado 		= $novedadesForm->estado;
 				$pagina->destacado		= $novedadesForm->destacado;
@@ -169,11 +172,8 @@ class NovedadesController extends Controller
 				$pgAB->entradilla 	= $novedadesForm->entradilla;
 				$pgAB->texto 		= $novedadesForm->texto;
 				$pgAB->enlace 		= $novedadesForm->enlace;
-				$pgAB->imagen 		= $dir . $novedadesForm->imagen;
-				$pgAB->imagen_mobile = $dir . $novedadesForm->imagen_mobile;
-				$pgAB->posicion 	= $novedadesForm->posicion;
 				$pgAB->comentarios 	= $novedadesForm->comentarios;
-				$pgAB->miniatura 	= $dir . $novedadesForm->miniatura;
+				$pgAB->posicion 	= $novedadesForm->posicion;
 				$pgAB->estado 		= ($novedadesForm->estado)?1:0;
 				
 				if( !$pgAB->save(false) )
@@ -222,29 +222,30 @@ class NovedadesController extends Controller
 				$transaccion 	= $pagina->dbConnection->beginTransaction();
 
 				$pagina->nombre			= $novedadesForm->nombre;
+
+				if($novedadesForm->imagen != $pagina->background)
+				{
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pagina->background);
+					$pagina->background 	= $dir . $novedadesForm->imagen;
+				}
+				if($novedadesForm->imagen_mobile != $pagina->background_mobile)
+				{
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pagina->background_mobile);
+					$pagina->background_mobile 	= $dir . $novedadesForm->imagen_mobile;
+				}
+				if($novedadesForm->miniatura != $pagina->miniatura)
+				{
+					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pagina->miniatura);
+					$pagina->miniatura 	= $dir . $novedadesForm->miniatura;
+				}
+
 				$pagina->destacado		= $novedadesForm->destacado;
 				$pagina->estado			= $novedadesForm->estado;
+
 				if( !$pagina->save(false) ) $transaccion->rollback();
 				$pagina_id = $pagina->id;
 
 				$pgAB = PgArticuloBlog::model()->findByAttributes(array('pagina_id' => $pagina_id));
-
-				if($novedadesForm->imagen != $pgAB->imagen)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pgAB->imagen);
-					$pgAB->imagen 	= $dir . $novedadesForm->imagen;
-				}
-				if($novedadesForm->imagen_mobile != $pgAB->imagen_mobile)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pgAB->imagen_mobile);
-					$pgAB->imagen_mobile 	= $dir . $novedadesForm->imagen_mobile;
-				}
-				if($novedadesForm->miniatura != $pgAB->miniatura)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pgAB->miniatura);
-					$pgAB->miniatura 	= $dir . $novedadesForm->miniatura;
-				}
-
 				$pgAB->entradilla 	= $novedadesForm->entradilla;
 				$pgAB->texto 		= $novedadesForm->texto;
 				$pgAB->enlace 		= $novedadesForm->enlace;

@@ -1,37 +1,6 @@
 <div class="col-sm-12">
 	<div class="box box-primary">
         <div class="box-header">
-            <h3 class="box-title">Imagenes</h3>
-        </div>
-        <div class="box-body">
-			<?php $this->widget('zii.widgets.CDetailView', array(
-				'data'=>$contenido['contenido'],
-				'attributes'=>array(
-					array(
-						'name' => 'imagen', 
-						'type' => 'raw', 
-						'value' => l($contenido['contenido']->imagen, bu('images/'.$contenido['contenido']->imagen), array('target' => '_blank')),
-					),
-					array(
-						'name' => 'imagen_mobile', 
-						'type' => 'raw', 
-						'value' => l($contenido['contenido']->imagen_mobile, bu('images/'.$contenido['contenido']->imagen_mobile), array('target' => '_blank')),
-					),
-					array(
-						'name' => 'miniatura', 
-						'type' => 'raw', 
-						'value' => l($contenido['contenido']->miniatura, bu('images/'.$contenido['contenido']->miniatura), array('target' => '_blank')),
-					),
-				),
-			)); 
-			?>
-		</div>
-	</div>
-</div>
-
-<div class="col-sm-12">
-	<div class="box box-primary">
-        <div class="box-header">
             <h3 class="box-title">Bloques</h3>
             <div class="box-tools pull-right">
             	 <?php if(Yii::app()->user->checkAccess('crear_bloques')): ?>

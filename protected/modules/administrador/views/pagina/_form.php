@@ -35,6 +35,15 @@
         </div>
         <?php echo $form->error($model,'meta_descripcion'); ?>
     </div>
+    <div class="form-group">
+        <?php echo $this->imageField($form, $model, 'background', 'archivoImagen', '_pagina'); ?>
+	</div>
+    <div class="form-group">
+        <?php echo $this->imageField($form, $model, 'background_mobile', 'archivoImagenMobile', '_pagina'); ?>
+    </div>
+	<div class="form-group">
+        <?php echo $this->imageField($form, $model, 'miniatura', 'archivoMiniatura', '_pagina'); ?>
+	</div>
 	<div class="form-group">
 		<?php echo $form->label($model,'estado', array('class' => 'col-sm-2 control-label')); ?>
 		<div class="col-sm-2">
@@ -61,3 +70,5 @@
 	</div>
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+<input type="hidden" value="<?php echo Yii::app()->request->baseUrl ?>" id="PUBLIC_PATH"/>
+	<?php echo $this->renderPartial('../_file_upload_tmpl') ?>

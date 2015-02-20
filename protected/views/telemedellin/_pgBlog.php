@@ -15,7 +15,7 @@ setlocale(LC_ALL, 'es_ES.UTF-8');
 				<?php endif ?>
 			</div>
 			<figure>
-				<img src="<?php echo bu('images/'.$articulo->pgArticuloBlogs->miniatura) ?>" />
+				<img src="<?php echo bu('images/'.$articulo->miniatura) ?>" />
 			</figure>
 		</a>
 	</div>

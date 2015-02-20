@@ -40,6 +40,24 @@ $this->breadcrumbs = $bc;
 						'label' => 'URL',
 						'value' => l('<i class="fa fa-external-link"></i> ' .$model->url->slug, bu($model->url->slug), array('target' => '_blank')),
 					),
+					array(
+						'name' => 'background', 
+						'label' => 'Imagen', 
+						'type' => 'raw', 
+						'value' => ($model->background)?l('<i class="fa fa-picture-o"></i> ' . $model->background, bu('images/'.$model->background), array('target' => '_blank', 'class' => 'fancybox')):NULL,
+					),
+					array(
+						'name' => 'background_mobile', 
+						'label' => 'Imagen (Móviles)', 
+						'type' => 'raw', 
+						'value' => ($model->background_mobile)?l('<i class="fa fa-picture-o"></i> ' . $model->background_mobile, bu('images/'.$model->background_mobile), array('target' => '_blank', 'class' => 'fancybox')):NULL,
+					),
+					array(
+						'name' => 'miniatura',
+						'label' => 'Imagen miniatura',  
+						'type' => 'raw', 
+						'value' => ($model->miniatura)?l('<i class="fa fa-picture-o"></i> ' . $model->miniatura, bu('images/'.$model->miniatura), array('target' => '_blank', 'class' => 'fancybox')):NULL,
+					),
 					'creado',
 					'modificado',
 					array(

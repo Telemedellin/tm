@@ -38,7 +38,6 @@ class PgEventos extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('estado', 'numerical', 'integerOnly'=>true),
-			array('imagen, imagen_mobile, miniatura', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, descripcion, estado', 'safe', 'on'=>'search'),
@@ -68,9 +67,6 @@ class PgEventos extends CActiveRecord
 			'id' => 'ID',
 			'pagina_id' => 'Página', 
 			'descripcion' => 'Descripción',
-			'imagen' => 'Imagen de fondo',
-			'imagen_mobile' => 'Imagen (Móvil)',
-			'miniatura' => 'Miniatura',
 			'estado' => 'Publicado',
 		);
 	}
@@ -88,9 +84,6 @@ class PgEventos extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('descripcion',$this->descripcion,true);
-		$criteria->compare('imagen',$this->imagen,true);
-		$criteria->compare('imagen_mobile',$this->imagen_mobile,true);
-		$criteria->compare('miniatura',$this->miniatura,true);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(

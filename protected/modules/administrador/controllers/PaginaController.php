@@ -42,17 +42,17 @@ class PaginaController extends Controller
 		return array(
 			'imagen'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/paginas/',
+                'directorio' => 'images/backgrounds/paginas/' . date('Y') . '/' . date('m') . '/',
                 'param_name' => 'archivoImagen'
             ),
             'imagen_mobile'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/paginas/',
+                'directorio' => 'images/backgrounds/paginas/' . date('Y') . '/' . date('m') . '/',
                 'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/paginas/thumbnail/',
+                'directorio' => 'images/backgrounds/paginas/' . date('Y') . '/' . date('m') . '/thumbnail/',
                 'param_name' => 'archivoMiniatura',
                 'image_versions' => 
 					array(
@@ -190,39 +190,12 @@ class PaginaController extends Controller
 	 */
 	public function actionCrear($id, $tipo_pagina_id = 2)
 	{
-		if( !isset(Yii::app()->session['dirpa']) ) Yii::app()->session['dirpa'] = 'backgrounds/paginas/';
+		if( !isset(Yii::app()->session['dirpa']) ) Yii::app()->session['dirpa'] = 'backgrounds/paginas/'. date('Y') . '/' . date('m') . '/';
 		$micrositio = ($id)?Micrositio::model()->with('seccion')->findByPk($id)->id:0;
 		$model = new Pagina;
 		$model->micrositio_id = $micrositio;
-		switch($tipo_pagina_id)
-		{
-			case 2:
-				$ppc = 'PgGenericaSt';
-				break;
-			case 3:
-				$ppc = 'PgArticuloBlog';
-				break;
-			case 4:
-				$ppc = 'PgDocumental';
-				break;
-			case 7:
-				$ppc = 'PgFormularioJf';
-				break;
-			case 8:
-				$ppc = 'PgFiltro';
-				break;
-			case 10:
-				$ppc = 'PgBloques';
-				break;
-			case 11:
-				$ppc = 'PgBlog';
-				break;
-			case 12:
-				$ppc = 'PgEventos';
-				break;
-			default: 
-				$ppc = 'PgGenericaSt';
-		}
+		$ppc = TipoPagina::model()->findByPk($tipo_pagina_id)->tabla;
+		if(!$ppc) throw new Exception(400, "tipo_pagina_id incorrecto");
 		$contenido = new $ppc;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -233,24 +206,23 @@ class PaginaController extends Controller
 			$model->attributes = $_POST['Pagina'];
 			$m = Micrositio::model()->with('seccion')->findByPk($_POST['Pagina']['micrositio_id']);
 			$model->tipo_pagina_id = $tipo_pagina_id;
+
+			if( isset(Yii::app()->session['dirpa']) ){
+				$dirpa = Yii::app()->session['dirpa'];
+			}
+
+			$model->background = ($_POST['Pagina']['background'] != '')?$dirpa . $_POST['Pagina']['background']:NULL;
+			$model->background_mobile = ($_POST['Pagina']['background_mobile'] != '')?$dirpa . $_POST['Pagina']['background_mobile']:NULL;
+			$model->miniatura = ($_POST['Pagina']['miniatura'])?$dirpa . $_POST['Pagina']['miniatura']:NULL;
 			
 			if($model->save()){
 				
-				if( isset(Yii::app()->session['dirpa']) ){
-					$dirpa = Yii::app()->session['dirpa'];
-				}
 				if(isset($_POST['PgGenericaSt']))
 				{
-					$contenido->imagen 	= ($_POST['PgGenericaSt']['imagen'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen']:NULL;
-					$contenido->imagen_mobile 	= ($_POST['PgGenericaSt']['imagen_mobile'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen_mobile']:NULL;
-					$contenido->miniatura 		= ($_POST['PgGenericaSt']['miniatura'])?$dirpa . $_POST['PgGenericaSt']['miniatura']:NULL;
 					$contenido->texto = $_POST['PgGenericaSt']['texto'];
 				}
 				if(isset($_POST['PgArticuloBlog']))
 				{
-					$contenido->imagen 	= ($_POST['PgArticuloBlog']['imagen'] != '')?$dirpa . $_POST['PgArticuloBlog']['imagen']:NULL;
-					$contenido->imagen_mobile 	= ($_POST['PgArticuloBlog']['imagen_mobile'] != '')?$dirpa . $_POST['PgArticuloBlog']['imagen_mobile']:NULL;
-					$contenido->miniatura 		= ($_POST['PgArticuloBlog']['miniatura'])?$dirpa . $_POST['PgArticuloBlog']['miniatura']:NULL;
 					$contenido->posicion 	= $_POST['PgArticuloBlog']['posicion'];
 					$contenido->entradilla 	= $_POST['PgArticuloBlog']['entradilla'];
 					$contenido->texto 		= $_POST['PgArticuloBlog']['texto'];
@@ -267,22 +239,14 @@ class PaginaController extends Controller
 				}
 				if(isset($_POST['PgFiltro']))
 				{
-					$contenido->imagen 	= ($_POST['PgFiltro']['imagen'] != '')?$dirpa . $_POST['PgFiltro']['imagen']:NULL;
-					$contenido->imagen_mobile = ($_POST['PgFiltro']['imagen_mobile'] != '')?$dirpa . $_POST['PgFiltro']['imagen_mobile']:NULL;
-					$contenido->miniatura 	  = ($_POST['PgFiltro']['miniatura'])?$dirpa . $_POST['PgFiltro']['miniatura']:NULL;
 					$contenido->descripcion   = $_POST['PgFiltro']['descripcion'];
 				}
 				if(isset($_POST['PgBloques']))
 				{
-					$contenido->imagen 	= ($_POST['PgBloques']['imagen'] != '')?$dirpa . $_POST['PgBloques']['imagen']:NULL;
-					$contenido->imagen_mobile = ($_POST['PgBloques']['imagen_mobile'] != '')?$dirpa . $_POST['PgBloques']['imagen_mobile']:NULL;
-					$contenido->miniatura 	  = ($_POST['PgBloques']['miniatura'])?$dirpa . $_POST['PgBloques']['miniatura']:NULL;
+					
 				}
 				if(isset($_POST['PgEventos']))
 				{
-					$contenido->imagen 	= ($_POST['PgEventos']['imagen'] != '')?$dirpa . $_POST['PgEventos']['imagen']:NULL;
-					$contenido->imagen_mobile = ($_POST['PgEventos']['imagen_mobile'] != '')?$dirpa . $_POST['PgEventos']['imagen_mobile']:NULL;
-					$contenido->miniatura 	  = ($_POST['PgEventos']['miniatura'])?$dirpa . $_POST['PgEventos']['miniatura']:NULL;
 					$contenido->descripcion   = $_POST['PgEventos']['descripcion'];
 				}
 				if(isset($_POST['PgBlog']))
@@ -318,7 +282,7 @@ class PaginaController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		if( !isset(Yii::app()->session['dirpa']) ) Yii::app()->session['dirpa'] = 'backgrounds/paginas/';
+		if( !isset(Yii::app()->session['dirpa']) ) Yii::app()->session['dirpa'] = 'backgrounds/paginas/'. date('Y') . '/' . date('m') . '/';
 		$datos = Pagina::model()->cargarPagina($id);
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -328,8 +292,33 @@ class PaginaController extends Controller
 		{
 			$m = Micrositio::model()->with('seccion')->findByPk($datos['pagina']->micrositio_id);
 
-			$datos['pagina']->attributes = $_POST['Pagina'];
+			if( isset(Yii::app()->session['dirpa']) ){
+				$dirpa = Yii::app()->session['dirpa'];
+			}
 
+			$datos['pagina']->nombre = $_POST['Pagina']['nombre'];
+			$datos['pagina']->meta_descripcion = $_POST['Pagina']['meta_descripcion'];
+
+			if($_POST['Pagina']['background'] != $datos['pagina']->background)
+			{
+				@unlink( Yii::getPathOfAlias('webroot').'/images/' . $datos['pagina']->background);
+				$datos['pagina']->background = ($_POST['Pagina']['background'] != '')?$dirpa . $_POST['Pagina']['background']:NULL;				
+			}
+			if($_POST['Pagina']['background_mobile'] != $datos['pagina']->background_mobile)
+			{
+				@unlink( Yii::getPathOfAlias('webroot').'/images/' . $datos['pagina']->background_mobile);
+				$datos['pagina']->background_mobile = ($_POST['Pagina']['background_mobile'] != '')?$dirpa . $_POST['Pagina']['background_mobile']:NULL;
+			}
+			if($_POST['Pagina']['miniatura'] != $datos['pagina']->miniatura)
+			{
+				@unlink( Yii::getPathOfAlias('webroot').'/images/' . $datos['pagina']->miniatura);
+				$datos['pagina']->miniatura = ($_POST['Pagina']['miniatura'] != '')?$dirpa . $_POST['Pagina']['miniatura']:NULL;
+			}
+
+			$datos['pagina']->estado = $_POST['Pagina']['estado'];
+			$datos['pagina']->destacado = $_POST['Pagina']['destacado'];
+			//$datos['pagina']->attributes = $_POST['Pagina'];
+			
 			if($datos['pagina']->save())
 			{
 				if( isset(Yii::app()->session['dirpa']) ){
@@ -339,42 +328,12 @@ class PaginaController extends Controller
 				{
 					$contenido = PgGenericaSt::model()->findByPk($_POST['PgGenericaSt']['id']);
 					
-					if($_POST['PgGenericaSt']['imagen'] != $contenido->imagen)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen);
-						$contenido->imagen 	= ($_POST['PgGenericaSt']['imagen'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen']:NULL;
-					}
-					if($_POST['PgGenericaSt']['imagen_mobile'] != $contenido->imagen_mobile)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen_mobile);
-						$contenido->imagen_mobile 	= ($_POST['PgGenericaSt']['imagen_mobile'] != '')?$dirpa . $_POST['PgGenericaSt']['imagen_mobile']:NULL;
-					}
-					if($_POST['PgGenericaSt']['miniatura'] != $contenido->miniatura)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->miniatura);
-						$contenido->miniatura 	= ($_POST['PgGenericaSt']['miniatura'] != '')?$dirpa . $_POST['PgGenericaSt']['miniatura']:NULL;
-					}
 					$contenido->texto = $_POST['PgGenericaSt']['texto'];
 				}
 				if(isset($_POST['PgArticuloBlog']))
 				{
 					$contenido = PgArticuloBlog::model()->findByPk($_POST['PgArticuloBlog']['id']);
 					
-					if($_POST['PgArticuloBlog']['imagen'] != $contenido->imagen)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen);
-						$contenido->imagen 	= ($_POST['PgArticuloBlog']['imagen'] != '')?$dirpa . $_POST['PgArticuloBlog']['imagen']:NULL;
-					}
-					if($_POST['PgArticuloBlog']['imagen_mobile'] != $contenido->imagen_mobile)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen_mobile);
-						$contenido->imagen_mobile 	= ($_POST['PgArticuloBlog']['imagen_mobile'] != '')?$dirpa . $_POST['PgArticuloBlog']['imagen_mobile']:NULL;
-					}
-					if($_POST['PgArticuloBlog']['miniatura'] != $contenido->miniatura)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->miniatura);
-						$contenido->miniatura 	= ($_POST['PgArticuloBlog']['miniatura'] != '')?$dirpa . $_POST['PgArticuloBlog']['miniatura']:NULL;
-					}
 					$contenido->posicion 	= $_POST['PgArticuloBlog']['posicion'];
 					$contenido->entradilla 	= $_POST['PgArticuloBlog']['entradilla'];
 					$contenido->texto 		= $_POST['PgArticuloBlog']['texto'];
@@ -392,60 +351,15 @@ class PaginaController extends Controller
 				if(isset($_POST['PgFiltro']))
 				{
 					$contenido = PgFiltro::model()->findByPk($_POST['PgFiltro']['id']);
-					if($_POST['PgFiltro']['imagen'] != $contenido->imagen)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen);
-						$contenido->imagen 	= ($_POST['PgFiltro']['imagen'] != '')?$dirpa . $_POST['PgFiltro']['imagen']:NULL;
-					}
-					if($_POST['PgFiltro']['imagen_mobile'] != $contenido->imagen_mobile)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen_mobile);
-						$contenido->imagen_mobile 	= ($_POST['PgFiltro']['imagen_mobile'] != '')?$dirpa . $_POST['PgFiltro']['imagen_mobile']:NULL;
-					}
-					if($_POST['PgFiltro']['miniatura'] != $contenido->miniatura)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->miniatura);
-						$contenido->miniatura 	= ($_POST['PgFiltro']['miniatura'] != '')?$dirpa . $_POST['PgFiltro']['miniatura']:NULL;
-					}
 					$contenido->descripcion = $_POST['PgFiltro']['descripcion'];
 				}
 				if(isset($_POST['PgBloques']))
 				{
 					$contenido = PgBloques::model()->findByPk($_POST['PgBloques']['id']);
-					if($_POST['PgBloques']['imagen'] != $contenido->imagen)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen);
-						$contenido->imagen 	= ($_POST['PgBloques']['imagen'] != '')?$dirpa . $_POST['PgBloques']['imagen']:NULL;
-					}
-					if($_POST['PgBloques']['imagen_mobile'] != $contenido->imagen_mobile)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen_mobile);
-						$contenido->imagen_mobile 	= ($_POST['PgBloques']['imagen_mobile'] != '')?$dirpa . $_POST['PgBloques']['imagen_mobile']:NULL;
-					}
-					if($_POST['PgBloques']['miniatura'] != $contenido->miniatura)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->miniatura);
-						$contenido->miniatura 	= ($_POST['PgBloques']['miniatura'] != '')?$dirpa . $_POST['PgBloques']['miniatura']:NULL;
-					}
 				}
 				if(isset($_POST['PgEventos']))
 				{
 					$contenido = PgEventos::model()->findByPk($_POST['PgEventos']['id']);
-					if($_POST['PgEventos']['imagen'] != $contenido->imagen)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen);
-						$contenido->imagen 	= ($_POST['PgEventos']['imagen'] != '')?$dirpa . $_POST['PgEventos']['imagen']:NULL;
-					}
-					if($_POST['PgEventos']['imagen_mobile'] != $contenido->imagen_mobile)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->imagen_mobile);
-						$contenido->imagen_mobile 	= ($_POST['PgEventos']['imagen_mobile'] != '')?$dirpa . $_POST['PgEventos']['imagen_mobile']:NULL;
-					}
-					if($_POST['PgEventos']['miniatura'] != $contenido->miniatura)
-					{
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $contenido->miniatura);
-						$contenido->miniatura 	= ($_POST['PgEventos']['miniatura'] != '')?$dirpa . $_POST['PgEventos']['miniatura']:NULL;
-					}
 					$contenido->descripcion = $_POST['PgEventos']['descripcion'];
 				}
 				if(isset($_POST['PgBlog']))

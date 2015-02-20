@@ -39,6 +39,22 @@
 		</div>
 		<div class="box box-primary">
             <div class="box-header">
+                <h3 class="box-title">Imágenes</h3>
+            </div>
+            <div class="box-body">
+				<div class="form-group">
+			        <?php echo $this->imageField($form, $model, 'background', 'archivoImagen', '_pagina'); ?>
+				</div>
+			    <div class="form-group">
+			        <?php echo $this->imageField($form, $model, 'background_mobile', 'archivoImagenMobile', '_pagina'); ?>
+			    </div>
+				<div class="form-group">
+			        <?php echo $this->imageField($form, $model, 'miniatura', 'archivoMiniatura', '_pagina'); ?>
+				</div>
+			</div>
+		</div>
+		<div class="box box-primary">
+            <div class="box-header">
                 <h3 class="box-title">Página <?php echo $partial ?></h3>
             </div>
             <div class="box-body">
@@ -81,3 +97,5 @@
     </div><!-- ./col-sm-4 -->
 </div><!-- ./row -->
 <?php $this->endWidget(); ?>
+<input type="hidden" value="<?php echo Yii::app()->request->baseUrl ?>" id="PUBLIC_PATH"/>
+<?php echo $this->renderPartial('//layouts/commons/_file_upload_tmpl') ?>

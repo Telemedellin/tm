@@ -7,9 +7,6 @@
  * @property string $id
  * @property string $pagina_id
  * @property string $descripcion
- * @property integer $imagen
- * @property integer $imagen_mobile
- * @property string $miniatura
  * @property integer $estado
  *
  * The followings are the available model relations:
@@ -49,7 +46,7 @@ class PgFiltro extends CActiveRecord
 			array('pagina_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, pagina_id, descripcion, imagen, imagen_mobile, miniatura, estado', 'safe', 'on'=>'search'),
+			array('id, pagina_id, descripcion, estado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,9 +72,6 @@ class PgFiltro extends CActiveRecord
 			'id' => 'ID',
 			'pagina_id' => 'Página',
 			'descripcion' => 'Descripción',
-			'imagen' => 'Imagen',
-			'imagen_mobile' => 'Imagen móvil',
-			'miniatura' => 'Miniatura',
 			'estado' => 'Publicado',
 		);
 	}
@@ -96,9 +90,6 @@ class PgFiltro extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('pagina_id',$this->pagina_id,true);
 		$criteria->compare('descripcion',$this->descripcion,true);
-		$criteria->compare('imagen',$this->imagen);
-		$criteria->compare('imagen_mobile',$this->imagen_mobile);
-		$criteria->compare('miniatura',$this->miniatura,true);
 		$criteria->compare('estado',$this->estado);
 
 		return new CActiveDataProvider($this, array(

@@ -36,14 +36,9 @@
         <?php echo $form->error($contenido,'texto'); ?>
     </div>
     <div class="form-group">
-        <?php echo $this->imageField($form, $contenido, 'miniatura', 'archivoMiniatura', '_pagina'); ?>
-	</div>
-    <div class="form-group">
         <?php echo $form->label($contenido,'comentarios', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-3">
             <?php echo $form->dropDownList($contenido, 'comentarios', array('0' => 'No', '1' => 'Sí' ), array('class' => 'form-control')); ?>
         </div>
         <?php echo $form->error($contenido,'comentarios'); ?>
     </div>
-	<input type="hidden" value="<?php echo Yii::app()->request->baseUrl ?>" id="PUBLIC_PATH"/>
-	<?php echo $this->renderPartial('../_file_upload_tmpl') ?>

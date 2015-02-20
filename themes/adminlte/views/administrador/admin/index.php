@@ -37,7 +37,7 @@ $this->breadcrumbs = $bc;
 	                	$n[] = array(
 	                			'id' => $novedad->id,
 	                			'nombre' => $novedad->nombre,
-	                			'imagen' => $novedad->pgArticuloBlogs->imagen,
+	                			'imagen' => $novedad->background,
 	                			'destacado' => $novedad->destacado,
 	                		);
 	                	endforeach /**/

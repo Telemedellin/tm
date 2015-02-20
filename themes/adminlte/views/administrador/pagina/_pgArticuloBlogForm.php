@@ -34,9 +34,6 @@
         <?php echo $form->error($contenido,'texto'); ?>
     </div>
     <div class="form-group">
-        <?php echo $this->imageField($form, $contenido, 'miniatura', 'archivoMiniatura', '_pagina'); ?>
-	</div>
-    <div class="form-group">
         <?php echo $form->label($contenido,'comentarios'); ?>
         <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-comments"></i></span>

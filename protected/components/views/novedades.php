@@ -19,7 +19,7 @@ if($this->beginCache(
     $i         = 0;
     if($this->getNovedades()):
     foreach($this->getNovedades() as $novedad): 
-      $img = bu('/images/' . $novedad->pgArticuloBlogs->imagen);
+      $img = bu('/images/' . $novedad->background);
       if($i == 0) $this->controller->pageImg = $img;
       $ee = $novedad->pgArticuloBlogs->enlace;
       if( $ee == '' ){
@@ -42,7 +42,7 @@ if($this->beginCache(
       </div>
     </li>
     <?php 
-    $paginador .= '<a class="'.$i.'" href="#'.($i+1).'" title="Ver la novedad ' . str_replace('"', "'", lcfirst($novedad->nombre)) . '"><img src="'. bu('/images/' . $novedad->pgArticuloBlogs->miniatura) . '" alt="'. str_replace('"', "'", $novedad->nombre).'" /></a>' . "\r\n";
+    $paginador .= '<a class="'.$i.'" href="#'.($i+1).'" title="Ver la novedad ' . str_replace('"', "'", lcfirst($novedad->nombre)) . '"><img src="'. bu('/images/' . $novedad->miniatura) . '" alt="'. str_replace('"', "'", $novedad->nombre).'" /></a>' . "\r\n";
     $i++;
     endforeach;
     endif;

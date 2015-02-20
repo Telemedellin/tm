@@ -674,7 +674,7 @@ jQuery(function($) {
 
 
     // Initialize the jQuery File Upload widget:
-    $('#imagen_pagina').fileupload({        
+    $('#background_pagina').fileupload({        
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
         url: PUBLIC_PATH + '/administrador/pagina/imagen',
@@ -694,7 +694,7 @@ jQuery(function($) {
         $('#archivoImagenH').attr('value', data.result.archivoImagen[0].name);
     });
     // Enable iframe cross-domain access via redirect option:
-    $('#imagen_pagina').fileupload(
+    $('#background_pagina').fileupload(
         'option',
         'redirect',
         window.location.href.replace(
@@ -703,10 +703,10 @@ jQuery(function($) {
         )
     );
     // Load existing files:
-    $('#imagen_pagina').addClass('fileupload-processing');
+    $('#background_pagina').addClass('fileupload-processing');
 
     // Initialize the jQuery File Upload widget:
-    $('#imagen_mobile_pagina').fileupload({        
+    $('#background_mobile_pagina').fileupload({        
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
         url: PUBLIC_PATH + '/administrador/pagina/imagen_mobile',
@@ -726,7 +726,7 @@ jQuery(function($) {
         $('#archivoImagenMobileH').attr('value', data.result.archivoImagenMobile[0].name);
     });
     // Enable iframe cross-domain access via redirect option:
-    $('#imagen_mobile_pagina').fileupload(
+    $('#background_mobile_pagina').fileupload(
         'option',
         'redirect',
         window.location.href.replace(
@@ -735,7 +735,7 @@ jQuery(function($) {
         )
     );
     // Load existing files:
-    $('#imagen_mobile_pagina').addClass('fileupload-processing');
+    $('#background_mobile_pagina').addClass('fileupload-processing');
 
     // Initialize the jQuery File Upload widget:
     $('#miniatura_pagina').fileupload({        

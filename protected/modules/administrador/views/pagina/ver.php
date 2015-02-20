@@ -32,6 +32,24 @@
 					'type' => 'raw', 
 					'value' => l($model->url->slug, bu($model->url->slug), array('target' => '_blank')),
 				),
+				array(
+					'name' => 'background', 
+					'label' => 'Imagen', 
+					'type' => 'raw', 
+					'value' => l($model->background, bu('images/'.$model->background), array('target' => '_blank', 'class' => 'fancybox')),
+				),
+				array(
+					'name' => 'background_mobile', 
+					'label' => 'Imagen (Móviles)', 
+					'type' => 'raw', 
+					'value' => l($model->background_mobile, bu('images/'.$model->background_mobile), array('target' => '_blank', 'class' => 'fancybox')),
+				),
+				array(
+					'name' => 'miniatura',
+					'label' => 'Imagen miniatura',  
+					'type' => 'raw', 
+					'value' => l($model->miniatura, bu('images/'.$model->miniatura), array('target' => '_blank', 'class' => 'fancybox')),
+				),
 				'creado',
 				'modificado',
 				array(

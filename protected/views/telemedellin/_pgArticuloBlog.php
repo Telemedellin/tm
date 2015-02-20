@@ -1,8 +1,8 @@
 <?php
 $this->pageDesc = ($contenido['pagina']->meta_descripcion != '')? $contenido['pagina']->meta_descripcion : $contenido['contenido']->entradilla;
-if( !empty($contenido['contenido']->imagen) && !is_null($contenido['contenido']->imagen) )
+if( !empty($contenido['pagina']->background) && !is_null($contenido['pagina']->background) )
 {
-	$bg = bu('/images/' . $contenido['contenido']->imagen);
+	$bg = bu('/images/' . $contenido['pagina']->background);
 	cs()->registerCss('background', 'body{background-image: url("' . $bg . '");}');	
 	$this->pageImg = $bg;
 }

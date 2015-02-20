@@ -12,6 +12,9 @@
  * @property string $url_id
  * @property string $nombre
  * @property string $clase
+ * @property string $background
+ * @property string $background_mobile
+ * @property string $miniatura
  * @property string $creado
  * @property string $modificado
  * @property integer $estado
@@ -74,10 +77,11 @@ class Pagina extends CActiveRecord
 			array('micrositio_id, tipo_pagina_id, nombre, estado, destacado', 'required'),
 			array('estado, usuario_id, url_id, micrositio_id, tipo_pagina_id, destacado', 'numerical', 'integerOnly'=>true),
 			array('nombre, clase', 'length', 'max'=>100),
+			array('background, background_mobile, miniatura', 'length', 'max'=>255),
 			array('meta_descripcion', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, revision_id, usuario_id, micrositio_id, tipo_pagina_id, tipo_pagina, nombre, meta_descripcion, clase, url_id, url_slug, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
+			array('id, revision_id, usuario_id, micrositio_id, tipo_pagina_id, tipo_pagina, nombre, meta_descripcion, clase, url_id, url_slug, background, background_mobile, miniatura, creado, modificado, estado, destacado', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -119,6 +123,9 @@ class Pagina extends CActiveRecord
 			'nombre' => 'Nombre',
 			'meta_descripcion' => 'Meta descripción',
 			'clase' => 'Clase',
+			'background' => 'Imagen',
+			'background_mobile' => 'Imagen (Móvil)',
+			'miniatura' => 'Imagen miniatura',
 			'creado' => 'Creado',
 			'modificado' => 'Modificado',
 			'estado' => 'Publicado',
@@ -149,6 +156,9 @@ class Pagina extends CActiveRecord
 		$criteria->compare('t.nombre',$this->nombre,true);
 		$criteria->compare('meta_descripcion',$this->meta_descripcion,true);
 		$criteria->compare('clase',$this->clase,true);
+		$criteria->compare('background',$this->background,true);
+		$criteria->compare('background_mobile',$this->background_mobile,true);
+		$criteria->compare('miniatura',$this->miniatura,true);
 		$criteria->compare('t.creado',$this->creado,true);
 		$criteria->compare('t.modificado',$this->modificado,true);
 		$criteria->compare('t.estado',$this->estado);
@@ -330,22 +340,6 @@ class Pagina extends CActiveRecord
 			}
 			// 4. Borro la tabla pg_
 			
-			if( isset($contenido) )
-			{
-				$imagenes = array(); //Placeholder para las imagenes
-				// 4.1 Verifico si el contenido tiene imagenes para eliminar
-				if( isset($contenido->imagen) && !is_null($contenido->imagen) && !empty($contenido->imagen) ) 
-					$imagenes[] = $contenido->imagen;
-				if( isset($contenido->imagen_mobile) && !is_null($contenido->imagen_mobile) && !empty($contenido->imagen_mobile) ) 
-					$imagenes[] = $contenido->imagen_mobile;
-				if( isset($contenido->miniatura) && !is_null($contenido->miniatura) && !empty($contenido->miniatura) ) 
-					$imagenes[] = $contenido->miniatura;
-				$contenido->delete();
-				if( isset($imagenes) )
-					foreach($imagenes as $imagen)
-						@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
-			}
-			
 			$transaccion->commit();
 			return parent::beforeDelete();
 		}//try
@@ -361,6 +355,17 @@ class Pagina extends CActiveRecord
 		// 6. Elimino la URL asociada
 		$url = Url::model()->findByPk($this->url_id);
 		$url->delete();
+		$imagenes = array();
+		if( !is_null($this->background) && !empty($this->background) ) 
+			$imagenes[] = $this->background;
+		if( !is_null($this->background_mobile) && !empty($this->background_mobile) ) 
+			$imagenes[] = $this->background_mobile;
+		if( !is_null($this->miniatura) && !empty($this->miniatura) ) 
+			$imagenes[] = $this->miniatura;
+		
+		if(isset($imagenes))
+			foreach($imagenes as $imagen)
+				@unlink( Yii::getPathOfAlias('webroot').'/images/' . $imagen);
 		return parent::afterDelete();
 	}
 
