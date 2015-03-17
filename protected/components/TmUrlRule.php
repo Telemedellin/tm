@@ -70,6 +70,8 @@ class TmUrlRule extends CBaseUrlRule
 
     private function verificar_slug($slug)
     {
+        if( $slug == 'radio/emisora')
+            Yii::app()->request->redirect( 'http://radio.telemedellin.tv', true, 301 );
         return Url::model()->findByAttributes( array('slug' => $slug) );        
     }
 
