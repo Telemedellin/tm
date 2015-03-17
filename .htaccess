@@ -6,7 +6,12 @@ RewriteEngine On
 RewriteCond %{HTTP_USER_AGENT} libwww-perl.* 
 RewriteRule .* – [F,L]
 
+#Envia al micrositio de TM Radio
+RewriteCond %{HTTP_HOST} ^(www\.)?telemedellin\.tv$
+RewriteRule ^radio(.*)$ http:\/\/radio\.telemedellin\.tv\/$1 [L,QSA,R=301]
+
 #Redirecciona para canonizar el dominio
+RewriteCond %{HTTP_HOST} ^138\.128\.186\.34 [OR]
 RewriteCond %{HTTP_HOST} ^72\.52\.231\.90 [OR]
 RewriteCond %{HTTP_HOST} ^www\.telemedellin\.tv$ [OR]
 RewriteCond %{HTTP_HOST} ^m\.telemedellin\.tv$ [OR]
