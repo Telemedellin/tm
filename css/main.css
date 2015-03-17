@@ -66,6 +66,7 @@ form .controls:after
 	content: "";
 	display: inline-block;
 	height: 26px;
+	margin-left: 10px;
 	vertical-align: middle;
 	width: 28px;
 }
@@ -148,10 +149,15 @@ input[type="submit"]
 	padding: 10px 15px;
 	text-transform: uppercase;
 }
+input[type="checkbox"], 
 input[type="radio"]
 {
 	margin-left: 10px;
 	vertical-align: baseline;
+}
+input[type=checkbox]:first-child, 
+input[type=radio]:first-child {
+	margin: 0;
 }
 input[disabled], 
 select[disabled], 
@@ -653,7 +659,7 @@ th
 }
 .tooltip.top
 {
-	/*margin-top: -35px;/**/
+	/*margin-top: -25px;/**/
 }
 .tooltip.top .tooltip-arrow {
 	bottom: -15px;
@@ -1634,6 +1640,7 @@ th
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	height: 40px;
+	line-height: 1;
 	margin: 0;
 	padding: 5px;
 	position: absolute;
@@ -1682,7 +1689,8 @@ th
 }
 #menu_micrositio.especiales, 
 #menu_micrositio.PgBloques, 
-#menu_micrositio.PgBlog
+#menu_micrositio.PgBlog, 
+#menu_micrositio.PgFormulario
 {
 	min-width: 99%;
 }
@@ -1907,7 +1915,8 @@ th
 	font-size: .8em;
 }
 #micrositio.PgBloques, 
-#micrositio.PgBlog
+#micrositio.PgBlog, 
+#micrositio.PgFormulario
 {
 	width: 99%;
 }

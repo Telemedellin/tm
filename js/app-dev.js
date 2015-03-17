@@ -235,9 +235,13 @@ jQuery(function($) {
       }
     });
   }//filtrar_seccion
-  
+
   var cf = 0;
   if(micro[0]){
+    $(":input[title]").tooltip();
+    $(":input[title]").hover(function(){
+      $('.tooltip').css('top', parseInt($('.tooltip').css('top')) - 20 + 'px')
+    });
     micro.mCustomScrollbar({
       scrollType: "pixels",
       updateOnContentResize: true, 
@@ -381,6 +385,12 @@ jQuery(function($) {
 
     //Elimina el target _blank de los enlaces con ajax
     $('.fancybox a[target="_blank"], a.fancybox[target="_blank"]').removeAttr('target');
+
+    $('input[type="file"]').on('change', function(){
+      var t = $(this), 
+          id = t.attr('id');
+      $('#yt'+id).val( t.val() );
+    });
 
   }//if micro[0]
 
