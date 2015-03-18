@@ -16,8 +16,20 @@ class USesionCruge extends DefaultSessionFilter {
 	public function onLogin(/*ICrugeSession*/ $model){
 		parent::onLogin($model);
 		Yii::log("PASANDO POR ONLOGIN","info");
+		$u = Usuario::model()->findByAttributes( array('cruge_user_id' => Yii::app()->user->id) );
+        Yii::app()->user->setState('usuario_id', $u->id, 0);
+        Yii::app()->user->setState('nombres', $u->nombres, 0);
+		if( Yii::app()->user->hasFlash('backto') )
+        {
+            $backto = Yii::app()->user->getFlash('backto'); 
+            Yii::app()->user->setFlash('backto', null);
+            Yii::app()->user->setFlash('backto', $backto);
+        }
+        else
+            $backto = 'usuario/perfil';
+        /**/
 		if( !Yii::app()->session['autologin'] )
-			Yii::app()->getController()->redirect(array("/usuario/perfil"));
+			Yii::app()->getController()->redirect( $backto );
 	}
 
 	/**

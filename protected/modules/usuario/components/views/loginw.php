@@ -57,6 +57,6 @@
 		<a href="#" class="cerrar"><i class="icon-remove icon-white"></i></a>
 	</div>
 	<?php else: ?>
-	<a href="<?php echo Yii::app()->createUrl('/usuario');?>" class="login">Mi Perfil</a>
+	<a href="<?php echo Yii::app()->createUrl('/usuario');?>" class="login"><?php echo Yii::app()->user->getState('nombres')/*Mi Perfil/**/ ?></a>
 	<?php endif; ?>
 </div>

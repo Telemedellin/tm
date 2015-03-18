@@ -315,7 +315,7 @@ class Micrositio extends CActiveRecord
 			$url->save();
 			
 			$this->url_id 		= $url->getPrimaryKey();
-        	$this->usuario_id	= Yii::app()->user->id;
+        	$this->usuario_id	= Yii::app()->user->getState('usuario_id');
         	$this->pagina_id 	= NULL;
         	$this->menu_id 		= NULL;
         	$this->creado 		= date('Y-m-d H:i:s');

@@ -35,6 +35,7 @@
  */
 class Pagina extends CActiveRecord
 {
+	private $transaccion;
 	protected $oldAttributes;
 	public $tipo_pagina;
 	public $url_slug;
@@ -299,9 +300,9 @@ class Pagina extends CActiveRecord
 
 	protected function beforeDelete()
 	{
-		$transaccion = $this->dbConnection->getCurrentTransaction();
-		if($transaccion === null)
-			$transaccion = $this->dbConnection->beginTransaction();
+		$this->transaccion = $this->dbConnection->getCurrentTransaction();
+		if($this->transaccion === null)
+			$this->transaccion = $this->dbConnection->beginTransaction();
 		try
 		{
 			// 1. Desasignar de los micrositios que la tengan por defecto.
@@ -340,12 +341,12 @@ class Pagina extends CActiveRecord
 			}
 			// 4. Borro la tabla pg_
 			
-			$transaccion->commit();
+			//$this->transaccion->commit();
 			return parent::beforeDelete();
 		}//try
 		catch(Exception $e)
 		{
-		   $transaccion->rollback();
+		   $this->transaccion->rollback();
 		   return false;
 		}
 	}
@@ -353,8 +354,11 @@ class Pagina extends CActiveRecord
 	protected function afterDelete()
 	{
 		// 6. Elimino la URL asociada
-		$url = Url::model()->findByPk($this->url_id);
-		$url->delete();
+		$url = Url::model()->with('micrositiosCount')->findByPk($this->url_id);
+		//Verifico que no sea la página por defecto y la url tenga también un micrositio relacionado
+		if( $url->micrositiosCount == 1 )
+			$url->delete();
+
 		$imagenes = array();
 		if( !is_null($this->background) && !empty($this->background) ) 
 			$imagenes[] = $this->background;
@@ -395,7 +399,7 @@ class Pagina extends CActiveRecord
 			else
 				return false;
 
-			$this->usuario_id	= Yii::app()->user->id;
+			$this->usuario_id	= Yii::app()->user->getState('usuario_id');
         	$this->revision_id 	= NULL;
         	$this->creado 		= date('Y-m-d H:i:s');
             if(!$this->estado)
