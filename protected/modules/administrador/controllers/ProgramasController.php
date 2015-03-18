@@ -7,6 +7,16 @@ class ProgramasController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/administrador';
+	private $image_folder;
+
+	protected function beforeAction($action) 
+	{
+		$this->image_folder = ProgramasForm::getImageRoute();
+		
+		Yii::app()->session->remove('dir');
+		if( !isset(Yii::app()->session['dir']) ) Yii::app()->session['dir'] = $this->image_folder;
+		return parent::beforeAction($action);
+	}
 
 	/**
 	 * @return array action filters
@@ -43,17 +53,17 @@ class ProgramasController extends Controller
 		return array(
 			'imagen'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/programas/',
+                'directorio' => 'images/backgrounds/programas/'. date('Y') . '/',
                 'param_name' => 'archivoImagen'
             ),
             'imagen_mobile'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/programas/',
+                'directorio' => 'images/backgrounds/programas/'. date('Y') . '/',
                 'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/programas/thumbnail/',
+                'directorio' => 'images/backgrounds/programas/' . date('Y') . '/thumbnail/',
                 'param_name' => 'archivoMiniatura',
                 'image_versions' => 
 					array(
@@ -77,7 +87,6 @@ class ProgramasController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->session->remove('dirp');
 		
 		$model = new Micrositio('search');
 		$model->seccion_id = 2;
@@ -192,60 +201,20 @@ class ProgramasController extends Controller
 	 */
 	public function actionCrear()
 	{
-		if( !isset(Yii::app()->session['dirp']) ) Yii::app()->session['dirp'] = 'backgrounds/programas/';
-
+		
 		$programasForm = new ProgramasForm;		
 
 		if(isset($_POST['ProgramasForm'])){
 			$programasForm->attributes = $_POST['ProgramasForm'];
-			if( isset(Yii::app()->session['dirp']) ){
-				$dirp = Yii::app()->session['dirp'];
-			}
-			if($programasForm->validate()){
-				$micrositio 				= new Micrositio;
-				$transaccion 				= $micrositio->dbConnection->beginTransaction();
-				$micrositio->seccion_id 	= 2; //Programas
-				$micrositio->usuario_id 	= 1;
-				$micrositio->nombre			= $programasForm->nombre;
-				$micrositio->background 	= ($programasForm->imagen != '')?$dirp . $programasForm->imagen:NULL;
-				$micrositio->background_mobile 	= ($programasForm->imagen_mobile != '')?$dirp . $programasForm->imagen_mobile:NULL;
-				$micrositio->miniatura 		= ($programasForm->miniatura)?$dirp . $programasForm->miniatura:NULL;
-				$micrositio->destacado		= $programasForm->destacado;
-				$micrositio->estado			= $programasForm->estado;
-				if( !$micrositio->save(false) ) $transaccion->rollback();
-				$micrositio_id = $micrositio->getPrimaryKey();
-
-				$pagina = new Pagina;
-				$pagina->micrositio_id 		= $micrositio_id;
-				$pagina->tipo_pagina_id 	= 1; //Página programa
-				$pagina->nombre				= $programasForm->nombre;
-				$pagina->meta_descripcion	= $programasForm->meta_descripcion;
-				$pagina->clase 				= NULL;
-				$pagina->destacado			= $programasForm->destacado;
-				$pagina->estado				= ($programasForm->estado == 2)?1:$programasForm->estado;
-				if( !$pagina->save(false) ) $transaccion->rollback();
-				$pagina_id = $pagina->getPrimaryKey();
-
-				if( !$micrositio->asignar_pagina($pagina) )
-					$transaccion->rollback();
-
-				$pgP = new PgPrograma;
-				$pgP->pagina_id 	= $pagina_id;
-				$pgP->resena 		= $programasForm->resena;
-				$pgP->estado 		= $programasForm->estado;
+			
+			if($programasForm->guardar())
+			{
+				Yii::app()->user->setFlash('success', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
+				$this->redirect(array('view','id' => $programasForm->id));
 				
-				if( !$pgP->save(false) )
-					$transaccion->rollback();
-				else
-				{
-					$transaccion->commit();
-					Yii::app()->user->setFlash('success', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
-					$this->redirect('index');
-				}
+			}//if($programasForm->guardar())
 
-			}//if($novedadesForm->validate())
-
-		} //if(isset($_POST['NovedadesForm']))
+		} //if(isset($_POST['ProgramasForm']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -264,78 +233,33 @@ class ProgramasController extends Controller
 	public function actionUpdate($id)
 	{
 
-		if( !isset(Yii::app()->session['dirp']) ) Yii::app()->session['dirp'] = 'backgrounds/programas/';
-
-		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
-		$pagina = Pagina::model()->with('url', 'pgProgramas')->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 1));
-		$pgP = PgPrograma::model()->with('horario')->findByAttributes(array('pagina_id' => $pagina->id));
-		
 		$programasForm = new ProgramasForm;		
 		$programasForm->id = $id;
 
 		if(isset($_POST['ProgramasForm'])){
 			$programasForm->attributes = $_POST['ProgramasForm'];
-			if( isset(Yii::app()->session['dirp']) ){
-				$dirp = Yii::app()->session['dirp'];
-			}
-			if($programasForm->validate()){
-				$micrositio = Micrositio::model()->findByPk($id);
-				$micrositio->nombre			= $programasForm->nombre;
-				if($programasForm->imagen != $micrositio->background)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
-					$micrositio->background 	= ($programasForm->imagen != '')?$dirp . $programasForm->imagen:NULL;
-				}
-				if($programasForm->imagen_mobile != $micrositio->background_mobile)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background_mobile);
-					$micrositio->background_mobile 	= ($programasForm->imagen_mobile != '')?$dirp . $programasForm->imagen_mobile:NULL;
-				}
-				if($programasForm->miniatura != $micrositio->miniatura)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
-					$micrositio->miniatura 	= ($programasForm->miniatura != '')?$dirp . $programasForm->miniatura:NULL;
-				}
+			
+			if($programasForm->guardar())
+			{
+				
+				Yii::app()->user->setFlash('success', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
+				$this->redirect(array('view','id' => $programasForm->id));
+			}else
+			{
+				Yii::app()->user->setFlash('warning', 'Programa ' . $programasForm->nombre . ' no se pudo guardar');
 
-				$micrositio->estado			= $programasForm->estado;
-				$micrositio->destacado		= $programasForm->destacado;
-				$micrositio->save();
+			}//if($programasForm->guardar())
 
-				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 1));
-				$pagina->nombre				= $programasForm->nombre;
-				$pagina->meta_descripcion	= $programasForm->meta_descripcion;
-				$pagina->destacado			= $programasForm->destacado;
-				$pagina->estado				= ($programasForm->estado == 2)?1:$programasForm->estado;
-				$pagina->save();
-
-				$pgP = PgPrograma::model()->findByAttributes( array('pagina_id' => $pagina->id) );
-				$pgP->resena 		= $programasForm->resena;
-				$pgP->estado 		= $programasForm->estado;
-				if( $pgP->save() )
-				{
-					Yii::app()->user->setFlash('success', 'Programa ' . $programasForm->nombre . ' guardado con éxito');
-					$this->redirect(array('view','id' => $programasForm->id));
-				}else
-				{
-					Yii::app()->user->setFlash('warning', 'Programa ' . $programasForm->nombre . ' no se pudo guardar');
-				}
-
-			}//if($novedadesForm->validate())
-
-		} //if(isset($_POST['NovedadesForm']))
+		} //if(isset($_POST['ProgramasForm']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$programasForm->nombre = $micrositio->nombre;
-		$programasForm->resena = $pagina->pgProgramas->resena;
-		$programasForm->imagen = $micrositio->background;
-		$programasForm->imagen_mobile = $micrositio->background_mobile;
-		$programasForm->miniatura = $micrositio->miniatura;
-		$programasForm->meta_descripcion = $pagina->meta_descripcion;
-		$programasForm->estado = $pagina->pgProgramas->estado;
-		$programasForm->destacado = $micrositio->destacado;
-
+		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
+		$pagina = Pagina::model()->with('url', 'pgProgramas')->findByAttributes(array('micrositio_id' => $micrositio->id, 'tipo_pagina_id' => 1));
+		
+		$programasForm->set_fields($micrositio, $pagina);
+		
 		$this->render('modificar',array(
 			'model'=>$programasForm,
 		));

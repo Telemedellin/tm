@@ -7,6 +7,21 @@ class NovedadesController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/administrador';
+	private $image_folder;
+	private $banner_folder;
+
+	protected function beforeAction($action) 
+	{
+		$this->image_folder = NovedadesForm::getImageRoute();
+		$this->banner_folder = 'novedades/banners/' . date('Y') . '/' . date('m') . '/';
+
+		Yii::app()->session->remove('bn');
+		Yii::app()->session->remove('dir');
+		Yii::app()->session->remove('dirc');
+		if( !isset(Yii::app()->session['dir']) ) Yii::app()->session['dir'] = $this->image_folder;
+		if( !isset(Yii::app()->session['bn']) ) Yii::app()->session['bn'] = $this->banner_folder;
+		return parent::beforeAction($action);
+	}
 
 	/**
 	 * @return array action filters
@@ -53,7 +68,7 @@ class NovedadesController extends Controller
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/novedades/' . date('Y') . '/' . date('m') . '/thumbnail/',
+                'directorio' => 'images/novedades/' . date('Y') . '/' . date('m') . '/' . 'thumbnail/',
                 'param_name' => 'archivoMiniatura',
                 'image_versions' => 
 					array(
@@ -95,9 +110,6 @@ class NovedadesController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->session->remove('dir');
-		Yii::app()->session->remove('dirc');
-		
 		$model = new Pagina('search');
 		$model->tipo_pagina_id = 3;
 		$model->micrositio_id = 2;
@@ -142,51 +154,15 @@ class NovedadesController extends Controller
 	 */
 	public function actionCrear()
 	{
-		if( !isset(Yii::app()->session['dir']) ) Yii::app()->session['dir'] = 'novedades/' . date('Y') . '/' . date('m') . '/';
-
 		$novedadesForm = new NovedadesForm;
 
 		if(isset($_POST['NovedadesForm'])){
 			$novedadesForm->attributes = $_POST['NovedadesForm'];
-			if( isset(Yii::app()->session['dir']) ){
-				$dir = Yii::app()->session['dir'];
-			}
-			if($novedadesForm->validate()){
-				
-				$pagina 				= new Pagina;
-				$transaccion 			= $pagina->dbConnection->beginTransaction();
-				$pagina->micrositio_id 	= 2; //Novedades
-				$pagina->tipo_pagina_id = 3; //Novedad
-				$pagina->nombre			= $novedadesForm->nombre;
-				$pagina->background 		= $dir . $novedadesForm->imagen;
-				$pagina->background_mobile 	= $dir . $novedadesForm->imagen_mobile;
-				$pagina->miniatura 		= $dir . $novedadesForm->miniatura;
-				$pagina->clase 			= NULL;
-				$pagina->estado 		= $novedadesForm->estado;
-				$pagina->destacado		= $novedadesForm->destacado;
-				if( !$pagina->save(false) ) $transaccion->rollback();
-				$pagina_id = $pagina->getPrimaryKey();
-
-				$pgAB = new PgArticuloBlog;
-				$pgAB->pagina_id 	= $pagina_id;
-				$pgAB->entradilla 	= $novedadesForm->entradilla;
-				$pgAB->texto 		= $novedadesForm->texto;
-				$pgAB->enlace 		= $novedadesForm->enlace;
-				$pgAB->comentarios 	= $novedadesForm->comentarios;
-				$pgAB->posicion 	= $novedadesForm->posicion;
-				$pgAB->estado 		= ($novedadesForm->estado)?1:0;
-				
-				if( !$pgAB->save(false) )
-					$transaccion->rollback();
-				else
-				{
-					$transaccion->commit();
-					Yii::app()->user->setFlash('success', 'Novedad ' . $novedadesForm->nombre . ' guardada con éxito');
-					$this->redirect('index');
-				}
-				
-
-			}//if($novedadesForm->validate())
+			if( $novedadesForm->guardar() )
+			{
+				Yii::app()->user->setFlash('success', 'Novedad ' . $novedadesForm->nombre . ' guardada con éxito.');
+				$this->redirect('index');
+			}//if($novedadesForm->guardar())
 
 		} //if(isset($_POST['NovedadesForm']))
 
@@ -206,81 +182,28 @@ class NovedadesController extends Controller
 	public function actionUpdate($id)
 	{
 
-		if( !isset(Yii::app()->session['dir']) ) Yii::app()->session['dir'] = 'novedades/' . date('Y') . '/' . date('m') . '/';
-
-		$pagina = Pagina::model()->with('url', 'pgArticuloBlogs')->findByPk($id);
 		$novedadesForm = new NovedadesForm;
 		$novedadesForm->id = $id;
 
 		if(isset($_POST['NovedadesForm'])){
 			$novedadesForm->attributes = $_POST['NovedadesForm'];
-			if( isset(Yii::app()->session['dir']) ){
+			/*if( isset(Yii::app()->session['dir']) ){
 				$dir = Yii::app()->session['dir'];
-			}
-			if($novedadesForm->validate()){
-				$pagina = Pagina::model()->findByPk($id);
-				$transaccion 	= $pagina->dbConnection->beginTransaction();
-
-				$pagina->nombre			= $novedadesForm->nombre;
-
-				if($novedadesForm->imagen != $pagina->background)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pagina->background);
-					$pagina->background 	= $dir . $novedadesForm->imagen;
-				}
-				if($novedadesForm->imagen_mobile != $pagina->background_mobile)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pagina->background_mobile);
-					$pagina->background_mobile 	= $dir . $novedadesForm->imagen_mobile;
-				}
-				if($novedadesForm->miniatura != $pagina->miniatura)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $pagina->miniatura);
-					$pagina->miniatura 	= $dir . $novedadesForm->miniatura;
-				}
-
-				$pagina->destacado		= $novedadesForm->destacado;
-				$pagina->estado			= $novedadesForm->estado;
-
-				if( !$pagina->save(false) ) $transaccion->rollback();
-				$pagina_id = $pagina->id;
-
-				$pgAB = PgArticuloBlog::model()->findByAttributes(array('pagina_id' => $pagina_id));
-				$pgAB->entradilla 	= $novedadesForm->entradilla;
-				$pgAB->texto 		= $novedadesForm->texto;
-				$pgAB->enlace 		= $novedadesForm->enlace;
-				$pgAB->posicion 	= $novedadesForm->posicion;
-				$pgAB->comentarios 	= $novedadesForm->comentarios;
-				$pgAB->estado 		= ($novedadesForm->estado)?1:0;
-				
-				if( !$pgAB->save(false) )
-					$transaccion->rollback();
-				else
-				{
-					$transaccion->commit();
-					Yii::app()->user->setFlash('success', 'Novedad ' . $novedadesForm->nombre . ' modificada con éxito');
-					$this->redirect(array('view','id' => $novedadesForm->id));
-				}
-				
-
-			}//if($novedadesForm->validate())
+			}/**/
+			if($novedadesForm->guardar()){
+			
+				Yii::app()->user->setFlash('success', 'Novedad ' . $novedadesForm->nombre . ' modificada con éxito');
+				$this->redirect(array('view','id' => $novedadesForm->id));
+			
+			}//if($novedadesForm->guardar())
 
 		} //if(isset($_POST['NovedadesForm']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		$novedadesForm->nombre = $pagina->nombre;
-		$novedadesForm->entradilla = $pagina->pgArticuloBlogs->entradilla;
-		$novedadesForm->texto = $pagina->pgArticuloBlogs->texto;
-		$novedadesForm->enlace = $pagina->pgArticuloBlogs->enlace;
-		$novedadesForm->imagen = $pagina->pgArticuloBlogs->imagen;
-		$novedadesForm->imagen_mobile = $pagina->pgArticuloBlogs->imagen_mobile;
-		$novedadesForm->miniatura = $pagina->pgArticuloBlogs->miniatura;
-		$novedadesForm->posicion = $pagina->pgArticuloBlogs->posicion;
-		$novedadesForm->comentarios = $pagina->pgArticuloBlogs->comentarios;
-		$novedadesForm->estado = $pagina->estado;
-		$novedadesForm->destacado = $pagina->destacado;
-
+		$pagina = Pagina::model()->with('url', 'pgArticuloBlogs')->findByPk($id);
+		$novedadesForm->set_fields($pagina);
+		
 		$this->render('modificar',array(
 			'model'=>$novedadesForm,
 		));
@@ -288,8 +211,6 @@ class NovedadesController extends Controller
 
 	public function actionBanners()
 	{
-		Yii::app()->session->remove('bn');
-		
 		$model = new Banner('search');
 				
 		if(isset($_GET['Banner']))
@@ -302,8 +223,6 @@ class NovedadesController extends Controller
 
 	public function actionCrearbanner()
 	{
-		if( !isset(Yii::app()->session['bn']) ) Yii::app()->session['bn'] = 'novedades/banners/' . date('Y') . '/' . date('m') . '/';
-
 		$banner = new Banner;
 
 		if(isset($_POST['Banner'])){
@@ -333,8 +252,6 @@ class NovedadesController extends Controller
 
 	public function actionUpdatebanner($id)
 	{
-		if( !isset(Yii::app()->session['bn']) ) Yii::app()->session['bn'] = 'novedades/banners/' . date('Y') . '/' . date('m') . '/';
-
 		$banner = Banner::model()->findByPk($id);
 
 		if(isset($_POST['Banner'])){

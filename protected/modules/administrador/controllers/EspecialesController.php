@@ -7,6 +7,16 @@ class EspecialesController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/administrador';
+	private $image_folder;
+
+	protected function beforeAction($action) 
+	{
+		$this->image_folder = EspecialesForm::getImageRoute();
+		
+		Yii::app()->session->remove('dir');
+		if( !isset(Yii::app()->session['dir']) ) Yii::app()->session['dir'] = $this->image_folder;
+		return parent::beforeAction($action);
+	}
 
 	/**
 	 * @return array action filters
@@ -43,17 +53,17 @@ class EspecialesController extends Controller
 		return array(
 			'imagen'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/especiales/',
+                'directorio' => 'images/backgrounds/especiales/'. date('Y') . '/',
                 'param_name' => 'archivoImagen'
             ),
             'imagen_mobile'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/especiales/',
+                'directorio' => 'images/backgrounds/especiales/'. date('Y') . '/',
                 'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/especiales/thumbnail/',
+                'directorio' => 'images/backgrounds/especiales/' . date('Y') . '/thumbnail/',
                 'param_name' => 'archivoMiniatura',
                 'image_versions' => 
 					array(
@@ -188,60 +198,18 @@ class EspecialesController extends Controller
 	 */
 	public function actionCrear()
 	{
-		if( !isset(Yii::app()->session['dire']) ) Yii::app()->session['dire'] = 'backgrounds/especiales/';
-
 		$especialesForm = new EspecialesForm;		
 
 		if(isset($_POST['EspecialesForm'])){
 			$especialesForm->attributes = $_POST['EspecialesForm'];
-			if( isset(Yii::app()->session['dire']) ){
-				$dire = Yii::app()->session['dire'];
-			}
-			if($especialesForm->validate()){
-				
-				$micrositio 				= new Micrositio;
-				$transaccion 				= $micrositio->dbConnection->beginTransaction();
-				$micrositio->seccion_id 	= 3; //Especiales
-				$micrositio->usuario_id 	= 1;
-				$micrositio->nombre			= $especialesForm->nombre;
-				$micrositio->background 	= ($especialesForm->imagen)?$dire . $especialesForm->imagen:NULL;
-				$micrositio->background_mobile 	= ($especialesForm->imagen_mobile)?$dire . $especialesForm->imagen_mobile:NULL;
-				$micrositio->miniatura 		= ($especialesForm->miniatura)?$dire . $especialesForm->miniatura:NULL;
-				$micrositio->destacado		= $especialesForm->destacado;
-				$micrositio->estado			= $especialesForm->estado;
-				if( !$micrositio->save(false) ) $transaccion->rollback();
-				$micrositio_id = $micrositio->getPrimaryKey();
+			
+			if($especialesForm->guardar())
+			{
+				Yii::app()->user->setFlash('success', 'Especial ' . $especialesForm->nombre . ' guardado con éxito');
+				$this->redirect( array('view', 'id' => $especialesForm->id) );
+			}//if($especialesForm->guardar())
 
-				$pagina = new Pagina;
-				$pagina->micrositio_id 		= $micrositio_id;
-				$pagina->tipo_pagina_id 	= 10; //Página bloques
-				$pagina->nombre				= $especialesForm->nombre;
-				$pagina->meta_descripcion 	= $especialesForm->meta_descripcion;
-				$pagina->clase 				= NULL;
-				$pagina->destacado			= $especialesForm->destacado;
-				$pagina->estado			  	= ($especialesForm->estado == 2)?1:$especialesForm->estado;
-				if( !$pagina->save(false) ) $transaccion->rollback();
-				$pagina_id = $pagina->getPrimaryKey();
-
-				if( !$micrositio->asignar_pagina($pagina) )
-					$transaccion->rollback();
-
-				$pgB = new PgBloques;
-				$pgB->pagina_id 	= $pagina_id;
-				$pgB->estado 		= $especialesForm->estado;
-				
-				if( !$pgB->save(false) )
-					$transaccion->rollback();
-				else
-				{
-					$transaccion->commit();
-					Yii::app()->user->setFlash('success', 'Especial ' . $especialesForm->nombre . ' guardado con éxito');
-					$this->redirect( array('view', 'id' => $micrositio->getPrimaryKey()) );
-				}
-
-			}//if($novedadesForm->validate())
-
-		} //if(isset($_POST['NovedadesForm']))
+		} //if(isset($_POST['EspecialesForm']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -260,77 +228,30 @@ class EspecialesController extends Controller
 	public function actionUpdate($id)
 	{
 
-		if( !isset(Yii::app()->session['dire']) ) Yii::app()->session['dire'] = 'backgrounds/especiales/';
-
-		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
-		$pagina = Pagina::model()->with('url')->findByAttributes(array('micrositio_id' => $micrositio->id));
-
 		$especialesForm = new EspecialesForm;		
 		$especialesForm->id = $id;
 
 		if(isset($_POST['EspecialesForm'])){
 			$especialesForm->attributes = $_POST['EspecialesForm'];
-			if( isset(Yii::app()->session['dire']) ){
-				$dire = Yii::app()->session['dire'];
-			}
-			if($especialesForm->validate()){
-				$micrositio = Micrositio::model()->findByPk($id);
-				$micrositio->nombre			= $especialesForm->nombre;
-				if($especialesForm->imagen != $micrositio->background)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
-					$micrositio->background 	= $dire . $especialesForm->imagen;
-				}
-				if($especialesForm->imagen_mobile != $micrositio->background_mobile)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background_mobile);
-					$micrositio->background_mobile 	= $dire . $especialesForm->imagen_mobile;
-				}
-				if($especialesForm->miniatura != $micrositio->miniatura)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
-					$micrositio->miniatura 	= $dire . $especialesForm->miniatura;
-				}
+			
+			if($especialesForm->guardar())
+			{
+				Yii::app()->user->setFlash('success', 'Especial ' . $especialesForm->nombre . ' guardado con éxito');
+				$this->redirect(array('view','id' => $especialesForm->id));
+			}else
+			{
+				Yii::app()->user->setFlash('warning', 'Especial ' . $especialesForm->nombre . ' no se pudo guardar');
+			}//if($especialesForm->guardar())
 
-				$micrositio->destacado		= $especialesForm->destacado;
-				
-				$micrositio->estado			= $especialesForm->estado;
-				$micrositio->save();
-
-				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
-				$pagina->nombre				= $especialesForm->nombre;
-				$pagina->meta_descripcion 	= $especialesForm->meta_descripcion;
-				$pagina->destacado			= $especialesForm->destacado;
-				$pagina->estado			  	= ($especialesForm->estado == 2)?1:$especialesForm->estado;
-
-				$pagina->save();
-
-				$pgB = PgBloques::model()->findByAttributes( array('pagina_id' => $pagina->id) );
-				if(!$pgB) $pgB = PgGenericaSt::model()->findByAttributes( array('pagina_id' => $pagina->id) );
-				$pgB->estado 		= $especialesForm->estado;
-				if( $pgB->save() )
-				{
-					Yii::app()->user->setFlash('success', 'Especial ' . $especialesForm->nombre . ' guardado con éxito');
-					$this->redirect(array('view','id' => $especialesForm->id));
-				}else
-				{
-					Yii::app()->user->setFlash('warning', 'Especial ' . $especialesForm->nombre . ' no se pudo guardar');
-				}
-
-			}//if($novedadesForm->validate())
-
-		} //if(isset($_POST['NovedadesForm']))
+		} //if(isset($_POST['EspecialesForm']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$especialesForm->nombre = $micrositio->nombre;
-		$especialesForm->imagen = $micrositio->background;
-		$especialesForm->imagen_mobile = $micrositio->background_mobile;
-		$especialesForm->miniatura = $micrositio->miniatura;
-		$especialesForm->meta_descripcion = $pagina->meta_descripcion;
-		$especialesForm->estado = $micrositio->estado;
-		$especialesForm->destacado = $micrositio->destacado;
+		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
+		$pagina = Pagina::model()->with('url')->findByAttributes(array('micrositio_id' => $micrositio->id));
+
+		$especialesForm->set_fields($micrositio, $pagina);
 
 		$this->render('modificar',array(
 			'model'=>$especialesForm,

@@ -7,6 +7,16 @@ class DocumentalesController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/administrador';
+	private $image_folder;
+
+	protected function beforeAction($action) 
+	{
+		$this->image_folder = DocumentalesForm::getImageRoute();
+		
+		Yii::app()->session->remove('dir');
+		if( !isset(Yii::app()->session['dir']) ) Yii::app()->session['dir'] = $this->image_folder;
+		return parent::beforeAction($action);
+	}
 
 	/**
 	 * @return array action filters
@@ -43,17 +53,17 @@ class DocumentalesController extends Controller
 		return array(
 			'imagen'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/documentales/',
+                'directorio' => 'images/backgrounds/documentales/' . date('Y') . '/',
                 'param_name' => 'archivoImagen'
             ),
             'imagen_mobile'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/documentales/',
+                'directorio' => 'images/backgrounds/documentales/' . date('Y') . '/',
                 'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/documentales/thumbnail/',
+                'directorio' => 'images/backgrounds/documentales/' . date('Y') . '/thumbnail/',
                 'param_name' => 'archivoMiniatura',
                 'image_versions' => 
 					array(
@@ -77,8 +87,6 @@ class DocumentalesController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->session->remove('dird');
-		
 		$model = new Micrositio('search');
 		$model->seccion_id = 4;
 		
@@ -189,65 +197,18 @@ class DocumentalesController extends Controller
 	 */
 	public function actionCrear()
 	{
-		if( !isset(Yii::app()->session['dird']) ) Yii::app()->session['dird'] = 'backgrounds/documentales/';
-
 		$documentalesForm = new DocumentalesForm;		
 
 		if(isset($_POST['DocumentalesForm'])){
 			$documentalesForm->attributes = $_POST['DocumentalesForm'];
-			if( isset(Yii::app()->session['dird']) ){
-				$dird = Yii::app()->session['dird'];
-			}
-			if($documentalesForm->validate()){
-				
-				$micrositio 				= new Micrositio;
-				$transaccion 				= $micrositio->dbConnection->beginTransaction();
-				$micrositio->seccion_id 	= 4; //Documentales
-				$micrositio->usuario_id 	= 1;
-				$micrositio->nombre			= $documentalesForm->nombre;
-				$micrositio->background 	= $dird . $documentalesForm->imagen;
-				$micrositio->background_mobile 	= $dird . $documentalesForm->imagen_mobile;
-				$micrositio->miniatura 		= $dird . $documentalesForm->miniatura;
-				$micrositio->destacado		= $documentalesForm->destacado;
-				
-				$micrositio->estado			= $documentalesForm->estado;
-				if( !$micrositio->save(false) ) $transaccion->rollback();
-				$micrositio_id = $micrositio->getPrimaryKey();
+		
+			if($documentalesForm->guardar())
+			{
+				Yii::app()->user->setFlash('success', 'Documental ' . $documentalesForm->nombre . ' guardado con éxito');
+				$this->redirect( array('view', 'id' => $documentalesForm->id) );
+			}//if($novedadesForm->guardar())
 
-				$pagina = new Pagina;
-				$pagina->micrositio_id 		= $micrositio_id;
-				$pagina->tipo_pagina_id 	= 4; //Página documental
-				$pagina->nombre				= $documentalesForm->nombre;
-				$pagina->meta_descripcion 	= $documentalesForm->meta_descripcion;
-				$pagina->clase 				= NULL;
-				$pagina->destacado			= $documentalesForm->destacado;
-				$pagina->estado			  	= ($documentalesForm->estado == 2)?1:$documentalesForm->estado;
-				if( !$pagina->save(false) ) $transaccion->rollback();
-				$pagina_id = $pagina->getPrimaryKey();
-
-				if( !$micrositio->asignar_pagina($pagina) )
-					$transaccion->rollback();
-
-				$pgD = new PgDocumental;
-				$pgD->pagina_id 	= $pagina_id;
-				$pgD->titulo 		= $documentalesForm->nombre;
-				$pgD->duracion 		= $documentalesForm->duracion;
-				$pgD->anio 			= $documentalesForm->anio;
-				$pgD->sinopsis 		= $documentalesForm->sinopsis;
-				$pgD->estado 		= $documentalesForm->estado;
-				
-				if( !$pgD->save(false) )
-					$transaccion->rollback();
-				else
-				{
-					$transaccion->commit();
-					Yii::app()->user->setFlash('success', 'Documental ' . $documentalesForm->nombre . ' guardado con éxito');
-					$this->redirect('index');
-				}
-
-			}//if($novedadesForm->validate())
-
-		} //if(isset($_POST['NovedadesForm']))
+		} //if(isset($_POST['DocumentalesForm']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -266,83 +227,30 @@ class DocumentalesController extends Controller
 	public function actionUpdate($id)
 	{
 
-		if( !isset(Yii::app()->session['dird']) ) Yii::app()->session['dird'] = 'backgrounds/documentales/';
-
-		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
-		$pagina = Pagina::model()->with('url', 'pgDocumentals')->findByAttributes(array('micrositio_id' => $micrositio->id));
-		$pgD = PgDocumental::model()->with('fichaTecnicas')->findByAttributes(array('pagina_id' => $pagina->id));
-
 		$documentalesForm = new DocumentalesForm;		
 		$documentalesForm->id = $id;
 
 		if(isset($_POST['DocumentalesForm'])){
 			$documentalesForm->attributes = $_POST['DocumentalesForm'];
-			if( isset(Yii::app()->session['dird']) ){
-				$dird = Yii::app()->session['dird'];
-			}
-			if($documentalesForm->validate()){
-				$micrositio = Micrositio::model()->findByPk($id);
-				$micrositio->nombre			= $documentalesForm->nombre;
-				if($documentalesForm->imagen != $micrositio->background)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
-					$micrositio->background 	= $dird . $documentalesForm->imagen;
-				}
-				if($documentalesForm->imagen_mobile != $micrositio->background_mobile)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background_mobile);
-					$micrositio->background_mobile 	= $dird . $documentalesForm->imagen_mobile;
-				}
-				if($documentalesForm->miniatura != $micrositio->miniatura)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
-					$micrositio->miniatura 	= $dird . $documentalesForm->miniatura;
-				}
-
-				$micrositio->destacado		= $documentalesForm->destacado;
-				
-				$micrositio->estado			= $documentalesForm->estado;
-				$micrositio->save();
-
-				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
-				$pagina->nombre				= $documentalesForm->nombre;
-				$pagina->meta_descripcion 	= $documentalesForm->meta_descripcion;
-				$pagina->destacado			= $documentalesForm->destacado;
-				$pagina->estado			  	= ($documentalesForm->estado == 2)?1:$documentalesForm->estado;
-				$pagina->save();
-
-				$pgD = PgDocumental::model()->findByAttributes( array('pagina_id' => $pagina->id) );
-				$pgD->titulo 		= $documentalesForm->nombre;
-				$pgD->duracion 		= $documentalesForm->duracion;
-				$pgD->anio 			= $documentalesForm->anio;
-				$pgD->sinopsis 		= $documentalesForm->sinopsis;
-				$pgD->estado 		= $documentalesForm->estado;
-				if( $pgD->save() )
-				{
-					Yii::app()->user->setFlash('success', 'Documental ' . $documentalesForm->nombre . ' guardado con éxito');
-					$this->redirect(array('view','id' => $documentalesForm->id));
-				}else
-				{
-					Yii::app()->user->setFlash('warning', 'Documental ' . $documentalesForm->nombre . ' no se pudo guardar');
-				}
-
+			
+			if($documentalesForm->guardar()){
+				Yii::app()->user->setFlash('success', 'Documental ' . $documentalesForm->nombre . ' guardado con éxito');
+				$this->redirect(array('view','id' => $documentalesForm->id));
+			}else
+			{
+				Yii::app()->user->setFlash('warning', 'Documental ' . $documentalesForm->nombre . ' no se pudo guardar');
 			}//if($novedadesForm->validate())
 
-		} //if(isset($_POST['NovedadesForm']))
+		} //if(isset($_POST['DocumentalesForm']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$documentalesForm->nombre = $micrositio->nombre;
-		$documentalesForm->sinopsis = $pagina->pgDocumentals->sinopsis;
-		$documentalesForm->duracion = $pagina->pgDocumentals->duracion;
-		$documentalesForm->anio = $pagina->pgDocumentals->anio;
-		$documentalesForm->imagen = $micrositio->background;
-		$documentalesForm->imagen_mobile = $micrositio->background_mobile;
-		$documentalesForm->miniatura = $micrositio->miniatura;
-		$documentalesForm->meta_descripcion = $pagina->meta_descripcion;
-		$documentalesForm->estado = $pagina->pgDocumentals->estado;
-		$documentalesForm->destacado = $micrositio->destacado;
+		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
+		$pagina = Pagina::model()->with('url', 'pgDocumentals')->findByAttributes(array('micrositio_id' => $micrositio->id));
+		//$pgD = PgDocumental::model()->with('fichaTecnicas')->findByAttributes(array('pagina_id' => $pagina->id));
+
+		$documentalesForm->set_fields($micrositio, $pagina);
 
 		$this->render('modificar',array(
 			'model'=>$documentalesForm,

@@ -7,6 +7,16 @@ class TelemedellinController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/administrador';
+	private $image_folder;
+
+	protected function beforeAction($action) 
+	{
+		$this->image_folder = TelemedellinForm::getImageRoute();
+		
+		Yii::app()->session->remove('dir');
+		if( !isset(Yii::app()->session['dir']) ) Yii::app()->session['dir'] = $this->image_folder;
+		return parent::beforeAction($action);
+	}
 
 	/**
 	 * @return array action filters
@@ -43,17 +53,17 @@ class TelemedellinController extends Controller
 		return array(
 			'imagen'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/telemedellin/',
+                'directorio' => 'images/backgrounds/telemedellin/' . date('Y') . '/',
                 'param_name' => 'archivoImagen'
             ),
             'imagen_mobile'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/telemedellin/',
+                'directorio' => 'images/backgrounds/telemedellin/' . date('Y') . '/',
                 'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/backgrounds/telemedellin/thumbnail/',
+                'directorio' => 'images/backgrounds/telemedellin/'  . date('Y') . '/thumbnail/',
                 'param_name' => 'archivoMiniatura',
                 'image_versions' => 
 					array(
@@ -77,8 +87,6 @@ class TelemedellinController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->session->remove('dirt');
-		
 		$dataProvider = new Micrositio('search');
 		$dataProvider->seccion_id = 1;
 		
@@ -159,66 +167,27 @@ class TelemedellinController extends Controller
 	 */
 	public function actionCrear()
 	{
-		if( !isset(Yii::app()->session['dirt']) ) Yii::app()->session['dirt'] = 'backgrounds/telemedellin/';
 
-		$programasForm = new ProgramasForm;		
+		$telemedellinForm = new TelemedellinForm;		
 
-		if(isset($_POST['ProgramasForm'])){
-			$programasForm->attributes = $_POST['ProgramasForm'];
-			if( isset(Yii::app()->session['dirt']) ){
-				$dirt = Yii::app()->session['dirt'];
-			}
-			if($programasForm->validate()){
-				$micrositio 				= new Micrositio;
-				$transaccion 				= $micrositio->dbConnection->beginTransaction();
-				$micrositio->seccion_id 	= 1; //Telemedellín
-				$micrositio->usuario_id 	= 1;
-				$micrositio->nombre			= $programasForm->nombre;
-				$micrositio->background 	= ($programasForm->imagen != '')?$dirt . $programasForm->imagen:NULL;
-				$micrositio->background_mobile 	= ($programasForm->imagen_mobile != '')?$dirt . $programasForm->imagen_mobile:NULL;
-				$micrositio->miniatura 		= ($programasForm->miniatura != '')?$dirt . $programasForm->miniatura:NULL;
-				$micrositio->destacado		= $programasForm->destacado;
-				$micrositio->estado			= $programasForm->estado;
-				if( !$micrositio->save(false) ) $transaccion->rollback();
-				$micrositio_id = $micrositio->getPrimaryKey();
+		if(isset($_POST['TelemedellinForm'])){
+			$telemedellinForm->attributes = $_POST['TelemedellinForm'];
+			
+			if($telemedellinForm->guardar())
+			{
+				Yii::app()->user->setFlash('success', 'Micrositio ' . $telemedellinForm->nombre . ' guardado con éxito');
+				$this->redirect(array('view','id' => $telemedellinForm->id));
+			
+			}//if($telemedellinForm->guardar())
 
-				$pagina = new Pagina;
-				$pagina->micrositio_id 	= $micrositio_id;
-				$pagina->tipo_pagina_id = 2; //Página programa
-				$pagina->nombre			= $programasForm->nombre;
-				$pagina->clase 			= NULL;
-				$pagina->destacado		= $programasForm->destacado;
-				$pagina->estado				= ($programasForm->estado == 2)?1:$programasForm->estado;
-				if( !$pagina->save(false) ) $transaccion->rollback();
-				$pagina_id = $pagina->getPrimaryKey();
-
-				if( !$micrositio->asignar_pagina($pagina) )
-					$transaccion->rollback();
-
-				$pgGst = new PgGenericaSt;
-				$pgGst->pagina_id 	= $pagina_id;
-				$pgGst->texto 		= $programasForm->resena;
-				$pgGst->estado 		= $programasForm->estado;
-				
-				if( !$pgGst->save(false) )
-					$transaccion->rollback();
-				else
-				{
-					$transaccion->commit();
-					Yii::app()->user->setFlash('success', 'Micrositio ' . $programasForm->nombre . ' guardado con éxito');
-					$this->redirect('index');
-				}
-
-			}//if($novedadesForm->validate())
-
-		} //if(isset($_POST['NovedadesForm']))
+		} //if(isset($_POST['TelemedellinForm']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		
 		$this->render('crear',array(
-			'model'=>$programasForm,
+			'model'=>$telemedellinForm,
 		));
 	}
 
@@ -230,79 +199,35 @@ class TelemedellinController extends Controller
 	public function actionUpdate($id)
 	{
 
-		if( !isset(Yii::app()->session['dirt']) ) Yii::app()->session['dirt'] = 'backgrounds/telemedellin/';
+		$telemedellinForm = new TelemedellinForm;		
+		$telemedellinForm->id = $id;
 
-		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
-		$pagina = Pagina::model()->with('url', 'pgGenericaSts')->findByAttributes(array('micrositio_id' => $micrositio->id));
-		$pgGst = PgGenericaSt::model()->findByAttributes(array('pagina_id' => $pagina->id));
+		if(isset($_POST['TelemedellinForm'])){
+			$telemedellinForm->attributes = $_POST['TelemedellinForm'];
+			
+			if($telemedellinForm->guardar())
+			{
+				Yii::app()->user->setFlash('success', 'Micrositio ' . $telemedellinForm->nombre . ' guardado con éxito');
+				$this->redirect(array('view','id' => $telemedellinForm->id));
+			}else
+			{
+				Yii::app()->user->setFlash('warning', 'Micrositio ' . $telemedellinForm->nombre . ' no se pudo guardar');
+			
+			}//if($telemedellinForm->guardar())
 
-		$programasForm = new ProgramasForm;		
-		$programasForm->id = $id;
-
-		if(isset($_POST['ProgramasForm'])){
-			$programasForm->attributes = $_POST['ProgramasForm'];
-			if( isset(Yii::app()->session['dirt']) ){
-				$dirt = Yii::app()->session['dirt'];
-			}
-			if($programasForm->validate()){
-				$micrositio = Micrositio::model()->findByPk($id);
-				$micrositio->nombre			= $programasForm->nombre;
-				if($programasForm->imagen != $micrositio->background)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
-					$micrositio->background 	= $dirt . $programasForm->imagen;
-				}
-				if($programasForm->imagen_mobile != $micrositio->background_mobile)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background_mobile);
-					$micrositio->background_mobile 	= $dirt . $programasForm->imagen_mobile;
-				}
-				if($programasForm->miniatura != $micrositio->miniatura)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
-					$micrositio->miniatura 	= $dirt . $programasForm->miniatura;
-				}
-
-				$micrositio->destacado		= $programasForm->destacado;
-				
-				$micrositio->estado			= $programasForm->estado;
-				$micrositio->save();
-
-				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
-				$pagina->nombre			= $programasForm->nombre;
-				$pagina->destacado		= $programasForm->destacado;
-				$pagina->estado				= ($programasForm->estado == 2)?1:$programasForm->estado;
-				$pagina->save();
-
-				$pgGst = PgGenericaSt::model()->findByAttributes( array('pagina_id' => $pagina->id) );
-				$pgGst->texto 		= $programasForm->resena;
-				$pgGst->estado 		= $programasForm->estado;
-				if( $pgGst->save() )
-				{
-					Yii::app()->user->setFlash('success', 'Micrositio ' . $programasForm->nombre . ' guardado con éxito');
-					$this->redirect(array('view','id' => $programasForm->id));
-				}else
-				{
-					Yii::app()->user->setFlash('warning', 'Micrositio ' . $programasForm->nombre . ' no se pudo guardar');
-				}
-
-			}//if($novedadesForm->validate())
-
-		} //if(isset($_POST['NovedadesForm']))
+		} //if(isset($_POST['TelemedellinForm']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		$programasForm->nombre = $micrositio->nombre;
-		$programasForm->resena = $pagina->pgGenericaSts->texto;
-		$programasForm->imagen = $micrositio->background;
-		$programasForm->imagen_mobile = $micrositio->background_mobile;
-		$programasForm->miniatura = $micrositio->miniatura;
-		$programasForm->estado = $micrositio->estado;
-		$programasForm->destacado = $micrositio->destacado;
+		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
+		$pagina = Pagina::model()->with('url', 'pgGenericaSts')->findByAttributes(array('micrositio_id' => $micrositio->id));
+		//$pgGst = PgGenericaSt::model()->findByAttributes(array('pagina_id' => $pagina->id));
+
+		$telemedellinForm->set_fields($micrositio, $pagina);
 
 		$this->render('modificar',array(
-			'model'=>$programasForm,
+			'model'=>$telemedellinForm,
 		));
 	}
 

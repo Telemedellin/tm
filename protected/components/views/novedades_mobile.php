@@ -27,7 +27,7 @@ if($this->beginCache(
         else
           $enlace = array('tipo' => 'externo', 'enlace' => $ee);
       }
-      $background = ($novedad->pgArticuloBlogs->background_mobile != '')?$novedad->pgArticuloBlogs->background_mobile:$novedad->pgArticuloBlogs->background;
+      $background = ($novedad->background_mobile != '')?$novedad->background_mobile:$novedad->background;
       $background = bu('/images/' . $background);
       $this->controller->pageImg = $background;
     ?>

@@ -6,6 +6,16 @@ class ConcursosController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/administrador';
+	private $image_folder;
+
+	protected function beforeAction($action) 
+	{
+		$this->image_folder = ConcursosForm::getImageRoute();
+		
+		Yii::app()->session->remove('dir');
+		if( !isset(Yii::app()->session['dir']) ) Yii::app()->session['dir'] = $this->image_folder;
+		return parent::beforeAction($action);
+	}
 
 	/**
 	 * @return array action filters
@@ -42,17 +52,17 @@ class ConcursosController extends Controller
 		return array(
 			'imagen'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/concursos/' . date('Y') . '/' . date('m') . '/',
+                'directorio' => 'images/backgrounds/concursos/' . date('Y') . '/' . date('m') . '/',
                 'param_name' => 'archivoImagen'
             ),
             'imagen_mobile'=>array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/concursos/' . date('Y') . '/' . date('m') . '/',
+                'directorio' => 'images/backgrounds/concursos/' . date('Y') . '/' . date('m') . '/',
                 'param_name' => 'archivoImagenMobile'
             ),
             'miniatura'=> array(
                 'class'=>'application.components.actions.SubirArchivo',
-                'directorio' => 'images/concursos/' . date('Y') . '/' . date('m') . '/thumbnail/',
+                'directorio' => 'images/backgrounds/concursos/' . date('Y') . '/' . date('m') . '/thumbnail/',
                 'param_name' => 'archivoMiniatura',
                 'image_versions' => 
 					array(
@@ -76,9 +86,6 @@ class ConcursosController extends Controller
 	 */
 	public function actionIndex()
 	{
-		Yii::app()->session->remove('dir');
-		Yii::app()->session->remove('dirc');
-		
 		$model = new Micrositio('search');
 		$model->seccion_id = 8;
 		
@@ -180,61 +187,17 @@ class ConcursosController extends Controller
 	 */
 	public function actionCrear()
 	{
-		if( !isset(Yii::app()->session['dirc']) ) Yii::app()->session['dirc'] = 'concursos/' . date('Y') . '/' . date('m') . '/';
-
 		$concursosForm = new ConcursosForm;
 
 		if(isset($_POST['ConcursosForm'])){
 			$concursosForm->attributes = $_POST['ConcursosForm'];
-			if( isset(Yii::app()->session['dirc']) ){
-				$dirc = Yii::app()->session['dirc'];
-			}
-			if($concursosForm->validate()){
-				$micrositio 				= new Micrositio;
-				$transaccion 				= $micrositio->dbConnection->beginTransaction();
-				$micrositio->seccion_id 	= 8; //Concursos
-				$micrositio->usuario_id 	= 1;
-				$micrositio->nombre			= $concursosForm->nombre;
-				$micrositio->background 	= ($concursosForm->imagen != '')?$dirc . $concursosForm->imagen:NULL;
-				$micrositio->background_mobile 	= ($concursosForm->imagen_mobile != '')?$dirc . $concursosForm->imagen_mobile:NULL;
-				$micrositio->miniatura 		= ($concursosForm->miniatura)?$dirc . $concursosForm->miniatura:NULL;
-				$micrositio->destacado		= $concursosForm->destacado;
-				$micrositio->estado			= $concursosForm->estado;
-				if( !$micrositio->save(false) ) $transaccion->rollback();
-				$micrositio_id = $micrositio->getPrimaryKey();
+			if($concursosForm->guardar())
+			{
+				Yii::app()->user->setFlash('success', 'Concurso ' . $concursosForm->nombre . ' guardado con éxito');
+				$this->redirect('index');
+			}//if($concursosForm->guardar())
 
-				$pagina = new Pagina;
-				$pagina->micrositio_id 	  = $micrositio_id;
-				$pagina->tipo_pagina_id   = 2; //Generica
-				$pagina->nombre			  = $concursosForm->nombre;
-				$pagina->meta_descripcion = $concursosForm->meta_descripcion;
-				$pagina->clase 			  = NULL;
-				$pagina->destacado		  = $concursosForm->destacado;
-				$pagina->estado			  = ($concursosForm->estado == 2)?1:$concursosForm->estado;
-				if( !$pagina->save(false) ) $transaccion->rollback();
-				$pagina_id = $pagina->getPrimaryKey();
-
-				if( !$micrositio->asignar_pagina($pagina) )
-					$transaccion->rollback();
-
-				$pgGst = new PgGenericaSt;
-				$pgGst->pagina_id 	= $pagina_id;
-				$pgGst->texto 		= $concursosForm->texto;
-				$pgGst->estado 		= 1;
-				
-				if( !$pgGst->save(false) )
-					$transaccion->rollback();
-				else
-				{
-					$transaccion->commit();
-					Yii::app()->user->setFlash('success', 'Concurso ' . $concursosForm->nombre . ' guardado con éxito');
-					$this->redirect('index');
-				}
-				
-
-			}//if($novedadesForm->validate())
-
-		} //if(isset($_POST['NovedadesForm']))
+		} //if(isset($_POST['ConcursosForm']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -252,77 +215,29 @@ class ConcursosController extends Controller
 	public function actionUpdate($id)
 	{
 
-		if( !isset(Yii::app()->session['dirc']) ) Yii::app()->session['dirc'] = 'concursos/' . date('Y') . '/' . date('m') . '/';
-
-		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
-		$pagina = Pagina::model()->with('url', 'pgGenericaSts')->findByAttributes(array('micrositio_id' => $micrositio->id));
-		
 		$concursosForm = new ConcursosForm;
 		$concursosForm->id = $id;
 		
 		if(isset($_POST['ConcursosForm'])){
 			$concursosForm->attributes = $_POST['ConcursosForm'];
-			if( isset(Yii::app()->session['dirc']) ){
-				$dirc = Yii::app()->session['dirc'];
-			}
-			if($concursosForm->validate()){
-				$micrositio 		= Micrositio::model()->findByPk($id);
-				$micrositio->nombre	= $concursosForm->nombre;
-				if($concursosForm->imagen != $micrositio->background)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background);
-					$micrositio->background 	= $dirc . $concursosForm->imagen;
-				}
-				if($concursosForm->imagen_mobile != $micrositio->background_mobile)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->background_mobile);
-					$micrositio->background_mobile 	= $dirc . $concursosForm->imagen_mobile;
-				}
-				if($concursosForm->miniatura != $micrositio->miniatura)
-				{
-					@unlink( Yii::getPathOfAlias('webroot').'/images/' . $micrositio->miniatura);
-					$micrositio->miniatura 	= $dirc . $concursosForm->miniatura;
-				}
+			if($concursosForm->guardar())
+			{
+				Yii::app()->user->setFlash('success', 'Concurso ' . $concursosForm->nombre . ' guardado con éxito');
+				$this->redirect(array('view','id' => $concursosForm->id));
+			}else
+			{
+				Yii::app()->user->setFlash('warning', 'Concurso ' . $concursosForm->nombre . ' no se pudo guardar');
+			}//if($concursosForm->guardar())
 
-				$micrositio->destacado 	= $concursosForm->destacado;
-				$micrositio->estado		= $concursosForm->estado;
-				$micrositio->save();
-
-				$pagina = Pagina::model()->findByAttributes(array('micrositio_id' => $micrositio->id));
-				$pagina->nombre			  = $concursosForm->nombre;
-				$pagina->meta_descripcion = $concursosForm->meta_descripcion;
-				$pagina->destacado		  = $concursosForm->destacado;
-				$pagina->estado			  = ($concursosForm->estado == 2)?1:$concursosForm->estado;
-				$pagina->save();
-
-				$pgGst = PgGenericaSt::model()->findByAttributes( array('pagina_id' => $pagina->id) );
-				$pgGst->texto 		= $concursosForm->texto;
-				
-				if( $pgGst->save() )
-				{
-					Yii::app()->user->setFlash('success', 'Concurso ' . $concursosForm->nombre . ' guardado con éxito');
-					$this->redirect(array('view','id' => $concursosForm->id));
-				}else
-				{
-					Yii::app()->user->setFlash('warning', 'Concurso ' . $concursosForm->nombre . ' no se pudo guardar');
-				}
-				
-
-			}//if($novedadesForm->validate())
-
-		} //if(isset($_POST['NovedadesForm']))
+		} //if(isset($_POST['ConcursosForm']))
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		$concursosForm->nombre = $micrositio->nombre;
-		$concursosForm->texto = $pagina->pgGenericaSts->texto;
-		$concursosForm->meta_descripcion = $pagina->meta_descripcion;
-		$concursosForm->imagen = $micrositio->background;
-		$concursosForm->imagen_mobile = $micrositio->background_mobile;
-		$concursosForm->miniatura = $micrositio->miniatura;
-		$concursosForm->estado = $micrositio->estado;
-		$concursosForm->destacado = $micrositio->destacado;
+		$micrositio = Micrositio::model()->with('url', 'pagina')->findByPk($id);
+		$pagina = Pagina::model()->with('url', 'pgGenericaSts')->findByAttributes(array('micrositio_id' => $micrositio->id));
 
+		$concursosForm->set_fields($micrositio, $pagina);
+		
 		$this->render('modificar',array(
 			'model'=>$concursosForm,
 		));
