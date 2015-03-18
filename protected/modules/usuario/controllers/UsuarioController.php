@@ -44,12 +44,22 @@ class UsuarioController extends Controller
 
     public function actionIngresar()
 	{
-		
-        if( !Yii::app()->user->isGuest ) $this->redirect( array('/usuario/perfil') );
+        
+        if( Yii::app()->user->hasFlash('backto') )
+        {
+            $backto = Yii::app()->user->getFlash('backto'); 
+            Yii::app()->user->setFlash('backto', null);
+            Yii::app()->user->setFlash('backto', $backto);
+        }
+        else
+            $backto = 'usuario/perfil';
+
+        if( !Yii::app()->user->isGuest ) $this->redirect( bu($backto) );
         $model = Yii::app()->user->um->getNewCrugeLogon('login');
         $model->authMode = CrugeFactory::get()->getConfiguredAuthMethodName();
 
         Yii::app()->user->setFlash('loginflash', null);
+        
 
         Yii::log(__CLASS__ . "\nactionLogin\n", "info");
 
@@ -62,7 +72,7 @@ class UsuarioController extends Controller
                     // establecida automaticamente por CAccessControlFilter cuando
                     // preFilter llama a accessDenied quien a su vez llama a
                     // CWebUser::loginRequired que es donde finalmente se llama a setReturnUrl
-                    $this->redirect(bu('usuario/perfil'));
+                    $this->redirect( bu($backto) );
                 } else {
                     Yii::app()->user->setFlash('loginflash', Yii::app()->user->getLastError());
                 }

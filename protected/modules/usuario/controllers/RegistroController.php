@@ -69,7 +69,7 @@ class RegistroController extends Controller
 
 	                if( $usuario_full )
 	                {
-	                    $this->getModule()->crugemailer->verificar_registro($usuario_cruge);
+	                    $this->getModule()->crugemailer->verificar_registro($usuario_cruge, $registroForm->nombres);
 	                    $this->redirect( array('/usuario/registro/verificacion') );#registration-form
 	                }else
 	                {

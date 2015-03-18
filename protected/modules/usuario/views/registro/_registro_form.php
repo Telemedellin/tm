@@ -15,7 +15,6 @@ foreach($c as $ciudad)
 cs()->registerScript( 
 	'correo', 
 	'
-	$(":input[title]").tooltip();
 	$(".alert").alert();
 	var regiones 		= '.json_encode($regiones).',
 		ciudades 		= '.json_encode($ciudades).', 
@@ -73,7 +72,7 @@ $form = $this->beginWidget('CActiveForm', array(
     	'class' => 'form-horizontal',
     ),
 )); ?>
-<p>Todos los campos marcados con este símbolo, son obligatorios: <img src="/images/static/iconos/form-required.png" alt="Símbolo obligatorio" /></p>
+<p>Todos los campos marcados con este símbolo, son obligatorios: <img src="<?php echo bu('images/static/iconos/form-required.png');?>" alt="Símbolo obligatorio" /></p>
 <fieldset>
 	<legend>Información para inicio de sesión</legend>
 	<div class="control-group">
