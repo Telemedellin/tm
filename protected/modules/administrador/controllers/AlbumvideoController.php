@@ -112,7 +112,7 @@ class AlbumvideoController extends Controller
 			
 			if($album_video->save()){
 				Yii::app()->user->setFlash('success', $album_video->nombre . ' guardado con éxito');
-				$this->redirect( array('view', 'id' => $album_video->getPrimayKey()));
+				$this->redirect( array('view', 'id' => $album_video->id));
 			}//if($album_video->save())
 
 		} //if(isset($_POST['AlbumVideo']))
