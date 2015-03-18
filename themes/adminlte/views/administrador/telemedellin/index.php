@@ -1,7 +1,7 @@
 <?php
 $this->pageTitle = 'Telemedellín ' . Yii::app()->name; 
 $bc = array();
-$bc[] = 'Telemedellín';
+$bc[] = 'Telemedellin';
 $this->breadcrumbs = $bc;
 $this->renderPartial('//layouts/commons/_flashes');
 ?>

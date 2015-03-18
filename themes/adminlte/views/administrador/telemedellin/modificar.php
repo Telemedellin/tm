@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'Modificar micrositio "' . $model->nombre. '"'; 
 $bc = array();
-$bc['Telemedellín'] = $this->createUrl('index');
+$bc['Telemedellin'] = $this->createUrl('index');
 $bc['Micrositio'] = $this->createUrl('view', array('id' => $model->id));
 $bc[] = 'Editar';
 $this->breadcrumbs = $bc;

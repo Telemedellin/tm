@@ -20,10 +20,10 @@
 					<?php echo $form->error($model,'nombre'); ?>
 				</div>
 				<div class="form-group">
-					<?php echo $form->label($model,'resena'); ?>
+					<?php echo $form->label($model,'texto'); ?>
 			        <?php $this->widget('ext.editMe.widgets.ExtEditMe', array(
 			            'model'=>$model,
-			            'attribute'=>'resena',
+			            'attribute'=>'texto',
 			            'toolbar' => array(
 			                            array(
 			                                'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat',
@@ -51,7 +51,7 @@
 			                        ),
 			            //'optionName'=>'optionValue',
 			        ));?>
-					<?php echo $form->error($model,'resena'); ?>
+					<?php echo $form->error($model,'texto'); ?>
 				</div>
 			</div>
         </div>

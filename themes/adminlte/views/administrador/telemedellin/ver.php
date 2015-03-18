@@ -1,7 +1,7 @@
 <?php 
 $this->pageTitle = 'telemedellín "' . $model->nombre . '"'; 
 $bc = array();
-$bc['Telemedellín'] = $this->createUrl('index');
+$bc['Telemedellin'] = $this->createUrl('index');
 $bc[] = 'Micrositio';
 $this->breadcrumbs = $bc;
 cs()->registerScript(

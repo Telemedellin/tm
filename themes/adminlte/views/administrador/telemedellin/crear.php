@@ -1,7 +1,7 @@
 <?php
 $this->pageTitle = 'Crear micrositio'; 
 $bc = array();
-$bc['Telemedellín'] = $this->createUrl('index');
+$bc['Telemedellin'] = $this->createUrl('index');
 $bc[] = 'Crear';
 $this->breadcrumbs = $bc;
 ?>

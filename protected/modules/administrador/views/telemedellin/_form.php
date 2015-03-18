@@ -17,11 +17,11 @@
         <?php echo $form->error($model,'nombre'); ?>
 	</div>
 	<div class="form-group">
-		<?php echo $form->label($model,'resena', array('class' => 'col-sm-2 control-label')); ?>
+		<?php echo $form->label($model,'texto', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-10">
         <?php $this->widget('ext.editMe.widgets.ExtEditMe', array(
             'model'=>$model,
-            'attribute'=>'resena',
+            'attribute'=>'texto',
             'toolbar' => array(
                             array(
                                 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat',
@@ -50,7 +50,7 @@
             //'optionName'=>'optionValue',
         ));?>
         </div>
-		<?php echo $form->error($model,'resena'); ?>
+		<?php echo $form->error($model,'texto'); ?>
 	</div>
     <div class="form-group">
         <?php echo $this->imageField($form, $model, 'imagen', 'archivoImagen', '_telemedellin'); ?>
