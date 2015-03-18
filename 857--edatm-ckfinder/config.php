@@ -84,7 +84,7 @@ Examples:
 ATTENTION: The trailing slash is required.
 */
 //$baseDir = resolveUrl($baseUrl);
-$baseDir = '/home/telemede/public_html/';
+$baseDir = '/home/telemedellin/public_html/';
 //$baseDir = '/home4/med2018/public_html/tm/';
 
 /*

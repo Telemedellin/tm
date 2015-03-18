@@ -58,7 +58,7 @@ class Carpeta extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('url_id, pagina_id, carpeta, ruta, estado', 'required'),
+			array('carpeta, ruta, estado', 'required'),
 			array('hijos, estado', 'numerical', 'integerOnly'=>true),
 			array('url_id, pagina_id, item_id', 'length', 'max'=>10),
 			array('carpeta', 'length', 'max'=>100),
@@ -192,13 +192,14 @@ class Carpeta extends CActiveRecord
 	{
 	    if($this->isNewRecord)
         {
-        	$parent 	 	= Carpeta::model()->findByPk( $this->item_id );
+        	$parent 	 	= Carpeta::model()->with('url')->findByPk( $this->item_id );
+
+        	$this->pagina_id = $parent->pagina_id;
+        	$this->hijos = 0;
 
         	$url 		 	= new Url;
 			$nombre_slug	= $this->slugger($this->carpeta);
-			$slug 		 	= $parent->url->slug . '/' . $nombre_slug;
-			$slug 		 	= $this->verificarSlug($slug);
-			$url->slug 	 	= $slug;
+			$url->slug 	 	= $this->verificarSlug($parent->url->slug . '/' . $nombre_slug);
 			$url->tipo_id 	= 10; //Carpeta
 			$url->estado  	= 1;
 			

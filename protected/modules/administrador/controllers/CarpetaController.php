@@ -110,7 +110,7 @@ class CarpetaController extends Controller
 
 	public function actionCrear()
 	{
-		if( /*!Yii::app()->request->isAjaxRequest ||/**/ !isset($_POST['name']) || !isset($_POST['parent_name']) )
+		if( /*Yii::app()->request->isAjaxRequest ||/**/ !isset($_POST['name']) || !isset($_POST['parent_name']) )
 			 throw new CHttpException(404, 'No se encontró la página solicitada');
 		
 		header('Content-type: application/json; charset=UTF-8');
@@ -118,22 +118,30 @@ class CarpetaController extends Controller
 
 		try
 		{
-			$parent 	 	= Carpeta::model()->find( 't.ruta LIKE "%'.$_POST['parent_name'].'"' );
-			
-			$carpeta 			= new Carpeta();
-			$carpeta->pagina_id = $parent->pagina_id;
+			$pn 		= addcslashes( $_POST['parent_name'], '%_' );
+			$parent 	= Carpeta::model()->find( 'ruta LIKE :pn', array(':pn' => "%$pn%") );
+
+			$carpeta 			= new Carpeta;
 			$carpeta->item_id	= $parent->id;
 			$carpeta->carpeta 	= $_POST['name'];
 			$carpeta->ruta 		= $parent->ruta . '/' . $_POST['name'];
 			$carpeta->estado 	= 1;
-			$carpeta->save();
+			if( $carpeta->save() )
+				$json = array('success' => $carpeta->getPrimaryKey());
+			else
+				$json = array('error' => '1');
 			//$transaccion->commit();
 		}catch(Exception $e)
 		{
 			//$transaccion->rollback();
+			Yii::log(
+				PHP_EOL . '<--->'.
+				PHP_EOL . $e .
+				CLogger::LEVEL_INFO
+			);
 			$json = array('error' => '1');
-			echo json_encode($json);
 		}
+		echo json_encode($json);
 		//if( !$carpeta->save() ) $transaccion->rollback();
 		Yii::app()->end();
 

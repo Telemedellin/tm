@@ -46,8 +46,8 @@
 		CKFinder.addPlugin( 'myplugin', function( api ) {
 			console.log('Plugin start'); 
 			var orginalsendCommandPost  = api.connector.sendCommandPost;
-			var ruta_base = '/tm/administrador/carpeta/';
-		    console.log(orginalsendCommandPost);
+			var ruta_base = '/administrador/carpeta/';
+		    //console.log(orginalsendCommandPost);
 		    api.connector.sendCommandPost = function() {
 		      // call the original function
 		      var result = orginalsendCommandPost.apply(this, arguments);
