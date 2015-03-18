@@ -37,7 +37,7 @@ $this->breadcrumbs = $bc;
 			        array(
 			            'name' => 'proveedorVideo.nombre', 
 			            'type' => 'raw', 
-			           	'label' => 'nombre'
+			           	'label' => 'nombre', 
 			            'value' => l('<i class="fa fa-external-link"></i> ' .$model->proveedorVideo->nombre, $model->url_video, array("target" => "_blank")),
 			        ),
 			        'descripcion:html',
