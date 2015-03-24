@@ -240,7 +240,7 @@ jQuery(function($) {
   if(micro[0]){
     $(":input[title]").tooltip();
     $(":input[title]").hover(function(){
-      $('.tooltip').css('top', parseInt($('.tooltip').css('top')) - 20 + 'px')
+      //$('.tooltip').css('top', parseInt($('.tooltip').css('top')) - 20 + 'px')
     });
     micro.mCustomScrollbar({
       scrollType: "pixels",

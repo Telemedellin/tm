@@ -2,33 +2,27 @@
 class CustomFormInputElement extends CFormInputElement
 {
 	
-	public function renderInput()
+	public function render()
 	{
+	    if($this->type==='hidden')
+	        return $this->renderInput();
+
 	    //Envuelvo el elemento en el div controls como lo indica bootstrap 3
-	    $output = '<div class="controls';
-	    if($this->getRequired()) $output .= ' required'; //Agrego la clase required para aplicar estilos
+	    $pre = '<div class="controls';
+	    if($this->getRequired()) $pre .= ' required'; //Agrego la clase required para aplicar estilos
 	    if($this->getParent()->showErrors && $this->renderError())
-	    	$output .= ' error'; //Agrego la clase error para aplicar estilos
-	    $output .= '">';
-	    if(isset(self::$coreTypes[$this->type]))
-	    {
-	        $method=self::$coreTypes[$this->type];
-	        if(strpos($method,'List')!==false)
-	            $output .= CHtml::$method($this->getParent()->getModel(), $this->name, $this->items, $this->attributes);
-	        else
-	            $output .= CHtml::$method($this->getParent()->getModel(), $this->name, $this->attributes);
-	    }
-	    else
-	    {
-	        $attributes=$this->attributes;
-	        $attributes['model']=$this->getParent()->getModel();
-	        $attributes['attribute']=$this->name;
-	        ob_start();
-	        $this->getParent()->getOwner()->widget($this->type, $attributes);
-	        $output .= ob_get_clean();
-	    }
-	    $output .= '</div>';
-	    return $output;
+	    	$pre .= ' error'; //Agrego la clase error para aplicar estilos
+	    $pre .= '">';
+
+	    $post = '</div>' ;
+
+	    $output=array(
+	        '{label}'=>$this->renderLabel(),
+	        '{input}'=>$pre.$this->renderInput(),
+	        '{hint}'=>$this->renderHint(),
+	        '{error}'=>(!$this->getParent()->showErrors ? '' : $this->renderError()).$post,
+	    );
+	    return strtr($this->layout,$output);
 	}
 
 	public function renderLabel()

@@ -15,7 +15,6 @@ foreach($c as $ciudad)
 cs()->registerScript( 
 	'perfil', 
 	'
-	$(":input[title]").tooltip();
 	$(".alert").alert();
 	var regiones 				 = '.json_encode($regiones).', 
 		ciudades 				 = '.json_encode($ciudades).', 
@@ -159,14 +158,14 @@ $form = $this->beginWidget('CActiveForm', array(
 		<div class="controls <?php echo ($model->isAttributeRequired('correo'))?'required':''?>">
 			<?php echo $form->emailField($model, 'correo', array('readonly' => true)); ?> 
 			<?php echo l('Editar', '#', array('id' => 'editar-correo', 'class' => 'btn btn-primary')) ?>
-			<?php $form->error($model, 'correo'); ?>
+			<?php echo $form->error($model, 'correo'); ?>
 		</div>
 	</div>
 	<div class="control-group" style="display:none;">
 		<?php echo $form->label( $model, 'repetir_correo', array('class' => 'control-label') ); ?>
 		<div class="controls <?php echo ($model->isAttributeRequired('repetir_correo'))?'required':''?>">
 			<?php echo $form->emailField($model, 'repetir_correo', array('disabled' => true)); ?>
-			<?php $form->error($model, 'repetir_correo'); ?>
+			<?php echo $form->error($model, 'repetir_correo'); ?>
 		</div>
 	</div>
 	<div class="row buttons" style="display:none;">
@@ -185,14 +184,14 @@ $form = $this->beginWidget('CActiveForm', array(
 		<?php echo $form->label( $model, 'contrasena', array('class' => 'control-label') ); ?>
 		<div class="controls <?php echo ($model->isAttributeRequired('contrasena'))?'required':''?>">
 			<?php echo $form->passwordField($model, 'contrasena', array('placeholder' => '••••••••', 'readonly' => true)); ?> <?php echo l('Editar', '#', array('id' => 'editar-contrasena', 'class' => 'btn btn-primary')) ?>
-			<?php $form->error($model, 'contrasena'); ?>
+			<?php echo $form->error($model, 'contrasena'); ?>
 		</div>
 	</div>
 	<div class="control-group" style="display:none;">
 		<?php echo $form->label( $model, 'repetir_contrasena', array('class' => 'control-label') ); ?>
 		<div class="controls <?php echo ($model->isAttributeRequired('repetir_contrasena'))?'required':''?>">
 			<?php echo $form->passwordField($model, 'repetir_contrasena', array('placeholder' => '••••••••', 'disabled' => true)); ?>
-			<?php $form->error($model, 'repetir_contrasena'); ?>
+			<?php echo $form->error($model, 'repetir_contrasena'); ?>
 		</div>
 	</div>
 	<div class="row buttons" style="display:none;">
@@ -213,7 +212,7 @@ $form = $this->beginWidget('CActiveForm', array(
 		<?php echo CHtml::label('Nombre completo', 'nombres', array('class' => 'control-label') ); ?>
 		<div class="controls <?php echo ($model->isAttributeRequired('nombres'))?'required':''?>">
 			<?php echo $form->textField($model, 'nombres', array('placeholder' => 'Nombres')); ?> <?php echo $form->textField($model, 'apellidos', array('placeholder' => 'Apellidos') ); ?>
-			<?php $form->error($model, 'nombres'); ?> <?php $form->error($model, 'apellidos'); ?>
+			<?php echo $form->error($model, 'nombres'); ?> <?php echo $form->error($model, 'apellidos'); ?>
 		</div>
 	</div>
 	<div class="control-group">
@@ -233,7 +232,7 @@ $form = $this->beginWidget('CActiveForm', array(
 				); 
 			?>
 		</div>
-		<?php $form->error($model, 'sexo'); ?>
+		<?php echo $form->error($model, 'sexo'); ?>
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'tipo_documento', array('class' => 'control-label') ); ?>
@@ -250,13 +249,13 @@ $form = $this->beginWidget('CActiveForm', array(
 				); 
 			?>
 		</div>
-		<?php $form->error($model, 'tipo_documento'); ?>
+		<?php echo $form->error($model, 'tipo_documento'); ?>
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'documento', array('class' => 'control-label') ); ?>
 		<div class="controls <?php echo ($model->isAttributeRequired('documento'))?'required':''?>">
 			<?php echo $form->textField($model, 'documento', array('title' => $model->getTooltip('documento'))); ?>
-			<?php $form->error($model, 'documento'); ?>
+			<?php echo $form->error($model, 'documento'); ?>
 		</div>
 	</div>
 	<div class="control-group">
@@ -299,7 +298,7 @@ $form = $this->beginWidget('CActiveForm', array(
 					array('prompt'=>'Seleccione el nivel de educación')
 				); 
 			?> 
-			<?php $form->error($model, 'nivel_educacion_id'); ?>
+			<?php echo $form->error($model, 'nivel_educacion_id'); ?>
 		</div>
 	</div>
 	<div class="control-group">
@@ -316,7 +315,7 @@ $form = $this->beginWidget('CActiveForm', array(
 					array('prompt'=>'Seleccione una ocupación')
 				); 
 			?> 
-			<?php $form->error($model, 'ocupacion_id'); ?>
+			<?php echo $form->error($model, 'ocupacion_id'); ?>
 		</div>
 	</div>
 </fieldset>
@@ -326,14 +325,14 @@ $form = $this->beginWidget('CActiveForm', array(
 		<?php echo $form->label( $model, 'telefono_fijo', array('class' => 'control-label') ); ?>
 		<div class="controls <?php echo ($model->isAttributeRequired('telefono_fijo'))?'required':''?>">
 			<?php echo $form->textField($model, 'telefono_fijo'); ?>
-			<?php $form->error($model, 'telefono_fijo'); ?>
+			<?php echo $form->error($model, 'telefono_fijo'); ?>
 		</div>
 	</div>
 	<div class="control-group">
 		<?php echo $form->label( $model, 'celular', array('class' => 'control-label') ); ?>
 		<div class="controls <?php echo ($model->isAttributeRequired('celular'))?'required':''?>">
 			<?php echo $form->textField($model, 'celular'); ?>
-			<?php $form->error($model, 'celular'); ?>
+			<?php echo $form->error($model, 'celular'); ?>
 		</div>
 	</div>
 	<div class="control-group">
@@ -346,7 +345,7 @@ $form = $this->beginWidget('CActiveForm', array(
 					array('prompt'=>'Selecciona un país')
 				); 
 			?> 
-			<?php $form->error($model, 'pais_id'); ?>
+			<?php echo $form->error($model, 'pais_id'); ?>
 		</div>
 	</div>
 	<div class="control-group">
@@ -362,7 +361,7 @@ $form = $this->beginWidget('CActiveForm', array(
 					)
 				); 
 			?> 
-			<?php $form->error($model, 'region_id'); ?>
+			<?php echo $form->error($model, 'region_id'); ?>
 		</div>
 	</div>
 	<div class="control-group">
@@ -378,7 +377,7 @@ $form = $this->beginWidget('CActiveForm', array(
 					)
 				); 
 			?> 
-			<?php $form->error($model, 'ciudad_id'); ?>
+			<?php echo $form->error($model, 'ciudad_id'); ?>
 		</div>
 	</div>
 	<div class="control-group">
@@ -398,7 +397,7 @@ $form = $this->beginWidget('CActiveForm', array(
 					)
 				); 
 			?> 
-			<?php $form->error($model, 'barrio_id'); ?>
+			<?php echo $form->error($model, 'barrio_id'); ?>
 		</div>
 	</div>
 	<div class="control-group">
@@ -411,7 +410,7 @@ $form = $this->beginWidget('CActiveForm', array(
 					array('prompt'=>'Selecciona un cableoperador')
 				); 
 			?> 
-			<?php $form->error($model, 'cableoperador_id'); ?>
+			<?php echo $form->error($model, 'cableoperador_id'); ?>
 		</div>
 	</div>
 </fieldset>

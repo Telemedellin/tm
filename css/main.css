@@ -31,6 +31,17 @@ form label
 	font-size: 1.1em;
 	font-weight: bold;
 }
+form .alert-danger, 
+form .alert-error
+{
+	background: none;
+	border: none;
+	color: red;
+	display: inline-block;
+	margin: 0;
+	padding: 0 0 0 7px;
+	text-shadow: none;
+}
 form .btn
 {
 	-moz-box-sizing: border-box;
@@ -662,10 +673,10 @@ th
 	/*margin-top: -25px;/**/
 }
 .tooltip.top .tooltip-arrow {
-	bottom: -15px;
+	bottom: -5px;
 	margin-left: -15px;
 	border-top-color: #ffb119;
-	border-width: 20px 15px 0;
+	border-width: 10px 7px 0;
 }
 .tooltip-inner {
 	max-width: 300px;
