@@ -8,10 +8,11 @@ class CustomFormInputElement extends CFormInputElement
 	        return $this->renderInput();
 
 	    //Envuelvo el elemento en el div controls como lo indica bootstrap 3
+	    $parent = $this->getParent();
 	    $pre = '<div class="controls';
 	    if($this->getRequired()) $pre .= ' required'; //Agrego la clase required para aplicar estilos
-	    if($this->getParent()->showErrors && $this->renderError())
-	    	$pre .= ' error'; //Agrego la clase error para aplicar estilos
+	    if( $parent->showErrors && !is_null($parent->getModel()->getError($this->name)) )
+	    	$pre .= ' error'; //Agrego la clase error para aplicar estilos/**/
 	    $pre .= '">';
 
 	    $post = '</div>' ;
@@ -20,7 +21,7 @@ class CustomFormInputElement extends CFormInputElement
 	        '{label}'=>$this->renderLabel(),
 	        '{input}'=>$pre.$this->renderInput(),
 	        '{hint}'=>$this->renderHint(),
-	        '{error}'=>(!$this->getParent()->showErrors ? '' : $this->renderError()).$post,
+	        '{error}'=>(!$parent->showErrors ? '' : $this->renderError()).$post,
 	    );
 	    return strtr($this->layout,$output);
 	}

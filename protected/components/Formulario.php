@@ -74,6 +74,8 @@ class Formulario
 				array_push( $elementos, $c['elemento'] );
 		}
 
+		//$elementos['ajax'] = array('type' => 'hidden', 'value' => 'custom');
+
 		$botones = array(
 		    'send'=>array(
 				'type'=>'submit',
@@ -84,6 +86,13 @@ class Formulario
 		$config = array(
 			'class' => 'form-horizontal', 
 			'enctype' => 'multipart/form-data', 
+			'activeForm' => array(
+				'id' => 'custom-form', 
+				'enableAjaxValidation'=>true,
+				'enableClientValidation'=>true,
+    			'errorMessageCssClass' => 'alert alert-error', 
+			),
+			'showErrors' => true, 
 			'elements' => $elementos, 
 			'buttons' => $botones
 		);
@@ -93,10 +102,11 @@ class Formulario
 		//Creo el formulario con la configuración y el modelo
 		$form = new MyForm( $config, $model );
 
+		$this->performAjaxValidation($model);
+
 		if( isset($_POST['CustomForm']) )
 		{
-			//print_r($_POST['CustomForm']);
-			//Verificar si vienen campos de usuario para actualizar
+			//Verificar si vienen campos de usuario para actualizar (Pendiente)
 			$model->attributes = $_POST['CustomForm'];
 			if( $model->validate() )
 			{
@@ -139,7 +149,6 @@ class Formulario
 					//print_r($ef->getErrors());exit();
 				}
 
-				//Verificar datos de usuario para actualizar
 			}
 			
 		}
@@ -205,10 +214,14 @@ class Formulario
 				$element['labelOptions'] = array('style' => 'display: inline;');
 				$element['separator'] = '';
 				/*
-				Pilas, ojo con la opción de columnas de los check y radio
+				Pilas, pendiente la opción de columnas de los check y radio
 				if( in_array( 'columnas', $parametros ) && array_key_exists( 'columnas', $datos ) )
 					
 				/**/
+			}
+			if( $config->tipo == 'dropdownlist' )
+			{
+				$element['prompt'] = 'Seleccione una opción';
 			}
 
 		}
@@ -423,6 +436,15 @@ class Formulario
 		Yii::app()->user->setFlash('backto', Yii::app()->request->url );
 		//$html .= '</div>';
 		return $html;
+	}
+
+	protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax'])/* && $_POST['ajax']==='custom'/**/)
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
 	}
 
 }
