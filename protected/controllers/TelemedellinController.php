@@ -5,7 +5,7 @@ class TelemedellinController extends Controller
 	{
 		$ya = date('Y-m-d H:i:s');
 		if( $ya >= '2014-11-13 08:00:00' && $ya <= '2014-11-13 20:00:00')
-			$this->redirect( bu('especiales/100-dias-de-vida-en-medellin', false, 307) );
+			$this->redirect( bu('especiales/100-dias-de-vida-en-medellin'), false, 307 );
 		/**/
 		$this->render('index');
 	}
@@ -261,7 +261,7 @@ class TelemedellinController extends Controller
 	public function actionCargarMicrositio( $url_id = 0 )
 	{
 		if( !$url_id ) $url_id = $_GET['tm']->id;
-
+		
 		if( isset($_GET['slug_id']) )
 		{
 			$pagina  = Pagina::model()->cargarPorUrl( $_GET['slug_id'] );
@@ -284,29 +284,6 @@ class TelemedellinController extends Controller
 		{
 			$menu = false;
 		}
-
-		$formulario = false;
-
-		if( !empty($micrositio->paginas) )
-		{
-			foreach($micrositio->paginas as $p)
-				if($p->tipo_pagina_id == 7){
-					$formulario = true;
-					break;
-				}
-		}
-		
-		if(!empty($micrositio->albumFotos) )
-			$galeria = true;
-		else
-			$galeria = false;
-
-		if( !empty($micrositio->albumVideos) )
-		{
-			$videos = true;
-		}
-		else
-			$videos = false;
 
 		//Contenido relacionado
 		$relacionados = Relacionados::obtener($micrositio->id);
@@ -336,9 +313,6 @@ class TelemedellinController extends Controller
 			array(	'seccion' 	=> $micrositio->seccion, 
 					'micrositio'=> $micrositio, 
 					'menu'		=> $menu,
-					'formulario'=> $formulario,
-					'galeria'	=> $galeria,
-					'video'		=> $videos,
 					'pagina' 	=> $pagina['pagina'], 
 					'contenido' => $contenido, 
 					'relacionados' => $relacionados,
@@ -578,6 +552,7 @@ class TelemedellinController extends Controller
 			$foto->save();
 		}
 	}
+
 
 	/*public function actionThumbs(){
 		$fotos = Foto::model()->findAll();
