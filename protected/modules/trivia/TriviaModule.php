@@ -12,9 +12,9 @@ class TriviaModule extends CWebModule
 	public $defaultController 	= 'trivia';
 	public $urlRules			= array(
 									'trivia/administracion'				=> 'trivia/administracion/admintrivia',
-									'trivia/administracion/<action:\w+>/<id:\d+>'=> 'trivia/administracion/admintrivia/<action>',
-									'trivia/administracion/<action:\w+>'=> 'trivia/administracion/admintrivia/<action>',
-									'trivia/<action:\w+>'				=> 'trivia/trivia/<action>',
+									//'trivia/administracion/<action:\w+>/<id:\d+>'=> 'trivia/administracion/admintrivia/<action>',
+									//'trivia/administracion/<action:\w+>'=> 'trivia/administracion/admintrivia/<action>',
+									//'trivia/<action:\w+>'				=> 'trivia/trivia/<action>',
 									//'trivia/<action>' => 'trivia/trivia/<action>'
 									);
 

@@ -14,8 +14,8 @@ class UsuarioModule extends CWebModule
 						  	'usuario/recuperarclave' => 'usuario/usuario/recuperarclave', 
 						  	'usuario/hastalaproxima' => 'usuario/usuario/hastalaproxima', 
 						  	'usuario/gracias' => 'usuario/usuario/gracias',
-						  	'usuario/<action:\w+>'=>'usuario/usuario/<action>',
-						  	'usuario/<controller:\w+>/<action:\w+>/<id:[\w\d]+>' => 'usuario/<controller>/<action>', 
+						  	//'usuario/<controller:\w+>/<action:\w+>/<id:[\w\d]+>' => 'usuario/<controller>/<action>', 
+						  	//'usuario/<action:\w+>'=>'usuario/usuario/<action>',
 							);
 
 	private $_assetsUrl;
