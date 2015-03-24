@@ -65,7 +65,7 @@ class FichatecnicaController extends Controller
 			$pgDocumental = PgDocumental::model()->with('pagina')->findByPk($ficha_tecnica->pg_documental_id);
 			if($ficha_tecnica->save()){
 				Yii::app()->user->setFlash('success', $ficha_tecnica->campo . ' guardado con éxito');
-					$this->redirect( array('view', 'id' => $pgDocumental->pagina->micrositio_id));
+					$this->redirect( array('documentales/view', 'id' => $pgDocumental->pagina->micrositio_id));
 			}//if($ficha_tecnica->save())
 
 		} //if(isset($_POST['FichaTecnica']))
