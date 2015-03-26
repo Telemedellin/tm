@@ -126,7 +126,7 @@ class MenuItem extends CActiveRecord
 		$mi->url_id = $pagina->url_id;
 		$mi->orden = 0;
 		$mi->label = $label;
-		$mi->estado = 0;
+		$mi->estado = 1;
 		if( $mi->save() )
 			return true;
 		else

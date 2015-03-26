@@ -16,6 +16,7 @@ class ConcursosForm extends CFormModel
 	public $miniatura;
 	public $destacado;
 	public $estado;
+	private $transaccion;
 	
 	/**
 	 * Declares the validation rules.
@@ -50,6 +51,10 @@ class ConcursosForm extends CFormModel
 
 	public function guardar()
 	{
+		$this->transaccion = $this->dbConnection->getCurrentTransaction();
+		if($this->transaccion === null)
+			$this->transaccion = $this->dbConnection->beginTransaction();
+
 		$dir = $this->imageRoute;
 		$image_base = Yii::getPathOfAlias('webroot').'/images/';
 		if($this->validate()){
@@ -58,7 +63,7 @@ class ConcursosForm extends CFormModel
 			else //Nuevo registro
 				$micrositio 		= new Micrositio;
 			
-			$transaccion 			= $micrositio->dbConnection->beginTransaction();
+			$this->transaccion 			= $micrositio->dbConnection->beginTransaction();
 			$micrositio->seccion_id = 8; //Concursos
 			$micrositio->nombre		= $this->nombre;
 
@@ -84,7 +89,7 @@ class ConcursosForm extends CFormModel
 			$micrositio->destacado	= $this->destacado;
 			$micrositio->estado		= $this->estado;
 			
-			if( !$micrositio->save(false) ) $transaccion->rollback();
+			if( !$micrositio->save(false) ) $this->transaccion->rollback();
 			$micrositio_id = $micrositio->getPrimaryKey();
 
 			if( isset($this->id) ) //Actualizando
@@ -104,7 +109,7 @@ class ConcursosForm extends CFormModel
 			$pagina->destacado		  = $this->destacado;
 			$pagina->estado			  = ($this->estado == 2)?1:$this->estado;
 
-			if( !$pagina->save(false) ) $transaccion->rollback();
+			if( !$pagina->save(false) ) $this->transaccion->rollback();
 			$pagina_id = $pagina->getPrimaryKey();
 
 			if( isset($this->id) ) //Actualizando
@@ -112,7 +117,7 @@ class ConcursosForm extends CFormModel
 			else //Nuevo registro
 			{
 				if( !$micrositio->asignar_pagina($pagina) )
-					$transaccion->rollback();
+					$this->transaccion->rollback();
 
 				$pgGst 				= new PgGenericaSt;
 				$pgGst->pagina_id 	= $pagina_id;
@@ -123,12 +128,12 @@ class ConcursosForm extends CFormModel
 			
 			if( !$pgGst->save(false) )
 			{
-				$transaccion->rollback();
+				$this->transaccion->rollback();
 				return false;
 			}
 			else
 			{
-				$transaccion->commit();
+				$this->transaccion->commit();
 				$this->id = $micrositio_id;
 				return true;
 			}

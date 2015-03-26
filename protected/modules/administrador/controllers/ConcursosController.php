@@ -103,14 +103,14 @@ class ConcursosController extends Controller
 	 */
 	public function actionView($id)
 	{
-		if( 
+		/*if( 
 			isset($_POST['asignar_menu']) || 
 			Yii::app()->user->checkAccess('asignar_menus') ||
 			Yii::app()->user->checkAccess('asignar_menu_concursos')
 		)
 		{
 			$this->asignar_menu($id, $_POST['Micrositio']['menu_id']);
-		}
+		}/**/
 
 		$model = Micrositio::model()->with('url', 'pagina', 'menu')->findByPk($id);
 		$contenido = PgGenericaSt::model()->findByAttributes(array('pagina_id' => $model->pagina->id));
