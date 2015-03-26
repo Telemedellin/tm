@@ -549,6 +549,12 @@ th
 	-khtml-opacity: 0.9;
 	opacity: 0.9;
 }
+.option
+{
+	float: left;
+	min-width: 120px;
+	padding: 5px;
+}
 .PgEventos select
 {
 	background: #27262b url(../images/static/iconos/down-arrow.png) no-repeat 95% center;

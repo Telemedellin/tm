@@ -153,6 +153,9 @@ class Formulario
 			
 		}
 
+		$custom_css = cs()->registerCss('form_custom_css', $this->config->custom_css);
+		$custom_js = cs()->registerScript('form_custom_js', $this->config->custom_js, CClientScript::POS_READY);
+
 		//$model->validatorList->add($newValidator);
 		//print_r($model->validatorList);exit();
 		return $pre . $form->render();
@@ -213,9 +216,11 @@ class Formulario
 			{
 				$element['labelOptions'] = array('style' => 'display: inline;');
 				$element['separator'] = '';
+				$element['template'] = '<span class="option">{input} {label}</span>';
 				/*
 				Pilas, pendiente la opción de columnas de los check y radio
 				if( in_array( 'columnas', $parametros ) && array_key_exists( 'columnas', $datos ) )
+
 					
 				/**/
 			}
