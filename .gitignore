@@ -30,3 +30,6 @@ archivos/
 assets/
 protected/runtime/
 themes/classic/views/
+
+# node.js
+node_modules/
