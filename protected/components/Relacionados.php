@@ -13,7 +13,7 @@ class Relacionados
 
 	public function render( $class = false, $copy = false )
 	{
-		if( is_array($this->_relacionados) && !count($this->_relacionados) )
+		if( !is_array($this->_relacionados) || !count($this->_relacionados) )
 			return false;
 
 		$items;
@@ -38,24 +38,58 @@ class Relacionados
 
 	private function obtener()
 	{
+		$listado = $this->get_defaults();
+		$destacados = $this->get_featured();
+
+		//Integrar la opción de seleccionar un recomendado general que se asigne en ocasiones especiales y siempre salga de primero.
+			
+		$listado = array_merge( $destacados, $listado );
+		return array_slice($listado, 0, 3);					
+	}
+
+	private function get_defaults()
+	{
 		$d1 = new CDbCacheDependency("SELECT GREATEST(MAX(creado), MAX(modificado)) FROM micrositio WHERE id = ". $this->_micrositio_id . " AND estado <> 0");
-		$generos = Micrositio::model()->cache(21600, $d1)->with('micrositio_x_genero')->findByPk($this->_micrositio_id);
+		$generos = Micrositio::model()
+					->cache(21600, $d1)
+					->with('micrositio_x_genero')
+					->findByPk($this->_micrositio_id);
 		
 		$listado = array();
 		foreach($generos->micrositio_x_genero as $genero)
 		{
 			$dependencia = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio_x_genero WHERE genero_id = ". $genero->genero_id ." AND micrositio_id != ". $this->_micrositio_id ." AND estado <> 0");
 
-			$mxg = MicrositioXGenero::model()->cache(21600, $dependencia)->with('micrositio')->findAllByAttributes(array('genero_id' => $genero->genero_id), 'micrositio_id != '.$this->_micrositio_id);
+			$mxg = MicrositioXGenero::model()
+					->cache(21600, $dependencia)
+					->with('micrositio')
+					->findAllByAttributes(
+						array(
+							'genero_id' => $genero->genero_id
+						), 
+						'micrositio_id != '.$this->_micrositio_id
+					);
 			foreach ($mxg as $m) {
 				if($m->micrositio->miniatura)
 					$listado[$m->micrositio_id] = $m->micrositio;
 			}
 		}
+		if( count($listado) ) shuffle($listado);
+		
+		return $listado;
+	}
 
+	private function get_featured()
+	{
 		$d2 = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio_x_relacionado WHERE micrositio_id = ". $this->_micrositio_id . " AND estado <> 0");
-		$relacionados = MicrositioXRelacionado::model()->cache(21600, $d2)->with('relacionado')->findAllByAttributes( array('micrositio_id' => $this->_micrositio_id), array('order' => 'orden ASC') );
-
+		$relacionados = MicrositioXRelacionado::model()
+						->cache(21600, $d2)
+						->with('relacionado')
+						->findAllByAttributes( 
+							array('micrositio_id' => $this->_micrositio_id), 
+							array('order' => 'orden ASC') 
+						);
+		
 		$destacados = array();
 		foreach($relacionados as $relacionado)
 		{
@@ -68,11 +102,7 @@ class Relacionados
 			$destacados[] = $relacionado->relacionado;
 		}
 
-		$listado = array_merge( $destacados, shuffle($listado) );
-
-		//Integrar la opción de seleccionar un recomendado general que se asigne en ocasiones especiales y siempre salga de primero.
-		
-		return array_slice($listado, 0, 3);
+		return $destacados;
 	}
 
 }
