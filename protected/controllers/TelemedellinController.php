@@ -553,6 +553,140 @@ class TelemedellinController extends Controller
 		}
 	}
 
+	public function actionImportarusuarios()
+	{
+		//Guardo la conexión a la base de datos
+		$conexion = Yii::app()->db;
+
+		//Creo una tabla temporal para almacenar los datos que vienen de Mailchimp
+		$tabla_temporal = "
+		CREATE TEMPORARY TABLE tmp (
+		  email varchar(45) DEFAULT NULL,
+		  nombres varchar(100) DEFAULT NULL,
+		  apellidos varchar(100) DEFAULT NULL,
+		  sexo varchar(1) DEFAULT NULL,
+		  tipo_documento varchar(45) DEFAULT NULL,
+		  documento varchar(10) DEFAULT NULL,
+		  nivel_educacion_id varchar(45) DEFAULT NULL,
+		  ocupacion_id varchar(45) DEFAULT NULL,
+		  telefono_fijo varchar(15) DEFAULT NULL,
+		  celular varchar(10) DEFAULT NULL,
+		  barrio_id varchar(45) DEFAULT NULL
+		)DEFAULT CHARSET=utf8;
+		";
+		$conexion->createCommand($tabla_temporal)->execute();
+		/**/
+
+		//Cargo los datos del csv de Mailchimp a la tabla temporal, puedo probar la función de MySQL o PHP
+		$dump = "
+		LOAD DATA LOCAL INFILE '/home4/med2018/test1.csv' 
+		INTO TABLE tmp 
+		FIELDS TERMINATED BY ';' ENCLOSED BY '\"'
+		LINES TERMINATED BY '\n'
+		IGNORE 2 ROWS 
+		(
+			email, 
+			nombres, 
+			apellidos, 
+			sexo, 
+			tipo_documento, 
+			documento, 
+			nivel_educacion_id,
+			ocupacion_id,
+			telefono_fijo, 
+			celular, 
+			barrio_id
+		);
+		";
+		$conexion->createCommand($dump)->execute();
+		
+		//Consulto los datos de la tabla temporal
+		$select = 
+		"
+		SELECT * FROM tmp;
+		";
+		$tmp_result = $conexion->createCommand($select)->queryAll();
+		echo 'Iniciando la creación de perfiles' . PHP_EOL;
+		echo "\n\r";
+		//Por cada fila registro un usuario de Cruge
+		foreach($tmp_result as $row)
+		{
+			$usuario = new Usuario('insert');
+			echo 'Registrando el usuario en cruge con el correo ' . $row['email'] . PHP_EOL;
+			$usuario_cruge = $usuario->registrar_usuario_cruge( $row['email'] );
+			if( !$usuario_cruge )
+			{
+				echo 'Ocurrió un error registrando el correo ' . $row['email'] . PHP_EOL;
+				break;
+			}
+
+			//Normalizo los datos cambiandolos por los id respectivos
+			$tipo_documento = CHtml::listData(Meta::model()->findAllByAttributes( array('parent_id' => 1) ), 'id', 'nombre');
+			$nivel_educacion = CHtml::listData(Meta::model()->findAllByAttributes( array('parent_id' => 2) ), 'id', 'nombre');
+			$ocupacion = CHtml::listData(Meta::model()->findAllByAttributes( array('parent_id' => 3) ), 'id', 'nombre'); 
+			$barrio = CHtml::listData(Meta::model()->findAllByAttributes( array('parent_id' => 85) ), 'id', 'nombre');
+			$barrio = array_map('strtolower', $barrio);
+
+			if( $td = array_search($row['tipo_documento'], $tipo_documento) )
+				$row['tipo_documento'] = $td;
+			if( $ne = array_search($row['nivel_educacion_id'], $nivel_educacion) )
+				$row['nivel_educacion_id'] = $ne;
+			if( $o = array_search($row['ocupacion_id'], $ocupacion) )
+				$row['ocupacion_id'] = $o;
+			if( $b = array_search(strtolower(trim($row['barrio_id'])), $barrio) )
+			{
+				if($b > 0)
+				{
+					$row['pais_id'] = 97;
+					$row['region_id'] = 79;
+					$row['ciudad_id'] = 4080;
+					$row['barrio_id'] = $b;
+				}
+			}
+
+			$fieldmap = array(
+				'nombres' => 'nombres', 
+				'apellidos' => 'apellidos', 
+				'sexo' => 'sexo', 
+				'tipo_documento' => 'tipo_documento', 
+				'documento' => 'documento', 
+				'nivel_educacion_id' => 'nivel_educacion_id',
+				'ocupacion_id' => 'ocupacion_id',
+				'telefono_fijo' => 'telefono_fijo', 
+				'celular' => 'celular', 
+				'pais_id' => 'pais_id',
+				'region_id' => 'region_id',
+				'ciudad_id' => 'ciudad_id',
+				'barrio_id' => 'barrio_id',
+			);
+
+			$mapped_values = new stdClass();
+			foreach($fieldmap as $localfield => $remotefield){
+				$mapped_values->$localfield = '';
+				if( isset($row[ $remotefield ]) )
+					$mapped_values->$localfield = $row[$remotefield];
+			}
+
+			echo 'Guardando los datos del usuario ' . $row['email'] . PHP_EOL;
+			print_r( $mapped_values );
+			echo PHP_EOL;
+			$usuario_id = $usuario->guardar_datos_usuario( $usuario_cruge, $mapped_values );
+			if(!$usuario_id)
+			{
+				echo 'Ocurrió un error guardando los datos del usuario ' . $row['email'] . PHP_EOL;
+				break;
+			}
+			Yii::app()->getModule('usuario')->crugemailer->crear_clave($usuario_cruge);
+			echo 'Se guardó correctamente la información del usuario '  . $row['email'] . PHP_EOL;
+			echo PHP_EOL;
+			echo '<-------------------------------------------------->' . PHP_EOL;
+			echo PHP_EOL;
+			echo PHP_EOL;
+		}
+		
+		$borrar_temporal = "DROP TEMPORARY TABLE IF EXISTS tmp;";
+		$conexion->createCommand($borrar_temporal)->execute();
+	}
 
 	/*public function actionThumbs(){
 		$fotos = Foto::model()->findAll();
