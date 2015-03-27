@@ -286,7 +286,7 @@ class TelemedellinController extends Controller
 		}
 
 		//Contenido relacionado
-		$relacionados = Relacionados::obtener($micrositio->id);
+		$relacionados = new Relacionados($micrositio->id);
 
 		if( !$pagina ) throw new CHttpException(404, 'No se encontró la página solicitada');
 
