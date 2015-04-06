@@ -1,10 +1,13 @@
 jQuery(function($) {   
 
-    var limitado = $('.texto-limitado');
+    var limitado = $('.texto-limitado'),
+        form = $('form'),  
+        limitnum, 
+        PUBLIC_PATH = $("#PUBLIC_PATH").val();
     if(limitado[0])
     {
         limitado.after('<div class="counter"><span>0</span> caracteres</div>');
-        var limitnum = 200; // set your int limit for max number of characters
+        limitnum = 200; // set your int limit for max number of characters
         if(limitado.data('limite'))
             limitnum = limitado.data('limite');
         limitado.keyup(function(){
@@ -14,7 +17,6 @@ jQuery(function($) {
     }//if(limitado[0])
 
     //Detección de cambios en formulario para confirmar salida
-    var form = $('form');
     if(form.length > 0 && form.id != 'login-form')
     {
         var isEdit  = false;  
@@ -40,8 +42,6 @@ jQuery(function($) {
     }
     
     $('.chosen').chosen();
-
-    var PUBLIC_PATH = $("#PUBLIC_PATH").val();
 
     // Initialize the jQuery File Upload widget:
     $('#imagen').fileupload({        

@@ -1,43 +1,47 @@
 //"use strict";
-var old_title = '';  
-var redes = "<div><!--Facebook--><div class='fb-share-button' data-type='button_count' data-width='120'></div>";
-redes += "<div><!--Twitter--><a href='https://twitter.com/share' class='twitter-share-button' data-text='#telemedellin' data-lang='es'>Twittear</a></div>";
-redes += "<div><!--G+--><div class='g-plusone' data-size='medium'></div></div>";
-redes += "<div><!--Pinterest--><a href='//pinterest.com/pin/create/button/' data-pin-do='buttonBookmark' ><img src='//assets.pinterest.com/images/pidgets/pin_it_button.png' /></a><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = '//connect.facebook.net/es_LA/all.js#xfbml=1&appId=26028648916';fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><script type='text/javascript'>window.___gcfg = {lang: 'es'};(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();FB.XFBML.parse();window.twttr.widgets.load();</script><script type='text/javascript' src='//assets.pinterest.com/js/pinit.js'></script></div></div>";
+var url_base = '/', 
+    old_title = '', 
+    redes = 
+    "<div><!--Facebook--><div class='fb-share-button' data-type='button_count' data-width='120'></div>" +
+    "<div><!--Twitter--><a href='https://twitter.com/share' class='twitter-share-button' data-text='#telemedellin' data-lang='es'>Twittear</a></div>" +
+    "<div><!--G+--><div class='g-plusone' data-size='medium'></div></div>" +
+    "<div><!--Pinterest--><a href='//pinterest.com/pin/create/button/' data-pin-do='buttonBookmark' ><img src='//assets.pinterest.com/images/pidgets/pin_it_button.png' /></a><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = '//connect.facebook.net/es_LA/all.js#xfbml=1&appId=26028648916';fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><script type='text/javascript'>window.___gcfg = {lang: 'es'};(function() {var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;po.src = 'https://apis.google.com/js/plusone.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);})();FB.XFBML.parse();window.twttr.widgets.load();</script><script type='text/javascript' src='//assets.pinterest.com/js/pinit.js'></script></div></div>";
 function success_popup(data) {
-  switch(data.seccion) {
+  var plantilla, 
+      seccion = data.seccion;
+  switch(seccion) {
     case 'Telemedellín':
-        var plantilla = 'telemedellin.tmpl.html';
+        plantilla = 'telemedellin.tmpl.html';
         break;
     case 'Programas':
-        var plantilla = 'programas.tmpl.html';
+        plantilla = 'programas.tmpl.html';
         break;
     case 'Documentales':
-        var plantilla = 'documentales.tmpl.html';
+        plantilla = 'documentales.tmpl.html';
         break;
     case 'Especiales':
-        var plantilla = 'especiales.tmpl.html';
+        plantilla = 'especiales.tmpl.html';
         break;
     default:
-        var plantilla = 'seccion.tmpl.html';
+        plantilla = 'seccion.tmpl.html';
         break;
   }
-  $.get('/js/libs/mustache/views/' + plantilla, function(vista) {
+  $.get(url_base + 'js/libs/mustache/views/' + plantilla, function(vista) {
     var current_url = window.location.href, 
-        output = Mustache.render(vista, data);
-    modificar_url(data.url, data.seccion);
-    old_title = $(document).attr('title');
-    $(document).attr('title', data.seccion + ' - Telemedellín, aquí te ves');
+        output = Mustache.render(vista, data),
+        placeholder = $('[placeholder]');
+    modificar_url(data.url, seccion);
+    
+    $(document).attr('title', seccion + ' - Telemedellín, aquí te ves');
     
     $('#loading').remove();
     $('#container').append(output).fadeIn('slow');
     $('.close').attr('href', current_url);
     if(!Modernizr.input.placeholder){
-      $('[placeholder]').focus(function() { 
+      placeholder.focus(function() { 
        var input = $(this); 
        if (input.val() == input.attr('placeholder')) { 
-           input.val(''); 
-           input.removeClass('placeholder'); 
+           input.removeClass('placeholder').val(''); 
         } 
       }).blur(function() { 
         var input = $(this); 
@@ -45,7 +49,7 @@ function success_popup(data) {
            input.addClass('placeholder').val(input.attr('placeholder')); 
         } 
       }).blur(); 
-      $('[placeholder]').parents('form').submit(function() { 
+      placeholder.parents('form').submit(function() { 
         $(this).find('[placeholder]').each(function() { 
           var input = $(this); 
           if (input.val() == input.attr('placeholder')) { 
@@ -61,8 +65,7 @@ function cargar_popup(url) {
   $('#container').append('<div id="loading"><span class="spinner"></span></div>').fadeIn('slow');
 }
 function click_popup(e) {
-  var url = e.target.href + '?ajax=true';
-  cargar_popup(url);
+  cargar_popup(e.target.href + '?ajax=true');
   e.preventDefault();
 }
 function v_cerrar_popup(e) {
@@ -74,13 +77,7 @@ function v_cerrar_popup(e) {
 function cerrar_popup(e) {
   if(Modernizr.history) {
     var old_url = $('.close').attr('href');
-    if(old_url != window.location.href)
-    {
-      modificar_url(old_url);
-    }else
-    {
-      modificar_url('');
-    }
+    old_url != window.location.href ? modificar_url(old_url) : modificar_url('');
   }
   $(document).attr('title', old_title);
   $('#overlay').remove();
@@ -94,28 +91,27 @@ function ga_track(){
 function abrir_multimedia(tipo) {
   if(tipo != ''){
     var hash = window.location.hash.substr(1),
-        destino = '/telemedellin/popup#' + hash;
+        destino = url_base + 'telemedellin/popup#' + hash, 
+        wHeight = $( window ).height(), 
+        noHistory = $('.no-history');
     $.fancybox.open({
       type: "ajax",
       href: destino,
       autoSize: false,
-      height: $( window ).height() - ($( window ).height() * 0.10),
+      height: wHeight - (wHeight * 0.10),
       padding: [9, 20, 9, 20],
       afterLoad: function(current, previous) {
-          var nombre = "Álbumes";
-          var pagina = '#'+hash;
-          if(!nombre) nombre = null;
-          if($('.no-history').length == 0) {
-            var stateObj = { state: nombre };
-            window.history.pushState( stateObj, nombre, pagina );
+          var nombre = "Álbumes", 
+              pagina = '#'+hash, 
+              hashito = pagina.indexOf('#');
+          if(noHistory.length == 0) {
+            window.history.pushState( { state: nombre }, nombre, pagina );
           }else{
-            var hashito = pagina.indexOf('#');
-            hashito = pagina.substr(hashito).substr(1);
-            window.location.hash = hashito;
+            window.location.hash = pagina.substr(hashito).substr(1);
           }
       },
       afterClose: function() {
-        if($('.no-history').length > 0)
+        if(noHistory.length > 0)
           window.location.hash = '';
         modificar_url('#', "Álbumes");
       },
@@ -123,12 +119,7 @@ function abrir_multimedia(tipo) {
         this.width  = '80%';
       },
       beforeShow: function() {
-        if (this.title) {
-          this.title = '';
-        }else{
-          this.title = '';
-        }
-        this.title += redes;
+        this.title = '' + redes;
       },
       afterShow: function() {
         // Render tweet button
@@ -148,23 +139,20 @@ function abrir_multimedia(tipo) {
   }
 }
 function modificar_url(pagina, nombre) {
-  if(!nombre) nombre = null;
+  nombre = nombre || null;
   if($('.no-history').length == 0) {
-    var stateObj = { state: nombre };
-    window.history.pushState( stateObj, nombre, pagina );
+    window.history.pushState( { state: nombre }, nombre, pagina );
   }else{
     if(pagina.indexOf('#') != -1){
       var hashito = pagina.indexOf('#');
-      hashito = pagina.substr(hashito).substr(1);
-      window.location.hash = hashito;
+      window.location.hash = pagina.substr(hashito).substr(1);
     }
   }
   ga_track();
 }
 function verificar_hash() {
   if(window.location.hash) {
-    var hash_value = window.location.hash.replace('#', '');
-    hash_value = $.trim(hash_value);
+    var hash_value = $.trim( window.location.hash.replace('#', '') );
     if( hash_value.indexOf('imagenes') >= 0 ) {
       abrir_multimedia('imagenes');
     }else if( hash_value.indexOf('videos') >= 0 ) {
@@ -215,17 +203,18 @@ jQuery(function($) {
   //{'page': '/my-new-page'}  
 
   function filtrar_seccion(){
-    var table = $(".inner");
-    var value = accentsTidy(this.value);
-    var filtrable = table.find("h2");
+    var table = $(".inner"), 
+        value = accentsTidy(this.value), 
+        filtrable = table.find("h2");
     filtrable.each(function(index, row) {
-      var allCells = $(row).find("a");
+      var allCells = $(row).find("a"), 
+          found = false, 
+          regExp = new RegExp(value, "i"), 
+          t;
       if(allCells.length > 0) {
-        var found = false;
         allCells.each(function(index, a) {
-          var regExp = new RegExp(value, "i");
-          var t = accentsTidy($(a).text());
-          if(regExp.test(t)) {
+          t = accentsTidy( $(a).text() );
+          if(regExp.test( t )) {
             found = true;
             return false;
           }
@@ -239,9 +228,6 @@ jQuery(function($) {
   var cf = 0;
   if(micro[0]){
     $(":input[title]").tooltip();
-    $(":input[title]").hover(function(){
-      //$('.tooltip').css('top', parseInt($('.tooltip').css('top')) - 20 + 'px')
-    });
     micro.mCustomScrollbar({
       scrollType: "pixels",
       updateOnContentResize: true, 
@@ -264,31 +250,30 @@ jQuery(function($) {
         hash_p        = el_url.indexOf('#'),
         hash          = el_url.substr(hash_p).substr(1),
       //Asigno la url del elemento a la nueva
-        destino_url   = el_url;
-      var destino     = '/telemedellin/popup#' + hash;
+        destino_url   = el_url, 
+        destino       = url_base + 'telemedellin/popup#' + hash, 
+        wHeight       = $( window ).height(), 
+        noHistory     = $('.no-history');
       $(this).fancybox({
         type: "ajax",
         href: destino,
         autoSize: false,
-        height: $( window ).height() - ($( window ).height() * 0.10),
+        height: wHeight - (wHeight * 0.10),
         padding: [9, 20, 9, 20],
         afterLoad: function(current, previous) {
-            var nombre = "Álbumes";
-            //var pagina = destino_url;
-            var pagina = '#'+hash;
+            var nombre = "Álbumes", 
+            //  pagina = destino_url, 
+            pagina = '#'+hash, 
+            hashito = pagina.indexOf('#');
             //modificar_url(pagina, nombre);
-            if(!nombre) nombre = null;
-            if($('.no-history').length == 0) {
-              var stateObj = { state: nombre };
-              window.history.pushState( stateObj, nombre, pagina );
+            if(noHistory.length == 0) {
+              window.history.pushState( { state: nombre }, nombre, pagina );
             }else{
-              var hashito = pagina.indexOf('#');
-              hashito = pagina.substr(hashito).substr(1);
-              window.location.hash = hashito;
+              window.location.hash = pagina.substr(hashito).substr(1);
             }
         },
         afterClose: function() {
-          if($('.no-history').length > 0)
+          if(noHistory.length > 0)
             window.location.hash = '';
           modificar_url('#', "Álbumes");
         },
@@ -296,12 +281,7 @@ jQuery(function($) {
           this.width  = '80%';
         },
         beforeShow: function() {
-          if (this.title) {
-            this.title = '';
-          }else{
-            this.title = '';
-          }
-          this.title += redes;
+          this.title = '' + redes;
         },
         afterShow: function() {
           // Render tweet button
@@ -321,8 +301,7 @@ jQuery(function($) {
     });
     verificar_hash();
 
-    $('#micrositio #txtFiltro').on('keyup', filtrar_lista);
-    $('#micrositio #txtFiltro').on('change', filtrar_lista);
+    $('#micrositio #txtFiltro').on('keyup change', filtrar_lista);
     $('#micrositio .listado .nivel-1 > li > span').on('click', open_close_list);
     $('#micrositio .listado .filtrable > span').on('click', open_close_list);
 
@@ -336,26 +315,22 @@ jQuery(function($) {
         var row = $(row),
             allCells = row.children('span'),
             regExp = new RegExp(value, "i"), 
-            text = allCells.text();
+            text = allCells.text(), 
+            t;
         
         if(text != '' && value != '') {
-          var t = accentsTidy(text);
+          t = accentsTidy(text);
           if(regExp.test(t)) {
-            row.addClass('open');
-            row.parent().parent().addClass('open');
-            row.removeClass('hidden');
-            row.parent().parent().removeClass('hidden');
+            row.addClass('open').removeClass('hidden');
+            row.parent().parent().addClass('open').removeClass('hidden');
           }else
           {
-            row.removeClass('open');
-            row.addClass('hidden');
+            row.addClass('hidden').removeClass('open');
           }
         }else
         {
-          row.removeClass('open')
-          row.parent().parent().removeClass('open');
-          row.removeClass('hidden');
-          row.parent().parent().removeClass('hidden');
+          row.removeClass('open hidden')
+          row.parent().parent().removeClass('open hidden');
         }
       });
       micro.mCustomScrollbar("update");
@@ -403,10 +378,7 @@ jQuery(function($) {
       pagination: false
     });
     set_current();
-    novedades.on("started.slides", function(){
-      set_current();
-    });
-    novedades.on("animated.slides", function(){
+    novedades.on("started.slides animated.slides", function(){
       set_current();
     });
     function set_current()

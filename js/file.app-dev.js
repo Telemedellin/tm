@@ -1,8 +1,9 @@
 //"use strict";
 jQuery(function($) {
+    var url_base = '/';
     //Modelos
 	window.Carpeta = Backbone.Model.extend({
-		urlRoot: '/api/carpeta',
+		urlRoot: url_base + 'api/carpeta',
         defaults: {
 		    id: '', 
 		    url : '',
@@ -14,7 +15,7 @@ jQuery(function($) {
 	});
 
     window.Archivo = Backbone.Model.extend({
-       urlRoot: '/api/archivo',
+       urlRoot: url_base + 'api/archivo',
         defaults: {
             id: '', 
             url: '', 
@@ -26,7 +27,7 @@ jQuery(function($) {
     });
 
     window.Pagina = Backbone.Model.extend({
-       urlRoot: '/api/pagina',
+       urlRoot: url_base + 'api/pagina',
         defaults: {
             id: '', 
             nombre : ''
@@ -36,12 +37,12 @@ jQuery(function($) {
     //Colecciones
 	window.CarpetaCollection = Backbone.Collection.extend({
 	    model : Carpeta,
-        url: '/api/carpeta'
+        url: url_base + 'api/carpeta'
 	});
 
     window.ArchivoCollection = Backbone.Collection.extend({
         model : Archivo,
-        url: '/api/archivo'
+        url: url_base + 'api/archivo'
     });
 
     //Helpers
@@ -120,25 +121,22 @@ jQuery(function($) {
             "click a": "ver"
         },
         close:function () {
-            $(this.el).unbind();
-            $(this.el).remove();
+            $(this.el).unbind().remove();
         },
         ver: function (e) {
+            var carpeta, 
+                archivo, 
+                nombre;
             if(e.currentTarget.dataset !== undefined) {
-                var carpeta = e.currentTarget.dataset.carpeta;
-                var archivo = e.currentTarget.dataset.archivo;
-                var nombre = e.currentTarget.dataset.nombre;
+                carpeta = e.currentTarget.dataset.carpeta;
+                archivo = e.currentTarget.dataset.archivo;
+                nombre = e.currentTarget.dataset.nombre;
             } else {
-                var carpeta = e.currentTarget.getAttribute('data-carpeta');
-                var archivo = e.currentTarget.getAttribute('data-archivo');
-                var nombre = e.currentTarget.getAttribute('data-nombre');
+                carpeta = e.currentTarget.getAttribute('data-carpeta');
+                archivo = e.currentTarget.getAttribute('data-archivo');
+                nombre = e.currentTarget.getAttribute('data-nombre');
             }
-            var url_archivo = '/archivos/' + carpeta + '/' + archivo;
-            //var aiv = new ArchivoItemView( {model: this.model} );
-            //$('#ccontainer').html('<a href="#archivos" class="back">Volver</a>');
-            //$('#ccontainer').append( aiv.render().el );
-            //modificar_url(e.currentTarget.href, nombre);
-            window.open(url_archivo);
+            window.open( url_base + 'archivos/' + carpeta + '/' + archivo );
             e.preventDefault();
         }
     });
@@ -161,8 +159,7 @@ jQuery(function($) {
             /*jshint regexp: false*/
             this.route(/(.*)\/+$/, "trailFix", function (id) {
                 // remove all trailing slashes if more than one
-                id = id.replace(re, '');
-                this.navigate(id, true);
+                this.navigate( id.replace(re, ''), true);
             });
             this.pagina = new Pagina();
             this.pagina_id = $('#micrositio').data('pagina-id');
@@ -205,8 +202,7 @@ jQuery(function($) {
             }else{
                 console.log('Ya estaba el back');
             }
-            cc.append(this.carpetaListView.render().el);
-            cc.append(this.archivoListView.render().el);
+            cc.append(this.carpetaListView.render().el).append(this.archivoListView.render().el);
             ga_track();
         }
     });
@@ -214,20 +210,21 @@ jQuery(function($) {
     Backbone.history.start();
 
     $(document).on('click', '.back', back);
-    $('.archivo a').on('click', track_file);
+    $(document).on('click', '.archivo a', track_file);
+    //$('.archivo a').on('click', track_file);
 });
 function modificar_url(pagina, nombre){
-	if(!nombre) nombre = null;
+	nombre = nombre || null;
 	if(Modernizr.history){
-		var stateObj = { pagina: nombre };
-		window.history.pushState( stateObj, null, pagina );
+		window.history.pushState( { pagina: nombre }, null, pagina );
 	}
 }
 function makeTitle(slug) {
-    var words = slug.split('-');
+    var words = slug.split('-'), 
+        word;
 
-    for(var i = 0; i < words.length; i++) {
-      var word = words[i];
+    for(var i = 0, wl = words.length; i < wl; i++) {
+      word = words[i];
       words[i] = word.charAt(0).toUpperCase() + word.slice(1);
     }
 
@@ -237,7 +234,7 @@ function back(e){
     //window.history.back();
     var hasharray = window.location.hash.split('/'),
         newhash = '';
-    for (var i=0; i < hasharray.length-1; i++)
+    for (var i=0, hal = hasharray.length-1; i < hal; i++)
         newhash += hasharray[i] + "/";
     newhash = newhash.substring(0, newhash.length-1);
     window.location.hash = newhash;
