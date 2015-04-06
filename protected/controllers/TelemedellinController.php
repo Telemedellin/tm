@@ -369,6 +369,8 @@ class TelemedellinController extends Controller
 				), 
 				true
 			);
+		//Contenido relacionado
+		$relacionados = new Relacionados($micrositio->id);
 		$this->render( 
 			'micrositio', 
 			array(	'seccion' 	=> $micrositio->seccion, 
@@ -378,7 +380,8 @@ class TelemedellinController extends Controller
 					'formulario'=> false,
 					'galeria'	=> false,
 					'video'		=> false, 
-					'contenido' => $contenido, 
+					'contenido' => $contenido,
+					'relacionados' => $relacionados
 				) 
 		);
 	}

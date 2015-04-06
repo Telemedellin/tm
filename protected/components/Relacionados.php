@@ -44,7 +44,7 @@ class Relacionados
 		//Integrar la opción de seleccionar un recomendado general que se asigne en ocasiones especiales y siempre salga de primero.
 			
 		$listado = array_merge( $destacados, $listado );
-		return array_slice($listado, 0, 3);					
+		return array_slice($listado, 0, 3);
 	}
 
 	private function get_defaults()
