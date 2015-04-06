@@ -15,7 +15,7 @@ RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
 ```
 ###Yii
 - Crear los directorios *assets* y *protected/runtime* con permisos 777.
-- En el directorio [protected/config](protected/config/) se debe modificar los archivos [main.php] y [console.php].
+- En el directorio [protected/config](protected/config/) se debe modificar los archivos [main.php] y [console.php].   
    [main.php]
    ```php
    ...
@@ -40,7 +40,7 @@ RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
 	23.	'password' => '',
 	...
    ```
-- En el archivo [index.php] se deben comentar los scripts de ClickTale para que no interfiera con las estadísticas del sitio web.
+- En el archivo [index.php] se deben comentar los scripts de ClickTale para que no interfiera con las estadísticas del sitio web.   
    [index.php]
    ```php
    ...
