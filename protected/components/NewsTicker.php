@@ -10,7 +10,7 @@ class NewsTicker extends CWidget
 		if($this->layout == 'pc')
 		{
 			$nuevos_tweets = Yii::app()->cache->get('tweets');
-			if($nuevos_tweets === false){
+			if($nuevos_tweets === false && strpos( Yii::app()->getBaseUrl(true), 'localhost' ) === false ){
 				$nuevos_tweets = $this->obtener_tuits();
 			}
         	$this->render( 'newsticker', array('tweets' => $nuevos_tweets, 'layout' => $this->layout) );
