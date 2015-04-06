@@ -1,5 +1,5 @@
 function abrir_multimedia(hash) {
-	var url_base = '/tm/', 
+	var url_base = '/', 
 		nombre = "Álbumes", 
 		pagina = '#'+hash, 
 		destino= url_base + 'telemedellin/popup#' + hash, 
