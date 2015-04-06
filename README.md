@@ -16,40 +16,43 @@ RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
 ###Yii
 - Crear los directorios *assets* y *protected/runtime* con permisos 777.
 - En el directorio [protected/config](protected/config/) se debe modificar los archivos [main.php] y [console.php].   
-   [main.php]
-   ```php
-   ...
-    50. 'baseUrl'=>'http://localhost/tm/',
-   ...
-    180. 'db'=>array(
-	181.	'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
-	182.	'emulatePrepare' => true,
-	183.	'username' => 'root',
-	184.	'password' => '',
-	...
-	193. 'callback' => 'http://concursomedellin2018.com/tm/usuario/registro/twitter',
-	...
-   ```
-   [console.php]
-   ```php
-   ...
-    19. 'db'=>array(
-	20.	'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
-	21.	'emulatePrepare' => true,
-	22.	'username' => 'root',
-	23.	'password' => '',
-	...
-   ```
+
+[main.php]   
+```php   
+...
+50. 'baseUrl'=>'http://localhost/tm/',
+...
+180. 'db'=>array(
+181.	'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
+182.	'emulatePrepare' => true,
+183.	'username' => 'root',
+184.	'password' => '',
+...
+193. 'callback' => 'http://concursomedellin2018.com/tm/usuario/registro/twitter',
+...
+```   
+[console.php]   
+```php   
+...
+19. 'db'=>array(
+20.	'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
+21.	'emulatePrepare' => true,
+22.	'username' => 'root',
+23.	'password' => '',
+...
+```   
 - En el archivo [index.php] se deben comentar los scripts de ClickTale para que no interfiera con las estadísticas del sitio web.   
-   [index.php]
-   ```php
-   ...
-   8. if($track)
-   9.   require_once( '/home/telemedellin/public_html' . "/ClickTale/ClickTaleTop.php" );
-   ...
-   22. if($track)
-   23.   require_once( '/home/telemedellin/public_html' . "/ClickTale/ClickTaleBottom.php");
-   ```
+
+[index.php]   
+```php   
+...
+8. if($track)
+9.   require_once( '/home/telemedellin/public_html' . "/ClickTale/ClickTaleTop.php" );
+...
+22. if($track)
+23.   require_once( '/home/telemedellin/public_html' . "/ClickTale/ClickTaleBottom.php");
+```   
+
 - El directorio *protected* se renombra por **protected-tm** y se mueve fuera de la carpeta pública.   
 
 **TODO:** Verificar la carga de los scripts en el layout [iframe.php](protected/views/layouts/iframe.php) y en la vista [_carpeta](protected/views/telemedellin/_carpeta.php)
