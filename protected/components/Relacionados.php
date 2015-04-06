@@ -39,7 +39,7 @@ class Relacionados
 	private function obtener()
 	{
 		$listado = $this->get_defaults();
-		$destacados = $this->get_featured();
+		$destacados = $this->get_featured( $listado );
 
 		//Integrar la opción de seleccionar un recomendado general que se asigne en ocasiones especiales y siempre salga de primero.
 			
@@ -79,7 +79,7 @@ class Relacionados
 		return $listado;
 	}
 
-	private function get_featured()
+	private function get_featured( $listado = array() )
 	{
 		$d2 = new CDbCacheDependency("SELECT MAX(creado) FROM micrositio_x_relacionado WHERE micrositio_id = ". $this->_micrositio_id . " AND estado <> 0");
 		$relacionados = MicrositioXRelacionado::model()
