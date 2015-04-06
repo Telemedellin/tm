@@ -1,5 +1,5 @@
 <?php $programas = $this->getProgramas()?>
-<?php if($programas['actual']) $actual = true; ?>
+<?php $actual = ($programas['actual']) ? true : false; ?>
 <div id="programacion"<?php if(!$actual) echo ' class="short"'?>>
     <a class="programacion" href="<?php echo bu('/programacion')?>" title="Ver toda la programación de Telemedellín">Toda la programación</a>
     <?php if($actual): ?>

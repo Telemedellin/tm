@@ -1,6 +1,6 @@
 # telemedellin.tv
 ## Configuración
-Este sitio está utiliza el framework [Yii](http://www.yiiframework.com/) versión 1.1.16, se debe ubicar en el directorio *framework* encima del público.
+Este sitio utiliza el framework [Yii](http://www.yiiframework.com/) versión 1.1.16, se debe ubicar en el directorio *framework* encima del público.
 ###.htaccess
 Se recomienda revisar o comentar las reglas de redireccionamiento según el caso de instalación.
 ```apacheconf
