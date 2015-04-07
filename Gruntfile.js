@@ -10,280 +10,269 @@ module.exports = function(grunt) {
       },
       js: {
         src: [
-          'js/libs/*.js', 
-          'js/libs/jquery.bxslider/*.js', 
-          'js/libs/mustache/*.js', 
-          'js/libs/admin/jquery.fileupload/vendor/*.js', 
-          'js/libs/admin/jquery.fileupload/tmpl.min.js',
-          'js/libs/admin/jquery.fileupload/load-image.min.js',
-          'js/libs/admin/jquery.fileupload/canvas-to-blob.min.js',
-          'js/libs/admin/jquery.fileupload/jquery.iframe-transport.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-process.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-resize.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-validate.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-video.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-ui.js',
+          'public_html/js/libs/*.js', 
+          'public_html/js/libs/jquery.bxslider/*.js', 
+          'public_html/js/libs/mustache/*.js',
         ],
-        dest: 'js/libs.js',
+        dest: 'public_html/js/libs.js',
       },
       iframe: {
-        src: ['js/libs/bootstrap.min.js', 'js/libs/iframe/backbone-min.js', 'js/libs/iframe/underscore-min.js'],
-        dest: 'js/iframe.libs.js'
+        src: ['public_html/js/libs/bootstrap.min.js', 'public_html/js/libs/iframe/backbone-min.js', 'public_html/js/libs/iframe/underscore-min.js'],
+        dest: 'public_html/js/iframe.libs.js'
       },
       admin: {
         src: [
-          'js/libs/jquery.fancybox.pack.js', 
-          'js/libs/admin/jstree.min.js',
-          'js/libs/admin/jquery.fileupload/vendor/*.js', 
-          'js/libs/admin/jquery.fileupload/tmpl.min.js',
-          'js/libs/admin/jquery.fileupload/load-image.min.js',
-          'js/libs/admin/jquery.fileupload/canvas-to-blob.min.js',
-          'js/libs/admin/jquery.fileupload/jquery.iframe-transport.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-process.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-resize.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-validate.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-ui.js',
-          'js/libs/admin/chosen.jquery.js',
+          'public_html/js/libs/jquery.fancybox.pack.js', 
+          'public_html/js/libs/admin/jstree.min.js',
+          'public_html/js/libs/admin/jquery.fileupload/vendor/*.js', 
+          'public_html/js/libs/admin/jquery.fileupload/tmpl.min.js',
+          'public_html/js/libs/admin/jquery.fileupload/load-image.min.js',
+          'public_html/js/libs/admin/jquery.fileupload/canvas-to-blob.min.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.iframe-transport.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-process.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-resize.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-validate.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-ui.js',
+          'public_html/js/libs/admin/chosen.jquery.js',
           ],
-        dest: 'js/admin.libs.js'
+        dest: 'public_html/js/admin.libs.js'
       },
       adminlte: {
         src: [
-          'js/libs/jquery.fancybox.pack.js', 
-          'js/libs/admin/jstree.min.js',
-          'js/libs/admin/jquery.fileupload/vendor/*.js', 
-          'js/libs/admin/jquery.fileupload/tmpl.min.js',
-          'js/libs/admin/jquery.fileupload/load-image.min.js',
-          'js/libs/admin/jquery.fileupload/canvas-to-blob.min.js',
-          'js/libs/admin/jquery.fileupload/jquery.iframe-transport.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-process.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-resize.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-validate.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-ui.js',
-          'js/libs/admin/chosen.jquery.js',
+          'public_html/js/libs/jquery.fancybox.pack.js', 
+          'public_html/js/libs/admin/jstree.min.js',
+          'public_html/js/libs/admin/jquery.fileupload/vendor/*.js', 
+          'public_html/js/libs/admin/jquery.fileupload/tmpl.min.js',
+          'public_html/js/libs/admin/jquery.fileupload/load-image.min.js',
+          'public_html/js/libs/admin/jquery.fileupload/canvas-to-blob.min.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.iframe-transport.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-process.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-resize.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-validate.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-ui.js',
+          'public_html/js/libs/admin/chosen.jquery.js',
           ],
-        dest: 'themes/adminlte/assets/js/admin.libs.js'
+        dest: 'public_html/themes/adminlte/assets/js/admin.libs.js'
       },
       mobile: {
         src: [
-          'js/libs/modernizr.custom.30163.js',
-          'js/libs/mobile/jquery.fittext.js', 
-          'js/libs/jquery.animate-enhanced.min.js',
-          'js/libs/jquery.superslides.js',
-          'js/libs/jquery.bxslider/*.js', 
-          'js/libs/moment-with-langs.js', 
-          'js/libs/jquery.mCustomScrollbar.concat.min.js', 
-          'js/libs/mobile/jquery.backstretch.min.js',
-          'js/libs/admin/jquery.fileupload/vendor/*.js', 
-          'js/libs/admin/jquery.fileupload/tmpl.min.js',
-          'js/libs/admin/jquery.fileupload/load-image.min.js',
-          'js/libs/admin/jquery.fileupload/canvas-to-blob.min.js',
-          'js/libs/admin/jquery.fileupload/jquery.iframe-transport.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-process.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-resize.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-validate.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-video.js',
-          'js/libs/admin/jquery.fileupload/jquery.fileupload-ui.js',
-          'js/libs/modernizr.custom.30163.js',
-          'js/libs/mobile/bootstrap.min.js', 
+          'public_html/js/libs/modernizr.custom.30163.js',
+          'public_html/js/libs/mobile/jquery.fittext.js', 
+          'public_html/js/libs/jquery.animate-enhanced.min.js',
+          'public_html/js/libs/jquery.superslides.js',
+          'public_html/js/libs/jquery.bxslider/*.js', 
+          'public_html/js/libs/moment-with-langs.js', 
+          'public_html/js/libs/jquery.mCustomScrollbar.concat.min.js', 
+          'public_html/js/libs/mobile/jquery.backstretch.min.js',
+          'public_html/js/libs/admin/jquery.fileupload/vendor/*.js', 
+          'public_html/js/libs/admin/jquery.fileupload/tmpl.min.js',
+          'public_html/js/libs/admin/jquery.fileupload/load-image.min.js',
+          'public_html/js/libs/admin/jquery.fileupload/canvas-to-blob.min.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.iframe-transport.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-process.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-resize.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-validate.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-video.js',
+          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-ui.js',
+          'public_html/js/libs/modernizr.custom.30163.js',
+          'public_html/js/libs/mobile/bootstrap.min.js', 
           ],
-        dest: 'js/mobile.libs.js'
+        dest: 'public_html/js/mobile.libs.js'
       },
       css: {
-        src: ['css/libs/*.css', 'css/main.css'],
-        dest: 'css/styles.css'
+        src: ['public_html/css/libs/*.css', 'public_html/css/main.css'],
+        dest: 'public_html/css/styles.css'
       },
       admin_css: {
-        src: ['css/libs/admin/*.css', 'css/libs/jquery.fancybox.css', 'css/main_admin.css'],
-        dest: 'css/styles.admin.css'
+        src: ['public_html/css/libs/admin/*.css', 'public_html/css/libs/jquery.fancybox.css', 'public_html/css/main_admin.css'],
+        dest: 'public_html/css/styles.admin.css'
       },
       adminlte_css: {
-        src: ['css/libs/admin/*.css', 'css/libs/jquery.fancybox.css', 'themes/adminlte/assets/css/AdminLTE.css', 'css/main_admin.css'],
-        dest: 'themes/adminlte/assets/css/styles.admin.css'
+        src: ['public_html/css/libs/admin/*.css', 'public_html/css/libs/jquery.fancybox.css', 'public_html/themes/adminlte/assets/css/AdminLTE.css', 'public_html/css/main_admin.css'],
+        dest: 'public_html/themes/adminlte/assets/css/styles.admin.css'
       },
       mobile_css: {
-        src: ['css/libs/mobile/*.css', 'css/main_mobile.css'],
-        dest: 'css/mobile.css'
+        src: ['public_html/css/libs/mobile/*.css', 'public_html/css/main_mobile.css'],
+        dest: 'public_html/css/mobile.css'
       }
     },
     removelogging: {
       app: {
-        src: "js/app-dev.js",
-        dest: "js/app.min.js",
+        src: 'public_html/js/app-dev.js',
+        dest: 'public_html/js/app.min.js',
       },
       admin_app: {
-        src: "js/admin-dev.js",
-        dest: "js/admin.min.js",
+        src: 'public_html/js/admin-dev.js',
+        dest: 'public_html/js/admin.min.js',
       },
       mobile_app: {
-        src: "js/mobile-dev.js",
-        dest: "js/mobile.min.js",
+        src: 'public_html/js/mobile-dev.js',
+        dest: 'public_html/js/mobile.min.js',
       },
       iframe_app: {
-        src: "js/iframe.app-dev.js",
-        dest: "js/iframe.app.min.js",
+        src: 'public_html/js/iframe.app-dev.js',
+        dest: 'public_html/js/iframe.app.min.js',
       },
       file_app: {
-        src: "js/file.app-dev.js",
-        dest: "js/file.app.min.js",
+        src: 'public_html/js/file.app-dev.js',
+        dest: 'public_html/js/file.app.min.js',
       },
       libs: {
-        src: "js/libs.js",
-        dest: "js/libs.js",
+        src: 'public_html/js/libs.js',
+        dest: 'public_html/js/libs.js',
       },
       iframe: {
-        src: "js/iframe.libs.js",
-        dest: "js/iframe.libs.js",
+        src: 'public_html/js/iframe.libs.js',
+        dest: 'public_html/js/iframe.libs.js',
       },
       admin: {
-        src: "js/admin.libs.js",
-        dest: "js/admin.libs.js",
+        src: 'public_html/js/admin.libs.js',
+        dest: 'public_html/js/admin.libs.js',
       },
       adminlte: {
-        src: "themes/adminlte/assets/js/admin.libs.js",
-        dest: "themes/adminlte/assets/js/admin.libs.js",
+        src: 'public_html/themes/adminlte/assets/js/admin.libs.js',
+        dest: 'public_html/themes/adminlte/assets/js/admin.libs.js',
       },
       mobile: {
-        src: "js/mobile.libs.js",
-        dest: "js/mobile.libs.js",
+        src: 'public_html/js/mobile.libs.js',
+        dest: 'public_html/js/mobile.libs.js',
       }
     },
     uglify: {
       app: {
-        src: 'js/app.min.js',
-        dest: 'js/app.min.js'
+        src: 'public_html/js/app.min.js',
+        dest: 'public_html/js/app.min.js'
       },
       admin_app: {
-        src: 'js/admin.min.js',
-        dest: 'js/admin.min.js'
+        src: 'public_html/js/admin.min.js',
+        dest: 'public_html/js/admin.min.js'
       },
       mobile_app: {
-        src: 'js/mobile.min.js',
-        dest: 'js/mobile.min.js'
+        src: 'public_html/js/mobile.min.js',
+        dest: 'public_html/js/mobile.min.js'
       },
       iframe_app: {
-        src: 'js/iframe.app.min.js',
-        dest: 'js/iframe.app.min.js'
+        src: 'public_html/js/iframe.app.min.js',
+        dest: 'public_html/js/iframe.app.min.js'
       },
       file_app: {
-        src: 'js/file.app.min.js',
-        dest: 'js/file.app.min.js'
+        src: 'public_html/js/file.app.min.js',
+        dest: 'public_html/js/file.app.min.js'
       },
       libs: {
-        src: 'js/libs.js',
-        dest: 'js/libs.min.js'
+        src: 'public_html/js/libs.js',
+        dest: 'public_html/js/libs.min.js'
       },
       iframe: {
-        src: 'js/iframe.libs.js',
-        dest: 'js/iframe.libs.min.js'
+        src: 'public_html/js/iframe.libs.js',
+        dest: 'public_html/js/iframe.libs.min.js'
       },
       admin: {
-        src: 'js/admin.libs.js',
-        dest: 'js/admin.libs.min.js'
+        src: 'public_html/js/admin.libs.js',
+        dest: 'public_html/js/admin.libs.min.js'
       },
       adminlte: {
-        src: 'themes/adminlte/assets/js/admin.libs.js',
-        dest: 'themes/adminlte/assets/js/admin.libs.min.js'
+        src: 'public_html/themes/adminlte/assets/js/admin.libs.js',
+        dest: 'public_html/themes/adminlte/assets/js/admin.libs.min.js'
       },
       mobile: {
-        src: 'js/mobile.libs.js',
-        dest: 'js/mobile.libs.min.js'
+        src: 'public_html/js/mobile.libs.js',
+        dest: 'public_html/js/mobile.libs.min.js'
       }
     },
     cssmin: {
       minify: {
         expand: true,
-        cwd: 'css/',
+        cwd: 'public_html/css/',
         src: ['styles.css'],
-        dest: 'css/',
+        dest: 'public_html/css/',
         ext: '.min.css'
       },
       aminify: {
         expand: true,
-        cwd: 'css/',
+        cwd: 'public_html/css/',
         src: ['styles.admin.css'],
-        dest: 'css/',
+        dest: 'public_html/css/',
         ext: '.admin.min.css'
       },
       alteminify: {
         expand: true,
-        cwd: 'themes/adminlte/assets/css/',
+        cwd: 'public_html/themes/adminlte/assets/css/',
         src: ['styles.admin.css'],
-        dest: 'themes/adminlte/assets/css/',
+        dest: 'public_html/themes/adminlte/assets/css/',
         ext: '.admin.min.css'
       },
       mminify: {
         expand: true,
-        cwd: 'css/',
+        cwd: 'public_html/css/',
         src: ['mobile.css'],
-        dest: 'css/',
+        dest: 'public_html/css/',
         ext: '.min.css'
       }
     },
-    clean: ['js/libs.js', 'css/styles.css', 'css/styles.admin.css', 'css/mobile.css', 'js/iframe.libs.js', 'js/admin.libs.js', 'js/mobile.libs.js', 'themes/adminlte/assets/css/styles.admin.css', 'themes/adminlte/assets/js/admin.libs.js'],
+    clean: ['public_html/js/libs.js', 'public_html/css/styles.css', 'public_html/css/styles.admin.css', 'public_html/css/mobile.css', 'public_html/js/iframe.libs.js', 'public_html/js/admin.libs.js', 'public_html/js/mobile.libs.js', 'public_html/themes/adminlte/assets/css/styles.admin.css', 'public_html/themes/adminlte/assets/js/admin.libs.js'],
     watch : {
       scripts: {
-        files: ['js/app-dev.js'],
+        files: ['public_html/js/app-dev.js'],
         tasks: ['app'],
         options: {
           spawn: false
         },
       },
       admin: {
-        files: ['js/admin-dev.js'],
-        tasks: ['admin', 'admin-app'],
+        files: ['public_html/js/admin-dev.js'],
+        tasks: ['adminlte', 'admin-app'],
         options: {
           spawn: false
         },
       },
       mobile: {
-        files: ['js/mobile-dev.js'],
+        files: ['public_html/js/mobile-dev.js'],
         tasks: ['mobile', 'mobile-app'],
         options: {
           spawn: false
         },
       },
       iframe: {
-        files: ['js/iframe.app-dev.js'],
+        files: ['public_html/js/iframe.app-dev.js'],
         tasks: ['iframe-app'],
         options: {
           spawn: false
         },
       },
       file: {
-        files: ['js/file.app-dev.js'],
+        files: ['public_html/js/file.app-dev.js'],
         tasks: ['file-app'],
         options: {
           spawn: false
         },
       },
       styles: {
-        files: ['css/*.css', 'css/libs/*.css'] ,
-        tasks: ['css'],
+        files: ['public_html/css/*.css', 'public_html/css/libs/*.css'] ,
+        tasks: ['public_html/css'],
         options: {
           spawn: false
         },
       },
       styles_admin: {
-        files: ['css/main_admin.css', 'css/libs/admin/*.css'] ,
-        tasks: ['css_admin'],
+        files: ['public_html/css/main_admin.css', 'public_html/css/libs/admin/*.css'] ,
+        tasks: ['public_html/css_admin'],
         options: {
           spawn: false
         },
       },
       styles_adminlte: {
-        files: ['css/main_admin.css', 'css/libs/admin/*.css', 'themes/adminlte/assets/css/AdminLTE.css' ] ,
-        tasks: ['css_adminlte'],
+        files: ['public_html/css/main_admin.css', 'public_html/css/libs/admin/*.css', 'public_html/themes/adminlte/assets/css/AdminLTE.css' ] ,
+        tasks: ['public_html/css_adminlte'],
         options: {
           spawn: false
         },
       },
       styles_mobile: {
-        files: ['css/main_mobile.css', 'css/libs/mobile/*.css'] ,
+        files: ['public_html/css/main_mobile.css', 'public_html/css/libs/mobile/*.css'] ,
         tasks: ['css_mobile'],
         options: {
           spawn: false
