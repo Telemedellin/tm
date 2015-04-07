@@ -28,7 +28,7 @@ class Relacionados
 		}
 		$head = '<h4>'.($copy?$copy:'También te puede interesar...').'</h4>'.PHP_EOL;
 
-		$html = '<div id="relacionados"'.($class?' class="'.$class.'"':'').'>'.PHP_EOL.
+		$html = '<div id="relacionados"'.($class?' class="'.$class.'"':'').'>'.PHP_EOL;
 		$html .= $head;
 		$html .= $items;
 		$html .= '</div>'.PHP_EOL;
