@@ -16,7 +16,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
 ```
 ###Yii
-- Asignar permisos 777 a los directorios *public_html/assets* y *protected-tm/runtime*.
+- Asignar permisos 777 a los directorios *public_html/assets/*, *protected-tm/runtime/* y *protected-tm/extensions/yii-feed-widget/cache/*.
 - En el directorio [config/](protected-tm/config/) se debe modificar los archivos [main.php] y [console.php].   
 
 [main.php]   
