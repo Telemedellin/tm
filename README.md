@@ -3,6 +3,8 @@
 Este sitio utiliza el framework [Yii](http://www.yiiframework.com/) versión 1.1.16, se debe ubicar en el directorio *framework* encima del público.
 ###.htaccess
 Se recomienda revisar o comentar las reglas de redireccionamiento según el caso de instalación.
+
+[.htaccess](public_html/.htaccess)
 ```apacheconf
 #Redirecciona para canonizar el dominio
 RewriteCond %{HTTP_HOST} ^138\.128\.186\.34 [OR]
@@ -14,21 +16,21 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
 ```
 ###Yii
-- Crear los directorios *assets* y *protected/runtime* con permisos 777.
-- En el directorio [protected/config](protected/config/) se debe modificar los archivos [main.php] y [console.php].   
+- Asignar permisos 777 a los directorios *public_html/assets* y *protected-tm/runtime*.
+- En el directorio [config/](protected-tm/config/) se debe modificar los archivos [main.php] y [console.php].   
 
 [main.php]   
 ```php   
 ...
 50. 'baseUrl'=>'http://localhost/tm/',
 ...
-180. 'db'=>array(
-181.	'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
-182.	'emulatePrepare' => true,
-183.	'username' => 'root',
-184.	'password' => '',
+187. 'db'=>array(
+188.	'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
+189.	'emulatePrepare' => true,
+190.	'username' => 'root',
+191.	'password' => '',
 ...
-193. 'callback' => 'http://concursomedellin2018.com/tm/usuario/registro/twitter',
+200. 'callback' => 'http://concursomedellin2018.com/tm/usuario/registro/twitter',
 ...
 ```   
 [console.php]   
@@ -53,10 +55,6 @@ RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
 23.   require_once( '/home/telemedellin/public_html' . "/ClickTale/ClickTaleBottom.php");
 ```   
 
-- El directorio *protected* se renombra por **protected-tm** y se mueve fuera de la carpeta pública.   
-
-**TODO:** Verificar la carga de los scripts en el layout [iframe.php](protected/views/layouts/iframe.php) y en la vista [_carpeta](protected/views/telemedellin/_carpeta.php)
- 
 ###Grunt
 Se recomienda instalar [Grunt](http://gruntjs.com/getting-started) con [npm](https://www.npmjs.com/) si va a modificar los archivos CSS y JavaScript.
 ####Instalar grunt globalmente
@@ -72,41 +70,35 @@ Se recomienda antes de modificar estos archivos ejecutar la tarea *watch* de Gru
 ```sh
 $ grunt watch
 ```
+
 ###JavaScript
 Cuando el sitio se carga en un subdirectorio se debe configurar la url base en los script para las llamadas al servidor.   
-[app-dev.js](/js/app-dev.js)
+[app-dev.js](public_html/js/app-dev.js)
 ```javascript
 1. var url_base = '/',
 ```
-[file.app-dev.js](/js/file.app-dev.js)
+[file.app-dev.js](public_html/js/file.app-dev.js)
 ```javascript
 1. jQuery(function($) {
 2.   var url_base = '/';
 ```
-[iframe.app-dev.js](/js/iframe.app-dev.js)
+[iframe.app-dev.js](public_html/js/iframe.app-dev.js)
 ```javascript
 23. jQuery(function($) {
 24.   var url_base = '/';
 ```
-[mobile-dev.js](/js/mobile-dev.js)
+[mobile-dev.js](public_html/js/mobile-dev.js)
 ```javascript
 1. function abrir_multimedia(hash) {
 2.   var url_base = '/', 
 ```
 ## Configuración para producción
-###Xcloner
-Aplicación utilizada para generar backups del sitio bajo demanda.   
-Verificar el acceso en el archivo de configuración.
 
-```php
-$_CONFIG['jcuser'] = 'admin';
-$_CONFIG['jcpass'] = md5('admin');
-```
 ###CKFinder
 Plugin utilizado para la subida de archivos en el administrador.   
 Se debe modificar el archivo de configuración y el plugin admintm.   
 
-[config.php](857--edatm-ckfinder/config.php)
+[config.php](public_html/857--edatm-ckfinder/config.php)
 ```php
 ...
 66. $baseUrl = 'http://telemedellin.tv/';
@@ -125,6 +117,15 @@ Se debe modificar el archivo de configuración y el plugin admintm.
 91.     $pass = '';
 92.     $bd   = 'telemedellin';
 ```
-[index.php]: index.php
-[main.php]: protected/config/main.php
-[console.php]: protected/config/console.php
+
+###Xcloner
+Aplicación utilizada para generar backups del sitio bajo demanda.   
+Verificar el acceso en el archivo de configuración.
+
+```php
+$_CONFIG['jcuser'] = 'admin';
+$_CONFIG['jcpass'] = md5('admin');
+```
+[index.php]: public_html/index.php
+[main.php]: protected-tm/config/main.php
+[console.php]: protected-tm/config/console.php
