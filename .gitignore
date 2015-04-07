@@ -29,6 +29,7 @@ $RECYCLE.BIN/
 #Elimino estos directorios y les agrego un .gitignore para no tener que crearlos manualmente
 #archivos/
 #protected/runtime/
+framework/
 public_html/themes/classic/views/
 
 # node.js
