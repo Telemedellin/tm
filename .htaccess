@@ -43,11 +43,12 @@ AddOutputFilterByType DEFLATE application/rss+xml
 AddOutputFilterByType DEFLATE application/javascript
 AddOutputFilterByType DEFLATE application/x-javascript
 
+<IfModule mod_setenvif.c>
 # remove browser bugs
 BrowserMatch ^Mozilla/4 gzip-only-text/html
 BrowserMatch ^Mozilla/4\.0[678] no-gzip
 BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
-Header append Vary User-Agent
+</IfModule>
 
 ## EXPIRES CACHING ##
 <IfModule mod_expires.c>
@@ -70,6 +71,7 @@ AddCharset UTF-8 .html
 AddCharset UTF-8 .php
 
 <ifModule mod_headers.c>
+Header append Vary User-Agent
 Header set Connection keep-alive
 </ifModule>
 
