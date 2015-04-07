@@ -1,5 +1,5 @@
 # telemedellin.tv
-## Configuración
+## Configuración básica
 Este sitio utiliza el framework [Yii](http://www.yiiframework.com/) versión 1.1.16, se debe ubicar en el directorio *framework* encima del público.
 ###.htaccess
 Se recomienda revisar o comentar las reglas de redireccionamiento según el caso de instalación.
@@ -57,33 +57,20 @@ RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
 
 **TODO:** Verificar la carga de los scripts en el layout [iframe.php](protected/views/layouts/iframe.php) y en la vista [_carpeta](protected/views/telemedellin/_carpeta.php)
  
-###CKFinder
-Se debe modificar el archivo de configuración y el plugin admintm.   
-
-[config.php](857--edatm-ckfinder/config.php)
-```php
-...
-66. $baseUrl = 'http://telemedellin.tv/';
-...
-87. $baseDir = '/home/telemedellin/public_html/';
+###Grunt
+Se recomienda instalar [Grunt](http://gruntjs.com/getting-started) con [npm](https://www.npmjs.com/) si va a modificar los archivos CSS y JavaScript.
+####Instalar grunt globalmente
+```sh
+$ npm install -g grunt-cli
 ```
-[admintm/plugin.php](857--edatm-ckfinder/plugins/admintm/plugin.php)
-```php
-...
-10. $base_path = '/home/telemedellin/public_html/archivos/';
-...
-87. function bd()
-88. {
-89.     $host = 'localhost';
-90.     $user = 'root';
-91.     $pass = '';
-92.     $bd   = 'telemedellin';
+####Instalar las dependencias del proyecto
+```sh
+$ npm install
 ```
-###Xcloner (Backups)
-Verificar el acceso en el archivo de configuración.
-```php
-$_CONFIG['jcuser'] = 'admin';
-$_CONFIG['jcpass'] = md5('admin');
+En el archivo [Gruntfile.js](Gruntfile.js) se encuentra la configuración para concatenar y minificar los estilos CSS y los JavaScript para producción.  
+Se recomienda antes de modificar estos archivos ejecutar la tarea *watch* de Grunt en la consola (no cerrarla) para que se compilen los archivos minificados.
+```sh
+$ grunt watch
 ```
 ###JavaScript
 Cuando el sitio se carga en un subdirectorio se debe configurar la url base en los script para las llamadas al servidor.   
@@ -106,15 +93,37 @@ Cuando el sitio se carga en un subdirectorio se debe configurar la url base en l
 1. function abrir_multimedia(hash) {
 2.   var url_base = '/', 
 ```
-###Grunt
-Se recomienda instalar [Grunt](http://gruntjs.com/getting-started) con [npm](https://www.npmjs.com/) si va a modificar los archivos CSS y JavaScript.
-```sh
-$ npm install -g grunt-cli
+## Configuración para producción
+###Xcloner
+Aplicación utilizada para generar backups del sitio bajo demanda.   
+Verificar el acceso en el archivo de configuración.
+
+```php
+$_CONFIG['jcuser'] = 'admin';
+$_CONFIG['jcpass'] = md5('admin');
 ```
-En el archivo [Gruntfile.js](Gruntfile.js) se encuentra la configuración para concatenar y minificar los estilos CSS y los JavaScript para producción.  
-Se recomienda antes de modificar estos archivos ejecutar la tarea *watch* de Grunt en la consola (no cerrarla).
-```sh
-$ grunt watch
+###CKFinder
+Plugin utilizado para la subida de archivos en el administrador.   
+Se debe modificar el archivo de configuración y el plugin admintm.   
+
+[config.php](857--edatm-ckfinder/config.php)
+```php
+...
+66. $baseUrl = 'http://telemedellin.tv/';
+...
+87. $baseDir = '/home/telemedellin/public_html/';
+```
+[admintm/plugin.php](857--edatm-ckfinder/plugins/admintm/plugin.php)
+```php
+...
+10. $base_path = '/home/telemedellin/public_html/archivos/';
+...
+87. function bd()
+88. {
+89.     $host = 'localhost';
+90.     $user = 'root';
+91.     $pass = '';
+92.     $bd   = 'telemedellin';
 ```
 [index.php]: index.php
 [main.php]: protected/config/main.php
