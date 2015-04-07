@@ -26,8 +26,9 @@ $RECYCLE.BIN/
 *.sublime-workspace
 
 # YII
-archivos/
-protected/runtime/
+#Elimino estos directorios y les agrego un .gitignore para no tener que crearlos manualmente
+#archivos/
+#protected/runtime/
 themes/classic/views/
 
 # node.js
