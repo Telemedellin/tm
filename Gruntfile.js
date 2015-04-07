@@ -5,11 +5,12 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     concat: {
       options: {
-        //separator: ';',
+        separator: ';',
         stripBanners: false
       },
       js: {
         src: [
+          'public_html/js/libs/jquery-*.js', 
           'public_html/js/libs/*.js', 
           'public_html/js/libs/jquery.bxslider/*.js', 
           'public_html/js/libs/mustache/*.js',
@@ -66,18 +67,6 @@ module.exports = function(grunt) {
           'public_html/js/libs/moment-with-langs.js', 
           'public_html/js/libs/jquery.mCustomScrollbar.concat.min.js', 
           'public_html/js/libs/mobile/jquery.backstretch.min.js',
-          'public_html/js/libs/admin/jquery.fileupload/vendor/*.js', 
-          'public_html/js/libs/admin/jquery.fileupload/tmpl.min.js',
-          'public_html/js/libs/admin/jquery.fileupload/load-image.min.js',
-          'public_html/js/libs/admin/jquery.fileupload/canvas-to-blob.min.js',
-          'public_html/js/libs/admin/jquery.fileupload/jquery.iframe-transport.js',
-          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload.js',
-          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-process.js',
-          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-resize.js',
-          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-validate.js',
-          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-video.js',
-          'public_html/js/libs/admin/jquery.fileupload/jquery.fileupload-ui.js',
-          'public_html/js/libs/modernizr.custom.30163.js',
           'public_html/js/libs/mobile/bootstrap.min.js', 
           ],
         dest: 'public_html/js/mobile.libs.js'
