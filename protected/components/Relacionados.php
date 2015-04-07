@@ -16,7 +16,7 @@ class Relacionados
 		if( !is_array($this->_relacionados) || !count($this->_relacionados) )
 			return false;
 
-		$items;
+		$items = '';
 		foreach($this->_relacionados as $relacionado)
 		{
 			$items .= 
