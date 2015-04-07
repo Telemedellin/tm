@@ -12,24 +12,24 @@ return array(
 	'language'=>'es',
 	'layout' => 'administrador', 
 	'timeZone' => 'America/Bogota',
-
 	// preloading 'log' component
 	'preload'=>array('log'),
-
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-		'application.vendors.bcrypt.*',
-		'application.vendors.UploadHandler.*', 
-		'ext.image.Image', 
+		'application.modules.administrador.models.*',
 		'application.modules.cruge.components.*',
 		'application.modules.cruge.extensions.crugemailer.*',
 		'application.modules.usuario.models.*',
+		'application.modules.usuario.components.*',
+		'application.extensions.crugeconnector.*',
 		'application.extensions.yiifilemanager.*',
 		'application.extensions.yiifilemanagerfilepicker.*',
+		'application.extensions.image.Image', 
+		'application.vendors.bcrypt.*',
+		'application.vendors.UploadHandler.*', 
 	),
-
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 		/*'gii'=>array(
@@ -47,11 +47,11 @@ return array(
 			'availableAuthMethods'=>array('authtm'),
 			'availableAuthModes'=>array(/*'username',/**/'email'),
             // url base para los links de activacion de cuenta de usuario
-			'baseUrl'=>'http://concursomedellin2018.com/tm/',
-			 // NO OLVIDES PONER EN FALSE TRAS INSTALAR
-			 'debug'=>false,
-			 'rbacSetupEnabled'=>true,
-			 'allowUserAlways'=>false,
+			'baseUrl'=>'http://localhost/tm/',
+			// NO OLVIDES PONER EN FALSE TRAS INSTALAR
+			'debug'=>false,
+			'rbacSetupEnabled'=>true,
+			'allowUserAlways'=>false,
 			// MIENTRAS INSTALAS..PONLO EN: false
 			// lee mas abajo respecto a 'Encriptando las claves'
 			'useEncryptedPassword' => true,
@@ -62,15 +62,15 @@ return array(
 			// hay un filtro de sesion definido (el componente MiSesionCruge), es mejor usar un filtro.
 			//  lee en la wiki acerca de:
             //   "CONTROL AVANZADO DE SESIONES Y EVENTOS DE AUTENTICACION Y SESION"
-            'defaultSessionFilter'=>'application.components.MiSesionCruge',
+            'defaultSessionFilter'=>'application.modules.usuario.components.USesionCruge',
             //
 			// ejemplo:
 			//		'afterLoginUrl'=>array('/site/welcome'),  ( !!! no olvidar el slash inicial / )
 			//		'afterLogoutUrl'=>array('/site/page','view'=>'about'),
 			//
-			'afterLoginUrl'=>array('/administrador'),
+			'afterLoginUrl'=>array('/usuario/perfil'),
 			//'afterLogoutUrl'=>array('/cruge/ui/login'),
-			'afterLogoutUrl'=>array('/administrador/ingresar'),
+			'afterLogoutUrl'=>array('/usuario'),
 			//'afterSessionExpiredUrl'=>array('/cruge/ui/login'),
 			'afterSessionExpiredUrl'=>null,/*array('/administrador/ingresar'),/**/
 			// manejo del layout con cruge.
@@ -91,7 +91,27 @@ return array(
 			'userDescriptionFieldsArray'=>array('email'), 
 		),
 		'administrador' => array(), 
-		'usuario' => array(), 
+		'usuario' => array(
+			'defaultController' => 'usuario',
+			'components' => array(
+				'crugemailer'=>array(
+					'class' 		=> 'application.modules.usuario.components.MiCrugeMailer',
+					'mailfrom' 		=> 'registro@telemedellin.tv',
+					'subjectprefix' => '',
+					'debug' 		=> true,
+				),
+			),
+		), 
+		'trivia' => array(
+			'active'			=> true,
+			'defaultController' => 'trivia',
+			'modules' 			=> array(
+				'administracion' => array(),
+			),
+		),
+		'puntaje' => array(
+			
+		),
 	),
 	'controllerMap'=>array(
 	    'YiiFeedWidget' => 'ext.yii-feed-widget.YiiFeedWidgetController', 
@@ -103,25 +123,14 @@ return array(
 		'session' => array(
 	        'autoStart'=>true,
 	    ),
-		/*'user'=>array(
-			// enable cookie-based authentication
-			//'allowAutoLogin'=>true,
-			'loginUrl'=>array('administrador/ingresar'),
-		),/**/
 		'user'=>array(
 			'allowAutoLogin' => true,
 			//'loginUrl' 		 => array('/cruge/ui/login'),
-			'loginUrl' 		 => array('/administrador/ingresar'),
+			'loginUrl' 		 => array('/usuario'),
 			'class' 		 => 'application.modules.cruge.components.CrugeWebUser',
 		),
 		'authManager' => array(
 			'class' => 'application.components.MyCrugeAuthManager',
-		),
-		'crugemailer'=>array(
-			'class' 		=> 'application.components.MiCrugeMailer',
-			'mailfrom' 		=> 'registro@telemedellin.tv',
-			'subjectprefix' => '',
-			'debug' 		=> true,
 		),
 		'format' => array(
 			'datetimeFormat'=>"d M, Y h:m:s a",
@@ -135,38 +144,54 @@ return array(
 	            'gii/<controller:\w+>'=>'gii/<controller>',
 	            'gii/<controller:\w+>/<action:\w+>'=>'gii/<controller>/<action>',/**/
 	            'administrador'=>'administrador/admin',
-	            'administrador/borrarcache'=>'administrador/admin/borrarcache',
-	            'administrador/ingresar'=>'administrador/admin/ingresar',
-	            'administrador/registro'=>'administrador/admin/registro',
-	            'administrador/salir'=>'administrador/admin/salir',
-	            'administrador/recuperar-contrasena'=>'administrador/admin/recuperarcontrasena',
-	            'administrador/<controller:\w+>'=>'administrador/<controller>',
-	            'administrador/<controller:\w+>/<action:\w+>/<id:\d+>'=>'administrador/<controller>/<action>',
-	            'administrador/<controller:\w+>/<action:\w+>/<id:\d+>/<tipo_pagina_id:\d+>'=>'administrador/<controller>/<action>',
-	            'administrador/<controller:\w+>/<action:\w+>'=>'administrador/<controller>/<action>',
 	            array(
 				    'class' => 'application.components.TmUrlRule',
 				    'connectionID' => 'db',
 			  	),
+			  	'mapa-del-sitio' => 'telemedellin/mapadelsitio', 
+			  	'sitemap.xml' => 'telemedellin/mapadelsitio', 
 			  	'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		/*'db'=>array(
-			'connectionString' => 'mysql:host=noticias.telemedellin.tv;dbname=telemede_telemedellin',
-			'emulatePrepare' => true,
-			'username' => 'telemede_telemed',
-			'password' => ';0?LegNmMi)O',
-			'charset' => 'utf8',
+        'widgetFactory' => array(
+            'widgets' => array(
+                'CLinkPager' => array(
+                    'htmlOptions' => array(
+                        'class' => 'pagination'
+                    ),
+                    'header' => false,
+                    'maxButtonCount' => 5,
+                    'cssFile' => false,
+                ),
+                'CGridView' => array(
+                    'htmlOptions' => array(
+                        'class' => 'table-responsive'
+                    ),
+                    //'pagerCssClass' => 'dataTables_paginate paging_bootstrap',
+                    'itemsCssClass' => 'table table-bordered table-striped dataTable',
+                    'cssFile' => false,
+                    //'summaryCssClass' => 'dataTables_info',
+                    'summaryText' => 'Mostrando {start} a {end} de {count} filas',
+                    'template' => '{items}<div class="row"><div class="col-sm-6">{summary}</div><div class="col-sm-8">{pager}</div></div>',
+                ),
+            ),
+        ),
+		'crugemailer'=>array(
+			'class' 		=> 'application.components.FCrugeMailer',
+			'mailfrom' 		=> 'no-responder@telemedellin.tv',
+			'subjectprefix' => '',
+			'debug' 		=> false,
 		),
-		*/
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=med2018_tm',
+			'connectionString' => 'mysql:host=localhost;dbname=telemedellin',
 			'emulatePrepare' => true,
-			'username' => 'med2018_tm',
-			'password' => 'asdf1234*',
+			'username' => 'root',
+			'password' => '',
 			'charset' => 'utf8',
+			/*'enableProfiling' => true,
+        	'enableParamLogging' => true,/**/
 		),
 		'twitter' => array(
             'class' => 'ext.yiitwitteroauth.YiiTwitter',
@@ -185,9 +210,18 @@ return array(
 	        'class'=>'application.extensions.yiifilemanager.YiiDiskFileManager',
 	        'storage_path' => realpath(dirname(__FILE__))."/../../archivos",
 		),
-		/*'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),*/
+		'mailchimp' => array(
+            // EMailChimp == API v2 integration
+            'class' => 'ext.mailchimp.EMailChimp2',
+            // please replace with your API key
+            'apikey' => 'cc3f243402c5f9ee0a4a5f7d92a5e63f-us5',
+            // you can get your `listId` from Mailchimp panel - go to List, then List Tools, and look for the List ID entry.
+            'listId' => '694e8efd64',
+            // (optional - default **false**) whether to use Ecommerce360 support or not
+            'ecommerce360Enabled' => false,
+            // (optional - default **false**) whether to enable dev mode or not
+            'devMode' => false
+        )
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'telemedellin/error',
@@ -204,6 +238,10 @@ return array(
                     'categories' => '404',
                     'logFile' => '404'
                 ), 
+                /*array( 
+					'class'=>'CProfileLogRoute', 
+					'report'=>'summary',
+			    ),/**/ 
 				// uncomment the following to show log messages on web pages
 				/*
 				array(
@@ -217,7 +255,7 @@ return array(
             'class'=>'system.caching.CDummyCache',
         ),
 	),
-	
+	'onBeginRequest' => array('ModuleUrlManager', 'collectRules'),
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
