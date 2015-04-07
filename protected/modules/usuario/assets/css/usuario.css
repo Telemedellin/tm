@@ -1,0 +1,197 @@
+.btns-registro
+{
+	list-style: none;
+	margin: 10px 0;
+	overflow: hidden;
+}
+.btns-registro a
+{
+	border-radius: 5px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	color: #FFF;
+	display: block;
+	font-size: 1.2em;
+	margin: auto;
+	padding: 15px 10px 15px 45px;
+	position: relative;
+	text-align: center;
+	width: 90%;
+}
+.btns-registro a:before, 
+.btns-registro a::before
+{
+	content: "";
+	display: inline-block;
+	height: 40px;
+	left: 5px;
+	margin-right: 6px;
+	position: absolute;
+	top: 5px;
+	vertical-align: middle;
+	width: 50px;
+}
+.btns-registro li
+{
+	float: left;
+	width: 33%;
+}
+.btns-registro .registro-correo
+{
+	background: #fc7812;
+}
+.btns-registro .registro-correo:before, 
+.btns-registro .registro-correo::before
+{
+	background: url(../images/correo.png) no-repeat center center;
+}
+.btns-registro .registro-facebook
+{
+	background: #3c5a99;
+}
+.btns-registro .registro-facebook:before, 
+.btns-registro .registro-facebook::before
+{
+	background: url(../images/facebook.png) no-repeat center center;
+}
+.btns-registro .registro-google
+{
+	background: #d64c3b;
+}
+.btns-registro .registro-google:before, 
+.btns-registro .registro-google::before
+{
+	background: url(../images/google.png) no-repeat center center;
+}
+.btns-registro .registro-correo:active, 
+.btns-registro .registro-correo:hover
+{
+	background: #ffb119;
+}
+.expanded .login-form
+{
+	display: block;
+}
+.expanded .login
+{
+	display: none;
+}
+.expanded #login-form label
+{
+	font-weight: normal;
+}
+.expanded #login-form .remember
+{
+	text-align: right;
+}
+.expanded #login-form input[type="submit"]
+{
+	background: #ffb119;
+	border: none;
+	border-radius: 10px;
+	color: #000;
+	display: block;
+	margin: 0 auto 10px;
+	padding: 10px 15px;
+	text-transform: uppercase;
+}
+.login
+{
+	display: block;
+	font-size: 1.5em;
+	text-transform: uppercase;
+}
+.login:before, 
+.login::before
+{
+	background: url('../images/iniciar-sesion.png') no-repeat center center;
+	content: "";
+	display: inline-block;
+	height: 33px;
+	margin-right: 10px;
+	vertical-align: middle;
+	width: 33px;
+}
+.login-form
+{
+	display: none;
+}
+#correo input[type="text"], 
+#correo input[type="password"], 
+#correo input[type="email"], 
+#correo input[type="number"], 
+#perfil input[type="text"], 
+#perfil input[type="password"], 
+#perfil input[type="email"], 
+#perfil input[type="number"]
+{
+	width: 40%;
+}
+#correo select, 
+#perfil select
+{
+	width: 42%;
+}
+#correo input[type="text"]#RegistroForm_nombres, 
+#correo input[type="text"]#RegistroForm_apellidos, 
+#perfil input[type="text"]#RegistroForm_nombres, 
+#perfil input[type="text"]#RegistroForm_apellidos
+{
+	width: 19%;
+}
+#correo select#RegistroForm_mes, 
+#correo select#RegistroForm_dia, 
+#correo select#RegistroForm_anio, 
+#perfil select#RegistroForm_mes, 
+#perfil select#RegistroForm_dia, 
+#perfil select#RegistroForm_anio
+{
+	width: 13.5%;
+}
+#login {
+	background: #fc7812; 
+	-webkit-border-top-right-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	-moz-border-radius-bottomright: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	margin-top: 20px;
+	padding: 6px;
+	position: relative;
+	z-index: 2;
+}
+
+#login a {
+	color: #FFF;
+}
+#login.expanded
+{
+	-webkit-border-top-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	border-bottom-right-radius: 10px;
+	width: 163%;
+}
+#login .cerrar
+{
+	background: #fc7812; 
+	-webkit-border-top-right-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	-moz-border-radius-bottomright: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	display: block;
+	padding: 10px;
+	position: absolute;
+	right: -33px;
+	top: 0;
+}
+#login-form
+{
+	margin: 0;
+}

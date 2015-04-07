@@ -27,7 +27,6 @@ $RECYCLE.BIN/
 
 # YII
 archivos/
-assets/
 protected/runtime/
 themes/classic/views/
 
