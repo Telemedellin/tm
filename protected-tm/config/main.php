@@ -221,7 +221,7 @@ return array(
             'ecommerce360Enabled' => false,
             // (optional - default **false**) whether to enable dev mode or not
             'devMode' => false
-        )
+        ), 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'telemedellin/error',

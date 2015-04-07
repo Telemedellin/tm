@@ -30,7 +30,6 @@ RewriteRule ^(.*)$ "http\:\/\/telemedellin\.tv\/$1" [R=301,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)\?*$ index.php/$1 [L,QSA]
-Header set Access-Control-Allow-Origin "*"
 
 # compress text, HTML, JavaScript, CSS, and XML
 AddOutputFilterByType DEFLATE text/plain
@@ -71,6 +70,7 @@ AddCharset UTF-8 .html
 AddCharset UTF-8 .php
 
 <ifModule mod_headers.c>
+Header set Access-Control-Allow-Origin "*"
 Header append Vary User-Agent
 Header set Connection keep-alive
 </ifModule>

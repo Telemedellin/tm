@@ -194,7 +194,8 @@ class YiiFeedWidget extends CWidget
             'YiiFeedWidget',
             array(
                 'url'=>$feedUrl, 
-                'limit'=>$requiredItemCount
+                'limit'=>$requiredItemCount, 
+                'layout' => $this->layout
             )
         );
     }
